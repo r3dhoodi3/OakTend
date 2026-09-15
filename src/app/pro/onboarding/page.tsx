@@ -4,6 +4,8 @@ import { getCurrentContractor, getSides } from "@/lib/contractor";
 import { getUser } from "@/lib/auth";
 import { getUserProfile } from "@/lib/user";
 import { chooseRoleAction } from "@/app/welcome/role/actions";
+import { homeownerLanding, isProSideOpenForViewer } from "@/lib/previewModeServer";
+import ProsComingSoon from "@/components/pro/ProsComingSoon";
 import OnboardingCompanyForm from "./OnboardingCompanyForm";
 
 // Quiet, same weight for every way out, and a real 44px row on a phone.
@@ -16,6 +18,36 @@ export default async function ProOnboardingPage(
   }
 ) {
   const searchParams = await props.searchParams;
+
+  // PREVIEW MODE: nobody but an OakTend internal account may build a company
+  // while the contractor side is closed (src/lib/previewMode.ts). A second
+  // gate on top of the pro shell's, which already replaces this whole subtree
+  // for a blocked viewer (src/app/pro/layout.tsx) - kept because this page is
+  // the one /pro route that is reachable with NO contractors row, which is the
+  // case the shell's block reads differently, and because a route group or a
+  // parallel route added later would move the shell but not this file. It
+  // costs a constant `true` outside preview: no session read, no query.
+  // The matching WRITE-side guard is in saveCompanyAction, since this form
+  // posts to a "use server" action reachable without rendering any page.
+  //
+  // getSides() here rather than from the Promise.all below, because that one
+  // is on the far side of this return. It is React-cached per request, so the
+  // open path still pays for it exactly once. The homeowner door matters most
+  // on THIS door of all of them: a signed-in account that picked "contractor"
+  // on /welcome/role and got sent here has no pro side yet and no home either,
+  // and without the button its only options were the waitlist and sign-out.
+  if (!(await isProSideOpenForViewer())) {
+    const blockedSides = await getSides();
+    return (
+      <ProsComingSoon
+        showSignOut
+        source="pro-onboarding"
+        homeownerHref={homeownerLanding(blockedSides)}
+        hasHome={blockedSides.hasHome}
+      />
+    );
+  }
+
   // Already set up? Go straight to the leads inbox.
   const contractor = await getCurrentContractor();
   if (contractor) redirect("/pro");
