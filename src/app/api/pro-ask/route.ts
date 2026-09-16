@@ -38,7 +38,7 @@ import {
 } from "@/lib/askStream";
 import { wrapUntrusted } from "@/lib/promptSafe";
 import { isProSideOpenForViewer } from "@/lib/previewModeServer";
-import { PREVIEW_PROS_COPY } from "@/lib/previewMode";
+import { PREVIEW_PROS_COPY, isHomeownerPreview } from "@/lib/previewMode";
 import {
   PRO_PLAN,
   leadFeeFor,
@@ -345,9 +345,16 @@ export async function POST(req: NextRequest) {
       // No numbers: the limit is described, not counted, everywhere the pro
       // can see it. Both lines stay true - a member's ceiling really is
       // higher than a free pro's.
-      answer: isProMember
-        ? "You have reached today's Ask OakTend limit. It resets tomorrow."
-        : "You have reached today's Ask OakTend limit. It resets tomorrow. OakTend Pro raises your daily limit if you want more room.",
+      //
+      // PREVIEW MODE (FOUNDER DECISION, 2026-09-15): every pro is on the SAME
+      // twenty-a-day cap regardless of membership (see DAILY_LIMIT_PREVIEW in
+      // src/lib/aiUsage.ts), and OakTend Pro is not purchasable while the
+      // lawyer review is open - so the upsell pitch is both false and
+      // pointless here and drops out entirely.
+      answer:
+        isProMember || isHomeownerPreview()
+          ? "You have reached today's Ask OakTend limit. It resets tomorrow."
+          : "You have reached today's Ask OakTend limit. It resets tomorrow. OakTend Pro raises your daily limit if you want more room.",
     });
   }
 

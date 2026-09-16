@@ -7,6 +7,7 @@ import {
   formatAddressLine,
 } from "@/lib/property";
 import { getPlusTier } from "@/lib/subscription";
+import { isHomeownerPreview } from "@/lib/previewMode";
 import {
   addAskOutputTokens,
   allowAbortRefund,
@@ -164,7 +165,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       answer: "Ask OakTend is temporarily unavailable. Please try again soon.",
       freeRemaining: null,
-      freeLimit: outageTier === "paid" ? null : askDailyLimitFor(outageTier),
+      // PREVIEW MODE (2026-09-15): getPlusTier() answers "paid" for every
+      // homeowner during the preview, and the null-for-paid convention below
+      // exists because a real member's ceiling rarely bites - which is not
+      // true of the shared preview cap, so the meter still has to show it.
+      freeLimit:
+        outageTier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(outageTier),
       askTier: outageTier,
     });
   }
@@ -257,7 +265,12 @@ export async function POST(req: NextRequest) {
       answer: "Add your home first and Ask OakTend can answer for it.",
       link: { href: "/onboarding", label: "Add your home" },
       freeRemaining: null,
-      freeLimit: noHomeTier === "paid" ? null : askDailyLimitFor(noHomeTier),
+      // PREVIEW MODE (2026-09-15): see the outage branch above for why "paid"
+      // no longer means "no meter" while the shared preview cap is in force.
+      freeLimit:
+        noHomeTier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(noHomeTier),
       askTier: noHomeTier,
     });
   }
@@ -335,8 +348,13 @@ export async function POST(req: NextRequest) {
       // path IS a hit-today's-limit state (same as the user_daily branch
       // below), so freeRemaining is reported as 0 rather than null - it is
       // known, not unread.
-      freeRemaining: tier === "paid" ? null : 0,
-      freeLimit: tier === "paid" ? null : askDailyLimitFor(tier),
+      // PREVIEW MODE (2026-09-15): see the null-for-paid note on freeLimit
+      // below - the same override applies here.
+      freeRemaining: tier === "paid" && !isHomeownerPreview() ? null : 0,
+      freeLimit:
+        tier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(tier),
       askTier: tier,
     });
   }
@@ -352,8 +370,16 @@ export async function POST(req: NextRequest) {
   // shouldShowMeter in src/lib/askLimits.ts), so sending these two fields is
   // the whole change. Null when the counter could not be read - say nothing
   // rather than guess.
-  const freeRemaining = tier === "paid" ? null : remaining;
-  const freeLimit = tier === "paid" ? null : dailyLimit;
+  //
+  // PREVIEW MODE (FOUNDER DECISION, 2026-09-15): a real paid member's ceiling
+  // rarely bites, which is why "paid" has always meant "no meter" here - but
+  // getPlusTier() answers "paid" for EVERY homeowner during the preview, and
+  // the shared DAILY_LIMIT_PREVIEW cap (see src/lib/aiUsage.ts) is exactly the
+  // kind of number a viewer needs to see coming. dailyLimit already reads 15
+  // in preview (askDailyLimitFor is preview-aware), so this only decides
+  // whether the null-for-paid convention still applies.
+  const freeRemaining = tier === "paid" && !isHomeownerPreview() ? null : remaining;
+  const freeLimit = tier === "paid" && !isHomeownerPreview() ? null : dailyLimit;
   if (overLimit) {
     // WHOSE limit was it? Only "user_daily" means this person spent their own
     // allowance, and only then does the Plus pitch make sense. A tripped
