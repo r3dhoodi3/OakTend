@@ -7,6 +7,7 @@ import {
   formatAddressLine,
 } from "@/lib/property";
 import { getPlusTier } from "@/lib/subscription";
+import { isHomeownerPreview } from "@/lib/previewMode";
 import {
   addAskOutputTokens,
   allowAbortRefund,
@@ -164,7 +165,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       answer: "Ask OakTend is temporarily unavailable. Please try again soon.",
       freeRemaining: null,
-      freeLimit: outageTier === "paid" ? null : askDailyLimitFor(outageTier),
+      // PREVIEW MODE (2026-09-15): getPlusTier() answers "paid" for every
+      // homeowner during the preview, and the null-for-paid convention below
+      // exists because a real member's ceiling rarely bites - which is not
+      // true of the shared preview cap, so the meter still has to show it.
+      freeLimit:
+        outageTier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(outageTier),
       askTier: outageTier,
     });
   }
@@ -257,7 +265,12 @@ export async function POST(req: NextRequest) {
       answer: "Add your home first and Ask OakTend can answer for it.",
       link: { href: "/onboarding", label: "Add your home" },
       freeRemaining: null,
-      freeLimit: noHomeTier === "paid" ? null : askDailyLimitFor(noHomeTier),
+      // PREVIEW MODE (2026-09-15): see the outage branch above for why "paid"
+      // no longer means "no meter" while the shared preview cap is in force.
+      freeLimit:
+        noHomeTier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(noHomeTier),
       askTier: noHomeTier,
     });
   }
@@ -335,8 +348,13 @@ export async function POST(req: NextRequest) {
       // path IS a hit-today's-limit state (same as the user_daily branch
       // below), so freeRemaining is reported as 0 rather than null - it is
       // known, not unread.
-      freeRemaining: tier === "paid" ? null : 0,
-      freeLimit: tier === "paid" ? null : askDailyLimitFor(tier),
+      // PREVIEW MODE (2026-09-15): see the null-for-paid note on freeLimit
+      // below - the same override applies here.
+      freeRemaining: tier === "paid" && !isHomeownerPreview() ? null : 0,
+      freeLimit:
+        tier === "paid" && !isHomeownerPreview()
+          ? null
+          : askDailyLimitFor(tier),
       askTier: tier,
     });
   }
@@ -352,8 +370,16 @@ export async function POST(req: NextRequest) {
   // shouldShowMeter in src/lib/askLimits.ts), so sending these two fields is
   // the whole change. Null when the counter could not be read - say nothing
   // rather than guess.
-  const freeRemaining = tier === "paid" ? null : remaining;
-  const freeLimit = tier === "paid" ? null : dailyLimit;
+  //
+  // PREVIEW MODE (FOUNDER DECISION, 2026-09-15): a real paid member's ceiling
+  // rarely bites, which is why "paid" has always meant "no meter" here - but
+  // getPlusTier() answers "paid" for EVERY homeowner during the preview, and
+  // the shared DAILY_LIMIT_PREVIEW cap (see src/lib/aiUsage.ts) is exactly the
+  // kind of number a viewer needs to see coming. dailyLimit already reads 15
+  // in preview (askDailyLimitFor is preview-aware), so this only decides
+  // whether the null-for-paid convention still applies.
+  const freeRemaining = tier === "paid" && !isHomeownerPreview() ? null : remaining;
+  const freeLimit = tier === "paid" && !isHomeownerPreview() ? null : dailyLimit;
   if (overLimit) {
     // WHOSE limit was it? Only "user_daily" means this person spent their own
     // allowance, and only then does the Plus pitch make sense. A tripped
@@ -682,7 +708,7 @@ export async function POST(req: NextRequest) {
     // than added as a second instruction saying the same thing.
     "When the request is ambiguous, or you need more info, ask ONE short clarifying question and wait for the answer instead of guessing or covering every case. Never list several questions at once. Keep each question quick and casual, the way you would text a friend, for example 'Got it. How old is the water heater, roughly?' or 'Gotcha, is it making any noise?'. " +
     "If a job is risky, large, or code-regulated, recommend hiring a licensed pro (they can post a job in the app). " +
-    "You are the homeowner's helper for their own home, and you do not coach contractors. If they ask how to apply to jobs as a pro, how lead fees, the wallet, or Pro membership work for contractors, or other contractor-only mechanics, gently say that lives on the OakTend for Pros side and steer back to their home, and never emit a POSTJOB block for that kind of question.\n\n" +
+    "You are the homeowner's helper for their own home, and you do not coach contractors. If they ask how to apply to jobs as a pro, how the success fee or Pro membership works for contractors, or other contractor-only mechanics, gently say that lives on the OakTend for Pros side and steer back to their home, and never emit a POSTJOB block for that kind of question.\n\n" +
     // When the owner wants to hire, emit a machine-readable block the app turns
     // into a prefilled job posting. Keep it out of the visible prose.
     "When the homeowner wants to hire a pro or find a service for a specific job, help them and then append a block on its own line at the VERY END of your reply, in EXACTLY this format with nothing after it:\n" +

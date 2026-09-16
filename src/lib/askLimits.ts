@@ -54,3 +54,19 @@ export function freeLockText(limit: number | null): string {
     ? `That's your ${limit} free questions for today. They reset tomorrow.`
     : "That's your free questions for today. They reset tomorrow.";
 }
+
+// PREVIEW MODE (FOUNDER DECISION, 2026-09-15): the same meter and locked bar,
+// worded for a cap that applies to every viewer alike (homeowner or pro, free
+// or paid) rather than a free tier's allowance - "free questions" is simply
+// false when a paying member is on the identical number. Used only while
+// NEXT_PUBLIC_PREVIEW_MODE is on; the ordinary free-tier copy above returns
+// the moment preview mode is switched off.
+export function previewMeterLabel(remaining: number, limit: number): string {
+  return `${remaining} of ${limit} question${limit === 1 ? "" : "s"} today`;
+}
+
+export function previewLockText(limit: number | null): string {
+  return limit
+    ? `That's your ${limit} questions for today. They reset tomorrow.`
+    : "That's your questions for today. They reset tomorrow.";
+}

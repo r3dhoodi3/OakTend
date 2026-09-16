@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { beforeEach, describe, it, expect, vi } from "vitest";
+import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
 
 // The refund paths ARE importable, unlike the rest of this file's subjects:
 // mocking the service-role client out means "server-only" is never pulled in,
@@ -671,6 +671,101 @@ describe("which daily allowance a tier gets", () => {
     expect(toAiTier("trialing")).toBe("trialing");
     expect(toAiTier("free")).toBe("free");
     expect(toAiTier("paid")).toBe("paid");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PREVIEW MODE cost control (FOUNDER DECISION, 2026-09-15): while
+// NEXT_PUBLIC_PREVIEW_MODE=homeowner, every chat caller - either surface, any
+// tier - gets the ONE shared DAILY_LIMIT_PREVIEW ceiling instead of its own
+// tiered number, and the tiered numbers come back automatically the moment
+// the flag is off. previewMode.ts reads the env var at call time (see its own
+// comment on isHomeownerPreview), so vi.stubEnv is all a test needs; no
+// module reset and no mock required.
+// ---------------------------------------------------------------------------
+describe("the preview-mode cost control caps every chat caller alike", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("gives free, trialing, and paid homeowners the same 15 while preview is on", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const { askDailyLimitFor, DAILY_LIMIT_PREVIEW } = await import("./aiUsage");
+    expect(DAILY_LIMIT_PREVIEW).toBe(15);
+    expect(askDailyLimitFor("free")).toBe(15);
+    expect(askDailyLimitFor("trialing")).toBe(15);
+    expect(askDailyLimitFor("paid")).toBe(15);
+  });
+
+  it("gives free, trialing, and member pros the same 15 while preview is on", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const { askDailyLimitFor } = await import("./aiUsage");
+    expect(askDailyLimitFor("free", "pro")).toBe(15);
+    expect(askDailyLimitFor("trialing", "pro")).toBe(15);
+    expect(askDailyLimitFor("paid", "pro")).toBe(15);
+  });
+
+  it("restores the ordinary tiered ceilings once preview is off", async () => {
+    // No stubEnv here: unset reads as off (isHomeownerPreview is an exact
+    // match on "homeowner", never a truthiness check), which is the normal
+    // test environment already.
+    const {
+      askDailyLimitFor,
+      ASK_DAILY_FREE,
+      ASK_DAILY_TRIAL,
+      ASK_DAILY_PLUS,
+      ASK_DAILY_PRO,
+    } = await import("./aiUsage");
+    expect(askDailyLimitFor("free")).toBe(ASK_DAILY_FREE);
+    expect(askDailyLimitFor("trialing")).toBe(ASK_DAILY_TRIAL);
+    expect(askDailyLimitFor("paid")).toBe(ASK_DAILY_PLUS);
+    expect(askDailyLimitFor("paid", "pro")).toBe(ASK_DAILY_PRO);
+    // A value a person might genuinely type for "off" must not read as on.
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "false");
+    expect(askDailyLimitFor("paid")).toBe(ASK_DAILY_PLUS);
+  });
+
+  it("scales the output-token budget off the effective 15, not off Plus's own ceiling", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const { askOutputBudgetFor, ASK_OUTPUT_TOKENS_PER_ANSWER } = await import(
+      "./aiUsage"
+    );
+    expect(askOutputBudgetFor("paid")).toBe(15 * ASK_OUTPUT_TOKENS_PER_ANSWER);
+    expect(askOutputBudgetFor("free")).toBe(15 * ASK_OUTPUT_TOKENS_PER_ANSWER);
+    expect(askOutputBudgetFor("paid", "pro")).toBe(
+      15 * ASK_OUTPUT_TOKENS_PER_ANSWER
+    );
+  });
+
+  it("wires the homeowner route to show the meter at the preview cap for a paid tier", () => {
+    // getPlusTier() answers "paid" for every homeowner during the preview
+    // (src/lib/subscription.ts), which is exactly the case the null-for-paid
+    // meter convention has to stop applying to - otherwise a preview viewer
+    // sees no count at all. Asserted on the source the same way the rest of
+    // this file pins the route's wiring: the route imports server-only
+    // modules (Supabase, Claude) that this file does not mock.
+    expect(askRoute).toContain('import { isHomeownerPreview } from "@/lib/previewMode"');
+    expect(askRoute).toContain(
+      'const freeLimit = tier === "paid" && !isHomeownerPreview() ? null : dailyLimit;'
+    );
+    expect(askRoute).toContain(
+      'const freeRemaining = tier === "paid" && !isHomeownerPreview() ? null : remaining;'
+    );
+  });
+
+  it("keeps the homeowner over-limit sentence unchanged", () => {
+    // tier is always "paid" under preview, and that branch already reads
+    // exactly the required sentence with no number and no upsell.
+    expect(askRoute).toContain(
+      "\"You have reached today's Ask OakTend limit. It resets tomorrow.\""
+    );
+  });
+
+  it("drops the OakTend Pro upsell pitch for the pro chat's over-limit reply in preview", () => {
+    expect(proAskRoute).toContain("isHomeownerPreview()");
+    expect(proAskRoute).toMatch(
+      /isProMember \|\| isHomeownerPreview\(\)\s*\n\s*\?\s*"You have reached today's Ask OakTend limit\. It resets tomorrow\."/
+    );
   });
 });
 

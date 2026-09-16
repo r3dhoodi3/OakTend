@@ -12,6 +12,7 @@ These companies handle personal information as part of running {{BRAND}}, under 
 |---|---|---|---|---|---|
 | Supabase | Database, authentication, file storage | All account, home, and marketplace data | United States | supabase.com/privacy | [ ] signed |
 | Vercel | Hosting and serverless functions | Request logs, IP address | United States | vercel.com/legal/privacy-policy | [ ] signed |
+| Cloudflare | DNS, email routing, Turnstile CAPTCHA | Domain routing information, and, for anyone who completes a CAPTCHA challenge, that fact | United States / global | https://www.cloudflare.com/privacypolicy/ | [ ] signed |
 | Stripe | Payment processing, subscriptions, invoices | Billing name/email, payment-method reference, invoice totals (never full card numbers) | United States | stripe.com/privacy | [ ] signed |
 | Twilio | Text-message delivery | Phone number, message content | United States | twilio.com/legal/privacy | [ ] signed |
 | Resend | Email delivery | Email address, message content | United States | resend.com/legal/privacy-policy | [ ] signed |
@@ -37,7 +38,7 @@ We do not sell or share personal information with any vendor on this list for th
 
 ## How we change this list
 
-We review this list whenever we add or remove a vendor. Before a new subprocessor starts handling personal information, we will update this page to add them, and we will do so at least 30 days before that vendor begins processing your data, so you have notice before the change takes effect. If we remove a vendor, we will update this page once the transition to a new provider, or away from that function entirely, is complete.
+We review this list whenever we add or remove a vendor. Before a new subprocessor starts handling personal information, we will update this page to add them, and we will do so at least thirty (30) days before that vendor begins processing your data, so you have notice before the change takes effect. If we remove a vendor, we will update this page once the transition to a new provider, or away from that function entirely, is complete.
 
 If you have questions about a vendor on this list, or want to know more about a specific data flow, contact us at {{PRIVACY_EMAIL}}.
 

@@ -31,6 +31,13 @@ const env = (key: string): string | undefined => {
 const domain = env("NEXT_PUBLIC_LEGAL_DOMAIN") ?? hostOf(SITE_URL);
 const mailDomain = domain.replace(/^www\./, "").replace(/:\d+$/, "");
 
+// Public business line (Google Voice, set up 2026-09-12 as the number OakTend
+// gives out publicly - not the founder's personal cell, which lives in
+// FOUNDER.cellPhone and stays blank until Landen chooses to publish it).
+// Every public contact surface should read this one value, not a hard-coded
+// copy of the digits, so a future number change is a one-line edit here.
+const businessPhone = env("NEXT_PUBLIC_BUSINESS_PHONE") ?? "(714) 468-5480";
+
 export const LEGAL = {
   /** Product / brand name shown to users. */
   brand: env("NEXT_PUBLIC_LEGAL_BRAND") ?? "OakTend",
@@ -44,8 +51,10 @@ export const LEGAL = {
   supportEmail: env("NEXT_PUBLIC_SUPPORT_EMAIL") ?? `support@${mailDomain}`,
   privacyEmail: env("NEXT_PUBLIC_PRIVACY_EMAIL") ?? `privacy@${mailDomain}`,
   securityEmail: env("NEXT_PUBLIC_SECURITY_EMAIL") ?? `security@${mailDomain}`,
-  /** Optional toll-free number for CCPA requests. Blank hides it. */
-  privacyPhone: env("NEXT_PUBLIC_PRIVACY_PHONE") ?? "",
+  /** Phone number for CCPA requests. Defaults to the business line until a dedicated privacy line is set up. */
+  privacyPhone: env("NEXT_PUBLIC_PRIVACY_PHONE") ?? businessPhone,
+  /** The public business phone number, shown on the footer, /contact-adjacent surfaces, and the legal documents' contact blocks. */
+  businessPhone,
   dmcaAgent: {
     name: env("NEXT_PUBLIC_DMCA_AGENT_NAME") ?? "[TODO(legal): DMCA agent name]",
     address: env("NEXT_PUBLIC_DMCA_AGENT_ADDRESS") ?? "[TODO(legal): DMCA agent address]",
@@ -57,7 +66,7 @@ export const LEGAL = {
    * cookieless Vercel Web Analytics was turned on and the privacy policy and
    * cookie notice were reworded to disclose it.
    */
-  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-09",
+  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-15",
   venueCounty: "Orange County, California",
   liabilityCap:
     "the greater of $100 or the amounts you paid to us in the 12 months before the claim",
@@ -88,6 +97,7 @@ const TOKENS: Record<string, () => string> = {
   PRIVACY_EMAIL: () => LEGAL.privacyEmail,
   SECURITY_EMAIL: () => LEGAL.securityEmail,
   PRIVACY_PHONE: () => LEGAL.privacyPhone,
+  BUSINESS_PHONE: () => LEGAL.businessPhone,
   DMCA_AGENT_NAME: () => LEGAL.dmcaAgent.name,
   DMCA_AGENT_ADDRESS: () => LEGAL.dmcaAgent.address,
   DMCA_AGENT_PHONE: () => LEGAL.dmcaAgent.phone,

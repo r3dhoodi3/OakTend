@@ -6,7 +6,7 @@ import { getVerifiedUser } from "@/lib/auth";
 import { getSides } from "@/lib/contractor";
 import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
 import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
-import { LEGAL_LINKS } from "@/lib/legal";
+import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import { previewAwareLanding } from "@/lib/previewModeServer";
 import Link from "next/link";
@@ -214,7 +214,7 @@ export default async function Home(props: {
       q: "Is it really free?",
       a: isHomeownerPreview()
         ? "Yes. Home maintenance, free during our preview. Nothing in the app can be paid for right now, and no card is needed. We'll publish pricing before anything is ever charged."
-        : "Yes. Your first home is free, no card needed. OakTend makes money two ways: an optional Plus plan, and a fee pros pay when they apply to a job.",
+        : "Yes. Your first home is free, no card needed. OakTend makes money two ways: an optional Plus plan, and a 5% success fee pros pay only when a homeowner hires them through OakTend.",
     },
     {
       q: "What do you do with my data?",
@@ -719,9 +719,9 @@ export default async function Home(props: {
           Fix homes for a living? Real local leads, honest pricing.
         </h3>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
-          The fee is on every job before you pay, and if the homeowner never
-          responds, it comes back automatically as wallet credit. No
-          subscription. You pay only when you apply.
+          Apply and quote for free, no subscription. You pay a 5% success
+          fee, capped at $1,000, only when a homeowner hires you through
+          OakTend.
         </p>
         <Link
           href="/pros"
@@ -847,6 +847,17 @@ export default async function Home(props: {
                 >
                   Contact us
                 </Link>
+              </li>
+              {/* The business line (LEGAL.businessPhone, src/lib/legal.ts) is
+                  meant to be public, unlike an owner's personal inbox, so it
+                  is safe in the site-wide footer alongside the contact form. */}
+              <li>
+                <a
+                  href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
+                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
+                >
+                  Phone: {LEGAL.businessPhone}
+                </a>
               </li>
             </ul>
           </div>

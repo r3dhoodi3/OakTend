@@ -13,17 +13,11 @@
 
 import {
   FREE_ASK_PER_DAY,
-  GHOST_PROTECTION_DAYS,
-  LEAD_TIER_FEES,
-  MAJOR_INTRO_FEE,
   PLUS_INCLUDED_HOMES,
   PLUS_PLAN,
-  PRO_LEAD_DISCOUNT_PCT,
+  PRO_PLAN,
 } from "@/lib/constants";
 import {
-  CREDIT_NOT_CASH_LINE,
-  FIRST_APPLICATION_GUARANTEE,
-  GHOST_PROTECTION_GUARANTEE,
   NO_BIDDING_WARS_LINE,
   NO_CONTRACT_LINE,
 } from "@/lib/guaranteeCopy";
@@ -140,23 +134,26 @@ export const FAQ_INDEX: FaqEntry[] = [
 
   // ---- Pro ----
   {
-    question: "How much does a lead cost?",
-    answer: `You pay once, per lead you apply to: $${LEAD_TIER_FEES.light} for light jobs, $${LEAD_TIER_FEES.skilled} for skilled trades, and $${LEAD_TIER_FEES.major} for big-ticket work (your first big-ticket lead ever is $${MAJOR_INTRO_FEE}). The exact price for a job is on its apply button before you tap it, so you never pay an amount you were not shown.`,
-    keywords: ["lead", "price", "pricing", "fee", "cost", "apply", "tier"],
+    question: "How much does OakTend charge pros?",
+    answer:
+      "Nothing to apply, quote, or message a homeowner. OakTend charges a 5% success fee (minimum $15, capped at $1,000) only when a homeowner hires you for the job. During the preview period, nothing is charged at all.",
+    keywords: ["lead", "price", "pricing", "fee", "fees", "cost", "apply", "success fee", "how much"],
     side: "pro",
     href: "/pro/help#lead-pricing",
   },
   {
     question: "What if the homeowner never responds?",
-    answer: `Ghost protection: ${GHOST_PROTECTION_GUARANTEE}`,
-    keywords: ["ghost", "respond", "refund", "credit", "guarantee", String(GHOST_PROTECTION_DAYS)],
+    answer:
+      "Nothing changes for you: you never pay to apply or message, so a homeowner who goes quiet costs you nothing.",
+    keywords: ["ghost", "respond", "guarantee"],
     side: "pro",
     href: "/pro/help",
   },
   {
     question: "What if the homeowner picks someone else?",
-    answer: FIRST_APPLICATION_GUARANTEE,
-    keywords: ["lost", "lose", "picked", "chosen", "refund", "credit", "guarantee", "60"],
+    answer:
+      "Nothing changes for you there either: applying and messaging are always free, so it costs you nothing if they choose another pro. The 5% success fee only applies if a job you're on becomes a hire through OakTend.",
+    keywords: ["lost", "lose", "picked", "chosen", "guarantee"],
     side: "pro",
     href: "/pro/help",
   },
@@ -192,32 +189,13 @@ export const FAQ_INDEX: FaqEntry[] = [
   },
   {
     question: "What does Pro membership get me?",
-    answer: `Pro membership takes ${PRO_LEAD_DISCOUNT_PCT}% off apply fees for active members, and members get priority support. If you add it, cancel from your account any time, no penalty.`,
-    keywords: ["membership", "member", "plus", "discount", "perks", "subscribe"],
+    // Price and trial length come from PRO_PLAN (src/lib/constants.ts), the
+    // one place these numbers live, instead of being retyped as literals
+    // here where they could silently drift out of sync with a real change.
+    answer: `Pro membership costs $${PRO_PLAN.monthly.toFixed(2)} a month or $${PRO_PLAN.yearly.toFixed(2)} a year, with a ${PRO_PLAN.trialDays}-day free trial. It does not change whether you can apply to a job or the 5% success fee, but members get priority support. Cancel from your account any time, no penalty.`,
+    keywords: ["membership", "member", "plus", "perks", "subscribe", "price"],
     side: "pro",
     href: "/pro/plus",
-  },
-  {
-    question: "Do older jobs get cheaper?",
-    answer: `Jobs that sit unclaimed are automatically marked down 15-30%, and the discounted price is what your wallet is charged. The markdown never stacks with the ${PRO_LEAD_DISCOUNT_PCT}% Pro member price: a lead is always charged at whichever discount is bigger, never both.`,
-    keywords: ["unclaimed", "markdown", "discount", "aging", "cheaper", "old"],
-    side: "pro",
-    href: "/pro/leads",
-  },
-  {
-    question: "Is lead credit the same as cash?",
-    answer: CREDIT_NOT_CASH_LINE,
-    keywords: ["credit", "cash", "wallet", "refund", "payout"],
-    side: "pro",
-    href: "/pro/billing",
-  },
-  {
-    question: "How do wallet deposits work?",
-    answer:
-      "Load your wallet with deposits from $5 and pay per application. Applying to jobs is the only charge.",
-    keywords: ["wallet", "deposit", "balance", "load", "money", "billing"],
-    side: "pro",
-    href: "/pro/billing",
   },
 
   // ---- Both sides ----

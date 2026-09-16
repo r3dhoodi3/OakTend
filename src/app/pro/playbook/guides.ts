@@ -66,7 +66,7 @@ export const PLAYBOOK_GUIDES: PlaybookGuideData[] = [
       {
         title: "A quiet homeowner costs you nothing",
         body: [
-          "If they never respond at all, ghost protection puts your fee back in your wallet as credit automatically after 7 days. The only thing a dead lead costs you is the wait, so don't let one silence sour you on the next application.",
+          "You never pay anything until a homeowner actually hires you, so a homeowner who never responds costs you nothing at all. The only thing a dead lead costs you is the wait, so don't let one silence sour you on the next application.",
         ],
       },
     ],
@@ -243,7 +243,7 @@ export const PLAYBOOK_GUIDES: PlaybookGuideData[] = [
       {
         title: "Credited applications reopen spots",
         body: [
-          "When ghost protection credits an application back, that spot opens back up. A job showing as full today can have room next week, so a full card isn't always gone for good.",
+          "A full job can open back up if an applicant drops out or the listing reopens. A job showing as full today can have room next week, so a full card isn't always gone for good.",
         ],
       },
     ],
@@ -255,9 +255,9 @@ export const PLAYBOOK_GUIDES: PlaybookGuideData[] = [
     summary: "Quote the work honestly and explain it; padding loses twice.",
     sections: [
       {
-        title: "Quote the job, not the lead fee",
+        title: "Quote the job, not the fee",
         body: [
-          "Folding your apply fees into every quote makes you the expensive bid and lowers your win rate, which raises your real cost per job. Price the work on its own. The fees are a marketing cost that a healthy win rate pays for.",
+          "Folding your success fee into every quote makes you the expensive bid and lowers your win rate, which raises your real cost per job. Price the work on its own. The fee only applies once you're hired, and a healthy win rate is what pays for it.",
         ],
       },
       {

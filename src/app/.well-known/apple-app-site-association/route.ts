@@ -7,14 +7,10 @@
 // as JSON) over HTTPS the FIRST time the OakTend app is installed, and caches
 // it. It has to be reachable with no auth and no redirect.
 //
-// TODO(appstore): TEAMID and the bundle id below are PLACEHOLDERS. Once
-// Landen has the real 10-character Apple Developer Team ID (App Store
-// Connect > Membership) and the confirmed bundle id (capacitor.config.ts's
-// appId, currently com.oaktend.app), replace "TEAMID.com.oaktend.app" below
-// with the real "<TeamID>.<BundleID>" string and add the
-// "com.apple.developer.associated-domains" entitlement
-// ("applinks:oaktend.com") in Xcode's Signing & Capabilities tab. Until then
-// this file is syntactically complete but will not resolve to a real app.
+// Apple Developer Team ID M327ZL2VAG paired with the bundle id from
+// capacitor.config.ts's appId (com.oaktend.app). Still needed before this
+// resolves to a real app: the "com.apple.developer.associated-domains"
+// entitlement ("applinks:oaktend.com") in Xcode's Signing & Capabilities tab.
 //
 // "paths": ["*"] opens every oaktend.com path to Universal Links (shared job
 // links, push notification deep links, SMS links). If a specific path should
@@ -30,7 +26,7 @@ export async function GET() {
       apps: [],
       details: [
         {
-          appID: "TEAMID.com.oaktend.app", // TODO(appstore): replace TEAMID with the real Apple Developer Team ID
+          appID: "M327ZL2VAG.com.oaktend.app",
           paths: ["*"],
         },
       ],
@@ -39,7 +35,7 @@ export async function GET() {
     // for the same domain, once/if OakTend adds passkey support. Harmless to
     // declare now; unused until then.
     webcredentials: {
-      apps: ["TEAMID.com.oaktend.app"], // TODO(appstore): same TEAMID replacement as above
+      apps: ["M327ZL2VAG.com.oaktend.app"],
     },
   };
 

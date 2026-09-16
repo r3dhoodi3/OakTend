@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   // The root layout's title template appends "| OakTend"; don't repeat it here.
   title: "Contractor Terms",
   description:
-    "The extra rules for contractors using OakTend for Pros: licensing and insurance, independent-contractor status, lead fees and credit-back, and Pro membership billing.",
+    "Terms for contractors on OakTend: membership, the 5% success fee charged only when a homeowner hires you, payments through Stripe, licensing and conduct rules.",
   alternates: {
     canonical: `${SITE_URL}/pro-terms`,
   },

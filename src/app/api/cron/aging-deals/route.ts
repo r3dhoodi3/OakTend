@@ -6,6 +6,10 @@ import { AGING_LEAD_TIERS } from "@/lib/leadPricing";
 import { MAX_APPLICANTS_PER_JOB,
   PRO_LEADS_HREF,
 } from "@/lib/constants";
+import {
+  RETIRED_PRO_PROGRAMS_PAUSED,
+  retiredProgramPausedResponse,
+} from "@/lib/retiredProPrograms";
 
 export const runtime = "nodejs";
 
@@ -93,6 +97,13 @@ function offLabel(offs: number[]): string {
 async function runCron(req: NextRequest) {
   if (!isAuthorized(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
+  if (RETIRED_PRO_PROGRAMS_PAUSED) {
+    console.log(
+      "[retired-pro-programs] aging-deals cron skipped: program paused"
+    );
+    return retiredProgramPausedResponse("aging-deals");
   }
 
   const supabase = createAdminClient();

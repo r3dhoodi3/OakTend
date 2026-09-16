@@ -22,9 +22,12 @@ import {
   freeLockText,
   isFreeLocked,
   meterLabel,
+  previewLockText,
+  previewMeterLabel,
   shouldShowMeter,
   type AskLink,
 } from "@/lib/askLimits";
+import { isHomeownerPreview } from "@/lib/previewMode";
 import {
   askLockKey,
   clearAskLock,
@@ -753,8 +756,12 @@ export default function AskOakTend({
   // them: "unknown" until a reply has ever arrived on this device, "trial"
   // for a Plus trial member (the paid daily allowance, photos included),
   // "free" for the uncapped-in-name-only free tier, "plus" for a paid member.
+  // "preview" (FOUNDER DECISION, 2026-09-15): the site-wide homeowner preview
+  // is on and this viewer is on the ONE shared cap every homeowner gets
+  // regardless of plan - never "free" (there is nothing to upsell) and never
+  // "plus" (a real member's ceiling rarely bites; this one does).
   const [knownPlan, setKnownPlan] = useState<
-    "unknown" | "free" | "trial" | "plus"
+    "unknown" | "free" | "trial" | "plus" | "preview"
   >("unknown");
   const endRef = useRef<HTMLDivElement>(null);
   // The chat's own scroll box (the compact card's and the dock's are the same
@@ -901,7 +908,9 @@ export default function AskOakTend({
       try {
         const p = localStorage.getItem(planKey);
         setKnownPlan(
-          p === "free" || p === "trial" || p === "plus" ? p : "unknown"
+          p === "free" || p === "trial" || p === "plus" || p === "preview"
+            ? p
+            : "unknown"
         );
       } catch {
         /* ignore */
@@ -976,7 +985,7 @@ export default function AskOakTend({
   // homeowner are frequently the same browser. Writing the pro copilot's
   // silence into the shared key would mark a free homeowner as a member and
   // quietly delete a line of copy they should have seen.
-  function rememberPlan(plan: "free" | "trial" | "plus") {
+  function rememberPlan(plan: "free" | "trial" | "plus" | "preview") {
     if (endpoint !== "/api/ask") return;
     setKnownPlan(plan);
     try {
@@ -1113,7 +1122,22 @@ export default function AskOakTend({
       // and trialing homeowners (see askTier in src/app/api/ask/route.ts);
       // askTier is the only field that tells them apart, so it decides which
       // plan gets remembered rather than the two both landing on "free".
-      rememberPlan(data.askTier === "trialing" ? "trial" : "free");
+      //
+      // PREVIEW MODE (2026-09-15): askTier reads "paid" for every homeowner
+      // while the preview is on (see getPlusTier in src/lib/subscription.ts),
+      // and that is the ONLY way a numeric freeLimit ever arrives alongside
+      // "paid" - a real paid member outside preview lands in the other branch
+      // below instead. isHomeownerPreview() (client-safe, same NEXT_PUBLIC_
+      // env read PreviewNotice.tsx uses) is checked first so this combination
+      // is never mistaken for the free tier and pitched a "free questions"
+      // sentence it does not deserve.
+      rememberPlan(
+        isHomeownerPreview()
+          ? "preview"
+          : data.askTier === "trialing"
+            ? "trial"
+            : "free"
+      );
       // Write the lock down, or lift it. Coming back to a spent allowance has
       // to look the same as running into it did (see readAskLock on mount);
       // anything above zero - including the +1 the server hands back when its
@@ -1930,6 +1954,14 @@ export default function AskOakTend({
               That&apos;s your {freeLimit} questions for today on your trial.
               They reset tomorrow.
             </p>
+          ) : knownPlan === "preview" ? (
+            // PREVIEW MODE (2026-09-15): the shared fifteen-a-day cap, never
+            // worded as "free questions" - everyone is on the same allowance.
+            !lockEcho && (
+              <p className="min-w-0 flex-1 text-xs text-stone-600 dark:text-stone-300">
+                {previewLockText(freeLimit)}
+              </p>
+            )
           ) : (
             !lockEcho && (
               <p className="min-w-0 flex-1 text-xs text-stone-600 dark:text-stone-300">
@@ -1938,8 +1970,9 @@ export default function AskOakTend({
             )
           )}
           {/* No upsell for someone already on the trial: the thing the button
-              sells is the thing they are using. */}
-          {knownPlan !== "trial" && (
+              sells is the thing they are using. Same for preview: memberships
+              are "coming soon" and nothing here is purchasable yet. */}
+          {knownPlan !== "trial" && knownPlan !== "preview" && (
             <Link
               href={plusLink.href}
               className="btn-primary shrink-0 px-3 py-1.5 text-xs"
@@ -2060,7 +2093,11 @@ export default function AskOakTend({
               `${freeLeft} of ${freeLimit} question${
                 freeLimit === 1 ? "" : "s"
               } left today on your trial`
-            : meterLabel(freeLeft as number, freeLimit as number)}
+            : knownPlan === "preview"
+              ? // PREVIEW MODE (2026-09-15): "questions today", never "free
+                // questions" - everyone is on the same shared allowance.
+                previewMeterLabel(freeLeft as number, freeLimit as number)
+              : meterLabel(freeLeft as number, freeLimit as number)}
         </p>
       )}
       {/* Before the first question there is no meter to show, and finding out

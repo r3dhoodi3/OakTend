@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Plain-language summary:** If someone posted your copyrighted work on {{BRAND}} without permission, send our copyright agent a notice with the information listed below and we will remove or disable it. If we removed your own material by mistake, you can send a counter-notice and we will usually restore it in 10 to 14 business days. We terminate accounts that infringe copyright repeatedly. This page is about copyright only. Trademark, privacy, and harassment complaints go to {{LEGAL_EMAIL}} instead.
+**Plain-language summary:** If someone posted your copyrighted work on {{BRAND}} without permission, send our copyright agent a notice with the information listed below and we will remove or disable it. If we removed your own material by mistake, you can send a counter-notice and we will usually restore it in ten (10) to fourteen (14) business days. We terminate accounts that infringe copyright repeatedly. This page is about copyright only. Trademark, privacy, and harassment complaints go to {{LEGAL_EMAIL}} instead.
 
 ## 1. What this policy covers
 
@@ -26,7 +26,7 @@ Send notices only to this address. Notices sent elsewhere, including to general 
 
 ## 4. What a valid takedown notice must contain
 
-Under 17 U.S.C. § 512(c)(3), a notice is only effective if it includes, in writing, substantially all six of the following:
+Under 17 U.S.C. § 512(c)(3), a notice is only effective if it includes, in writing, substantially all six (6) of the following:
 
 1. A physical or electronic signature of a person authorized to act on behalf of the owner of the exclusive right that is allegedly infringed.
 2. Identification of the copyrighted work claimed to have been infringed, or, if the notice covers multiple works at {{BRAND}}, a representative list of those works.
@@ -50,7 +50,7 @@ If material you posted was removed and you believe that was a mistake or a case 
 3. A statement, made under penalty of perjury, that you have a good faith belief the material was removed as a result of mistake or misidentification.
 4. Your name, address, and telephone number, a statement that you consent to the jurisdiction of the federal district court for the judicial district where your address is located (or, if you are outside the United States, any judicial district where {{BRAND}} may be found), and a statement that you will accept service of process from the person who filed the original notice or their agent.
 
-If we receive a valid counter-notice, we forward it to the person who filed the original notice. We then restore the material in not less than 10 and not more than 14 business days, unless our agent first receives notice that the original complainant has filed a court action seeking to restrain the user from the infringing activity.
+If we receive a valid counter-notice, we forward it to the person who filed the original notice. We then restore the material in not less than ten (10) and not more than fourteen (14) business days, unless our agent first receives notice that the original complainant has filed a court action seeking to restrain the user from the infringing activity.
 
 ## 7. Repeat infringer policy
 

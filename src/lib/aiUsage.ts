@@ -1,6 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { AI_GLOBAL_DAILY_LIMIT, AI_GLOBAL_BUCKET } from "@/lib/constants";
 import { trackServerEvent } from "@/lib/trackServer";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Shared per-user daily cap for the AI-backed TOOL routes (analyze-quote,
 // extract-document, ingest-inspection, insurance-packet, tax-appeal, the pro
@@ -37,6 +38,14 @@ export const ASK_DAILY_PLUS = 15;
 // src/lib/constants.ts (which the client-side /plus card reads), and
 // src/lib/constants.test.ts fails if the two ever drift.
 export const ASK_DAILY_TRIAL = ASK_DAILY_PLUS;
+
+// FOUNDER DECISION (2026-09-15), a cost control for the homeowner preview:
+// while NEXT_PUBLIC_PREVIEW_MODE is on, EVERY chat caller gets this ONE
+// ceiling, homeowner and pro, free and paid alike, in place of every tiered
+// number above. It comes back automatically the moment preview mode is
+// switched off - askDailyLimitFor reads isHomeownerPreview() itself, so
+// there is nothing else to flip.
+export const DAILY_LIMIT_PREVIEW = 15;
 
 // The PRO copilot's ceiling for a paying OakTend Pro member (and a Pro trial:
 // same rule the homeowner trial follows, parity with paid). A free pro is on
@@ -76,6 +85,13 @@ export function askDailyLimitFor(
   tier: AiTier,
   surface: AskSurface = "homeowner"
 ): number {
+  // PREVIEW MODE cost control, checked first and ahead of the tier/surface
+  // split below: every caller, either surface, any tier, gets the ONE
+  // preview ceiling instead of its own number. Read the same way the plan
+  // helper (getPlusTier in src/lib/subscription.ts) reads it, at call time,
+  // so this stays a plain sync function with no session or database and
+  // still flips instantly with the env var.
+  if (isHomeownerPreview()) return DAILY_LIMIT_PREVIEW;
   // The pro copilot: free is the same taste a free homeowner gets, and both
   // paid and trialing Pro get ASK_DAILY_PRO (the trial is not a lesser plan).
   if (surface === "pro") {

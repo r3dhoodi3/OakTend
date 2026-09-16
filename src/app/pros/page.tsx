@@ -9,21 +9,12 @@ import { homeownerLanding } from "@/lib/previewModeServer";
 import ProsComingSoon from "@/components/pro/ProsComingSoon";
 import {
   FOUNDER,
-  LEAD_TIER_FEES,
-  MAJOR_INTRO_FEE,
   COLD_START_FREE_ALERTS,
+  MAX_APPLICANTS_PER_JOB,
   PRO_PLAN,
 } from "@/lib/constants";
-import {
-  GHOST_PROTECTION_GUARANTEE,
-  FIRST_APPLICATION_GUARANTEE,
-  CREDIT_NOT_CASH_LINE,
-  NO_CONTRACT_LINE,
-  NO_BIDDING_WARS_LINE,
-} from "@/lib/guaranteeCopy";
-import { AGING_LEAD_TIERS } from "@/lib/leadPricing";
 import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
-import { LEGAL_LINKS } from "@/lib/legal";
+import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/Logo";
@@ -61,6 +52,15 @@ function Check({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
+// The success fee (2026-09-10 model): no shared constant lives in src/lib
+// for these yet, so every page that states them defines its own literal with
+// a comment, same as src/app/pro-terms/page.tsx and
+// src/app/contractor-signup/layout.tsx do. Mirrors the sentence in
+// src/app/api/pro-ask/route.ts's system prompt and src/app/pro/help/HelpView.tsx.
+const SUCCESS_FEE_PCT = 5;
+const SUCCESS_FEE_MIN = 15;
+const SUCCESS_FEE_CAP = 1000;
+
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -81,7 +81,7 @@ const TITLE = isHomeownerPreview()
   : "OakTend for Pros: real local leads, honest pricing";
 const DESCRIPTION = isHomeownerPreview()
   ? "OakTend for Pros opens after our homeowner preview. Leave your email and we'll tell you first."
-  : "Browse local jobs free and pay only when you apply, with the price on every card. No subscription required, no ghost leads, and free license-verified badges for California pros.";
+  : `Browse local jobs free and apply for free. Pay a ${SUCCESS_FEE_PCT}% success fee only when a homeowner hires you, plus free license-verified badges for California pros.`;
 const CANONICAL = `${SITE_URL}/pros`;
 
 export const metadata: Metadata = {
@@ -105,8 +105,10 @@ export const metadata: Metadata = {
 };
 
 // Marketing front door for contractors. Every claim here is a real product
-// behavior (lead fee shown up front, aging markdowns, pay-per-apply wallet),
-// so keep copy in sync with /pro and leadPricing.ts if those change.
+// behavior (free to apply and quote, a 5% success fee only on hire, free
+// license verification), so keep copy in sync with /pro, /pro/help, and the
+// pro-ask system prompt (src/app/api/pro-ask/route.ts) if the money model
+// changes.
 //
 // STAYS DYNAMIC, and unlike /guides and the two city pages (both of which just
 // moved to static, see src/components/SessionCta.tsx) it cannot be made static
@@ -207,28 +209,21 @@ export default async function ProsLanding(props: {
     ? `/contractor-signup?ref=${encodeURIComponent(ref)}`
     : "/contractor-signup";
 
-  // Aging discount sentence, built from the real tiers instead of a hardcoded
-  // string, so a change to leadPricing.ts can never drift out of sync here.
-  const agingCopy = [...AGING_LEAD_TIERS]
-    .sort((a, b) => a.days - b.days)
-    .map((t) => `${t.days}+ days old, ${t.off}% off`)
-    .join("; ");
-
   const PROMISES = [
     {
       icon: <Tag className="h-5 w-5" />,
-      title: "The price is on the job card",
-      body: `Every open job shows its fee before you pay a cent. No blind bidding, no mystery invoices. ${NO_BIDDING_WARS_LINE}`,
+      title: "No bidding wars, ever",
+      body: `Every job has one flat ${SUCCESS_FEE_PCT}% success fee, only charged if a homeowner hires you. Nothing to bid on and no other pro's price to see or beat.`,
     },
     {
       icon: <MousePointerClick className="h-5 w-5" />,
-      title: "You only pay when you apply",
-      body: "Browse everything for free. Your wallet is only charged for the jobs you choose to go after.",
+      title: "You only pay when you're hired",
+      body: `Browse and apply to every job for free. The only charge is a ${SUCCESS_FEE_PCT}% success fee, with a $${SUCCESS_FEE_MIN} minimum and a $${SUCCESS_FEE_CAP} cap, and it's only charged if you're hired.`,
     },
     {
       icon: <Hourglass className="h-5 w-5" />,
-      title: "Older jobs get cheaper",
-      body: "Jobs that sit unclaimed are automatically marked down 15-30%, so pros willing to wait pay less.",
+      title: "Jobs fill fast",
+      body: `A posted job stops taking new applicants once ${MAX_APPLICANTS_PER_JOB} pros have applied, so applying quickly matters.`,
     },
     {
       icon: <Zap className="h-5 w-5" />,
@@ -253,14 +248,14 @@ export default async function ProsLanding(props: {
     {
       icon: <Ban className="h-5 w-5" />,
       title: "No subscription required",
-      body: `Load your wallet with deposits from $10 and pay per application. An optional Pro membership adds perks like bonus credit and an AI back office, but it never changes which jobs you can see or apply to. ${NO_CONTRACT_LINE}`,
+      body: "Applying and quoting cost nothing, so there's no subscription required to start. An optional Pro membership adds perks like priority support and an AI back office, but it never changes which jobs you can see or apply to, and you can cancel it any time, no penalty.",
     },
   ];
 
   const STEPS = [
     { n: "1", text: "Set up your company in about a minute." },
-    { n: "2", text: "Browse open jobs with the fee shown on every card." },
-    { n: "3", text: "Apply only to the ones you want." },
+    { n: "2", text: "Browse open jobs and apply for free." },
+    { n: "3", text: "Only pay the success fee if you're hired." },
   ];
 
   return (
@@ -300,13 +295,14 @@ export default async function ProsLanding(props: {
             </h1>
             <p className="mt-5 max-w-xl text-lg text-stone-600 dark:text-stone-400">
               Other sites charge you for leads you didn&apos;t ask for and that
-              other pros already have. On OakTend you see the price first and
-              only pay when you choose to apply.
+              other pros already have. On OakTend applying is always free,
+              and you only ever pay if you win the job.
             </p>
             <p className="mt-2 max-w-xl text-sm text-stone-500 dark:text-stone-400">
-              Most leads cost ${LEAD_TIER_FEES.light} to ${LEAD_TIER_FEES.major}{" "}
-              depending on the trade; your first big-ticket lead is $
-              {MAJOR_INTRO_FEE}.
+              Free to apply and quote. You pay a {SUCCESS_FEE_PCT}% success
+              fee, with a ${SUCCESS_FEE_MIN} minimum and a $
+              {SUCCESS_FEE_CAP} cap, only when a homeowner hires you through
+              OakTend.
             </p>
             <Link
               href={signupHref}
@@ -342,30 +338,42 @@ export default async function ProsLanding(props: {
       </section>
 
       <div className="mx-auto max-w-3xl px-6">
-      {/* Ghost protection and the credit-back-on-loss guarantee get top
-          billing, side by side: they are the two promises no lead-platform
-          competitor keeps. */}
-      <div className="mt-14 grid gap-4 sm:grid-cols-2">
+      {/* How you pay: the whole money model, top billing, side by side. This
+          used to be the ghost-protection / credit-back guarantee grid; that
+          model (and its wallet-credit mechanics) was retired 2026-09-10 for
+          the flat success fee below. See src/app/api/pro-ask/route.ts's
+          system prompt and src/app/pro/help/HelpView.tsx for the same facts
+          stated the same way. */}
+      <h2 className="mt-14 text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+        How you pay
+      </h2>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <section className="rounded-2xl border border-bark-100 bg-bark-50 p-6 text-center shadow-sm dark:border-bark-700 dark:bg-bark-700/20">
-          <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
-            Ghost protection: no reply, no risk. Every time.
-          </h2>
+          <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
+            Free to apply and quote
+          </h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
-            {GHOST_PROTECTION_GUARANTEE} You don&apos;t have to fill out a
-            form, open a support ticket, or argue with anyone.
+            Applying, quoting, and messaging a homeowner never cost anything.
+            No subscription required to start.
           </p>
         </section>
         <section className="rounded-2xl border border-bark-100 bg-bark-50 p-6 text-center shadow-sm dark:border-bark-700 dark:bg-bark-700/20">
-          <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
-            Lose the pick, keep your money. Every time.
-          </h2>
+          <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
+            Pay only when you&apos;re hired
+          </h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
-            {FIRST_APPLICATION_GUARANTEE}
+            The only charge is a {SUCCESS_FEE_PCT}% success fee, with a $
+            {SUCCESS_FEE_MIN} minimum and a ${SUCCESS_FEE_CAP} cap. It&apos;s
+            only charged once a homeowner hires you through OakTend, never
+            for a lead you didn&apos;t win.
           </p>
         </section>
       </div>
       <p className="mx-auto mt-4 max-w-xl text-center text-xs text-stone-500 dark:text-stone-400">
-        {CREDIT_NOT_CASH_LINE}
+        Pro membership is optional: ${PRO_PLAN.monthly.toFixed(2)} a month or
+        ${PRO_PLAN.yearly.toFixed(2)} a year, with a {PRO_PLAN.trialDays}-day
+        free trial. It never changes whether you can apply to a job or what
+        the success fee costs.
       </p>
 
       {/* Trust band: a real reachable team is the trust signal a national
@@ -382,6 +390,18 @@ export default async function ProsLanding(props: {
             Cell: {FOUNDER.cellPhone}
           </p>
         )}
+        {/* Business line (LEGAL.businessPhone, src/lib/legal.ts), not the
+            founder's personal cell above: always shown, since it's the
+            number OakTend gives out publicly. */}
+        <p className="mt-1 text-sm text-stone-300">
+          Phone:{" "}
+          <a
+            href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
+            className="hover:underline"
+          >
+            {LEGAL.businessPhone}
+          </a>
+        </p>
         {/* The in-app help page requires an onboarded contractor account, so
             it is exactly wrong for the signed-out prospective pros this page
             targets. Contact form needs no session and no owner-fillable
@@ -527,9 +547,9 @@ export default async function ProsLanding(props: {
           ))}
         </ol>
         {/* The honest deal: every line here is a real, shipped product rule
-            (3-spot cap, ghost-protection credit, first-apply guarantee, aging tiers,
-            pay-per-apply). Restyled from claims elsewhere on this page; add
-            nothing here that isn't true in code. */}
+            (3-spot cap, the success fee, ownership verification, a
+            cancel-any-time membership). Restyled from claims elsewhere on
+            this page; add nothing here that isn't true in code. */}
         <div className="mx-auto mt-8 max-w-md rounded-2xl border border-stone-200 bg-stone-50 p-5 dark:border-white/10 dark:bg-stone-800">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
             The honest deal
@@ -538,31 +558,37 @@ export default async function ProsLanding(props: {
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
               <span>
-                Max 3 pros per job, so you&apos;re never competing against a crowd
-                of other pros.
+                Max {MAX_APPLICANTS_PER_JOB} pros per job, so you&apos;re
+                never competing against a crowd of other pros.
               </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
-              <span>Ghost protection: {GHOST_PROTECTION_GUARANTEE}</span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
               <span>
-                {FIRST_APPLICATION_GUARANTEE}
+                No pay-to-apply, ever: applying, quoting, and messaging a
+                homeowner are always free.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
-              <span>{CREDIT_NOT_CASH_LINE}</span>
+              <span>
+                Keep 100% of what you&apos;re paid for the job, minus a{" "}
+                {SUCCESS_FEE_PCT}% success fee capped at ${SUCCESS_FEE_CAP}.
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
-              <span>Jobs that sit unclaimed get marked down 15-30%.</span>
+              <span>
+                Every job lead shows whether we&apos;ve verified the
+                homeowner&apos;s ownership against county records.
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
-              <span>No subscription required. You pay per application.</span>
+              <span>
+                Pro membership is optional. Cancel it any time from your
+                account, no penalty.
+              </span>
             </li>
           </ul>
         </div>

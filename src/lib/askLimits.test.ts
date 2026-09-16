@@ -3,6 +3,8 @@ import {
   freeLockText,
   isFreeLocked,
   meterLabel,
+  previewLockText,
+  previewMeterLabel,
   shouldShowMeter,
 } from "@/lib/askLimits";
 
@@ -50,5 +52,25 @@ describe("freeLockText", () => {
   it("names the limit when it knows it", () => {
     expect(freeLockText(3)).toContain("3 free questions");
     expect(freeLockText(null)).toContain("free questions");
+  });
+});
+
+// PREVIEW MODE (2026-09-15): the same shapes, worded for a cap that applies
+// to everyone alike, never "free questions".
+describe("previewMeterLabel", () => {
+  it("reads as a sentence with no mention of 'free'", () => {
+    expect(previewMeterLabel(2, 15)).toBe("2 of 15 questions today");
+    expect(previewMeterLabel(1, 1)).toBe("1 of 1 question today");
+  });
+});
+
+describe("previewLockText", () => {
+  it("names the limit without calling the questions free", () => {
+    expect(previewLockText(15)).toBe(
+      "That's your 15 questions for today. They reset tomorrow."
+    );
+    expect(previewLockText(15)).not.toContain("free");
+    expect(previewLockText(null)).toContain("questions");
+    expect(previewLockText(null)).not.toContain("free");
   });
 });

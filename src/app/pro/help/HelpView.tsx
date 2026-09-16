@@ -36,28 +36,10 @@
 // locale, so hydration cannot disagree with SSR about them.
 
 import Link from "next/link";
-import { LEAD_TIER_FEES, MAJOR_INTRO_FEE, PRO_LEAD_DISCOUNT_PCT } from "@/lib/constants";
 import ProSupportForm from "./ProSupportForm";
 import ShowAppGuideButton from "@/components/ShowAppGuideButton";
 import { FEEDBACK_CARD_TITLE, FEEDBACK_WHAT_COUNTS } from "@/lib/proFeedback";
 import { proCtaLabel, proTrialSubline } from "@/components/pro/ProUpgradeCta";
-import {
-  GHOST_PROTECTION_GUARANTEE,
-  NO_CONTRACT_LINE,
-  NO_BIDDING_WARS_LINE,
-} from "@/lib/guaranteeCopy";
-
-// The Pro member price for one of the three base tiers above, formatted the
-// same way the rest of the money copy on this page is (a bare dollar sign,
-// two decimals only when the amount isn't a whole number). Local to this
-// table: the table shows the flat 10%-off member price for every tier as a
-// reference figure, never the aging-markdown price (that one depends on how
-// long a specific job has sat unclaimed, which this static reference table
-// has no job to compute it against).
-function memberPriceStr(baseDollars: number): string {
-  const v = Math.round(baseDollars * (100 - PRO_LEAD_DISCOUNT_PCT)) / 100;
-  return Number.isInteger(v) ? `$${v}` : `$${v.toFixed(2)}`;
-}
 
 export default function HelpView({
   member,
@@ -99,108 +81,30 @@ export default function HelpView({
         />
       </div>
 
-      {/* Lead pricing, in full. It used to live at the top of /pro/billing,
-          where a three-row price table was the first thing a pro saw on the
-          page they open to add money - it read as a bill before they had won
-          anything. The numbers still have to exist somewhere a pro can find
-          them, and this is that place; billing links straight here by this id.
-          The price that actually binds is the one on the apply button, which
-          prints the exact fee for that job before and after the tap. */}
+      {/* The success fee, in full. This id and card used to explain per-lead
+          pricing; /pro/billing still links here by this same id, so the id
+          stays even though the pricing model underneath it changed. */}
       <div
         id="lead-pricing"
         className="scroll-mt-20 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-stone-800"
       >
         <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
-          How lead pricing works
+          How the success fee works
         </h2>
-        {/* "Once" and the no-surprise-amount line are bolded on request: the
-            words that answer "is this a membership charge" without adding a
-            new claim this section didn't already make. */}
         <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
-          You pay <strong>once</strong>, per lead you apply to. The exact
-          price for a job is on its apply button before you tap it, and again
-          on the confirm step, so{" "}
-          <strong>you never pay an amount you were not shown</strong>.
+          Applying, quoting, and messaging a homeowner are always{" "}
+          <strong>free</strong>. The only charge is a{" "}
+          <strong>5% success fee</strong>, with a $15 minimum and a $1,000
+          cap, and it is only charged if a homeowner hires you for the job.
         </p>
-        <table className="mt-3 w-full max-w-md text-sm">
-          <thead>
-            <tr className="text-xs text-stone-500 dark:text-stone-400">
-              <th className="py-1.5 pr-3 text-left font-medium">Tier</th>
-              <th className="py-1.5 pr-3 text-left font-medium">Base price</th>
-              {/* The member column: informational for every pro, not just
-                  current members, same as the base-price column above it - a
-                  pro deciding whether to subscribe needs to see both numbers
-                  side by side, not just the one that applies to them today. */}
-              <th className="py-1.5 pr-3 text-left font-medium">With Pro</th>
-              <th className="py-1.5 text-left font-medium">Trades</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
-            <tr>
-              <td className="py-1.5 pr-3 font-medium text-stone-700 dark:text-stone-300">
-                Light jobs
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-stone-900 dark:text-stone-100">
-                ${LEAD_TIER_FEES.light}
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-oaktend-700 dark:text-oaktend-300">
-                {memberPriceStr(LEAD_TIER_FEES.light)}
-              </td>
-              <td className="py-1.5 text-xs text-stone-500 dark:text-stone-400">
-                cleaning, landscaping, painting, handyman
-              </td>
-            </tr>
-            <tr>
-              <td className="py-1.5 pr-3 font-medium text-stone-700 dark:text-stone-300">
-                Skilled trades
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-stone-900 dark:text-stone-100">
-                ${LEAD_TIER_FEES.skilled}
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-oaktend-700 dark:text-oaktend-300">
-                {memberPriceStr(LEAD_TIER_FEES.skilled)}
-              </td>
-              <td className="py-1.5 text-xs text-stone-500 dark:text-stone-400">
-                plumbing, electrical, HVAC, windows
-              </td>
-            </tr>
-            <tr>
-              <td className="py-1.5 pr-3 font-medium text-stone-700 dark:text-stone-300">
-                Big-ticket
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-stone-900 dark:text-stone-100">
-                ${LEAD_TIER_FEES.major}
-              </td>
-              <td className="py-1.5 pr-3 font-semibold text-oaktend-700 dark:text-oaktend-300">
-                {memberPriceStr(LEAD_TIER_FEES.major)}
-              </td>
-              <td className="py-1.5 text-xs text-stone-500 dark:text-stone-400">
-                roofing, structural, remodeling
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
+          The fee is charged to the card on file through Stripe once the
+          homeowner confirms the hire in the app, never before. If a hire is
+          later cancelled or reversed, the fee comes back to you as credit.
+        </p>
         <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
-          Your first big-ticket lead ever is ${MAJOR_INTRO_FEE}. Jobs that sit
-          unclaimed get cheaper, and the discounted price is what your wallet is
-          charged.{" "}
-          {/* Never stacked (migration 0149): stated right where the two
-              discounts could otherwise be misread as additive. */}
-          The {PRO_LEAD_DISCOUNT_PCT}% Pro member price above never stacks with
-          an unclaimed-listing markdown - a lead is always charged at whichever
-          discount is bigger, never both.
+          During the preview period, nothing is charged.
         </p>
-        {/* The three trust facts a pro asks about before their first paid
-            application: what happens if the homeowner ghosts, whether this
-            turns into a contract, and whether the price on the card is real.
-            Canonical strings from src/lib/guaranteeCopy.ts so this list and
-            the same three facts on /pros can never say it two different
-            ways. */}
-        <ul className="mt-4 space-y-1.5 border-t border-stone-100 pt-4 text-xs text-stone-500 dark:border-white/10 dark:text-stone-400">
-          <li>Ghost protection: {GHOST_PROTECTION_GUARANTEE}</li>
-          <li>{NO_BIDDING_WARS_LINE}</li>
-          <li>{NO_CONTRACT_LINE}</li>
-        </ul>
       </div>
 
       {/* Bug reports have their own page now (/pro/feedback), where the
