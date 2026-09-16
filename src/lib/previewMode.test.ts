@@ -16,6 +16,7 @@ import {
   isHomeownerPreview,
   PREVIEW_MEMBERSHIP_COPY,
   PREVIEW_PROS_COPY,
+  PREVIEW_JOB_POSTED_COPY,
 } from "./previewMode";
 
 afterEach(() => {
@@ -53,12 +54,15 @@ describe("isHomeownerPreview", () => {
   });
 });
 
-describe("the two copy constants", () => {
+describe("the copy constants", () => {
   it("say what the spec says, word for word", () => {
     expect(PREVIEW_MEMBERSHIP_COPY).toBe(
       "Memberships are coming soon. Everything is free during our preview."
     );
     expect(PREVIEW_PROS_COPY).toBe("Pros are coming soon.");
+    expect(PREVIEW_JOB_POSTED_COPY).toBe(
+      "Saved to your home's record. Our pro network isn't open yet; we'll match you with local pros when it launches."
+    );
   });
 });
 

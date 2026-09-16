@@ -50,3 +50,12 @@ export const PREVIEW_PROS_COPY = "Pros are coming soon.";
 // in the action file, because a "use server" module may export only async
 // functions (the production build refuses a constant export).
 export const PRO_WAITLIST_CONFIRMATION = "You're on the list.";
+
+// Shown in place of "Pros can see it now" / "Pros usually apply within a day
+// or two" on a just-posted job, in both spots /contractors makes that claim
+// (the top banner right after posting, and the per-job "awaiting applicants"
+// card). The job itself still saves normally - postJobAction never checks
+// preview - so this corrects only the promise about pros, not the post
+// itself.
+export const PREVIEW_JOB_POSTED_COPY =
+  "Saved to your home's record. Our pro network isn't open yet; we'll match you with local pros when it launches.";

@@ -56,6 +56,7 @@ import ChooseApplicantButton from "./ChooseApplicantButton";
 import { ChevronRight } from "lucide-react";
 import { redactContact } from "@/lib/redact";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import { isHomeownerPreview, PREVIEW_JOB_POSTED_COPY } from "@/lib/previewMode";
 
 // Must match the markers LeadChat posts when either side closes a thread.
 //
@@ -89,6 +90,10 @@ export default async function ContractorsPage(
 ) {
   const searchParams = await props.searchParams;
   const supabase = await createClient();
+  // While the contractor side is closed (see src/lib/previewMode.ts), the
+  // job-posted confirmation and the per-job "awaiting applicants" card must
+  // not promise pro activity that cannot happen yet.
+  const isPreview = isHomeownerPreview();
 
   // Nothing here depends on anything else on the page (property/plus/auth
   // are all independent lookups) - run them together instead of stacking
@@ -545,26 +550,36 @@ export default async function ContractorsPage(
         // (py-2.5 + a 44px row on a phone, py-3 above sm).
         <ScrollIntoViewOnMount className="scroll-mt-20">
           <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800 shadow-sm dark:border-green-900 dark:bg-green-950/40 dark:text-green-200">
-            <p className="font-medium">
-              Your job is live. Pros can see it now.
-            </p>
-            <p className="mt-1">
-              Find it under{" "}
-              {/* The one thing to tap in this banner, and it measured 63x17.
-                  max-sm gives it a 44px-tall box while keeping it inline in
-                  the sentence (align-middle so it does not shove the line);
-                  desktop keeps the plain inline link. */}
-              <Link
-                href="#your-jobs"
-                className="focus-ring font-medium underline underline-offset-2 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:align-middle"
-              >
-                Your jobs
-              </Link>{" "}
-              further down this page. We&apos;ll notify you the moment a pro
-              applies. Honest note: OakTend is still new in some areas, so if
-              applications are slow it&apos;s our pro coverage catching up, not
-              a problem with your post.
-            </p>
+            {isPreview ? (
+              // Preview mode: pros are closed, so "can see it now" and "we'll
+              // notify you" would both be false. The job still saved -
+              // postJobAction never checks preview - this just doesn't
+              // promise pro activity that can't happen yet.
+              <p className="font-medium">{PREVIEW_JOB_POSTED_COPY}</p>
+            ) : (
+              <>
+                <p className="font-medium">
+                  Your job is live. Pros can see it now.
+                </p>
+                <p className="mt-1">
+                  Find it under{" "}
+                  {/* The one thing to tap in this banner, and it measured 63x17.
+                      max-sm gives it a 44px-tall box while keeping it inline in
+                      the sentence (align-middle so it does not shove the line);
+                      desktop keeps the plain inline link. */}
+                  <Link
+                    href="#your-jobs"
+                    className="focus-ring font-medium underline underline-offset-2 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:align-middle"
+                  >
+                    Your jobs
+                  </Link>{" "}
+                  further down this page. We&apos;ll notify you the moment a pro
+                  applies. Honest note: OakTend is still new in some areas, so if
+                  applications are slow it&apos;s our pro coverage catching up, not
+                  a problem with your post.
+                </p>
+              </>
+            )}
           </div>
         </ScrollIntoViewOnMount>
       )}
@@ -1040,6 +1055,10 @@ export default async function ContractorsPage(
                             </Link>{" "}
                             for shutoff steps.
                           </p>
+                        ) : isPreview ? (
+                          // Same reasoning as the posted-job banner above:
+                          // pros are closed, so no apply-time estimate is true.
+                          <p>{PREVIEW_JOB_POSTED_COPY}</p>
                         ) : (
                           <p>
                             Your job is live. Pros usually apply within a day or

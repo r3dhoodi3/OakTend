@@ -188,7 +188,7 @@ export default async function Home(props: {
     {
       icon: MessageSquare,
       title: "Answers about your home",
-      body: "Ask OakTend anything. It knows what's in your home, how old each thing is, and its history.",
+      body: "Ask OakTend about the systems you've logged. It answers from your home's own record: what's in it, how old each thing is, and what's been done.",
     },
     {
       icon: Wrench,
