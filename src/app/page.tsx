@@ -621,8 +621,10 @@ export default async function Home(props: {
         </div>
       </section>
 
-      {/* Value */}
-      <section className="mt-16 max-sm:hidden sm:mt-24">
+      {/* Value. Shown on phone too (founder request, 2026-09-16): the grid
+          has no explicit column count below `sm`, so it already stacks to a
+          single column with no extra classes needed. */}
+      <section className="mt-16 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           What OakTend watches for you
         </h2>
@@ -639,8 +641,9 @@ export default async function Home(props: {
         </div>
       </section>
 
-      {/* Trust band, same as the /pros version. */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 max-sm:hidden dark:bg-stone-950 text-center sm:mt-24">
+      {/* Trust band, same as the /pros version. Shown on phone too (founder
+          request, 2026-09-16). */}
+      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
         <h2 className="text-2xl font-semibold text-white [text-wrap:balance]">
           Real people, real answers
         </h2>
@@ -659,14 +662,14 @@ export default async function Home(props: {
             still drops out entirely when blank. */}
         <Link
           href="/contact"
-          className="mt-4 inline-block text-sm text-bark-500 hover:underline"
+          className="mt-4 inline-block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
         >
           Questions? Contact us →
         </Link>
         {FOUNDER.cellPhone && (
           <a
             href={`tel:${FOUNDER.cellPhone.replace(/[^\d+]/g, "")}`}
-            className="mt-1 block text-sm text-bark-500 hover:underline"
+            className="mt-1 block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
           >
             Or call or text {FOUNDER.cellPhone} →
           </a>
@@ -677,7 +680,9 @@ export default async function Home(props: {
           product really does. No invented stats, no "vetted" claims.
           FAQ_ITEMS also backs the FAQPage JSON-LD below, so the structured
           data can't say something these cards don't. */}
-      <section className="mt-16 max-sm:hidden sm:mt-24">
+      {/* Shown on phone too (founder request, 2026-09-16): already a
+          single-column stack (space-y-4), no layout change needed. */}
+      <section className="mt-16 sm:mt-24">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -698,8 +703,10 @@ export default async function Home(props: {
       </section>
 
       {/* Closing CTA: one more clear door in before the pro band switches
-          audience. The only other filled primary button is the hero's. */}
-      <section className="mt-16 text-center max-sm:hidden sm:mt-24">
+          audience. The only other filled primary button is the hero's.
+          Shown on phone too (founder request, 2026-09-16); .btn-primary
+          already enforces the 44px tap minimum. */}
+      <section className="mt-16 text-center sm:mt-24">
         <h2 className="mx-auto max-w-xl text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Know what your home needs before it costs you
         </h2>
@@ -720,8 +727,9 @@ export default async function Home(props: {
 
       {/* Pro band: the supply-side door gets its own pitch, not a whisper
           link. Outline button on purpose: the filled primary on this page is
-          reserved for the homeowner CTAs. */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 max-sm:hidden dark:bg-stone-950 text-center sm:mt-24">
+          reserved for the homeowner CTAs. Shown on phone too (founder
+          request, 2026-09-16). */}
+      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
         {/* stone-400 in BOTH modes: this band's fill is always dark (stone-900
             / stone-950), so the light-mode stone-500 the other eyebrows use
             would sit too dark against it. */}
@@ -759,7 +767,7 @@ export default async function Home(props: {
           // The pro band's own door, counted apart from the header link so the
           // band's pitch can be judged on its own (see landing_header_pros).
           data-track="landing_explore_pros"
-          className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10"
+          className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center"
         >
           Explore OakTend for Pros
         </Link>
