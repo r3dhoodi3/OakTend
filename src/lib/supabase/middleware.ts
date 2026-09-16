@@ -389,6 +389,9 @@ export function isPublicPath(path: string): boolean {
     path.startsWith("/fountain-valley/") ||
     path === "/huntington-beach" ||
     path.startsWith("/huntington-beach/") ||
+    // The other 34 Orange County city pages (src/app/oc/[city]): same
+    // reasoning, one route per city instead of one per-city entry here.
+    path.startsWith("/oc/") ||
     // Privacy policy + Terms of Service + DMCA policy (src/app/privacy,
     // src/app/terms, src/app/dmca): legally need to be readable by anyone,
     // logged in or not, same reasoning as the guide and city pages above. The
