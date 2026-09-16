@@ -5,7 +5,7 @@ import { hasAuthCookie } from "@/lib/authCookie";
 import { getVerifiedUser } from "@/lib/auth";
 import { getSides } from "@/lib/contractor";
 import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
-import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
+import { LAUNCH_AREA_LABEL, LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import { previewAwareLanding } from "@/lib/previewModeServer";
@@ -330,6 +330,33 @@ export default async function Home(props: {
     { value: "remodeling", label: "Remodeling" },
   ];
 
+  // City chips (founder rule, 2026-09-16): OakTend serves ALL of Orange
+  // County. Fountain Valley and Huntington Beach were the marketing launch
+  // order, never a product boundary, so every other launch city gets equal
+  // billing here - the two just keep their "Launch city" tag and their own
+  // hand-written pages (src/app/fountain-valley, src/app/huntington-beach).
+  // LAUNCH_CITY_NAMES (src/lib/serviceArea.ts) is the one city list, not
+  // hand-typed again here. Order: the two launch cities first, then every
+  // other city/community alphabetically (LAUNCH_CITY_NAMES itself lists
+  // incorporated cities then communities, so the rest still needs its own
+  // sort to read as one alphabetical list).
+  const LAUNCH_CITY_TAGS = new Set(["Fountain Valley", "Huntington Beach"]);
+  const OTHER_CITIES = LAUNCH_CITY_NAMES.filter(
+    (c) => !LAUNCH_CITY_TAGS.has(c)
+  )
+    .slice()
+    .sort((a, b) => a.localeCompare(b));
+  const CITY_CHIPS = ["Fountain Valley", "Huntington Beach", ...OTHER_CITIES];
+
+  // Fountain Valley and Huntington Beach keep their own hand-written pages
+  // (city-specific housing-stock paragraphs); every other city routes to the
+  // generic dynamic city page, src/app/oc/[city]/page.tsx.
+  function cityHref(city: string): string {
+    if (city === "Fountain Valley") return "/fountain-valley";
+    if (city === "Huntington Beach") return "/huntington-beach";
+    return `/oc/${city.toLowerCase().replace(/\s+/g, "-")}`;
+  }
+
   // Trust strip: three signals that are already true today, no invented
   // numbers. Reuses the same green "all clear" pill as the hero reassurance
   // row (.chip-ok tone).
@@ -621,8 +648,10 @@ export default async function Home(props: {
         </div>
       </section>
 
-      {/* Value */}
-      <section className="mt-16 max-sm:hidden sm:mt-24">
+      {/* Value. Shown on phone too (founder request, 2026-09-16): the grid
+          has no explicit column count below `sm`, so it already stacks to a
+          single column with no extra classes needed. */}
+      <section className="mt-16 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           What OakTend watches for you
         </h2>
@@ -639,8 +668,9 @@ export default async function Home(props: {
         </div>
       </section>
 
-      {/* Trust band, same as the /pros version. */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 max-sm:hidden dark:bg-stone-950 text-center sm:mt-24">
+      {/* Trust band, same as the /pros version. Shown on phone too (founder
+          request, 2026-09-16). */}
+      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
         <h2 className="text-2xl font-semibold text-white [text-wrap:balance]">
           Real people, real answers
         </h2>
@@ -659,14 +689,14 @@ export default async function Home(props: {
             still drops out entirely when blank. */}
         <Link
           href="/contact"
-          className="mt-4 inline-block text-sm text-bark-500 hover:underline"
+          className="mt-4 inline-block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
         >
           Questions? Contact us →
         </Link>
         {FOUNDER.cellPhone && (
           <a
             href={`tel:${FOUNDER.cellPhone.replace(/[^\d+]/g, "")}`}
-            className="mt-1 block text-sm text-bark-500 hover:underline"
+            className="mt-1 block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
           >
             Or call or text {FOUNDER.cellPhone} →
           </a>
@@ -677,7 +707,9 @@ export default async function Home(props: {
           product really does. No invented stats, no "vetted" claims.
           FAQ_ITEMS also backs the FAQPage JSON-LD below, so the structured
           data can't say something these cards don't. */}
-      <section className="mt-16 max-sm:hidden sm:mt-24">
+      {/* Shown on phone too (founder request, 2026-09-16): already a
+          single-column stack (space-y-4), no layout change needed. */}
+      <section className="mt-16 sm:mt-24">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -698,8 +730,10 @@ export default async function Home(props: {
       </section>
 
       {/* Closing CTA: one more clear door in before the pro band switches
-          audience. The only other filled primary button is the hero's. */}
-      <section className="mt-16 text-center max-sm:hidden sm:mt-24">
+          audience. The only other filled primary button is the hero's.
+          Shown on phone too (founder request, 2026-09-16); .btn-primary
+          already enforces the 44px tap minimum. */}
+      <section className="mt-16 text-center sm:mt-24">
         <h2 className="mx-auto max-w-xl text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Know what your home needs before it costs you
         </h2>
@@ -720,8 +754,9 @@ export default async function Home(props: {
 
       {/* Pro band: the supply-side door gets its own pitch, not a whisper
           link. Outline button on purpose: the filled primary on this page is
-          reserved for the homeowner CTAs. */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 max-sm:hidden dark:bg-stone-950 text-center sm:mt-24">
+          reserved for the homeowner CTAs. Shown on phone too (founder
+          request, 2026-09-16). */}
+      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
         {/* stone-400 in BOTH modes: this band's fill is always dark (stone-900
             / stone-950), so the light-mode stone-500 the other eyebrows use
             would sit too dark against it. */}
@@ -759,14 +794,42 @@ export default async function Home(props: {
           // The pro band's own door, counted apart from the header link so the
           // band's pitch can be judged on its own (see landing_header_pros).
           data-track="landing_explore_pros"
-          className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10"
+          className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center"
         >
           Explore OakTend for Pros
         </Link>
       </section>
 
+      {/* All Orange County cities (founder rule, 2026-09-16): replaces the
+          old two-link Fountain Valley/Huntington Beach footer column, which
+          read as "these are the only two cities OakTend serves". Same chip
+          visual language as the "Find a pro for" service chips above. Shown
+          on phone too, same as the five sections above it. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          OakTend serves homeowners across {LAUNCH_AREA_LABEL}
+        </h2>
+        <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
+          {CITY_CHIPS.map((city) => (
+            <li key={city}>
+              <Link
+                href={cityHref(city)}
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
+              >
+                {city}
+                {LAUNCH_CITY_TAGS.has(city) && (
+                  <span className="rounded-full bg-bark-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-bark-700 dark:bg-bark-700 dark:text-stone-100">
+                    Launch city
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">
-        <div className="grid gap-8 text-left sm:grid-cols-4">
+        <div className="grid gap-8 text-left sm:grid-cols-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
               Guides
@@ -799,29 +862,6 @@ export default async function Home(props: {
                   className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
                 >
                   SoCal maintenance calendar
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
-              Cities
-            </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
-              <li>
-                <Link
-                  href="/fountain-valley"
-                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
-                >
-                  Fountain Valley
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/huntington-beach"
-                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
-                >
-                  Huntington Beach
                 </Link>
               </li>
             </ul>

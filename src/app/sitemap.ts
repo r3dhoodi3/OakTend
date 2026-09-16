@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
-// Sitemap for crawlers: the public landing pages, the two city landing pages
-// (src/app/fountain-valley, src/app/huntington-beach), the Privacy/Terms/DMCA
+// Sitemap for crawlers: the public landing pages, the two hand-written city
+// landing pages (src/app/fountain-valley, src/app/huntington-beach) plus the
+// other 34 Orange County cities/communities (src/app/oc/[city]), the
+// Privacy/Terms/DMCA
 // pages (src/app/privacy, src/app/terms, src/app/pro-terms, src/app/dmca),
 // the AI disclosure (src/app/ai-disclosure), the public contact form
 // (src/app/contact - the replacement for the FOUNDER.email mailto links
@@ -91,6 +94,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // The other 34 Orange County cities/communities (src/app/oc/[city]):
+    // same list as the CITY_CHIPS on the homepage (src/app/page.tsx) and the
+    // page's own generateStaticParams, all three reading LAUNCH_CITY_NAMES
+    // (src/lib/serviceArea.ts) so they can't drift out of sync.
+    ...LAUNCH_CITY_NAMES.filter(
+      (city) => city !== "Fountain Valley" && city !== "Huntington Beach"
+    ).map((city) => ({
+      url: `${SITE_URL}/oc/${city.toLowerCase().replace(/\s+/g, "-")}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     {
       url: `${SITE_URL}/privacy`,
       changeFrequency: "monthly",
