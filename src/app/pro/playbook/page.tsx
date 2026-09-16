@@ -5,7 +5,8 @@ import { PLAYBOOK_GUIDES } from "./guides";
 
 // The Playbook: the pro-side Learn tab. Short, honest guides on winning work
 // on OakTend - speed, apply messages, and how the marketplace mechanics
-// (ghost protection, aging deals, the 3-spot cap) actually work.
+// (ghost protection, aging deals, standing out when several pros apply)
+// actually work.
 export default async function ProPlaybookPage() {
   const contractor = await getCurrentContractor();
   // No company yet: company setup is the only way in, whatever the account's

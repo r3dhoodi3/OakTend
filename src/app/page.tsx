@@ -244,7 +244,7 @@ export default async function Home(props: {
     },
     {
       q: "Will I get flooded with calls once I post a job?",
-      a: "No. Your contact info stays private until you pick a pro yourself, and at most three pros can apply to any job. Until you choose someone, the conversation happens inside OakTend, not on your phone.",
+      a: "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
     },
     {
       q: "Where is OakTend available?",
