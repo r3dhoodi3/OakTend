@@ -217,6 +217,9 @@ describe("unrouted paths fall through to the 404", () => {
       "/emergency-help",
       "/p/some-pro",
       "/guides/water-heater",
+      "/fountain-valley",
+      "/huntington-beach",
+      "/oc/irvine",
       "/api/stripe/webhook",
       // The Connect endpoint is a separate route with a separate signing
       // secret, and needs a separate middleware entry: the line above is a

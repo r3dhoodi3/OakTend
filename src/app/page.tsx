@@ -5,7 +5,7 @@ import { hasAuthCookie } from "@/lib/authCookie";
 import { getVerifiedUser } from "@/lib/auth";
 import { getSides } from "@/lib/contractor";
 import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
-import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
+import { LAUNCH_AREA_LABEL, LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import { previewAwareLanding } from "@/lib/previewModeServer";
@@ -329,6 +329,33 @@ export default async function Home(props: {
     { value: "handyman", label: "Handyman" },
     { value: "remodeling", label: "Remodeling" },
   ];
+
+  // City chips (founder rule, 2026-09-16): OakTend serves ALL of Orange
+  // County. Fountain Valley and Huntington Beach were the marketing launch
+  // order, never a product boundary, so every other launch city gets equal
+  // billing here - the two just keep their "Launch city" tag and their own
+  // hand-written pages (src/app/fountain-valley, src/app/huntington-beach).
+  // LAUNCH_CITY_NAMES (src/lib/serviceArea.ts) is the one city list, not
+  // hand-typed again here. Order: the two launch cities first, then every
+  // other city/community alphabetically (LAUNCH_CITY_NAMES itself lists
+  // incorporated cities then communities, so the rest still needs its own
+  // sort to read as one alphabetical list).
+  const LAUNCH_CITY_TAGS = new Set(["Fountain Valley", "Huntington Beach"]);
+  const OTHER_CITIES = LAUNCH_CITY_NAMES.filter(
+    (c) => !LAUNCH_CITY_TAGS.has(c)
+  )
+    .slice()
+    .sort((a, b) => a.localeCompare(b));
+  const CITY_CHIPS = ["Fountain Valley", "Huntington Beach", ...OTHER_CITIES];
+
+  // Fountain Valley and Huntington Beach keep their own hand-written pages
+  // (city-specific housing-stock paragraphs); every other city routes to the
+  // generic dynamic city page, src/app/oc/[city]/page.tsx.
+  function cityHref(city: string): string {
+    if (city === "Fountain Valley") return "/fountain-valley";
+    if (city === "Huntington Beach") return "/huntington-beach";
+    return `/oc/${city.toLowerCase().replace(/\s+/g, "-")}`;
+  }
 
   // Trust strip: three signals that are already true today, no invented
   // numbers. Reuses the same green "all clear" pill as the hero reassurance
@@ -773,8 +800,36 @@ export default async function Home(props: {
         </Link>
       </section>
 
+      {/* All Orange County cities (founder rule, 2026-09-16): replaces the
+          old two-link Fountain Valley/Huntington Beach footer column, which
+          read as "these are the only two cities OakTend serves". Same chip
+          visual language as the "Find a pro for" service chips above. Shown
+          on phone too, same as the five sections above it. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          OakTend serves homeowners across {LAUNCH_AREA_LABEL}
+        </h2>
+        <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
+          {CITY_CHIPS.map((city) => (
+            <li key={city}>
+              <Link
+                href={cityHref(city)}
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
+              >
+                {city}
+                {LAUNCH_CITY_TAGS.has(city) && (
+                  <span className="rounded-full bg-bark-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-bark-700 dark:bg-bark-700 dark:text-stone-100">
+                    Launch city
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">
-        <div className="grid gap-8 text-left sm:grid-cols-4">
+        <div className="grid gap-8 text-left sm:grid-cols-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
               Guides
@@ -807,29 +862,6 @@ export default async function Home(props: {
                   className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
                 >
                   SoCal maintenance calendar
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
-              Cities
-            </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
-              <li>
-                <Link
-                  href="/fountain-valley"
-                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
-                >
-                  Fountain Valley
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/huntington-beach"
-                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
-                >
-                  Huntington Beach
                 </Link>
               </li>
             </ul>
