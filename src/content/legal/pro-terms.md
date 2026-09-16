@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Summary (not a substitute for the terms below):** These are the extra rules for contractors ("pros") who use {{BRAND}} for Pros. You are an independent business, not our employee. You need a valid license (or you qualify for the small-job handyman exception) and your own insurance. You pay a flat fee to apply to a job, not a commission. If the homeowner picks someone else, or never responds, you get your fee back as wallet credit, not cash, every time. Credit expires in 60 days. Pro membership is $29.99 a month or $239.88 a year, with a 3-day free trial, and gives you a 10% discount on lead fees. You are responsible for your own taxes, permits, and the way you do your work. These terms work together with the general Terms of Service and Privacy Policy, which still cover things like arbitration, the liability cap, and governing law. We do not repeat those rules here.
+**Summary (not a substitute for the terms below):** These are the extra rules for contractors ("pros") who use {{BRAND}} for Pros. You are an independent business, not our employee. You need a valid license (or you qualify for the small-job handyman exception) and your own insurance. There is no fee to apply, quote, or message about a job. When a homeowner hires you for a job through the app, we charge a success fee of 5% of the agreed job value, with a $15 minimum and a $1,000 cap, charged once at the time of hire. The homeowner then pays your invoice through the app, using Stripe, after the work is done. Pro membership is $29.99 a month or $239.88 a year, with a three (3)-day free trial. The Pro side of {{BRAND}} is currently in a preview period: it is closed to new signups and no fees of any kind are charged until we announce general availability. You are responsible for your own taxes, permits, and the way you do your work. These terms work together with the general Terms of Service and Privacy Policy, which still cover things like arbitration, the liability cap, and governing law. We do not repeat those rules here.
 
 ---
 
@@ -42,20 +42,20 @@ California law provides a narrow exception for small jobs: under Business and Pr
 
 If you enter a license number in your {{BRAND}} profile, you confirm that the number is accurate and belongs to you or to the business entity performing the work. We periodically check the license number you provide against the CSLB's public license lookup. When we display a "License verified" badge on your profile, it means only this: the license number you gave us matched an active license in the CSLB's public database as of the date shown next to the badge. It is a point-in-time public-records check. It is not a guarantee that your license is still active today, not a guarantee that you personally are the license holder, and not a guarantee of the quality of your work. We tell homeowners to independently check cslb.ca.gov if they want current information, and you should expect homeowners to do that.
 
-You must tell us within 5 days if your license is suspended, revoked, expires without renewal, or otherwise stops being active. You can update your license information in your account, or contact us at {{SUPPORT_EMAIL}}. Continuing to accept jobs on {{BRAND}} that require a license you no longer hold is a serious violation of these terms and may result in suspension or termination under Section 15, in addition to whatever the law separately requires of you.
+You must tell us within five (5) days if your license is suspended, revoked, expires without renewal, or otherwise stops being active. You can update your license information in your account, or contact us at {{SUPPORT_EMAIL}}. Continuing to accept jobs on {{BRAND}} that require a license you no longer hold is a serious violation of these terms and may result in suspension or termination under Section 16, in addition to whatever the law separately requires of you.
 
 Beyond what {{BRAND}} requires, California law imposes its own rules on how you do business, and you remain responsible for all of them, including:
 
 - Displaying your CSLB license number on all advertisements, including your {{BRAND}} profile and any bid or proposal you send a homeowner, as required by Business and Professions Code sections 7030.5 and 7027.1.
 - Using a written home improvement contract that meets the requirements of Business and Professions Code section 7159 for any home improvement job over $500, including the required notice of the homeowner's right to cancel.
-- Honoring the homeowner's 3-day right to cancel a home improvement contract signed at their home, and any other consumer protections that apply to home improvement contracts under California law.
+- Honoring the homeowner's three (3)-day right to cancel a home improvement contract signed at their home, and any other consumer protections that apply to home improvement contracts under California law.
 - Not accepting a down payment or deposit larger than the legal limit, which is the lesser of 10% of the contract price or $1,000, under Business and Professions Code section 7159(d), unless a narrower exception in the statute applies to you.
 
 {{BRAND}} does not review your contracts, your bids, or your deposit practices before you send them to a homeowner. Compliance with these laws is entirely your responsibility. A violation of any of them is also a violation of these terms.
 
 **Where {{BRAND}} stands under contractor law.** {{BRAND}} is not a contractor and is not a home improvement salesperson for you or anyone else. We do not solicit, negotiate, sign, or perform home improvement contracts on behalf of any licensee. We publish job posts that homeowners write, and you decide whether to apply. Because we never act as your sales agent, {{BRAND}} does not register with the CSLB as a home improvement salesperson, and nothing in these terms makes us one. If you ever ask us to negotiate or close a contract for you, we will say no.
 
-**Homeowner Data Use Addendum.** By accepting these terms you also accept the Homeowner Data Use Addendum, which sets the rules for how you may use the homeowner information inside a lead. It is incorporated here by reference and controls over Section 9 if the two differ.
+**Homeowner Data Use Addendum.** By accepting these terms you also accept the Homeowner Data Use Addendum, which sets the rules for how you may use the homeowner information inside a lead. It is incorporated here by reference and controls over Section 10 if the two differ.
 
 ## 4. Insurance and bond
 
@@ -77,51 +77,47 @@ If you complete a check, and only if you consent to sharing the result, we may s
 
 Under the federal Fair Credit Reporting Act (FCRA), Checkr, not {{BRAND}}, is the consumer reporting agency that prepares any background check report. If you have questions or disputes about the accuracy of a report, you should direct them to Checkr using the process Checkr provides you, not to {{BRAND}}.
 
-## 6. Leads
+## 6. Jobs and the success fee
 
-A "lead" on {{BRAND}} is a job a homeowner has posted, including the details of the work and the homeowner's contact information. Contact information is released to you when you pay to apply to the job. Leads are non-exclusive unless we specifically say otherwise for a particular job: the same job may be shown to, and applied to by, more than one pro.
+A "lead" on {{BRAND}} is a job a homeowner has posted, including the details of the work and, once you are in contact about it, the homeowner's contact information. Leads are non-exclusive unless we specifically say otherwise for a particular job: the same job may be shown to, and applied to by, more than one pro.
 
-We do not guarantee the volume of leads you will receive, their quality, how responsive a homeowner will be, whether you will be hired, or how much income you will earn through {{BRAND}}. Nothing on the platform, in our marketing, or in a sales conversation should be read as a promise about your future business. Any number we show in marketing material, such as an example of what another pro has earned, is an illustration, not a projection of what you personally will earn, and past results shown by us or by any other pro are not a guarantee of your results.
+There is no fee to browse jobs, apply to a job, message a homeowner about it, or send a quote.
 
-**Lead fees.** Each job category is priced at one of three flat tiers, shown to you before you apply:
+We do not guarantee the volume of jobs you will see, their quality, how responsive a homeowner will be, whether you will be hired, or how much income you will earn through {{BRAND}}. Nothing on the platform, in our marketing, or in a sales conversation should be read as a promise about your future business. Any number we show in marketing material, such as an example of what another pro has earned, is an illustration, not a projection of what you personally will earn, and past results shown by us or by any other pro are not a guarantee of your results.
 
-- Light tier: $25 (cleaning, landscaping, painting, general handyman work)
-- Skilled tier: $50 (plumbing, electrical, HVAC, windows, garage door, pest and termite control)
-- Major tier: $99 (roofing, structural work, remodeling and general contracting), with an introductory price of $49.99 for your first major-tier lead
+**Success fee.** When a homeowner hires you for a job through {{BRAND}}, we charge you a success fee of 5% of the agreed job value, with a minimum of $15 and a cap of $1,000 per job. The fee is charged once, at the time the homeowner hires you, not when you apply, quote, or message.
 
-A job that has sat unclaimed for a while may carry an aging discount of 15% to 30% off its normal fee. If you are a Pro member, you also get a 10% discount on every lead's fee. These two discounts never stack: you get whichever single discount is bigger for that job, never both added together. The intro price for your first major-tier lead is a fixed price on its own and is not further discounted by either of the above.
+Prices may change. If we change the success fee, the new fee applies to a hire that happens after the change; it does not change what you already owe on a job you were hired for before the change. We will give reasonable notice of a fee change.
 
-Prices may change. If we change lead pricing, the new price applies to leads you purchase after the change; it does not change what you already paid for an earlier lead. We will give reasonable notice of a pricing change.
+## 7. In-app payments through Stripe Connect
 
-A posted job accepts a limited number of live applicants at a time (currently 3), so your fee is not spent competing against an unlimited field of other pros. Leads shown to you are for your own use: you may not resell, share, or otherwise pass along a lead's contact information to another business or another pro.
+Pros connect a Stripe Express account to {{BRAND}}. You need one connected before a homeowner can hire and pay you through the app.
 
-## 7. Credit back on leads
+Here is how a payment works today, in what we call Phase 1. After a homeowner hires you for a job and the work is complete, the homeowner pays your invoice for that job through {{BRAND}}. The payment goes from the homeowner to you through Stripe. {{BRAND}} does not hold the homeowner's payment at any point before it reaches you, and does not hold it in escrow.
 
-We want losing a pick to cost you nothing beyond the transaction itself. Here is exactly how that works:
+{{BRAND}} is not the merchant of record for the payment between you and a homeowner; that payment is between you and the homeowner, processed through Stripe.
 
-**If the homeowner picks someone else.** When a homeowner chooses a different pro for a job you applied to, you automatically get 100% of that job's application fee back, credited to your {{BRAND}} wallet. This happens every time, with no limit on how many times it can happen to you.
+The success fee described in Section 6 is charged to you through your connected Stripe Express account, under the Stripe agreement you accept when you connect it, including Stripe's Connected Account Agreement. That agreement, not these Pro Terms, governs your relationship with Stripe as a platform for receiving payments.
 
-**If the homeowner never responds (ghost protection).** If a homeowner does not respond to any applicant on a job within 7 days of the job sitting untouched, every pro who paid to apply gets their fee back the same way, as wallet credit. This is handled automatically by a daily process; you do not need to request it. If the homeowner later comes back and picks you anyway, we charge the fee again from your wallet balance if the balance covers it. If it does not, the fee is waived and the credit stays yours.
-
-**What the credit is, and isn't.** Both of the credits above are wallet credit, not cash. Credit cannot be withdrawn, cannot be transferred to another account, and cannot be exchanged for a cash refund. It can only be used to pay for future lead applications on {{BRAND}}. Credit issued under either rule above expires 60 days after it is issued; unused credit is forfeited when it expires. This is the same 60-day rule that governs other bonus credit we grant, such as wallet deposit bonuses.
-
-**Cash refunds.** We do not issue cash refunds for lead fees except where the law requires it, or at our discretion when the charge itself was our error, such as a duplicate charge or a technical failure on our end.
-
-**Disputes.** If you believe a credit was calculated incorrectly, or that you should have received one and didn't, email {{SUPPORT_EMAIL}} within 14 days of the job in question and include the job's ID. We will look into it and let you know what we find.
-
-**Abuse.** These credit rules exist to protect you from paying for a dead lead, not to be gamed. Coordinating with a homeowner, or with another pro, to trigger a ghost-protection credit or a not-chosen credit on a job that was never really dead, or never really lost, is a violation of these terms. So is any other scheme designed to generate credit without a genuine underlying job. We may terminate your account, and you forfeit your wallet balance, if we determine you have done this.
+We may add escrow, holds, or a different payment structure in a later phase. If we do, we will update these Pro Terms and tell you before the change takes effect.
 
 ## 8. Pro membership
 
-{{BRAND}} Pro membership is an optional paid subscription. It costs $29.99 per month or $239.88 per year, and every new member gets a 3-day free trial before the subscription starts billing. Your card is charged automatically once the free trial ends, unless you cancel first, and the subscription renews automatically on the cadence you chose until you cancel.
+{{BRAND}} Pro membership is an optional paid subscription. It costs $29.99 per month or $239.88 per year, and every new member gets a three (3)-day free trial before the subscription starts billing. Your card is charged automatically once the free trial ends, unless you cancel first, and the subscription renews automatically on the cadence you chose until you cancel.
 
-You can cancel anytime from Account in the app. Cancellation is one click and takes effect at the end of the period you have already paid for; there is no partial refund for the unused part of a billing period.
+You can cancel anytime from Account in the app. Cancellation is one (1) click and takes effect at the end of the period you have already paid for; there is no partial refund for the unused part of a billing period.
 
-Pro membership is not required to see or apply to jobs. Every pro, member or not, sees every open job on {{BRAND}} and pays the same tiered lead fee described in Section 6 to apply. What membership buys is extras on top of that: a 10% discount on every lead's fee (Section 6), and any other features we list on the membership page from time to time. Membership never gates access to a lead that a non-member cannot also see and apply to.
+Pro membership is not required to see or apply to jobs. Every pro, member or not, sees every open job on {{BRAND}} and pays the same success fee described in Section 6 if hired. Membership never gates access to a job that a non-member cannot also see and apply to. What membership includes beyond that is described on the membership page from time to time.
+
+Pro membership signup is currently part of the preview period described in Section 9; see that section for what is and is not being charged today.
 
 For the full disclosure of price, billing cycle, trial terms, and cancellation, along with the auto-renewal rules required by California law, see the Billing and Refund Policy. That document, not this one, is the authoritative source if the two ever appear to differ on a billing detail.
 
-## 9. Homeowner data
+## 9. Preview period
+
+The Pro side of {{BRAND}} is currently closed to new signups. It shows a coming-soon page with a waitlist instead of an open pro sign-up flow. During this preview period, no success fee, membership charge, or other fee under these Pro Terms is charged to any pro. We will announce general availability, and these fees will only begin to apply after that announcement and after our legal review is complete.
+
+## 10. Homeowner data
 
 A lead includes personal information about the homeowner: at minimum their contact details and the details of the job they posted, and depending on the job, potentially more. You may use this information only to respond to and perform that specific job. You may not add a homeowner's information to a marketing list, resell it, share it with anyone outside your own business, or use it to solicit the homeowner for something unrelated to the job you were introduced to them for, unless the homeowner separately and clearly agrees to that.
 
@@ -131,54 +127,54 @@ If a homeowner deletes their {{BRAND}} account or otherwise asks us to delete th
 
 You must keep any homeowner data you handle secure, using reasonable safeguards appropriate to the sensitivity of the information. You are an independent business, and you are responsible for your own compliance with any privacy law that applies to you directly, including the California Consumer Privacy Act if it applies to your business. {{BRAND}}'s Privacy Policy describes our own obligations as the platform; it does not describe or substitute for yours.
 
-## 10. Conduct
+## 11. Conduct
 
 You agree to communicate with homeowners professionally and to treat them with respect. The following are not allowed:
 
 - Harassment of any kind, toward a homeowner, another pro, or {{BRAND}} staff.
 - Discrimination in violation of California's Unruh Civil Rights Act or the federal Fair Housing Act, including refusing, limiting, or conditioning your services based on a protected characteristic.
-- Using {{BRAND}}'s introduction to a homeowner to sidestep paying for it. You are always free to contract directly with a homeowner for the actual work; you may not use the platform's messaging or profile tools to extract a homeowner's contact information without paying for the lead that would normally provide it, or otherwise circumvent the fee structure described in Section 6.
+- Using {{BRAND}}'s introduction to a homeowner to avoid paying the success fee described in Section 6. You are always free to discuss and perform the actual work; you may not conceal from {{BRAND}} that a homeowner hired you for a job you were introduced to through the platform, or otherwise circumvent the success fee structure described in Section 6.
 - Fake reviews, in either direction: writing or arranging for a fake positive review of your own work, or a fake negative review of a competitor.
 - Gating a homeowner's ability to leave a review on how positive it will be, or offering anything of value in exchange for a review or in exchange for a particular rating. You may respond publicly to any review left about you.
 - Soliciting reviews from anyone who was not actually a homeowner on a job you were assigned to through {{BRAND}}.
 - Misrepresenting your licensing status, your insurance coverage, or any badge or verification shown on your profile.
 - Impersonating another person or business, including another contractor.
 
-A violation of this section is grounds for account suspension or termination under Section 15.
+A violation of this section is grounds for account suspension or termination under Section 16.
 
-## 11. Profiles and content
+## 12. Profiles and content
 
 You are responsible for the accuracy of everything in your {{BRAND}} profile, including your business description, license number, and insurance information. By posting content to {{BRAND}}, including photos, descriptions, and messages, you grant us the license needed to display that content on the platform as part of operating {{BRAND}}, consistent with the general Terms of Service.
 
 Photos you post of completed work must be your own work, or work you have the rights to post. If a photo shows a homeowner's property, you must have that homeowner's permission to post it. Do not post photos of a job you did not perform, and do not post identifying photos of a property without the property owner's permission.
 
-## 12. Reviews about you
+## 13. Reviews about you
 
 Only a homeowner whose job you were assigned to through {{BRAND}} can leave a review about you. We do not remove a review because it is negative. We only remove a review for violating our content guidelines, such as containing profanity, someone's contact information, harassment, content unrelated to the job, or a review we determine is fake. You can publicly respond to any review on your profile. If you believe a review violates our guidelines, you can report it, and we will review it against those guidelines, not against whether you agree with the rating.
 
-## 13. Messaging
+## 14. Messaging
 
-In-app messages between you and homeowners are automatically screened for things like slurs, profanity, and attempts to share contact information outside the platform before a lead is paid for. We may also review message content for safety and fraud purposes, consistent with the general Privacy Policy. Keep your communications with homeowners professional, whatever the channel.
+In-app messages between you and homeowners are automatically screened for things like slurs, profanity, and attempts to share contact information outside the platform. We may also review message content for safety and fraud purposes, consistent with the general Privacy Policy. Keep your communications with homeowners professional, whatever the channel.
 
-## 14. Fees, taxes, and invoices
+## 15. Fees, taxes, and invoices
 
-Stripe processes payments for lead fees and Pro membership subscriptions. {{BRAND}} does not directly handle your card information.
+Stripe processes the success fee and Pro membership subscriptions. Stripe, through your connected Stripe Express account, also processes a homeowner's payment to you for a job, as described in Section 7. {{BRAND}} does not directly handle your card information.
 
-You are solely responsible for any taxes owed on the income you earn from work you perform for homeowners you meet through {{BRAND}}. Because pros pay {{BRAND}} for leads and membership, rather than {{BRAND}} paying pros, we generally do not have a legal obligation to issue you a tax form such as a 1099 for your {{BRAND}} activity. If that ever changes and the law requires us to issue you a tax form, we will comply with that requirement.
+You are solely responsible for any taxes owed on the income you earn from work you perform for homeowners you meet through {{BRAND}}. If the law requires {{BRAND}}, Stripe, or both to issue you a tax form for your {{BRAND}} activity, we, or Stripe on our behalf, will comply with that requirement.
 
-## 15. Suspension and termination
+## 16. Suspension and termination
 
-We may suspend or terminate your pro account for reasons including: your license lapsing, being suspended, or being revoked without you telling us as required by Section 3; credible complaints about your conduct or your work; fraud or abuse, including the credit-back abuse described in Section 7; failure to pay amounts you owe us; or any other violation of these terms or the general Terms of Service.
+We may suspend or terminate your pro account for reasons including: your license lapsing, being suspended, or being revoked without you telling us as required by Section 3; credible complaints about your conduct or your work; fraud or abuse, including circumventing the success fee described in Section 6; failure to pay amounts you owe us; or any other violation of these terms or the general Terms of Service.
 
-If your account is suspended or terminated for a violation, any wallet credit you were holding is forfeited, and any active Pro membership is cancelled; you will not be charged again after cancellation, but we do not refund the unused portion of a period you already paid for except as Section 8 or the Billing and Refund Policy otherwise requires.
+If your account is suspended or terminated for a violation, any account credit you were holding is forfeited, and any active Pro membership is cancelled; you will not be charged again after cancellation, but we do not refund the unused portion of a period you already paid for except as Section 8 or the Billing and Refund Policy otherwise requires.
 
 If you believe a suspension or termination was made in error, you can appeal by emailing {{SUPPORT_EMAIL}} and explaining why. We will review the appeal, though we cannot guarantee a particular outcome.
 
-## 16. Indemnity
+## 17. Indemnity
 
-You agree to defend, indemnify, and hold harmless {{LLC_NAME}} from any claim, loss, or expense, including reasonable attorneys' fees, arising out of: the work you perform for a homeowner; a violation of a license, insurance, or other legal requirement described in Sections 3 and 4; a claim brought by a homeowner arising from your work or your dealings with them; or your misuse of homeowner data in violation of Section 9. This indemnity covers your own conduct; it does not require you to cover a claim caused by {{BRAND}}'s own conduct.
+You agree to defend, indemnify, and hold harmless {{LLC_NAME}} from any claim, loss, or expense, including reasonable attorneys' fees, arising out of: the work you perform for a homeowner; a violation of a license, insurance, or other legal requirement described in Sections 3 and 4; a claim brought by a homeowner arising from your work or your dealings with them; or your misuse of homeowner data in violation of Section 10. This indemnity covers your own conduct; it does not require you to cover a claim caused by {{BRAND}}'s own conduct.
 
-## 17. Disclaimers specific to pros
+## 18. Disclaimers specific to pros
 
 {{BRAND}} does not guarantee that the platform will be available at all times, free of interruptions, or error-free, consistent with the general Terms of Service.
 
@@ -186,7 +182,7 @@ The accuracy of a lead depends on what the homeowner told us: the job details, t
 
 We use a fuzzy match against county assessor records to give homeowners an "ownership verified" indicator on their account, but this is a soft trust signal, not a legal determination of property ownership, and some homeowners, such as those in a condo association, will show as unverified even when they do legitimately own their home. Do not treat either the presence or the absence of this indicator as a guarantee of who owns a property.
 
-## 18. Changes and contact
+## 19. Changes and contact
 
 We may update these Pro Terms as {{BRAND}} changes, following the same notice process described in the general Terms of Service for material changes: we will give you actual notice, such as an email or an in-app notice, before a material change takes effect, and update the "Last updated" date above. Continuing to use {{BRAND}} for Pros after a material change takes effect means you accept it.
 
@@ -204,8 +200,9 @@ Shown as a required checkbox during pro account onboarding, before the account c
 
 - I am operating as an independent business, not as an employee of {{BRAND}}.
 - Any license I list is active and belongs to me or to the business I am registering, or my work qualifies for the small-job exception under Business and Professions Code section 7048.
-- I will tell {{BRAND}} within 5 days if my license lapses, is suspended, or is revoked.
+- I will tell {{BRAND}} within five (5) days if my license lapses, is suspended, or is revoked.
 - I carry the insurance my work requires, and any insurance information I provide is accurate to the best of my knowledge.
-- I understand lead fees are non-refundable except through the credit-back and ghost-protection rules in the Pro Terms, and that any credit issued is wallet credit, not cash, and expires in 60 days.
+- I understand {{BRAND}} charges a success fee of 5% of the agreed job value, with a $15 minimum and $1,000 cap, when I am hired for a job through the app, and that there is no fee to apply, quote, or message about a job.
+- I will connect a Stripe Express account before I can be hired for a job through {{BRAND}}, and I understand homeowners pay me through that account after the work is done.
 - I will use homeowner information I receive through {{BRAND}} only to respond to and perform the job it was given to me for.
-- I am at least 18 years old.
+- I am at least eighteen (18) years old.

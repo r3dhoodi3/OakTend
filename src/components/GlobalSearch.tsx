@@ -42,7 +42,7 @@ const EXAMPLES: Record<SearchSide, string[]> = {
   ],
   pro: [
     "Browse leads",
-    "Lead pricing",
+    "Success fee",
     "Deposits",
     "Your public page",
     "Membership",

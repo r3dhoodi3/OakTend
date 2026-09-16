@@ -14,7 +14,7 @@ const SITE_URL =
 export const metadata: Metadata = {
   title: "Billing & Refund Policy",
   description:
-    "Prices, free trials, auto-renewal, one-click cancellation, and how pro lead credit-back and ghost protection work.",
+    "How OakTend billing works: homeowner and pro memberships, the 3-day trial and auto-renewal, the 5% success fee for pros, and our credits-only refund policy.",
   alternates: {
     canonical: `${SITE_URL}/billing`,
   },

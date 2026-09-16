@@ -26,7 +26,7 @@ Send legal process by email to {{LEGAL_EMAIL}} or by mail to {{LLC_NAME}}, {{ADD
 
 ## 4. Preservation Requests
 
-On a written preservation request from a law enforcement agency, we preserve an identified account's existing records for 90 days, renewable once for another 90 days on a further written request before the first period expires. Preservation only holds records in place; it does not authorize disclosure, which still requires the process in Section 2.
+On a written preservation request from a law enforcement agency, we preserve an identified account's existing records for ninety (90) days, renewable once for another ninety (90) days on a further written request before the first period expires. Preservation only holds records in place; it does not authorize disclosure, which still requires the process in Section 2.
 
 ## 5. Emergency Disclosure
 
@@ -38,7 +38,7 @@ We notify the affected user before disclosing in response to legal process, so t
 
 ## 7. Civil Requests from Private Parties
 
-A private party, such as a litigant, must serve a valid civil subpoena; we do not act on an informal request or demand letter. On a valid subpoena, we notify the user and give 10 days to object in court before complying, unless the subpoena's own deadline is shorter, in which case we notify immediately so the user has whatever time remains. We do not comply with a subpoena that is procedurally deficient, regardless of its stated deadline.
+A private party, such as a litigant, must serve a valid civil subpoena; we do not act on an informal request or demand letter. On a valid subpoena, we notify the user and give ten (10) days to object in court before complying, unless the subpoena's own deadline is shorter, in which case we notify immediately so the user has whatever time remains. We do not comply with a subpoena that is procedurally deficient, regardless of its stated deadline.
 
 ## 8. International Requests
 

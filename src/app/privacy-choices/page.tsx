@@ -37,6 +37,9 @@ export default function PrivacyChoicesPage() {
         Your Privacy Choices
       </h1>
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+        Last updated 2026-09-15.
+      </p>
+      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         The short answer. See the{" "}
         <Link href="/privacy" className="text-bark-700 hover:underline dark:text-stone-300">
           full Privacy Policy
@@ -102,6 +105,17 @@ export default function PrivacyChoicesPage() {
               Privacy Policy
             </Link>{" "}
             for response times, verification, and everything else we collect and why.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Phone:{" "}
+            <a
+              href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              {LEGAL.businessPhone}
+            </a>
+            <br />
+            Mail: {LEGAL.address}
           </p>
         </section>
       </div>

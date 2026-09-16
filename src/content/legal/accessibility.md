@@ -45,7 +45,7 @@ We have not tested against every screen reader and browser combination, particul
 
 ## 6. Feedback and contact
 
-If you have trouble using any part of {{BRAND}}, or want to report an accessibility barrier, contact us at {{SUPPORT_EMAIL}}. We aim to respond within 5 business days.
+If you have trouble using any part of {{BRAND}}, or want to report an accessibility barrier, contact us at {{SUPPORT_EMAIL}}. We aim to respond within five (5) business days.
 
 ## 7. Alternative access
 

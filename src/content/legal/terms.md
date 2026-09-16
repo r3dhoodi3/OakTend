@@ -6,12 +6,12 @@ Last updated: {{EFFECTIVE_DATE}}
 
 This is a plain-language summary. The numbered sections below are what actually governs.
 
-- {{BRAND}} is run by {{LLC_NAME}}, based at {{ADDRESS}}. You must be 18 or older and use {{BRAND}} for a property in Orange County, California.
+- {{BRAND}} is run by {{LLC_NAME}}, based at {{ADDRESS}}. You must be eighteen (18) or older and use {{BRAND}} for a property in Orange County, California.
 - {{BRAND}} is a platform, not a contractor. We connect homeowners and independent pros. We are not a party to any job, we do not employ pros, and homeowners pay pros directly, off-platform.
 - "License verified," "insurance," and "background check" are trust signals with specific, limited meanings. Read section 5 before you rely on any of them.
 - Ask {{BRAND}} is an AI assistant, not a person and not a licensed professional. Its answers, including cost estimates, are not professional advice.
-- Paid plans auto-renew until you cancel. Cancellation is one click in the app. There are no partial refunds on subscriptions. Pro lead credit-backs are wallet credit, not cash.
-- Most disputes go to individual arbitration, not court, and you waive the right to bring or join a class action. You can opt out within 30 days of first accepting these terms. Read section 18 carefully.
+- Paid plans auto-renew until you cancel. Cancellation is one (1) click in the app. There are no partial refunds on subscriptions. Contractors pay a 5% success fee (minimum $15, capped at $1,000) only when a homeowner hires them through the app; there are no upfront lead fees.
+- Most disputes go to individual arbitration, not court, and you waive the right to bring or join a class action. You can opt out within thirty (30) days of first accepting these terms. Read section 18 carefully.
 - Our liability to you is capped at {{LIABILITY_CAP}}, except where California law does not allow that.
 - Pros also agree to a separate Pro Terms of Service covering leads, billing, and CRM use. If you are a pro, both documents apply to you.
 
@@ -21,9 +21,9 @@ These Terms of Service (these "Terms") are a contract between you and {{LLC_NAME
 
 To use {{BRAND}}, you must:
 
-- Be at least 18 years old. We ask you to confirm this with a checkbox at signup. We do not collect a birthdate, so we rely on your word. If you are under 18, do not use {{BRAND}}.
+- Be at least eighteen (18) years old. We ask you to confirm this with a checkbox at signup. We do not collect a birthdate, so we rely on your word. If you are under eighteen (18), do not use {{BRAND}}.
 - Be using {{BRAND}} for a property in Orange County, California, or be a pro who serves Orange County. {{BRAND}} serves all of Orange County; there is no smaller service-area restriction inside the county.
-- Keep one account per person, per role. You may hold both a homeowner account and a pro account (a "dual-side account") if you genuinely use both, but you may not create multiple accounts of the same kind to evade a suspension, a limit, or a fee.
+- Keep one (1) account per person, per role. You may hold both a homeowner account and a pro account (a "dual-side account") if you genuinely use both, but you may not create multiple accounts of the same kind to evade a suspension, a limit, or a fee.
 
 If you are a pro, you also agree to the separate Pro Terms of Service, which governs lead purchases, subscription billing for pro plans, and your use of the client management tools. Where the Pro Terms of Service address a topic specifically for pros, that document controls for pros on that topic. These Terms still apply to pros on everything else, including account rules, content rules, AI features, and dispute resolution.
 
@@ -75,7 +75,7 @@ Read this carefully:
 - Ask {{BRAND}} is an AI, not a human. It is not a licensed contractor, inspector, engineer, or attorney, and its answers are not professional, legal, or engineering advice.
 - For anything safety-critical, including gas, electrical, structural, or water intrusion issues, consult a licensed professional before you act. In an emergency, call 911 or your utility company, not Ask {{BRAND}}.
 - Cost figures from Ask {{BRAND}} are ballpark estimates. Confirm any real number with a local pro before you commit to spending money.
-- To answer your question, we send relevant home data to Anthropic: your first name, your property's address, city, and state, your home systems, up to 30 of your open maintenance tasks, up to 6 of your recent issues, and the question you asked. This happens under Anthropic's commercial API terms, which state that inputs sent through the API are not used to train their models.
+- To answer your question, we send relevant home data to Anthropic: your first name, your property's address, city, and state, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, and the question you asked. This happens under Anthropic's commercial API terms, which state that inputs sent through the API are not used to train their models.
 - Your Ask {{BRAND}} conversation history is not stored on our servers. It stays in your browser's local storage. We keep only usage counters (how many questions you have asked) so we can apply rate limits.
 - Ask {{BRAND}} has daily and per-session usage limits. Homeowner Plus subscribers get higher limits than free accounts.
 - Other automated features on {{BRAND}} include rules-based fraud scoring (built from salted, one-way hashes of signals like device, IP, phone, and parcel data, not raw personal information, and not a machine-learning model), automated lead tiering for pros, and automated extraction of fields from uploaded documents. None of these make an adverse decision about your access to {{BRAND}} without the ability for you to contact us and have a person review it.
@@ -92,7 +92,7 @@ Any home value estimate, cost estimate, or "what this might run" figure you see 
 
 You are telling us you have the right to post what you post. Do not upload someone else's copyrighted work, trademarks, or private information without permission, and do not upload anything illegal or deceptive.
 
-**Reviews.** Only a homeowner who chose a pro for a job may review that pro for that job, and only one review per job. We never pay for reviews, never write them for anyone, and never remove a review because it is negative. We only remove a review for a genuine guideline violation, such as profanity, off-platform contact information, harassment, content unrelated to the job, or evidence that it is fake. Pros may post a public response to a review. This approach is consistent with the FTC's Consumer Reviews and Testimonials Rule (16 CFR Part 465): we do not suppress honest reviews and we do not condition anything on a review's sentiment. See our Community Guidelines and Reviews Policy for the full rules.
+**Reviews.** Only a homeowner who chose a pro for a job may review that pro for that job, and only one (1) review per job. We never pay for reviews, never write them for anyone, and never remove a review because it is negative. We only remove a review for a genuine guideline violation, such as profanity, off-platform contact information, harassment, content unrelated to the job, or evidence that it is fake. Pros may post a public response to a review. This approach is consistent with the FTC's Consumer Reviews and Testimonials Rule (16 CFR Part 465): we do not suppress honest reviews and we do not condition anything on a review's sentiment. See our Community Guidelines and Reviews Policy for the full rules.
 
 **Moderation.** We may remove or restrict content at any time if we believe it violates these Terms, our Community Guidelines, or the law. We are not obligated to monitor content before it is posted, and we are not responsible for content other users post. Content posted by another user belongs to them, not to us, and we do not endorse it. This section reflects our reliance on the legal protections available to platforms that host user content, including 47 U.S.C. Section 230.
 
@@ -100,13 +100,13 @@ You are telling us you have the right to post what you post. Do not upload someo
 
 ## 9. Paid features
 
-Homeowner Plus is a paid subscription available at $1.99 per week, $4.99 per month, or $39.99 per year, with a 3-day free trial. Your payment method is charged automatically when the trial ends, unless you cancel first, and the subscription then renews automatically at the price shown for the plan and interval you chose.
+Homeowner Plus is a paid subscription available at $1.99 per week, $4.99 per month, or $39.99 per year, with a three (3)-day free trial. Your payment method is charged automatically when the trial ends, unless you cancel first, and the subscription then renews automatically at the price shown for the plan and interval you chose.
 
-You can cancel at any time from Account > Membership in the app, in one step, or through the Stripe billing portal. Canceling stops future renewals; you keep access through the end of the period you already paid for. We do not give partial refunds for the unused part of a billing period.
+You can cancel at any time from Account > Membership in the app, in one (1) step, or through the Stripe billing portal. Canceling stops future renewals; you keep access through the end of the period you already paid for. We do not give partial refunds for the unused part of a billing period.
 
-If we ever raise the price of an active subscription, we will give you at least 30 days' notice by email before the change takes effect, and it will apply starting at your next renewal after that notice.
+If we ever raise the price of an active subscription, we will give you at least thirty (30) days' notice by email before the change takes effect, and it will apply starting at your next renewal after that notice.
 
-Our full Billing & Refund Policy, published separately, is the controlling document for billing mechanics, the pro lead credit-back and ghost-protection rules, wallet credit, and chargebacks. Where anything in these Terms and the Billing & Refund Policy appear to conflict on a billing detail, the Billing & Refund Policy controls.
+Our full Billing & Refund Policy, published separately, is the controlling document for billing mechanics, the pro success fee, account credit, and chargebacks. Where anything in these Terms and the Billing & Refund Policy appear to conflict on a billing detail, the Billing & Refund Policy controls.
 
 As required by California Business and Professions Code section 17538, before you complete a purchase we display {{LLC_NAME}}'s legal name and address, {{ADDRESS}}, along with a link to the Billing & Refund Policy.
 
@@ -156,7 +156,7 @@ If you send us feedback, suggestions, or ideas about {{BRAND}}, you give us a pe
 
 **By us.** We may suspend or terminate your account if you violate these Terms, our Community Guidelines, or the law, or if we reasonably believe your account poses a risk to {{BRAND}} or other users. Where practical, we will tell you why.
 
-**Effect of termination.** If we terminate your account for a violation, any wallet credit, promotional credit, or lead credit-back in your account is forfeited; it was never cash and is not refundable or transferable. Data handling after termination, including what we keep and for how long, is governed by our Privacy Policy.
+**Effect of termination.** If we terminate your account for a violation, any account credit or promotional credit in your account is forfeited; it was never cash and is not refundable or transferable. Data handling after termination, including what we keep and for how long, is governed by our Privacy Policy.
 
 ## 15. Disclaimers
 
@@ -182,7 +182,7 @@ You agree to defend, indemnify, and hold {{BRAND}} harmless from any claim, loss
 
 Please read this section carefully. It affects your legal rights.
 
-**Step one: tell us first.** Before either of us starts an arbitration, the side with the complaint sends the other a written notice describing the problem and what would resolve it. Send yours to {{LEGAL_EMAIL}}. We will do the same for you, at the email on your account. Both sides then have 30 days to try to resolve it in good faith. Neither side may file an arbitration or a lawsuit until those 30 days have passed. This requirement applies to us too, not just to you.
+**Step one: tell us first.** Before either of us starts an arbitration, the side with the complaint sends the other a written notice describing the problem and what would resolve it. Send yours to {{LEGAL_EMAIL}}. We will do the same for you, at the email on your account. Both sides then have thirty (30) days to try to resolve it in good faith. Neither side may file an arbitration or a lawsuit until those thirty (30) days have passed. This requirement applies to us too, not just to you.
 
 **Binding individual arbitration.** If we cannot resolve a dispute informally, you and {{BRAND}} agree that it will be resolved by binding, individual arbitration, not in court and not in front of a jury. This covers disputes about these Terms, your account, fees and wallet balances, Ask {{BRAND}}, content, and your use of {{BRAND}} generally, under any legal theory. Arbitration will be administered by JAMS under its Streamlined Arbitration Rules, or by the American Arbitration Association under its Consumer Arbitration Rules, at your election, in effect when the claim is filed. The Federal Arbitration Act governs whether this section is enforceable. Arbitration will take place in Orange County, California, or, at your option, by video or telephone. We will pay any arbitration fees that the applicable consumer arbitration rules require us to pay.
 
@@ -190,7 +190,7 @@ Please read this section carefully. It affects your legal rights.
 
 **Mass filings.** If many similar demands are filed at once, the arbitration provider's own mass arbitration rules apply as written. We do not impose any extra batching, bellwether, or fee procedure of our own.
 
-**How to opt out.** You may opt out of this entire arbitration section by emailing {{LEGAL_EMAIL}} within 30 days of the date you first agree to these Terms, stating clearly that you want to opt out of arbitration and including your name and the email address on your {{BRAND}} account. Opting out does not affect any other part of these Terms and does not affect your access to {{BRAND}}.
+**How to opt out.** You may opt out of this entire arbitration section by emailing {{LEGAL_EMAIL}} within thirty (30) days of the date you first agree to these Terms, stating clearly that you want to opt out of arbitration and including your name and the email address on your {{BRAND}} account. Opting out does not affect any other part of these Terms and does not affect your access to {{BRAND}}.
 
 **What is not covered.** Either of us may bring a qualifying claim in small claims court instead of arbitration, as long as it stays there and stays individual. A claim for public injunctive relief, meaning relief whose primary purpose is stopping unlawful conduct that threatens the general public rather than obtaining relief for you individually, is not subject to this arbitration agreement and may proceed in the court named in section 19, consistent with McGill v. Citibank, N.A.
 
@@ -212,9 +212,9 @@ You agree to comply with all applicable third-party terms when using the app, in
 
 ## 21. Changes to these terms
 
-We may update these Terms as {{BRAND}} changes. For a material change, we will give you notice by email to the address on your account or a notice inside the app, at least 30 days before the change takes effect, and we will update the "Last updated" date at the top of this page. Continuing to use {{BRAND}} after a material change takes effect means you accept it. We may make non-material changes, such as clarifications or fixing a typo, without separate notice.
+We may update these Terms as {{BRAND}} changes. For a material change, we will give you notice by email to the address on your account or a notice inside the app, at least thirty (30) days before the change takes effect, and we will update the "Last updated" date at the top of this page. Continuing to use {{BRAND}} after a material change takes effect means you accept it. We may make non-material changes, such as clarifications or fixing a typo, without separate notice.
 
-If a change affects section 18, you get a fresh 30-day window to opt out of arbitration on the terms described there, measured from when we give you notice of that specific change. A change to these Terms never applies retroactively to a dispute or claim that either of us has already filed.
+If a change affects section 18, you get a fresh thirty (30)-day window to opt out of arbitration on the terms described there, measured from when we give you notice of that specific change. A change to these Terms never applies retroactively to a dispute or claim that either of us has already filed.
 
 ## 22. Miscellaneous
 
@@ -237,4 +237,5 @@ If a change affects section 18, you get a fresh 30-day window to opt out of arbi
 Questions about these Terms: {{LEGAL_EMAIL}}
 General support: {{SUPPORT_EMAIL}}
 Security issues: {{SECURITY_EMAIL}}
+Phone: {{BUSINESS_PHONE}}
 Mail: {{LLC_NAME}}, {{ADDRESS}}

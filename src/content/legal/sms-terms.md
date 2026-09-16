@@ -29,7 +29,7 @@ The checkbox is unchecked until you check it. Agreeing to receive texts is never
 
 ## 3. Message frequency
 
-Message frequency varies based on your account activity. Most weeks you should expect to receive a small number of messages, generally up to a few per week. Non-transactional messages (reminders and similar nudges, as opposed to a reply someone sent you or a job update) are capped at 2 per rolling 7-day period. Transactional messages tied to something happening on your own account, such as a new message or a job status change, are not capped by that limit and may arrive more often if your account is active.
+Message frequency varies based on your account activity. Most weeks you should expect to receive a small number of messages, generally up to a few per week. Non-transactional messages (reminders and similar nudges, as opposed to a reply someone sent you or a job update) are capped at two (2) per rolling seven (7)-day period. Transactional messages tied to something happening on your own account, such as a new message or a job status change, are not capped by that limit and may arrive more often if your account is active.
 
 ## 4. Cost
 
@@ -37,7 +37,7 @@ Message and data rates may apply. Check with your mobile carrier for your plan's
 
 ## 5. How to opt out
 
-Reply **STOP**, **STOPALL**, **UNSUBSCRIBE**, **CANCEL**, **END**, **QUIT**, **REVOKE**, or **OPT OUT** to any {{BRAND}} text message at any time to stop all texts from us. You will receive one confirmation message:
+Reply **STOP**, **STOPALL**, **UNSUBSCRIBE**, **CANCEL**, **END**, **QUIT**, **REVOKE**, or **OPT OUT** to any {{BRAND}} text message at any time to stop all texts from us. You will receive one (1) confirmation message:
 
 > "You have opted out of {{BRAND}} text messages. No further messages will be sent. Reply START to opt back in. For help, reply HELP."
 

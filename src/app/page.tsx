@@ -6,7 +6,7 @@ import { getVerifiedUser } from "@/lib/auth";
 import { getSides } from "@/lib/contractor";
 import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
 import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
-import { LEGAL_LINKS } from "@/lib/legal";
+import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import { previewAwareLanding } from "@/lib/previewModeServer";
 import Link from "next/link";
@@ -214,7 +214,7 @@ export default async function Home(props: {
       q: "Is it really free?",
       a: isHomeownerPreview()
         ? "Yes. Home maintenance, free during our preview. Nothing in the app can be paid for right now, and no card is needed. We'll publish pricing before anything is ever charged."
-        : "Yes. Your first home is free, no card needed. OakTend makes money two ways: an optional Plus plan, and a fee pros pay when they apply to a job.",
+        : "Yes. Your first home is free, no card needed. OakTend makes money two ways: an optional Plus plan, and a 5% success fee pros pay only when a homeowner hires them through OakTend.",
     },
     {
       q: "What do you do with my data?",
@@ -731,15 +731,13 @@ export default async function Home(props: {
         <h3 className="mt-2 text-xl font-semibold text-white">
           Fix homes for a living? Real local leads, honest pricing.
         </h3>
-        {/* PREVIEW MODE (Landen 2026-09-10 requests, landing page). Today's
-            paragraph describes the pay-per-apply lead fee and its credit
-            refund, which is still the live behaviour whenever preview mode is
-            OFF - so outside preview it stays verbatim, and /pros keeps
-            advertising the same thing. In preview the model is the 5% cut of
-            paid invoices, where a pro genuinely owes nothing until the job is
-            theirs, so the band leads with that. The h3 and the button make no
-            pricing claim and are shared by both branches.
-            WHEN THE CREDIT SYSTEM IS TORN DOWN this stops being a branch: the
+        {/* PREVIEW MODE (Landen 2026-09-10 requests, landing page). Outside
+            preview the paragraph describes the live 5% success fee, which
+            /pros also advertises. In preview the same success-fee model
+            applies, so the band leads with the "you don't pay until you get
+            hired" framing. The h3 and the button make no pricing claim and
+            are shared by both branches.
+            WHEN PREVIEW MODE IS RETIRED this stops being a branch: the
             "you don't pay until you get hired" line becomes the only
             paragraph and this conditional is deleted. */}
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
@@ -750,9 +748,9 @@ export default async function Home(props: {
             </>
           ) : (
             <>
-              The fee is on every job before you pay, and if the homeowner never
-              responds, it comes back automatically as wallet credit. No
-              subscription. You pay only when you apply.
+              Apply and quote for free, no subscription. You pay a 5% success
+              fee, capped at $1,000, only when a homeowner hires you through
+              OakTend.
             </>
           )}
         </p>
@@ -883,6 +881,17 @@ export default async function Home(props: {
                 >
                   Contact us
                 </Link>
+              </li>
+              {/* The business line (LEGAL.businessPhone, src/lib/legal.ts) is
+                  meant to be public, unlike an owner's personal inbox, so it
+                  is safe in the site-wide footer alongside the contact form. */}
+              <li>
+                <a
+                  href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
+                  className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
+                >
+                  Phone: {LEGAL.businessPhone}
+                </a>
               </li>
             </ul>
           </div>
