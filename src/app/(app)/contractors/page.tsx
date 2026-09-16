@@ -1292,15 +1292,19 @@ export default async function ContractorsPage(
           anything the homeowner did, and the one thing they must not be told
           is nothing: the banner has just sent them here by name. Say what is
           true - the job is saved, this list could not be loaded - and give
-          them the one action that fixes it. */}
+          them the one action that fixes it. Same isPreview gate as the two
+          posted-job banners above: pros are closed in preview, so "pros can
+          see it" is not true yet. */}
       {jobLeads.length === 0 && searchParams.posted && (
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Your jobs
           </h2>
           <p className="text-sm text-stone-500 dark:text-stone-400">
-            Your job is saved and pros can see it. We couldn&apos;t load your
-            job list just now.{" "}
+            {isPreview
+              ? PREVIEW_JOB_POSTED_COPY
+              : "Your job is saved and pros can see it."}{" "}
+            We couldn&apos;t load your job list just now.{" "}
             <Link
               href="/contractors"
               className="focus-ring font-medium underline underline-offset-2"

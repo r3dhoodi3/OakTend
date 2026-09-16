@@ -41,7 +41,6 @@ import { isProSideOpenForViewer } from "@/lib/previewModeServer";
 import { PREVIEW_PROS_COPY } from "@/lib/previewMode";
 import {
   PRO_PLAN,
-  PRO_DEPOSIT_BOOST_PTS,
   leadFeeFor,
   labelFor,
   SERVICE_CATEGORIES,
@@ -53,7 +52,7 @@ import {
 export const runtime = "nodejs";
 
 // "Ask OakTend for Pros": a business copilot for a contractor, grounded in their
-// own company (trades, service area, license status, wallet, open leads). It
+// own company (trades, service area, license status, open leads). It
 // mirrors the homeowner /api/ask route's structure and robustness, but talks
 // from the pro's side of the marketplace and stays strictly in the pro lane.
 // Calls Claude through the shared helper in src/lib/claude.ts.
@@ -430,24 +429,6 @@ export async function POST(req: NextRequest) {
         !(await getProSubscription()) &&
         variantForUser(authUser.id) === "soft";
 
-      // Wallet balance, cash + bonus, if easily available. Never fatal.
-      let walletLine = "";
-      try {
-        const supabase = await createClient();
-        const { data: wallet } = await (supabase as any)
-          .from("wallets")
-          .select("cash_balance_cents, bonus_balance_cents")
-          .eq("contractor_id", contractor.id)
-          .maybeSingle();
-        if (wallet) {
-          const cash = Number(wallet.cash_balance_cents ?? 0) / 100;
-          const bonus = Number(wallet.bonus_balance_cents ?? 0) / 100;
-          walletLine = `Wallet balance: $${(cash + bonus).toFixed(2)} (cash $${cash.toFixed(2)}, bonus $${bonus.toFixed(2)}).`;
-        }
-      } catch {
-        /* wallet is optional context */
-      }
-
       // Open leads matching their trades, and pending applications still waiting
       // on a homeowner. Each guarded so a missing RPC never 500s. open_jobs_for_me
       // is already filtered server-side to THIS pro's own categories, so a
@@ -506,7 +487,6 @@ export async function POST(req: NextRequest) {
         `${bgLine}\n` +
         `Pro membership: ${isProMember ? (isProTrialing ? `OakTend Pro member on their ${PRO_PLAN.trialDays}-day free trial, not yet charged` : "active OakTend Pro member") : "not a Pro member (on the free tier)"}.\n` +
         `Free trial eligibility: ${isProTrialEligible ? "eligible for the one-time free trial (no prior OakTend Pro subscription)" : "NOT eligible for a free trial. Never mention or offer a free trial to this pro; if they ask, say membership starts as a paid plan for their account"}.\n` +
-        (walletLine ? `${walletLine}\n` : "") +
         (openLeadsLine ? `${openLeadsLine}\n` : "") +
         (openJobsDetail ? `${openJobsDetail}\n` : "") +
         (pendingAppsLine ? `${pendingAppsLine}\n` : "");
@@ -538,13 +518,13 @@ export async function POST(req: NextRequest) {
     "Write in plain, complete sentences. Do NOT use dashes as connectors: no em dashes, and never a hyphen used as a dash. Use a comma, a colon, or a new sentence instead. " +
     "Always capitalize the first letter of every sentence, bullet point, and button label. " +
     "ALWAYS reply in the language the pro writes in. If they write in Spanish, answer entirely in Spanish; same for any other language. Match their language even if the company details below are in English. " +
-    "Ground your answer in their specific company details below: their trades, service area, license and background status, membership, wallet, and open leads, rather than generic advice. " +
+    "Ground your answer in their specific company details below: their trades, service area, license and background status, membership, and open leads, rather than generic advice. " +
     "STAY IN THEIR TRADES: only ever talk about the trades listed under 'Trades they work in' below. Never bring up or give an example in a trade they do not work in (for instance, never mention roofing to a plumber). When they ask what jobs are available or what they can apply to, use ONLY the specific open leads listed in their company details below (those are already matched to their trades); never invent a job or name one in another trade. " +
     "Talk like a real person having a genuine back-and-forth: warm, direct, never stiff or corporate. Be proactively useful, do not just state a fact and stop. Always move things forward with a concrete next step. " +
     "You help this contractor grow their business, and ONLY with pro topics. Those are:\n" +
     "Winning work: read a posted lead and draft a persuasive, specific apply message; draft or sharpen a quote or estimate with sensible line items priced to compete locally across Orange County, California, where OakTend operates; and give speed-to-lead and follow-up advice, since replying fast wins jobs.\n" +
     `The marketplace money model: applying to a job, quoting it, and messaging the homeowner are always free, there is no per-lead fee to apply. The only charge is a 5% success fee (minimum $15, capped at $1,000) on the job's price, and it is only charged if a homeowner hires this pro through OakTend, never for a lead they did not win. The 'Pro membership' line below is separate and optional; it never changes whether they can apply to a job or what the success fee costs. There is no cap on how many pros can apply to a job: every application reaches the homeowner, who compares everyone inside OakTend and picks, so applying early and standing out still matters. Do the simple ROI math when it helps, framed around THEIR own trade and a realistic job value for it: the 5% success fee is usually a small fraction of the job it wins. Never illustrate with a trade that is not one of theirs. Never mention a per-lead fee, a wallet, ghost protection, or lead credit: those are retired, and nothing is charged until a homeowner actually hires this pro.\n` +
-    `Pro membership: OakTend Pro is $${PRO_PLAN.monthly} per month or $${PRO_PLAN.yearly} per year, and its main perk is an extra ${PRO_DEPOSIT_BOOST_PTS} percentage points of deposit bonus on every wallet deposit. New members start with a ${PRO_PLAN.trialDays}-day free trial: the card is entered at signup, nothing is charged for the first ${PRO_PLAN.trialDays} days, it then renews automatically at the price above until cancelled, and cancelling before the trial ends means no charge. Only brand-new members get the trial. The company details below state this pro's free trial eligibility explicitly: if they are NOT eligible, never offer or promise them a trial, and talk about OakTend Pro at its regular price instead. Two perks wait for the first payment: the deposit boost and the monthly $10 lead credit both start when the trial converts, NOT while it runs. So if the details below say this pro is on their free trial, never tell them their next deposit will be matched or that credit is coming this week: deposits during the trial earn only the normal tier bonus, and the match starts the day the trial converts. Membership is perks only, it never changes which leads they can see or apply to. Weigh it against their volume: if they deposit and apply often, the deposit boost can pay for itself.\n` +
+    `Pro membership: OakTend Pro is $${PRO_PLAN.monthly} per month or $${PRO_PLAN.yearly} per year, and members get priority support. New members start with a ${PRO_PLAN.trialDays}-day free trial: the card is entered at signup, nothing is charged for the first ${PRO_PLAN.trialDays} days, it then renews automatically at the price above until cancelled, and cancelling before the trial ends means no charge. Only brand-new members get the trial. The company details below state this pro's free trial eligibility explicitly: if they are NOT eligible, never offer or promise them a trial, and talk about OakTend Pro at its regular price instead. Membership is perks only, it never changes which leads they can see or apply to or what the success fee costs.\n` +
     "Trust and compliance: how to earn the CSLB verified badge and what each license status means (verified, failed, pending, or unverified); background checks through Checkr and what homeowners see; and insurance and bonding basics as general guidance, not legal advice. Also how to improve their public profile at /p/<their id> with photos, reviews, and a complete listing to win more homeowners.\n" +
     "Growing locally: gathering reviews, seasonal demand, and using the app well, setting their categories and service area, managing notifications and applications, and marking jobs won.\n\n" +
     "SCOPING: You are the CONTRACTOR's business copilot, not a homeowner's home assistant. Do NOT act as their personal home helper: never diagnose the pro's own house as a project, and never tell them to post a job to hire someone. You may share trade knowledge when it helps them win or do work, but keep the frame on their business. If they ask something that clearly belongs to the homeowner side, gently steer back to growing their business on OakTend.\n\n" +
