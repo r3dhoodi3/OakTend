@@ -45,9 +45,18 @@ describe("CAMPAIGN_CODES (the calendar allowlist)", () => {
     // Partner referral codes, one line per partner (Landen addendum 5, I1).
     // Listed explicitly rather than derived so adding a partner is a visible
     // two-line diff here as well as in the module.
-    expected.push("curtis");
+    expected.push(
+      "curtis",
+      "ethan",
+      "landen",
+      "william",
+      "curtis-pro",
+      "ethan-pro",
+      "landen-pro",
+      "william-pro"
+    );
     expect(keys).toEqual(expected.sort());
-    expect(keys).toHaveLength(29);
+    expect(keys).toHaveLength(36);
   });
 
   it("every code is well-formed by the route's own gate", () => {
@@ -84,6 +93,44 @@ describe("partner referral codes", () => {
     expect(link?.destination).toBe("/homeowner-signup");
     expect(link?.channel).toBe("partner");
     expect(link?.label).toBe("Curtis Do referral");
+  });
+
+  it("resolves the seven new referral codes to the right destination, channel and label", () => {
+    const expectedHomeowner: Array<[string, string]> = [
+      ["ethan", "Ethan Vu referral"],
+      ["landen", "Landen Chu (founder) referral"],
+      ["william", "William Tran (founder) referral"],
+    ];
+    for (const [code, label] of expectedHomeowner) {
+      const link = lookupCampaign(code);
+      expect(link, code).not.toBeNull();
+      expect(link?.destination, code).toBe("/homeowner-signup");
+      expect(link?.channel, code).toBe("partner");
+      expect(link?.label, code).toBe(label);
+    }
+
+    const expectedPro: Array<[string, string]> = [
+      ["curtis-pro", "Curtis Do referral (pro side)"],
+      ["ethan-pro", "Ethan Vu referral (pro side)"],
+      ["landen-pro", "Landen Chu (founder) referral (pro side)"],
+      ["william-pro", "William Tran (founder) referral (pro side)"],
+    ];
+    for (const [code, label] of expectedPro) {
+      const link = lookupCampaign(code);
+      expect(link, code).not.toBeNull();
+      // /pros is public (isPublicPath in src/lib/supabase/middleware.ts,
+      // exact match), so a signed-out visitor following one of these links
+      // lands on the pros page rather than /signin.
+      expect(link?.destination, code).toBe("/pros");
+      expect(link?.channel, code).toBe("partner");
+      expect(link?.label, code).toBe(label);
+    }
+  });
+
+  it("an unknown code still returns null even though seven more codes are now real", () => {
+    expect(lookupCampaign("ethan-x")).toBeNull();
+    expect(lookupCampaign("curtis-pro-2")).toBeNull();
+    expect(lookupCampaign("random-partner")).toBeNull();
   });
 
   it("every partner destination is a same-site absolute path", () => {

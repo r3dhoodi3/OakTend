@@ -11,15 +11,17 @@ afterEach(() => cleanup());
 // The landing page now serves two different visitors from one file:
 //
 //  - DESKTOP gets the marketing page it always had, unchanged.
-//  - PHONE gets PhoneLanding and nothing else. Someone on a phone downloaded
-//    the app already; the tour they used to scroll through here is now the
-//    post-login guide (src/components/AppGuide.tsx).
+//  - PHONE gets PhoneLanding first, then a subset of the marketing sections
+//    below it: the tour that used to scroll past here is now the post-login
+//    guide (src/components/AppGuide.tsx), but the founder wants the feature
+//    cards, the county line, the FAQ, the closing CTA, and the contractor
+//    band visible on phone too (2026-09-16), so those five stay unhidden.
 //
 // The split is pure CSS: `sm:hidden` on the phone block, `max-sm:hidden` on
-// every marketing section. Nothing is deleted, so the copy still ships in the
-// HTML for crawlers, and desktop cannot regress by accident. That makes the
-// classes the thing worth testing - and the only thing a unit test CAN test,
-// since jsdom does not evaluate media queries.
+// every marketing section STILL phone-hidden. Nothing is deleted, so the
+// copy still ships in the HTML for crawlers, and desktop cannot regress by
+// accident. That makes the classes the thing worth testing - and the only
+// thing a unit test CAN test, since jsdom does not evaluate media queries.
 //
 // Everything mocked below is a per-request dependency or a client widget that
 // needs a browser (a lazy-loaded audio player, a photo cycler on a timer).
@@ -126,29 +128,38 @@ describe("landing page, phone split", () => {
       "max-sm:hidden"
     );
 
-    // Everything below the fold, by the heading a reader would see.
-    const sections = [
-      "Find a pro for",
-      "What we check",
-      "How it works",
+    // Everything below the fold that stays phone-hidden, by the heading a
+    // reader would see.
+    const hiddenSections = ["Find a pro for", "What we check", "How it works"];
+    for (const heading of hiddenSections) {
+      expect(screen.getByText(heading).closest("section")).toHaveClass(
+        "max-sm:hidden"
+      );
+    }
+
+    // These five are shown on phone too (founder request, 2026-09-16): the
+    // feature cards, the county/contact trust band, the FAQ, the closing CTA,
+    // and the contractor band. None of them carry max-sm:hidden any more.
+    const shownSections = [
       "What OakTend watches for you",
       "Real people, real answers",
       "Quick questions",
       "For contractors",
     ];
-    for (const heading of sections) {
-      expect(screen.getByText(heading).closest("section")).toHaveClass(
+    for (const heading of shownSections) {
+      expect(screen.getByText(heading).closest("section")).not.toHaveClass(
         "max-sm:hidden"
       );
     }
 
     // The closing CTA repeats the h1's wording, so it is found by its button
     // instead; the hero uses the same label, and the closing one is second.
+    // It is also shown on phone now.
     const getStarted = screen.getAllByRole("link", {
       name: "Get started free",
     });
     expect(getStarted).toHaveLength(2);
-    expect(getStarted[1].closest("section")).toHaveClass("max-sm:hidden");
+    expect(getStarted[1].closest("section")).not.toHaveClass("max-sm:hidden");
 
     // The long four-column footer.
     expect(screen.getByText("All guides").closest("footer")).toHaveClass(
