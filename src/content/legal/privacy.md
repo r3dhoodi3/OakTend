@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Plain-language summary:** {{BRAND}} is a home maintenance and contractor marketplace app for homeowners in Orange County, California. We collect the account and home information you give us, plus a few things we need to run the app, such as an address-based location lookup, weather alerts, and appliance recall checks. We do not sell your personal information. We do not share it for advertising. We run no ad trackers. We do use a cookieless analytics service from our hosting provider, Vercel, that counts page views and clicks without cookies or personal identifiers, so we can see which parts of the app get used and fix what does not. When you use Ask {{BRAND}}, we send relevant details about your home to Anthropic's Claude API so it can answer your question; under Anthropic's commercial terms, that data is not used to train its models, and your actual chat transcript stays in your own browser, not on our servers. You can download everything we hold about you, or delete your account, any time from Account > Privacy. This summary is not the whole policy. Read the sections below for the details, including exactly who we share information with and how long we keep it.
+**Plain-language summary:** {{BRAND}} is a home maintenance and contractor marketplace app for homeowners in Orange County, California. We collect the account and home information you give us, plus a few things we need to run the app, such as an address-based location lookup, weather alerts, and appliance recall checks. We do not sell your personal information. We may license de-identified, aggregated statistics about groups of homes, for example typical system ages by ZIP code, to outside companies; those statistics never include your name, address, or contact details, and are described in Section 6. We do not share personal information for advertising. We run no ad trackers. We do use a cookieless analytics service from our hosting provider, Vercel, that counts page views and clicks without cookies or personal identifiers, so we can see which parts of the app get used and fix what does not. When you use Ask {{BRAND}}, we send relevant details about your home to Anthropic's Claude API so it can answer your question; under Anthropic's commercial terms, that data is not used to train its models, and your actual chat transcript stays in your own browser, not on our servers. You can download everything we hold about you, or delete your account, any time from Account > Privacy. This summary is not the whole policy. Read the sections below for the details, including exactly who we share information with and how long we keep it.
 
 ## 1. Who We Are and How to Reach Us
 
@@ -34,7 +34,7 @@ California law (Civil Code section 1798.100) requires that, at or before the poi
 | Inferences | None beyond a simple usage counter, such as a daily count of AI questions asked, used to enforce plan limits | Automatically, from your use of Ask {{BRAND}} | Enforcing free/paid usage limits | While account is active | No |
 | Audio, electronic, visual, or similar information | Photos and documents you choose to upload: system photos, warranties, inspection reports, quotes | You | Building your home record; letting Ask {{BRAND}} read a document or photo you attach | While account active, plus up to 30 days after deletion | No |
 
-We have not sold or shared any category of personal information in the preceding 12 months, and we do not intend to.
+We have not sold or shared any category of personal information in the preceding twelve (12) months, and we do not intend to. We may license de-identified and aggregated data, which California law does not treat as personal information; see De-identified and aggregated data in Section 6.
 
 ## 3. Information We Collect
 
@@ -150,9 +150,21 @@ We may share information for other purposes if you give us your clear, specific 
 
 ### What we do not do
 
-We do not sell your personal information. We do not share it for cross-context behavioral advertising. We do not work with data brokers or ad networks. Our hosting provider's cookieless analytics service acts as our service provider and may not use your data for its own purposes. In the preceding 12 months, we have not sold or shared any personal information, and we have no plans to start.
+We do not sell your personal information; we may license de-identified and aggregated data as described in De-identified and aggregated data above. We do not share personal information for cross-context behavioral advertising. We do not work with data brokers or ad networks. Our hosting provider's cookieless analytics service acts as our service provider and may not use your data for its own purposes. In the preceding twelve (12) months, we have not sold or shared any personal information, and we have no plans to start.
 
 **Why giving a pro your job details is not a "sale."** Pros pay us a fee to apply to jobs, and an applying pro sees the contact details you chose to attach to your job post. California's privacy law treats a disclosure you direct yourself, to a recipient you intend to hear from, as outside the definition of a sale (Civil Code section 1798.140(ad)(2)(A)). That is exactly what happens here: you post a job, you decide what contact details go with it, and the only people who see them are pros applying to that job. Every pro also agrees to our Homeowner Data Use Addendum, which limits them to using your details for that job, forbids resale or marketing use, and requires deletion on request. We never provide your information to anyone for their own independent use.
+
+### De-identified and aggregated data
+
+{{BRAND}} may create de-identified, aggregated statistics from information in the app, for example the share of homes in a ZIP code with a roof over twenty (20) years old, or the typical age of water heaters by neighborhood, and license those statistics to outside companies. We produce these statistics by removing your name, address, contact details, document contents, photos, and chat contents, and by grouping the results so that no individual home is identifiable. We never publish or license a statistic that describes fewer than twenty-five (25) homes, and we round and bucket values so that no single home can be picked out.
+
+We publicly commit, as required by California Civil Code section 1798.140(m), that we will not attempt to re-identify de-identified data, and we maintain technical and business safeguards designed to keep it de-identified. Every recipient of this data signs a contract that bars them from attempting to re-identify it, from combining it with other data to re-identify it, and from reselling it or passing it to anyone else except under the same restrictions.
+
+We license this kind of data for uses such as maintenance benchmarks, service-life statistics for home systems, market research, and product development by companies that make or service home products.
+
+This is not a sale of personal information under California law. De-identified, aggregated data is not personal information, and licensing it does not change the promise below.
+
+**Do we sell your personal information?** We do not sell your personal information; we may license de-identified and aggregated data as described in that section.
 
 ## 7. Your California Privacy Rights
 
