@@ -43,16 +43,27 @@ whole reason the column exists — `app_events` is an analytics stream on a
 retention schedule, and a commission conversation six months later cannot
 depend on it.
 
-## The two views
+## The views
 
-Both are created by migration 0166 and both are **service role only**: `anon`
-and `authenticated` are revoked explicitly, so no browser session can read
-them. Run them from the Supabase SQL editor.
+All five are **service role only**: `anon` and `authenticated` are revoked
+explicitly, so no browser session can read any of them. Run them from the
+Supabase SQL editor.
+
+The first two are monthly roll-ups, created by migration 0166:
 
 | View | Columns | What one row means |
 | --- | --- | --- |
 | `public.campaign_signups_by_month` | `campaign_code`, `month`, `signups` | Accounts created in that month carrying that code. |
 | `public.campaign_upgrades_by_month` | `campaign_code`, `month`, `upgrades` | Attributed accounts that reached a **paid** homeowner Plus subscription (`subscriptions.status = 'active'`, `side = 'homeowner'`). |
+
+The other three are per-account lists, created live in the SQL editor by the
+founder on 2026-09-15 and 2026-09-16, recorded in migration 0169:
+
+| View | Columns | What one row means |
+| --- | --- | --- |
+| `public.curtis_signups` | `full_name`, `email`, `signed_up` | One account attributed to the `curtis` partner code. |
+| `public.partner_signups` | `partner`, `full_name`, `email`, `signed_up` | One account attributed to any partner code, grouped by partner. |
+| `public.signups_by_source` | `source`, `full_name`, `email`, `signed_up` | One account, every account, labeled `direct` when it has no campaign code. |
 
 ### The two queries
 
