@@ -88,6 +88,46 @@ const PARTNER_CODES: Record<string, CampaignLink> = {
     channel: "partner",
     label: "Curtis Do referral",
   },
+  ethan: {
+    destination: "/homeowner-signup",
+    channel: "partner",
+    label: "Ethan Vu referral",
+  },
+  landen: {
+    destination: "/homeowner-signup",
+    channel: "partner",
+    label: "Landen Chu (founder) referral",
+  },
+  william: {
+    destination: "/homeowner-signup",
+    channel: "partner",
+    label: "William Tran (founder) referral",
+  },
+  // Pro-side twins of the four codes above: same people, but for a link
+  // handed to someone who should land on the public pros page instead of
+  // the homeowner sign-up form. /pros is public (isPublicPath in
+  // src/lib/supabase/middleware.ts, exact match), so this is a second
+  // destination on the same allowlist, not a new code shape.
+  "curtis-pro": {
+    destination: "/pros",
+    channel: "partner",
+    label: "Curtis Do referral (pro side)",
+  },
+  "ethan-pro": {
+    destination: "/pros",
+    channel: "partner",
+    label: "Ethan Vu referral (pro side)",
+  },
+  "landen-pro": {
+    destination: "/pros",
+    channel: "partner",
+    label: "Landen Chu (founder) referral (pro side)",
+  },
+  "william-pro": {
+    destination: "/pros",
+    channel: "partner",
+    label: "William Tran (founder) referral (pro side)",
+  },
 };
 
 // code -> destination/channel/label. Only codes in this object are ever

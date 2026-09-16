@@ -116,6 +116,13 @@ Then add a row here:
 | Code | Partner | Link | Destination | Live since |
 | --- | --- | --- | --- | --- |
 | `curtis` | Curtis Do | `/go/curtis` | `/homeowner-signup` | pending deploy + migration 0166 |
+| `ethan` | Ethan Vu | `/go/ethan` | `/homeowner-signup` | 2026-09-16 |
+| `landen` | Landen Chu (founder) | `/go/landen` | `/homeowner-signup` | 2026-09-16 |
+| `william` | William Tran (founder) | `/go/william` | `/homeowner-signup` | 2026-09-16 |
+| `curtis-pro` | Curtis Do (pro side) | `/go/curtis-pro` | `/pros` | 2026-09-16 |
+| `ethan-pro` | Ethan Vu (pro side) | `/go/ethan-pro` | `/pros` | 2026-09-16 |
+| `landen-pro` | Landen Chu (founder, pro side) | `/go/landen-pro` | `/pros` | 2026-09-16 |
+| `william-pro` | William Tran (founder, pro side) | `/go/william-pro` | `/pros` | 2026-09-16 |
 
 The allowlist is deliberately a literal object in source, not an environment
 variable and not a database table. `trackServerEvent` inserts props raw, and
