@@ -11,9 +11,14 @@ import { recordTermsAcceptance } from "@/app/(auth)/recordTermsAcceptance";
 import {
   contractorRowExists,
   isFirstHomeSetupPath,
+  isProPath,
   propertyRowExists,
   resolveAuthRole,
 } from "@/lib/contractor";
+import {
+  homeownerLanding,
+  isProSideOpenForViewer,
+} from "@/lib/previewModeServer";
 
 // Handles the PKCE/OAuth code exchange: ?code=...
 // (Magic-link flows use /auth/confirm instead.)
@@ -218,6 +223,26 @@ export async function GET(request: NextRequest) {
         // someone we know nothing about, the corrected side of the app for a
         // role/destination mismatch, and plain `next` for everyone else.
         //
+        // resolveAuthRole is a pure, no-imports function (its own header
+        // comment says so) and has zero awareness of preview mode, so a
+        // pro-only account still gets handed a /pro redirect here even while
+        // the pro side is closed to everyone but the OakTend team. Every
+        // other entry point to /pro (the root page, /signin,
+        // pro/layout.tsx's own render) already runs that answer through
+        // isProSideOpenForViewer()/homeownerLanding() before acting on it -
+        // this is the one gap: without this check, "Continue with Apple" (or
+        // Google) sent a pro-only, non-internal account straight to
+        // ProsComingSoon instead of their homeowner side. Checked here rather
+        // than left to pro/layout.tsx alone so the account lands on
+        // /dashboard or /onboarding directly, without detouring through the
+        // coming-soon page first.
+        if (
+          isProPath(decision.redirect) &&
+          !(await isProSideOpenForViewer())
+        ) {
+          decision.redirect = homeownerLanding({ hasHome: hasPropertyRow });
+        }
+
         // Re-validated through safeNextPath even though `next` already was:
         // resolveAuthRole can hand back a value it read out of the INNER
         // ?next= of /onboarding?next=... (destinationForSignIn), and that
