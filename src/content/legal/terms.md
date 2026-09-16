@@ -25,7 +25,7 @@ To use {{BRAND}}, you must:
 - Be using {{BRAND}} for a property in Orange County, California, or be a pro who serves Orange County. {{BRAND}} serves all of Orange County; there is no smaller service-area restriction inside the county.
 - Keep one (1) account per person, per role. You may hold both a homeowner account and a pro account (a "dual-side account") if you genuinely use both, but you may not create multiple accounts of the same kind to evade a suspension, a limit, or a fee.
 
-If you are a pro, you also agree to the separate Pro Terms of Service, which governs lead purchases, subscription billing for pro plans, and your use of the client management tools. Where the Pro Terms of Service address a topic specifically for pros, that document controls for pros on that topic. These Terms still apply to pros on everything else, including account rules, content rules, AI features, and dispute resolution.
+If you are a pro, you also agree to the separate Pro Terms of Service, which governs jobs and the success fee, subscription billing for pro plans, and your use of the client management tools. Where the Pro Terms of Service address a topic specifically for pros, that document controls for pros on that topic. These Terms still apply to pros on everything else, including account rules, content rules, AI features, and dispute resolution.
 
 ## 2. What {{BRAND}} is, and what it is not
 
@@ -132,7 +132,7 @@ You agree not to:
 - Perform contracting work requiring a California license without holding one, or advertise or bid on jobs in violation of Business and Professions Code sections 7027.1 or 7030.5, which require pros to display their license number on ads and bids.
 - Solicit another user's contact information, or another user's own customers' or clients' data, for a purpose unrelated to a job posted on {{BRAND}}.
 - Harass, threaten, defame, or abuse another user.
-- Abuse credits, wallet balances, or promotional offers, including through fake accounts, collusion between accounts, or exploiting a bug rather than reporting it.
+- Abuse the success fee, referral codes, or promotional offers, including through fake accounts, collusion between accounts, or exploiting a bug rather than reporting it.
 - Interfere with or overload {{BRAND}}'s infrastructure, or attempt to bypass rate limits, including on Ask {{BRAND}}.
 - Upload malware, or content that is illegal, deceptive, or infringes someone else's rights.
 
@@ -186,7 +186,7 @@ Please read this section carefully. It affects your legal rights.
 
 **Step one: tell us first.** Before either of us starts an arbitration, the side with the complaint sends the other a written notice describing the problem and what would resolve it. Send yours to {{LEGAL_EMAIL}}. We will do the same for you, at the email on your account. Both sides then have thirty (30) days to try to resolve it in good faith. Neither side may file an arbitration or a lawsuit until those thirty (30) days have passed. This requirement applies to us too, not just to you.
 
-**Binding individual arbitration.** If we cannot resolve a dispute informally, you and {{BRAND}} agree that it will be resolved by binding, individual arbitration, not in court and not in front of a jury. This covers disputes about these Terms, your account, fees and wallet balances, Ask {{BRAND}}, content, and your use of {{BRAND}} generally, under any legal theory. Arbitration will be administered by JAMS under its Streamlined Arbitration Rules, or by the American Arbitration Association under its Consumer Arbitration Rules, at your election, in effect when the claim is filed. The Federal Arbitration Act governs whether this section is enforceable. Arbitration will take place in Orange County, California, or, at your option, by video or telephone. We will pay any arbitration fees that the applicable consumer arbitration rules require us to pay.
+**Binding individual arbitration.** If we cannot resolve a dispute informally, you and {{BRAND}} agree that it will be resolved by binding, individual arbitration, not in court and not in front of a jury. This covers disputes about these Terms, your account, fees, Ask {{BRAND}}, content, and your use of {{BRAND}} generally, under any legal theory. Arbitration will be administered by JAMS under its Streamlined Arbitration Rules, or by the American Arbitration Association under its Consumer Arbitration Rules, at your election, in effect when the claim is filed. The Federal Arbitration Act governs whether this section is enforceable. Arbitration will take place in Orange County, California, or, at your option, by video or telephone. We will pay any arbitration fees that the applicable consumer arbitration rules require us to pay.
 
 **Class action and jury waiver.** You and {{BRAND}} each agree to bring claims only in an individual capacity, not as a plaintiff or class member in any purported class, collective, or representative action. The arbitrator has no authority to preside over a class or representative proceeding. Both of us waive any right to a jury trial for claims subject to this section.
 

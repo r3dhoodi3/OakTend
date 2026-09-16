@@ -219,12 +219,12 @@ export default async function Home(props: {
     },
     {
       q: "What do you do with my data?",
-      a: "Your home details are stored in our database and used to run OakTend: reminders, alerts, and answers about your house. We don't sell your personal data, and we don't let ad companies track what you do here. When you post a job, a pro sees only what's needed to quote it. The full details are in the privacy policy.",
+      a: "Your home details are stored in our database and used to run OakTend: reminders, alerts, and answers about your house. We never sell your personal information, and we don't let ad companies track what you do here. When you post a job, a pro sees only what's needed to quote it. The full details are in the privacy policy.",
       node: (
         <>
           Your home details are stored in our database and used to run
           OakTend: reminders, alerts, and answers about your house. We
-          don&apos;t sell your personal data, and we don&apos;t let ad
+          never sell your personal information, and we don&apos;t let ad
           companies track what you do here. When you post a job, a pro sees only
           what&apos;s needed to quote it. The full details are in the{" "}
           <Link
