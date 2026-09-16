@@ -19,7 +19,7 @@ export const metadata: Metadata = isHomeownerPreview()
   : {
       title: { absolute: "Create your pro account | OakTend for Pros" },
       description:
-        "Pay per lead you choose, not per month. Ghost protection, capped competition, and the price on every job card.",
+        "Apply and quote for free. A 5% success fee applies only when a homeowner hires you, never for a lead.",
     };
 
 export default function ContractorSignUpLayout({

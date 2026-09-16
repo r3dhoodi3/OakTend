@@ -885,8 +885,8 @@ function OnboardingCompanyFormInner({
               />
             </div>
             <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-              You both get $25 of application credit when you win your first
-              job.
+              Invite another contractor and we will credit your first success
+              fee up to $25.
             </p>
           </div>
         ) : (
@@ -952,9 +952,9 @@ function OnboardingCompanyFormInner({
             copy before launch. */}
         <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 dark:border-white/10 dark:bg-stone-800/60">
           <p className="text-sm text-stone-600 dark:text-stone-400">
-            {LEGAL.brand} charges a flat fee per lead category, refunded as
-            wallet credit if you don&apos;t win the job or a homeowner never
-            responds. See{" "}
+            {LEGAL.brand} charges a 5% success fee (minimum $15, capped at
+            $1,000) only when a homeowner hires you for a job. No per-lead
+            fees, no wallet. See{" "}
             <Link href="/pro-terms" className="underline hover:text-stone-700 dark:hover:text-stone-300">
               Pro Terms
             </Link>{" "}
@@ -1005,10 +1005,9 @@ function OnboardingCompanyFormInner({
               information I provide is accurate to the best of my knowledge.
             </li>
             <li>
-              I understand lead fees are non-refundable except through the
-              credit-back and ghost-protection rules in the Pro Terms, and
-              that any credit issued is wallet credit, not cash, and expires
-              in 60 days.
+              I understand {LEGAL.brand} charges a 5% success fee (minimum
+              $15, capped at $1,000) only when a homeowner hires me for a job
+              through {LEGAL.brand}, as described in the Pro Terms.
             </li>
             <li>
               I will use homeowner information I receive through{" "}

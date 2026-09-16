@@ -16,7 +16,7 @@ Questions about this policy, or requests about your personal information, can be
 
 - Email: {{PRIVACY_EMAIL}}
 - Mail: {{ADDRESS}}
-- Phone: {{PRIVACY_PHONE}} (optional; included only if we set up a dedicated privacy line)
+- Phone: {{PRIVACY_PHONE}}
 
 ## 2. Notice at Collection
 
@@ -83,7 +83,7 @@ We use the categories described above to:
 - Build and maintain your home profile: systems, maintenance schedule, and reminders.
 - Match homeowners with pros, and let pros quote and message about jobs.
 - Verify a pro's license status and, where enabled, background-check result.
-- Process payments, subscriptions, lead fees, and wallet credits, through Stripe.
+- Process payments, subscriptions, and success fees, through Stripe.
 - Send the push notifications, text messages, and emails you have opted into (Section 13).
 - Look up property records, home valuations, weather forecasts, and appliance recall data relevant to your home.
 - Detect and prevent free-trial abuse and account fraud, using one-way hashed identifiers that cannot be reversed (Sections 4 and 6).
@@ -111,7 +111,7 @@ When you post a job or message a pro, we give that pro a snapshot of what they n
 
 ### With a homeowner
 
-If you are a pro, homeowners browsing {{BRAND}} can see your public profile: business name, service area, your license and insurance labels, reviews, and, if you chose to add it, your own name. A public profile only exists for pros who serve at least one Orange County city, so nobody outside our current launch area is listed.
+If you are a pro, homeowners browsing {{BRAND}} can see your public profile: business name, service area, your license and insurance labels, reviews, and, if you chose to add it, your own name. A public profile only exists for pros who serve at least one (1) Orange County city, so nobody outside our current launch area is listed.
 
 ### Service providers
 
@@ -121,6 +121,7 @@ We share information with the companies that help us run {{BRAND}}, each limited
 |---|---|---|
 | Supabase | Database, authentication, file storage | Your account and home data; this is where {{BRAND}}'s data actually lives |
 | Vercel | Hosting, serverless functions, and cookieless web analytics | Request logs and IP address; cookieless page-view counts with no persistent identifier |
+| Cloudflare | DNS, email routing, and CAPTCHA (Turnstile) | Domain routing information, and, for anyone who completes a CAPTCHA challenge, that fact |
 | Stripe | Payments and subscriptions | Your email and billing details; your card number goes directly to Stripe and never touches our servers |
 | Twilio | Text-message delivery | Your phone number and message content, only if you opted into texts |
 | Resend | Email delivery | Your email address and the content of the email |
@@ -167,7 +168,7 @@ If you are a California resident, the California Consumer Privacy Act, as amende
 
 ### How to exercise these rights
 
-The fastest way is inside the app: go to **Account > Privacy** to download your data, as a JSON file or a PDF, or to permanently delete your account, both instantly and without waiting on us. For anything else, including a correction request or a general question, email {{PRIVACY_EMAIL}}, call {{PRIVACY_PHONE}} if available, or write to {{ADDRESS}}.
+The fastest way is inside the app: go to **Account > Privacy** to download your data, as a JSON file or a PDF, or to permanently delete your account, both instantly and without waiting on us. For anything else, including a correction request or a general question, email {{PRIVACY_EMAIL}}, call {{PRIVACY_PHONE}}, or write to {{ADDRESS}}.
 
 **Verification.** Because you must already be signed in to use Account > Privacy, being logged into your own account is how we verify a request made that way. For a request made by email, we verify your identity by confirming that the email you're writing from matches the one on your account, and we may ask you to confirm additional information only the account holder would know before we act on the request.
 
@@ -242,7 +243,7 @@ You can review and change all of these choices under Account > Notifications.
 
 ## 14. Cookies and Similar Technologies
 
-{{BRAND}} uses a short list of first-party cookies needed to keep you signed in and support features like password reset, plus a handful of values in your browser's own local storage, such as your theme preference and your Ask {{BRAND}} chat history, which never leaves your browser. Our analytics service does not set cookies at all, we do not use advertising cookies, and California law does not require us to show you a cookie consent banner for the kind of cookies we actually use. See our full Cookie and Tracking Notice for the exact list of what we set, what each one does, and how to control it.
+{{BRAND}} uses a short list of first-party cookies needed to keep you signed in and support features like password reset, plus a handful of values in your browser's own local storage, such as your theme preference and your Ask {{BRAND}} chat history, which never leaves your browser. We also set a first-party cookie called oaktend_campaign for up to thirty (30) days when you arrive through a referral or partner link; it stores only a partner code, not anything else about you, so that if you sign up we can credit the right referral. Our analytics service does not set cookies at all, we do not use advertising cookies, and California law does not require us to show you a cookie consent banner for the kind of cookies we actually use. See our full Cookie and Tracking Notice for the exact list of what we set, what each one does, and how to control it.
 
 ## 15. International Users and Where Your Data Is Stored
 

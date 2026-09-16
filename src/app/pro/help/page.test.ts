@@ -57,15 +57,13 @@ describe("pro help is one client component with plain-data props", () => {
 });
 
 describe("pro help keeps the content it always had", () => {
-  it("keeps the lead pricing table and its anchor, which /pro/billing links to", () => {
+  it("keeps the success-fee section and its anchor, which /pro/billing links to", () => {
     expect(view).toContain('id="lead-pricing"');
-    expect(view).toContain("How lead pricing works");
-    expect(view).toContain("${LEAD_TIER_FEES.light}");
-    expect(view).toContain("${LEAD_TIER_FEES.skilled}");
-    expect(view).toContain("${LEAD_TIER_FEES.major}");
-    expect(view).toContain("${MAJOR_INTRO_FEE}");
-    // Every number comes from the constants module, never typed in.
-    expect(view).not.toMatch(/\$\d+ *</);
+    expect(view).toContain("How the success fee works");
+    expect(view).toContain("5% success fee");
+    expect(view).toContain("$15");
+    expect(view).toContain("$1,000");
+    expect(view).toContain("Stripe");
   });
 
   it("keeps the support form, the bug report card, safety, and the app guide", () => {
@@ -86,25 +84,25 @@ describe("pro help keeps the content it always had", () => {
   });
 });
 
-// 2026-08-30 research wave: the same three trust facts /pros states, added
-// to the pricing card here so a pro who never visits the marketing page
-// still sees them before they pay for a lead. Canonical constants only, so
-// this page and /pros can never say the same fact two different ways.
-describe("pro help states ghost protection, no bidding wars, and no contract", () => {
-  it("imports the canonical lines instead of retyping them", () => {
-    expect(view).toContain('from "@/lib/guaranteeCopy"');
-    expect(view).toContain("GHOST_PROTECTION_GUARANTEE");
-    expect(view).toContain("NO_BIDDING_WARS_LINE");
-    expect(view).toContain("NO_CONTRACT_LINE");
+// 2026-09-15: the success-fee pivot retired the per-lead ghost protection,
+// no-bidding-wars, and no-contract trust lines from this card along with the
+// per-lead pricing table they used to sit under - all three assumed an
+// upfront per-application charge that no longer exists. This card no longer
+// imports src/lib/guaranteeCopy.ts at all.
+describe("pro help no longer states the retired per-lead trust facts", () => {
+  it("does not import or reference the retired per-lead guarantee lines", () => {
+    expect(view).not.toContain('from "@/lib/guaranteeCopy"');
+    expect(view).not.toContain("GHOST_PROTECTION_GUARANTEE");
+    expect(view).not.toContain("NO_BIDDING_WARS_LINE");
+    expect(view).not.toContain("NO_CONTRACT_LINE");
   });
 
-  it("renders all three inside the lead-pricing card", () => {
+  it("does not mention a wallet or lead credit in the success-fee card", () => {
     const cardStart = view.indexOf('id="lead-pricing"');
-    const cardEnd = view.indexOf("</div>", view.lastIndexOf("</table>"));
+    const cardEnd = view.indexOf("</div>", cardStart);
     const card = view.slice(cardStart, cardEnd);
-    expect(card).toContain("{GHOST_PROTECTION_GUARANTEE}");
-    expect(card).toContain("{NO_BIDDING_WARS_LINE}");
-    expect(card).toContain("{NO_CONTRACT_LINE}");
+    expect(card.toLowerCase()).not.toContain("wallet");
+    expect(card.toLowerCase()).not.toContain("credit-back");
   });
 });
 

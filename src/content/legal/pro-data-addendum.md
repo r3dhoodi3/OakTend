@@ -36,13 +36,13 @@ Regardless of Section 3, you may never do any of the following with Homeowner Da
 
 ## 5. Retention
 
-If you did not win a job you applied to, delete or de-identify the Homeowner Data tied to that job within 90 days of finding out you did not win it. "De-identify" means removing the parts that could identify the homeowner, such as their name, contact details, and exact address, if you have some independent business reason to keep the rest.
+If you did not win a job you applied to, delete or de-identify the Homeowner Data tied to that job within ninety (90) days of finding out you did not win it. "De-identify" means removing the parts that could identify the homeowner, such as their name, contact details, and exact address, if you have some independent business reason to keep the rest.
 
 If you did perform a job, keep only what your own recordkeeping actually requires, such as a signed contract, an invoice, warranty records, or anything tax law requires you to retain. Do not keep Homeowner Data past what those requirements call for just because it is convenient to have around.
 
 ## 6. Deletion on request
 
-If a homeowner deletes their {{BRAND}} account, or otherwise asks us to have their data deleted, and we relay that request to you, you must delete your own copy, including anything in your CRM notes, within 10 business days of our relaying it to you. The only exception is a record you are separately required by law to keep, such as a signed home improvement contract or a tax record, and even then you should delete anything not covered by that requirement. Once you have completed the deletion, confirm it to {{PRIVACY_EMAIL}} so we can close out the homeowner's request on our end.
+If a homeowner deletes their {{BRAND}} account, or otherwise asks us to have their data deleted, and we relay that request to you, you must delete your own copy, including anything in your CRM notes, within ten (10) business days of our relaying it to you. The only exception is a record you are separately required by law to keep, such as a signed home improvement contract or a tax record, and even then you should delete anything not covered by that requirement. Once you have completed the deletion, confirm it to {{PRIVACY_EMAIL}} so we can close out the homeowner's request on our end.
 
 ## 7. Security
 

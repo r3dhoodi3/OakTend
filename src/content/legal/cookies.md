@@ -38,7 +38,7 @@ None of these local-storage items are shared across accounts or devices, and non
 
 ## Third-party cookies
 
-**Stripe.** When you check out for {{BRAND}} Plus, a pro membership, or a lead fee, you are taken to Stripe's own hosted checkout page. Stripe may set its own cookies there, on Stripe's domain, for fraud prevention and to process your payment. {{BRAND}} does not set, read, or control these cookies; see Stripe's own privacy policy for what they do.
+**Stripe.** When you check out for {{BRAND}} Plus or a pro membership, you are taken to Stripe's own hosted checkout page. Stripe may set its own cookies there, on Stripe's domain, for fraud prevention and to process your payment. {{BRAND}} does not set, read, or control these cookies; see Stripe's own privacy policy for what they do.
 
 **Vercel.** Our hosting provider also provides Vercel Web Analytics, a cookieless page-view counter. It sets no cookie and stores nothing in your browser. It records page views, referrer, country and region, device type, and the outcome of a few in-app actions we define, without any identifier that lasts beyond a day. Details are in the Analytics section of our Privacy Policy.
 

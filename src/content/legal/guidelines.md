@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Plain-language summary:** Be honest, be respectful, and keep contact and payment on {{BRAND}} until you have actually met. We automatically mask profanity and slurs in messages and reviews, remove contact information from reviews, and let you block or report anyone. Reviews can only come from a homeowner whose job the pro was actually assigned to, one review per job. We never pay for reviews, never let a rating be bought, and never remove a review just because it is negative.
+**Plain-language summary:** Be honest, be respectful, and keep contact and payment on {{BRAND}} until you have actually met. We automatically mask profanity and slurs in messages and reviews, remove contact information from reviews, and let you block or report anyone. Reviews can only come from a homeowner whose job the pro was actually assigned to, one (1) review per job. We never pay for reviews, never let a rating be bought, and never remove a review just because it is negative.
 
 # Part 1: Community Guidelines
 
@@ -22,7 +22,7 @@ Do not use {{BRAND}} to run a scam, request payment outside the normal way a job
 
 ## 4. No fake accounts
 
-Each account should represent a real person or a real business. Do not create duplicate accounts to get around a suspension, to leave more than one review for the same job, or to inflate a business's presence on the platform.
+Each account should represent a real person or a real business. Do not create duplicate accounts to get around a suspension, to leave more than one (1) review for the same job, or to inflate a business's presence on the platform.
 
 ## 5. Be honest about your license and work
 
@@ -78,7 +78,7 @@ This section explains our reviews policy in detail. It is written to comply with
 
 ## 13. Who may leave a review
 
-Only a homeowner whose job a contractor was actually assigned to may review that contractor, and only for that job, one review per job. This is enforced in the database, not just as a policy: the review-submission function checks that the reviewer owns the property and the job before accepting a review, and independently checks for signs the reviewer and contractor are linked accounts. We do not accept reviews from people who did not actually hire the contractor through {{BRAND}} for that job.
+Only a homeowner whose job a contractor was actually assigned to may review that contractor, and only for that job, one (1) review per job. This is enforced in the database, not just as a policy: the review-submission function checks that the reviewer owns the property and the job before accepting a review, and independently checks for signs the reviewer and contractor are linked accounts. We do not accept reviews from people who did not actually hire the contractor through {{BRAND}} for that job.
 
 ## 14. What a review may not contain
 
@@ -94,7 +94,7 @@ We do not hide, delay, or bury negative reviews. A contractor cannot make a nega
 
 ## 17. Contractors cannot remove reviews
 
-A contractor cannot delete or edit a homeowner's review. A contractor may post one public response to a review, visible under it, to give their side of the story.
+A contractor cannot delete or edit a homeowner's review. A contractor may post one (1) public response to a review, visible under it, to give their side of the story.
 
 ## 18. When we do remove a review, and how we tell you
 
