@@ -81,7 +81,7 @@ export default function ProjectChips({
                   </span>
                 </span>
                 <span className="shrink-0 font-medium text-bark-700 dark:text-stone-300">
-                  Start →
+                  Start
                 </span>
               </Link>
             </li>
