@@ -366,12 +366,21 @@ export default function CategoryFilter({
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => pick(row.key)}
                   onMouseEnter={() => setActive(idx)}
-                  className={`cursor-pointer px-3 py-2 text-sm hover:bg-bark-50 dark:hover:bg-stone-700 ${
-                    isActive ? "bg-bark-100 dark:bg-stone-700" : ""
-                  } ${isSelected ? "font-medium" : ""}`}
+                  // Two layers, deliberately: the SELECTED row keeps the solid
+                  // highlight for as long as it is the choice (it is the one
+                  // thing the list must say, and it must survive the mouse
+                  // moving away); the keyboard / hover cursor gets a lighter
+                  // tint so it reads as "where you are", not "what you picked".
+                  // No check mark: the highlight plus font-medium already says
+                  // it, and the glyph looked busy.
+                  className={`cursor-pointer px-3 py-2 text-sm ${
+                    isSelected
+                      ? "bg-bark-100 font-medium dark:bg-stone-600"
+                      : isActive
+                        ? "bg-bark-50 dark:bg-stone-700"
+                        : "hover:bg-bark-50 dark:hover:bg-stone-700"
+                  }`}
                 >
-                  {/* No check mark on the selected row: the highlight plus
-                      font-medium already says it, and the glyph looked busy. */}
                   {row.label}
                 </div>
               );
