@@ -3,6 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNotification } from "@/lib/notify";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import {
+  RETIRED_PRO_PROGRAMS_PAUSED,
+  retiredProgramPausedResponse,
+} from "@/lib/retiredProPrograms";
 
 export const runtime = "nodejs";
 
@@ -68,6 +72,13 @@ type Candidate = {
 async function runCron(req: NextRequest) {
   if (!isAuthorized(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
+  if (RETIRED_PRO_PROGRAMS_PAUSED) {
+    console.log(
+      "[retired-pro-programs] referral-rewards cron skipped: program paused"
+    );
+    return retiredProgramPausedResponse("referral-rewards");
   }
 
   const supabase = createAdminClient();

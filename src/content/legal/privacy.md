@@ -166,6 +166,18 @@ This is not a sale of personal information under California law. De-identified, 
 
 **Do we sell your personal information?** We do not sell your personal information; we may license de-identified and aggregated data as described in that section.
 
+### De-identified and aggregated data
+
+{{BRAND}} may create de-identified, aggregated statistics from information in the app, for example the share of homes in a ZIP code with a roof over twenty (20) years old, or the typical age of water heaters by neighborhood, and license those statistics to outside companies. We produce these statistics by removing your name, address, contact details, document contents, photos, and chat contents, and by grouping the results so that no individual home is identifiable. We never publish or license a statistic that describes fewer than twenty-five (25) homes, and we round and bucket values so that no single home can be picked out.
+
+We publicly commit, as required by California Civil Code section 1798.140(m), that we will not attempt to re-identify de-identified data, and we maintain technical and business safeguards designed to keep it de-identified. Every recipient of this data signs a contract that bars them from attempting to re-identify it, from combining it with other data to re-identify it, and from reselling it or passing it to anyone else except under the same restrictions.
+
+We license this kind of data for uses such as maintenance benchmarks, service-life statistics for home systems, market research, and product development by companies that make or service home products.
+
+This is not a sale of personal information under California law. De-identified, aggregated data is not personal information, and licensing it does not change the promise below.
+
+**Do we sell your personal information?** We do not sell your personal information; we may license de-identified and aggregated data as described in that section.
+
 ## 7. Your California Privacy Rights
 
 If you are a California resident, the California Consumer Privacy Act, as amended by the California Privacy Rights Act (together, "CCPA"), gives you these rights over your personal information:

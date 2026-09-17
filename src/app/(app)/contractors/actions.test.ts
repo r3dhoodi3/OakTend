@@ -53,6 +53,12 @@ let rateLimitAnswers: (boolean | null)[] = [];
 // posts a job for real installs handlers here and takes them down after.
 let dbTables: ((table: string) => unknown) | null = null;
 let adminTables: ((table: string) => unknown) | null = null;
+// Same paranoid default as dbTables/adminTables: only chooseApplicantAction
+// tests set this, and every other test in this file must never reach an rpc
+// call, so the default throws.
+let clientRpc:
+  | ((name: string, args: unknown) => Promise<{ data: unknown; error: unknown }>)
+  | null = null;
 
 vi.mock("@/lib/property", () => ({
   getActiveProperty: vi.fn(async () => activeProperty),
@@ -71,6 +77,10 @@ vi.mock("@/lib/supabase/server", () => ({
     from: (table: string) => {
       if (dbTables) return dbTables(table);
       throw new Error(`postJobAction must not touch "${table}" on this path`);
+    },
+    rpc: (name: string, args: unknown) => {
+      if (clientRpc) return clientRpc(name, args);
+      throw new Error(`no test-side rpc handler installed for "${name}"`);
     },
     storage: {
       from: () => ({ remove: async () => ({ error: null }) }),
@@ -129,11 +139,29 @@ vi.mock("@/lib/internalAccounts", () => ({
   internalUserIdsAmong: vi.fn(async () => new Set<string>()),
 }));
 
-import { postJobAction } from "./actions";
+// The apply_credit_back notice (inside chooseApplicantAction below) describes
+// a wallet-credit mechanic that is retired, so it is gated behind
+// RETIRED_PRO_PROGRAMS_PAUSED (src/lib/retiredProPrograms.ts) as of
+// 2026-09-15. Mocked with a live getter so a single test can flip it (paused
+// is the default every other describe block in this file relies on).
+let retiredProProgramsPaused = true;
+vi.mock("@/lib/retiredProPrograms", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/retiredProPrograms")>();
+  return {
+    ...actual,
+    get RETIRED_PRO_PROGRAMS_PAUSED() {
+      return retiredProProgramsPaused;
+    },
+  };
+});
+
+import { postJobAction, chooseApplicantAction } from "./actions";
 import { POST_JOB_ERRORS } from "./postJobErrors";
 import { setFlash } from "@/lib/flash";
 import { redirect } from "next/navigation";
 import { alertProsForNewLead } from "@/lib/proAlerts";
+import { sendNotification } from "@/lib/notify";
 
 function fd(fields: Record<string, string>): FormData {
   const f = new FormData();
@@ -169,6 +197,8 @@ beforeEach(() => {
   rateLimitAnswers = [];
   dbTables = null;
   adminTables = null;
+  clientRpc = null;
+  retiredProProgramsPaused = true;
   // Back to the strict default: on every REJECTED post, alerting pros is a
   // test failure. The success tests below opt out of this for their own run.
   vi.mocked(alertProsForNewLead).mockImplementation((() => {
@@ -547,5 +577,88 @@ describe("postJobAction success path", () => {
     const tracked = events.rows[0];
     expect(tracked.event).toBe("post_job");
     expect(tracked.props).toEqual({ category: "plumbing" });
+  });
+});
+
+// chooseApplicantAction's "apply_credit_back" notice tells every non-chosen
+// applicant their fee came back as wallet credit - a mechanic OakTend
+// retired 2026-09-10 for the 5% success-fee model. Paused 2026-09-15 behind
+// RETIRED_PRO_PROGRAMS_PAUSED (src/lib/retiredProPrograms.ts): the pick
+// itself must always still go through, only the stale notice is gated.
+describe("chooseApplicantAction's retired apply_credit_back notice", () => {
+  function installChoosePickFixtures() {
+    // Two reads against "lead_applications": the chosen application's
+    // lead_id, then every other still-applied, unrefunded, fee-bearing
+    // applicant on that lead (the ones choose_applicant() is about to credit).
+    // One shared stub instance so the second .from("lead_applications") call
+    // continues the SAME queue instead of restarting a fresh one - a fresh
+    // stub per call would hand the second query the FIRST queued answer
+    // again (an object, not the applicants array), which .filter() then
+    // throws on, silently swallowed by chooseApplicantAction's try/catch.
+    const leadApplications = tableStub([
+      { lead_id: "lead-1" },
+      [{ contractor_id: "contractor-1", fee_cents: 5000 }],
+    ]);
+    dbTables = (table: string) => {
+      if (table === "lead_applications") return leadApplications;
+      throw new Error(`chooseApplicantAction must not touch "${table}" here`);
+    };
+    adminTables = (table: string) => {
+      if (table === "contractors") {
+        return tableStub([[{ id: "contractor-1", user_id: "user-2" }]]);
+      }
+      if (table === "users") {
+        return tableStub([
+          [
+            {
+              id: "user-2",
+              email: "pro@example.com",
+              phone: null,
+              sms_consent: false,
+            },
+          ],
+        ]);
+      }
+      // trackServerEvent's app_events write degrades gracefully on its own;
+      // let it through cleanly rather than exercising that fallback here.
+      if (table === "app_events") return tableStub([[]]);
+      throw new Error(`chooseApplicantAction must not write "${table}" here`);
+    };
+    clientRpc = async (name: string) => {
+      if (name === "choose_applicant") return { data: true, error: null };
+      throw new Error(`unexpected rpc "${name}"`);
+    };
+  }
+
+  it("still picks the applicant but sends no credit-back notice while paused (default)", async () => {
+    installChoosePickFixtures();
+
+    await chooseApplicantAction(fd({ application_id: "app-1" }));
+
+    expect(setFlash).toHaveBeenCalledWith(
+      "Pro selected. They now have your contact and can message you.",
+      "success"
+    );
+    expect(sendNotification).not.toHaveBeenCalled();
+  });
+
+  it("sends the credit-back notice once RETIRED_PRO_PROGRAMS_PAUSED is false", async () => {
+    retiredProProgramsPaused = false;
+    installChoosePickFixtures();
+
+    await chooseApplicantAction(fd({ application_id: "app-1" }));
+
+    expect(setFlash).toHaveBeenCalledWith(
+      "Pro selected. They now have your contact and can message you.",
+      "success"
+    );
+    expect(sendNotification).toHaveBeenCalledTimes(1);
+    const [, input] = vi.mocked(sendNotification).mock.calls[0];
+    expect(input).toMatchObject({
+      userId: "user-2",
+      kind: "apply_credit_back",
+      email: "pro@example.com",
+    });
+    expect(input.body).toContain("$50");
   });
 });

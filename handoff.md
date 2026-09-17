@@ -24,7 +24,50 @@
 
 ---
 
-## LATEST (2026-09-15): quality-of-life wave from Landen's 2026-09-10 doc
+## LATEST (2026-09-16): merge wave from Landen's 2026-09-15/16 request docs
+
+Landen's session queued branches on GitHub (request docs `2026-09-15_Requests`
++ addenda 2-3, `2026-09-16_Requests` + addenda 2-8). Main had already taken the
+rename branch (91c1714). This wave, on `william/merge-2026-09-16`, is
+everything that was on GitHub, integrated in the order addendum 8 asked for:
+
+| # | What | Source | Notes |
+|---|------|--------|-------|
+| 1 | PRIORITY: OAuth callback honors preview mode (Apple sign-in landed pros-only accounts on the coming-soon door) | fix/oauth-callback-preview-2026-09-16 (a5dea0e) | fast-forward of main |
+| 2 | Copy: no applicant cap, Ask card wording, preview-safe job post, cities list, pro-assistant wallet/spots language retired | copy/ask-scope-and-job-post-2026-09-16 (90f9c2b) | merge commit |
+| 3 | Legal: de-identified and aggregated data clause | wording/deidentified-data-2026-09-16 (85bdb48) | cherry-picked (was based on b993940) |
+| 4 | Migration 0169: curtis_signups / partner_signups / signups_by_source views | db/signup-views-2026-09-16 (7719879) | cherry-picked; ALREADY LIVE (Landen created them by hand), nothing to paste |
+| 5 | Preview-mode AI cap: 20 questions a day for everyone while preview is on | wording/2026-09-15 (33c7392) | cherry-picked |
+| 6 | Retired-program kill switch (5 crons skip after the secret check; apply_credit_back no-op) + apple-app-site-association Team ID + empty assetlinks.json until ANDROID_RELEASE_SHA256 | slice of fix/site-placeholders-2026-09-15 (f9b3401) | path-limited patch, NOT the whole branch (it predates main's wording commits) |
+| 7 | aiAbuse.test.ts: retired wallet assertion replaced (pro-ask reads only the two auth-scoped RPCs) | this session | the one new failure the copy branch introduced |
+
+Gate on the combined tree: tsc 0; eslint 0 errors (2 pre-existing alt-text
+warnings in win-card, untouched); vitest 11 files / 19 tests failing = the
+CRLF baseline exactly (the dot run showed one extra timing flake that passed
+on the JSON rerun); isolated prod build 0.
+
+**NOT in this wave (still Landen's or not on GitHub):** `wording/live-gaps-2026-09-16`
+(740e7f0, addendum 8) only exists in Landen's worktree; its unique part is the
+129-page live-audit wording commit (36 city pages "cap at 3" line, Pro Data
+Addendum, wallet language in 4 legal pages, /emergency-help promise, DMCA
+section symbol, effective date 2026-09-16). When Landen pushes it, merge it on
+top; the other three branches it bundles are already here with the same
+patches. Also `feat/referral-codes-2026-09-16` + `ui/homepage-mobile-parity`
+were already merged into main by the rename merge (ec15268).
+
+**Still owed (code):** remove the 3-applicant cap (addendum 6: constant,
+apply_to_lead RPC in a 0170 migration, five "job is full" surfaces, homeowner
+applicant list, tests) and fold in the pro-ask leftovers (locked-state "place
+your first lead", "paid lead applications", and the `($fee lead fee)` line in
+the open-jobs detail at route.ts ~465); pro_waitlist.campaign_code (addendum
+4 item 2); partner signups back-office page. **Still owed (ops, William /
+Landen):** confirm 0163 was applied live (precondition of the rename merge
+that is already deployed); Supabase custom SMTP via Resend + RESEND_FROM
+before real signups; flag the team's accounts internal.
+
+---
+
+## (2026-09-15): quality-of-life wave from Landen's 2026-09-10 doc
 
 Landen appended six bullets to the bottom of the Google Doc
 `2026-09-10_Requests` on 2026-09-15. No migration in this wave; nothing to

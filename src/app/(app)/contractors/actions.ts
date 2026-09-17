@@ -35,6 +35,7 @@ import {
 } from "@/lib/internalAccounts";
 import { redactContact } from "@/lib/redact";
 import { ok, err, type ActionResult } from "@/lib/actionResult";
+import { RETIRED_PRO_PROGRAMS_PAUSED } from "@/lib/retiredProPrograms";
 import {
   isAcceptablePublicText,
   REVIEW_COMMENT_REJECTED,
@@ -1268,7 +1269,16 @@ export async function chooseApplicantAction(formData: FormData) {
     // closeJobAction, so the email/SMS channels fire once configured, gated by
     // the recipient's own consent inside sendNotification. Best-effort: a
     // notification hiccup must never undo a pick that already committed.
-    if (credited.length) {
+    //
+    // Paused 2026-09-15: the wallet-credit-back mechanic this notice
+    // describes is retired (OakTend moved to a 5% success fee on hire), so
+    // while RETIRED_PRO_PROGRAMS_PAUSED is true this is a no-op. The pick
+    // itself (above) always still runs.
+    if (credited.length && RETIRED_PRO_PROGRAMS_PAUSED) {
+      console.log(
+        "[retired-pro-programs] apply_credit_back notification skipped: program paused"
+      );
+    } else if (credited.length) {
       try {
         const admin = createAdminClient();
         const contractorIds = Array.from(

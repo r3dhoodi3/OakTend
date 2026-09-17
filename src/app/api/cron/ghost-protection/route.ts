@@ -3,6 +3,10 @@ import { timingSafeEqual } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNotification } from "@/lib/notify";
+import {
+  RETIRED_PRO_PROGRAMS_PAUSED,
+  retiredProgramPausedResponse,
+} from "@/lib/retiredProPrograms";
 
 export const runtime = "nodejs";
 
@@ -54,6 +58,13 @@ function feeLabel(cents: number): string {
 async function runCron(req: NextRequest) {
   if (!isAuthorized(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
+  if (RETIRED_PRO_PROGRAMS_PAUSED) {
+    console.log(
+      "[retired-pro-programs] ghost-protection cron skipped: program paused"
+    );
+    return retiredProgramPausedResponse("ghost-protection");
   }
 
   const supabase = createAdminClient();
