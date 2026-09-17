@@ -3,6 +3,7 @@ import CityLandingPage, {
   buildCityServiceJsonLd,
   cityPageCopy,
 } from "@/components/CityLandingPage";
+import { getCityContent } from "@/content/cities";
 
 // Top-level city landing page for local SEO ("home maintenance Huntington
 // Beach" type queries) and as the link target for Nextdoor/chamber
@@ -34,10 +35,22 @@ export const revalidate = 3600;
 const COPY = cityPageCopy("Huntington Beach");
 const CANONICAL = `${SITE_URL}/huntington-beach`;
 
+// Real, sourced local content for this city when it exists
+// (src/content/cities). Undefined is a supported state, not a bug: the
+// page then renders the hand-written paragraph below exactly as it did
+// before the content module existed.
+const CONTENT = getCityContent("huntington-beach");
+
+// A researched city describes itself in its own words; those descriptions
+// are local facts only and say nothing about pros, so they are safe with the
+// preview flag on or off. One constant so the search snippet and both share
+// cards cannot drift apart.
+const DESCRIPTION = CONTENT?.metaDescription ?? COPY.description;
+
 export const metadata: Metadata = {
   // The root layout's title template appends "| OakTend"; don't repeat it here.
   title: COPY.title,
-  description: COPY.description,
+  description: DESCRIPTION,
   alternates: {
     canonical: CANONICAL,
   },
@@ -47,7 +60,7 @@ export const metadata: Metadata = {
   // Same shape /pricing and the guides use.
   openGraph: {
     title: COPY.title,
-    description: COPY.description,
+    description: DESCRIPTION,
     url: CANONICAL,
     siteName: "OakTend",
     type: "website",
@@ -62,7 +75,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: COPY.title,
-    description: COPY.description,
+    description: DESCRIPTION,
   },
 };
 
@@ -80,9 +93,13 @@ export default function HuntingtonBeachPage() {
           ).replace(/</g, "\\u003c"),
         }}
       />
+      {/* The FAQPage markup lives next to the FAQ itself, and the
+          BreadcrumbList next to the visible trail, both inside
+          CityLandingPage. */}
       <CityLandingPage
         city="Huntington Beach"
         housingParagraph={HOUSING_PARAGRAPH}
+        content={CONTENT}
       />
     </>
   );

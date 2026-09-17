@@ -4,6 +4,7 @@ import CityLandingPage, {
   buildCityServiceJsonLd,
   cityPageCopy,
 } from "@/components/CityLandingPage";
+import { getCityContent } from "@/content/cities";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
 // Generic city landing page for every Orange County launch city EXCEPT
@@ -69,10 +70,16 @@ export async function generateMetadata(props: {
   // instead of being re-typed per route.
   const copy = cityPageCopy(city);
   const canonical = `${SITE_URL}/oc/${slug}`;
+  // A researched city gets its own description (src/content/cities); the rest
+  // keep the shared one, unchanged. Those descriptions are local facts only
+  // and say nothing about pros, so they are safe with the preview flag on or
+  // off. One constant so the search snippet and both share cards agree.
+  const description =
+    getCityContent(slug)?.metaDescription ?? copy.description;
   return {
     // The root layout's title template appends "| OakTend"; don't repeat it.
     title: copy.title,
-    description: copy.description,
+    description,
     alternates: {
       canonical,
     },
@@ -81,7 +88,7 @@ export async function generateMetadata(props: {
     // /pricing and the guides use.
     openGraph: {
       title: copy.title,
-      description: copy.description,
+      description,
       url: canonical,
       siteName: "OakTend",
       type: "website",
@@ -94,7 +101,7 @@ export async function generateMetadata(props: {
     twitter: {
       card: "summary_large_image",
       title: copy.title,
-      description: copy.description,
+      description,
     },
   };
 }
@@ -106,6 +113,11 @@ export default async function DynamicCityPage(props: {
   const city = CITY_BY_SLUG.get(slug);
   if (!city) notFound();
 
+  // Researched cities render real, sourced local sections and their own
+  // intro; the rest render exactly what they rendered before the content
+  // module existed. Undefined here is the normal case, not an error.
+  const content = getCityContent(slug);
+
   return (
     <>
       <script
@@ -116,7 +128,13 @@ export default async function DynamicCityPage(props: {
           ).replace(/</g, "\\u003c"),
         }}
       />
-      <CityLandingPage city={city} housingParagraph={HOUSING_PARAGRAPH} />
+      {/* The FAQPage markup lives with the FAQ itself, and the BreadcrumbList
+          with the visible trail, both inside CityLandingPage. */}
+      <CityLandingPage
+        city={city}
+        housingParagraph={HOUSING_PARAGRAPH}
+        content={content}
+      />
     </>
   );
 }
