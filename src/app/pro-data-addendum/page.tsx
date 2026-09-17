@@ -6,7 +6,7 @@ import LegalDocument from "@/components/LegalDocument";
 // src/app/sitemap.ts for the sitemap entry. Content lives in
 // src/content/legal/pro-data-addendum.md, rendered by LegalDocument. This is
 // the addendum to the Pro Terms that governs what a pro may do with a
-// homeowner's contact details once they pay to see a lead.
+// homeowner's contact details once they apply to a job.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -14,7 +14,7 @@ const SITE_URL =
 export const metadata: Metadata = {
   title: "Pro Data Addendum",
   description:
-    "What a pro may and may not do with a homeowner's contact details and job information after paying to see a lead: permitted use, retention, deletion, and security.",
+    "What a pro may and may not do with a homeowner's contact details and job information after applying to a job: permitted use, retention, deletion, and security.",
   alternates: {
     canonical: `${SITE_URL}/pro-data-addendum`,
   },

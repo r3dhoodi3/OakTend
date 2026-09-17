@@ -82,12 +82,12 @@ export default function EmergencyHelpPage() {
           Once you are safe, OakTend can line up a local pro
         </h2>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          Create a free account and OakTend will help you post the job and get a
-          local pro on it, usually same day for an emergency. It&apos;s the fastest
-          way to get someone out to your house.
+          Create a free account and post the job with your photos. It&apos;s saved
+          to your home&apos;s record, and OakTend matches you with license-checked
+          local pros as soon as they are available.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
-          Get a pro on it
+          Post the job
         </Link>
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
           Already have an OakTend account? The in-app version at{" "}

@@ -519,13 +519,12 @@ describe("secrets and other people's data are not in the prompt to begin with", 
       expect(at, table).toBeGreaterThan(-1);
       expect(askRoute.slice(at, at + 400)).toContain('.eq("property_id", property.id)');
     }
-    // The pro assistant no longer reads a wallet (the per-lead model is
-    // retired). Its only marketplace reads are the two RPCs that scope to
-    // auth.uid() inside the database, so there is no table read to filter.
-    expect(proAskRoute).not.toContain('.from("wallets")');
+    // The pro route no longer reads wallets or leads itself (the success-fee
+    // pivot retired the wallet). Its only company context comes from
+    // getCurrentContractor(), which resolves the caller's own company from the
+    // session, and the route makes no direct table read that could be widened.
+    expect(proAskRoute).toContain("getCurrentContractor()");
     expect(proAskRoute).not.toContain('.from("');
-    expect(proAskRoute).toContain('rpc("open_jobs_for_me")');
-    expect(proAskRoute).toContain('rpc("my_applications")');
   });
 
   it("logs a kind, never the text that triggered it", () => {

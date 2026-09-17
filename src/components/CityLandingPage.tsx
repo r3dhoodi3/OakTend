@@ -50,7 +50,7 @@ const VALUE = [
   {
     icon: Wrench,
     title: "Local pros, no bidding war",
-    body: "Pros are license-checked against the CSLB when a license is on file, and jobs cap at 3 applying pros, so you compare a short list instead of sorting through a pile of quotes.",
+    body: "Pros are license-checked against the CSLB when a license is on file, and every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
   },
   {
     icon: Gift,
