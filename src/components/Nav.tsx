@@ -171,7 +171,7 @@ export default function Nav({
             <Link
               href="/search"
               aria-label="Search"
-              className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 hover:bg-bark-50 hover:text-bark-700 sm:hidden dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-bark-100 hover:text-bark-700 sm:hidden dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
             >
               <svg
                 viewBox="0 0 24 24"

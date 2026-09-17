@@ -15,10 +15,13 @@ import { APP_GUIDE_EVENT } from "@/lib/appGuide";
 // Icon-only to match the other header controls (search, bell), with an
 // accessible name. Accent follows the shell: bark on the homeowner side,
 // oaktend on the pro side, same split every other two-shell control makes.
+//
+// Hover is the -100 shade, not -50: the headers themselves are bark-50 /
+// oaktend-50, so a -50 hover was the header's own colour and read as dead.
 const ACCENT = {
   homeowner:
-    "text-stone-500 hover:bg-bark-50 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
-  pro: "text-stone-500 hover:bg-oaktend-50 hover:text-oaktend-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
+    "text-stone-500 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
+  pro: "text-stone-500 hover:bg-oaktend-100 hover:text-oaktend-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
 } as const;
 
 export default function TourButton({
@@ -32,7 +35,7 @@ export default function TourButton({
       onClick={() => window.dispatchEvent(new CustomEvent(APP_GUIDE_EVENT))}
       aria-label="Take a tour"
       title="Take a tour"
-      className={`focus-ring flex h-11 w-11 items-center justify-center rounded-full ${ACCENT[side]}`}
+      className={`focus-ring flex h-11 w-11 items-center justify-center rounded-full transition-colors ${ACCENT[side]}`}
     >
       {/* Question mark in a circle: the universal "how does this work" glyph,
           drawn on the same 24-box, 2px stroke as the search icon beside it so

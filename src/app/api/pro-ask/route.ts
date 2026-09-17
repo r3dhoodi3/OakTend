@@ -119,9 +119,10 @@ export async function POST(req: NextRequest) {
   // lawyer review lands, and an API route is reachable with a plain fetch even
   // though the shell that renders this chat is not. Placed AFTER the 401 so a
   // signed-out request still reads as unauthenticated, and before the model is
-  // touched - every call here spends real Anthropic money. An OakTend internal
-  // account passes. Outside preview this is a constant `true` with no session
-  // read and no query, so the route is unchanged.
+  // touched - every call here spends real Anthropic money. Any signed-in
+  // account passes during preview; anonymous visitors get the coming-soon
+  // door. Outside preview this is a constant `true` with no session read and
+  // no query, so the route is unchanged.
   if (!(await isProSideOpenForViewer())) {
     return NextResponse.json({ error: PREVIEW_PROS_COPY }, { status: 403 });
   }

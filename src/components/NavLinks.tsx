@@ -210,14 +210,17 @@ export default function NavLinks({
             // distinguishable in the click counts.
             data-track={`nav:${l.href}`}
             aria-current={active ? "page" : undefined}
-            className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium ${
+            // Hover lands a shade above the header itself (the header is -50,
+            // so a -50 hover was invisible in light mode); the active pill is
+            // already -100, so it steps up to -200/60 to stay reactive too.
+            className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
               active
                 ? accent === "oaktend"
-                  ? "bg-oaktend-100 text-oaktend-700 dark:bg-oaktend-700 dark:text-stone-300"
-                  : "bg-bark-100 text-bark-700 dark:bg-bark-700 dark:text-stone-300"
+                  ? "bg-oaktend-100 text-oaktend-700 hover:bg-oaktend-200/60 dark:bg-oaktend-700 dark:text-stone-300"
+                  : "bg-bark-100 text-bark-700 hover:bg-bark-200/60 dark:bg-bark-700 dark:text-stone-300"
                 : accent === "oaktend"
-                  ? "text-stone-600 hover:bg-oaktend-50 hover:text-oaktend-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
-                  : "text-stone-600 hover:bg-bark-50 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
+                  ? "text-stone-600 hover:bg-oaktend-100 hover:text-oaktend-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
+                  : "text-stone-600 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
             }`}
           >
             {l.label}

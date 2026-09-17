@@ -34,9 +34,10 @@ describe("PhotoTips mount timing (post-a-job form)", () => {
     // No category picked yet: no tips block at all.
     expect(screen.queryByText("Good shots to include")).not.toBeInTheDocument();
 
-    fireEvent.change(screen.getByRole("combobox"), {
-      target: { value: "plumbing" },
-    });
+    // The picker is a combobox now: open it and pick a row, which is where
+    // the pick's bubbling change event comes from.
+    fireEvent.focus(screen.getByRole("combobox"));
+    fireEvent.click(screen.getByRole("option", { name: "Plumbing" }));
 
     // Settles quickly (the fix's deferred read), long before any typing or
     // tap on Post job - not waiting on some later, unrelated blur.

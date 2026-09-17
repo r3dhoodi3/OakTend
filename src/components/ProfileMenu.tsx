@@ -197,7 +197,9 @@ export default function ProfileMenu({
         aria-expanded={open}
         aria-busy={switching !== null || undefined}
         aria-label={name ? `Account menu for ${name}` : "Account menu"}
-        className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 text-sm font-medium text-stone-700 hover:bg-bark-50 max-sm:min-h-11 dark:text-stone-200 dark:hover:bg-stone-800"
+        // bark-100 hover: this trigger sits on the bark-50 header, so a -50
+        // hover was the header's own colour and read as no hover at all.
+        className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 text-sm font-medium text-stone-700 transition-colors hover:bg-bark-100 max-sm:min-h-11 dark:text-stone-200 dark:hover:bg-stone-800"
       >
         {avatarUrl ? (
           // The account's uploaded photo (0154), cropped to the same circle the

@@ -168,11 +168,12 @@ export default function GlobalSearch({
   const rowActive = side === "pro" ? "bg-oaktend-50" : "bg-bark-50";
   // Collapsed icon button hover accent, matching the sibling header icon
   // buttons (bell / back-office): bark on the homeowner side, oaktend on the pro
-  // side.
+  // side. One shade above the header (-100, not -50) because the headers are
+  // themselves bark-50 / oaktend-50 and a -50 hover was invisible in light mode.
   const iconHover =
     side === "pro"
-      ? "hover:bg-oaktend-50 hover:text-oaktend-700"
-      : "hover:bg-bark-50 hover:text-bark-700";
+      ? "hover:bg-oaktend-100 hover:text-oaktend-700"
+      : "hover:bg-bark-100 hover:text-bark-700";
 
   function close() {
     setFocused(false);
@@ -268,7 +269,7 @@ export default function GlobalSearch({
           type="button"
           aria-label="Search"
           onClick={() => onOpenChange?.(true)}
-          className={`flex h-9 w-9 items-center justify-center rounded-full text-stone-500 ${iconHover} dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300`}
+          className={`flex h-9 w-9 items-center justify-center rounded-full text-stone-500 transition-colors ${iconHover} dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300`}
         >
           <svg
             viewBox="0 0 24 24"

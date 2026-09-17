@@ -31,7 +31,7 @@ export default async function SignInPage(
     // coming-soon page that now carries its own way across to the homeowner
     // side. Only the "no destination" fallback is preview-aware, and `??`
     // short-circuits, so a request that carries a next never pays for the
-    // sides lookup or the internal-account check.
+    // sides lookup or the preview check.
     redirect(next ?? (await previewAwareLanding(await getSides())));
   }
 

@@ -59,3 +59,14 @@ export const PRO_WAITLIST_CONFIRMATION = "You're on the list.";
 // itself.
 export const PREVIEW_JOB_POSTED_COPY =
   "Saved to your home's record. Our pro network isn't open yet; we'll match you with local pros when it launches.";
+
+// The coming-soon card /contractors shows IN PLACE of the post-a-job form
+// during the preview. The banner above softens the promise on a job that was
+// already posted; this closes the front door, because a form that takes a job
+// nobody can apply to is a worse answer than saying so plainly. Lives here
+// beside the other preview copy so the page and its test read the same
+// strings, and so a copy edit is one file.
+export const PREVIEW_POST_JOB_TITLE = "Post a job is coming soon";
+export const PREVIEW_POST_JOB_BODY =
+  "We're bringing local contractors on board first. Once pros in your area are ready, you'll be able to post a job here and get quotes inside OakTend.";
+export const PREVIEW_POST_JOB_BACK_LABEL = "Back to home";

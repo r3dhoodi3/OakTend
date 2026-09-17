@@ -46,8 +46,7 @@ export default function BudgetField({
         {isMajor ? (
           // No "Prefer not to say" for a major-tier job. While nothing valid
           // is selected, a disabled placeholder holds the empty value so
-          // `required` actually blocks submit until a real range is picked -
-          // same pattern CategoryFilter uses for "Choose what you need".
+          // `required` actually blocks submit until a real range is picked.
           budget === "" && (
             <option value="" disabled>
               Choose a budget range

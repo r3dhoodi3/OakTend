@@ -29,7 +29,7 @@ export default async function EmergencyPage() {
     // tap zone even when scrolled to the bottom.
     <div className="space-y-8 pb-28">
       <div>
-        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Emergency</h1>
+        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Home emergency</h1>
         <p className="mt-1 text-stone-500 dark:text-stone-400">
           Something wrong right now? Pick what&apos;s happening below. The steps are
           short, do them in order.

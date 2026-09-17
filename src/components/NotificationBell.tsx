@@ -582,7 +582,9 @@ export default function NotificationBell() {
       >
         {/* The visible control stays the old 36px circle - icon, hover ring,
             and badge all unchanged. Only the tappable box around it grew. */}
-        <span className="relative flex h-9 w-9 items-center justify-center rounded-full text-stone-500 group-hover:bg-bark-50 group-hover:text-bark-700 dark:text-stone-400 dark:group-hover:bg-stone-800 dark:group-hover:text-stone-300">
+        {/* bark-100, not bark-50: the header behind this is bark-50, so the
+            old hover ring was the header's own colour and never showed. */}
+        <span className="relative flex h-9 w-9 items-center justify-center rounded-full text-stone-500 transition-colors group-hover:bg-bark-100 group-hover:text-bark-700 dark:text-stone-400 dark:group-hover:bg-stone-800 dark:group-hover:text-stone-300">
           <svg
             viewBox="0 0 24 24"
             className="h-5 w-5"

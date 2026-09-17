@@ -25,11 +25,11 @@ export default function PhotoTips() {
     };
 
     // On the post-a-job form, `name="category"` is a hidden <input> that
-    // CategoryFilter writes via React state (its own visible <select> has no
+    // CategoryFilter writes via React state (its visible combobox has no
     // `name`), not a field the browser itself changes - so React setting it
-    // fires no native DOM event at all. A "change" bubbling up from that
-    // visible <select> reaches this form-level listener BEFORE React's own
-    // onChange runs (this listener sits on the form, closer to the target
+    // fires no native DOM event at all. The "change" CategoryFilter dispatches
+    // on a pick reaches this form-level listener BEFORE React's own state
+    // update commits (this listener sits on the form, closer to the target
     // than React's root listener, so it's earlier in the bubble order),
     // which means a synchronous read here always sees last event's value,
     // never the one that just happened. It would only ever catch up whenever

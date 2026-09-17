@@ -108,10 +108,13 @@ function linksIn(node: Node): Array<{ href: string; text: string }> {
 // A1 + A2: every contractor door renders ProsComingSoon
 // ---------------------------------------------------------------------------
 describe("the closed contractor doors (A1, A2)", () => {
-  async function proComponents(opts: { internal?: boolean } = {}) {
+  // proSideOpen stands in for the whole gate: in preview it answers true for
+  // any signed-in account and false for the public. Its own rule is pinned in
+  // previewMode.test.ts; here it is only the switch the doors hang off.
+  async function proComponents(opts: { proSideOpen?: boolean } = {}) {
     vi.resetModules();
     vi.doMock("@/lib/previewModeServer", () => ({
-      isProSideOpenForViewer: async () => opts.internal ?? false,
+      isProSideOpenForViewer: async () => opts.proSideOpen ?? false,
       assertProSideOpen: async () => {},
       previewBlocksMoney: async () => false,
       // The pure half: the shell and /pro/onboarding call it to tell the
@@ -163,16 +166,18 @@ describe("the closed contractor doors (A1, A2)", () => {
     const { ProsComingSoon } = await proComponents();
     const Layout = (await import("@/app/contractor-signup/layout")).default;
 
-    const tree = Layout({ children: "THE REAL SIGNUP FORM" });
+    // Async now: the gate is per-viewer (any signed-in account may sign up
+    // during the preview), so the layout awaits it rather than reading a flag.
+    const tree = await Layout({ children: "THE REAL SIGNUP FORM" });
     expect(typesIn(tree)).toContain(ProsComingSoon);
     // The signup page's own subtree must not be rendered at all, not merely
     // hidden: that module builds a Supabase client and the OAuth buttons.
     expect(joinedText(tree)).not.toContain("THE REAL SIGNUP FORM");
   });
 
-  it("the pro shell renders it instead of the app for a non-internal pro", async () => {
+  it("the pro shell renders it instead of the app for a viewer the pro side is shut to", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const { ProsComingSoon } = await proComponents({ internal: false });
+    const { ProsComingSoon } = await proComponents({ proSideOpen: false });
     const ProLayout = (await import("@/app/pro/layout")).default;
 
     const tree = await ProLayout({ children: "THE PRO APP" });
@@ -180,11 +185,11 @@ describe("the closed contractor doors (A1, A2)", () => {
     expect(joinedText(tree)).not.toContain("THE PRO APP");
   });
 
-  // The team has to be able to walk the whole contractor flow while the public
-  // side is shut, so an internal account gets the real shell.
-  it("the pro shell renders the real app for an internal account", async () => {
+  // The team and our testers have to be able to walk the whole contractor flow
+  // while the public side is shut, so a signed-in account gets the real shell.
+  it("the pro shell renders the real app for an account the pro side is open to", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const { ProsComingSoon } = await proComponents({ internal: true });
+    const { ProsComingSoon } = await proComponents({ proSideOpen: true });
     const ProLayout = (await import("@/app/pro/layout")).default;
 
     const tree = await ProLayout({ children: "THE PRO APP" });
@@ -447,9 +452,9 @@ describe("every homeowner money action is closed in preview (A4)", () => {
     }));
     vi.doMock("@/lib/auth", () => ({
       getUser: async () => ({ id: "u1" }),
-      // What the REAL previewModeServer reads. An internal account on purpose:
-      // A4 blocks money for everybody, the team included, so this is the
-      // strictest case to assert against.
+      // What the REAL previewModeServer reads. A signed-in account on purpose
+      // - one the pro side is OPEN to in preview: A4 blocks money for
+      // everybody, so this is the strictest case to assert against.
       getVerifiedUser: async () => ({ id: "u1" }),
     }));
     vi.doMock("@/lib/internalAccounts", () => ({

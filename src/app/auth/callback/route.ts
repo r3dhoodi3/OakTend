@@ -226,14 +226,13 @@ export async function GET(request: NextRequest) {
         // resolveAuthRole is a pure, no-imports function (its own header
         // comment says so) and has zero awareness of preview mode, so a
         // pro-only account still gets handed a /pro redirect here even while
-        // the pro side is closed to everyone but the OakTend team. Every
-        // other entry point to /pro (the root page, /signin,
-        // pro/layout.tsx's own render) already runs that answer through
-        // isProSideOpenForViewer()/homeownerLanding() before acting on it -
-        // this is the one gap: without this check, "Continue with Apple" (or
-        // Google) sent a pro-only, non-internal account straight to
-        // ProsComingSoon instead of their homeowner side. Checked here rather
-        // than left to pro/layout.tsx alone so the account lands on
+        // the pro side is closed. Every other entry point to /pro (the root
+        // page, /signin, pro/layout.tsx's own render) already runs that
+        // answer through isProSideOpenForViewer()/homeownerLanding() before
+        // acting on it - this is the one gap: without this check, "Continue
+        // with Apple" (or Google) sent a pro-only account the preview shuts
+        // out straight to ProsComingSoon instead of their homeowner side.
+        // Checked here rather than left to pro/layout.tsx alone so it lands on
         // /dashboard or /onboarding directly, without detouring through the
         // coming-soon page first.
         if (
