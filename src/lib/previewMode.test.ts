@@ -191,16 +191,12 @@ describe("src/lib/subscription.ts in preview (B1)", () => {
 // A2: who the pro side is open to
 // ---------------------------------------------------------------------------
 describe("isProSideOpenForViewer (A2)", () => {
-  async function loadGuard(opts: {
-    user?: { id: string } | null;
-    internal?: boolean;
-  }) {
+  // Only the session matters: in preview the pro side is shut to the public
+  // and open to any signed-in account, so there is no internal flag to stub.
+  async function loadGuard(opts: { user?: { id: string } | null }) {
     vi.resetModules();
     vi.doMock("@/lib/auth", () => ({
       getVerifiedUser: async () => opts.user ?? null,
-    }));
-    vi.doMock("@/lib/internalAccounts", () => ({
-      isInternalUser: async () => opts.internal ?? false,
     }));
     vi.doMock("@/lib/flash", () => ({ setFlash: async () => {} }));
     vi.doMock("next/navigation", () => ({
@@ -218,9 +214,6 @@ describe("isProSideOpenForViewer (A2)", () => {
     const getVerifiedUser = vi.fn(async () => null);
     vi.resetModules();
     vi.doMock("@/lib/auth", () => ({ getVerifiedUser }));
-    vi.doMock("@/lib/internalAccounts", () => ({
-      isInternalUser: async () => false,
-    }));
     vi.doMock("@/lib/flash", () => ({ setFlash: async () => {} }));
     vi.doMock("next/navigation", () => ({ redirect: () => {} }));
     const mod = await import("./previewModeServer");
@@ -235,37 +228,35 @@ describe("isProSideOpenForViewer (A2)", () => {
     await expect(mod.isProSideOpenForViewer()).resolves.toBe(false);
   });
 
-  it("blocks a real (non-internal) pro in preview", async () => {
+  // The preview door faces the PUBLIC. Any signed-in account - team, tester or
+  // an ordinary pro who already has a login - can use the contractor side
+  // without being flagged internal first.
+  it("lets any signed-in account through in preview", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const mod = await loadGuard({ user: { id: "real-pro" }, internal: false });
-    await expect(mod.isProSideOpenForViewer()).resolves.toBe(false);
-  });
-
-  it("lets an internal account through in preview", async () => {
-    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const mod = await loadGuard({ user: { id: "team" }, internal: true });
+    const mod = await loadGuard({ user: { id: "real-pro" } });
     await expect(mod.isProSideOpenForViewer()).resolves.toBe(true);
   });
 
-  it("assertProSideOpen redirects a blocked pro and returns for an internal one", async () => {
+  it("assertProSideOpen redirects an anonymous viewer and returns for a signed-in one", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
 
-    const blocked = await loadGuard({ user: { id: "real" }, internal: false });
+    const blocked = await loadGuard({ user: null });
     await expect(blocked.assertProSideOpen()).rejects.toThrow("NEXT_REDIRECT:/pro");
 
-    const allowed = await loadGuard({ user: { id: "team" }, internal: true });
+    const allowed = await loadGuard({ user: { id: "team" } });
     await expect(allowed.assertProSideOpen()).resolves.toBeUndefined();
   });
 
-  // A4 applies to EVERYONE, internal included: an OakTend card is still a real
-  // charge. This is the one guard in the file that does not carve the team out.
+  // A4 applies to EVERYONE, signed-in team accounts included: an OakTend card
+  // is still a real charge. This is the one guard in the file that does not
+  // carve the team out.
   it("previewBlocksMoney blocks in preview and never outside it", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const on = await loadGuard({ user: { id: "team" }, internal: true });
+    const on = await loadGuard({ user: { id: "team" } });
     await expect(on.previewBlocksMoney()).resolves.toBe(true);
 
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
-    const off = await loadGuard({ user: { id: "team" }, internal: true });
+    const off = await loadGuard({ user: { id: "team" } });
     await expect(off.previewBlocksMoney()).resolves.toBe(false);
   });
 });
