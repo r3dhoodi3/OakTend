@@ -156,7 +156,10 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                 data-track="menu:/emergency"
                 className="mx-1 flex items-center rounded-md px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/15"
               >
-                Emergency
+                {/* "Home emergency", not "Emergency": on its own the word
+                    reads like a 911 button; this is the burst-pipe /
+                    no-heat shutoff guide for the house. */}
+                Home emergency
               </Link>
             </div>
             <div className="border-b border-stone-100 py-1 dark:border-white/10">
@@ -275,7 +278,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
               <div className="space-y-5 p-4 pb-[calc(3.5rem+env(safe-area-inset-bottom)+1rem)]">
                 <div>
                   <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
-                    Emergency
+                    Home emergency
                   </p>
                   <div className="grid grid-cols-3 gap-2">
                     <Link
@@ -286,7 +289,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                       // start wrapping the longer tile names above that.
                       className="flex min-h-[64px] flex-col items-center justify-center rounded-xl border border-red-200 bg-red-50 px-2 py-3 text-center text-xs font-medium text-red-600 max-sm:text-[13px] dark:border-red-500/30 dark:bg-red-500/15 dark:text-red-400"
                     >
-                      Emergency
+                      Home emergency
                     </Link>
                   </div>
                 </div>
