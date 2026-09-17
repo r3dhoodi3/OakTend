@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { JOB_CATEGORIES } from "@/lib/constants";
 import { reportReviewMoment } from "@/lib/nativeReview";
+import SelectMenu from "@/components/SelectMenu";
 import type { ActionResult } from "@/lib/actionResult";
 
 const MIN_DESCRIPTION = 20;
@@ -105,19 +106,13 @@ export default function HireAgainButton({
               <input type="hidden" name="contractor_id" value={contractorId} />
               <div>
                 <label className="label">What do you need?</label>
-                <select
+                <SelectMenu
                   name="category"
-                  className="select"
+                  options={[...JOB_CATEGORIES]}
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={setCategory}
                   required
-                >
-                  {JOB_CATEGORIES.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
               <div>
                 <label className="label">Describe the job</label>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BUDGET_RANGES, isMajorCategory } from "@/lib/constants";
+import SelectMenu from "@/components/SelectMenu";
 import { useDraftJob } from "./DraftJobContext";
 
 // Budget select for the post-a-job form. Optional (and defaults to "Prefer
@@ -35,32 +36,24 @@ export default function BudgetField({
       <label className="label" htmlFor="job-budget">
         Rough budget{isMajor ? "" : " (optional)"}
       </label>
-      <select
+      <SelectMenu
         name="budget_range"
         id="job-budget"
-        className="select"
         value={budget}
-        onChange={(e) => setBudget(e.target.value)}
+        onChange={setBudget}
         required={isMajor}
-      >
-        {isMajor ? (
-          // No "Prefer not to say" for a major-tier job. While nothing valid
-          // is selected, a disabled placeholder holds the empty value so
-          // `required` actually blocks submit until a real range is picked.
-          budget === "" && (
-            <option value="" disabled>
-              Choose a budget range
-            </option>
-          )
-        ) : (
-          <option value="">Prefer not to say</option>
-        )}
-        {BUDGET_RANGES.map((b) => (
-          <option key={b.value} value={b.value}>
-            {b.label}
-          </option>
-        ))}
-      </select>
+        // No "Prefer not to say" for a major-tier job. While nothing valid is
+        // selected, a disabled placeholder holds the empty value so `required`
+        // actually blocks submit until a real range is picked.
+        placeholder={
+          isMajor && budget === "" ? "Choose a budget range" : undefined
+        }
+        options={
+          isMajor
+            ? [...BUDGET_RANGES]
+            : [{ value: "", label: "Prefer not to say" }, ...BUDGET_RANGES]
+        }
+      />
       <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
         {isMajor
           ? "Pros need a budget range to bid seriously on projects this size."

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { reportIssueAction } from "./actions";
 import PhotoUpload from "@/components/PhotoUpload";
 import PhotoTips from "@/components/PhotoTips";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 import { ISSUE_CATEGORIES, SEVERITIES, SYSTEM_TYPES, labelFor } from "@/lib/constants";
 import type { HomeSystem } from "@/lib/database.types";
@@ -45,38 +46,39 @@ export default function IssueForm({
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className="label">Category</label>
-          <select name="category" className="select" required>
-            {ISSUE_CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            name="category"
+            options={[...ISSUE_CATEGORIES]}
+            required
+          />
         </div>
         <div>
           <label className="label">Severity</label>
-          <select name="severity" className="select" required defaultValue="medium">
-            {SEVERITIES.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            name="severity"
+            options={[...SEVERITIES]}
+            required
+            defaultValue="medium"
+          />
         </div>
       </div>
 
       {systems.length > 0 && (
         <div>
           <label className="label">Related system (optional)</label>
-          <select name="system_id" className="select" defaultValue="">
-            <option value="">- none -</option>
-            {systems.map((s) => (
-              <option key={s.id} value={s.id}>
-                {labelFor(SYSTEM_TYPES, s.system_type)}
-                {s.material_or_model ? ` · ${s.material_or_model}` : ""}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            name="system_id"
+            defaultValue=""
+            options={[
+              { value: "", label: "- none -" },
+              ...systems.map((s) => ({
+                value: s.id,
+                label: `${labelFor(SYSTEM_TYPES, s.system_type)}${
+                  s.material_or_model ? ` · ${s.material_or_model}` : ""
+                }`,
+              })),
+            ]}
+          />
         </div>
       )}
 

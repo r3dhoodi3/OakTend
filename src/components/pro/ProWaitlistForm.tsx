@@ -3,6 +3,7 @@
 import { useState } from "react";
 import SubmitButton from "@/components/SubmitButton";
 import Honeypot from "@/components/Honeypot";
+import SelectMenu from "@/components/SelectMenu";
 import { JOB_CATEGORIES } from "@/lib/constants";
 import { joinProWaitlistAction } from "@/app/pros/actions";
 import { PRO_WAITLIST_CONFIRMATION } from "@/lib/previewMode";
@@ -76,20 +77,13 @@ export default function ProWaitlistForm({ source = "pros" }: { source?: string }
         <label className="label" htmlFor="pro-waitlist-trade">
           Trade
         </label>
-        <select
+        <SelectMenu
           id="pro-waitlist-trade"
           name="trade"
           value={trade}
-          onChange={(e) => setTrade(e.target.value)}
-          className="select"
-        >
-          <option value="">Choose a trade</option>
-          {JOB_CATEGORIES.map((c) => (
-            <option key={c.value} value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
+          onChange={setTrade}
+          options={[{ value: "", label: "Choose a trade" }, ...JOB_CATEGORIES]}
+        />
       </div>
 
       <div className="mt-4">

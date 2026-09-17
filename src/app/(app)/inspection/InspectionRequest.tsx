@@ -4,6 +4,7 @@ import { useState } from "react";
 import { postJobAction } from "../contractors/actions";
 import { TIMING_OPTIONS } from "@/lib/constants";
 import PhoneInput from "@/components/PhoneInput";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 
 const REASON_OPTIONS = [
@@ -55,27 +56,20 @@ export default function InspectionRequest({
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="label">Reason for the inspection</label>
-          <select
-            className="select"
+          <SelectMenu
+            aria-label="Reason for the inspection"
+            options={REASON_OPTIONS}
             value={reason}
-            onChange={(e) => setReason(e.target.value)}
-          >
-            {REASON_OPTIONS.map((r) => (
-              <option key={r.value} value={r.value}>
-                {r.label}
-              </option>
-            ))}
-          </select>
+            onChange={setReason}
+          />
         </div>
         <div>
           <label className="label">Preferred timing</label>
-          <select name="timing" className="select" defaultValue="few_weeks">
-            {TIMING_OPTIONS.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            name="timing"
+            options={[...TIMING_OPTIONS]}
+            defaultValue="few_weeks"
+          />
         </div>
       </div>
 

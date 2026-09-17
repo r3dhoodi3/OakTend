@@ -25,6 +25,7 @@ import PhotoUpload from "@/components/PhotoUpload";
 import { StoredPhotoGrid } from "@/components/FilePreview";
 import MonthYearInput from "@/components/MonthYearInput";
 import MaterialSelect from "@/components/MaterialSelect";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 
 const STAGE_STYLE: Record<string, string> = {
@@ -235,18 +236,19 @@ export default function SystemRow({
             </div>
             <div>
               <label className="label">Condition</label>
-              <select
+              <SelectMenu
                 name="condition_rating"
-                className="select"
-                defaultValue={s.condition_rating ?? ""}
-              >
-                <option value="">Not sure</option>
-                <option value="5">5 (like new)</option>
-                <option value="4">4 (good)</option>
-                <option value="3">3 (fair)</option>
-                <option value="2">2 (worn)</option>
-                <option value="1">1 (failing)</option>
-              </select>
+                // Stored as a number; the dropdown deals in strings.
+                defaultValue={String(s.condition_rating ?? "")}
+                options={[
+                  { value: "", label: "Not sure" },
+                  { value: "5", label: "5 (like new)" },
+                  { value: "4", label: "4 (good)" },
+                  { value: "3", label: "3 (fair)" },
+                  { value: "2", label: "2 (worn)" },
+                  { value: "1", label: "1 (failing)" },
+                ]}
+              />
             </div>
             {/* HVAC only: filter size + reminder cadence for the consumables
                 autopilot. Migration 0042 columns, not in the generated types
@@ -265,18 +267,20 @@ export default function SystemRow({
                 </div>
                 <div>
                   <label className="label">Reminder every</label>
-                  <select
+                  <SelectMenu
                     name="filter_interval_months"
-                    className="select"
-                    defaultValue={(s as any).filter_interval_months ?? ""}
-                  >
-                    <option value="">No reminder</option>
-                    <option value="1">1 month</option>
-                    <option value="2">2 months</option>
-                    <option value="3">3 months</option>
-                    <option value="6">6 months</option>
-                    <option value="12">12 months</option>
-                  </select>
+                    defaultValue={String(
+                      (s as any).filter_interval_months ?? ""
+                    )}
+                    options={[
+                      { value: "", label: "No reminder" },
+                      { value: "1", label: "1 month" },
+                      { value: "2", label: "2 months" },
+                      { value: "3", label: "3 months" },
+                      { value: "6", label: "6 months" },
+                      { value: "12", label: "12 months" },
+                    ]}
+                  />
                 </div>
               </>
             )}

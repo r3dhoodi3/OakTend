@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { updatePropertyAction } from "../profile/actions";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 import { PROPERTY_TYPES } from "@/lib/constants";
 
@@ -49,19 +50,12 @@ export default function HomeDetailsForm({
           <label className="label" htmlFor="property_type">
             Property type
           </label>
-          <select
+          <SelectMenu
             id="property_type"
             name="property_type"
-            className="select"
             defaultValue={propertyType ?? ""}
-          >
-            <option value="">Leave as is</option>
-            {PROPERTY_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
+            options={[{ value: "", label: "Leave as is" }, ...PROPERTY_TYPES]}
+          />
         </div>
         <div>
           <label className="label" htmlFor="year_built">

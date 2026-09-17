@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ReceiptText } from "lucide-react";
 import { JOB_CATEGORIES } from "@/lib/constants";
 import AiNotice from "@/components/AiNotice";
+import SelectMenu from "@/components/SelectMenu";
 import { QUOTE_TASTE_PAYWALL } from "@/lib/freeAiTaste";
 import ProgressBar, { useStagedProgress } from "@/components/ProgressBar";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
@@ -636,18 +637,12 @@ export default function QuoteAnalyzer({
 
         <div>
           <label className="label">Job category (optional)</label>
-          <select
+          <SelectMenu
+            aria-label="Job category"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="input"
-          >
-            <option value="">- not sure -</option>
-            {JOB_CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+            onChange={setCategory}
+            options={[{ value: "", label: "- not sure -" }, ...JOB_CATEGORIES]}
+          />
         </div>
 
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}

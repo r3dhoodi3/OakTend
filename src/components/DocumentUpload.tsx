@@ -6,6 +6,7 @@ import { getSupabase } from "@/lib/lazySupabase";
 import { SYSTEM_TYPES } from "@/lib/constants";
 import { saveDocumentAction } from "@/lib/document-actions";
 import TakePhotoButton from "@/components/TakePhotoButton";
+import SelectMenu from "@/components/SelectMenu";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 import { FilePreviewThumb } from "@/components/FilePreview";
 import Lightbox from "@/components/Lightbox";
@@ -464,32 +465,22 @@ export default function DocumentUpload({
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="label">Type</label>
-              <select
+              <SelectMenu
                 name="doc_type"
                 defaultValue={fields.doc_type}
-                className="input"
-              >
-                {DOC_TYPES.map((d) => (
-                  <option key={d.value} value={d.value}>
-                    {d.label}
-                  </option>
-                ))}
-              </select>
+                options={DOC_TYPES}
+              />
             </div>
             <div>
               <label className="label">Relates to</label>
-              <select
+              <SelectMenu
                 name="system_type"
                 defaultValue={fields.system_type ?? ""}
-                className="input"
-              >
-                <option value="">- none -</option>
-                {SYSTEM_TYPES.map((sys) => (
-                  <option key={sys.value} value={sys.value}>
-                    {sys.label}
-                  </option>
-                ))}
-              </select>
+                options={[
+                  { value: "", label: "- none -" },
+                  ...SYSTEM_TYPES,
+                ]}
+              />
             </div>
           </div>
 

@@ -27,6 +27,7 @@ import {
 } from "./actions";
 import { postJobErrorMessage } from "./postJobErrors";
 import SubmitButton from "@/components/SubmitButton";
+import SelectMenu from "@/components/SelectMenu";
 import CategoryFilter from "./CategoryFilter";
 import ProjectChips from "./ProjectChips";
 import LeadChat from "@/components/LeadChat";
@@ -623,18 +624,12 @@ export default async function ContractorsPage(
             <label className="label" htmlFor="job-timing">
               Preferred timing
             </label>
-            <select
+            <SelectMenu
               name="timing"
               id="job-timing"
-              className="select"
+              options={[...TIMING_OPTIONS]}
               defaultValue={searchParams.timing || "few_weeks"}
-            >
-              {TIMING_OPTIONS.map((t) => (
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
 

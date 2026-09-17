@@ -2,6 +2,7 @@
 
 import NoticeAtCollection from "@/components/NoticeAtCollection";
 import InlineSpinner from "@/components/InlineSpinner";
+import SelectMenu from "@/components/SelectMenu";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { lookupParcelAction, claimPropertyAction, joinMarketWaitlistAction } from "./actions";
 import type { PublicParcelFacts } from "@/lib/parcel";
@@ -1485,18 +1486,12 @@ export default function OnboardingForm({
                           silently thrown away between choosing it and pressing
                           claim. Held in state, it survives every remount and
                           is what the form actually posts. */}
-                      <select
+                      <SelectMenu
                         name="property_type"
-                        className="select"
+                        options={[...PROPERTY_TYPES]}
                         value={propertyType}
-                        onChange={(e) => setPropertyType(e.target.value)}
-                      >
-                        {PROPERTY_TYPES.map((t) => (
-                          <option key={t.value} value={t.value}>
-                            {t.label}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={setPropertyType}
+                      />
                     </div>
                   </div>
                 </div>

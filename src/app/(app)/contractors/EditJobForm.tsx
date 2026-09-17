@@ -4,6 +4,7 @@ import { useState } from "react";
 import { updateJobAction } from "./actions";
 import { TIMING_OPTIONS } from "@/lib/constants";
 import CategoryFilter from "./CategoryFilter";
+import SelectMenu from "@/components/SelectMenu";
 import PhoneInput from "@/components/PhoneInput";
 import {
   normalizeContactEmail,
@@ -100,17 +101,11 @@ export default function EditJobForm({ job }: { job: any }) {
         </div>
         <div>
           <label className="label">Preferred timing</label>
-          <select
+          <SelectMenu
             name="timing"
-            className="select"
+            options={[...TIMING_OPTIONS]}
             defaultValue={job.timing ?? "few_weeks"}
-          >
-            {TIMING_OPTIONS.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
       </div>
       <div>

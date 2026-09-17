@@ -32,6 +32,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { Bot, Clock, Star, FileText, Tag, BarChart3 } from "lucide-react";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 import ClientRow, { type ProClientRow } from "./ClientRow";
 import { addClientAction, trackLeadAction } from "./actions";
@@ -381,13 +382,7 @@ export default function CrmView({
             </label>
             <label className="block">
               <span className="label">Stage</span>
-              <select name="stage" defaultValue="lead" className="select">
-                {stageOptions.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
+              <SelectMenu name="stage" defaultValue="lead" options={stageOptions} />
             </label>
             <label className="block">
               <span className="label">Follow up on (optional)</span>

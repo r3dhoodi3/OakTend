@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentContractor } from "@/lib/contractor";
 import { labelFor, JOB_CATEGORIES } from "@/lib/constants";
 import ConfirmSubmit from "@/components/ConfirmSubmit";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {
@@ -168,17 +169,7 @@ export default async function ClientDetailPage(
           </label>
           <label className="block">
             <span className="label">Stage</span>
-            <select
-              name="stage"
-              defaultValue={client.stage}
-              className="select"
-            >
-              {STAGES.map((s) => (
-                <option key={s.value} value={s.value}>
-                  {s.label}
-                </option>
-              ))}
-            </select>
+            <SelectMenu name="stage" defaultValue={client.stage} options={STAGES} />
           </label>
           <label className="block">
             <span className="label">Follow up on</span>
