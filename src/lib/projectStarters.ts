@@ -1,0 +1,281 @@
+import { BUDGET_RANGES, REMODEL_PROJECTS, TIMING_OPTIONS } from "@/lib/constants";
+import { DEFAULT_LIFESPANS } from "@/lib/health";
+import type { HomeSystem } from "@/lib/database.types";
+
+// What each "Thinking about a project?" chip should actually DO. The chips used
+// to link to /contractors?category=x, which preselected the trade and left the
+// owner staring at an empty "Details about your project" box - the hardest part
+// of posting a job. A starter carries a budget band, a timing, and a short
+// fill-in-the-blanks template, so the chip lands on a form that is already
+// written and only needs editing.
+//
+// Values are derived from BUDGET_RANGES / TIMING_OPTIONS so a renamed band is a
+// compile error here rather than a silently-ignored URL param.
+type BudgetValue = (typeof BUDGET_RANGES)[number]["value"];
+type TimingValue = (typeof TIMING_OPTIONS)[number]["value"];
+
+export type ProjectStarter = {
+  label: string;
+  category: string;
+  // The SYSTEM_TYPES value this project replaces, when there is one. Only
+  // starters with one can ever show a home-aware nudge.
+  systemType?: string;
+  budget: BudgetValue;
+  timing: TimingValue;
+  template: string;
+};
+
+// The per-label half of a starter. `category` is NOT repeated here: it comes
+// from REMODEL_PROJECTS below, so the chip's trade and the form's trade cannot
+// drift apart.
+type StarterSpec = {
+  systemType?: string;
+  budget: BudgetValue;
+  timing: TimingValue;
+  template: string;
+};
+
+// Keyed by REMODEL_PROJECTS label. Typed as a Record over that literal union so
+// adding a project without a starter (or keeping one for a project that was
+// removed) fails to compile instead of shipping a dead chip.
+const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterSpec> = {
+  "Kitchen remodel": {
+    budget: "25000-50000",
+    timing: "flexible",
+    template:
+      "Kitchen remodel. Scope: [cabinets / countertops / backsplash / layout change]. Kitchen is roughly [size] sq ft and we [are / are not] keeping the current layout. Looking for quotes and a rough timeline.",
+  },
+  "Bathroom remodel": {
+    budget: "15000-25000",
+    timing: "flexible",
+    template:
+      "Bathroom remodel. Scope: [tub-to-shower / tile / vanity / full gut]. It's the [primary / hall / guest] bath, about [size] sq ft. Looking for quotes and a timeline.",
+  },
+  "Window replacement": {
+    systemType: "windows",
+    budget: "5000-15000",
+    timing: "few_weeks",
+    template:
+      "Replace [number] windows: [single-hung / sliding / picture], [vinyl / fiberglass / wood] frames. Current windows are [single / dual] pane. Please quote supply and install.",
+  },
+  "Stairs & railings": {
+    budget: "5000-15000",
+    timing: "flexible",
+    template:
+      "Stairs and railings: [repair / rebuild / new railing]. [Interior / exterior], about [number] steps. Material preference: [wood / metal / cable].",
+  },
+  Flooring: {
+    budget: "5000-15000",
+    timing: "flexible",
+    template:
+      "New flooring in [rooms], about [size] sq ft total. Material: [LVP / hardwood / tile / carpet]. Removing existing [carpet / tile] is [needed / not needed].",
+  },
+  "Deck / patio": {
+    systemType: "deck",
+    budget: "15000-25000",
+    timing: "flexible",
+    template:
+      "Deck / patio: [new build / replace / repair], roughly [size] sq ft. Material: [wood / composite / concrete pavers]. Attached to the house: [yes / no].",
+  },
+  "Interior painting": {
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Interior painting: [rooms / whole interior], [number] rooms, ceilings [included / not included]. Walls are in [good / fair] shape. Color picked: [yes / not yet].",
+  },
+  "Garage door": {
+    systemType: "garage_door",
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Garage door: [replace door / replace opener / repair]. [Single / double] door. Current door is [steel / wood / aluminum]. Please quote supply and install.",
+  },
+  "Roof replacement": {
+    systemType: "roof",
+    budget: "15000-25000",
+    timing: "few_weeks",
+    template:
+      "Roof replacement, roughly [size] sq ft, [one / two] story, [low / moderate / steep] pitch. Current roof is [asphalt shingle / tile / flat]. Any known leaks: [yes / no].",
+  },
+  "Panel upgrade": {
+    systemType: "electrical_panel",
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Electrical panel upgrade to [200] amps. Reason: [EV charger / solar / added load / old panel]. Current panel is [brand / amps] if known.",
+  },
+  "HVAC install": {
+    systemType: "hvac",
+    budget: "5000-15000",
+    timing: "few_weeks",
+    template:
+      "HVAC: [replace system / add AC / heat pump]. Home is about [size] sq ft, [one / two] story. Current system is [gas furnace + AC / heat pump / none].",
+  },
+  "Water heater": {
+    systemType: "water_heater",
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Water heater replacement: [gas / electric], [40 / 50] gallon or [tankless]. Located in [garage / closet / outside]. Current unit is [working / leaking / no hot water].",
+  },
+  // The twelve above came with founder-supplied copy; the ten below follow the
+  // same shape (what / how big / what material) for the rest of the chip row.
+  "Solar panels": {
+    budget: "25000-50000",
+    timing: "flexible",
+    template:
+      "Solar panels: [roof mount / ground mount]. We use about [number] kWh a month and the roof is [asphalt shingle / tile / metal]. Interested in [purchase / financing], battery backup [yes / no].",
+  },
+  Fencing: {
+    systemType: "fence",
+    budget: "5000-15000",
+    timing: "flexible",
+    template:
+      "Fence: [new / replace / repair], about [number] linear feet, [4 / 6] ft tall. Material: [wood / vinyl / chain link / iron]. Gates needed: [number].",
+  },
+  Landscaping: {
+    budget: "5000-15000",
+    timing: "flexible",
+    template:
+      "Landscaping in the [front / back / both] yard, about [size] sq ft. Work wanted: [new plants / sod / regrade / retaining wall / irrigation]. Existing sprinklers: [yes / no].",
+  },
+  "Driveway / concrete": {
+    systemType: "driveway",
+    budget: "5000-15000",
+    timing: "flexible",
+    template:
+      "Driveway / concrete: [replace / new pour / repair], roughly [size] sq ft. Material: [concrete / asphalt / pavers]. Removing the existing surface is [needed / not needed].",
+  },
+  Siding: {
+    systemType: "siding",
+    budget: "15000-25000",
+    timing: "flexible",
+    template:
+      "Siding: [replace / repair], roughly [size] sq ft of wall, [one / two] story. Material preference: [fiber cement / vinyl / wood / stucco]. Current siding is [type].",
+  },
+  "Gutter installation": {
+    systemType: "gutters",
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Gutters: [new / replace / repair], about [number] linear feet, [one / two] story. Material: [aluminum / steel / copper]. Gutter guards: [yes / no].",
+  },
+  Insulation: {
+    budget: "1500-5000",
+    timing: "flexible",
+    template:
+      "Insulation: [attic / walls / crawlspace], about [size] sq ft. Current insulation is [none / old batts / blown-in]. Main goal: [comfort / energy bills / noise].",
+  },
+  "Basement finishing": {
+    budget: "25000-50000",
+    timing: "flexible",
+    template:
+      "Basement finishing, about [size] sq ft. Plan includes [bedroom / bathroom / living area / wet bar]. It is currently [unfinished / partly finished] and stays [dry / damp].",
+  },
+  "Smart home / security": {
+    budget: "1500-5000",
+    timing: "few_weeks",
+    template:
+      "Smart home / security: [cameras / doorbell / alarm / smart locks / thermostat]. Home is about [size] sq ft, [one / two] story. Wiring preference: [wired / wireless / whatever works].",
+  },
+  "Drywall repair": {
+    budget: "500-1500",
+    timing: "few_weeks",
+    template:
+      "Drywall repair in [rooms]: [number] spots, largest about [size]. Cause: [water / impact / settling / unknown]. Painting after: [yes / no].",
+  },
+};
+
+// The trailing "Other" chip, for a project the row doesn't name. No template:
+// there is nothing honest to prefill, so it carries the category alone.
+export const OTHER_STARTER: ProjectStarter = {
+  label: "Other",
+  category: "other",
+  budget: "not-sure",
+  timing: "few_weeks",
+  template: "",
+};
+
+// Built FROM REMODEL_PROJECTS (label + category), never alongside it.
+export const PROJECT_STARTERS: ProjectStarter[] = [
+  ...REMODEL_PROJECTS.map((p) => ({
+    label: p.label,
+    category: p.category,
+    ...STARTER_SPECS[p.label],
+  })),
+  OTHER_STARTER,
+];
+
+// The home_systems columns a nudge needs. A Pick of the real Row so a column
+// rename reaches this file, and small enough that callers can select just these.
+export type StarterSystem = Pick<
+  HomeSystem,
+  | "system_type"
+  | "install_year"
+  | "material_or_model"
+  | "capacity"
+  | "expected_lifespan_years"
+>;
+
+export type StarterLink = {
+  href: string;
+  // One short line under the chip label when this home actually has the system
+  // ("Yours is 17 yrs old, past its typical life"). Null when we know nothing -
+  // we never guess an age or a condition.
+  nudge: string | null;
+  description: string;
+};
+
+// Resolve a chip against this home's systems: where it links, what the
+// description box gets prefilled with, and whether the chip can say something
+// true about the owner's own equipment.
+export function starterFor(
+  starter: ProjectStarter,
+  systems: StarterSystem[] | null | undefined,
+  now = new Date()
+): StarterLink {
+  const match = starter.systemType
+    ? (systems ?? []).find((s) => s.system_type === starter.systemType) ?? null
+    : null;
+
+  const age =
+    match && match.install_year ? now.getFullYear() - match.install_year : null;
+
+  let nudge: string | null = null;
+  if (match && age !== null) {
+    const lifespan =
+      match.expected_lifespan_years ?? DEFAULT_LIFESPANS[match.system_type] ?? null;
+    const tail = !lifespan
+      ? ""
+      : age >= lifespan
+        ? ", past its typical life"
+        : age >= lifespan * 0.8
+          ? ", near the end of its typical life"
+          : "";
+    nudge = `Yours is ${age} yrs old${tail}`;
+  } else if (match) {
+    // No install year on file: still say we know this home, without a number.
+    nudge = "On your home record";
+  }
+
+  // One extra sentence built only from fields that exist - a pro reading the
+  // post gets the brand/size off the owner's record instead of a blank.
+  const facts: string[] = [];
+  if (match?.material_or_model) facts.push(match.material_or_model);
+  if (match?.capacity) facts.push(match.capacity);
+  if (match?.install_year)
+    facts.push(`installed ${match.install_year} (${age} yrs old)`);
+  const sentence = facts.length
+    ? `Current unit on our record: ${facts.join(", ")}.`
+    : "";
+  const description = [starter.template, sentence].filter(Boolean).join(" ");
+
+  const params = new URLSearchParams({ category: starter.category });
+  if (description) params.set("desc", description);
+  params.set("budget", starter.budget);
+  params.set("timing", starter.timing);
+  // Tells /contractors this post was started for the owner, so it can say so.
+  params.set("starter", "1");
+
+  return { href: `/contractors?${params.toString()}`, nudge, description };
+}

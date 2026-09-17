@@ -632,12 +632,15 @@ export default async function HomePage(
   const projectChips = (
     <>
       <p className="text-sm text-stone-500 dark:text-stone-400">
-        Popular upgrades. Tap one to get matched with a local pro.
+        Popular upgrades. Tap one and we&apos;ll start the post for you.
       </p>
       {/* The chip row itself now lives in contractors/ProjectChips so the
           phone copy at the top of /contractors renders the exact same list.
-          Same markup as before, just no longer written out twice. */}
-      <ProjectChips />
+          Same markup as before, just no longer written out twice.
+          `systems` is the home_systems rows this page already loaded (no new
+          query): it lets a chip say "Yours is 17 yrs old" on the project that
+          replaces a system this home actually has. */}
+      <ProjectChips systems={systems ?? []} />
     </>
   );
 
