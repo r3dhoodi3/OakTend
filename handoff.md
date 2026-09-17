@@ -24,7 +24,39 @@
 
 ---
 
-## LATEST (2026-09-16): merge wave from Landen's 2026-09-15/16 request docs
+## LATEST (2026-09-16 evening): William's quality wave
+
+Built on top of the merge wave below (which is on main as 5768d0d, merged
+with Landen's live-gaps bundle). Five commits, all UI/preview polish, no
+migration:
+
+1. Header hover: every toolbar trigger hovered to the header's own colour
+   (bark-50 on bark-50 / oaktend-50 on oaktend-50), so nothing showed in
+   light mode. Now -100 (+ transition-colors); active nav pill -200/60.
+2. Preview: `isProSideOpenForViewer()` passes ANY signed-in account (was
+   internal-only); anonymous visitors still get ProsComingSoon + waitlist.
+   contractor-signup and "Switch to your business" follow. /contractors in
+   preview shows a "Post a job is coming soon" card + Back to home
+   (PREVIEW_POST_JOB_* in previewMode.ts) instead of the form; the bottom
+   "← Back" link went to /issues and now goes to /dashboard.
+3. Tools menu: "Emergency" -> "Home emergency" (dropdown, phone sheet,
+   /emergency h1).
+4. Post a job category picker: one combobox (search box that drops the
+   filtered list) replaces search input + native select. Same hidden
+   `category` input, Other box, chip prefill; `pick()` dispatches a
+   bubbling `change` from the hidden input because PhotoTips listens for
+   the old select's native event.
+5. Comment-only sweep for the preview rule change.
+
+Gate: tsc 0, build 0, vitest at the CRLF baseline (11 files / 19 tests;
+GlobalSearch and previewModeWiring each showed one timeout under
+full-suite load, both pass alone). Note: `NEXT_PUBLIC_PREVIEW_MODE` is NOT
+set in William's .env.local, so the local dev server runs with preview
+OFF; production has it on.
+
+---
+
+## (2026-09-16): merge wave from Landen's 2026-09-15/16 request docs
 
 Landen's session queued branches on GitHub (request docs `2026-09-15_Requests`
 + addenda 2-3, `2026-09-16_Requests` + addenda 2-8). Main had already taken the
