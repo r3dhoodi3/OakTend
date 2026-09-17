@@ -110,7 +110,11 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-medium text-stone-600 hover:bg-bark-50 hover:text-stone-900 max-sm:min-h-11 sm:px-3 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+        // hover is bark-100, a shade above the bark-50 header it sits on -
+        // hover:bg-bark-50 here was the header's own colour, so light mode
+        // showed no hover at all. (The rows inside the panel sit on white and
+        // keep their -50 hover.)
+        className="flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:bg-bark-100 hover:text-stone-900 max-sm:min-h-11 sm:px-3 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
       >
         Tools
         <svg
