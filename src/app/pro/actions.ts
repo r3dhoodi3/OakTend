@@ -489,9 +489,10 @@ export async function saveCompanyAction(formData: FormData) {
   // (src/app/pro/layout.tsx) blocks the PAGE, not the endpoint behind it. So
   // every pro-side action that writes anything starts here.
   //
-  // An OakTend internal account (users.is_internal, migration 0165) passes, so
-  // the team can build a test company and walk the whole flow. Outside preview
-  // this is a constant `true` with no session read and no query.
+  // Any signed-in account passes during preview; anonymous visitors get the
+  // coming-soon door. So the team and our testers can build a test company and
+  // walk the whole flow. Outside preview this is a constant `true` with no
+  // session read and no query.
   await assertProSideOpen();
 
   const supabase = await createClient();
@@ -1457,7 +1458,7 @@ export async function saveCompanyAction(formData: FormData) {
   // checkout it is not undone by flipping the flag back. The catch above would
   // have swallowed the stripe.ts throw into a log line and nobody would have
   // noticed, which is why this is an explicit skip rather than a reliance on
-  // the backstop. Only internal accounts can reach saveCompanyAction in
+  // the backstop. Only signed-in accounts can reach saveCompanyAction in
   // preview at all (assertProSideOpen at the top of this action), and they get
   // their Connect account the moment the flag is off, on their first visit to
   // /pro/payouts - the same path a 23505 double-submit already takes.
@@ -2213,13 +2214,13 @@ async function staleDisplayedFeeError(
 export async function applyToJobAction(formData: FormData) {
   // PREVIEW MODE (A2): spends wallet credit through apply_to_lead.
   //
-  // DELIBERATELY assertProSideOpen(), NOT previewBlocksMoney(): an internal
+  // DELIBERATELY assertProSideOpen(), NOT previewBlocksMoney(): a signed-in
   // pro passes and the charge goes through exactly as it does today. Wallet
   // credit is not a card charge - it is balance the team grants itself by hand
   // - and leaving this working is what lets somebody walk a job end to end
   // (post -> apply -> chat -> close) against the real code while the public
-  // side is shut. A real pro never reaches it: they are stopped here, and at
-  // the shell, and at every other door.
+  // side is shut. An anonymous visitor never reaches it: they are stopped
+  // here, and at the shell, and at every other door.
   await assertProSideOpen();
 
   const contractor = await assertContractor();
@@ -2547,7 +2548,7 @@ export async function applyToJobAction(formData: FormData) {
 // raises, and an already-unlocked lead returns true (idempotent).
 export async function unlockDirectRequestAction(formData: FormData) {
   // PREVIEW MODE (A2): spends wallet credit through unlock_direct_request.
-  // Same decision as applyToJobAction - internal pros keep it, see there.
+  // Same decision as applyToJobAction - signed-in pros keep it, see there.
   await assertProSideOpen();
 
   const contractor = await assertContractor();

@@ -167,7 +167,7 @@ describe("src/lib/subscription.ts in preview (B1)", () => {
     await expect(sub.getPlusTier()).resolves.not.toBe("trialing");
   });
 
-  // The pro side is CLOSED, not upgraded: an internal pro tests the real
+  // The pro side is CLOSED, not upgraded: a signed-in pro tests the real
   // membership rules, so these two must answer off the rows as always.
   it("leaves the pro-side helpers alone", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");

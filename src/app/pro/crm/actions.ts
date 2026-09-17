@@ -77,7 +77,8 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function addClientAction(formData: FormData) {
   // PREVIEW MODE (guardrail A2): the contractor side is closed, and a "use
   // server" action is a public POST endpoint the closed shell does not cover.
-  // Internal accounts pass. Constant `true` outside preview. See
+  // Any signed-in account passes during preview; anonymous visitors get the
+  // coming-soon door. Constant `true` outside preview. See
   // src/lib/previewModeServer.ts.
   await assertProSideOpen();
 
