@@ -56,17 +56,14 @@ export const PRO_WAITLIST_CONFIRMATION = "You're on the list.";
 // (the top banner right after posting, and the per-job "awaiting applicants"
 // card). The job itself still saves normally - postJobAction never checks
 // preview - so this corrects only the promise about pros, not the post
-// itself.
+// itself. Decided 2026-09-17: posting stays OPEN during the preview and the
+// team finds a pro for each job by hand, so the promise is "we'll find one
+// for you", not "when it launches".
 export const PREVIEW_JOB_POSTED_COPY =
-  "Saved to your home's record. Our pro network isn't open yet; we'll match you with local pros when it launches.";
+  "Saved to your home's record. Our pro network isn't open yet, so our team will find a local pro for this job by hand and reach out to you.";
 
-// The coming-soon card /contractors shows IN PLACE of the post-a-job form
-// during the preview. The banner above softens the promise on a job that was
-// already posted; this closes the front door, because a form that takes a job
-// nobody can apply to is a worse answer than saying so plainly. Lives here
-// beside the other preview copy so the page and its test read the same
-// strings, and so a copy edit is one file.
-export const PREVIEW_POST_JOB_TITLE = "Post a job is coming soon";
-export const PREVIEW_POST_JOB_BODY =
-  "We're bringing local contractors on board first. Once pros in your area are ready, you'll be able to post a job here and get quotes inside OakTend.";
-export const PREVIEW_POST_JOB_BACK_LABEL = "Back to home";
+// The intro under the "Post a job" heading during the preview. The normal
+// line says "local pros apply", which is not what happens yet; this one says
+// what does. One constant beside the banner copy above so the two agree.
+export const PREVIEW_POST_JOB_INTRO =
+  "Describe what you need and post it. Our pro network isn't open yet, so our team finds a local pro for you by hand and reaches out.";
