@@ -310,7 +310,7 @@ export default function ChatsView({
             // and 16px, with the negative margin keeping the text in line.
             className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
           >
-            <span aria-hidden="true">←</span> All conversations
+            <span aria-hidden="true">&lt;</span> All conversations
           </Link>
           {/* `key` forces a fresh thread when switching conversations. */}
           <div className="min-h-0 flex-1">
@@ -346,7 +346,7 @@ export default function ChatsView({
             // Same 44px, 16px phone-only back link as the thread pane above.
             className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
           >
-            <span aria-hidden="true">←</span> All conversations
+            <span aria-hidden="true">&lt;</span> All conversations
           </Link>
 
           <div className="shrink-0 border-b border-stone-100 pb-2 dark:border-white/10">
@@ -394,7 +394,7 @@ export default function ChatsView({
             // homeowner empty-state link.
             className="-ml-2 inline-flex min-h-11 items-center px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
           >
-            <span aria-hidden="true">←</span> All conversations
+            <span aria-hidden="true">&lt;</span> All conversations
           </Link>
         </div>
       )}

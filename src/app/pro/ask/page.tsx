@@ -60,7 +60,7 @@ export default async function ProAskPage(props: {
           // and 16px, matching the homeowner /ask back link.
           className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline sm:hidden dark:text-oaktend-300"
         >
-          <span aria-hidden="true">←</span> All conversations
+          <span aria-hidden="true">&lt;</span> All conversations
         </Link>
         <div className="min-h-0 flex-1">
           {!established ? (

@@ -55,7 +55,7 @@ export default async function AskPage(props: {
           // below the touch floor for the only way back.
           className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline sm:hidden dark:text-stone-300"
         >
-          <span aria-hidden="true">←</span> All conversations
+          <span aria-hidden="true">&lt;</span> All conversations
         </Link>
         <div className="min-h-0 flex-1">
           {/* replaceUrlAfterInitial drops the ?q= from the address bar once
