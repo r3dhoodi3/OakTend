@@ -1,8 +1,15 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import { cleanup, render, screen, within } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import { LEGAL_LINKS } from "@/lib/legal";
+import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
 // Vitest globals are off in this repo (see vitest.config.ts), so
 // testing-library's auto-cleanup never wires itself up on its own.
@@ -186,5 +193,66 @@ describe("landing page, phone split", () => {
     expect(
       container.querySelectorAll('script[type="application/ld+json"]').length
     ).toBeGreaterThan(0);
+  });
+});
+
+describe("landing page, cities section", () => {
+  const SORTED_CITIES = LAUNCH_CITY_NAMES.slice().sort((a, b) =>
+    a.localeCompare(b)
+  );
+
+  it("lists all 36 cities alphabetically with no Launch city tag", async () => {
+    await renderLanding();
+    const heading = screen.getByRole("heading", {
+      name: /OakTend serves homeowners across/i,
+    });
+    const section = heading.closest("section") as HTMLElement;
+
+    expect(screen.queryByText("Launch city")).not.toBeInTheDocument();
+
+    // Desktop chip grid: every city, in the same alphabetical order as
+    // LAUNCH_CITY_NAMES sorted, each a single link (phone's list repeats
+    // the first 8 - checked separately below - so this scopes to the
+    // sm-and-up grid specifically).
+    const desktopList = section.querySelector(
+      "ul.max-sm\\:hidden"
+    ) as HTMLElement;
+    const desktopLinks = within(desktopList).getAllByRole("link");
+    expect(desktopLinks).toHaveLength(SORTED_CITIES.length);
+    expect(desktopLinks.map((a) => a.textContent)).toEqual(SORTED_CITIES);
+
+    // The two hand-written routes still get their own pages; everything
+    // else goes through the generic /oc/<slug> page.
+    const fv = desktopLinks.find((a) => a.textContent === "Fountain Valley");
+    const hb = desktopLinks.find((a) => a.textContent === "Huntington Beach");
+    expect(fv).toHaveAttribute("href", "/fountain-valley");
+    expect(hb).toHaveAttribute("href", "/huntington-beach");
+    const irvine = desktopLinks.find((a) => a.textContent === "Irvine");
+    expect(irvine).toHaveAttribute("href", "/oc/irvine");
+  });
+
+  it("caps the phone list at 8 cities and expands/collapses in place", async () => {
+    await renderLanding();
+    const heading = screen.getByRole("heading", {
+      name: /OakTend serves homeowners across/i,
+    });
+    const section = heading.closest("section") as HTMLElement;
+    const phoneBlock = section.querySelector("div.sm\\:hidden") as HTMLElement;
+
+    expect(within(phoneBlock).getAllByRole("link")).toHaveLength(8);
+    const seeAll = within(phoneBlock).getByRole("button", {
+      name: `See all ${SORTED_CITIES.length} cities`,
+    });
+
+    fireEvent.click(seeAll);
+    expect(within(phoneBlock).getAllByRole("link")).toHaveLength(
+      SORTED_CITIES.length
+    );
+    const showFewer = within(phoneBlock).getByRole("button", {
+      name: "Show fewer",
+    });
+
+    fireEvent.click(showFewer);
+    expect(within(phoneBlock).getAllByRole("link")).toHaveLength(8);
   });
 });

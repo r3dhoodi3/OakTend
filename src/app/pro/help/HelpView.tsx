@@ -64,7 +64,7 @@ export default function HelpView({
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Help</h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Question about a lead, your wallet, or your account? Send us a
+          Question about a lead or your account? Send us a
           message and we will get back to you.
         </p>
       </div>

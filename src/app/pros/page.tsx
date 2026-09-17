@@ -10,7 +10,6 @@ import ProsComingSoon from "@/components/pro/ProsComingSoon";
 import {
   FOUNDER,
   COLD_START_FREE_ALERTS,
-  MAX_APPLICANTS_PER_JOB,
   PRO_PLAN,
 } from "@/lib/constants";
 import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
@@ -222,8 +221,8 @@ export default async function ProsLanding(props: {
     },
     {
       icon: <Hourglass className="h-5 w-5" />,
-      title: "Jobs fill fast",
-      body: `A posted job stops taking new applicants once ${MAX_APPLICANTS_PER_JOB} pros have applied, so applying quickly matters.`,
+      title: "Every application is seen",
+      body: `Every pro who applies gets seen by the homeowner, who compares everyone inside OakTend and picks. Applying early still helps you stand out.`,
     },
     {
       icon: <Zap className="h-5 w-5" />,
@@ -547,8 +546,8 @@ export default async function ProsLanding(props: {
           ))}
         </ol>
         {/* The honest deal: every line here is a real, shipped product rule
-            (3-spot cap, the success fee, ownership verification, a
-            cancel-any-time membership). Restyled from claims elsewhere on
+            (no cap on applicants, the success fee, ownership verification,
+            a cancel-any-time membership). Restyled from claims elsewhere on
             this page; add nothing here that isn't true in code. */}
         <div className="mx-auto mt-8 max-w-md rounded-2xl border border-stone-200 bg-stone-50 p-5 dark:border-white/10 dark:bg-stone-800">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
@@ -558,8 +557,8 @@ export default async function ProsLanding(props: {
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
               <span>
-                Max {MAX_APPLICANTS_PER_JOB} pros per job, so you&apos;re
-                never competing against a crowd of other pros.
+                No cap on who can apply: every application reaches the
+                homeowner, who compares everyone inside OakTend and picks.
               </span>
             </li>
             <li className="flex items-start gap-2">

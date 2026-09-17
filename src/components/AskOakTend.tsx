@@ -32,6 +32,7 @@ import {
   writeAskLock,
 } from "@/lib/askLock";
 import { useAutoGrow, useIsPhone } from "@/lib/useVisualViewport";
+import { FREE_ASK_PER_DAY } from "@/lib/constants";
 
 export type Msg = {
   role: "user" | "assistant";
@@ -2049,9 +2050,9 @@ export default function AskOakTend({
           per-surface caveat as its `detail` so this is a single line of fine
           print rather than two stacked paragraphs. */}
       {/* Quiet allowance meter, free homeowners only (they are the only ones
-          the server sends a limit to). With three questions a day every one of
-          them counts, so it shows from the first reply on; at zero the locked
-          bar above says it instead. */}
+          the server sends a limit to). With so few questions a day every one
+          of them counts, so it shows from the first reply on; at zero the
+          locked bar above says it instead. */}
       {shouldShowMeter(freeLeft, freeLimit) && (
         <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
           {knownPlan === "trial"
@@ -2068,7 +2069,7 @@ export default function AskOakTend({
           line, then it hands over to the meter for good. */}
       {showFreeHint && (
         <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-          3 free questions a day. Plus gives you more, plus photo answers.
+          {FREE_ASK_PER_DAY} free question{(FREE_ASK_PER_DAY as number) === 1 ? "" : "s"} a day. Plus gives you more, plus photo answers.
         </p>
       )}
       <AiNotice detail={disclaimer} size="xxs" className="mt-1" />
