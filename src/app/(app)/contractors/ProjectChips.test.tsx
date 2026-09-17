@@ -57,27 +57,64 @@ describe("ProjectChips", () => {
     }
   });
 
-  it("stays one line per chip when the home has no matching system", () => {
+  it("renders no home-record list when the home has no matching system", () => {
     const { container } = render(<ProjectChips systems={[]} />);
-    expect(container.querySelectorAll("span")).toHaveLength(0);
+    expect(container.querySelector("ul")).toBeNull();
+    expect(container.querySelectorAll("a")).toHaveLength(REMODEL_PROJECTS.length + 1);
   });
 
-  it("adds a home-aware line only to the chip that matches a system", () => {
+  // The home-aware part is a short list ABOVE the row, never text inside a
+  // chip: a two-line pill next to one-line pills made the row ragged and was
+  // rejected. Every chip stays the same one-line pill.
+  it("lists the matching system above the row and keeps every chip uniform", () => {
+    const year = new Date().getFullYear();
     const systems: StarterSystem[] = [
       {
         system_type: "water_heater",
-        install_year: new Date().getFullYear() - 17,
+        install_year: year - 17,
         material_or_model: "Rheem",
         capacity: "40 gal",
         expected_lifespan_years: null,
       },
     ];
     const { container } = render(<ProjectChips systems={systems} />);
-    const nudges = Array.from(container.querySelectorAll("span"));
-    expect(nudges).toHaveLength(1);
-    expect(nudges[0]).toHaveTextContent("Yours is 17 yrs old");
-    const chip = nudges[0].closest("a")!;
-    expect(chip).toHaveTextContent("Water heater");
-    expect(chip.className).toContain("flex-col");
+    const rows = Array.from(container.querySelectorAll("ul li"));
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toHaveTextContent("Water heater");
+    expect(rows[0]).toHaveTextContent("Yours is 17 yrs old");
+    expect(rows[0].querySelector("a")?.getAttribute("data-track")).toBe(
+      "project-record:plumbing"
+    );
+    // The chip row itself: one link per project, all with the identical
+    // class string and nothing but the label inside.
+    const chips = Array.from(
+      container.querySelectorAll('a[data-track^="project:"]')
+    );
+    expect(chips).toHaveLength(REMODEL_PROJECTS.length + 1);
+    const classes = new Set(chips.map((a) => a.className));
+    expect(classes.size).toBe(1);
+    for (const a of chips) expect(a.querySelector("span")).toBeNull();
+  });
+
+  it("orders the list most urgent first and caps it at three", () => {
+    const year = new Date().getFullYear();
+    const systems: StarterSystem[] = [
+      // Young: plain age line, ranks last.
+      { system_type: "roof", install_year: year - 2, material_or_model: null, capacity: null, expected_lifespan_years: null },
+      // Past its life: ranks first.
+      { system_type: "water_heater", install_year: year - 17, material_or_model: null, capacity: null, expected_lifespan_years: null },
+      // No install year: "On your home record", ranks after any dated one.
+      { system_type: "hvac", install_year: null, material_or_model: null, capacity: null, expected_lifespan_years: null },
+      // Near the end of a 20-year life.
+      { system_type: "garage_door", install_year: year - 17, material_or_model: null, capacity: null, expected_lifespan_years: 20 },
+    ];
+    const { container } = render(<ProjectChips systems={systems} />);
+    const rows = Array.from(container.querySelectorAll("ul li")).map(
+      (li) => li.textContent ?? ""
+    );
+    expect(rows).toHaveLength(3);
+    expect(rows[0]).toContain("Water heater");
+    expect(rows[1]).toContain("Garage door");
+    expect(rows[2]).toContain("Roof");
   });
 });
