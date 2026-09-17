@@ -1352,7 +1352,7 @@ export default async function ContractorsPage(
           className="hover:underline"
           data-track="post-job:back-home"
         >
-          ← Back to home
+          Back to home
         </Link>
       </p>
     </div>
