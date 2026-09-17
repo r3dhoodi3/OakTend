@@ -43,13 +43,13 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
     budget: "25000-50000",
     timing: "flexible",
     template:
-      "Kitchen remodel. Scope: [cabinets / countertops / backsplash / layout change]. Kitchen is roughly [size] sq ft and we [are / are not] keeping the current layout. Looking for quotes and a rough timeline.",
+      "Kitchen remodel. Scope: [cabinets / countertops / backsplash / layout change]. We [are / are not] keeping the current layout.",
   },
   "Bathroom remodel": {
     budget: "15000-25000",
     timing: "flexible",
     template:
-      "Bathroom remodel. Scope: [tub-to-shower / tile / vanity / full gut]. It's the [primary / hall / guest] bath, about [size] sq ft. Looking for quotes and a timeline.",
+      "Bathroom remodel. Scope: [tub-to-shower / tile / vanity / full gut]. It's the [primary / hall / guest] bath.",
   },
   "Window replacement": {
     systemType: "windows",
@@ -62,20 +62,20 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
     budget: "5000-15000",
     timing: "flexible",
     template:
-      "Stairs and railings: [repair / rebuild / new railing]. [Interior / exterior], about [number] steps. Material preference: [wood / metal / cable].",
+      "Stairs and railings: [repair / rebuild / new railing]. [Interior / exterior], about [number] steps.",
   },
   Flooring: {
     budget: "5000-15000",
     timing: "flexible",
     template:
-      "New flooring in [rooms], about [size] sq ft total. Material: [LVP / hardwood / tile / carpet]. Removing existing [carpet / tile] is [needed / not needed].",
+      "New flooring in [rooms]. Removing the existing [carpet / tile] is [needed / not needed].",
   },
   "Deck / patio": {
     systemType: "deck",
     budget: "15000-25000",
     timing: "flexible",
     template:
-      "Deck / patio: [new build / replace / repair], roughly [size] sq ft. Material: [wood / composite / concrete pavers]. Attached to the house: [yes / no].",
+      "Deck / patio: [new build / replace / repair]. Attached to the house: [yes / no].",
   },
   "Interior painting": {
     budget: "1500-5000",
@@ -95,7 +95,7 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
     budget: "15000-25000",
     timing: "few_weeks",
     template:
-      "Roof replacement, roughly [size] sq ft, [one / two] story, [low / moderate / steep] pitch. Current roof is [asphalt shingle / tile / flat]. Any known leaks: [yes / no].",
+      "Roof replacement, [one / two] story, [low / moderate / steep] pitch. Any known leaks: [yes / no].",
   },
   "Panel upgrade": {
     systemType: "electrical_panel",
@@ -119,7 +119,13 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
       "Water heater replacement: [gas / electric], [40 / 50] gallon or [tankless]. Located in [garage / closet / outside]. Current unit is [working / leaking / no hot water].",
   },
   // The twelve above came with founder-supplied copy; the ten below follow the
-  // same shape (what / how big / what material) for the rest of the chip row.
+  // same shape for the rest of the chip row.
+  //
+  // NO [size] sq ft and NO material placeholder in any roof / structural /
+  // remodeling template: those categories render ProjectScopeFields, which
+  // already has a square-footage box and a material-notes box, so the draft
+  // asking for them again read as redundant (founder, 2026-09-17). Templates
+  // for the other categories keep them because nothing else on the form asks.
   "Solar panels": {
     budget: "25000-50000",
     timing: "flexible",
@@ -144,33 +150,33 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
     budget: "5000-15000",
     timing: "flexible",
     template:
-      "Driveway / concrete: [replace / new pour / repair], roughly [size] sq ft. Material: [concrete / asphalt / pavers]. Removing the existing surface is [needed / not needed].",
+      "Driveway / concrete: [replace / new pour / repair]. Removing the existing surface is [needed / not needed].",
   },
   Siding: {
     systemType: "siding",
     budget: "15000-25000",
     timing: "flexible",
     template:
-      "Siding: [replace / repair], roughly [size] sq ft of wall, [one / two] story. Material preference: [fiber cement / vinyl / wood / stucco]. Current siding is [type].",
+      "Siding: [replace / repair], [one / two] story.",
   },
   "Gutter installation": {
     systemType: "gutters",
     budget: "1500-5000",
     timing: "few_weeks",
     template:
-      "Gutters: [new / replace / repair], about [number] linear feet, [one / two] story. Material: [aluminum / steel / copper]. Gutter guards: [yes / no].",
+      "Gutters: [new / replace / repair], about [number] linear feet, [one / two] story. Gutter guards: [yes / no].",
   },
   Insulation: {
     budget: "1500-5000",
     timing: "flexible",
     template:
-      "Insulation: [attic / walls / crawlspace], about [size] sq ft. Current insulation is [none / old batts / blown-in]. Main goal: [comfort / energy bills / noise].",
+      "Insulation: [attic / walls / crawlspace]. Current insulation is [none / old batts / blown-in]. Main goal: [comfort / energy bills / noise].",
   },
   "Basement finishing": {
     budget: "25000-50000",
     timing: "flexible",
     template:
-      "Basement finishing, about [size] sq ft. Plan includes [bedroom / bathroom / living area / wet bar]. It is currently [unfinished / partly finished] and stays [dry / damp].",
+      "Basement finishing. Plan includes [bedroom / bathroom / living area / wet bar]. It is currently [unfinished / partly finished] and stays [dry / damp].",
   },
   "Smart home / security": {
     budget: "1500-5000",
@@ -182,7 +188,7 @@ const STARTER_SPECS: Record<(typeof REMODEL_PROJECTS)[number]["label"], StarterS
     budget: "500-1500",
     timing: "few_weeks",
     template:
-      "Drywall repair in [rooms]: [number] spots, largest about [size]. Cause: [water / impact / settling / unknown]. Painting after: [yes / no].",
+      "Drywall repair in [rooms]: [number] spots, the largest about [hand-sized / dinner-plate / bigger]. Cause: [water / impact / settling / unknown]. Painting after: [yes / no].",
   },
 };
 

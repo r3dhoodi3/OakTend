@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   BUDGET_RANGES,
+  isMajorCategory,
   REMODEL_PROJECTS,
   SYSTEM_TYPES,
   TIMING_OPTIONS,
@@ -27,6 +28,18 @@ describe("PROJECT_STARTERS", () => {
     expect(new Set(PROJECT_STARTERS.map((s) => s.label)).size).toBe(
       PROJECT_STARTERS.length
     );
+  });
+
+  // Major categories (roof / structural / remodeling) render
+  // ProjectScopeFields, which already asks for square footage and material
+  // notes. A template that asks for them again reads as redundant next to the
+  // boxes (founder, 2026-09-17), so no major template may mention either.
+  it("never asks for size or material where the form already has a box for it", () => {
+    const major = projectStarters.filter((s) => isMajorCategory(s.category));
+    expect(major.length).toBeGreaterThan(0);
+    for (const s of major) {
+      expect(s.template, s.label).not.toMatch(/sq ft|\[size\]|material/i);
+    }
   });
 
   it("keeps each starter's category the one REMODEL_PROJECTS assigns", () => {

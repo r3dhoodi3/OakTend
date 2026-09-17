@@ -370,8 +370,9 @@ export default function CategoryFilter({
                     isActive ? "bg-bark-100 dark:bg-stone-700" : ""
                   } ${isSelected ? "font-medium" : ""}`}
                 >
+                  {/* No check mark on the selected row: the highlight plus
+                      font-medium already says it, and the glyph looked busy. */}
                   {row.label}
-                  {isSelected && <span aria-hidden="true"> &#10003;</span>}
                 </div>
               );
             })}
