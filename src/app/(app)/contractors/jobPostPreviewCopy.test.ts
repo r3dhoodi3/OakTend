@@ -1,12 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect } from "vitest";
-import {
-  PREVIEW_JOB_POSTED_COPY,
-  PREVIEW_POST_JOB_BACK_LABEL,
-  PREVIEW_POST_JOB_BODY,
-  PREVIEW_POST_JOB_TITLE,
-} from "@/lib/previewMode";
+import { PREVIEW_JOB_POSTED_COPY, PREVIEW_POST_JOB_INTRO } from "@/lib/previewMode";
 
 // Source test, same reason licenseVerifiedBadges.test.ts reads this same
 // page.tsx as text: it pulls in the Supabase server client and
@@ -67,45 +62,33 @@ describe("job-post confirmation is honest while pros are closed", () => {
     expect(explainer).toContain("/emergency");
   });
 
-  it("PREVIEW_JOB_POSTED_COPY names the network as not open yet, without overclaiming", () => {
-    expect(PREVIEW_JOB_POSTED_COPY).toBe(
-      "Saved to your home's record. Our pro network isn't open yet; we'll match you with local pros when it launches."
-    );
+  it("PREVIEW_JOB_POSTED_COPY promises a hand-matched pro, not a launch date", () => {
+    // Decided 2026-09-17: posting stays open in preview and the team finds a
+    // pro for each job by hand, so the copy says that and nothing about pros
+    // applying on their own.
+    expect(PREVIEW_JOB_POSTED_COPY).toContain("find a local pro");
+    expect(PREVIEW_JOB_POSTED_COPY).not.toMatch(/pros (can see|apply)/i);
   });
 });
 
-// 2026-09-16, the step after the banner above: softening the confirmation was
-// only half the answer, because the form itself still invited a post no pro
-// could apply to. In preview the whole post-a-job block (heading, intro, the
-// chips that prefill it, and the form) is replaced by a coming-soon card.
-// Everything below it - the posted banner and the jobs lists - keeps
-// rendering, so a job posted before the preview is still visible and still
-// manageable.
-describe("post-a-job is a coming-soon card while pros are closed", () => {
-  it("the three copy constants are set", () => {
-    expect(PREVIEW_POST_JOB_TITLE.trim()).not.toBe("");
-    expect(PREVIEW_POST_JOB_BODY.trim()).not.toBe("");
-    expect(PREVIEW_POST_JOB_BACK_LABEL.trim()).not.toBe("");
-    // The body may not promise pro activity that cannot happen yet; it says
-    // what is true - pros are being brought on first.
-    expect(PREVIEW_POST_JOB_BODY).toContain("contractors on board first");
-  });
-
-  it("the page renders the card, and its Back to home link, under isPreview", () => {
-    expect(page).toContain("{PREVIEW_POST_JOB_TITLE}");
-    expect(page).toContain("{PREVIEW_POST_JOB_BODY}");
-    expect(page).toContain("{PREVIEW_POST_JOB_BACK_LABEL}");
-    expect(page).toContain('data-track="post-job-coming-soon:back-home"');
-    expect(page).toContain('href="/dashboard"');
-  });
-
-  it("the form and the chips do not render in preview", () => {
-    // Not merely disabled - never mounted. Both blocks hang off !isPreview.
-    // Matched without the line ending between them: this repo is CRLF, so a
-    // "\n" in the needle would never match the file on disk.
-    expect(/\{!isPreview && \(\s*<form/.test(page)).toBe(true);
-    expect(/\{!isPreview && \(\s*<details/.test(page)).toBe(true);
-    // ...and the non-preview heading is still there for a normal deploy.
+// 2026-09-17: a coming-soon card briefly replaced the form in preview; the
+// founders reversed that the same night. The form, the chips and the bottom
+// link render in every mode; only the intro line under the heading branches,
+// because "Local pros apply" is not what happens during the preview.
+describe("post-a-job stays open while pros are closed", () => {
+  it("the form and the chips are not gated on preview", () => {
+    expect(page).not.toContain("{!isPreview && (");
     expect(page).toContain(">Post a job</h1>");
+  });
+
+  it("the intro line branches to PREVIEW_POST_JOB_INTRO", () => {
+    expect(page).toContain("? PREVIEW_POST_JOB_INTRO");
+    expect(PREVIEW_POST_JOB_INTRO).toContain("by hand");
+    expect(PREVIEW_POST_JOB_INTRO).not.toMatch(/pros apply/i);
+  });
+
+  it("the bottom Back link goes home, not to report-a-problem", () => {
+    expect(page).toContain('data-track="post-job:back-home"');
+    expect(page).not.toContain('href="/issues"');
   });
 });

@@ -59,9 +59,7 @@ import { isMissingSchemaError } from "@/lib/dbErrors";
 import {
   isHomeownerPreview,
   PREVIEW_JOB_POSTED_COPY,
-  PREVIEW_POST_JOB_BACK_LABEL,
-  PREVIEW_POST_JOB_BODY,
-  PREVIEW_POST_JOB_TITLE,
+  PREVIEW_POST_JOB_INTRO,
 } from "@/lib/previewMode";
 
 // Must match the markers LeadChat posts when either side closes a thread.
@@ -495,43 +493,16 @@ export default async function ContractorsPage(
             </span>
           </Link>
         )}
-        {/* PREVIEW MODE: the form itself does not render (further down), so the
-            heading that introduces it is replaced by the card that says why.
-            The open-jobs strip above stays in BOTH modes - it points at jobs
-            that are already posted, which the preview does not take away. */}
-        {isPreview ? (
-          <div className="rounded-xl border border-stone-200 bg-white p-6 text-center sm:p-8 dark:border-white/10 dark:bg-stone-800">
-            <p className="text-xs font-semibold uppercase tracking-wide text-bark-700 dark:text-stone-400">
-              Coming soon
-            </p>
-            <h1 className="mt-2 text-2xl font-semibold text-stone-900 dark:text-stone-100">
-              {PREVIEW_POST_JOB_TITLE}
-            </h1>
-            <p className="mx-auto mt-2 max-w-prose text-stone-600 dark:text-stone-300">
-              {PREVIEW_POST_JOB_BODY}
-            </p>
-            {/* One way out, and it is the page they came from. The wrapper
-                carries the spacing so the link keeps the bare .btn-primary
-                class every other primary button on the page has. */}
-            <div className="mt-6">
-              <Link
-                href="/dashboard"
-                className="btn-primary"
-                data-track="post-job-coming-soon:back-home"
-              >
-                {PREVIEW_POST_JOB_BACK_LABEL}
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <>
-            <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Post a job</h1>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-              Describe what you need and post it. Local pros apply, then you review
-              them and pick the one you want.
-            </p>
-          </>
-        )}
+        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Post a job</h1>
+        {/* PREVIEW MODE (decided 2026-09-17): the form stays open while the
+            pro network is closed - homeowners post, and the team finds a
+            local pro for them by hand. Only the intro changes, because
+            "local pros apply" is not what happens yet. */}
+        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          {isPreview
+            ? PREVIEW_POST_JOB_INTRO
+            : "Describe what you need and post it. Local pros apply, then you review them and pick the one you want."}
+        </p>
       </div>
 
       {/* Phone only: the "Thinking about a project?" chips moved off the home
@@ -542,23 +513,18 @@ export default async function ContractorsPage(
           Collapsed by default behind a <details>: all 22 chips shown open
           overwhelmed the page above the form, so phone visitors now open
           them on purpose instead of scrolling past them first. */}
-      {/* Goes with the form in preview: every chip reloads this page with
-          ?category=x to prefill a form that is not rendered, so "Tap one to
-          fill in the form below" would point at nothing. */}
-      {!isPreview && (
-        <details className="sm:hidden">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-lg border border-stone-200 bg-white px-3 text-sm font-medium text-stone-700 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300">
-            Popular projects
-            <span aria-hidden="true" className="text-stone-400">▾</span>
-          </summary>
-          <div className="mt-3 space-y-3">
-            <p className="text-sm text-stone-500 dark:text-stone-400">
-              Popular upgrades. Tap one to fill in the form below.
-            </p>
-            <ProjectChips />
-          </div>
-        </details>
-      )}
+      <details className="sm:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-lg border border-stone-200 bg-white px-3 text-sm font-medium text-stone-700 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300">
+          Popular projects
+          <span aria-hidden="true" className="text-stone-400">▾</span>
+        </summary>
+        <div className="mt-3 space-y-3">
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Popular upgrades. Tap one to fill in the form below.
+          </p>
+          <ProjectChips />
+        </div>
+      </details>
 
       {searchParams.posted && (
         // The confirmation that a post actually landed. Three things about it
@@ -627,12 +593,6 @@ export default async function ContractorsPage(
         </ScrollIntoViewOnMount>
       )}
 
-      {/* PREVIEW MODE: not rendered at all, not merely disabled. A form that
-          takes a job no pro can apply to is the promise the coming-soon card
-          above exists to stop making - and not mounting it also keeps the
-          draft provider, the scope fields and the meter off the page. Jobs
-          posted BEFORE the preview still render in full below. */}
-      {!isPreview && (
       <form
         key={searchParams.posted ?? "new"}
         action={postJobAction}
@@ -735,7 +695,6 @@ export default async function ContractorsPage(
         </p>
         </DraftJobProvider>
       </form>
-      )}
 
       {myPros.length > 0 && (
         <section className="space-y-3">
