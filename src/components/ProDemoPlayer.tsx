@@ -24,8 +24,8 @@ import { track } from "@/lib/analytics";
 //   with a virtual camera that punches into click targets so a normal-sized
 //   cursor still owns the frame.
 // - One continuous session: cold open on the live leads board (no title
-//   card), then browse -> apply and pay the lead fee (wallet ticks down,
-//   shown honestly) -> chat with the homeowner -> "You got the job" (the
+//   card), then browse -> apply free, no cap on applicants -> chat with
+//   the homeowner -> "You got the job" (the
 //   drop, at ~86% of runtime, on the same beat grid as the homeowner win).
 //   The booking IS the ending, per the founder: nothing is narrated after
 //   the win line, and the end card (the conversion surface and replay
@@ -60,10 +60,9 @@ const BEAT_S = BEAT_MS / 1000;
 const TOTAL_BEATS = 76;
 const TOTAL_MS = TOTAL_BEATS * BEAT_MS;
 
-// Pro story: a contractor opens their leads board, sees a nearby masked job
-// with the fee shown up front, applies (paying the lead fee from the wallet,
-// tick-down shown honestly, AI-drafted note along the way), chats with the
-// homeowner, gets chosen, and lands on the value-prop end card.
+// Pro story: a contractor opens their leads board, sees a nearby masked job,
+// applies free with no cap on applicants (AI-drafted note along the way),
+// chats with the homeowner, gets chosen, and lands on the value-prop end card.
 // 76 beats = 28.5 seconds; the "You got the job" payoff lands on beat 65
 // (~86%), the SAME beat as the homeowner win, so the copied arrangement
 // (WIN=65) hits the drop exactly under the badge (won starts at 62, badge on
@@ -995,11 +994,10 @@ export default function ProDemoPlayer() {
       hook: "This is OakTend. Real jobs, from homeowners near you.",
       // leads: the board, with the honest up-front fee.
       leads: "New jobs post here, with the lead fee shown up front.",
-      // apply: the one-tap apply moment. The founder cut the wallet clause
-      // (no wallet mention in VO or captions); the wallet tick-down stays
-      // on screen, unnarrated. This line is SCHEDULED FROM enterLeads (a
-      // breath after the leads line ends) to close the dead air that sat
-      // between the two lines; the clip finishes before the apply cut.
+      // apply: the one-tap apply moment. This line is SCHEDULED FROM
+      // enterLeads (a breath after the leads line ends) to close the dead
+      // air that sat between the two lines; the clip finishes before the
+      // apply cut.
       apply: "Apply in one tap.",
       // chat: talking to the homeowner directly.
       chat: "Message the homeowner and line up the visit.",
@@ -1681,7 +1679,7 @@ export default function ProDemoPlayer() {
       showPage("leadsPage");
       cameraSnapWide();
       const w = q("[data-x='wallet']");
-      if (w) w.textContent = "80";
+      if (w) w.textContent = "Free";
       after(250, () => playVo("hook"));
       // "...near you": cursor to the job card first, then the camera follows
       // onto the same spot, so the zoom is anchored where the hand rests.
@@ -1719,11 +1717,11 @@ export default function ProDemoPlayer() {
       // via clickOn's zoom option) and anchor on the control they land on, so
       // the frame always explains itself. The cursor opens the apply confirm
       // on the job card, taps "Draft it for me" (the real ApplyJobButton AI
-      // drafter composes the note to the homeowner), then pays. The camera
-      // pulls wide for the charge so the wallet balance is in frame when it
-      // ticks down by exactly the fee, then pops onto the wallet itself: the
-      // honest fee moment. Finally the unread badge lights the Messages tab
-      // and the cursor clicks it, which is what carries us into the chat.
+      // drafter composes the note to the homeowner), then confirms, free. The
+      // camera pulls wide for the confirm so the wallet card is in frame,
+      // then pops onto it: the honest no-fee moment. Finally the unread badge
+      // lights the Messages tab and the cursor clicks it, which is what
+      // carries us into the chat.
       // VO: "Apply in one tap." (already spoken: enterLeads schedules it at
       // its scene beat 11 to kill the dead air, and the clip ends just
       // before this cut, so this scene opens with the hand mid-travel and
@@ -1762,22 +1760,19 @@ export default function ProDemoPlayer() {
           });
         },
       });
-      // Pull wide so the wallet card is in frame for the charge.
+      // Pull wide so the wallet card is in frame for the confirm.
       atBeat(7.5, () => cameraWide(400));
-      // Confirm and pay: the fee leaves the wallet (80 -> 30), a toast
-      // confirms, and the card flips to its applied state. The tick-down
-      // carries this moment visually; the VO no longer narrates it.
+      // Confirm: applying is free, a toast confirms, and the card flips to
+      // its applied state. No balance changes; the VO no longer narrates it.
       clickOn("[data-x='confirmBtn']", 8.2 * BEAT_MS, {
         onHit: () => {
           q("[data-x='applyForm']")?.classList.remove(styles.show);
           q("[data-x='applied']")?.classList.add(styles.show);
-          countUp("[data-x='wallet']", 30, 700, 80);
           q("[data-x='toast']")?.classList.add(styles.show);
           coin();
         },
       });
-      // Pop onto the wallet while the balance is still ticking down: the
-      // zoom is anchored on the thing that is changing, nothing else.
+      // Pop onto the wallet card to land the "still free" beat.
       atBeat(11, () => popZoom("[data-x='walletCard']", 1.18));
       atBeat(13.4, () => q("[data-x='toast']")?.classList.remove(styles.show));
       // The homeowner replies: the unread badge lights the Messages tab, the
@@ -1875,7 +1870,7 @@ export default function ProDemoPlayer() {
     }
 
     function enterEnd() {
-      // Value-prop end card: the pro promise plus the fee-credit guarantee,
+      // Value-prop end card: the pro promise plus the success-fee model,
       // read off the card itself. No narration here, by design: the story
       // ended when the job was booked, so this is a short silent tag. The
       // arrangement's FINAL hit lands on global beat 72 (one beat after this
@@ -1988,7 +1983,7 @@ export default function ProDemoPlayer() {
       const draftBtn = q("[data-x='draftBtn']");
       if (draftBtn) draftBtn.textContent = "Draft it for me";
       const wallet = q("[data-x='wallet']");
-      if (wallet) wallet.textContent = "80";
+      if (wallet) wallet.textContent = "Free";
       const capLayer = q("[data-x='captions']");
       if (capLayer) capLayer.innerHTML = "";
       q("[data-x='chatInput']")?.classList.remove(styles.focus);
@@ -2435,10 +2430,10 @@ export default function ProDemoPlayer() {
     >
       <p id="pro-demo-desc" className="sr-only">
         A fast animated walkthrough of OakTend for Pros. A contractor opens their leads board and
-        sees a nearby job with the details masked and the lead fee shown up front, applies with an
-        AI-drafted note and pays the fee from their wallet, messages the homeowner, and gets chosen
-        for the job. It ends on the pro value prop and the fee-credit guarantee: not chosen, your
-        fee comes back as credit. On-screen captions describe each step.
+        sees a nearby job with the details masked, applies free with an AI-drafted note, no cap on
+        applicants, messages the homeowner, and gets chosen for the job. It ends on the pro value
+        prop and the success-fee model: free to apply, a 5% success fee only when hired. On-screen
+        captions describe each step.
       </p>
 
       <span className={styles.watermark}>
@@ -2452,7 +2447,7 @@ export default function ProDemoPlayer() {
         data-x="midCta"
         onClick={(e) => e.stopPropagation()}
       >
-        Browse free, pay per lead
+        Free to apply, no cap on applicants
       </Link>
 
       <div className={styles.deviceWrap} onClick={handleScreenClick}>
@@ -2471,19 +2466,16 @@ export default function ProDemoPlayer() {
                 <ProAppNav active={0} msgTabX msgBadge />
                 <div className="relative mx-auto max-w-5xl px-6 py-5">
                   <h1 className="text-xl font-semibold text-stone-900">Your leads</h1>
-                  {/* Two live stat cards, mirroring /pro: active jobs and the
-                      wallet the lead fee is charged against. */}
+                  {/* Two live stat cards, mirroring /pro: active jobs and
+                      whether applying still costs anything (it does not). */}
                   <div className="mt-3 grid grid-cols-2 gap-4">
                     <div className="card">
                       <p className="stat-label">Active jobs</p>
                       <p className="stat-number mt-1 text-4xl text-stone-900">0</p>
                     </div>
                     <div className="card" data-x="walletCard">
-                      <p className="stat-label">Wallet balance</p>
-                      <p className="stat-number mt-1 text-4xl text-stone-900">
-                        $<span data-x="wallet">80</span>
-                      </p>
-                      <p className="mt-1 text-xs font-medium text-oaktend-700">Add funds →</p>
+                      <p className="stat-label">Applying</p>
+                      <p className="stat-number mt-1 text-4xl text-stone-900" data-x="wallet">Free</p>
                     </div>
                   </div>
                   <h2 className="mt-5 text-lg font-semibold text-stone-900">
@@ -2493,9 +2485,9 @@ export default function ProDemoPlayer() {
                     Jobs homeowners posted in your trades. Apply and the homeowner reviews you.
                   </p>
                   {/* One open-job card, anatomy mirrored from the real board:
-                      category + city, severity chip, up-front apply fee, masked
+                      category + city, severity chip, success-fee note, masked
                       description, a locked/downscaled photo, quality chips, the
-                      applicant count, and the apply control that expands into
+                      applicant note, and the apply control that expands into
                       the confirm form (the ApplyJobButton flow in miniature). */}
                   <div className="card mt-3 space-y-3" data-x="jobCard">
                     <div className="flex flex-wrap items-center gap-2">
@@ -2504,15 +2496,15 @@ export default function ProDemoPlayer() {
                       </span>
                       <span className="chip border border-red-200 bg-red-50 text-red-700">urgent</span>
                       <span className="ml-auto flex items-center gap-2 text-sm font-semibold text-stone-700">
-                        <span className="[font-variant-numeric:tabular-nums]" data-x="fee">Apply fee $50</span>
+                        <span className="[font-variant-numeric:tabular-nums]" data-x="fee">Hired: 5% success fee</span>
                       </span>
                     </div>
                     <p className="text-sm text-stone-600">
                       Kitchen sink won&apos;t stop dripping under the cabinet, and the shutoff valve
                       is stuck. Water pooling in the base.
                     </p>
-                    {/* Downscaled, locked photo: what a pro sees before paying
-                        the fee (the real board masks the full-res photos). */}
+                    {/* Downscaled, locked photo: what a pro sees before
+                        applying (the real board masks the full-res photos). */}
                     <div className={styles.photoLock}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/photos/plumber-pipe-fittings.jpg" alt="" className={styles.photoLockImg} />
@@ -2525,9 +2517,9 @@ export default function ProDemoPlayer() {
                       <span className="chip bg-stone-100 text-stone-600">Detailed description</span>
                       <span className="chip bg-stone-100 text-stone-600">Timing set</span>
                     </div>
-                    <p className="text-xs font-semibold text-stone-500">1 of 3 spots taken</p>
+                    <p className="text-xs font-semibold text-stone-500">Homeowner compares every applicant</p>
                     <div data-x="applyArea">
-                      <span className="btn-primary text-sm" data-x="applyBtn">Apply · $50</span>
+                      <span className="btn-primary text-sm" data-x="applyBtn">Apply</span>
                       <div
                         className={cx(styles.applyForm, "space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3")}
                         data-x="applyForm"
@@ -2543,12 +2535,12 @@ export default function ProDemoPlayer() {
                         </div>
                         <span className="text-xs font-medium text-oaktend-700" data-x="draftBtn">Draft it for me</span>
                         <p className="text-xs text-stone-500">
-                          Applying charges the $50 lead fee from your wallet. Not chosen? Your fee
-                          comes back as credit, good for 60 days.
+                          Applying, quoting, and messaging are always free. Hired? OakTend charges a
+                          5% success fee, minimum $15.
                         </p>
                         <div className="flex gap-2">
                           <span className="btn-secondary text-sm">Cancel</span>
-                          <span className="btn-primary flex-1 text-sm" data-x="confirmBtn">Confirm and pay $50</span>
+                          <span className="btn-primary flex-1 text-sm" data-x="confirmBtn">Confirm application</span>
                         </div>
                       </div>
                       <span
@@ -2559,7 +2551,7 @@ export default function ProDemoPlayer() {
                       </span>
                     </div>
                   </div>
-                  <div className={styles.toast} data-x="toast">Applied. $50 lead fee charged.</div>
+                  <div className={styles.toast} data-x="toast">Applied. No fee to apply.</div>
                 </div>
               </div>
 
@@ -2610,7 +2602,7 @@ export default function ProDemoPlayer() {
                 </div>
               </div>
 
-              {/* ---------- End card (pro value prop + fee-credit guarantee) ---------- */}
+              {/* ---------- End card (pro value prop + success-fee model) ---------- */}
               <div className={styles.page} data-page="endPage">
                 <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
                   <Logo className="h-12 w-12 text-oaktend-700" />
@@ -2621,7 +2613,7 @@ export default function ProDemoPlayer() {
                     <span className="align-middle text-sm text-stone-500"> job won this week</span>
                   </p>
                   <p className="mt-1 max-w-[15rem] text-xs text-stone-500">
-                    Not chosen? Your fee comes back as credit.
+                    No fee to apply. 5% success fee only when you&apos;re hired.
                   </p>
                   {/* A REAL link: the end card is a conversion surface, not a
                       prop. stopPropagation so the click doesn't toggle pause. */}

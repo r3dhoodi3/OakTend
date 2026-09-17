@@ -66,7 +66,7 @@ export const LEGAL = {
    * cookieless Vercel Web Analytics was turned on and the privacy policy and
    * cookie notice were reworded to disclose it.
    */
-  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-15",
+  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-16",
   venueCounty: "Orange County, California",
   liabilityCap:
     "the greater of $100 or the amounts you paid to us in the 12 months before the claim",

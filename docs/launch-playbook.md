@@ -44,12 +44,12 @@ Recruit 30-40 signups to net 16-24 active (about half of cold-recruited supply n
 >
 > Hi [Name], I'm [founder name], I live locally and I built a small jobs board called OakTend for FV and Huntington Beach homeowners. I'm choosing the first 10 [plumbers] for the launch and your reviews on [Google/Yelp specific detail] made you an obvious call.
 >
-> The honest version: we're new, so I won't promise volume. What I can promise: browsing and job alerts are free, every job shows its fee before you touch it, max 3 pros per job, and if the homeowner never responds within 7 days the fee comes back to your wallet as credit automatically, no dispute ticket. Your first application is guaranteed: not chosen means the fee comes back as credit too. It is credit toward future leads, not cash back.
+> The honest version: we're new, so I won't promise volume. What I can promise: browsing and job alerts are free, every job shows its fee before you touch it, there's no cap on who can apply so every application reaches the homeowner, and if the homeowner never responds within 7 days the fee comes back to your wallet as credit automatically, no dispute ticket. Your first application is guaranteed: not chosen means the fee comes back as credit too. It is credit toward future leads, not cash back.
 >
 > Worth 10 minutes this week? I'm the founder, this is my cell: [number].
 
 **Supply-house counter, 30 seconds:**
-> "Morning, quick one while you're in line. I'm [name], local guy, I built a jobs board for Fountain Valley and Huntington Beach homeowners. It's not Angi: the fee is printed on every job card before you pay, max three pros per job, and if the homeowner ghosts, the fee comes back to your wallet as credit automatically within 7 days. Signing up and getting job alerts costs nothing, you only pay if you choose to apply to a specific job. I'm signing the first ten plumbers now. Card's got my cell on it, I answer it myself."
+> "Morning, quick one while you're in line. I'm [name], local guy, I built a jobs board for Fountain Valley and Huntington Beach homeowners. It's not Angi: the fee is printed on every job card before you pay, there's no cap on who can apply, and if the homeowner ghosts, the fee comes back to your wallet as credit automatically within 7 days. Signing up and getting job alerts costs nothing, you only pay if you choose to apply to a specific job. I'm signing the first ten plumbers now. Card's got my cell on it, I answer it myself."
 
 **Phone follow-up objection handling:**
 - "Fake leads": every job is posted first-party by the homeowner, contact info verified, 7-day automatic credit-back coded in, not a policy.

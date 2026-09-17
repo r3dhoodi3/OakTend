@@ -74,7 +74,7 @@ If you believe your content was removed, or your account was suspended or termin
 
 # Part 2: Reviews Policy
 
-This section explains our reviews policy in detail. It is written to comply with the FTC's Consumer Reviews and Testimonials Rule (16 C.F.R. Part 465) and California's Unfair Competition Law (Business and Professions Code § 17200).
+This section explains our reviews policy in detail. It is written to comply with the FTC's Consumer Reviews and Testimonials Rule (16 C.F.R. Part 465) and California's Unfair Competition Law (Business and Professions Code section 17200).
 
 ## 13. Who may leave a review
 
@@ -86,7 +86,7 @@ A review may not contain a phone number, email address, slur, or masked profanit
 
 ## 15. We never pay for reviews or manipulate ratings
 
-We do not pay for reviews, and we do not offer any incentive, discount, or benefit conditioned on a homeowner leaving a positive review, or any review at all. A contractor cannot buy or improve their star rating or their position in a review list by paying more, holding a larger wallet balance, subscribing to Pro membership, or winning more leads. The rating shown is the real average of real reviews, and the review list is always newest first, with no paid placement.
+We do not pay for reviews, and we do not offer any incentive, discount, or benefit conditioned on a homeowner leaving a positive review, or any review at all. A contractor cannot buy or improve their star rating or their position in a review list by paying more, subscribing to Pro membership, or winning more jobs. The rating shown is the real average of real reviews, and the review list is always newest first, with no paid placement.
 
 ## 16. We never suppress or delay negative reviews
 

@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Summary (not a substitute for the text below):** When a homeowner posts a job and you pay to see their contact details, that homeowner chose to send you their information so you can quote and do that specific job. It is not something {{BRAND}} is selling you, and you may not treat it like a marketing list. Use it for the job, keep it secure, delete it if you did not win the job, and honor a deletion request. This addendum is part of the Pro Terms. By accepting the Pro Terms, you accept this addendum too.
+**Summary (not a substitute for the text below):** When a homeowner posts a job and you apply to it, that homeowner chooses to share their contact details with you so you can quote and do that specific job. It is not something {{BRAND}} is selling you, and you may not treat it like a marketing list. Use it for the job, keep it secure, delete it if you did not win the job, and honor a deletion request. This addendum is part of the Pro Terms. By accepting the Pro Terms, you accept this addendum too.
 
 ---
 
@@ -10,13 +10,13 @@ Last updated: {{EFFECTIVE_DATE}}
 
 **Homeowner Data** means any personal information about a homeowner that you receive through {{BRAND}}, including their name, contact information, property address, job description, photos, messages, and anything else in a lead or in a message thread.
 
-**Lead** means a specific job a homeowner posted on {{BRAND}}, together with the Homeowner Data that comes with it once you pay to apply.
+**Lead** means a specific job a homeowner posted on {{BRAND}}, together with the Homeowner Data that comes with it once you are in contact about it.
 
 **Permitted Purpose** means responding to, quoting, and performing the specific job the Lead was for, and the ordinary follow-up that job requires, such as scheduling, invoicing, and warranty service on that same job.
 
 ## 2. This is the homeowner's direction, not a sale to you
 
-A homeowner controls when their contact information reaches a pro. They post a job, and by posting it, they choose to have their contact details released to pros who pay to apply. That is a disclosure the homeowner directed, to a recipient (you) bound by contract to the limits in this addendum. It is why {{BRAND}}'s Privacy Policy correctly says this is not a "sale" or "share" of the homeowner's information under the California Consumer Privacy Act: under Civil Code 1798.140(ad)(2)(A), a disclosure a consumer directs a business to make to a third party is not a sale. {{BRAND}} is not paying you for the homeowner's data, and you are not paying {{BRAND}} for it either; you are paying for the introduction and the chance to bid. When you handle Homeowner Data on {{BRAND}}'s behalf, for example in messages routed through the platform, you act more like a service provider or contractor under Civil Code 1798.140(ag) with respect to that data, bound by the restrictions below.
+A homeowner controls when their contact information reaches a pro. They post a job, and by posting it, they choose to have their contact details released to pros who apply. That is a disclosure the homeowner directed, to a recipient (you) bound by contract to the limits in this addendum. It is why {{BRAND}}'s Privacy Policy correctly says this is not a "sale" or "share" of the homeowner's information under the California Consumer Privacy Act: under Civil Code 1798.140(ad)(2)(A), a disclosure a consumer directs a business to make to a third party is not a sale. {{BRAND}} is not paying you for the homeowner's data, and you are not paying {{BRAND}} for it either. There is no fee to apply, quote, or message about a job. The only charge is the success fee described in the Pro Terms, and it is charged only if the homeowner hires you, for the completed introduction, never for the data. When you handle Homeowner Data on {{BRAND}}'s behalf, for example in messages routed through the platform, you act more like a service provider or contractor under Civil Code 1798.140(ag) with respect to that data, bound by the restrictions below.
 
 ## 3. Permitted purpose only
 

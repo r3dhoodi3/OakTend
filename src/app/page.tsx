@@ -17,6 +17,7 @@ import HeroPhotoCycler from "@/components/HeroPhotoCycler";
 import PhoneLanding from "@/components/PhoneLanding";
 import ThemeToggle from "@/components/ThemeToggle";
 import StructuredData from "@/components/StructuredData";
+import CityList from "@/components/CityList";
 import { TrendingUp, Bell, MessageSquare, Wrench } from "lucide-react";
 
 const SITE_URL =
@@ -188,7 +189,7 @@ export default async function Home(props: {
     {
       icon: MessageSquare,
       title: "Answers about your home",
-      body: "Ask OakTend anything. It knows what's in your home, how old each thing is, and its history.",
+      body: "Ask OakTend about the systems you've logged. It answers from your home's own record: what's in it, how old each thing is, and what's been done.",
     },
     {
       icon: Wrench,
@@ -218,12 +219,12 @@ export default async function Home(props: {
     },
     {
       q: "What do you do with my data?",
-      a: "Your home details are stored in our database and used to run OakTend: reminders, alerts, and answers about your house. We don't sell your personal data, and we don't let ad companies track what you do here. When you post a job, a pro sees only what's needed to quote it. The full details are in the privacy policy.",
+      a: "Your home details are stored in our database and used to run OakTend: reminders, alerts, and answers about your house. We never sell your personal information, and we don't let ad companies track what you do here. When you post a job, a pro sees only what's needed to quote it. The full details are in the privacy policy.",
       node: (
         <>
           Your home details are stored in our database and used to run
           OakTend: reminders, alerts, and answers about your house. We
-          don&apos;t sell your personal data, and we don&apos;t let ad
+          never sell your personal information, and we don&apos;t let ad
           companies track what you do here. When you post a job, a pro sees only
           what&apos;s needed to quote it. The full details are in the{" "}
           <Link
@@ -244,7 +245,7 @@ export default async function Home(props: {
     },
     {
       q: "Will I get flooded with calls once I post a job?",
-      a: "No. Your contact info stays private until you pick a pro yourself, and at most three pros can apply to any job. Until you choose someone, the conversation happens inside OakTend, not on your phone.",
+      a: "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
     },
     {
       q: "Where is OakTend available?",
@@ -330,23 +331,17 @@ export default async function Home(props: {
     { value: "remodeling", label: "Remodeling" },
   ];
 
-  // City chips (founder rule, 2026-09-16): OakTend serves ALL of Orange
-  // County. Fountain Valley and Huntington Beach were the marketing launch
-  // order, never a product boundary, so every other launch city gets equal
-  // billing here - the two just keep their "Launch city" tag and their own
-  // hand-written pages (src/app/fountain-valley, src/app/huntington-beach).
+  // City list (founder rule, 2026-09-16): OakTend serves ALL of Orange
+  // County, so every launch city gets equal billing, plain alphabetical
+  // order - no "Launch city" tag for Fountain Valley and Huntington Beach
+  // any more; those two just keep their own hand-written pages
+  // (src/app/fountain-valley, src/app/huntington-beach), same as before.
   // LAUNCH_CITY_NAMES (src/lib/serviceArea.ts) is the one city list, not
-  // hand-typed again here. Order: the two launch cities first, then every
-  // other city/community alphabetically (LAUNCH_CITY_NAMES itself lists
-  // incorporated cities then communities, so the rest still needs its own
-  // sort to read as one alphabetical list).
-  const LAUNCH_CITY_TAGS = new Set(["Fountain Valley", "Huntington Beach"]);
-  const OTHER_CITIES = LAUNCH_CITY_NAMES.filter(
-    (c) => !LAUNCH_CITY_TAGS.has(c)
-  )
-    .slice()
-    .sort((a, b) => a.localeCompare(b));
-  const CITY_CHIPS = ["Fountain Valley", "Huntington Beach", ...OTHER_CITIES];
+  // hand-typed again here (it lists incorporated cities then communities, so
+  // this still needs its own sort to read as one alphabetical list).
+  const CITY_NAMES = LAUNCH_CITY_NAMES.slice().sort((a, b) =>
+    a.localeCompare(b)
+  );
 
   // Fountain Valley and Huntington Beach keep their own hand-written pages
   // (city-specific housing-stock paragraphs); every other city routes to the
@@ -356,6 +351,8 @@ export default async function Home(props: {
     if (city === "Huntington Beach") return "/huntington-beach";
     return `/oc/${city.toLowerCase().replace(/\s+/g, "-")}`;
   }
+
+  const CITIES = CITY_NAMES.map((name) => ({ name, href: cityHref(name) }));
 
   // Trust strip: three signals that are already true today, no invented
   // numbers. Reuses the same green "all clear" pill as the hero reassurance
@@ -802,30 +799,17 @@ export default async function Home(props: {
 
       {/* All Orange County cities (founder rule, 2026-09-16): replaces the
           old two-link Fountain Valley/Huntington Beach footer column, which
-          read as "these are the only two cities OakTend serves". Same chip
-          visual language as the "Find a pro for" service chips above. Shown
-          on phone too, same as the five sections above it. */}
+          read as "these are the only two cities OakTend serves". Shown on
+          phone too, same as the five sections above it - but phone gets a
+          compact expandable text list instead of the chip grid, so the
+          toggle state lives in CityList.tsx (src/components/CityList.tsx), a
+          client component. Desktop (sm and up) renders the same chip markup
+          this section always used. */}
       <section className="mt-16 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
         </h2>
-        <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
-          {CITY_CHIPS.map((city) => (
-            <li key={city}>
-              <Link
-                href={cityHref(city)}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
-              >
-                {city}
-                {LAUNCH_CITY_TAGS.has(city) && (
-                  <span className="rounded-full bg-bark-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-bark-700 dark:bg-bark-700 dark:text-stone-100">
-                    Launch city
-                  </span>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <CityList cities={CITIES} />
       </section>
 
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">

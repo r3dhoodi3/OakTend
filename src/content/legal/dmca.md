@@ -10,7 +10,7 @@ Last updated: {{EFFECTIVE_DATE}}
 
 ## 2. Our safe harbor position
 
-{{LLC_NAME}}, operating {{BRAND}}, is a service provider under 17 U.S.C. § 512 and intends to qualify for the safe harbors that section provides for material posted by users. We have designated an agent to receive copyright infringement notices, registered that agent with the U.S. Copyright Office, and adopted the notice, counter-notice, and repeat infringer procedures below.
+{{LLC_NAME}}, operating {{BRAND}}, is a service provider under 17 U.S.C. section 512 and intends to qualify for the safe harbors that section provides for material posted by users. We have designated an agent to receive copyright infringement notices, registered that agent with the U.S. Copyright Office, and adopted the notice, counter-notice, and repeat infringer procedures below.
 
 ## 3. Our designated copyright agent
 
@@ -26,7 +26,7 @@ Send notices only to this address. Notices sent elsewhere, including to general 
 
 ## 4. What a valid takedown notice must contain
 
-Under 17 U.S.C. § 512(c)(3), a notice is only effective if it includes, in writing, substantially all six (6) of the following:
+Under 17 U.S.C. section 512(c)(3), a notice is only effective if it includes, in writing, substantially all six (6) of the following:
 
 1. A physical or electronic signature of a person authorized to act on behalf of the owner of the exclusive right that is allegedly infringed.
 2. Identification of the copyrighted work claimed to have been infringed, or, if the notice covers multiple works at {{BRAND}}, a representative list of those works.
@@ -43,7 +43,7 @@ We remove or disable access to the identified material. We take reasonable steps
 
 ## 6. Counter-notices
 
-If material you posted was removed and you believe that was a mistake or a case of mistaken identity, you can send a counter-notice to the same agent listed above. Under 17 U.S.C. § 512(g)(3), a valid counter-notice must include:
+If material you posted was removed and you believe that was a mistake or a case of mistaken identity, you can send a counter-notice to the same agent listed above. Under 17 U.S.C. section 512(g)(3), a valid counter-notice must include:
 
 1. Your physical or electronic signature.
 2. Identification of the material that was removed and the location where it appeared before removal.
@@ -58,7 +58,7 @@ We terminate, in appropriate circumstances, the accounts of homeowners or contra
 
 ## 8. Misrepresentation is a real legal risk
 
-Under 17 U.S.C. § 512(f), anyone who knowingly and materially misrepresents that material is infringing, or that it was removed by mistake, can be liable for damages, including costs and attorneys' fees, to the person harmed, the copyright owner, or us. This applies equally to takedown notices and counter-notices. If you are not sure a use is actually infringing (fair use, for example, or a photo you licensed to a contractor), talk to a lawyer before filing.
+Under 17 U.S.C. section 512(f), anyone who knowingly and materially misrepresents that material is infringing, or that it was removed by mistake, can be liable for damages, including costs and attorneys' fees, to the person harmed, the copyright owner, or us. This applies equally to takedown notices and counter-notices. If you are not sure a use is actually infringing (fair use, for example, or a photo you licensed to a contractor), talk to a lawyer before filing.
 
 ## 9. Not a copyright issue? Contact legal instead
 

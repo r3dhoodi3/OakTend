@@ -519,10 +519,12 @@ describe("secrets and other people's data are not in the prompt to begin with", 
       expect(at, table).toBeGreaterThan(-1);
       expect(askRoute.slice(at, at + 400)).toContain('.eq("property_id", property.id)');
     }
-    const wallet = proAskRoute.indexOf('.from("wallets")');
-    expect(proAskRoute.slice(wallet, wallet + 300)).toContain(
-      '.eq("contractor_id", contractor.id)'
-    );
+    // The pro route no longer reads wallets or leads itself (the success-fee
+    // pivot retired the wallet). Its only company context comes from
+    // getCurrentContractor(), which resolves the caller's own company from the
+    // session, and the route makes no direct table read that could be widened.
+    expect(proAskRoute).toContain("getCurrentContractor()");
+    expect(proAskRoute).not.toContain('.from("');
   });
 
   it("logs a kind, never the text that triggered it", () => {

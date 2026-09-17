@@ -140,7 +140,7 @@ export const PLAYBOOK_GUIDES: PlaybookGuideData[] = [
           "Two habits put you first in line:",
           "- Turn on notifications so you see new postings the moment they go up",
           "- Check the board during real gaps in your day, not just at night when everyone else does",
-          "A fresh posting with zero spots taken is the best moment on OakTend to spend a fee.",
+          "A fresh posting is the best moment on OakTend to spend a fee, before other pros have had a chance to apply.",
         ],
       },
       {
@@ -225,25 +225,25 @@ export const PLAYBOOK_GUIDES: PlaybookGuideData[] = [
   {
     id: "spot-cap",
     icon: "Target",
-    title: "How the 3-spot cap protects you",
-    summary: "You're never one of thirty bids, at most one of three.",
+    title: "Stand out when several pros apply",
+    summary: "Every application reaches the homeowner. Make yours the one they pick.",
     sections: [
       {
-        title: "Three pros, not a pile-on",
+        title: "No pile of bids, one comparison",
         body: [
-          "Every job takes at most 3 live applications, then it's closed to more. On the big lead sites your fee buys a spot in a crowd; here it buys one of three seats at the table.",
+          "There's no cap on who can apply. Every pro who wants the job applies inside OakTend, and the homeowner compares everyone right there and picks. On the big lead sites your fee buys a spot in a crowd; here it buys the homeowner's direct attention.",
         ],
       },
       {
         title: "Apply early when you can",
         body: [
-          "A card marks itself 'Job full' the moment all 3 seats are taken, so if you can still apply, a seat is open. Being first is the strongest position there is; the longer a job sits open, the faster you should decide whether you're clearly the right fit for what's written.",
+          "Being first is the strongest position there is; the longer a job sits open, the faster you should decide whether you're clearly the right fit for what's written.",
         ],
       },
       {
-        title: "Credited applications reopen spots",
+        title: "The homeowner is comparing, so make it easy",
         body: [
-          "A full job can open back up if an applicant drops out or the listing reopens. A job showing as full today can have room next week, so a full card isn't always gone for good.",
+          "A clear, specific application is what gets picked when several pros have applied. Say exactly what you'd do and when you could start.",
         ],
       },
     ],

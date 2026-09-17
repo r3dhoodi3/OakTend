@@ -57,7 +57,7 @@ These figures are not appraisals, not offers, not quotes, and not a promise of w
 
 ## 6. What data is sent to Anthropic
 
-When you use an AI feature, your question and relevant context are sent to Anthropic's API to generate a response. For a homeowner using Ask {{BRAND}}, that can include your first name, property address, city and state, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, and the text of your question. For a contractor using the pro tools, it can include their own account context, such as license and verification status, wallet balance, and the content of an uploaded quote, invoice, or past-job document.
+When you use an AI feature, your question and relevant context are sent to Anthropic's API to generate a response. For a homeowner using Ask {{BRAND}}, that can include your first name, property address, city and state, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, and the text of your question. For a contractor using the pro tools, it can include their own account context, such as trades and service area, license and verification status, and the content of an uploaded quote, invoice, or past-job document.
 
 {{BRAND}} uses the paid, commercial Anthropic API, not a free or consumer product. Under Anthropic's commercial terms, API inputs and outputs are not used to train Anthropic's models. Nothing you send to Ask {{BRAND}} is used to build an advertising profile of you, by {{BRAND}} or by Anthropic.
 
