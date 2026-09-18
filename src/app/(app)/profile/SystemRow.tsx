@@ -322,7 +322,10 @@ export default function SystemRow({
 
   return (
     <li
-      className={`card flex items-start justify-between gap-4 ${
+      // px-4 py-3 over .card's p-5: with the compact Find a pro button the
+      // collapsed row is one line tall, and 20px of padding around one line
+      // read as empty space. The expanded detail still has its own p-3 box.
+      className={`card flex items-start justify-between gap-4 px-4 py-3 ${
         needsBorder
           ? "!border !border-red-400 dark:!border-red-500"
           : estimatedDue
@@ -502,9 +505,13 @@ export default function SystemRow({
         className="flex shrink-0 flex-col items-end justify-center self-stretch"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Compact on purpose (founder, 2026-09-17): the row is a one-line
+            list item, and a full 44px CTA next to a 16px name made every
+            row look like a card of its own. Roughly the name's own height on
+            desktop; the phone keeps the 44px thumb minimum. */}
         <Link
           href={findProHref}
-          className="btn-primary px-3 text-sm"
+          className="btn-primary min-h-0 px-2.5 py-1 text-xs max-sm:min-h-11 max-sm:px-3 max-sm:text-sm"
         >
           Find a pro
         </Link>
