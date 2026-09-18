@@ -226,14 +226,13 @@ export default async function ContractorsPage(
         }
         return leadsData;
       })(),
-      // Just enough of this home's systems for the project chips below to say
-      // "Yours is 17 yrs old" on a project that replaces something the owner
-      // actually owns. Five columns, not select(*) - nothing else reads them.
+      // Just enough of this home's systems for the project chips below to put
+      // the owner's actual unit ("Rheem, 40 gal, installed 2009") into the
+      // draft description. Four columns, not select(*) - nothing else reads
+      // them, and nothing about the home is shown on the page itself.
       supabase
         .from("home_systems")
-        .select(
-          "system_type, install_year, material_or_model, capacity, expected_lifespan_years"
-        )
+        .select("system_type, install_year, material_or_model, capacity")
         .eq("property_id", property.id),
     ]);
   const leads = (leadsData ?? []) as any[];

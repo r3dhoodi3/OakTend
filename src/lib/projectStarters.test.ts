@@ -59,7 +59,7 @@ describe("PROJECT_STARTERS", () => {
   });
 
   // A systemType that isn't a SYSTEM_TYPES value can never match a home_systems
-  // row, so the nudge would never fire and nobody would notice.
+  // row, so the record sentence would never appear and nobody would notice.
   it("names a real system type wherever one is set", () => {
     for (const s of PROJECT_STARTERS) {
       if (!s.systemType) continue;
@@ -79,9 +79,8 @@ describe("starterFor", () => {
   const waterHeater = PROJECT_STARTERS.find((s) => s.label === "Water heater")!;
   const now = new Date("2026-06-01T00:00:00Z");
 
-  it("carries the whole prefill in the href and nudges nothing without systems", () => {
-    const { href, nudge, description } = starterFor(waterHeater, null, now);
-    expect(nudge).toBeNull();
+  it("carries the whole prefill in the href, template only, without systems", () => {
+    const { href, description } = starterFor(waterHeater, null, now);
     expect(description).toBe(waterHeater.template);
     const params = new URL(href, "https://oaktend.com").searchParams;
     expect(params.get("category")).toBe("plumbing");
@@ -91,55 +90,36 @@ describe("starterFor", () => {
     expect(params.get("starter")).toBe("1");
   });
 
-  it("ages a matching system against its typical life", () => {
+  it("adds the matching system's facts to the draft description", () => {
     const systems: StarterSystem[] = [
       {
         system_type: "water_heater",
         install_year: 2009,
         material_or_model: "Rheem",
         capacity: "40 gal",
-        expected_lifespan_years: null,
       },
     ];
-    const { nudge, description } = starterFor(waterHeater, systems, now);
-    expect(nudge).toBe("Yours is 17 yrs old, past its typical life");
+    const { description } = starterFor(waterHeater, systems, now);
     expect(description.endsWith(
       "Current unit on our record: Rheem, 40 gal, installed 2009 (17 yrs old)."
     )).toBe(true);
     expect(description.startsWith(waterHeater.template)).toBe(true);
   });
 
-  it("softens the wording near the end of the typical life", () => {
-    const systems: StarterSystem[] = [
-      {
-        system_type: "water_heater",
-        install_year: 2016,
-        material_or_model: null,
-        capacity: null,
-        expected_lifespan_years: null,
-      },
-    ];
-    // 10 of a typical 11 years: past 80%, not past the end.
-    expect(starterFor(waterHeater, systems, now).nudge).toBe(
-      "Yours is 10 yrs old, near the end of its typical life"
-    );
-  });
-
-  // Never invent a number: no install year means no age, but we can still say
-  // the system is on file.
-  it("says only that the system is on file when the year is missing", () => {
+  // Never invent a number: no install year means no age in the sentence, but
+  // the fields that do exist still go in.
+  it("uses only the fields on file when the year is missing", () => {
     const systems: StarterSystem[] = [
       {
         system_type: "water_heater",
         install_year: null,
         material_or_model: "Rheem",
         capacity: null,
-        expected_lifespan_years: null,
       },
     ];
-    const { nudge, description } = starterFor(waterHeater, systems, now);
-    expect(nudge).toBe("On your home record");
+    const { description } = starterFor(waterHeater, systems, now);
     expect(description).toContain("Current unit on our record: Rheem.");
+    expect(description).not.toMatch(/yrs old/);
   });
 
   it("ignores systems of a different type", () => {
@@ -149,17 +129,14 @@ describe("starterFor", () => {
         install_year: 1990,
         material_or_model: "Owens Corning",
         capacity: null,
-        expected_lifespan_years: null,
       },
     ];
-    const { nudge, description } = starterFor(waterHeater, systems, now);
-    expect(nudge).toBeNull();
+    const { description } = starterFor(waterHeater, systems, now);
     expect(description).toBe(waterHeater.template);
   });
 
   it("sends Other with a category and no description", () => {
-    const { href, nudge, description } = starterFor(OTHER_STARTER, null, now);
-    expect(nudge).toBeNull();
+    const { href, description } = starterFor(OTHER_STARTER, null, now);
     expect(description).toBe("");
     const params = new URL(href, "https://oaktend.com").searchParams;
     expect(params.has("desc")).toBe(false);

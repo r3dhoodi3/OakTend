@@ -1,5 +1,4 @@
 import { BUDGET_RANGES, REMODEL_PROJECTS, TIMING_OPTIONS } from "@/lib/constants";
-import { DEFAULT_LIFESPANS } from "@/lib/health";
 import type { HomeSystem } from "@/lib/database.types";
 
 // What each "Thinking about a project?" chip should actually DO. The chips used
@@ -18,7 +17,8 @@ export type ProjectStarter = {
   label: string;
   category: string;
   // The SYSTEM_TYPES value this project replaces, when there is one. Only
-  // starters with one can ever show a home-aware nudge.
+  // starters with one can pull the owner's unit off the home record into
+  // the draft description.
   systemType?: string;
   budget: BudgetValue;
   timing: TimingValue;
@@ -212,29 +212,25 @@ export const PROJECT_STARTERS: ProjectStarter[] = [
   OTHER_STARTER,
 ];
 
-// The home_systems columns a nudge needs. A Pick of the real Row so a column
-// rename reaches this file, and small enough that callers can select just these.
+// The home_systems columns the draft description needs. A Pick of the real Row
+// so a column rename reaches this file, and small enough that callers can
+// select just these.
 export type StarterSystem = Pick<
   HomeSystem,
-  | "system_type"
-  | "install_year"
-  | "material_or_model"
-  | "capacity"
-  | "expected_lifespan_years"
+  "system_type" | "install_year" | "material_or_model" | "capacity"
 >;
 
 export type StarterLink = {
   href: string;
-  // One short line under the chip label when this home actually has the system
-  // ("Yours is 17 yrs old, past its typical life"). Null when we know nothing -
-  // we never guess an age or a condition.
-  nudge: string | null;
   description: string;
 };
 
-// Resolve a chip against this home's systems: where it links, what the
-// description box gets prefilled with, and whether the chip can say something
-// true about the owner's own equipment.
+// Resolve a chip against this home's systems: where it links and what the
+// description box gets prefilled with. The home record is used ONLY to add a
+// sentence of facts to the draft post; it does not surface anywhere on the
+// dashboard, because the Systems section there already shows each system's
+// age and condition (a "yours is 17 yrs old" line on the chips duplicated it
+// and was removed 2026-09-17).
 export function starterFor(
   starter: ProjectStarter,
   systems: StarterSystem[] | null | undefined,
@@ -246,23 +242,6 @@ export function starterFor(
 
   const age =
     match && match.install_year ? now.getFullYear() - match.install_year : null;
-
-  let nudge: string | null = null;
-  if (match && age !== null) {
-    const lifespan =
-      match.expected_lifespan_years ?? DEFAULT_LIFESPANS[match.system_type] ?? null;
-    const tail = !lifespan
-      ? ""
-      : age >= lifespan
-        ? ", past its typical life"
-        : age >= lifespan * 0.8
-          ? ", near the end of its typical life"
-          : "";
-    nudge = `Yours is ${age} yrs old${tail}`;
-  } else if (match) {
-    // No install year on file: still say we know this home, without a number.
-    nudge = "On your home record";
-  }
 
   // One extra sentence built only from fields that exist - a pro reading the
   // post gets the brand/size off the owner's record instead of a blank.
@@ -283,5 +262,5 @@ export function starterFor(
   // Tells /contractors this post was started for the owner, so it can say so.
   params.set("starter", "1");
 
-  return { href: `/contractors?${params.toString()}`, nudge, description };
+  return { href: `/contractors?${params.toString()}`, description };
 }
