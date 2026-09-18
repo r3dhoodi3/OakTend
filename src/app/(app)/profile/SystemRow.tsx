@@ -508,10 +508,11 @@ export default function SystemRow({
         {/* Compact on purpose (founder, 2026-09-17): the row is a one-line
             list item, and a full 44px CTA next to a 16px name made every
             row look like a card of its own. Roughly the name's own height on
-            desktop; the phone keeps the 44px thumb minimum. */}
+            every screen size - the founder wanted the phone to match the
+            desktop, so this one CTA deliberately sits under the 44px rule. */}
         <Link
           href={findProHref}
-          className="btn-primary min-h-0 px-2.5 py-1 text-xs max-sm:min-h-11 max-sm:px-3 max-sm:text-sm"
+          className="btn-primary min-h-0 px-2.5 py-1 text-xs"
         >
           Find a pro
         </Link>
