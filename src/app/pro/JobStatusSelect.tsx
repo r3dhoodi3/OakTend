@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useFormStatus } from "react-dom";
 import InlineSpinner from "@/components/InlineSpinner";
+import SelectMenu from "@/components/SelectMenu";
 import { updateLeadStatusAction } from "./actions";
 import { STATUS_LABEL } from "./leadStatusLabel";
 
@@ -50,20 +51,15 @@ function StatusField({
     <label className="flex items-center gap-2 text-sm text-stone-500 dark:text-stone-400">
       Status
       {pending && <InlineSpinner size={14} />}
-      <select
+      <SelectMenu
         key={current}
         name="status"
+        size="sm"
+        options={OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
         defaultValue={current}
         onChange={() => formRef.current?.requestSubmit()}
         disabled={pending}
-        className="select !w-auto py-2 sm:py-1"
-      >
-        {OPTIONS.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
+      />
     </label>
   );
 }

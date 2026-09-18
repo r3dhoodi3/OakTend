@@ -19,18 +19,27 @@ function openSheet(name = /report/i) {
   fireEvent.click(screen.getByRole("button", { name }));
 }
 
+// The reason picker is a SelectMenu now, not a native <select>: its trigger is
+// a button carrying the aria-label, and the rows only exist while it is open.
+const reason = () => screen.getByRole("button", { name: "Reason" });
+const noReason = () => screen.queryByRole("button", { name: "Reason" });
+function pickReason(label: string) {
+  fireEvent.click(reason());
+  fireEvent.click(screen.getByRole("option", { name: label }));
+}
+
 describe("ReportSheet", () => {
   it("is a quiet link until it is opened", () => {
     render(<ReportSheet targetType="review" targetId="review-1" />);
     expect(screen.getByRole("button", { name: "Report" })).toBeInTheDocument();
-    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    expect(noReason()).not.toBeInTheDocument();
   });
 
   it("offers the shared reason list and an optional note", () => {
     render(<ReportSheet targetType="review" targetId="review-1" />);
     openSheet();
-    const select = screen.getByRole("combobox", { name: /reason/i });
-    expect(select).toBeInTheDocument();
+    expect(reason()).toBeInTheDocument();
+    fireEvent.click(reason());
     expect(screen.getAllByRole("option")).toHaveLength(REPORT_REASONS.length);
     expect(
       screen.getByRole("textbox", { name: /anything else/i })
@@ -43,9 +52,7 @@ describe("ReportSheet", () => {
       <ReportSheet targetType="contractor" targetId="pro-1" action={action} />
     );
     openSheet();
-    fireEvent.change(screen.getByRole("combobox", { name: /reason/i }), {
-      target: { value: "Spam or a scam" },
-    });
+    pickReason("Spam or a scam");
     fireEvent.change(screen.getByRole("textbox", { name: /anything else/i }), {
       target: { value: "wanted a wire transfer" },
     });
@@ -96,7 +103,7 @@ describe("ReportSheet", () => {
     expect(
       await screen.findByText(/thanks, we'll take a look\./i)
     ).toBeInTheDocument();
-    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    expect(noReason()).not.toBeInTheDocument();
   });
 
   it("shows the server's own line when this was already reported", async () => {
@@ -114,7 +121,7 @@ describe("ReportSheet", () => {
     expect(
       await screen.findByText(/you've already reported this/i)
     ).toBeInTheDocument();
-    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    expect(noReason()).not.toBeInTheDocument();
   });
 
   it("keeps the form open with the error when the server refuses", async () => {
@@ -124,9 +131,7 @@ describe("ReportSheet", () => {
     }));
     render(<ReportSheet targetType="review" targetId="review-1" action={action} />);
     openSheet();
-    fireEvent.change(screen.getByRole("combobox", { name: /reason/i }), {
-      target: { value: "Hate speech or threats" },
-    });
+    pickReason("Hate speech or threats");
     fireEvent.click(screen.getByRole("button", { name: /send report/i }));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
@@ -135,9 +140,7 @@ describe("ReportSheet", () => {
     // Never thanks somebody for a report that was refused, and the reason
     // they picked survives so a retry is one tap.
     expect(screen.queryByText(/thanks, we'll take a look/i)).not.toBeInTheDocument();
-    expect(screen.getByRole("combobox", { name: /reason/i })).toHaveValue(
-      "Hate speech or threats"
-    );
+    expect(reason()).toHaveTextContent("Hate speech or threats");
   });
 
   it("cancelling closes the form without reporting", () => {
@@ -147,6 +150,6 @@ describe("ReportSheet", () => {
     fireEvent.click(screen.getByRole("button", { name: /cancel/i }));
 
     expect(action).not.toHaveBeenCalled();
-    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    expect(noReason()).not.toBeInTheDocument();
   });
 });

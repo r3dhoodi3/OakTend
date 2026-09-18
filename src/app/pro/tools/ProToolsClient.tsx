@@ -13,6 +13,7 @@ import { JOB_CATEGORIES, labelFor } from "@/lib/constants";
 import type { ProPastJob } from "@/lib/database.types";
 import Link from "next/link";
 import AiNotice from "@/components/AiNotice";
+import SelectMenu from "@/components/SelectMenu";
 import { PRO_TOOLS_PAYWALL, proDraftMeterLabel } from "@/lib/freeAiTaste";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 import {
@@ -571,22 +572,15 @@ export default function ProToolsClient({
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="est-category" className="label">Job category</label>
-                <select
+                <SelectMenu
                   id="est-category"
                   value={estCategory}
-                  onChange={(e) => {
-                    setEstCategory(e.target.value);
-                    if (e.target.value) setEstCategoryError(null);
+                  onChange={(v) => {
+                    setEstCategory(v);
+                    if (v) setEstCategoryError(null);
                   }}
-                  className="input"
-                >
-                  <option value="">- pick one -</option>
-                  {cats.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                  options={[{ value: "", label: "- pick one -" }, ...cats]}
+                />
                 {estCategoryError && (
                   <p className="mt-1 text-xs text-red-600 dark:text-red-400">{estCategoryError}</p>
                 )}
@@ -754,17 +748,12 @@ export default function ProToolsClient({
             </p>
             <div>
               <label className="label">Situation</label>
-              <select
+              <SelectMenu
+                aria-label="Situation"
                 value={fuSituation}
-                onChange={(e) => setFuSituation(e.target.value)}
-                className="input"
-              >
-                {SITUATIONS.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
+                onChange={setFuSituation}
+                options={SITUATIONS}
+              />
             </div>
             <div>
               <label className="label">Details (optional)</label>
@@ -802,18 +791,19 @@ export default function ProToolsClient({
             </div>
             <div>
               <label className="label">Star rating (optional)</label>
-              <select
+              <SelectMenu
+                aria-label="Star rating"
                 value={rrRating}
-                onChange={(e) => setRrRating(e.target.value)}
-                className="input"
-              >
-                <option value="">Not given</option>
-                <option value="1">1 star</option>
-                <option value="2">2 stars</option>
-                <option value="3">3 stars</option>
-                <option value="4">4 stars</option>
-                <option value="5">5 stars</option>
-              </select>
+                onChange={setRrRating}
+                options={[
+                  { value: "", label: "Not given" },
+                  { value: "1", label: "1 star" },
+                  { value: "2", label: "2 stars" },
+                  { value: "3", label: "3 stars" },
+                  { value: "4", label: "4 stars" },
+                  { value: "5", label: "5 stars" },
+                ]}
+              />
             </div>
             <div>
               <label className="label">Your side of the story (optional)</label>
@@ -836,17 +826,12 @@ export default function ProToolsClient({
             </p>
             <div>
               <label className="label">Stage</label>
-              <select
+              <SelectMenu
+                aria-label="Stage"
                 value={odStage}
-                onChange={(e) => setOdStage(e.target.value)}
-                className="input"
-              >
-                {OVERDUE_STAGE_OPTIONS.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
+                onChange={setOdStage}
+                options={OVERDUE_STAGE_OPTIONS}
+              />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
@@ -985,18 +970,18 @@ export default function ProToolsClient({
               ) : (
                 <>
                   <label className="label">Send to</label>
-                  <select
+                  <SelectMenu
+                    aria-label="Send to"
                     value={selectedLeadId}
-                    onChange={(e) => setSelectedLeadId(e.target.value)}
-                    className="input"
-                  >
-                    {leads.map((l) => (
-                      <option key={l.id} value={l.id}>
-                        {l.homeowner_name || "Homeowner"} ·{" "}
-                        {labelFor(JOB_CATEGORIES, l.category)}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={setSelectedLeadId}
+                    options={leads.map((l) => ({
+                      value: l.id,
+                      label: `${l.homeowner_name || "Homeowner"} · ${labelFor(
+                        JOB_CATEGORIES,
+                        l.category
+                      )}`,
+                    }))}
+                  />
                   {sendError && (
                     <p className="text-xs text-red-600 dark:text-red-400">{sendError}</p>
                   )}

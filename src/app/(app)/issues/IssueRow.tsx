@@ -9,6 +9,7 @@ import {
 } from "@/lib/constants";
 import { imgSrc } from "@/lib/storage";
 import { StoredPhotoGrid } from "@/components/FilePreview";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 import { useToast } from "@/components/ToastProvider";
 import {
@@ -89,31 +90,19 @@ export default function IssueRow({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="label">Category</label>
-              <select
+              <SelectMenu
                 name="category"
-                className="select"
+                options={[...ISSUE_CATEGORIES]}
                 defaultValue={issue.category}
-              >
-                {ISSUE_CATEGORIES.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             <div>
               <label className="label">Severity</label>
-              <select
+              <SelectMenu
                 name="severity"
-                className="select"
+                options={[...SEVERITIES]}
                 defaultValue={issue.severity}
-              >
-                {SEVERITIES.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
           <div>

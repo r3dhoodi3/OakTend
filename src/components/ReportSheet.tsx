@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import InlineSpinner from "@/components/InlineSpinner";
+import SelectMenu from "@/components/SelectMenu";
 import { REPORT_REASONS } from "@/lib/reportReasons";
 import { reportContentAction } from "@/lib/reportActions";
 import type { ActionResult } from "@/lib/actionResult";
@@ -101,22 +102,14 @@ export default function ReportSheet({
         {openLabel ?? label}
       </p>
 
-      <label className="mt-2 block">
-        <span className="sr-only">Reason</span>
-        <select
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-          disabled={busy}
-          className="input w-full"
-          aria-label="Reason"
-        >
-          {REPORT_REASONS.map((r) => (
-            <option key={r} value={r}>
-              {r}
-            </option>
-          ))}
-        </select>
-      </label>
+      <SelectMenu
+        className="mt-2"
+        value={reason}
+        onChange={setReason}
+        disabled={busy}
+        aria-label="Reason"
+        options={REPORT_REASONS.map((r) => ({ value: r, label: r }))}
+      />
 
       <textarea
         value={note}

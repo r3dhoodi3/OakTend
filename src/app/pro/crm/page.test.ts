@@ -32,7 +32,7 @@ describe("pro CRM: the pipeline is unchanged", () => {
     // Not copied into the client module: it takes them as a prop, so the
     // Add-a-client picker and the grouped list can never disagree.
     expect(view).not.toContain('{ value: "quoted", label: "Quoted" }');
-    expect(view).toContain("stageOptions.map((s) => (");
+    expect(view).toContain("options={stageOptions}");
     expect(page).toContain("stageOptions={STAGES}");
   });
 

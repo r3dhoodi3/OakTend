@@ -6,6 +6,7 @@ import { SYSTEM_TYPES, materialLabel } from "@/lib/constants";
 import PhotoUpload from "@/components/PhotoUpload";
 import MonthYearInput from "@/components/MonthYearInput";
 import MaterialSelect from "@/components/MaterialSelect";
+import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
 
 export default function SystemForm({ propertyId }: { propertyId: string }) {
@@ -42,19 +43,13 @@ export default function SystemForm({ propertyId }: { propertyId: string }) {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div>
           <label className="label">Type</label>
-          <select
+          <SelectMenu
             name="system_type"
-            className="select"
+            options={[...SYSTEM_TYPES]}
             value={systemType}
-            onChange={(e) => setSystemType(e.target.value)}
+            onChange={setSystemType}
             required
-          >
-            {SYSTEM_TYPES.map((s) => (
-              <option key={s.value} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         {/* B7: "Other" needs a name - there's no type-specific label to fall
             back on. Inline, right under the type picker, not buried at the
@@ -109,14 +104,18 @@ export default function SystemForm({ propertyId }: { propertyId: string }) {
         </div>
         <div>
           <label className="label">Condition</label>
-          <select name="condition_rating" className="select" defaultValue="">
-            <option value="">Not sure</option>
-            <option value="5">5 (like new)</option>
-            <option value="4">4 (good)</option>
-            <option value="3">3 (fair)</option>
-            <option value="2">2 (worn)</option>
-            <option value="1">1 (failing)</option>
-          </select>
+          <SelectMenu
+            name="condition_rating"
+            defaultValue=""
+            options={[
+              { value: "", label: "Not sure" },
+              { value: "5", label: "5 (like new)" },
+              { value: "4", label: "4 (good)" },
+              { value: "3", label: "3 (fair)" },
+              { value: "2", label: "2 (worn)" },
+              { value: "1", label: "1 (failing)" },
+            ]}
+          />
         </div>
         {/* HVAC only: filter size + reminder cadence, so OakTend can nudge the
             owner when it is time for a fresh filter (consumables autopilot). */}
@@ -133,18 +132,18 @@ export default function SystemForm({ propertyId }: { propertyId: string }) {
             </div>
             <div>
               <label className="label">Reminder every</label>
-              <select
+              <SelectMenu
                 name="filter_interval_months"
-                className="select"
                 defaultValue=""
-              >
-                <option value="">No reminder</option>
-                <option value="1">1 month</option>
-                <option value="2">2 months</option>
-                <option value="3">3 months</option>
-                <option value="6">6 months</option>
-                <option value="12">12 months</option>
-              </select>
+                options={[
+                  { value: "", label: "No reminder" },
+                  { value: "1", label: "1 month" },
+                  { value: "2", label: "2 months" },
+                  { value: "3", label: "3 months" },
+                  { value: "6", label: "6 months" },
+                  { value: "12", label: "12 months" },
+                ]}
+              />
             </div>
           </>
         )}

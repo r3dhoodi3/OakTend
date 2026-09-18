@@ -521,7 +521,7 @@ export default async function HomeownerChatsPage(
                 // the only way out of an open thread and it was 20px tall.
                 className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline md:hidden"
               >
-                <span aria-hidden="true">←</span> All conversations
+                <span aria-hidden="true">&lt;</span> All conversations
               </Link>
               <div className="min-h-0 flex-1">
                 {/* replaceUrlAfterInitial drops the ?q= from the address bar
@@ -551,7 +551,7 @@ export default async function HomeownerChatsPage(
                 // the only way out of an open thread and it was 20px tall.
                 className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline md:hidden"
               >
-                <span aria-hidden="true">←</span> All conversations
+                <span aria-hidden="true">&lt;</span> All conversations
               </Link>
               {/* A pro is assigned on every thread here, so a review is always
                   allowed (leave_review only requires an assigned pro, not a
@@ -614,7 +614,7 @@ export default async function HomeownerChatsPage(
                 href="/chats"
                 className="-ml-2 inline-flex min-h-11 items-center px-2 text-base font-medium text-bark-700 hover:underline md:hidden"
               >
-                <span aria-hidden="true">←</span> All conversations
+                <span aria-hidden="true">&lt;</span> All conversations
               </Link>
             </div>
           )}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { JOB_CATEGORIES, TIMING_OPTIONS, labelFor } from "@/lib/constants";
+import SelectMenu from "@/components/SelectMenu";
 import type { ActionResult } from "@/lib/actionResult";
 
 const MIN_DESCRIPTION = 20;
@@ -106,29 +107,21 @@ export default function RequestQuoteForm({
               <input type="hidden" name="contractor_id" value={contractorId} />
               <div>
                 <label className="label">What do you need?</label>
-                <select
+                <SelectMenu
                   name="category"
-                  className="select"
+                  options={options}
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={setCategory}
                   required
-                >
-                  {options.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
               <div>
                 <label className="label">Preferred timing</label>
-                <select name="timing" className="select" defaultValue="few_weeks">
-                  {TIMING_OPTIONS.map((t) => (
-                    <option key={t.value} value={t.value}>
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
+                <SelectMenu
+                  name="timing"
+                  options={[...TIMING_OPTIONS]}
+                  defaultValue="few_weeks"
+                />
               </div>
               <div>
                 <label className="label">Describe the job</label>

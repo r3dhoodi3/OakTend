@@ -27,6 +27,7 @@ import {
 } from "./actions";
 import { postJobErrorMessage } from "./postJobErrors";
 import SubmitButton from "@/components/SubmitButton";
+import SelectMenu from "@/components/SelectMenu";
 import CategoryFilter from "./CategoryFilter";
 import ProjectChips from "./ProjectChips";
 import LeadChat from "@/components/LeadChat";
@@ -89,6 +90,9 @@ export default async function ContractorsPage(
       // The budget band a rejected post carried back, so the pick survives
       // the round trip along with the text fields.
       budget?: string;
+      // "1" when a project chip started this post (see lib/projectStarters),
+      // so the form can say the draft came from us and is meant to be edited.
+      starter?: string;
     }>;
   }
 ) {
@@ -157,7 +161,7 @@ export default async function ContractorsPage(
   // These three queries only need property.id / user.id (both already in
   // hand) and are independent of each other, so they run as one parallel
   // wave instead of three stacked round trips.
-  const [existingIssuePhotos, { data: profile }, leadsData] =
+  const [existingIssuePhotos, { data: profile }, leadsData, { data: chipSystems }] =
     await Promise.all([
       // If this job is about an issue that already has photos on file (the
       // "Connect me with a local pro" link from the Issues page carries
@@ -222,6 +226,14 @@ export default async function ContractorsPage(
         }
         return leadsData;
       })(),
+      // Just enough of this home's systems for the project chips below to put
+      // the owner's actual unit ("Rheem, 40 gal, installed 2009") into the
+      // draft description. Four columns, not select(*) - nothing else reads
+      // them, and nothing about the home is shown on the page itself.
+      supabase
+        .from("home_systems")
+        .select("system_type, install_year, material_or_model, capacity")
+        .eq("property_id", property.id),
     ]);
   const leads = (leadsData ?? []) as any[];
 
@@ -522,7 +534,7 @@ export default async function ContractorsPage(
           <p className="text-sm text-stone-500 dark:text-stone-400">
             Popular upgrades. Tap one to fill in the form below.
           </p>
-          <ProjectChips />
+          <ProjectChips systems={chipSystems ?? []} />
         </div>
       </details>
 
@@ -611,18 +623,12 @@ export default async function ContractorsPage(
             <label className="label" htmlFor="job-timing">
               Preferred timing
             </label>
-            <select
+            <SelectMenu
               name="timing"
               id="job-timing"
-              className="select"
+              options={[...TIMING_OPTIONS]}
               defaultValue={searchParams.timing || "few_weeks"}
-            >
-              {TIMING_OPTIONS.map((t) => (
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
 
@@ -667,6 +673,15 @@ export default async function ContractorsPage(
             </p>
           </div>
         </div>
+
+        {/* A project chip filled this form in. Say so, or the [brackets] in the
+            description read like a bug rather than blanks to replace. */}
+        {searchParams.starter === "1" && (
+          <p className="rounded-lg border border-bark-200 bg-bark-50 px-3 py-2 text-sm text-bark-700 dark:border-bark-700 dark:bg-bark-700/30 dark:text-stone-300">
+            We started this post for you. Replace the [brackets] with your
+            details and change anything you like.
+          </p>
+        )}
 
         <DescriptionField initialDescription={searchParams.desc ?? ""} />
 
@@ -1336,7 +1351,7 @@ export default async function ContractorsPage(
           className="hover:underline"
           data-track="post-job:back-home"
         >
-          ← Back to home
+          Back to home
         </Link>
       </p>
     </div>

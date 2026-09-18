@@ -7,6 +7,7 @@ import { JOB_CATEGORIES, labelFor } from "@/lib/constants";
 import { saveProjectAction, deleteProjectAction } from "./project-actions";
 import ProjectPhotoManager from "./ProjectPhotoManager";
 import InlineSpinner from "@/components/InlineSpinner";
+import SelectMenu from "@/components/SelectMenu";
 import ProUpgradeCta, {
   proCtaLabel,
   proTrialSubline,
@@ -290,18 +291,11 @@ function ProjectForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="label">Category</label>
-          <select
+          <SelectMenu
             name="category"
             defaultValue={project?.category ?? ""}
-            className="input"
-          >
-            <option value="">No category</option>
-            {JOB_CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+            options={[{ value: "", label: "No category" }, ...JOB_CATEGORIES]}
+          />
         </div>
         <div>
           <label className="label">When</label>

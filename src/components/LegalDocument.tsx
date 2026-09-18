@@ -60,7 +60,7 @@ export default function LegalDocument({
           href="/"
           className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
         >
-          ← OakTend
+          &lt; OakTend
         </Link>
       </p>
 

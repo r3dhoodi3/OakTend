@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { closeJobAction } from "./actions";
 import SubmitButton from "@/components/SubmitButton";
+import SelectMenu from "@/components/SelectMenu";
 
 const REASONS = [
   "Found a pro elsewhere",
@@ -62,20 +63,18 @@ export default function CloseJobButton({
           automatically within a week if nobody&apos;s chosen.
         </p>
       )}
-      <select
+      {/* inline-block, not w-auto: the trigger keeps .select's w-full, so the
+          wrapper is what shrinks it to its own text (the old select's w-auto). */}
+      <SelectMenu
+        aria-label="Reason for closing"
         value={reason}
-        onChange={(e) => setReason(e.target.value)}
-        className="select w-auto"
-      >
-        <option value="">
-          Reason (optional)
-        </option>
-        {REASONS.map((r) => (
-          <option key={r} value={r}>
-            {r}
-          </option>
-        ))}
-      </select>
+        onChange={setReason}
+        className="inline-block"
+        options={[
+          { value: "", label: "Reason (optional)" },
+          ...REASONS.map((r) => ({ value: r, label: r })),
+        ]}
+      />
       {reason === "Other" ? (
         <>
           <input

@@ -6,6 +6,7 @@ import { labelFor, SYSTEM_TYPES, systemFieldExample } from "@/lib/constants";
 import TakePhotoButton from "@/components/TakePhotoButton";
 import Lightbox from "@/components/Lightbox";
 import AiNotice from "@/components/AiNotice";
+import SelectMenu from "@/components/SelectMenu";
 import ProgressBar, { useStagedProgress } from "@/components/ProgressBar";
 import type { HomeSystem } from "@/lib/database.types";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
@@ -382,18 +383,19 @@ export default function SystemCaptureCard({
             </div>
             <div className="col-span-2">
               <label className="label">Condition (optional)</label>
-              <select
+              <SelectMenu
                 name="condition_rating"
-                className="select"
-                defaultValue={system.condition_rating ?? ""}
-              >
-                <option value="">Not sure</option>
-                <option value="5">5 (like new)</option>
-                <option value="4">4 (good)</option>
-                <option value="3">3 (fair)</option>
-                <option value="2">2 (worn)</option>
-                <option value="1">1 (failing)</option>
-              </select>
+                // Stored as a number; the dropdown deals in strings.
+                defaultValue={String(system.condition_rating ?? "")}
+                options={[
+                  { value: "", label: "Not sure" },
+                  { value: "5", label: "5 (like new)" },
+                  { value: "4", label: "4 (good)" },
+                  { value: "3", label: "3 (fair)" },
+                  { value: "2", label: "2 (worn)" },
+                  { value: "1", label: "1 (failing)" },
+                ]}
+              />
             </div>
           </div>
 

@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { materialsForSystem } from "@/lib/constants";
+import SelectMenu from "./SelectMenu";
 
 const OTHER = "__other";
 
-// Styled material / model picker: a normal app <select> of the common options
+// Styled material / model picker: a normal app dropdown of the common options
 // for this system type, plus an "Other" choice that reveals a text box for a
 // custom entry. Submits the chosen (or typed) value as `material_or_model`.
 export default function MaterialSelect({
@@ -25,19 +26,16 @@ export default function MaterialSelect({
 
   return (
     <>
-      <select
-        className="select"
+      <SelectMenu
+        aria-label="Material or model"
         value={choice}
-        onChange={(e) => setChoice(e.target.value)}
-      >
-        <option value="">Select (optional)</option>
-        {options.map((m) => (
-          <option key={m} value={m}>
-            {m}
-          </option>
-        ))}
-        <option value={OTHER}>Other</option>
-      </select>
+        onChange={setChoice}
+        options={[
+          { value: "", label: "Select (optional)" },
+          ...options.map((m) => ({ value: m, label: m })),
+          { value: OTHER, label: "Other" },
+        ]}
+      />
       {choice === OTHER ? (
         <input
           name="material_or_model"
