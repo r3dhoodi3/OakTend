@@ -101,10 +101,10 @@ describe("pro lead card phone density (0128)", () => {
     expect(openDetailsClose).toBeGreaterThan(-1);
     expect(applyIdx).toBeGreaterThan(openDetailsClose);
 
-    // The applicant-count line and the full/conflict states also stay
-    // outside the fold, exactly as before. Copy changed (CR5 remove #3: "X
-    // of N spots taken" -> "X pros have applied"), so this anchors on the
-    // line's own comment rather than the wording.
+    // The applicant-count line and the conflict state also stay outside the
+    // fold, exactly as before. The copy has changed more than once (the cap
+    // and its "full" state are gone as of migration 0170), so this anchors on
+    // the line's own comment rather than the wording.
     expect(openJobCard.indexOf("Applicant count:")).toBeGreaterThan(openDetailsClose);
   });
 

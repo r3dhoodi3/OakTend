@@ -99,13 +99,15 @@ export default function PhoneLanding({
         </div>
       </div>
 
-      {/* Deliberately an h1: the desktop hero's h1 is display:none at this
-          width, so without one here a phone screen reader would land on a
-          page with no top-level heading. Only ever one of the two is
-          visible. */}
-      <h1 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+      {/* An h2 on purpose (was an h1 until 2026-09-18). Only one of the two
+          hero headings is ever visible, but both are always in the HTML, so
+          the landing page shipped two h1s. The page's single h1 is the
+          desktop hero's (src/app/page.tsx). The cost: a phone screen reader
+          meets an h2 first, since that h1 is display:none at this width.
+          Classes are unchanged, so it looks the same. */}
+      <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 [text-wrap:balance]">
         Your home, looked after.
-      </h1>
+      </h2>
       <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-400">
         OakTend checks on your home for you and warns you before things break.
       </p>

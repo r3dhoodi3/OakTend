@@ -47,7 +47,6 @@ import DirectRequestCard from "../DirectRequestCard";
 import JobStatusSelect from "../JobStatusSelect";
 import JobPhotoStrip from "../JobPhotoStrip";
 import {
-  MAX_APPLICANTS_PER_JOB,
   COLD_START_FREE_ALERTS,
   LEAD_TIER_FEES,
   PRO_LEADS_HREF,
@@ -128,8 +127,8 @@ export type OpenJobVM = {
   hasPlansPermits: boolean;
   postedAgoLabel: string | null;
   timingLabel: string | null;
-  spots: number;
-  full: boolean;
+  /** Live applications on this job. Information only: there is no cap. */
+  applicants: number;
   /** Set when this pro already has an active job with the same homeowner. */
   conflict: {
     categoryLabel: string;
@@ -682,24 +681,14 @@ export default function LeadsBoard({
                   </div>
 
                   {/* Applicant count: shown on every card so a pro can judge
-                      competition before paying the apply fee, not just once
-                      the cap is already hit. CR5 remove #3: "X of N spots
-                      taken" read as the same blind-bidding pressure pros
-                      resent about Angi/HomeAdvisor (pay for a lead, then find
-                      out how many others also bought it); OakTend's own
-                      guarantees already soften the real risk, so this now
-                      reads as transparency, not a countdown - red only once
-                      the job is actually full, same as before. */}
-                  <p
-                    className={`text-xs font-semibold ${
-                      j.full ? "text-red-600 dark:text-red-400" : "text-stone-500 dark:text-stone-400"
-                    }`}
-                  >
-                    {j.full
-                      ? `Full: ${MAX_APPLICANTS_PER_JOB} pros applied`
-                      : j.spots === 1
-                        ? "1 pro has applied"
-                        : `${j.spots} pros have applied`}
+                      competition before applying. Plain information, never a
+                      countdown - there is no applicant cap (founder decision
+                      2026-09-16), so no job ever closes to new applications
+                      and the homeowner compares everyone who applied. */}
+                  <p className="text-xs font-semibold text-stone-500 dark:text-stone-400">
+                    {j.applicants === 1
+                      ? "1 pro has applied"
+                      : `${j.applicants} pros have applied`}
                   </p>
 
                   {j.conflict ? (
@@ -718,10 +707,6 @@ export default function LeadsBoard({
                         label="Message them instead"
                       />
                     </div>
-                  ) : j.full ? (
-                    <p className="rounded-lg border border-stone-200 bg-stone-100 px-3 py-2 text-center text-sm font-medium text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
-                      Job full
-                    </p>
                   ) : j.insuranceRequired ? (
                     // Big-job insurance gate (0153): no pay button at all
                     // when the requirement is not met, so a pro is told

@@ -67,3 +67,49 @@ export const PREVIEW_JOB_POSTED_COPY =
 // what does. One constant beside the banner copy above so the two agree.
 export const PREVIEW_POST_JOB_INTRO =
   "Describe what you need and post it. Our pro network isn't open yet, so our team finds a local pro for you by hand and reaches out.";
+
+// ---------------------------------------------------------------------------
+// CITY LANDING PAGES (/fountain-valley, /huntington-beach, /oc/<city>)
+//
+// These 36 pages are the ones Google actually sends strangers to, and every
+// one of them sold "local pros in <city>" four times over: in the <h1>, in
+// the <title>, in the meta description (which is also the OG and Twitter card
+// text), and in a value card promising that "every pro who applies shows up
+// in one place". During the preview no pro can apply, so all four were
+// promises the product cannot keep to the exact visitor most likely to be
+// meeting OakTend for the first time.
+//
+// City name is interpolated, so these are functions rather than the flat
+// constants above - but they are the same idea: ONE place the wording lives,
+// so the headline, the tab title, the search snippet and the share card can't
+// drift from each other or from PREVIEW_JOB_POSTED_COPY, which is what a
+// homeowner is shown the moment they act on any of them.
+//
+// Resolved through cityPageCopy() in src/components/CityLandingPage.tsx,
+// which picks these or the normal wording. With the flag off, not one
+// character of any city page changes.
+// ---------------------------------------------------------------------------
+
+// The <h1>. The normal one is "Home maintenance and local pros in <city>".
+export function previewCityHeadline(city: string): string {
+  return `Home maintenance for ${city} homeowners`;
+}
+
+// The <title>, which is also the OG/Twitter title. ", CA" is kept: it is the
+// half of the normal title that does the local-search work, and it is true.
+export function previewCityTitle(city: string): string {
+  return `Home maintenance for ${city}, CA homeowners`;
+}
+
+// The meta description, which is also the OG/Twitter description. Says the
+// same thing PREVIEW_JOB_POSTED_COPY says, in the shorter form a search
+// snippet has room for.
+export function previewCityDescription(city: string): string {
+  return `A maintenance plan built for your ${city} home and answers about your own systems. Our pro network isn't open yet, so post your job and our team finds a local pro by hand. Free during our preview.`;
+}
+
+// The third value card, which normally promises license-checked pros applying
+// and a pile of quotes to compare.
+export const PREVIEW_CITY_PROS_CARD_TITLE = "A local pro, found by hand";
+export const PREVIEW_CITY_PROS_CARD_BODY =
+  "Our pro network isn't open yet. Post your job and our team finds a local pro for you by hand, then reaches out to you.";

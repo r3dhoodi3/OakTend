@@ -1,12 +1,18 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { cappedField, honeypotTripped, FIELD_MAX } from "@/lib/formFields";
 import { err, ok, type ActionResult } from "@/lib/actionResult";
 import { clientIpFromHeaders } from "@/lib/clientIp";
 import { JOB_CATEGORIES } from "@/lib/constants";
 import { PRO_WAITLIST_CONFIRMATION } from "@/lib/previewMode";
+import {
+  CAMPAIGN_COOKIE,
+  LEGACY_CAMPAIGN_COOKIE,
+  lookupCampaign,
+} from "@/lib/campaigns";
+import { isMissingSchemaError } from "@/lib/dbErrors";
 
 // Longest city we will store. Not a validation the visitor can fail - the
 // field is quietly truncated, the same way every other cappedField() call
@@ -22,6 +28,34 @@ const UNIQUE_VIOLATION = "23505";
 // was inserted, was already there, or was a bot's (see NEVER REVEAL below),
 // is PRO_WAITLIST_CONFIRMATION in src/lib/previewMode.ts: a "use server" file
 // may export only async functions, so the constant cannot live here.
+
+// Which partner/campaign link this contractor arrived through, or null.
+//
+// The SAME cookie and the SAME validator the account-creating path uses
+// (src/app/(auth)/recordTermsAcceptance.ts): read oaktend_campaign, fall back
+// to its pre-rename name, and take the value only if lookupCampaign() finds it
+// on the frozen allowlist in src/lib/campaigns.ts. The regex is not repeated
+// here - an unknown or ill-formed code is simply stored as null, exactly as
+// the users.campaign_code path treats one.
+//
+// READ ONLY, no promote-and-delete. recordTermsAcceptance re-issues a legacy
+// cookie under the new name because it is the last reader before the cookie
+// matters; this form is a side door that a visitor may never come back to, so
+// it looks at both names and writes neither.
+async function campaignCodeFromCookie(): Promise<string | null> {
+  try {
+    const jar = await cookies();
+    const code =
+      jar.get(CAMPAIGN_COOKIE)?.value ??
+      jar.get(LEGACY_CAMPAIGN_COOKIE)?.value ??
+      null;
+    return code && lookupCampaign(code) ? code : null;
+  } catch {
+    // A cookie store that cannot be read must cost an email address, not the
+    // signup. Same best-effort posture as every other side channel here.
+    return null;
+  }
+}
 
 // Every accepted trade value: the canonical service categories plus "other".
 // Derived from JOB_CATEGORIES rather than re-listed, so a new category added
@@ -127,12 +161,42 @@ export async function joinProWaitlistAction(
   // yet - the same cast every other not-yet-typed table in the repo uses
   // (market_waitlist in src/app/onboarding/actions.ts, pro_feedback,
   // rentcast_cache).
-  const { error } = await (admin as any).from("pro_waitlist").insert({
+  //
+  // CAMPAIGN_CODE (migration 0171). A contractor who follows a partner's
+  // /go/<code>-pro link during preview cannot create an account, so this row is
+  // the only place that referral can be recorded - and the 30-day cookie is
+  // long gone by the time the pro side opens. When they do sign up,
+  // src/lib/waitlistAttribution.ts copies it onto users.campaign_code.
+  //
+  // FIRST CODE WINS, and it needs no filter here: the duplicate-swallowing
+  // insert described above never updates an existing row, so the first code
+  // stored for an email is the one that stays.
+  const campaignCode = await campaignCodeFromCookie();
+  const row = {
     email,
     trade: storedTrade,
     city: city || null,
     source,
-  });
+  };
+
+  let { error } = await (admin as any)
+    .from("pro_waitlist")
+    .insert({ ...row, campaign_code: campaignCode });
+
+  // DEPLOY-ORDER SAFETY. This code can ship before 0171 is pasted into the
+  // live database by hand, and until it is, campaign_code does not exist -
+  // which PostgREST answers with PGRST204, not a duplicate. Losing a real
+  // contractor's signup over an attribution field would be absurd, so the
+  // insert is retried once without it (isMissingSchemaError, src/lib/
+  // dbErrors.ts - the same shapes every other graceful-degradation site in
+  // the repo matches). Once, never in a loop: a second failure is a real one.
+  if (error && isMissingSchemaError(error)) {
+    console.warn(
+      "joinProWaitlistAction: pro_waitlist.campaign_code missing, retrying " +
+        "without attribution (paste migration 0171)"
+    );
+    ({ error } = await (admin as any).from("pro_waitlist").insert(row));
+  }
 
   // Logged, not surfaced, and a duplicate is not even logged: signing up
   // twice is the ordinary case, and telling the visitor "couldn't save" on

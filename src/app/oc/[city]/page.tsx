@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CityLandingPage, {
   buildCityServiceJsonLd,
+  cityPageCopy,
 } from "@/components/CityLandingPage";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
@@ -62,12 +63,38 @@ export async function generateMetadata(props: {
   const { city: slug } = await props.params;
   const city = CITY_BY_SLUG.get(slug);
   if (!city) return {};
+  // Same cityPageCopy() the page body reads its h1 from, and the same one the
+  // two hand-written city pages use - so all 36 pages say one thing, and the
+  // preview-mode wording (src/lib/previewMode.ts) applies to all 36 at once
+  // instead of being re-typed per route.
+  const copy = cityPageCopy(city);
+  const canonical = `${SITE_URL}/oc/${slug}`;
   return {
     // The root layout's title template appends "| OakTend"; don't repeat it.
-    title: `Home maintenance and local pros in ${city}, CA`,
-    description: `A maintenance plan built for your ${city} home, answers about your own systems, and license-checked local pros when something breaks. Free to start.`,
+    title: copy.title,
+    description: copy.description,
     alternates: {
-      canonical: `${SITE_URL}/oc/${slug}`,
+      canonical,
+    },
+    // These 34 pages had no openGraph/twitter block, so every one of them
+    // shared the root layout's generic site-wide share card. Same shape
+    // /pricing and the guides use.
+    openGraph: {
+      title: copy.title,
+      description: copy.description,
+      url: canonical,
+      siteName: "OakTend",
+      type: "website",
+      locale: "en_US",
+      // og:image is NOT set here on purpose - see the note on
+      // src/app/fountain-valley/page.tsx. Next's file convention inherits
+      // src/app/opengraph-image.tsx down to this segment with the
+      // content-hashed URL it actually serves.
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: copy.title,
+      description: copy.description,
     },
   };
 }

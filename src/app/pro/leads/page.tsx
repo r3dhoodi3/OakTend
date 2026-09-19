@@ -10,7 +10,6 @@ import {
   JOB_CATEGORIES,
   TIMING_OPTIONS,
   BUDGET_RANGES,
-  MAX_APPLICANTS_PER_JOB,
   COLD_START_FREE_ALERTS,
   isMajorCategory,
 } from "@/lib/constants";
@@ -358,7 +357,7 @@ export default async function ProDashboard(
       memberWouldPay && memberWouldPay.fee < best.fee
         ? money(memberWouldPay.fee)
         : null;
-    const spots = Number(j.application_count ?? 0);
+    const applicants = Number(j.application_count ?? 0);
     const conflict = relationshipConflicts.get(j.id);
     // Homeowner's rough budget band (0047): a pricing signal, not a quote.
     // "not-sure" carries no signal, so no chip for it.
@@ -398,8 +397,7 @@ export default async function ProDashboard(
       hasPlansPermits: j.has_plans_permits === true,
       postedAgoLabel: postedAgo(j.created_at),
       timingLabel,
-      spots,
-      full: spots >= MAX_APPLICANTS_PER_JOB,
+      applicants,
       conflict: conflict
         ? {
             categoryLabel: labelFor(JOB_CATEGORIES, conflict.category),

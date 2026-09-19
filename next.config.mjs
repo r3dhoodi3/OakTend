@@ -188,6 +188,31 @@ const nextConfig = {
   // for external links and bookmarks.
   async redirects() {
     return [
+      // www -> apex, 308 PERMANENT. The canonical host is oaktend.com: every
+      // canonical tag, every sitemap URL and every OG url is built from
+      // NEXT_PUBLIC_SITE_URL, which is the apex. www.oaktend.com was answered
+      // only by the Vercel Domains dashboard's own redirect, which defaults
+      // to 307 TEMPORARY - and a 307 tells Google "keep both hosts, this move
+      // may be undone", which is the duplicate-host split the canonical tags
+      // exist to prevent. 308 says the move is permanent and consolidates the
+      // signals onto the apex. Having the rule here rather than only in the
+      // dashboard also puts it in version control, where it survives a
+      // project being recreated. The dashboard setting should be switched to
+      // 308 as well; this entry does not change it.
+      //
+      // `has` on the host header rather than a source pattern: the path is
+      // identical on both hosts, so the host is the only thing that tells
+      // them apart. The destination is absolute - a relative one would
+      // redirect www to itself forever. :path* carries the whole path
+      // through, and Next keeps the query string on a redirect, so a
+      // UTM-tagged www link lands intact. The apex never matches, so there is
+      // no loop and no cost to a normal request.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.oaktend.com" }],
+        destination: "https://oaktend.com/:path*",
+        permanent: true,
+      },
       {
         source: "/profile",
         destination: "/dashboard#systems",

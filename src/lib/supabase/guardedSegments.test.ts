@@ -21,6 +21,24 @@ import { isHomeownerShellPath } from "@/lib/roleRouting";
 const APP_GROUP_DIR = fileURLToPath(new URL("../../app/(app)", import.meta.url));
 const APP_DIR = fileURLToPath(new URL("../../app", import.meta.url));
 
+// Sections inside (app) that are deliberately NOT declared in either list
+// below, named rather than waved through by a pattern - the same treatment
+// ANONYMOUS_BY_DESIGN gets further down, and for the same reason: an exception
+// is only acceptable when the reason is written next to it.
+//
+// "backoffice": the internal partner-signups page (src/app/(app)/backoffice/
+// partners/page.tsx). It does NOT lean on the middleware for its auth, which is
+// the failure mode the fixtures exist to catch - it gets the signed-in user
+// itself and answers notFound() for anyone who is not an OakTend team account
+// (isInternalUser, migration 0165). Listing it in GUARDED_SEGMENTS would make a
+// signed-out GET redirect to /signin, and a redirect CONFIRMS the section
+// exists, which is exactly what a page nobody links to must not do. Undeclared,
+// the unrouted-GET fallthrough lets the request reach the page and the page
+// answers 404, which is what a stranger should see. Anything added under
+// /backoffice inherits this and must carry its own gate; a page that does not
+// belongs somewhere else.
+const SELF_GATED_BY_DESIGN = new Set(["backoffice"]);
+
 // Directories only: the group also holds layout.tsx, loading.tsx and error.tsx,
 // which are files, not routes.
 function appGroupSegments(): string[] {
@@ -29,6 +47,7 @@ function appGroupSegments(): string[] {
     // Next's own conventions: a (group) is not a URL segment, and an
     // _internal folder is never routed at all.
     .filter((entry) => !entry.name.startsWith("(") && !entry.name.startsWith("_"))
+    .filter((entry) => !SELF_GATED_BY_DESIGN.has(entry.name))
     .map((entry) => entry.name);
 }
 
@@ -52,6 +71,18 @@ describe("GUARDED_SEGMENTS", () => {
     expect(isGuardedPath("/account/blocks")).toBe(true);
     expect(isGuardedPath("/pro/blocks")).toBe(true);
     expect(isHomeownerShellPath("/account/blocks")).toBe(true);
+  });
+
+  // The exception above is only safe while it stays an exception, so it is
+  // asserted rather than assumed: /backoffice must be undeclared (so a stranger
+  // gets a 404 instead of a /signin redirect that confirms the section), and
+  // the page must be the thing that refuses them.
+  it("leaves the self-gated back office undeclared, on purpose", () => {
+    expect(SELF_GATED_BY_DESIGN.has("backoffice")).toBe(true);
+    expect(isGuardedPath("/backoffice/partners")).toBe(false);
+    // And it is not public either - nothing about it is anonymous, it is just
+    // gated one layer further in.
+    expect(isPublicPath("/backoffice/partners")).toBe(false);
   });
 
   it("still guards deeper paths and leaves unrouted ones alone", () => {

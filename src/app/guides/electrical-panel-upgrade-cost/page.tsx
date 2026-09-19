@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
 // Public SEO guide. The cost range and the "why" copy are pulled from the same
 // REPLACEMENT_INFO.electrical_panel entry the signed-in app uses on the Home
@@ -97,6 +98,14 @@ export default function ElectricalPanelUpgradeCostGuide() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
         }}
+      />
+      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
+          the same map the sitemap reads <lastmod> from. */}
+      <GuideArticleJsonLd
+        path="/guides/electrical-panel-upgrade-cost"
+        headline={TITLE}
+        description={DESCRIPTION}
+        siteUrl={SITE_URL}
       />
 
       {/* Breadcrumb replaces the old "All guides" back link: it still links

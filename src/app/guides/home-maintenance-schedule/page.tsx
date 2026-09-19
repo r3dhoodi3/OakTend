@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GuideCta from "@/components/GuideCta";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
 // Public SEO guide. The task list below mirrors the tasks OakTend's own
 // maintenance plan generator tracks (ALWAYS_SCHEDULE / SYSTEM_SCHEDULE in
@@ -146,6 +147,14 @@ export default function HomeMaintenanceScheduleGuide() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
         }}
+      />
+      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
+          the same map the sitemap reads <lastmod> from. */}
+      <GuideArticleJsonLd
+        path="/guides/home-maintenance-schedule"
+        headline={TITLE}
+        description={DESCRIPTION}
+        siteUrl={SITE_URL}
       />
 
       {/* Breadcrumb replaces the old "All guides" back link: it still links

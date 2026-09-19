@@ -8,21 +8,16 @@ import { hasPlus } from "@/lib/subscription";
 import { setFlash } from "@/lib/flash";
 import { ok, err, type ActionResult } from "@/lib/actionResult";
 import { cachedMarketValueAgeMs, lookupMarketValue } from "@/lib/parcel";
-import { RENTCAST_REFRESH_MIN_AGE_MS } from "@/lib/rentcastCache";
+import {
+  RENTCAST_REFRESH_MIN_AGE_MS,
+  nextRentcastRefreshAt,
+} from "@/lib/rentcastCache";
+import { formatRefreshDate } from "./refreshDate";
 
-// "Updated 3 hours ago" for the refresh button (F2). Coarse on purpose: this
-// labels a cached estimate, and a minute-accurate age would imply a precision
-// the number does not have. Its own tiny helper rather than a date library -
-// the app ships no relative-time formatter today and this is the only caller.
-function relativeAge(ms: number): string {
-  const minutes = Math.floor(ms / 60_000);
-  if (minutes < 2) return "just now";
-  if (minutes < 60) return `${minutes} minutes ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours === 1) return "an hour ago";
-  if (hours < 24) return `${hours} hours ago`;
-  const days = Math.floor(hours / 24);
-  return days === 1 ? "yesterday" : `${days} days ago`;
+// When the refresh button comes back for a home whose last settled AVM call
+// landed `ageMs` ago, as an ISO string for the client.
+function nextRefreshIso(ageMs: number): string {
+  return new Date(nextRentcastRefreshAt(Date.now() - ageMs)).toISOString();
 }
 
 // Saves (or updates) what the owner paid, the year they bought, and what they
@@ -246,15 +241,20 @@ export async function fetchAndSaveMarketValueAction(): Promise<{
 // re-reads the cached number and bills nothing. The estimate can genuinely
 // move about once a month, which is what the copy promises.
 //
-// F2 adds a 24-HOUR FLOOR in front of all of that, and says so out loud. The
-// caches below would already have absorbed a same-day second press silently,
-// which is cheap but dishonest: the button showed "Estimate updated." over a
-// number that had not moved. Under 24 hours this now returns the stored value
-// with "Updated <when>" instead, so a homeowner pressing it twice in an
-// afternoon is told plainly that there is nothing newer to fetch rather than
-// being shown a refresh that did not happen. `data.note` carries that line.
+// F2 adds a 30-DAY FLOOR in front of all of that, and says so out loud. The
+// caches below would already have absorbed a second press silently, which is
+// cheap but dishonest: the button showed "Estimate updated." over a number
+// that had not moved. Inside the floor this returns the stored value with the
+// date the button comes back instead, so a homeowner is told plainly when
+// there will be something newer to fetch rather than being shown a refresh
+// that did not happen. `data.note` carries that line, and `data.nextRefreshAt`
+// the date itself, so the button can disable until then.
+//
+// The floor is the ENFORCING half: the button is already disabled inside the
+// window (RefreshValue.tsx), so this path is for a stale tab, not for what a
+// homeowner normally does.
 export async function refreshMarketValueAction(): Promise<
-  ActionResult<{ note?: string }>
+  ActionResult<{ note?: string; nextRefreshAt?: string }>
 > {
   const property = await getActiveProperty();
   // Ownership comes from getActiveProperty, which re-validates through RLS on
@@ -294,7 +294,7 @@ export async function refreshMarketValueAction(): Promise<
     return err("Only the home's owner can change this.");
   }
 
-  // F2: THE 24-HOUR FLOOR, checked before anything is spent - neither a
+  // F2: THE 30-DAY FLOOR, checked before anything is spent - neither a
   // RentCast call nor a slot of the per-user budget an honest refresh needs.
   //
   // Reads the CALL cache (rentcast_cache, migration 0167), not the facts cache
@@ -305,7 +305,11 @@ export async function refreshMarketValueAction(): Promise<
   // normal path, which is the pre-existing behaviour.
   const cachedAge = await cachedMarketValueAgeMs(street, zip, property.unit);
   if (cachedAge != null && cachedAge < RENTCAST_REFRESH_MIN_AGE_MS) {
-    return ok({ note: `Updated ${relativeAge(cachedAge)}` });
+    const nextAt = nextRefreshIso(cachedAge);
+    return ok({
+      note: `You can refresh again on ${formatRefreshDate(nextAt)}.`,
+      nextRefreshAt: nextAt,
+    });
   }
 
   if (!(await avmBudgetAllows(user.id))) {
@@ -346,7 +350,10 @@ export async function refreshMarketValueAction(): Promise<
 
     revalidatePath("/value");
     revalidatePath("/dashboard");
-    return ok();
+    // This call is the new "last asked", so the next one is a floor away from
+    // now. Returned so the button can disable itself and name the date
+    // without waiting on a page reload.
+    return ok({ nextRefreshAt: nextRefreshIso(0) });
   } catch (e) {
     console.error("refreshMarketValueAction failed:", e);
     return err("Couldn't refresh right now. Please try again in a bit.");

@@ -2350,7 +2350,13 @@ export default function HeroDemoPlayer() {
                   <Logo className="h-6 w-6 text-oaktend-700" /> OakTend
                 </header>
                 <div className="mx-auto max-w-md px-6 pt-12">
-                  <h1 className="text-2xl font-semibold text-stone-900">Find your home</h1>
+                  {/* h2, not h1, here and on the three fake screens below.
+                      These are pictures of other pages drawn inside a device
+                      frame on the landing page, not pages of their own, and
+                      this component mounts on hydration - so as h1s they were
+                      four extra top-level headings on "/". Classes unchanged;
+                      every size here is explicit. */}
+                  <h2 className="text-2xl font-semibold text-stone-900">Find your home</h2>
                   <p className="mt-1 text-sm text-stone-600">Your address is all it takes to start.</p>
                   <div className={cx("input mt-5 flex items-center")} data-x="addrInput">
                     <span data-x="typed"></span>
@@ -2371,9 +2377,9 @@ export default function HeroDemoPlayer() {
               <div className={styles.page} data-page="dashPage">
                 <AppNav logoX />
                 <div className="mx-auto max-w-5xl px-6 py-5">
-                  <h1 className="text-xl font-semibold text-stone-900">
+                  <h2 className="text-xl font-semibold text-stone-900">
                     123 Maple St, Your City
-                  </h1>
+                  </h2>
                   <p className="mt-0.5 text-sm text-stone-500">Built 1978 · 1640 sqft · 3 bd / 2 ba</p>
                   <p className="mt-0.5 text-sm text-red-600" data-x="brokenLink">Something broken right now?</p>
                   <div className="mt-4 grid grid-cols-4 gap-4">
@@ -2441,7 +2447,7 @@ export default function HeroDemoPlayer() {
               <div className={styles.page} data-page="postjobPage">
                 <AppNav active={2} msgTabX msgBadge />
                 <div className="relative mx-auto max-w-5xl px-6 py-6">
-                  <h1 className="text-2xl font-semibold text-stone-900">Post a job</h1>
+                  <h2 className="text-2xl font-semibold text-stone-900">Post a job</h2>
                   <p className="label mt-3">What&apos;s wrong?</p>
                   <div className="input flex max-w-md items-center" data-x="jobTitleBox">
                     <span data-x="jobTitle"></span>
@@ -2483,7 +2489,7 @@ export default function HeroDemoPlayer() {
               <div className={styles.page} data-page="chatPage">
                 <AppNav active={3} />
                 <div className="mx-auto max-w-5xl px-6 py-5">
-                  <h1 className="text-xl font-semibold text-stone-900">Messages</h1>
+                  <h2 className="text-xl font-semibold text-stone-900">Messages</h2>
                   <div className="mt-3 grid grid-cols-[220px_1fr] gap-4">
                     <div className="card p-0">
                       <div className="border-l-2 border-oaktend-500 bg-oaktend-50 px-4 py-3">

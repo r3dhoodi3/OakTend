@@ -2,7 +2,14 @@ import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import Logo from "@/components/Logo";
 import SessionCta from "@/components/SessionCta";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
+import { cityPageCopy } from "@/lib/cityCopy";
+import {
+  isHomeownerPreview,
+  PREVIEW_CITY_PROS_CARD_BODY,
+  PREVIEW_CITY_PROS_CARD_TITLE,
+} from "@/lib/previewMode";
 import { ClipboardList, MessageSquare, Wrench, Gift } from "lucide-react";
 
 // Shared shell for the two city landing pages (src/app/fountain-valley,
@@ -36,28 +43,54 @@ import { ClipboardList, MessageSquare, Wrench, Gift } from "lucide-react";
 // pages ship from the CDN instead of waking a serverless function and waiting
 // on a Supabase auth round trip before the first byte.
 
-const VALUE = [
-  {
-    icon: ClipboardList,
-    title: "A maintenance plan built around your home",
-    body: "OakTend turns your home's age, systems, and history into a plan of what to check and when, not a generic checklist.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Ask OakTend anything about your house",
-    body: "Get answers about your systems, their ages, and what's likely to need attention next, any time.",
-  },
-  {
-    icon: Wrench,
-    title: "Local pros, no bidding war",
-    body: "Pros are license-checked against the CSLB when a license is on file, and every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
-  },
-  {
-    icon: Gift,
-    title: "Free to start",
-    body: "Free for your first home, no card needed.",
-  },
-];
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+// The title/description/headline the three city routes share live in
+// src/lib/cityCopy.ts (pure strings, unit-tested against both settings of the
+// preview flag). Re-exported here so the page files can keep importing
+// everything city-page-shaped from one module.
+export { cityPageCopy };
+
+function valueCards(): {
+  icon: typeof ClipboardList;
+  title: string;
+  body: string;
+}[] {
+  const preview = isHomeownerPreview();
+  return [
+    {
+      icon: ClipboardList,
+      title: "A maintenance plan built around your home",
+      body: "OakTend turns your home's age, systems, and history into a plan of what to check and when, not a generic checklist.",
+    },
+    {
+      icon: MessageSquare,
+      title: "Ask OakTend anything about your house",
+      body: "Get answers about your systems, their ages, and what's likely to need attention next, any time.",
+    },
+    // The only card that changes. "every pro who applies shows up in one
+    // place" describes a pro network that is closed right now; the preview
+    // version describes what actually happens instead. Same icon, same card,
+    // same position, so the grid is unchanged either way.
+    preview
+      ? {
+          icon: Wrench,
+          title: PREVIEW_CITY_PROS_CARD_TITLE,
+          body: PREVIEW_CITY_PROS_CARD_BODY,
+        }
+      : {
+          icon: Wrench,
+          title: "Local pros, no bidding war",
+          body: "Pros are license-checked against the CSLB when a license is on file, and every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
+        },
+    {
+      icon: Gift,
+      title: "Free to start",
+      body: "Free for your first home, no card needed.",
+    },
+  ];
+}
 
 const GUIDE_LINKS = [
   {
@@ -107,6 +140,8 @@ export default function CityLandingPage({
   city: string;
   housingParagraph: string;
 }) {
+  const copy = cityPageCopy(city);
+  const VALUE = valueCards();
   return (
     <div className="min-h-screen">
       <header className="mx-auto flex max-w-2xl items-center justify-between px-6 pt-6">
@@ -120,9 +155,47 @@ export default function CityLandingPage({
       </header>
 
       <main className="mx-auto max-w-2xl px-6 pb-16 pt-10">
+        {/* Breadcrumb trail. Not the shared <Breadcrumbs> component: that one
+            separates with a chevron and starts at "Home", and these pages
+            wanted plain "/" separators and the brand name, which is also what
+            Google renders in a result's breadcrumb line.
+
+            "Orange County" is deliberately NOT a link. There is no /oc index
+            page - src/app/oc contains only the [city] route - so linking it
+            would be a 404 in the one place a crawler is most likely to
+            follow. Plain text is a valid BreadcrumbList item.
+
+            Small, muted, one line: same text-sm stone-500 the site uses for
+            every secondary link (see the guides footer), so it sits above the
+            hero without competing with it at any width. */}
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-stone-500 dark:text-stone-400">
+          <Link
+            href="/"
+            className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
+          >
+            OakTend
+          </Link>
+          <span aria-hidden="true"> / </span>
+          <span>Orange County</span>
+          <span aria-hidden="true"> / </span>
+          <span aria-current="page" className="text-stone-700 dark:text-stone-300">
+            {city}
+          </span>
+        </nav>
+        {/* Matching BreadcrumbList. The last item carries no URL, the same
+            current-page-has-no-item convention the guides' trails use. */}
+        <BreadcrumbJsonLd
+          items={[
+            { name: "OakTend", href: "/" },
+            { name: "Orange County" },
+            { name: city },
+          ]}
+          siteUrl={SITE_URL}
+        />
+
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl dark:text-stone-100">
-            Home maintenance and local pros in {city}
+            {copy.headline}
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-stone-600 dark:text-stone-300">
             {housingParagraph}

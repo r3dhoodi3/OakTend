@@ -403,10 +403,8 @@ export async function updateSystemAction(
   // attesting to its details, which is the same statement the walkthrough
   // confirm makes. Stamping it here means a person who corrects a seeded
   // system's install year (leaving condition and service date blank) counts
-  // as having assessed the system everywhere confirmed_at is read: the
-  // health score stops treating it as an onboarding guess, and the Home Wins
-  // card (isOwnerAssessed in src/lib/homeWins.ts) can count it toward the
-  // great-shape line instead of understating with the Tracking fallback.
+  // as having assessed the system everywhere confirmed_at is read, so the
+  // health score stops treating it as an onboarding guess.
   // Unconditional on purpose: re-stamping an already-confirmed system just
   // refreshes the attestation date, which is truthful.
   const baseUpdate = {

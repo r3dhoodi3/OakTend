@@ -661,11 +661,6 @@ export function extraHomeUnitPrice(
 // (supabase/migrations/0035_pro_membership.sql).
 export const PRO_DEPOSIT_BOOST_PTS = 5;
 
-// Applicant cap: this many live (non-refunded) applications fill a posted job,
-// so pros stop burning fees on crowded postings. Must match the check in
-// apply_to_lead (supabase/migrations/0031_ghost_protection.sql).
-export const MAX_APPLICANTS_PER_JOB = 3;
-
 // Earn-in for the OakTend-funded Checkr background check. Every check costs
 // OakTend real money, so it unlocks after the pro has this many PAID lead
 // applications (lead_applications rows with refunded_at null - a refunded

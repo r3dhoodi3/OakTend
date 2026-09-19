@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
+import { GUIDE_DATES, GUIDE_PATHS } from "@/lib/guides";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Sitemap for crawlers: the public landing pages, the two hand-written city
 // landing pages (src/app/fountain-valley, src/app/huntington-beach) plus the
@@ -16,10 +18,10 @@ import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 // table is NOT publicly readable, so the list comes from the service-role
 // admin client; only id/slug ever leave the query, both of which are already
 // public via the /p/ pages themselves. That client bypasses RLS, so the pro
-// query below has to re-state browse_pros()'s own visibility filters by hand
-// (claimed row + launch-market gate) or the sitemap advertises pros the
-// directory hides. Slug URLs are preferred (0043); rows without a slug
-// (pre-migration) fall back to their UUID URL.
+// query below has to re-state the visibility rules /p/<id> itself applies by
+// hand, or the sitemap advertises pages the site hides. Slug URLs are
+// preferred (0043); rows without a slug (pre-migration) fall back to their
+// UUID URL.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -37,34 +39,81 @@ const SITE_URL =
 // latency dwarfs it.
 export const revalidate = 3600;
 
-// Keep in sync with src/app/guides/page.tsx (GUIDES) - every guide listed
-// there needs an entry here or it's unreachable by crawlers with no
-// sitemap signal.
-const GUIDE_PATHS = [
-  "/guides",
-  "/guides/water-heater-replacement-cost",
-  "/guides/hvac-replacement-cost",
-  "/guides/roof-replacement-cost",
-  "/guides/electrical-panel-upgrade-cost",
-  "/guides/kitchen-remodel-cost",
-  "/guides/bathroom-remodel-cost",
-  "/guides/adu-cost",
-  "/guides/slab-leak-signs",
-  "/guides/home-maintenance-schedule",
-  "/guides/is-my-contractor-quote-fair",
-  "/guides/contractor-deposit-rules-california",
-  "/guides/socal-home-maintenance-calendar",
-];
+// LASTMOD, AND WHY THESE ARE HARD-CODED DATES.
+//
+// This sitemap used to carry no <lastmod> at all. The tempting fix is
+// `lastModified: new Date()`, which is what most Next sitemaps do and what
+// this one was about to grow - and it is a lie on every single URL: it says
+// "/terms changed today" every hour forever. Google's published guidance is
+// that it drops a site's lastmod values entirely once it catches them not
+// matching the page, so a fabricated date does not just fail to help, it
+// costs the URLs whose dates are real.
+//
+// So: a per-page date, read once out of git history
+// (`git log -1 --format=%cs -- <path>`) and written down. Not computed at
+// request time - a serverless sitemap route cannot shell out to git, and
+// Vercel builds from a shallow clone anyway.
+//
+// KEEPING IT HONEST: when you change what one of these pages SAYS, bump its
+// date here in the same change. A refactor or a dependency bump is not a
+// content change. If a page is missing from this map it simply gets no
+// lastmod, which is the correct answer for "we don't know" - an absent
+// lastmod tells a crawler to work it out itself, a wrong one teaches it to
+// stop believing the rest of the file.
+//
+// The legal pages render markdown out of src/content/legal/*.md
+// (src/components/LegalDocument.tsx), so their dates come from the .md file,
+// not from the thin page.tsx wrapper around it - the wrapper is not where
+// the words live.
+const LAST_MODIFIED: Record<string, string> = {
+  "/": "2026-09-16",
+  "/pros": "2026-09-16",
+  "/pricing": "2026-09-17",
+  "/emergency-help": "2026-09-17",
+  // The city pages: 2026-09-18, this pass. It rewrote their headline, title,
+  // description and pro-promise copy for the preview (src/lib/previewMode.ts)
+  // and added the breadcrumb line, so the words on the page really did change
+  // today; their previous git date (2026-09-03) would now be wrong.
+  "/fountain-valley": "2026-09-18",
+  "/huntington-beach": "2026-09-18",
+  "/oc": "2026-09-18",
+  "/privacy": "2026-09-16",
+  "/terms": "2026-09-16",
+  "/pro-terms": "2026-09-15",
+  "/pro-data-addendum": "2026-09-16",
+  "/ai-disclosure": "2026-09-16",
+  "/dmca": "2026-09-16",
+  "/billing": "2026-09-15",
+  "/sms-terms": "2026-09-15",
+  "/accessibility": "2026-09-15",
+  "/guidelines": "2026-09-16",
+  "/security": "2026-09-03",
+  "/law-enforcement": "2026-09-15",
+  "/cookies": "2026-09-16",
+  "/subprocessors": "2026-09-15",
+  "/privacy-choices": "2026-09-17",
+  "/contact": "2026-09-17",
+};
+
+// Every /oc/<city> page is the same file with a different city name in it
+// (src/app/oc/[city]/page.tsx), so they all share one date - the one keyed
+// "/oc" above. Looked up through this rather than given 34 identical entries.
+function lastModifiedFor(path: string): string | undefined {
+  if (path.startsWith("/oc/")) return LAST_MODIFIED["/oc"];
+  return LAST_MODIFIED[path];
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
+      lastModified: LAST_MODIFIED["/"],
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${SITE_URL}/pros`,
+      lastModified: LAST_MODIFIED["/pros"],
       changeFrequency: "weekly",
       priority: 0.8,
     },
@@ -76,21 +125,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Neither was listed here, so crawlers had no sitemap signal for them.
     {
       url: `${SITE_URL}/pricing`,
+      lastModified: LAST_MODIFIED["/pricing"],
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/emergency-help`,
+      lastModified: LAST_MODIFIED["/emergency-help"],
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/fountain-valley`,
+      lastModified: LAST_MODIFIED["/fountain-valley"],
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/huntington-beach`,
+      lastModified: LAST_MODIFIED["/huntington-beach"],
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -100,38 +153,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // (src/lib/serviceArea.ts) so they can't drift out of sync.
     ...LAUNCH_CITY_NAMES.filter(
       (city) => city !== "Fountain Valley" && city !== "Huntington Beach"
-    ).map((city) => ({
-      url: `${SITE_URL}/oc/${city.toLowerCase().replace(/\s+/g, "-")}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ).map((city) => {
+      const path = `/oc/${city.toLowerCase().replace(/\s+/g, "-")}`;
+      return {
+        url: `${SITE_URL}${path}`,
+        lastModified: lastModifiedFor(path),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      };
+    }),
     {
       url: `${SITE_URL}/privacy`,
+      lastModified: LAST_MODIFIED["/privacy"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/terms`,
+      lastModified: LAST_MODIFIED["/terms"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/pro-terms`,
+      lastModified: LAST_MODIFIED["/pro-terms"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/pro-data-addendum`,
+      lastModified: LAST_MODIFIED["/pro-data-addendum"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/ai-disclosure`,
+      lastModified: LAST_MODIFIED["/ai-disclosure"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${SITE_URL}/dmca`,
+      lastModified: LAST_MODIFIED["/dmca"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
@@ -142,42 +205,79 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ["/billing", "/sms-terms", "/accessibility", "/guidelines", "/security", "/law-enforcement", "/cookies", "/subprocessors", "/privacy-choices"] as const
     ).map((path) => ({
       url: `${SITE_URL}${path}`,
+      lastModified: lastModifiedFor(path),
       changeFrequency: "monthly" as const,
       priority: 0.3,
     })),
     {
       url: `${SITE_URL}/contact`,
+      lastModified: LAST_MODIFIED["/contact"],
       changeFrequency: "monthly",
       priority: 0.3,
     },
+    // GUIDE_PATHS and the dates both come from src/lib/guides.ts, which is
+    // also what src/components/GuideArticleJsonLd.tsx builds each guide's
+    // Article node from. One map, so the <lastmod> here and the dateModified
+    // in the page's own structured data are the same string by construction.
     ...GUIDE_PATHS.map((path) => ({
       url: `${SITE_URL}${path}`,
+      lastModified: GUIDE_DATES[path]?.dateModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
   ];
 
+  // PREVIEW MODE: NO /p/ URLs AT ALL, and this is not a judgement call.
+  //
+  // While NEXT_PUBLIC_PREVIEW_MODE=homeowner, every public pro page is
+  // unreachable for an anonymous crawler, by two independent rules:
+  //
+  //   * src/app/p/[id]/page.tsx - a non-internal pro's profile is forced to
+  //     null and the page calls notFound(). A real 404.
+  //   * public_pro_profile() (0165 Part 9) - an INTERNAL pro's row only
+  //     matches for an internal caller, and a crawler's auth.uid() is null,
+  //     so it 404s for them too.
+  //
+  // Internal or not, /p/<anything> is a 404 to Googlebot right now, so
+  // listing any of it would be handing a crawler a sitemap full of
+  // guaranteed 404s - the single worst thing a sitemap can contain.
+  //
+  // Nothing else in this file is preview-dependent: the marketing pages all
+  // still exist, they just say different things (src/lib/previewMode.ts).
+  if (isHomeownerPreview()) return entries;
+
   try {
     const admin = createAdminClient();
     // Cast: the generated types predate the slug column (0043) and
     // database.types.ts is not regenerated here.
-    // Same two hard filters browse_pros() applies (0112:189-193), so the
-    // sitemap can never advertise a pro the directory itself refuses to show:
     //
-    //   user_id is not null   - an unclaimed/seeded row has no owner behind
-    //                           it, so /p/<id> is a page nobody stands behind.
-    //   serves_orange_county  - the launch-market gate. A pro outside it is
-    //                           unreachable through the product, so listing
-    //                           them in the sitemap is a crawlable dead end.
-    //   is_internal = false    - the team's own test pros (0165). Google must
-    //                           never be handed /p/<id> for one: an anonymous
-    //                           crawler is not internal, so public_pro_profile
-    //                           returns null for it and the page 404s. Listing
-    //                           it would be advertising a guaranteed 404.
+    // THE THREE FILTERS, and where each comes from. This is a service-role
+    // read, so RLS does not apply and none of these happen on their own; the
+    // rule is that the sitemap must never list a URL that /p/<id> would 404.
     //
-    // Without these, the service-role read here bypassed all three (RLS does
-    // not apply to the admin client) and published rows the homeowner-facing
-    // browse list hides.
+    //   user_id is not null    - public_pro_profile (0165 Part 9:
+    //                            `c.user_id is not null`) and browse_pros
+    //                            (0165 Part 8, same line). An unclaimed or
+    //                            seeded row has no owner behind it, and the
+    //                            RPC the page calls returns nothing for it,
+    //                            so /p/<id> 404s.
+    //   serves_orange_county   - the launch-market gate. public_pro_profile
+    //                            has `coalesce(c.serves_orange_county, false)`
+    //                            and browse_pros has
+    //                            `c.serves_orange_county = true`; a pro
+    //                            outside it 404s on /p/ as well as being
+    //                            unreachable through the product.
+    //   is_internal = false    - the team's own test pros (0165). Both RPCs
+    //                            carry `coalesce(c.is_internal, false) =
+    //                            is_internal_user(auth.uid())`, and a crawler
+    //                            is anonymous, so is_internal_user() is false
+    //                            and an internal row never matches. Listing
+    //                            one would be advertising a guaranteed 404.
+    //
+    // NOT FILTERED, because there is nothing to filter on: contractors has no
+    // hidden/suspended/noindex flag (checked against database.types.ts and
+    // every `add column` in supabase/migrations), and /p/[id] sets no robots
+    // noindex of its own. The three above are the whole rule.
     let { data, error } = await (admin.from("contractors") as any)
       .select("id, slug")
       .not("user_id", "is", null)
@@ -202,6 +302,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const row of data as { id: string; slug: string | null }[]) {
         entries.push({
           url: `${SITE_URL}/p/${row.slug ?? row.id}`,
+          // NO lastModified, deliberately. The contractors table has a
+          // created_at and no updated_at (see database.types.ts), so there is
+          // no column that says when this profile last changed. created_at
+          // would answer "when the pro signed up", which is not the same
+          // question and would freeze at a date the page has long since moved
+          // past; `new Date()` would claim every profile changed this hour.
+          // Omitting the field is the honest answer, and it is the one the
+          // sitemap spec is built for.
           changeFrequency: "weekly",
           priority: 0.6,
         });

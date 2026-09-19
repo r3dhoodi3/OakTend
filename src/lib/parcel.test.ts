@@ -1275,7 +1275,7 @@ describe("F3: the lookups that are skipped entirely", () => {
   });
 });
 
-describe("F2: the manual refresh's 24-hour floor", () => {
+describe("F2: the manual refresh's 30-day floor", () => {
   const valueActions = src("../app/(app)/value/actions.ts");
   const refresh = valueActions.slice(
     valueActions.indexOf("export async function refreshMarketValueAction")
@@ -1292,8 +1292,17 @@ describe("F2: the manual refresh's 24-hour floor", () => {
     expect(call).toBeGreaterThan(age);
   });
 
-  it("returns the stored value with a plain 'Updated ...' line", () => {
+  // Inside the window the press costs nothing and says when the button comes
+  // back, rather than reporting a refresh that did not happen.
+  it("returns the stored value with the date the button comes back", () => {
     expect(refresh).toContain("RENTCAST_REFRESH_MIN_AGE_MS");
-    expect(refresh).toContain("`Updated ${relativeAge(cachedAge)}`");
+    expect(refresh).toContain("You can refresh again on ${formatRefreshDate(");
+    expect(refresh).toContain("nextRefreshAt: nextAt");
+  });
+
+  // A real refresh IS the new "last asked", so the date it hands back is a
+  // floor from now - not from the row it just replaced.
+  it("hands the next date back after a refresh that actually ran", () => {
+    expect(refresh).toContain("return ok({ nextRefreshAt: nextRefreshIso(0) })");
   });
 });

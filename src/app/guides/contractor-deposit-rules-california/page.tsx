@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
 // Public consumer-protection guide (not a cost guide). Statutes are stated
 // with their exact conditions:
@@ -102,6 +103,14 @@ export default function ContractorDepositRulesGuide() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
         }}
+      />
+      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
+          the same map the sitemap reads <lastmod> from. */}
+      <GuideArticleJsonLd
+        path="/guides/contractor-deposit-rules-california"
+        headline={TITLE}
+        description={DESCRIPTION}
+        siteUrl={SITE_URL}
       />
 
       {/* Breadcrumb replaces the old "All guides" back link: it still links

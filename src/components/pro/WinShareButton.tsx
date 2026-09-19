@@ -16,13 +16,13 @@ import InlineSpinner from "@/components/InlineSpinner";
 // the pro's own session to load, so a bare link to it isn't something a
 // recipient could open anyway).
 //
-// The file-share attempt mirrors ReviewButton.tsx's CR4#2 photo share and
-// HomeWinsShare.tsx: gate on navigator.canShare being a function before ever
-// fetching bytes, build a File from the fetched Blob, and only hand it to
-// navigator.share once canShare({ files }) itself says yes. If no share API
-// (or no file support) is available, this falls back to opening the card in
-// a new tab - the same thing this button always did before file sharing
-// existed - and "Download" stays a separate, always-visible action either way.
+// The file-share attempt mirrors ReviewButton.tsx's CR4#2 photo share: gate on
+// navigator.canShare being a function before ever fetching bytes, build a File
+// from the fetched Blob, and only hand it to navigator.share once
+// canShare({ files }) itself says yes. If no share API (or no file support) is
+// available, this falls back to opening the card in a new tab - the same thing
+// this button always did before file sharing existed - and "Download" stays a
+// separate, always-visible action either way.
 export default function WinShareButton({
   leadId,
   businessName,

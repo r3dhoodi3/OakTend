@@ -357,7 +357,10 @@ export default async function ContractorsPage(
             "id, lead_id, contractor_id, message, created_at, status, refunded_at, contractors(name, rating, review_count, service_area, license_number, license_verified_at, logo_url)"
           )
           .in("lead_id", leadIds)
-          .order("created_at", { ascending: true }),
+          // Newest application first. There is no applicant cap (migration
+          // 0170), so a popular job can collect a long list and the pro who
+          // just applied should be the first one the homeowner reads.
+          .order("created_at", { ascending: false }),
         issueIds.length
           ? supabase
               .from("photos")

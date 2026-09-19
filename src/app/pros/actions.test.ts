@@ -13,13 +13,31 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 vi.mock("server-only", () => ({}));
 
 let headerBag = new Map<string, string>();
+// The /go/<code> attribution cookie (src/lib/campaigns.ts). Hard-coded by name
+// rather than imported, because a vi.mock factory is hoisted above the imports;
+// the name is pinned by its own assertion in the attribution block below, so
+// the two cannot drift.
+let cookieValue: string | null = null;
 vi.mock("next/headers", () => ({
   headers: async () => ({ get: (k: string) => headerBag.get(k) ?? null }),
+  cookies: async () => ({
+    get: (name: string) =>
+      name === "oaktend_campaign" && cookieValue !== null
+        ? { value: cookieValue }
+        : undefined,
+  }),
 }));
 
 // What the fake database does on the next insert.
 let rateLimitAllowed: boolean | null = true;
 let insertError: { code?: string; message?: string } | null = null;
+// Errors handed back one per insert ATTEMPT, in order, before falling back to
+// insertError. Lets a test fail only the first attempt, which is the whole
+// point of the missing-column retry below.
+let insertErrorQueue: ({ code?: string; message?: string } | null)[] = [];
+// Every attempted row, failures included. `inserted` holds only the ones that
+// actually landed.
+const insertAttempts: Record<string, unknown>[] = [];
 const inserted: Record<string, unknown>[] = [];
 const rateLimitCalls: { bucket: string; limit: number }[] = [];
 
@@ -37,7 +55,11 @@ vi.mock("@/lib/supabase/admin", () => ({
     },
     from: () => ({
       insert: async (row: Record<string, unknown>) => {
-        if (insertError) return { error: insertError };
+        insertAttempts.push(row);
+        const error = insertErrorQueue.length
+          ? insertErrorQueue.shift()
+          : insertError;
+        if (error) return { error };
         inserted.push(row);
         return { error: null };
       },
@@ -45,6 +67,7 @@ vi.mock("@/lib/supabase/admin", () => ({
   }),
 }));
 
+import { CAMPAIGN_COOKIE } from "@/lib/campaigns";
 import { joinProWaitlistAction } from "./actions";
 
 function form(fields: Record<string, string>): FormData {
@@ -55,8 +78,11 @@ function form(fields: Record<string, string>): FormData {
 
 beforeEach(() => {
   headerBag = new Map([["x-vercel-forwarded-for", "203.0.113.9"]]);
+  cookieValue = null;
   rateLimitAllowed = true;
   insertError = null;
+  insertErrorQueue = [];
+  insertAttempts.length = 0;
   inserted.length = 0;
   rateLimitCalls.length = 0;
 });
@@ -171,5 +197,89 @@ describe("joinProWaitlistAction never reveals a duplicate", () => {
     insertError = { code: "08006", message: "connection failure" };
     const res = await joinProWaitlistAction(form({ email: "sam@example.com" }));
     expect(res.ok).toBe(true);
+  });
+});
+
+// Partner attribution on the waitlist row (migration 0171). A contractor who
+// followed a partner's /go/<code> link during preview cannot create an account
+// at all, so this row is the only place that referral can be recorded - and by
+// the time the pro side opens, the 30-day cookie is long gone.
+describe("joinProWaitlistAction: partner attribution", () => {
+  it("stores the code from the campaign cookie", async () => {
+    // The cookie mock keys off this literal; if the constant ever moves, this
+    // assertion fails before the misleading ones below do.
+    expect(CAMPAIGN_COOKIE).toBe("oaktend_campaign");
+
+    cookieValue = "curtis-pro";
+    await joinProWaitlistAction(form({ email: "sam@example.com" }));
+    expect(inserted[0]).toMatchObject({
+      email: "sam@example.com",
+      campaign_code: "curtis-pro",
+    });
+  });
+
+  it("stores null when there is no cookie", async () => {
+    await joinProWaitlistAction(form({ email: "sam@example.com" }));
+    expect(inserted[0]).toMatchObject({ campaign_code: null });
+  });
+
+  // Same rule the users.campaign_code path applies: well-formed but not on the
+  // frozen allowlist is not a code, and an ill-formed value never was. Neither
+  // costs the signup - the email is the part worth keeping.
+  it.each(["not-a-real-code", "CURTIS", "curtis!", "c", ""])(
+    "stores null for the cookie value %o",
+    async (bad) => {
+      cookieValue = bad;
+      await joinProWaitlistAction(form({ email: "sam@example.com" }));
+      expect(inserted[0]).toMatchObject({
+        email: "sam@example.com",
+        campaign_code: null,
+      });
+    }
+  );
+
+  // DEPLOY-ORDER SAFETY: this code can ship before 0171 is pasted by hand. An
+  // attribution field must never be what loses a real contractor's signup.
+  it("retries without the column when 0171 has not been pasted yet", async () => {
+    insertErrorQueue = [
+      {
+        code: "PGRST204",
+        message:
+          "Could not find the 'campaign_code' column of 'pro_waitlist' in the schema cache",
+      },
+    ];
+    cookieValue = "curtis-pro";
+
+    const res = await joinProWaitlistAction(
+      form({ email: "sam@example.com", trade: "roof" })
+    );
+
+    expect(res.ok).toBe(true);
+    expect(insertAttempts).toHaveLength(2);
+    expect(insertAttempts[0]).toMatchObject({ campaign_code: "curtis-pro" });
+    // The retry drops the column entirely rather than sending it as null,
+    // which would fail in exactly the same way.
+    expect(inserted).toHaveLength(1);
+    expect(inserted[0]).toMatchObject({ email: "sam@example.com", trade: "roof" });
+    expect("campaign_code" in inserted[0]).toBe(false);
+  });
+
+  // Once, never in a loop: a second failure is a real one, and the visitor
+  // still sees the same sentence either way.
+  it("retries exactly once", async () => {
+    insertError = { code: "PGRST204", message: "schema cache" };
+    const res = await joinProWaitlistAction(form({ email: "sam@example.com" }));
+    expect(res.ok).toBe(true);
+    expect(insertAttempts).toHaveLength(2);
+    expect(inserted).toHaveLength(0);
+  });
+
+  // A duplicate is NOT a missing column, so it must not trigger the retry -
+  // that would insert a second time and defeat the whole dedup story.
+  it("does not retry a duplicate", async () => {
+    insertError = { code: "23505", message: "duplicate key value" };
+    const res = await joinProWaitlistAction(form({ email: "sam@example.com" }));
+    expect(res.ok).toBe(true);
+    expect(insertAttempts).toHaveLength(1);
   });
 });

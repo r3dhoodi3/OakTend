@@ -6,14 +6,21 @@ import "@testing-library/jest-dom/vitest";
 // The board's interactive children reach server actions (ApplyJobButton ->
 // ./actions, JobStatusSelect -> the same file), which cannot be imported in a
 // test process. Stubs keep this test on the one thing it is about: the sort.
-vi.mock("../ApplyJobButton", () => ({ default: () => null }));
+// Stubbed as a real, enabled button (not null) so a test can tell "the card
+// still offers the apply control" apart from "the card replaced it".
+vi.mock("../ApplyJobButton", () => ({
+  default: ({ leadId }: { leadId: string }) => (
+    <button type="button" data-testid={`apply-${leadId}`}>
+      Apply
+    </button>
+  ),
+}));
 vi.mock("../DirectRequestCard", () => ({ default: () => null }));
 vi.mock("../JobStatusSelect", () => ({ default: () => null }));
 vi.mock("../JobPhotoStrip", () => ({ default: () => null }));
 vi.mock("@/components/OpenChatButton", () => ({ default: () => null }));
 
 import LeadsBoard, { type OpenJobVM } from "./LeadsBoard";
-import { MAX_APPLICANTS_PER_JOB } from "@/lib/constants";
 
 // A card carries a lot of resolved display data; only the three fields the
 // sort and this test read have to be real.
@@ -46,8 +53,7 @@ function job(
     hasPlansPermits: false,
     postedAgoLabel: null,
     timingLabel: null,
-    spots: 0,
-    full: false,
+    applicants: 0,
     conflict: null,
     bigJob: false,
     insuranceRequired: false,
@@ -266,28 +272,32 @@ describe("LeadsBoard: member vs aging discount labels (0149)", () => {
   });
 });
 
-// CR5 remove #3: "X of N spots taken" read as the same blind-bidding
-// pressure pros resent about Angi/HomeAdvisor. Neutral transparency instead,
-// red only once the job is actually full.
+// The applicant count is information, never a countdown: there is no cap on
+// how many pros can apply (founder decision 2026-09-16, migration 0170), so
+// no card may say a job is full or close the apply control.
 describe("LeadsBoard: applicant count reads as transparency, not a countdown", () => {
   afterEach(() => cleanup());
 
-  it("shows a neutral, plain-English count below the cap", () => {
-    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), spots: 2, full: false }])} />);
-    expect(screen.getByText("2 pros have applied")).toBeInTheDocument();
-    expect(screen.queryByText(/of 3 spots taken/)).not.toBeInTheDocument();
+  it("shows a neutral, plain-English count", () => {
+    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), applicants: 2 }])} />);
+    const count = screen.getByText("2 pros have applied");
+    expect(count).toBeInTheDocument();
+    expect(count).not.toHaveClass("text-red-600");
+    expect(screen.queryByText(/spots/i)).not.toBeInTheDocument();
   });
 
   it("uses singular wording for exactly one applicant", () => {
-    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), spots: 1, full: false }])} />);
+    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), applicants: 1 }])} />);
     expect(screen.getByText("1 pro has applied")).toBeInTheDocument();
   });
 
-  it("reads Full: N pros applied, in red, once the job is full", () => {
-    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), spots: 3, full: true }])} />);
-    const full = screen.getByText(`Full: ${MAX_APPLICANTS_PER_JOB} pros applied`);
-    expect(full).toBeInTheDocument();
-    expect(full).toHaveClass("text-red-600");
+  it("still offers an enabled apply control on a job five pros have applied to", () => {
+    render(<LeadsBoard {...boardProps([{ ...job("a", 4500, 0), applicants: 5 }])} />);
+    expect(screen.getByText("5 pros have applied")).toBeInTheDocument();
+    const apply = screen.getByTestId("apply-a");
+    expect(apply).toBeInTheDocument();
+    expect(apply).not.toBeDisabled();
+    expect(screen.queryByText("Job full")).not.toBeInTheDocument();
   });
 });
 
