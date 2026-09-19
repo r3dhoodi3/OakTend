@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import {
   assessSystem,
   replacementInfoFor,
@@ -27,6 +28,7 @@ import MonthYearInput from "@/components/MonthYearInput";
 import MaterialSelect from "@/components/MaterialSelect";
 import SelectMenu from "@/components/SelectMenu";
 import SubmitButton from "@/components/SubmitButton";
+import Collapse from "@/components/Collapse";
 
 const STAGE_STYLE: Record<string, string> = {
   healthy: "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/40 dark:text-green-200 dark:border-green-900",
@@ -61,6 +63,7 @@ export default function SystemRow({
   const [confirmRemove, setConfirmRemove] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [editError, setEditError] = useState<string | null>(null);
+  const detailId = `system-detail-${s.id}`;
   const h = assessSystem(s);
   const issueSeverity = openIssue?.severity ?? null;
   // Status, the estimate exemption, and the "why this status" sentence all
@@ -344,9 +347,20 @@ export default function SystemRow({
           type="button"
           onClick={() => setExpanded((v) => !v)}
           aria-expanded={expanded}
+          aria-controls={detailId}
           className="focus-ring flex w-full flex-wrap items-center gap-2 text-left"
         >
-          <span className="font-medium text-stone-900 dark:text-stone-100">
+          {/* Same chevron as the "Your systems" heading, one size down: it
+              points right when closed and rotates down when open, so the row
+              reads as something that opens. Wrapped with the name so a long
+              name can never wrap away and leave the chevron on its own line. */}
+          <span className="flex min-w-0 items-center gap-1.5 font-medium text-stone-900 dark:text-stone-100">
+            <ChevronRight
+              className={`h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 dark:text-stone-500 ${
+                expanded ? "rotate-90" : ""
+              }`}
+              aria-hidden="true"
+            />
             {systemDisplayLabel(s)}
           </span>
           {/* One status badge. Must-do overrides the age-based stage, so a
@@ -368,10 +382,14 @@ export default function SystemRow({
             {photos.length} photo{photos.length === 1 ? "" : "s"} · tap to view
           </span>
         )}
-        {expanded && (
+        {/* Slides open instead of snapping (Collapse). lazy: the photos in here
+            must not start loading for every closed row on the page. The top
+            gap is pt-3 on the clipped box, not mt-3 on the dl, so it closes
+            with the content. */}
+        <Collapse open={expanded} lazy id={detailId} className="pt-3">
           <dl
             onClick={(e) => e.stopPropagation()}
-            className="mt-3 grid grid-cols-1 gap-x-4 gap-y-2 rounded-lg bg-stone-50 p-3 text-xs sm:grid-cols-2 dark:bg-stone-900"
+            className="grid grid-cols-1 gap-x-4 gap-y-2 rounded-lg bg-stone-50 p-3 text-xs sm:grid-cols-2 dark:bg-stone-900"
           >
             <div className="col-span-1 sm:col-span-2 mb-2 border-b border-stone-200 pb-3 dark:border-white/10">
               <dt className="font-medium text-stone-800 dark:text-stone-200">Why this status</dt>
@@ -483,7 +501,7 @@ export default function SystemRow({
               </button>
             </div>
           </dl>
-        )}
+        </Collapse>
         {openIssue && (
           <p
             className={`mt-1 text-xs font-medium ${
