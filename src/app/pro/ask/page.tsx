@@ -75,8 +75,8 @@ export default async function ProAskPage(props: {
                 Ask OakTend opens once your business is verified
               </p>
               <p className="leading-relaxed">
-                Add a California license number we can confirm, or place your
-                first lead. OakTend Pro members get it right away.
+                Add a California license number we can confirm, or apply to
+                your first job. OakTend Pro members get it right away.
               </p>
               <p className="flex flex-wrap gap-4">
                 <Link

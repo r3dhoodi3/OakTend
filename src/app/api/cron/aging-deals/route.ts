@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNotification } from "@/lib/notify";
 import { AGING_LEAD_TIERS } from "@/lib/leadPricing";
-import { MAX_APPLICANTS_PER_JOB,
-  PRO_LEADS_HREF,
-} from "@/lib/constants";
+import { PRO_LEADS_HREF } from "@/lib/constants";
 import {
   RETIRED_PRO_PROGRAMS_PAUSED,
   retiredProgramPausedResponse,
@@ -14,9 +12,9 @@ import {
 export const runtime = "nodejs";
 
 // Daily job (Vercel Cron, see vercel.json) that pings OakTend Pro members about
-// aging-deal jobs in their trades: open, unassigned, not-yet-full jobs whose
-// apply fee JUST crossed a markdown tier (15% off at 3 days, 30% off at 7:
-// AGING_LEAD_TIERS, priced for real by lead_fee_cents() in migration 0028).
+// aging-deal jobs in their trades: open, unassigned jobs whose apply fee JUST
+// crossed a markdown tier (15% off at 3 days, 30% off at 7: AGING_LEAD_TIERS,
+// priced for real by lead_fee_cents() in migration 0028).
 //
 // Noise control is structural: a job only qualifies during the 24 hours right
 // after it crosses a tier boundary, so each job can appear in at most one run
@@ -141,8 +139,9 @@ async function runCron(req: NextRequest) {
     return NextResponse.json({ checked: 0, notified: 0 });
   }
 
-  // Live applications per job: full jobs (all spots taken) drop out, and each
-  // job remembers who already applied so those pros aren't pinged about it.
+  // Live applications per job, so each job remembers who already applied and
+  // those pros aren't pinged about it. No job drops out for having applicants:
+  // there is no applicant cap (migration 0170), so every open job has room.
   const jobIds = jobs.map((j) => j.id);
   const { data: apps } = await supabase
     .from("lead_applications")
@@ -154,12 +153,6 @@ async function runCron(req: NextRequest) {
     const set = applicantsByJob.get(a.lead_id) ?? new Set<string>();
     set.add(a.contractor_id);
     applicantsByJob.set(a.lead_id, set);
-  }
-  const openJobs = jobs.filter(
-    (j) => (applicantsByJob.get(j.id)?.size ?? 0) < MAX_APPLICANTS_PER_JOB
-  );
-  if (openJobs.length === 0) {
-    return NextResponse.json({ checked: 0, notified: 0 });
   }
 
   // Live Pro memberships. Same liveness rules as hasProPlan() and the
@@ -256,7 +249,7 @@ async function runCron(req: NextRequest) {
 
           // Null categories means "takes anything", matching open_jobs_for_me().
           const cats: string[] | null = contractor.categories;
-          const deals = openJobs.filter(
+          const deals = jobs.filter(
             (j) =>
               (cats === null || cats.includes(j.category)) &&
               !applicantsByJob.get(j.id)?.has(contractor.id)

@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNotification } from "@/lib/notify";
 import { AGING_LEAD_TIERS } from "@/lib/leadPricing";
-import { MAX_APPLICANTS_PER_JOB,
-  PRO_LEADS_HREF,
-} from "@/lib/constants";
+import { PRO_LEADS_HREF } from "@/lib/constants";
 
 export const runtime = "nodejs";
 
@@ -225,27 +223,9 @@ async function runCron(req: NextRequest) {
       .range(from, to)
   );
 
-  // Live (non-refunded) application counts per job, so "still open" and the
-  // aging-deal count both respect the applicant cap.
-  const jobIds = Array.from(
-    new Set([
-      ...(recentJobs ?? []).map((j) => j.id),
-      ...(agingJobs ?? []).map((j) => j.id),
-    ])
-  );
-  const liveAppsByJob = new Map<string, number>();
-  for (const ids of chunk(jobIds, QUERY_CHUNK)) {
-    const { data: apps } = await supabase
-      .from("lead_applications")
-      .select("lead_id")
-      .in("lead_id", ids)
-      .is("refunded_at", null);
-    for (const a of apps ?? []) {
-      liveAppsByJob.set(a.lead_id, (liveAppsByJob.get(a.lead_id) ?? 0) + 1);
-    }
-  }
-  const jobHasRoom = (id: string) =>
-    (liveAppsByJob.get(id) ?? 0) < MAX_APPLICANTS_PER_JOB;
+  // No per-job application counts are read here any more: the applicant cap is
+  // gone (migration 0170), so an unassigned job is open no matter how many pros
+  // have applied, and "still open" and the aging-deal count below both say so.
 
   // Each contractor's pending applications (still sitting at 'applied').
   const pendingByContractor = new Map<string, number>();
@@ -420,15 +400,12 @@ async function runCron(req: NextRequest) {
 
       const posted = (recentJobs ?? []).filter((j) => inTrades(j.category));
       const stillOpen = posted.filter(
-        (j) =>
-          j.contractor_id === null && j.status === "new" && jobHasRoom(j.id)
+        (j) => j.contractor_id === null && j.status === "new"
       );
       const pending = pendingByContractor.get(contractor.id) ?? 0;
       const appsSubmitted = appsSubmittedByContractor.get(contractor.id) ?? 0;
       const wonThisWeek = wonByContractor.get(contractor.id) ?? 0;
-      const deals = (agingJobs ?? []).filter(
-        (j) => inTrades(j.category) && jobHasRoom(j.id)
-      );
+      const deals = (agingJobs ?? []).filter((j) => inTrades(j.category));
 
       const dueClients = followUpsByContractor.get(contractor.id) ?? [];
       const followUpCount = dueClients.length;

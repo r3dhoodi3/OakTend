@@ -2428,18 +2428,14 @@ export async function applyToJobAction(formData: FormData) {
     p_message: message,
   });
   if (error) {
-    // The DB raises 'Job is full' at the applicant cap and 'Already working
-    // with this homeowner' at the relationship guard (0060) - both different
-    // problems than a short wallet, so each gets its own message instead of
-    // the raw error. Anything else is a database failure the pro can't act
-    // on, so it's logged server-side and shown as a plain generic: raw
-    // Postgres text names our tables, columns and constraints.
-    if (error.message.includes("Job is full")) {
-      await setFlash(
-        "This job is full: 3 pros already applied. Try another job.",
-        "error"
-      );
-    } else if (error.message.includes("Already working with this homeowner")) {
+    // The DB raises 'Already working with this homeowner' at the relationship
+    // guard (0060) - a different problem than a short wallet, so it gets its
+    // own message instead of the raw error. Anything else is a database
+    // failure the pro can't act on, so it's logged server-side and shown as a
+    // plain generic: raw Postgres text names our tables, columns and
+    // constraints. There is no applicant cap any more (migration 0170), so
+    // there is no 'Job is full' case to translate.
+    if (error.message.includes("Already working with this homeowner")) {
       await setFlash(
         "You already have an active job with this homeowner in this category. Message them there instead.",
         "error"

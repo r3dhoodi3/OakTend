@@ -20,7 +20,7 @@ const route = src("./route.ts");
 const page = src("../../pro/ask/page.tsx");
 
 const UNLOCK_COPY =
-  "Ask OakTend opens once your business is verified: add a California license number we can confirm, or place your first lead. OakTend Pro members get it right away.";
+  "Ask OakTend opens once your business is verified: add a California license number we can confirm, or apply to your first job. OakTend Pro members get it right away.";
 
 describe("the pro copilot is locked until the business is real", () => {
   it("asks isEstablishedPro", () => {
@@ -66,7 +66,7 @@ describe("the pro ask page shows the lock instead of a dead composer", () => {
     expect(page).toContain('data-testid="pro-ask-locked"');
     expect(page).toContain("Ask OakTend opens once your business is verified");
     expect(page).toContain(
-      "Add a California license number we can confirm, or place your"
+      "Add a California license number we can confirm, or apply to"
     );
     // The composer is the other branch of the same ternary, so a locked pro
     // never gets a box to type into.
