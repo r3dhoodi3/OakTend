@@ -24,7 +24,88 @@
 
 ---
 
-## LATEST (2026-09-16 evening): William's quality wave
+## LATEST (2026-09-18): request-doc wave (cap removal, monthly refresh, SEO)
+
+Branch `wave/2026-09-18`, cut from main bf02a23. Works through the open
+items in Landen's "2026-09-16_Requests" doc (items 2, 3, 4, 7, 8, 10) plus
+one dashboard fix from William. Item 9 (App Store readiness) is not started.
+
+1. No applicant cap (item 2, addendum 6). `MAX_APPLICANTS_PER_JOB` and every
+   reader are gone: the pro job board shows a neutral "N pros have applied"
+   and never a "Full" state, the "Job is full" error copy is removed, and the
+   aging-deals and weekly-digest crons dropped their "has room" filter.
+   Homeowner applicant list sorts newest first (it was never truncated).
+   **Migration 0170** re-creates `apply_to_lead` from 0165's body with only
+   the cap block removed (diffed: comments plus that one block; every guard
+   and charge path unchanged). The `for update` row lock stays: it is the
+   same lock `choose_applicant()` takes. Pro-ask gate now says "apply to your
+   first job"; its context labels say "open jobs".
+   OPEN QUESTION for the founders: the pro-ask prompt still lists per-lead
+   fees while telling the model never to mention one, and applying still
+   debits the wallet. With no cap, any number of pros can pay to apply to one
+   job. Settle before the pro side opens (ties into the credit teardown).
+2. Refresh estimate (item 3): the manual floor is 30 days per home
+   (`RENTCAST_REFRESH_MIN_AGE_MS`). Inside the window Plus members see the
+   button disabled with "You can refresh again on <date>." (Pacific time,
+   `src/app/(app)/value/refreshDate.ts`); the action still refuses a stale
+   tab and spends no call.
+3. Home wins sharing removed (item 4): HomeWinsShare, homeWins, the
+   `/api/wins-card` route, the dashboard block, the middleware allowlist
+   entry. Pro share cards (`/api/win-card`, `/api/review-card`) untouched.
+   No column orphaned: the share code was `users.referral_code`, still used
+   by the invite flow.
+4. Pro waitlist keeps the partner code (item 7, addendum 4). **Migration
+   0171** adds `pro_waitlist.campaign_code` with the 0166 shape check. The
+   form stores the campaign cookie and retries without the column if 0171 is
+   not pasted yet, so a signup is never lost. At signup
+   (`recordTermsAcceptance`), when there is no usable cookie code,
+   `copyWaitlistCampaignCode()` copies the waitlist code onto the account;
+   first code wins.
+5. `/backoffice/partners` (item 8): signups per partner code, accounts plus
+   waitlist rows. Internal accounts only; everyone else gets a 404, nothing
+   links to it, and it is deliberately NOT in the middleware's guarded list
+   (a redirect to sign-in would confirm the page exists), hence the named
+   `SELF_GATED_BY_DESIGN` exception in guardedSegments.test.ts. It sits
+   under `(app)`, so the viewer needs a claimed home.
+6. SEO basics (item 10): sitemap has real `lastModified` dates and lists no
+   `/p/` URL the site would hide (none at all while preview is on); the
+   homepage ships one h1 (the phone hero and the four demo-player screens
+   are h2 with unchanged classes); `next.config.mjs` 308s www to the apex;
+   city pages swap to preview-safe wording via `src/lib/cityCopy.ts` and gain
+   a breadcrumb line, BreadcrumbList JSON-LD, and openGraph/twitter blocks;
+   the 12 guides emit Article JSON-LD from one dates map
+   (`src/lib/guides.ts`) that the sitemap shares.
+   STILL MANUAL: switch the www redirect to 308 in the Vercel Domains
+   dashboard.
+7. Your systems rows: a chevron left of each system name (same one as the
+   section heading, one size down) that turns down when the row is open.
+8. Your systems opens and closes with a slide instead of a snap, from
+   William's Figma demo: `src/components/Collapse.tsx` (grid-rows 0fr/1fr,
+   380ms cubic-bezier(0.4, 0, 0.2, 1) height, 260ms fade; closed content is
+   visibility:hidden; the box stops clipping once it is fully open so
+   dropdown menus inside are not cut off; reduced motion is covered by the
+   blanket rule in globals.css). Each SystemRow's detail uses it (lazy, so
+   photos do not load for closed rows). The section is
+   `src/components/AnimatedDetails.tsx`: still a real
+   `<details id="systems">` + `<summary>`, but the summary click is taken
+   over so the close can animate before `open` comes off; the chevron keys
+   off `data-shown`. The phone "See all N systems" button still snaps.
+
+Pastes owed, in order, in the Supabase SQL editor:
+`supabase/PASTE-ME-0170-remove-applicant-cap-2026-09-18.sql`, then
+`supabase/PASTE-ME-0171-pro-waitlist-campaign-code-2026-09-18.sql`. The code
+is safe to deploy before either one.
+
+Gate: tsc 0, build 0 (NEXT_DIST_DIR=.next-build). vitest: 18 failures in 10
+files, the CRLF source-pin baseline, confirmed identical on a clean
+worktree of main (checkoutWiring, globalsTypeRamp, pro/crm/page,
+pro/leads/page x3, LeadChatQuickActions, hardening0132, insuranceGate x4,
+proFeedback x4, proLeadDiscount0149, risk/adversarial);
+previewModeWiring timed out once under full-suite load and passes alone.
+
+---
+
+## (2026-09-16 evening): William's quality wave
 
 Built on top of the merge wave below (which is on main as 5768d0d, merged
 with Landen's live-gaps bundle). Five commits, all UI/preview polish, no
