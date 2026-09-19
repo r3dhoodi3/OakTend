@@ -188,6 +188,20 @@ describe("landing page, phone split", () => {
     );
   });
 
+  // ONE h1, and the phone/desktop split is exactly why it needs a test. Both
+  // hero blocks ship in the HTML (the split is CSS: `sm:hidden` on one,
+  // `max-sm:hidden` on the other), so when PhoneLanding's heading was also an
+  // h1 the landing page handed every crawler two top-level headings. The one
+  // that survives is the desktop hero's, which is the headline this page is
+  // trying to rank on; PhoneLanding's is an h2 with identical classes.
+  it("ships exactly one h1", async () => {
+    const { container } = await renderLanding();
+    const h1s = container.querySelectorAll("h1");
+    expect(Array.from(h1s).map((h) => h.textContent?.trim())).toEqual([
+      "Know what your home needs before it costs you",
+    ]);
+  });
+
   it("keeps the invisible structured data on every width", async () => {
     const { container } = await renderLanding();
     expect(

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CityLandingPage, {
   buildCityServiceJsonLd,
+  cityPageCopy,
 } from "@/components/CityLandingPage";
 
 // Top-level city landing page for local SEO ("home maintenance Fountain
@@ -25,13 +26,43 @@ const SITE_URL =
 // Anything added here that reads cookies()/headers()/searchParams undoes it.
 export const revalidate = 3600;
 
+// Title and description come from cityPageCopy (src/components/
+// CityLandingPage.tsx), the same function the page body reads its h1 from, so
+// the tab, the search snippet, the share cards and the headline all say one
+// thing. It is also where the preview-mode wording lives: during the preview
+// these stop promising available pros (src/lib/previewMode.ts).
+const COPY = cityPageCopy("Fountain Valley");
+const CANONICAL = `${SITE_URL}/fountain-valley`;
+
 export const metadata: Metadata = {
   // The root layout's title template appends "| OakTend"; don't repeat it here.
-  title: "Home maintenance and local pros in Fountain Valley, CA",
-  description:
-    "A maintenance plan built for your Fountain Valley home, answers about your own systems, and license-checked local pros when something breaks. Free to start.",
+  title: COPY.title,
+  description: COPY.description,
   alternates: {
-    canonical: `${SITE_URL}/fountain-valley`,
+    canonical: CANONICAL,
+  },
+  // This page had no openGraph/twitter block at all, so a link to it in a
+  // text message, a Nextdoor post or a chamber listing fell back to the root
+  // layout's generic site-wide card - the same preview for all 36 city pages.
+  // Same shape /pricing and the guides use.
+  openGraph: {
+    title: COPY.title,
+    description: COPY.description,
+    url: CANONICAL,
+    siteName: "OakTend",
+    type: "website",
+    locale: "en_US",
+    // og:image is NOT set here on purpose. Next's file convention already
+    // supplies one: src/app/opengraph-image.tsx is the root segment's image
+    // and nested segments inherit it, with the content-hashed URL Next
+    // generates at build time. Hard-coding "/opengraph-image" here would
+    // override that with a path that is not what the route is actually
+    // served at.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: COPY.title,
+    description: COPY.description,
   },
 };
 

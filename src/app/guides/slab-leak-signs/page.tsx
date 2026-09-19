@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
 // Public SEO guide, written for the Fountain Valley / Huntington Beach launch
 // market: 1960s-70s tract homes on slab foundations with copper supply lines
@@ -92,6 +93,14 @@ export default function SlabLeakSignsGuide() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
         }}
+      />
+      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
+          the same map the sitemap reads <lastmod> from. */}
+      <GuideArticleJsonLd
+        path="/guides/slab-leak-signs"
+        headline={TITLE}
+        description={DESCRIPTION}
+        siteUrl={SITE_URL}
       />
 
       {/* Breadcrumb replaces the old "All guides" back link: it still links

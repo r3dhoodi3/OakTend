@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
 // Public SEO guide. Orange County ADU cost ranges by type, aggregated from
 // published contractor pricing and industry cost reports as of July 2026.
@@ -100,6 +101,14 @@ export default function AduCostGuide() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
         }}
+      />
+      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
+          the same map the sitemap reads <lastmod> from. */}
+      <GuideArticleJsonLd
+        path="/guides/adu-cost"
+        headline={TITLE}
+        description={DESCRIPTION}
+        siteUrl={SITE_URL}
       />
 
       {/* Breadcrumb replaces the old "All guides" back link: it still links
