@@ -15,13 +15,13 @@ import InlineSpinner from "@/components/InlineSpinner";
 // always-visible actions the same way they always have.
 //
 // The file-share attempt mirrors ReviewButton.tsx's CR4#2 photo share and
-// HomeWinsShare.tsx / WinShareButton.tsx: gate on navigator.canShare being a
-// function before ever fetching bytes, build a File from the fetched Blob,
-// and only hand it to navigator.share once canShare({ files }) itself says
-// yes. The caption is fixed and honest - no incentive, no reward, just a
-// thank-you and the pro's own public profile link - and review collection
-// itself stays a completely separate flow (leave_review / saveReviewAction)
-// that this component never touches.
+// WinShareButton.tsx: gate on navigator.canShare being a function before ever
+// fetching bytes, build a File from the fetched Blob, and only hand it to
+// navigator.share once canShare({ files }) itself says yes. The caption is
+// fixed and honest - no incentive, no reward, just a thank-you and the pro's
+// own public profile link - and review collection itself stays a completely
+// separate flow (leave_review / saveReviewAction) that this component never
+// touches.
 export default function ReviewShareRow({
   reviewId,
   rating,
