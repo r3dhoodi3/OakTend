@@ -1282,8 +1282,9 @@ function numOrNull(value: unknown): number | null {
 // How old the cached AVM call for this address is, in milliseconds, or null if
 // there is no settled ("ok") row for it. Used by the manual "Refresh estimate"
 // button, which is the one control a homeowner can press repeatedly and the
-// only path that can bill a SECOND call for one home: under 24 hours it shows
-// the number already on file instead of spending anything (F2).
+// only path that can bill a SECOND call for one home: inside the 30-day floor
+// it shows the number already on file instead of spending anything (F2). The
+// /value page reads it too, to say when the button comes back.
 export async function cachedMarketValueAgeMs(
   street: string,
   zip: string,

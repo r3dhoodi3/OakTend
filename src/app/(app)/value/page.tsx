@@ -19,6 +19,11 @@ import RefreshValue from "./RefreshValue";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import InviteNeighbor from "@/app/(app)/account/InviteNeighbor";
 import { getOrCreateReferralCode } from "@/lib/referralCode";
+import { cachedMarketValueAgeMs } from "@/lib/parcel";
+import {
+  RENTCAST_REFRESH_MIN_AGE_MS,
+  nextRentcastRefreshAt,
+} from "@/lib/rentcastCache";
 
 // Same honest mask the /forecast page uses for its per-system amounts: real
 // rows, real years, a masked amount. Never blurred fake numbers, and never a
@@ -135,11 +140,33 @@ export default async function ValuePage() {
   const hasPurchaseData = purchasePrice != null && purchaseYear != null;
   const region = stateName(property.state);
 
+  // A refresh re-runs the AVM for this address, so it is only offered when
+  // there is an address to run it on. Selling Plus off a button that could not
+  // work for anyone would be the wrong kind of door.
+  const canRefresh = !!property.address_line1 && !!property.zip;
+
   // The referral code is only needed for the one-time "your home is worth more
   // than you paid" moment below (research wave RB, 2026-08-30). Read it here,
   // beside the other awaits, so it never adds a round trip: it is null for an
   // account that has none yet, which just means no card renders.
-  const referralCode = await getOrCreateReferralCode();
+  //
+  // Alongside it, how old this home's last settled AVM CALL is - the same read
+  // the refresh action's floor makes (cachedMarketValueAgeMs, src/lib/parcel.ts),
+  // off the same rentcast_cache row, so the page and the action can never
+  // disagree about whether the button is live. It never calls RentCast itself.
+  const [referralCode, refreshAgeMs] = await Promise.all([
+    getOrCreateReferralCode(),
+    canRefresh
+      ? cachedMarketValueAgeMs(property.address_line1!, property.zip!, property.unit)
+      : Promise.resolve(null),
+  ]);
+
+  // When the button comes back, or null while it is live. Resolved here on the
+  // server so the disabled state never rides on the browser's clock.
+  const nextRefreshAt =
+    refreshAgeMs != null && refreshAgeMs < RENTCAST_REFRESH_MIN_AGE_MS
+      ? new Date(nextRentcastRefreshAt(Date.now() - refreshAgeMs)).toISOString()
+      : null;
 
   // One shared chooser (src/lib/homeValue.ts) picks the headline: the stored
   // RentCast AVM when we have one (real comparable sales for this address),
@@ -184,11 +211,6 @@ export default async function ValuePage() {
   // refresh client-side, off this render.
   const needsFetch =
     marketValue == null && !!property.address_line1 && !!property.zip;
-
-  // A refresh re-runs the AVM for this address, so it is only offered when
-  // there is an address to run it on. Selling Plus off a button that could not
-  // work for anyone would be the wrong kind of door.
-  const canRefresh = !!property.address_line1 && !!property.zip;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
@@ -313,7 +335,7 @@ export default async function ValuePage() {
             )}
             {canRefresh && (
               <div className="flex justify-center pt-1">
-                <RefreshValue isPlus={plus} />
+                <RefreshValue isPlus={plus} nextRefreshAt={nextRefreshAt} />
               </div>
             )}
           </div>

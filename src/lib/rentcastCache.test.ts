@@ -12,6 +12,7 @@ vi.mock("@/lib/supabase/admin", () => ({
 
 import {
   isRentcastCacheFresh,
+  nextRentcastRefreshAt,
   rentcastAddressKey,
   RENTCAST_AVM_TTL_MS,
   RENTCAST_MISS_TTL_MS,
@@ -130,12 +131,25 @@ describe("isRentcastCacheFresh", () => {
 });
 
 describe("the refresh floor", () => {
-  // Deliberately shorter than the 30-day AVM TTL and longer than the 1-hour
-  // negative TTL: it answers "did pressing this button need to spend a call?",
-  // which is a different question from "is the stored estimate still usable?".
-  it("sits between the negative TTL and the AVM TTL", () => {
-    expect(RENTCAST_REFRESH_MIN_AGE_MS).toBe(DAY);
+  // ONE PAID LOOKUP PER HOME PER MONTH. The floor was a day, which let a
+  // single home spend a call a day out of the fifty this app gets a month;
+  // it now matches the AVM TTL, which is also the shortest window in which
+  // the estimate itself can really move.
+  it("is 30 days, the same window as the AVM TTL", () => {
+    expect(RENTCAST_REFRESH_MIN_AGE_MS).toBe(30 * DAY);
+    expect(RENTCAST_REFRESH_MIN_AGE_MS).toBe(RENTCAST_AVM_TTL_MS);
     expect(RENTCAST_REFRESH_MIN_AGE_MS).toBeGreaterThan(RENTCAST_MISS_TTL_MS);
-    expect(RENTCAST_REFRESH_MIN_AGE_MS).toBeLessThan(RENTCAST_AVM_TTL_MS);
+  });
+
+  // The date under the button. Three callers add the floor to a stored
+  // fetched_at (the page, the action, the copy), so it is one function.
+  it("nextRentcastRefreshAt is one floor after the stored call", () => {
+    const fetchedAt = Date.UTC(2026, 8, 18);
+    expect(nextRentcastRefreshAt(fetchedAt)).toBe(
+      fetchedAt + RENTCAST_REFRESH_MIN_AGE_MS
+    );
+    expect(
+      new Date(nextRentcastRefreshAt(fetchedAt)).toISOString().slice(0, 10)
+    ).toBe("2026-10-18");
   });
 });

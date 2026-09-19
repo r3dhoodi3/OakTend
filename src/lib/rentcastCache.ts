@@ -62,16 +62,28 @@ export const RENTCAST_PROPERTY_NOT_FOUND_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 // (or a restored quota) for the rest of the day.
 export const RENTCAST_MISS_TTL_MS = 60 * 60 * 1000;
 
-// The manual "Refresh estimate" button's own floor (F2). Shorter than the
-// 30-day AVM TTL on purpose: this is the answer to "did pressing this button
-// need to spend a call?", not to "is the stored estimate still usable?".
-export const RENTCAST_REFRESH_MIN_AGE_MS = 24 * 60 * 60 * 1000;
+// The manual "Refresh estimate" button's own floor (F2). It used to be a day,
+// which let one home spend a call a day out of the fifty this app gets a
+// month. It now EQUALS the AVM TTL above: one paid lookup per home per month,
+// which is the most a 50-call budget can honestly promise, and it is also the
+// shortest window in which the estimate itself can really move.
+export const RENTCAST_REFRESH_MIN_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
+// When the refresh button comes back for a home whose last settled AVM call
+// landed at `fetchedAt`. Pure and exported so the page that disables the
+// button, the action that enforces the floor, and the line printed under the
+// button all name the same instant rather than each adding the floor itself.
+export function nextRentcastRefreshAt(fetchedAt: number): number {
+  return fetchedAt + RENTCAST_REFRESH_MIN_AGE_MS;
+}
 
 // Is a stored row still good enough to serve instead of calling RentCast?
 //
 // Exported and pure so the TTL rules are testable without a database, and so
-// the one place that needs a DIFFERENT window (the manual refresh, above) is
-// visibly the exception rather than a second copy of this logic.
+// the one place that asks a DIFFERENT question (the manual refresh, above -
+// "did this press need to spend a call?" rather than "is the stored estimate
+// still usable?") is visibly the exception rather than a second copy of this
+// logic, even though the two windows are now the same length.
 export function isRentcastCacheFresh(
   kind: RentcastCacheKind,
   status: RentcastCacheStatus,

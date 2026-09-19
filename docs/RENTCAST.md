@@ -44,7 +44,7 @@ Every outbound call in the app goes through one function, `rentcastRequest` in
 | Claim (`claimPropertyAction`) | `property` | Same buckets; usually a cache hit from the step before |
 | First job post's ownership re-check | `property` | `src/app/(app)/contractors/actions.ts` |
 | `/value` first estimate (`fetchAndSaveMarketValueAction`) | `avm` | Free for everyone, once per home |
-| `/value` manual refresh (`refreshMarketValueAction`) | `avm` | Plus only, and floored at 24 hours |
+| `/value` manual refresh (`refreshMarketValueAction`) | `avm` | Plus only, and floored at 30 days |
 
 The dashboard, `/taxes`, the tax-appeal route and the home-digest cron do **not**
 call RentCast at all: they read the values already stored on the `properties`
@@ -71,9 +71,11 @@ Time to live, in `rentcast_cache`:
 | `avm` | `ok`, `not_found` | 30 days |
 | either | `quota`, `error` | 1 hour |
 
-Plus one shorter window that is not a cache TTL: the manual "Refresh estimate"
-button re-fetches only if the last `avm` call is **older than 24 hours**, and
-otherwise shows the stored number with "Updated &lt;when&gt;".
+Plus one window that is not a cache TTL, though it is now the same length: the
+manual "Refresh estimate" button re-fetches only if the last `avm` call is
+**older than 30 days** — one paid lookup per home per month. Inside that window
+the button is disabled and says when it comes back, and a press that gets
+through anyway (a stale tab) shows the stored number with the same line.
 
 Rows are keyed on `address_key` — the app's normalized address line plus ZIP
 (and, for an `avm` only, the unit), produced by `rentcastAddressKey` in
