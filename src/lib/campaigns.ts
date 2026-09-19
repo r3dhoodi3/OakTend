@@ -84,7 +84,13 @@ function buildCalendarCodes(): Record<string, CampaignLink> {
 // TO ADD ANOTHER PARTNER: add one line here and one row to the table in
 // docs/REFERRALS.md. Nothing else - the /go route, the 30-day cookie, the
 // campaign_signup event and the users.campaign_code write are all generic.
-const PARTNER_CODES: Record<string, CampaignLink> = {
+//
+// Exported so the back-office page (src/app/(app)/backoffice/partners/page.tsx)
+// can list every partner, including the ones with no sign-ups yet - "zero" is
+// an answer, and a summary built only from rows that exist cannot give it.
+// Nothing else reads this: CAMPAIGN_CODES below is still the one allowlist
+// every code path checks, and nothing branches on channel.
+export const PARTNER_CODES: Record<string, CampaignLink> = {
   curtis: {
     destination: "/homeowner-signup",
     channel: "partner",

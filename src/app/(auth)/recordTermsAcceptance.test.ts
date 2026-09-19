@@ -19,9 +19,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 // the cookie and this write are all free of them - and a test that mocked a
 // billing state would create the coupling it was meant to rule out.
 
+// src/lib/waitlistAttribution.ts (the pro-waitlist fallback below) is a
+// server-only module, and the real package throws the moment it is imported
+// outside a React Server Component render.
+vi.mock("server-only", () => ({}));
+
 const CURTIS = "curtis";
 const OTHER_CODE = "ig-d01";
 const USER_ID = "11111111-2222-4333-8444-555555555555";
+const SIGNUP_EMAIL = "new.signup@example.com";
 
 type UpdateCall = {
   values: Record<string, unknown>;
@@ -35,6 +41,9 @@ let sessionUser: { id: string; email: string } | null = null;
 // account already accepted this doc", which makes the whole function a no-op.
 let existingTermsRow: { id: string } | null = null;
 let usersUpdateError: { code?: string; message?: string } | null = null;
+// What public.pro_waitlist (0168 + 0171) reads back for this signup's email.
+// Empty is the ordinary case: almost nobody was on the waitlist.
+let waitlistRows: Record<string, unknown>[] = [];
 
 let usersUpdates: UpdateCall[] = [];
 let termsInserts: Record<string, unknown>[] = [];
@@ -69,6 +78,15 @@ vi.mock("@/lib/supabase/admin", () => ({
             return Promise.resolve({ error: null });
           },
         };
+      }
+      if (table === "pro_waitlist") {
+        const chain: Record<string, unknown> = {
+          select: () => chain,
+          ilike: () => chain,
+          not: () => chain,
+          limit: async () => ({ data: waitlistRows, error: null }),
+        };
+        return chain;
       }
       if (table === "users") {
         return {
@@ -143,9 +161,10 @@ function campaignUpdates(): UpdateCall[] {
 
 beforeEach(() => {
   cookieValue = null;
-  sessionUser = { id: USER_ID, email: "new.signup@example.com" };
+  sessionUser = { id: USER_ID, email: SIGNUP_EMAIL };
   existingTermsRow = null;
   usersUpdateError = null;
+  waitlistRows = [];
   usersUpdates = [];
   termsInserts = [];
   tracked = [];
@@ -311,5 +330,66 @@ describe("recordTermsAcceptance - permanent campaign attribution (0166)", () => 
     expect(campaignUpdates()).toHaveLength(0);
     expect(termsInserts).toHaveLength(0);
     expect(tracked).toHaveLength(0);
+  });
+});
+
+// The pro-waitlist fallback (migrations 0168 + 0171, Landen addendum 4 §2).
+// The cookie cannot carry attribution across the preview window: a contractor
+// who followed a partner link while the pro side was closed could only leave an
+// email, and the cookie is 30 days old by then. So when the cookie says
+// nothing, the waitlist row is asked. See src/lib/waitlistAttribution.test.ts
+// for the helper's own behaviour; these tests are about WHEN it runs.
+describe("recordTermsAcceptance - pro waitlist fallback (0171)", () => {
+  it("copies the waitlist code when the visitor carries no cookie", async () => {
+    waitlistRows = [{ email: SIGNUP_EMAIL, campaign_code: "curtis-pro" }];
+    cookieValue = null;
+
+    await recordTermsAcceptance(USER_ID, "pro_terms");
+
+    const updates = campaignUpdates();
+    expect(updates).toHaveLength(1);
+    expect(updates[0].values.campaign_code).toBe("curtis-pro");
+    expect(updates[0].eq).toEqual([["id", USER_ID]]);
+    // Same first-code-wins filter as the cookie path, for the same reason.
+    expect(updates[0].is).toEqual([["campaign_code", null]]);
+    // Not an analytics event: campaign_signup describes a click that led here,
+    // and this one did not - it happened months ago on a different page.
+    expect(tracked).toHaveLength(0);
+  });
+
+  it("prefers a live cookie over a months-old waitlist row", async () => {
+    waitlistRows = [{ email: SIGNUP_EMAIL, campaign_code: "curtis-pro" }];
+    cookieValue = CURTIS;
+
+    await recordTermsAcceptance(USER_ID, "terms");
+
+    const updates = campaignUpdates();
+    expect(updates).toHaveLength(1);
+    expect(updates[0].values.campaign_code).toBe(CURTIS);
+  });
+
+  // An ill-formed or unknown cookie is the same as no cookie, so the fallback
+  // still gets its turn rather than being swallowed by a junk value.
+  it("still runs when the cookie value is not a real code", async () => {
+    waitlistRows = [{ email: SIGNUP_EMAIL, campaign_code: "curtis-pro" }];
+    cookieValue = "not-a-real-code";
+
+    await recordTermsAcceptance(USER_ID, "terms");
+
+    expect(campaignUpdates()).toHaveLength(1);
+    expect(campaignUpdates()[0].values.campaign_code).toBe("curtis-pro");
+  });
+
+  it("does not run for the pro_terms_onboarding doc", async () => {
+    waitlistRows = [{ email: SIGNUP_EMAIL, campaign_code: "curtis-pro" }];
+    await recordTermsAcceptance(USER_ID, "pro_terms_onboarding");
+    expect(campaignUpdates()).toHaveLength(0);
+  });
+
+  it("does not run again once the acceptance row exists", async () => {
+    existingTermsRow = { id: "existing" };
+    waitlistRows = [{ email: SIGNUP_EMAIL, campaign_code: "curtis-pro" }];
+    await recordTermsAcceptance(USER_ID, "pro_terms");
+    expect(campaignUpdates()).toHaveLength(0);
   });
 });

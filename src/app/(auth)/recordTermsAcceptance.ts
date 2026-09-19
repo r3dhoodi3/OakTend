@@ -13,6 +13,7 @@ import {
   lookupCampaign,
 } from "@/lib/campaigns";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import { copyWaitlistCampaignCode } from "@/lib/waitlistAttribution";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -305,6 +306,20 @@ export async function recordTermsAcceptance(
             });
           }
         }
+      } else {
+        // NO USABLE COOKIE - the ordinary case, and the one the pro waitlist
+        // exists to rescue (migration 0171). A contractor who followed a
+        // partner's /go/<code> link while the pro side was closed could not
+        // create an account at all; all they could do was leave an email on
+        // public.pro_waitlist, and by the time the pro side opens the 30-day
+        // cookie is long gone. So when the cookie says nothing, ask the
+        // waitlist whether this email arrived through a partner.
+        //
+        // Second choice, never first: a live cookie describes the visit that
+        // actually became this account, and a waitlist row can be months old.
+        // Both paths write the same column under the same
+        // `campaign_code is null` filter, so first code still wins.
+        await copyWaitlistCampaignCode(verifiedUserId, verifiedEmail);
       }
     } catch (campaignErr) {
       console.error("recordTermsAcceptance: campaign_signup failed", {

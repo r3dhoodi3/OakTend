@@ -38,6 +38,41 @@ The first one is **Curtis Do**: `/go/curtis`.
 3. **Nothing else.** The code is not read anywhere in the product. It does not
    change pricing, gating, onboarding, or what anyone sees.
 
+## The pro waitlist carries a code too
+
+While the contractor side is closed (`NEXT_PUBLIC_PREVIEW_MODE=homeowner`),
+someone who follows a partner's pro-side link — `/go/curtis-pro` and friends —
+**cannot create an account at all**. The only thing they can do is leave an
+email on the "coming soon" page. Without somewhere to park the code, every
+contractor a partner sends during preview is attributed to nobody, and by the
+time the pro side opens the 30-day cookie is long gone.
+
+So `public.pro_waitlist.campaign_code` (**migration 0171**) stores it:
+
+- `joinProWaitlistAction` (`src/app/pros/actions.ts`) reads the same
+  `oaktend_campaign` cookie through the same `lookupCampaign()` allowlist check
+  the sign-up path uses, and writes the code on the waitlist row. An unknown or
+  ill-formed value is stored as `null`, exactly as the account path treats one.
+  The column carries the same shape `CHECK` as `users.campaign_code`.
+- The signup is never lost to a deploy-order mistake: if the column does not
+  exist yet, the insert is retried once without it.
+- **First code wins** here too, and for free: the action does a plain insert and
+  swallows the duplicate the `lower(email)` unique index raises, so a repeat
+  signup never rewrites the stored row.
+
+**The copy-over.** When that contractor finally creates an account,
+`copyWaitlistCampaignCode` (`src/lib/waitlistAttribution.ts`) runs from
+`recordTermsAcceptance` — **only as a fallback**, when the visitor carries no
+usable cookie. It looks for a waitlist row with the same email
+(case-insensitively), re-checks the stored code against the allowlist, and
+copies it onto `users.campaign_code` + `campaign_recorded_at`. That write is
+filtered on `campaign_code is null` like every other one, so an account that
+already has a code keeps it. A live cookie always wins over a months-old
+waitlist row: it describes the visit that actually became the account.
+
+A missing column or table at either end is treated as "no attribution" and
+never blocks a sign-up.
+
 The cookie lasts 30 days; the column lasts as long as the account. That is the
 whole reason the column exists — `app_events` is an analytics stream on a
 retention schedule, and a commission conversation six months later cannot
@@ -64,6 +99,23 @@ founder on 2026-09-15 and 2026-09-16, recorded in migration 0169:
 | `public.curtis_signups` | `full_name`, `email`, `signed_up` | One account attributed to the `curtis` partner code. |
 | `public.partner_signups` | `partner`, `full_name`, `email`, `signed_up` | One account attributed to any partner code, grouped by partner. |
 | `public.signups_by_source` | `source`, `full_name`, `email`, `signed_up` | One account, every account, labeled `direct` when it has no campaign code. |
+
+## The back-office page
+
+`/backoffice/partners` (`src/app/(app)/backoffice/partners/page.tsx`) is the one
+screen in the app that answers "who has each partner actually sent us" without
+opening the SQL editor. It reads `public.partner_signups` and the attributed
+rows of `public.pro_waitlist` through the service-role client, and shows a
+summary line per partner code — accounts, pro waitlist, last signup — with every
+code from `PARTNER_CODES` listed even at zero, followed by the people behind
+each one.
+
+**Who can see it: OakTend team accounts only.** The page gets the signed-in user
+and calls `isInternalUser()` (`src/lib/internalAccounts.ts`, migration 0165);
+anyone else — signed out, or an ordinary account — gets a **404**, not a
+redirect and not an "access denied", because the page's existence is not
+advertised. Nothing links to it, it is `robots: index: false`, and it is not in
+the sitemap. Waitlist counts read zero until migration 0171 is pasted.
 
 ### The two queries
 
