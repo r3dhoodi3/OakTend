@@ -100,5 +100,11 @@ export function fetchHomeAlerts(
     .catch(() => null)
     .finally(() => clearTimeout(timeout));
   shared = { at: Date.now(), propertyId, promise };
+  // A failed call must not sit in the share window: WeatherStrip retries once
+  // after a null, and a retry that was handed this same settled-null promise
+  // back would not be a retry at all.
+  promise.then((d) => {
+    if (d === null && shared?.promise === promise) shared = null;
+  });
   return promise;
 }

@@ -88,7 +88,29 @@ const RAIN_FLOOR = 10;
 // with HARD_DEADLINE_MS as the only ceiling - fixes that for both cases.
 const HARD_DEADLINE_MS = 8_000;
 
-export default function WeatherStrip({ propertyId }: { propertyId: string }) {
+// One retry when the call itself fails (fetchHomeAlerts resolves null: network
+// error, non-200, or its own 6s abort) - NOT when a real payload says there is
+// no weather. The case this exists for is a brand-new home's first dashboard
+// load (2026-09-19: a fresh signup saw no weather row at all): nothing is
+// cached for that city yet, so the route runs a cold geocode (up to 4s) and
+// THEN a cold forecast (up to 4s) behind two rate-limit RPCs and two reads,
+// which can outlast the client's 6s. The route keeps running after the client
+// gives up and its upstream results land in Next's fetch cache, so a second
+// call moments later is answered from cache.
+const RETRY_DELAY_MS = 500;
+
+export default function WeatherStrip({
+  propertyId,
+  locationKnown = false,
+}: {
+  propertyId: string;
+  // What the dashboard server component already knows: does this home have a
+  // city, or a zip the launch-city map resolves? Only consulted when BOTH
+  // attempts fail and no payload ever arrives to carry the route's own
+  // hasLocation - it turns that case from "the row silently isn't there" into
+  // the same quiet "Weather unavailable" a failed upstream lookup gets.
+  locationKnown?: boolean;
+}) {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -135,20 +157,35 @@ export default function WeatherStrip({ propertyId }: { propertyId: string }) {
     const deadline = setTimeout(() => {
       if (alive) setLoading(false);
     }, HARD_DEADLINE_MS);
-    fetchHomeAlerts(propertyId).then((d) => {
-      if (!alive) return;
-      clearTimeout(deadline);
-      setWeather(d?.current ?? null);
-      setHasLocation(d?.hasLocation ?? false);
-      setLoading(false);
-      // A different home means a different forecast; collapse rather than
-      // leave the previous home's week on screen mid-swap.
-      setOpen(false);
-    });
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    function load(attempt: number) {
+      fetchHomeAlerts(propertyId).then((d) => {
+        if (!alive) return;
+        // See RETRY_DELAY_MS. The deadline keeps running across the retry: if
+        // it fires first the skeleton ends, and the weather simply appears
+        // when the second call lands.
+        if (d === null && attempt === 0) {
+          retry = setTimeout(() => load(1), RETRY_DELAY_MS);
+          return;
+        }
+        clearTimeout(deadline);
+        setWeather(d?.current ?? null);
+        setHasLocation(d ? d.hasLocation : locationKnown);
+        setLoading(false);
+        // A different home means a different forecast; collapse rather than
+        // leave the previous home's week on screen mid-swap.
+        setOpen(false);
+      });
+    }
+    load(0);
     return () => {
       alive = false;
       clearTimeout(deadline);
+      if (retry) clearTimeout(retry);
     };
+    // locationKnown is deliberately not a dependency: it is a render-time hint
+    // for the double-failure fallback, and must not trigger a refetch.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [propertyId]);
 
   // The clock next to H/L. `now` starts null and stays null through the
