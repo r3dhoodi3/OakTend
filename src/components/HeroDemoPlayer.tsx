@@ -135,7 +135,7 @@ function AppNav({
     // frame: nothing on the right edge may clip.
     <header className="flex items-center gap-2 border-b border-stone-200/70 bg-white/80 px-4 py-3">
       <span className="flex shrink-0 items-center gap-1.5 text-lg font-semibold text-stone-900" {...(logoX ? { "data-x": "navLogo" } : {})}>
-        <Logo className="h-6 w-6 text-oaktend-700" tone="green" /> OakTend
+        <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend
       </span>
       <span className="flex shrink-0 items-center gap-1 text-sm text-stone-600">
         123 Maple St <span className="text-[10px] text-stone-400">▾</span>
@@ -146,7 +146,7 @@ function AppNav({
             key={t}
             {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
             className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium ${
-              i === active ? "bg-oaktend-100 text-oaktend-800" : "text-stone-600"
+              i === active ? "bg-bark-100 text-bark-700" : "text-stone-600"
             }`}
           >
             {t}
@@ -173,7 +173,7 @@ function AppNav({
         <path d="M13.7 21a2 2 0 0 1-3.4 0" />
       </svg>
       <span className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-stone-700">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-oaktend-100 text-sm font-semibold text-oaktend-700">J</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">J</span>
         John Doe <span className="text-[10px] text-stone-400">▾</span>
       </span>
     </header>
@@ -2370,7 +2370,7 @@ export default function HeroDemoPlayer() {
               {/* ---------- Onboarding page (real site classes) ---------- */}
               <div className={styles.page} data-page="onboardPage">
                 <header className="flex items-center gap-2 border-b border-stone-200/70 bg-white/80 px-6 py-3 text-lg font-semibold text-stone-900">
-                  <Logo className="h-6 w-6 text-oaktend-700" tone="green" /> OakTend
+                  <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend
                 </header>
                 <div className="mx-auto max-w-md px-6 pt-12">
                   {/* h2, not h1, here and on the three fake screens below.
@@ -2421,7 +2421,7 @@ export default function HeroDemoPlayer() {
                     <div className="card">
                       <p className="stat-label">Open jobs</p>
                       <p className="stat-number mt-1 text-3xl">3</p>
-                      <p className="mt-2 text-sm text-oaktend-700">View job postings →</p>
+                      <p className="mt-2 text-sm text-bark-700">View job postings →</p>
                     </div>
                     <div className="card">
                       <p className="stat-label">Home value</p>
@@ -2444,11 +2444,11 @@ export default function HeroDemoPlayer() {
                     <div className="mt-2 space-y-1.5 text-sm text-stone-700">
                       <p>
                         • Your plumbing is near the end of its life. It is worth planning ahead.{" "}
-                        <span className="text-oaktend-700">Plan it →</span>
+                        <span className="text-bark-700">Plan it →</span>
                       </p>
                       <p>
                         • Your roof is near the end of its life. It is worth planning ahead.{" "}
-                        <span className="text-oaktend-700">Plan it →</span>
+                        <span className="text-bark-700">Plan it →</span>
                       </p>
                     </div>
                     <div className="mt-3 flex items-center justify-between text-sm text-stone-600">
@@ -2498,7 +2498,7 @@ export default function HeroDemoPlayer() {
                   {/* Notification card: pops with the demo's one ding, right
                       before the homeowner opens Messages. */}
                   <div className={cx("card absolute right-6 top-4 flex items-center gap-3", styles.notif)} data-x="notif">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-oaktend-100 text-sm font-semibold text-oaktend-700">T</span>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">T</span>
                     <span>
                       <span className="block text-sm font-semibold text-stone-900">Tony R. sent you a quote</span>
                       <span className="block text-xs text-stone-500">Leaking kitchen faucet · replied in 18 min</span>
@@ -2515,7 +2515,7 @@ export default function HeroDemoPlayer() {
                   <h2 className="text-xl font-semibold text-stone-900">Messages</h2>
                   <div className="mt-3 grid grid-cols-[220px_1fr] gap-4">
                     <div className="card p-0">
-                      <div className="border-l-2 border-oaktend-500 bg-oaktend-50 px-4 py-3">
+                      <div className="border-l-2 border-bark-600 bg-bark-50 px-4 py-3">
                         <p className="text-sm font-semibold text-stone-900">Tony R. · Plumbing</p>
                         <p className="text-xs text-stone-500">Sent you a quote</p>
                       </div>
@@ -2553,7 +2553,7 @@ export default function HeroDemoPlayer() {
               {/* ---------- End card (real site classes) ---------- */}
               <div className={styles.page} data-page="endPage">
                 <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
-                  <Logo className="h-12 w-12 text-oaktend-700" tone="green" />
+                  <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend</p>
                   <p className="text-sm text-stone-600">Your home, looked after.</p>
                   <p className="mt-1 text-sm text-stone-500">
@@ -2587,7 +2587,7 @@ export default function HeroDemoPlayer() {
             {/* Centered logo card: fades in as the site "loads" after the
                 URL is typed, fades out to reveal the dashboard. */}
             <div className={styles.introCard} data-x="intro" aria-hidden="true">
-              <Logo className="h-12 w-12 text-oaktend-700" tone="green" />
+              <Logo className="h-12 w-12 text-bark-700" tone="green" />
               <span className={styles.introWord}>OakTend</span>
               <span className={styles.introTag}>Your home, looked after.</span>
             </div>
