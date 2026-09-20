@@ -5,7 +5,7 @@ import { Skeleton, SkeletonLine, SkeletonCard, SkeletonRow } from "@/components/
 // few document rows, then the insurance checkup card.
 export default function Loading() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8 space-y-6" aria-hidden="true">
+    <div className="mx-auto max-w-3xl space-y-6" aria-hidden="true">
       <div className="space-y-2">
         <Skeleton className="h-7 w-40" />
         <SkeletonLine width="w-full" />

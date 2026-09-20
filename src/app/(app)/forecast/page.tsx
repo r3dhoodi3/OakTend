@@ -354,9 +354,9 @@ export default async function ForecastPage() {
       : "Help me plan for my upcoming home costs. Which should I tackle first?";
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8">
+    <div className="mx-auto max-w-3xl">
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Cost forecast" }]} />
-      <header className="mb-1">
+      <header className="mb-1 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Cost forecast
         </h1>

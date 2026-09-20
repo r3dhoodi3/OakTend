@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/Skeleton";
 // exists to prevent.
 export default function Loading() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8" aria-hidden="true">
+    <div className="mx-auto max-w-3xl" aria-hidden="true">
       <Skeleton className="mb-1 h-7 w-40" />
       <Skeleton className="mb-5 h-4 w-full" />
 

@@ -6,7 +6,7 @@ import { Skeleton, SkeletonLine } from "@/components/Skeleton";
 // submit).
 export default function Loading() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8" aria-hidden="true">
+    <div className="mx-auto max-w-3xl" aria-hidden="true">
       <Skeleton className="mb-1 h-7 w-48" />
       <div className="mb-5 space-y-2">
         <SkeletonLine width="w-full" />

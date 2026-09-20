@@ -213,10 +213,10 @@ export default async function ValuePage() {
     marketValue == null && !!property.address_line1 && !!property.zip;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8">
+    <div className="mx-auto max-w-3xl">
       <ValueAutoFetch needsFetch={needsFetch} propertyId={property.id} />
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Home value & equity" }]} />
-      <header className="mb-1">
+      <header className="mb-1 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Home value &amp; equity
         </h1>

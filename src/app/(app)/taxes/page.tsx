@@ -149,9 +149,9 @@ export default async function TaxesPage() {
           : "in_line";
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8">
+    <div className="mx-auto max-w-3xl">
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Property tax watch" }]} />
-      <header className="mb-1">
+      <header className="mb-1 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Property tax watch
         </h1>

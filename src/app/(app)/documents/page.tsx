@@ -136,9 +136,9 @@ export default async function DocumentsPage() {
     insRate === DEFAULT_INSURANCE_RATE ? null : stateName(property.state);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-8">
+    <div className="mx-auto max-w-3xl">
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Documents" }]} />
-      <header className="mb-1">
+      <header className="mb-1 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Documents</h1>
       </header>
       <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">

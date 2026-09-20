@@ -39,7 +39,9 @@ export default async function InspectionPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Home inspection" }]} />
-      <div>
+      {/* !mt-6: the same breadcrumb-to-title gap as /learn and the other Tools
+          pages, without tightening this page's space-y-8 everywhere else. */}
+      <div className="!mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Home inspection
         </h1>
