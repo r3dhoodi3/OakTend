@@ -32,8 +32,11 @@ export default function NoticeAtCollection({
   // in-page rather than only on /privacy keeps it "at or before" collection.
   return (
     <details className="group text-xs leading-relaxed text-stone-600 dark:text-stone-400">
-      <summary className="inline-flex cursor-pointer list-none items-center gap-1 font-medium text-bark-700 hover:underline dark:text-stone-300 [&::-webkit-details-marker]:hidden">
-        What we collect here and why
+      {/* The hover underline sits on the words only. On the summary itself it
+          also ran under the arrow, and flipped to the top of it when the arrow
+          rotated open. */}
+      <summary className="group/summary inline-flex cursor-pointer list-none items-center gap-1 font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden">
+        <span className="group-hover/summary:underline">What we collect here and why</span>
         <span aria-hidden className="text-stone-400 transition-transform group-open:rotate-180 dark:text-stone-500">
           &#9662;
         </span>

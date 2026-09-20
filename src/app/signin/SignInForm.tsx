@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { safeNextPath } from "@/lib/safeNext";
 import { friendlyAuthError } from "@/lib/friendlyAuthError";
@@ -51,14 +52,20 @@ export default function SignInForm({
   sessionExpired?: boolean;
 }) {
   const supabase = createClient();
-  // "New to OakTend?" sends visitors to the home page (the landing with the
-  // hero photos and both role doors), which is now the single front door for
-  // new users. It does not carry ?next= - the landing has no destination to
-  // thread on - so a signed-out visitor who arrived via a gated CTA and then
-  // chooses to sign up starts fresh from the landing. `next` is still used
-  // below for the actual sign-in and the Google/Apple buttons.
+  // "New to OakTend?" goes straight to /homeowner-signup (changed 2026-09-19;
+  // it used to go to the landing). Someone pressing "Get started" on the
+  // sign-in page has already decided, so the landing only made them find the
+  // signup button a second time, and it dropped ?next= on the way. The signup
+  // page threads ?next= through (already validated by the server wrapper's
+  // safeNextPath), so a visitor who arrived via a gated CTA still ends up
+  // where they were headed. A contractor is one click from their own form:
+  // /homeowner-signup links across to the pro side.
+  const signupHref = next
+    ? `/homeowner-signup?next=${encodeURIComponent(next)}`
+    : "/homeowner-signup";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   // Set to the typed email when sign-in fails specifically because the account
@@ -174,16 +181,32 @@ export default function SignInForm({
             <label className="label" htmlFor="password">
               Password
             </label>
-            <input
-              id="password"
-              className="input"
-              type="password"
-              autoComplete="current-password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            {/* Same show/hide toggle as the two signup pages, so the control
+                looks and sits the same wherever a password is typed. */}
+            <div className="relative">
+              <input
+                id="password"
+                className="input pr-10"
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="focus-ring absolute inset-y-0 right-0 flex items-center px-3 text-stone-400 hover:text-stone-600 max-sm:px-3.5 dark:hover:text-stone-200"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
+                ) : (
+                  <Eye className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
+                )}
+              </button>
+            </div>
             {/* Phone only: 16px tall, right-aligned. This is the recovery
                 path for someone who cannot read what they typed. */}
             <p className="mt-1.5 text-right text-xs max-sm:text-sm">
@@ -257,7 +280,7 @@ export default function SignInForm({
         <div className="mt-6 border-t border-stone-100 pt-4 text-center dark:border-white/10">
           <p className="text-sm text-stone-500 dark:text-stone-400">New to OakTend?</p>
           <Link
-            href="/"
+            href={signupHref}
             className="btn-secondary mt-2 flex w-full"
           >
             Get started

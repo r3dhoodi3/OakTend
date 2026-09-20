@@ -43,6 +43,7 @@ import AnimatedDetails from "@/components/AnimatedDetails";
 import WalkthroughNudge from "./WalkthroughNudge";
 import HomeAlerts from "@/components/HomeAlerts";
 import WeatherStrip from "@/components/WeatherStrip";
+import { launchCityForZip } from "@/lib/serviceArea";
 import {
   Home,
   TrendingUp,
@@ -622,7 +623,13 @@ export default async function HomePage(
       <AhaEventReporter event={AHA_HOME_SCORE} eligible={sys.length > 0} />
       {/* Current conditions for the home's city, one quiet row. Renders only
           when the lookup succeeds; shares its fetch with HomeAlerts below. */}
-      <WeatherStrip propertyId={property.id} />
+      <WeatherStrip
+        propertyId={property.id}
+        // Same rule /api/home-alerts uses to decide a home has a location.
+        locationKnown={Boolean(
+          property.city || (property.zip && launchCityForZip(property.zip))
+        )}
+      />
 
       {searchParams.welcome && (
         <>

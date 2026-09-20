@@ -55,6 +55,12 @@ export default async function BrowseProsPage(
   //
   // `true` outside preview, with no session read and no query, so a normal
   // deploy is unchanged.
+  //
+  // This page sits behind sign-in, so the card below only ever renders because
+  // isProSideOpenForViewer() is internal-only in preview. While it briefly
+  // answered "yes" for any signed-in account (2026-09-16 to 2026-09-19) the
+  // card was unreachable and preview homeowners got an empty "No pros are
+  // listed here yet" board instead.
   const proNetworkOpen = await isProSideOpenForViewer();
 
   // Independent reads: the property gate and the pros list share nothing, so
@@ -85,9 +91,12 @@ export default async function BrowseProsPage(
           </h1>
         </div>
         <div className="card">
-          <p className="text-stone-700 dark:text-stone-200">
-            Our verified pro network launches soon. Post your job and we&rsquo;ll
-            match you when it opens.
+          <p className="font-medium text-stone-900 dark:text-stone-100">
+            Browsing for contractors is coming soon. Thank you for your patience.
+          </p>
+          <p className="mt-2 text-stone-700 dark:text-stone-200">
+            Need work done now? Post your job and our team will find a local
+            pro for you by hand.
           </p>
           <p className="mt-4">
             <Link

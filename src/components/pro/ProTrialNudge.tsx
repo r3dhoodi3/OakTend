@@ -230,8 +230,8 @@ export default function ProTrialNudge({
     // PREVIEW MODE (guardrail B2): never arm the takeover. It is a full-screen
     // pitch for a 3-day free trial that ends in a charge, and during the
     // preview there is no checkout behind it - A4 refuses
-    // startProCheckoutAction for everyone, the team included, and only
-    // signed-in accounts can reach this shell at all.
+    // startProCheckoutAction for internal accounts too, and only internal
+    // accounts can reach this shell at all.
     //
     // Gated HERE rather than by forcing `eligible` false in
     // src/app/pro/layout.tsx: two source pins (that file's own test and

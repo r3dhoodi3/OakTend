@@ -1382,8 +1382,12 @@ export default function OnboardingForm({
                   short: name is all that's actually needed on top of the address
                   to claim. */}
               <details className="group">
-                <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-bark-700 hover:underline dark:text-stone-300 [&::-webkit-details-marker]:hidden">
-                  Know more details? Add them (optional)
+                {/* Hover underline on the words only, never under the arrow
+                    (same fix as NoticeAtCollection.tsx). */}
+                <summary className="group/summary inline-flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden">
+                  <span className="group-hover/summary:underline">
+                    Know more details? Add them (optional)
+                  </span>
                   <span
                     aria-hidden
                     className="text-stone-400 transition-transform group-open:rotate-180 dark:text-stone-500"

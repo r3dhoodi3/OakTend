@@ -112,6 +112,55 @@ describe("WeatherStrip", () => {
     expect(await screen.findByText("Weather unavailable")).toBeInTheDocument();
   });
 
+  // 2026-09-19: a brand-new home's first dashboard load showed no weather row
+  // at all. Nothing is cached for a new city, so the route's cold geocode +
+  // forecast can outlast the client's 6s abort, and a null result used to mean
+  // "render nothing". One retry picks the answer up from the now-warm cache.
+  it("retries once when the call itself fails, and shows the weather the retry brings back", async () => {
+    fetchHomeAlerts.mockResolvedValueOnce(null).mockResolvedValueOnce({
+      weather: [],
+      recalls: [],
+      current: realWeather,
+      hasLocation: true,
+    });
+    render(<WeatherStrip propertyId="p1" />);
+    expect(await screen.findByText(/72/)).toBeInTheDocument();
+    expect(fetchHomeAlerts).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not retry when a real payload says there is no weather", async () => {
+    fetchHomeAlerts.mockResolvedValue({
+      weather: [],
+      recalls: [],
+      current: null,
+      hasLocation: true,
+    });
+    render(<WeatherStrip propertyId="p1" />);
+    expect(await screen.findByText("Weather unavailable")).toBeInTheDocument();
+    expect(fetchHomeAlerts).toHaveBeenCalledTimes(1);
+  });
+
+  // Both attempts failed, so no payload ever carried hasLocation. The
+  // dashboard's own knowledge of the home decides between the quiet fallback
+  // and nothing, and the strip stops at two calls.
+  it("says Weather unavailable after two failed calls for a home the dashboard knows has a location", async () => {
+    fetchHomeAlerts.mockResolvedValue(null);
+    render(<WeatherStrip propertyId="p1" locationKnown />);
+    expect(
+      await screen.findByText("Weather unavailable", {}, { timeout: 3000 })
+    ).toBeInTheDocument();
+    expect(fetchHomeAlerts).toHaveBeenCalledTimes(2);
+  });
+
+  it("still renders nothing after two failed calls when the home has no known location", async () => {
+    fetchHomeAlerts.mockResolvedValue(null);
+    const { container } = render(<WeatherStrip propertyId="p1" />);
+    await waitFor(() => expect(fetchHomeAlerts).toHaveBeenCalledTimes(2), {
+      timeout: 3000,
+    });
+    await waitFor(() => expect(container).toBeEmptyDOMElement());
+  });
+
   // The fetch itself can hang (a stuck upstream call, a dropped connection).
   // The hard client deadline must end the skeleton on its own even when the
   // fetch never settles, so the strip doesn't get stuck loading forever.

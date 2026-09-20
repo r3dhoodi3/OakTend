@@ -50,10 +50,11 @@ export async function setPreferredSideAction(formData: FormData) {
   // outside the app shell, so a queued toast would only surface later, out
   // of context, on the next app page.
   //
-  // Any SIGNED-IN account is let through, exactly as everywhere else, so the
-  // team and our testers can still switch into a business. In practice this
-  // action has already re-authed above, so the branch below is the fail-closed
-  // case (a session that cannot be verified). Outside preview
+  // An internal (OakTend team) account is let through, exactly as everywhere
+  // else, so the team can still switch into a test company. Everyone else -
+  // including a signed-in homeowner who just set up a business - lands on the
+  // coming-soon door (restored 2026-09-19; "any signed-in account" let the
+  // public in through homeowner signup). Outside preview
   // isProSideOpenForViewer() short-circuits on the flag, so this costs a
   // string comparison and no session read.
   if (side === "contractor" && !(await isProSideOpenForViewer())) {

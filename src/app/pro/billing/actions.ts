@@ -32,9 +32,9 @@ const DEPOSIT_DAILY_CENTS_CEILING = 500_000; // $5,000 of settled deposits / 24h
 // (apply_deposit) when the Stripe webhook confirms payment.
 export async function depositAction(formData: FormData) {
   // PREVIEW MODE (guardrail A4): a wallet deposit is a real card charge, so it
-  // is closed for everybody in preview - the team included. That is
+  // is closed for everybody in preview - an internal account included. That is
   // deliberately NOT the same call as the wallet SPEND actions (apply_to_lead,
-  // unlock_direct_request), which stay open so a signed-in pro can walk the
+  // unlock_direct_request), which stay open so an internal pro can walk the
   // whole lead flow end to end on credit the team grants by hand. Taking money
   // in is the part that must stop; moving existing credit around is not.
   if (await previewBlocksMoney()) redirect("/pro/billing");

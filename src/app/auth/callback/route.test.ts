@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 
 // This route's redirect used to hand decision.redirect straight to the
 // browser with zero awareness of preview mode (resolveAuthRole is a pure,
-// no-imports function by design). A pro-only account the preview shuts out
-// signing in with Apple/Google landed on /pro, whose OWN layout then swapped in
+// no-imports function by design). A pro-only, non-internal account signing in
+// with Apple/Google landed on /pro, whose OWN layout then swapped in
 // ProsComingSoon - the founder's report
 // (apple-signin-coming-soon-2026-09-16.md). The fix checks isProPath(target)
 // + isProSideOpenForViewer() right here, the same gate pro/layout.tsx and
@@ -141,16 +141,14 @@ describe("preview-mode-aware OAuth callback redirect", () => {
     expect(locationOf(res)).toBe("https://oaktend.test/dashboard");
   });
 
-  it("still sends a pro-only account the preview lets through to /pro", async () => {
+  it("still sends a pro-only, internal (team) account to /pro under preview", async () => {
     sessionUser = {
-      id: "u-open-pro",
+      id: "u-internal-pro",
       user_metadata: { role: "contractor" },
     };
     contractorRow = true;
     propertyRow = false;
-    // isProSideOpenForViewer() answers true for any signed-in account during
-    // preview; anonymous visitors get the coming-soon door.
-    proSideOpen = true;
+    proSideOpen = true; // isProSideOpenForViewer() answers true for internal accounts
 
     const res = await GET(callbackRequest());
     expect(locationOf(res)).toBe("https://oaktend.test/pro");

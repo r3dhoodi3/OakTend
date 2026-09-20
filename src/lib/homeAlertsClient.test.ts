@@ -1,5 +1,39 @@
-import { describe, expect, it } from "vitest";
-import type { CurrentWeather } from "./homeAlertsClient";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { fetchHomeAlerts, type CurrentWeather } from "./homeAlertsClient";
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+// The share window dedupes WeatherStrip and HomeAlerts into one call per page
+// load. A FAILED call must not stay in it, or WeatherStrip's single retry
+// would be handed the same settled null back instead of reaching the route.
+describe("fetchHomeAlerts share window", () => {
+  const payload = { weather: [], recalls: [], current: null, hasLocation: true };
+
+  it("shares one call between two callers for the same home", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => payload });
+    vi.stubGlobal("fetch", fetchMock);
+    const [a, b] = await Promise.all([
+      fetchHomeAlerts("share-ok"),
+      fetchHomeAlerts("share-ok"),
+    ]);
+    expect(a).toEqual(payload);
+    expect(b).toEqual(payload);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("drops a failed call from the window, so the next call refetches", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("aborted"))
+      .mockResolvedValueOnce({ ok: true, json: async () => payload });
+    vi.stubGlobal("fetch", fetchMock);
+    expect(await fetchHomeAlerts("share-fail")).toBeNull();
+    expect(await fetchHomeAlerts("share-fail")).toEqual(payload);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+});
 
 // homeAlertsClient's types are consumed straight off the /api/home-alerts
 // JSON response, so there's no runtime logic here to exercise directly.

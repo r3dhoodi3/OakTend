@@ -109,7 +109,7 @@ function linksIn(node: Node): Array<{ href: string; text: string }> {
 // ---------------------------------------------------------------------------
 describe("the closed contractor doors (A1, A2)", () => {
   // proSideOpen stands in for the whole gate: in preview it answers true for
-  // any signed-in account and false for the public. Its own rule is pinned in
+  // an internal (OakTend team) account and false for everyone else. Its own rule is pinned in
   // previewMode.test.ts; here it is only the switch the doors hang off.
   async function proComponents(opts: { proSideOpen?: boolean } = {}) {
     vi.resetModules();
@@ -166,7 +166,7 @@ describe("the closed contractor doors (A1, A2)", () => {
     const { ProsComingSoon } = await proComponents();
     const Layout = (await import("@/app/contractor-signup/layout")).default;
 
-    // Async now: the gate is per-viewer (any signed-in account may sign up
+    // Async now: the gate is per-viewer (an internal account may sign up
     // during the preview), so the layout awaits it rather than reading a flag.
     const tree = await Layout({ children: "THE REAL SIGNUP FORM" });
     expect(typesIn(tree)).toContain(ProsComingSoon);
@@ -185,8 +185,8 @@ describe("the closed contractor doors (A1, A2)", () => {
     expect(joinedText(tree)).not.toContain("THE PRO APP");
   });
 
-  // The team and our testers have to be able to walk the whole contractor flow
-  // while the public side is shut, so a signed-in account gets the real shell.
+  // The team has to be able to walk the whole contractor flow while the public
+  // side is shut, so an internal account gets the real shell.
   it("the pro shell renders the real app for an account the pro side is open to", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { ProsComingSoon } = await proComponents({ proSideOpen: true });
@@ -452,9 +452,10 @@ describe("every homeowner money action is closed in preview (A4)", () => {
     }));
     vi.doMock("@/lib/auth", () => ({
       getUser: async () => ({ id: "u1" }),
-      // What the REAL previewModeServer reads. A signed-in account on purpose
-      // - one the pro side is OPEN to in preview: A4 blocks money for
-      // everybody, so this is the strictest case to assert against.
+      // What the REAL previewModeServer reads. An internal account on purpose
+      // (isInternalUser is stubbed true below) - one the pro side is OPEN to
+      // in preview: A4 blocks money for everybody, the team included, so this
+      // is the strictest case to assert against.
       getVerifiedUser: async () => ({ id: "u1" }),
     }));
     vi.doMock("@/lib/internalAccounts", () => ({

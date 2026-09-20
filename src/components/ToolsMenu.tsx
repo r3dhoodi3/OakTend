@@ -110,6 +110,10 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
           a phone user actually reads. sm and up keep the original px-3. */}
       <button
         ref={btnRef}
+        // The first-run tour's "Your tools" step points here
+        // (SpotlightTour.tsx). ToolsMenu is mounted once per shell, so the id
+        // is unique on the page.
+        id="tools-menu-button"
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}

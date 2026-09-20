@@ -28,11 +28,12 @@ export default async function ContractorSignUpLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // PREVIEW MODE: the contractor side is closed to the PUBLIC, so an anonymous
-  // visitor gets the coming-soon door here. Per-viewer, not the static flag:
-  // isProSideOpenForViewer() lets any signed-in account through, so a tester
-  // can walk the signup flow without being flagged internal first. (The
-  // metadata above stays on the static flag - a title cannot be per-viewer.)
+  // PREVIEW MODE: the contractor side is closed, so nobody outside the team
+  // may create a pro account - an anonymous visitor AND a signed-in homeowner
+  // both get the coming-soon door here. Per-viewer, not the static flag:
+  // isProSideOpenForViewer() lets an internal (OakTend team) account through,
+  // so the team can still walk the signup flow. (The metadata above stays on
+  // the static flag - a title cannot be per-viewer.)
   //
   // The gate lives HERE rather than in page.tsx because that page is a client
   // component and ProsComingSoon is a server component - a "use client" module

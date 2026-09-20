@@ -40,8 +40,7 @@ async function sendBudgetExhausted(contractorId: string): Promise<boolean> {
 export async function sendQuoteAction(formData: FormData) {
   // PREVIEW MODE (guardrail A2): the contractor side is closed, and a "use
   // server" action is a public POST endpoint that the closed shell does not
-  // cover. Any signed-in account passes during preview; anonymous visitors get
-  // the coming-soon door. Constant `true` outside preview. See
+  // cover. Internal accounts pass. Constant `true` outside preview. See
   // src/lib/previewModeServer.ts.
   await assertProSideOpen();
 

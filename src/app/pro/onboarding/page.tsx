@@ -19,9 +19,8 @@ export default async function ProOnboardingPage(
 ) {
   const searchParams = await props.searchParams;
 
-  // PREVIEW MODE: any signed-in account may build a company while the
-  // contractor side is closed; anonymous visitors get the coming-soon door
-  // (src/lib/previewMode.ts). A second
+  // PREVIEW MODE: nobody but an OakTend internal account may build a company
+  // while the contractor side is closed (src/lib/previewMode.ts). A second
   // gate on top of the pro shell's, which already replaces this whole subtree
   // for a blocked viewer (src/app/pro/layout.tsx) - kept because this page is
   // the one /pro route that is reachable with NO contractors row, which is the

@@ -9,6 +9,7 @@
 import "server-only";
 import { redirect } from "next/navigation";
 import { getVerifiedUser } from "@/lib/auth";
+import { isInternalUser } from "@/lib/internalAccounts";
 import { setFlash } from "@/lib/flash";
 import { landingFor, type Sides } from "@/lib/contractor";
 import {
@@ -24,18 +25,27 @@ import {
 // deploy. That is what keeps C4 ("flag off = byte-identical behaviour") true
 // for every pro action this guards.
 //
-// Inside preview the pro side is closed to the PUBLIC - an anonymous visitor
-// gets the coming-soon door and the waitlist - but open to any signed-in
-// account, so the team and our testers can use it without anyone having to be
-// flagged internal first. The is_internal carve-out this used to require
-// (migration 0165) turned every new tester into a database chore; the door the
-// lawyer review actually cares about is the one facing the public, and that
-// one stays shut.
+// Inside preview it is true only for an OakTend team / test account
+// (users.is_internal, migration 0165, read through src/lib/internalAccounts.ts).
+// The team has to be able to walk the whole contractor flow end to end while
+// the public side is shut.
 //
-// FAILS CLOSED: no session, or a session we cannot verify, means `false` means
-// blocked. The cost of a false block is a signed-in tester signing in again;
-// the cost of a false pass is a member of the public walking into a product we
-// have told the lawyer is closed.
+// From 2026-09-16 to 2026-09-19 this let ANY signed-in account through, to
+// spare testers the internal flag. That was a hole, not a convenience:
+// homeowner signup is open to the public, so anyone could make a homeowner
+// account, use "Switch to your business", and walk into the pro side we have
+// told the lawyer is closed. A tester who needs the pro side gets flagged
+// (docs/INTERNAL-ACCOUNTS.md); do not reopen this to "signed in".
+//
+// FAILS CLOSED, and that is the opposite posture from isInternalUser()'s own
+// callers. isInternalUser() answers `false` on a missing column, a read error
+// or a thrown client, because ITS other callers are best-effort display
+// filters where "nobody is internal" is today's behaviour. Here, `false` means
+// "not internal" means "blocked", so the same failure keeps a real pro out
+// rather than letting one in. That is the direction this gate must fail: the
+// cost of a false block is an OakTend employee waiting for a database blip to
+// pass; the cost of a false pass is a real contractor signing up into a
+// product we have told the lawyer is closed.
 //
 // getVerifiedUser(), not getUser(): getUser() reads the id straight off the
 // session cookie, and this decides whether the pro side opens. Both are
@@ -44,7 +54,8 @@ import {
 export async function isProSideOpenForViewer(): Promise<boolean> {
   if (!isHomeownerPreview()) return true;
   const user = await getVerifiedUser();
-  return Boolean(user);
+  if (!user) return false;
+  return isInternalUser(user.id);
 }
 
 // Server-action guard. Call it as the FIRST statement of any pro-side action

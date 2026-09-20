@@ -53,8 +53,7 @@ export default async function ProLayout({
   // the lawyer review lands, so this shell - and with it every /pro route,
   // including /pro/onboarding, which is why the check sits ABOVE the
   // no-company branch rather than inside the one below - is replaced by the
-  // shared coming-soon page for anonymous visitors. Any signed-in account
-  // passes during preview, so the team and our testers need no flag first.
+  // shared coming-soon page for everyone except an OakTend internal account.
   //
   // ONE RENDER, NOT TWO. Returning here instead of inside either branch is
   // what stops a blocked viewer getting the bare shell's header stacked on top
@@ -69,9 +68,10 @@ export default async function ProLayout({
   // isProSideOpenForViewer() short-circuits to `true` on the flag before it
   // reads anything, so outside preview this line costs a string comparison and
   // the shell is byte-identical to what it was. Inside preview it FAILS
-  // CLOSED - a session it cannot verify reads as signed out, which keeps a
-  // viewer at the coming-soon door rather than letting one in; see its own
-  // comment for why that is the right direction here.
+  // CLOSED - a database blip answers "not internal", which keeps a real pro
+  // out rather than letting one in; see its own comment for why that is the
+  // right direction here and the wrong one for isInternalUser()'s other
+  // callers.
   //
   // homeownerHref/hasHome: the sides lookup above already says whether this
   // account owns a home, and without handing that to the page a pro who ALSO
