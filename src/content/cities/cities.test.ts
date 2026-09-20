@@ -41,6 +41,9 @@ function stringsIn(value: unknown, acc: string[] = []): string[] {
 function everySourceUrl(city: CityContent): string[] {
   return [
     city.population.sourceUrl,
+    ...(city.homes.medianYearBuiltSource
+      ? [city.homes.medianYearBuiltSource.sourceUrl]
+      : []),
     ...city.homes.facts.map((f) => f.sourceUrl),
     city.neighborhoods.sourceUrl,
     city.water.utilityUrl,
@@ -50,6 +53,35 @@ function everySourceUrl(city: CityContent): string[] {
     ...city.hazards.map((h) => h.sourceUrl),
   ];
 }
+
+// Wording a researched city page must never carry. Two families:
+//
+// 1. PROMISES ABOUT OAKTEND PROS. The pro network is closed while the site runs
+//    in homeowner preview, and the city content is plain data that does not
+//    know which mode it renders in, so it may not promise pros, quotes, bids,
+//    matching or hiring through OakTend in either mode. The first pattern stops
+//    at a full stop so "OakTend covers all of Orange County. ... a licensed
+//    plumber pulls the permit" does not trip it.
+// 2. CLAIMS A REVIEW ALREADY CAUGHT ONCE. "No marine layer" is false anywhere
+//    in Orange County (inland cities get less of it, not none), and "one of
+//    three" / "one of the few" was the shape of two false rarity claims about
+//    city-run water utilities.
+const BANNED_PATTERNS: { pattern: RegExp; why: string }[] = [
+  {
+    pattern: /OakTend[^.]*\b(pros?|quotes?|bids?|match|hire)\b/i,
+    why: "promises an OakTend pro, quote, bid, match or hire",
+  },
+  { pattern: /pay to apply/i, why: "describes the closed pro program" },
+  {
+    pattern: /license-checked pros apply/i,
+    why: "describes the closed pro program",
+  },
+  { pattern: /no marine layer/i, why: "false: inland gets less, not none" },
+  {
+    pattern: /one of (three|the few)/i,
+    why: "rarity claim of the kind a review found false twice",
+  },
+];
 
 function guideDir(href: string): string {
   return fileURLToPath(new URL(`../../app${href}`, import.meta.url));
@@ -154,6 +186,31 @@ describe.each(entries)("%s content", (key, city) => {
       // contain the character it bans.
       expect(text.includes("\u2014"), `em dash in: ${text}`).toBe(false);
     }
+  });
+
+  it("makes no OakTend pro promise and repeats no claim a review struck", () => {
+    for (const text of stringsIn(city)) {
+      for (const { pattern, why } of BANNED_PATTERNS) {
+        expect(pattern.test(text), `${why}: ${text}`).toBe(false);
+      }
+    }
+  });
+
+  it("labels a median year built with where it came from, over https", () => {
+    const source = city.homes.medianYearBuiltSource;
+    if (!source) return;
+    expect(city.homes.medianYearBuilt).toBeTruthy();
+    expect(source.sourceUrl.startsWith("https://")).toBe(true);
+    expect(source.sourceLabel.trim().length).toBeGreaterThan(0);
+  });
+
+  it("does not call a Census Reporter link the U.S. Census Bureau", () => {
+    // The component falls back to "U.S. Census Bureau" when no label is set,
+    // which is only truthful for a census.gov URL.
+    if (city.population.sourceLabel) return;
+    expect(new URL(city.population.sourceUrl).hostname).toMatch(
+      /(^|\.)census\.gov$/,
+    );
   });
 
   it("records when it was last checked", () => {

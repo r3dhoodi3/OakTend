@@ -13,12 +13,41 @@ import type { CityContent } from "./types";
 //
 // Anaheim Hills is NOT broken out in any Census or housing-element source, so
 // the citywide median year built is presented as the blend it is.
+//
+// FACT CHECK 2026-09-19. Five things changed after a review:
+// 1. "One of three Orange County cities that run their own water utility" was
+//    false (many do) and is gone. What is true, per Metropolitan's own member
+//    agency list (https://www.mwdh2o.com/member-agencies/), is that Anaheim,
+//    Fullerton and Santa Ana are the three Orange County member cities; the
+//    page does not need the claim, so it simply is not made.
+// 2. "The hardest water on any of these city pages" is gone: the Irvine figure
+//    it was compared against was a misread, and Tustin's page reports a higher
+//    groundwater average than Anaheim's 351 ppm. The 351 / 278 / 131 ppm row
+//    (21 / 16 / 7.7 grains, range 81 to 431 ppm) was re-read in the city's
+//    2024 Water Quality Report PDF and stands.
+// 3. The 2020 Blue Ridge fire is out of the fire history: Cal Fire's incident
+//    record places it north of the 91 in the Yorba Linda and Chino Hills area.
+//    The 2008 Freeway Complex stays, per OCFA's after action report (embers
+//    crossed the 91 into Anaheim Hills; the City of Anaheim lost or had damage
+//    to 25 single-family homes and 60 apartment units):
+//    https://web.archive.org/web/20160623020722/http://www.ocfamedia.org/_uploads/PDF/fcfaar.pdf
+//    The 2017 Canyon Fire 2 stays, per Cal Fire's incident record (started off
+//    East Santa Ana Canyon Road west of Gypsum Canyon, unified command with
+//    Anaheim City): https://www.fire.ca.gov/incidents/2017/10/9/canyon-2-fire
+// 4. "No marine-layer moderation" became "less marine-layer cooling than the
+//    coast", which is the claim the geography actually supports.
+// 5. Two other "one of the few" phrasings went with the new test sweep: the
+//    panel guide blurb now says "one of only three permit types" (the permits
+//    card already sources the three), and the wildfire FAQ no longer ranks
+//    Anaheim against other cities, which no source here supported.
+// The median year built now carries its own source (ACS 2024 one-year table
+// B25035 via Census Reporter, which returns 1973 for Anaheim).
 
 export const anaheim: CityContent = {
   name: "Anaheim",
   slug: "anaheim",
   intro:
-    "Anaheim is really two maintenance cities under one name. West and central Anaheim is flat, dense and old, with about a quarter of its homes built before 1960 and a citywide median build year of 1973, while Anaheim Hills is hillside and canyon, master-planned from 1971 onward, and the only part of the city with mapped Very High fire hazard land. The city also runs its own water utility, and its groundwater is the hardest water on any of these city pages, averaging about 21 grains per gallon in the city's own testing.",
+    "Anaheim is really two maintenance cities under one name. West and central Anaheim is flat, dense and old, with about a quarter of its homes built before 1960 and a citywide median build year of 1973, while Anaheim Hills is hillside and canyon, master-planned from 1971 onward, and the only part of the city with mapped Very High fire hazard land. The city also runs its own water utility, and its groundwater is very hard, averaging about 21 grains per gallon in the city's own testing.",
   metaDescription:
     "Anaheim is two cities: older flat tracts west and central, and Anaheim Hills in a Very High fire hazard zone. Water, permits, sources.",
 
@@ -32,6 +61,11 @@ export const anaheim: CityContent = {
   homes: {
     exposure: "foothill",
     medianYearBuilt: "1973",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0602000",
+      sourceLabel: "Census Reporter, ACS 2024 table B25035",
+    },
     facts: [
       {
         text: "Anaheim's median year built is 1973, and the shares behind that number are what matter: of about 113,613 housing units, roughly 25.3 percent predate 1960, about 40.1 percent went up between 1960 and 1979, and only about 17.3 percent date from 2000 or later. Two thirds of the city's homes are older than 1980, which puts panels, sewer laterals and original plumbing squarely on the agenda.",
@@ -46,7 +80,7 @@ export const anaheim: CityContent = {
         sourceLabel: "Wikipedia, Anaheim Hills",
       },
       {
-        text: "Anaheim sits inland with no marine-layer moderation, and the city's own planning documents put its historical average annual maximum temperature near 76 degrees, projected toward 80 by 2064, on about 14 inches of rain a year. Heat load on roofing, attic ventilation and HVAC capacity is the seasonal problem here; freeze protection is not.",
+        text: "Anaheim sits inland and gets less marine-layer cooling than the coast, and the city's own planning documents put its historical average annual maximum temperature near 76 degrees, projected toward 80 by 2064, on about 14 inches of rain a year. Heat load on roofing, attic ventilation and HVAC capacity is the seasonal problem here; freeze protection is not.",
         sourceUrl: "https://anaheim.net/DocumentCenter/View/58325/Ch_05-18_WF",
         sourceLabel: "City of Anaheim General Plan PEIR",
       },
@@ -71,7 +105,7 @@ export const anaheim: CityContent = {
     utilityUrl:
       "https://www.anaheim.net/DocumentCenter/View/54599/2024-Water-Quality-Report",
     summary:
-      "Anaheim runs its own water utility, one of three Orange County cities that do. The supply blends local groundwater from the Orange County basin with imported water from the State Water Project and the Colorado River, and the mix is shifting back toward groundwater as the utility brings PFAS treatment capacity back online. Hardness depends on which of those reaches your address: the city's own testing averaged 351 ppm for groundwater, about 21 grains per gallon, 278 ppm for water treated at the Lenain plant, and 131 ppm for Metropolitan water, with detections across the system ranging from 81 to 431 ppm.",
+      "Anaheim runs its own water utility, Anaheim Public Utilities. The supply blends local groundwater from the Orange County basin with imported water from the State Water Project and the Colorado River, and the mix is shifting back toward groundwater as the utility brings PFAS treatment capacity back online. Hardness depends on which of those reaches your address: the city's own testing averaged 351 ppm for groundwater, about 21 grains per gallon, 278 ppm for water treated at the Lenain plant, and 131 ppm for Metropolitan water, with detections across the system ranging from 81 to 431 ppm.",
     sourceUrl:
       "https://www.anaheim.net/DocumentCenter/View/54599/2024-Water-Quality-Report",
   },
@@ -124,7 +158,7 @@ export const anaheim: CityContent = {
       href: "/guides/electrical-panel-upgrade-cost",
       title: "Electrical panel upgrade cost",
       blurb:
-        "The common big-ticket item in a pre-1980 home, and one of the few permits Anaheim issues online.",
+        "The common big-ticket item in a pre-1980 home, and one of only three permit types Anaheim issues fully online.",
     },
     {
       href: "/guides/hvac-replacement-cost",
@@ -145,7 +179,7 @@ export const anaheim: CityContent = {
   faq: [
     {
       q: "Is my Anaheim home in a wildfire hazard zone?",
-      a: "It depends which side of the city you are on, and this is one of the few Orange County cities where the answer is genuinely yes for part of it. The city's own adopted map puts Very High Fire Hazard Severity Zone land in Anaheim Hills and the unincorporated area east of it, while central and western Anaheim sit outside any mapped zone. Anaheim Hills also has a long documented fire history, including the 2008 Freeway Complex, the 2017 Canyon fires and the 2020 Blue Ridge fire. Confirm your own parcel on the city's fire hazard page rather than going by area reputation.",
+      a: "It depends which side of the city you are on, and for part of Anaheim the answer is genuinely yes. The city's own adopted map puts Very High Fire Hazard Severity Zone land in Anaheim Hills and the unincorporated area east of it, while central and western Anaheim sit outside any mapped zone. Anaheim Hills also has a long documented fire history, including the 2008 Freeway Complex fire, which crossed the 91 into Anaheim Hills and damaged or destroyed homes and apartments there, and the 2017 Canyon Fire 2. Confirm your own parcel on the city's fire hazard page rather than going by area reputation.",
     },
     {
       q: "Does a house in the Anaheim Hills fire zone need different roofing or vents?",
@@ -153,7 +187,7 @@ export const anaheim: CityContent = {
     },
     {
       q: "Is Anaheim's water hard?",
-      a: "Yes, and it is the hardest water on any of our city pages. Anaheim Public Utilities' own testing averaged about 351 ppm, roughly 21 grains per gallon, for local groundwater, about 278 ppm for water treated at the Lenain plant and about 131 ppm for Metropolitan imported water, with detections ranging from 81 to 431 ppm depending on the blend reaching an address. As the utility shifts back toward groundwater, expect many addresses to sit at the higher end. Annual water heater flushing earns its hour here.",
+      a: "Yes, very. Anaheim Public Utilities' own testing averaged about 351 ppm, roughly 21 grains per gallon, for local groundwater, about 278 ppm for water treated at the Lenain plant and about 131 ppm for Metropolitan imported water, with detections ranging from 81 to 431 ppm depending on the blend reaching an address. As the utility shifts back toward groundwater, expect many addresses to sit at the higher end. Annual water heater flushing earns its hour here.",
     },
     {
       q: "Do I need a permit to replace my water heater in Anaheim?",

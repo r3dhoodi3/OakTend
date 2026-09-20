@@ -27,20 +27,29 @@ import type { CityContent } from "./types";
 // FEMA-approved Hazard Mitigation Plan, which maps significant liquefaction
 // susceptibility across most of the city and does not rank wildfire as a
 // significant hazard for Santa Ana at all.
+//
+// FACT CHECK 2026-09-19. "One of the few in the county that does" came off the
+// city-run water utility line: many Orange County cities run their own retail
+// water system, so the comparison was false. The meta description now hedges
+// the housing-age claim the way the intro already did ("some of the oldest"),
+// and "no marine layer to take the edge off" became "less marine-layer cooling
+// than the coast", which is what ten miles inland actually means. The
+// population line now names Census Reporter, which is what it links to.
 
 export const santaAna: CityContent = {
   name: "Santa Ana",
   slug: "santa-ana",
   intro:
-    "Santa Ana has some of the oldest housing stock of any large Orange County city: about a third of its homes predate 1960, roughly 80 percent went up before 1980, and only about 4.2 percent date from 2000 or later. That age shows up in predictable places, including electrical panels sized for a 1960s household, sewer laterals well into their service life, and water heaters already on their second or third replacement. The city also runs its own water utility, one of the few in the county that does, and the water is hard enough that scale is simply part of the maintenance calendar here.",
+    "Santa Ana has some of the oldest housing stock of any large Orange County city: about a third of its homes predate 1960, roughly 80 percent went up before 1980, and only about 4.2 percent date from 2000 or later. That age shows up in predictable places, including electrical panels sized for a 1960s household, sewer laterals well into their service life, and water heaters already on their second or third replacement. The city also runs its own water utility, and the water is hard enough that scale is simply part of the maintenance calendar here.",
   metaDescription:
-    "Santa Ana has Orange County's oldest big-city housing, most of it built before 1980. Panels, sewer laterals, hard city water, and city permits.",
+    "Santa Ana has some of Orange County's oldest big-city housing, most built before 1980. Panels, sewer laterals, hard city water, and city permits.",
 
   population: {
     value: "About 310,000 to 316,000 people",
     asOf: "the 2020 Census counted 310,227; recent ACS estimates run near 316,200",
     sourceUrl:
       "https://censusreporter.org/profiles/16000US0669000-santa-ana-ca/",
+    sourceLabel: "Census Reporter, U.S. Census Bureau data",
   },
 
   homes: {
@@ -59,7 +68,7 @@ export const santaAna: CityContent = {
         sourceLabel: "SCAG housing-age breakdown for Santa Ana",
       },
       {
-        text: "Santa Ana sits roughly ten miles inland with no marine layer to take the edge off, summer highs averaging about 84 degrees, and a locally defined extreme heat day of anything above 96.3 degrees. The city's own planning work projects those days climbing from a historical handful a year to an average of 11 by mid-century and 25 by the end of it, which is an argument for attic ventilation and roof condition rather than for freeze protection.",
+        text: "Santa Ana sits roughly ten miles inland, where there is less marine-layer cooling than the coast gets, with summer highs averaging about 84 degrees and a locally defined extreme heat day of anything above 96.3 degrees. The city's own planning work projects those days climbing from a historical handful a year to an average of 11 by mid-century and 25 by the end of it, which is an argument for attic ventilation and roof condition rather than for freeze protection.",
         sourceUrl:
           "https://storage.googleapis.com/proudcity/santaanaca/uploads/2022/03/City-of-Santa-Ana-HMP-10.11.2022.pdf",
         sourceLabel: "City of Santa Ana Hazard Mitigation Plan, 2022",

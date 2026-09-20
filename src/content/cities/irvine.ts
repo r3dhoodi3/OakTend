@@ -26,6 +26,22 @@ import type { CityContent } from "./types";
 // only number this page states. The wildfire line lost its "minimal" framing
 // for the same reason: no city-adopted map was available, so the page asks
 // the reader to look their own parcel up instead of characterizing the city.
+//
+// FACT CHECK 2026-09-19. The "about 343 ppm, roughly 20 grains per gallon"
+// groundwater figure is gone. It was a misread: in the text layer of IRWD's
+// report, 343 sits on the Total Dissolved Solids row, not the hardness row,
+// and the hardness columns could not be matched to their sources with any
+// confidence from that layer. IRWD's own water quality page says it in words
+// instead: water with 10 grains or more is generally considered hard, imported
+// Colorado River and Northern California water is typically hard, IRWD's well
+// water is moderately hard, and the former Santiago County Water District
+// sources are also hard. The page now says that and sends the reader to the
+// report for a number. Source: https://www.irwd.com/learn/water-quality-report/
+// Also: "average" build year became "median" (it is table B25035, a median),
+// the Mello-Roos lines lost "from the 1980s onward" and "built after 1988"
+// (neither was sourced; the 1982 Act date on the county page is), and the
+// phone number is labelled the way the city's page labels it, as the Building
+// Permits and Inspections contact number, not a "Permit Processing Center".
 
 export const irvine: CityContent = {
   name: "Irvine",
@@ -33,18 +49,24 @@ export const irvine: CityContent = {
   intro:
     "Irvine's median home was built in 2002, the newest large-city housing stock in Orange County, and that changes what maintenance here actually looks like. Most Irvine homes are not fighting failing drains or undersized panels; they are reaching the first replacement of an original water heater, furnace, or roof, often a whole village at a time because the village went up in one stretch. Add architectural review in most villages and a permit system that has just moved to a new portal, and the real questions here are usually timing and approvals rather than whether something is about to fail.",
   metaDescription:
-    "Irvine homes average a 2002 build year. What that means for water heaters, HOA approvals, Irvine Ranch Water District water, and city permits.",
+    "Irvine's median home was built in 2002. What that means for water heaters, HOA approvals, Irvine Ranch Water District water, and city permits.",
 
   population: {
     value: "About 318,693 people",
     asOf: "ACS 2024 one-year estimate; the 2020 Census counted 307,670",
     sourceUrl:
       "https://censusreporter.org/profiles/16000US0636770-irvine-ca/",
+    sourceLabel: "Census Reporter, U.S. Census Bureau data",
   },
 
   homes: {
     exposure: "inland",
     medianYearBuilt: "2002",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0636770",
+      sourceLabel: "Census Reporter, ACS 2024 table B25035",
+    },
     facts: [
       {
         text: "Irvine's median year built is 2002, the newest housing stock of any large Orange County city, and about 53.9 percent of its 121,814 housing units went up in 2000 or later. Most homes here are still on their original roof, water heater, and HVAC equipment rather than a second or third replacement, so the spending curve is about to steepen rather than having already peaked.",
@@ -85,21 +107,22 @@ export const irvine: CityContent = {
     utility: "Irvine Ranch Water District",
     utilityUrl: "https://www.irwd.com/about-us",
     summary:
-      "Irvine Ranch Water District serves all of Irvine plus parts of Lake Forest, Newport Beach, Tustin, Costa Mesa and Orange, about 181 square miles and roughly 450,000 residents, on a blend of local groundwater and water imported from Metropolitan. The water is hard: the district's current report puts local groundwater at about 343 ppm, roughly 20 grains per gallon. We are not printing an imported-water number, because two reads of that same report table did not agree on it; if you need a precise figure to size a softener, pull the current report from IRWD directly.",
-    sourceUrl: "https://publications.irwd.com/view/967451735/",
+      "Irvine Ranch Water District serves all of Irvine plus parts of Lake Forest, Newport Beach, Tustin, Costa Mesa and Orange, about 181 square miles and roughly 450,000 residents, on a blend of local groundwater and water imported from Metropolitan. How hard it is depends on the source and the season: the district says its well water is moderately hard, while imported Colorado River and Northern California water is typically hard, with 10 grains per gallon as the usual line for hard. We are not printing a number, because we could not read the hardness rows of the district's report table reliably; if you need a precise figure to size a softener, pull the current water quality report from IRWD directly. IRWD also discourages self-regenerating salt softeners, because it recycles its wastewater.",
+    sourceUrl: "https://www.irwd.com/learn/water-quality-report/",
+    sourceLabel: "IRWD water quality report page",
   },
 
   permits: {
     office: "City of Irvine Building Permits and Inspections",
     portalUrl: "https://cityofirvine.gov/building-permits-and-inspections",
     summary:
-      "Irvine moved new online applications onto PermitsDIRECT!, powered by Symbium, which replaced the legacy Irvine Permits site; the older system still handles plan-check inquiries, permit inquiries and inspection requests. Same-day permits are available for eligible permit types filed through PermitsDIRECT!. Whether a water heater or HVAC changeout is one of those eligible types is not spelled out on any city page we could reach, so plan on pulling a permit and call the Permit Processing Center at 949-724-6470 to confirm which track it takes.",
+      "Irvine moved new online applications onto PermitsDIRECT!, powered by Symbium, which replaced the legacy Irvine Permits site; the older system still handles plan-check inquiries, permit inquiries and inspection requests. Same-day permits are available for eligible permit types filed through PermitsDIRECT!. Whether a water heater or HVAC changeout is one of those eligible types is not spelled out on any city page we could reach, so plan on pulling a permit and call the city's Building Permits and Inspections line at 949-724-6470 to confirm which track it takes.",
     sourceUrl: "https://cityofirvine.gov/building-permits-and-inspections",
   },
 
   hazards: [
     {
-      text: "Homeowners in Irvine villages developed from the 1980s onward, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, may be subject to a Mello-Roos special tax. There is no citywide yes or no and no sourced citywide percentage; it is a parcel-level answer, and the county Treasurer-Tax Collector's lookup is where you get it for your own address.",
+      text: "Homeowners in Irvine's newer villages, the ones developed after the 1982 state law that created Mello-Roos districts, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, may be subject to a Mello-Roos special tax. There is no citywide yes or no and no sourced citywide percentage; it is a parcel-level answer, and the county Treasurer-Tax Collector's lookup is where you get it for your own address.",
       sourceUrl: "https://octreasurer.gov/melloroos",
       sourceLabel: "OC Treasurer-Tax Collector",
     },
@@ -148,15 +171,15 @@ export const irvine: CityContent = {
   faq: [
     {
       q: "Do I need a permit to replace a water heater in Irvine?",
-      a: "Plan on yes. Water heater and HVAC replacement is code-regulated mechanical work that needs a permit essentially everywhere in California, and Irvine's building division handles exactly that kind of work through PermitsDIRECT!. Some permit types there are issued same day, but no city page we could reach says a water heater is one of them, so we are not going to promise you the fast lane. A licensed plumber normally pulls the permit as part of the job; the Permit Processing Center at 949-724-6470 will confirm the type and fee before you start.",
+      a: "Plan on yes. Water heater and HVAC replacement is code-regulated mechanical work that needs a permit essentially everywhere in California, and Irvine's building division handles exactly that kind of work through PermitsDIRECT!. Some permit types there are issued same day, but no city page we could reach says a water heater is one of them, so we are not going to promise you the fast lane. A licensed plumber normally pulls the permit as part of the job; the city's Building Permits and Inspections line at 949-724-6470 will confirm the type and fee before you start.",
     },
     {
       q: "Is Irvine's water hard?",
-      a: "Yes. Irvine Ranch Water District's current report puts local groundwater at about 343 ppm, roughly 20 grains per gallon, which is hard, so scale in water heaters, valves and fixtures is a normal maintenance item here. We are deliberately not quoting an imported-water number: two reads of the same report table came back with different figures for it, and a softener sized off a number we cannot confirm is worse than no number. Pull the current report from IRWD if you need the precise value.",
+      a: "It depends on the source and the season. Irvine Ranch Water District's own answer is yes and no: it says its well water is moderately hard, imported Colorado River and Northern California water is typically hard, and water at 10 grains per gallon or more is generally considered hard. The blend reaching an address shifts during the year, so some scale in water heaters, valves and fixtures is a normal maintenance item here. We are deliberately not quoting a number: we could not read the hardness rows of the district's report reliably, and a softener sized off a number we cannot confirm is worse than no number. Pull the current water quality report from IRWD if you need the precise value.",
     },
     {
       q: "Does my Irvine home pay Mello-Roos?",
-      a: "Some do and some do not, and it is decided by parcel rather than by city. Irvine's newer villages built after 1988, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, commonly sit in an active Community Facilities District, while older villages such as Woodbridge or Northwood generally do not. The Orange County Treasurer-Tax Collector's Mello-Roos lookup answers it for a specific address; anyone quoting you a flat citywide answer is guessing.",
+      a: "Some do and some do not, and it is decided by parcel rather than by city. Irvine's newer villages, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, commonly sit in an active Community Facilities District, while older villages such as Woodbridge or Northwood generally do not. The Orange County Treasurer-Tax Collector's Mello-Roos lookup answers it for a specific address; anyone quoting you a flat citywide answer is guessing.",
     },
     {
       q: "Do I need HOA approval before replacing my roof in Irvine?",

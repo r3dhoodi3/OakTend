@@ -22,6 +22,16 @@ import type { CityContent } from "./types";
 // near 154 to 205 ppm, not 161 to 278; and the Fire Department says the city
 // DOES have Moderate and High fire hazard severity zone area, which the draft
 // had written off as minimal to none.
+//
+// FACT CHECK 2026-09-19. The FAQ gave 714-536-5511 as the Building Division's
+// number; that is the City Hall main line printed in the footer of every city
+// page. The Building and Inspections page gives its general office number as
+// (714) 536-5241, for questions about when a permit is or is not required:
+// https://www.huntingtonbeachca.gov/departments/community_development/building_inspection/index.php
+// (The Permit Center, a separate counter, lists 714-536-5271.) Also: "average"
+// build year became "median" in the meta description, since the figure is
+// table B25035, and the population line now names Census Reporter, which is
+// what it links to.
 
 export const huntingtonBeach: CityContent = {
   name: "Huntington Beach",
@@ -29,18 +39,24 @@ export const huntingtonBeach: CityContent = {
   intro:
     "Huntington Beach's median home was built in 1972, so the typical house here is a postwar tract home past fifty, and it is doing that aging within a couple of miles of salt air. Coastal exposure is the difference that matters: paint, metal fixtures, roof flashing and outdoor HVAC equipment wear faster near the water than the same parts would inland. The city also runs its own water utility rather than buying through a wholesaler, and that water is hard, which quietly shortens the life of water heaters and fixtures across the whole city.",
   metaDescription:
-    "Huntington Beach homes average a 1972 build year, on the coast. Salt-air wear, hard city water, the HB permit portal, and guides that fit.",
+    "Huntington Beach's median home was built in 1972, on the coast. Salt-air wear, hard city water, the HB permit portal, and guides that fit.",
 
   population: {
     value: "About 193,000 to 193,200 people",
     asOf: "2024 vintage estimates; the 2020 Census counted 198,711",
     sourceUrl:
       "https://censusreporter.org/profiles/16000US0636000-huntington-beach-ca/",
+    sourceLabel: "Census Reporter, U.S. Census Bureau data",
   },
 
   homes: {
     exposure: "coastal",
     medianYearBuilt: "1972",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0636000",
+      sourceLabel: "Census Reporter, ACS 2024 table B25035",
+    },
     facts: [
       {
         text: "Huntington Beach's median year built is 1972, roughly a generation older than Irvine's housing stock, and about two thirds of the city's 82,014 housing units went up between 1960 and 1979. A home of that vintage is typically on its second water heater, its first or second roof, and an electrical panel that was sized for a 1970s household rather than a modern one.",
@@ -150,7 +166,7 @@ export const huntingtonBeach: CityContent = {
   faq: [
     {
       q: "Do I need a permit to replace a water heater in Huntington Beach?",
-      a: "Plan on it, and confirm before you start. Water heater replacement and HVAC changeouts both appear as permit categories in the city's Accela building module, but we could not find a Huntington Beach page that states the requirement in plain words, so we are not going to claim the city says something it may not. The Building Division answers this directly at 714-536-5511, and the application goes through the HB ACA portal. Do the portal work on a desktop browser, since mobile Safari and mobile Firefox are not well supported there.",
+      a: "Plan on it, and confirm before you start. Water heater replacement and HVAC changeouts both appear as permit categories in the city's Accela building module, but we could not find a Huntington Beach page that states the requirement in plain words, so we are not going to claim the city says something it may not. The Building and Inspections office answers this directly at 714-536-5241, and the application goes through the HB ACA portal. Do the portal work on a desktop browser, since mobile Safari and mobile Firefox are not well supported there.",
     },
     {
       q: "Is Huntington Beach's water hard?",

@@ -11,9 +11,21 @@ import type { CityContent } from "./types";
 // 1. NEIGHBORHOODS. The commonly quoted Mission Viejo community names come
 //    from real-estate marketing, not the city or Census. Only the two with a
 //    documented history are named, and the note says so.
-// 2. WATER HARDNESS. Two districts serve the city and neither district's own
-//    report was readable; the only number available came from an aggregator,
-//    so no number is published. The district link goes out instead.
+// 2. WATER HARDNESS. Three districts serve the city and no district's own
+//    report was read for this page; the only number available came from an
+//    aggregator, so no number is published. The city's own list of districts
+//    goes out instead.
+//
+// FACT CHECK 2026-09-19. The page said two water districts; the city says
+// three. Its water conservation page reads "Santa Margarita Water District,
+// Moulton Niguel Water District, and El Toro Water District supply the water
+// to Mission Viejo residents":
+// https://www.missionviejo.gov/departments/public-works/water-conservation
+// (The city's general utilities directory also lists Trabuco Canyon Water
+// District under Water, but the sentence above is the city's explicit answer
+// to "what water district serves my area", so the page follows it.) The water
+// card used to label a district homepage "Water quality report"; it now links
+// the city's pages and labels them as what they are.
 
 export const missionViejo: CityContent = {
   name: "Mission Viejo",
@@ -28,11 +40,17 @@ export const missionViejo: CityContent = {
     asOf: "2024 ACS estimate and the 2020 Census count",
     sourceUrl:
       "https://censusreporter.org/profiles/16000US0648256-mission-viejo-ca/",
+    sourceLabel: "Census Reporter, U.S. Census Bureau data",
   },
 
   homes: {
     exposure: "inland",
     medianYearBuilt: "1979",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0648256",
+      sourceLabel: "Census Reporter, ACS 2024 table B25035",
+    },
     facts: [
       {
         text: "Mission Viejo's median year built is 1979, and the distribution behind it is unusually tight: of 34,794 housing units, about 2.3 percent predate 1960, 52.3 percent went up between 1960 and 1979, 39.0 percent between 1980 and 1999, and only 6.4 percent in 2000 or later. Over 90 percent of the city was built inside a 40-year window, which is why neighbors hit the same replacements in the same years.",
@@ -46,10 +64,10 @@ export const missionViejo: CityContent = {
         sourceLabel: "Wikipedia, Mission Viejo history",
       },
       {
-        text: "There is no single citywide water utility here. Santa Margarita Water District serves part of Mission Viejo as part of its South Orange County area, and Moulton Niguel Water District serves other parts, so the report that actually describes your tap water depends on which side of the district line your address falls on.",
+        text: "There is no single citywide water utility here. The city names three districts that supply water to Mission Viejo residents: Santa Margarita Water District, Moulton Niguel Water District and El Toro Water District. The report that actually describes your tap water depends on which district's territory your address falls in.",
         sourceUrl:
-          "https://en.wikipedia.org/wiki/Moulton_Niguel_Water_District",
-        sourceLabel: "Wikipedia, Moulton Niguel Water District",
+          "https://www.missionviejo.gov/departments/public-works/water-conservation",
+        sourceLabel: "City of Mission Viejo, water conservation",
       },
     ],
   },
@@ -61,11 +79,14 @@ export const missionViejo: CityContent = {
   },
 
   water: {
-    utility: "Santa Margarita Water District",
-    utilityUrl: "https://www.smwd.com/",
+    utility: "Santa Margarita, Moulton Niguel and El Toro water districts",
+    utilityUrl:
+      "https://www.missionviejo.gov/services-guides/utilities-and-other-services",
     summary:
-      "Mission Viejo is split between two districts rather than served by one city utility: Santa Margarita Water District covers part of the city and Moulton Niguel Water District covers other parts, and your bill is what tells you which. Water here is hard, as South Orange County water generally is, but we are not going to print a citywide number: each district's own report lists hardness, and that report, for the district that serves your address, is the figure to size a softener against.",
-    sourceUrl: "https://www.smwd.com/",
+      "Mission Viejo is split among three districts rather than served by one city utility: the city says Santa Margarita Water District, Moulton Niguel Water District and El Toro Water District supply its residents, and your bill is what tells you which one is yours. Water here is hard, as South Orange County water generally is, but we are not going to print a citywide number: each district's own report lists hardness, and that report, for the district that serves your address, is the figure to size a softener against.",
+    sourceUrl:
+      "https://www.missionviejo.gov/departments/public-works/water-conservation",
+    sourceLabel: "City of Mission Viejo, water districts",
   },
 
   permits: {
@@ -132,7 +153,7 @@ export const missionViejo: CityContent = {
     },
     {
       q: "Is Mission Viejo's water hard?",
-      a: "Yes, as South Orange County water generally is. We are not printing a citywide number, because two districts serve this city and neither one's own report was available to us; a blended figure from a third-party site is not the number to size a softener against. Find out from your bill whether Santa Margarita Water District or Moulton Niguel Water District serves your address, then read that district's current water quality report.",
+      a: "Yes, as South Orange County water generally is. We are not printing a citywide number, because three districts serve this city and we have not read each one's own report; a blended figure from a third-party site is not the number to size a softener against. Find out from your bill whether Santa Margarita Water District, Moulton Niguel Water District or El Toro Water District serves your address, then read that district's current water quality report.",
     },
     {
       q: "Does my Mission Viejo home have an HOA?",

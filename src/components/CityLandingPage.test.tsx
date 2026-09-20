@@ -3,6 +3,16 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 
+// The component reads NEXT_PUBLIC_SITE_URL once, at module load, for the
+// breadcrumb JSON-LD, and the snapshots below contain that URL. Pin it BEFORE
+// the component is imported (vi.hoisted runs ahead of the imports) so the
+// snapshots say the same thing on a laptop with no .env, in CI, and on a
+// machine that has the production site URL exported. The value is the
+// component's own fallback, which is what the original snapshot recorded.
+vi.hoisted(() => {
+  process.env.NEXT_PUBLIC_SITE_URL = "http://localhost:3000";
+});
+
 import CityLandingPage, { buildCityFaqJsonLd } from "./CityLandingPage";
 import { huntingtonBeach } from "@/content/cities/huntington-beach";
 import {
@@ -13,13 +23,16 @@ import {
 
 // Two jobs here, and the first one is the important one.
 //
-// 1. THE 28 CITIES THAT HAVE NO CONTENT YET MUST NOT MOVE. The snapshot below
-//    was written by running this file against the component as it stood on
-//    main BEFORE the content prop existed (breadcrumb trail and BreadcrumbList
-//    included), so it is a record of what /oc/<city> shipped. Any change to
-//    this component that alters the no-content render fails here, which is
-//    exactly the tripwire this wave needs: only the 8 researched cities were
-//    meant to change.
+// 1. THE CITIES THAT HAVE NO CONTENT YET MUST NOT MOVE (21 of the 36 as of
+//    2026-09-19; it was 28 when this file was written). The first snapshot
+//    below was written by running this file against the component as it stood
+//    on main BEFORE the content prop existed (breadcrumb trail and
+//    BreadcrumbList included), so it is a record of what /oc/<city> shipped.
+//    Any change to this component that alters the no-content render fails
+//    here, which is exactly the tripwire every content wave needs: only the
+//    researched cities are meant to change. A second snapshot pins the same
+//    no-content render with homeowner preview mode on, which is the mode the
+//    live site actually runs in.
 //
 // 2. A city WITH content renders the full section set, in order, with its FAQ
 //    marked up so search engines read the same questions a person does.
@@ -40,6 +53,14 @@ const PARAGRAPH =
 describe("CityLandingPage without content", () => {
   it("renders the pre-content-module markup", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
+    const { container } = render(
+      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+    );
+    expect(container.innerHTML).toMatchSnapshot();
+  });
+
+  it("renders the same template with homeowner preview mode on", () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { container } = render(
       <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
     );
@@ -108,6 +129,22 @@ describe("CityLandingPage with content", () => {
     expect(
       screen.getByText(/Median year built:/).closest("p")
     ).toHaveTextContent(huntingtonBeach.homes.medianYearBuilt!);
+    // The population link is labelled as what it links to (Census Reporter
+    // here, not the Census Bureau), and the median year carries its own source.
+    const populationLink = Array.from(container.querySelectorAll("a")).find(
+      (a) => a.getAttribute("href") === huntingtonBeach.population.sourceUrl
+    );
+    expect(populationLink).toHaveTextContent(
+      huntingtonBeach.population.sourceLabel!
+    );
+    const medianLink = Array.from(container.querySelectorAll("a")).find(
+      (a) =>
+        a.getAttribute("href") ===
+        huntingtonBeach.homes.medianYearBuiltSource!.sourceUrl
+    );
+    expect(medianLink).toHaveTextContent(
+      huntingtonBeach.homes.medianYearBuiltSource!.sourceLabel
+    );
     for (const fact of [
       ...huntingtonBeach.homes.facts,
       ...huntingtonBeach.hazards,

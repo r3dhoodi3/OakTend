@@ -11,6 +11,16 @@ import type { CityContent } from "./types";
 // came from a secondary aggregator and could not be checked against the Census
 // table, so the page says "the early 1970s" in prose and does not print a year
 // as if it were a Census number.
+//
+// FACT CHECK 2026-09-19. Two fixes. The fire hazard card cited the Orange
+// County Fire Authority, which does not serve this city: OCFA's member city
+// list (https://ocfa.org/about-us/member-cities/) has no Costa Mesa on it, and
+// the city runs its own department, Costa Mesa Fire & Rescue
+// (https://www.costamesaca.gov/government/departments-and-divisions/fire-rescue).
+// The card now cites the State Fire Marshal's fire hazard severity zone page.
+// And "seven wells" was stale: Mesa Water's 2026 Consumer Confidence Report
+// (2025 data) says the groundwater is pumped "via Mesa Water's nine wells",
+// and that report is now the water source link.
 
 export const costaMesa: CityContent = {
   name: "Costa Mesa",
@@ -65,9 +75,9 @@ export const costaMesa: CityContent = {
     utility: "Mesa Water District",
     utilityUrl: "https://www.mesawater.org/about-us",
     summary:
-      "Mesa Water District serves most of Costa Mesa and says it now delivers 100 percent local groundwater from seven wells in the Orange County basin, buying from Metropolitan only as occasional backup since it finished its reliability facility. The rest of the city sits in Irvine Ranch Water District instead. Hardness differs between the two supplies, and the figures floating around water-softener sales sites are not either district's own, so pull the current number from your district's water quality report before you size anything.",
+      "Mesa Water District serves most of Costa Mesa and says it now delivers 100 percent local groundwater from nine wells in the Orange County basin, buying from Metropolitan only as occasional backup since it finished its reliability facility. The rest of the city sits in Irvine Ranch Water District instead. Hardness differs between the two supplies, and the figures floating around water-softener sales sites are not either district's own, so pull the current number from your district's water quality report before you size anything.",
     sourceUrl:
-      "https://www.mesawater.org/sites/default/files/2021-01/Mesa%20Water%C2%AE%202023%20WQ%20Report%20FINAL_0.pdf",
+      "https://www.mesawater.org/sites/default/files/2026-06/final2026consumerconfidencereport.pdf",
   },
 
   permits: {
@@ -81,9 +91,10 @@ export const costaMesa: CityContent = {
 
   hazards: [
     {
-      text: "The Orange County Fire Authority does not publish a citywide fire hazard answer for Costa Mesa; it sends residents to the state's Fire Hazard Severity Zone viewer for an address-level lookup. That is the honest answer to give here rather than a reassuring citywide sentence: look your own parcel up.",
-      sourceUrl: "https://ocfa.org/residents/fhsz/",
-      sourceLabel: "Orange County Fire Authority",
+      text: "Costa Mesa is protected by its own city department, Costa Mesa Fire & Rescue, not by the Orange County Fire Authority. For fire hazard zoning the source is the State Fire Marshal's Fire Hazard Severity Zone maps, which answer by location rather than by city, and for a locally protected area the state says to contact the local jurisdiction. That is the honest answer to give here rather than a reassuring citywide sentence: look your own parcel up.",
+      sourceUrl:
+        "https://osfm.fire.ca.gov/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones",
+      sourceLabel: "Cal Fire, Office of the State Fire Marshal",
     },
     {
       text: "Mello-Roos districts follow new master-planned construction, and Costa Mesa is an older, essentially built-out city, so the assessments common in newer South County communities are less likely here. It is still decided parcel by parcel: the county Treasurer-Tax Collector's lookup, or the special assessment charges line on your tax bill, is the only real answer for an address.",
@@ -138,7 +149,7 @@ export const costaMesa: CityContent = {
     },
     {
       q: "Who supplies my water in Costa Mesa, and is it hard?",
-      a: "Most of the city is on Mesa Water District, which now draws essentially all of its supply from seven local wells rather than importing. Part of the city falls in Irvine Ranch Water District instead, so check your bill to see which one you are on. Both supplies are hard enough that scale in a water heater is normal here, but for an actual number, read the current water quality report from your own district rather than a citywide estimate.",
+      a: "Most of the city is on Mesa Water District, which now draws essentially all of its supply from nine local wells rather than importing. Part of the city falls in Irvine Ranch Water District instead, so check your bill to see which one you are on. Both supplies are hard enough that scale in a water heater is normal here, but for an actual number, read the current water quality report from your own district rather than a citywide estimate.",
     },
     {
       q: "Is my Costa Mesa home in a fire or flood zone?",

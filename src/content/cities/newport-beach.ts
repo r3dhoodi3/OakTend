@@ -19,6 +19,15 @@ import type { CityContent } from "./types";
 // Bay_Island for the 23 homes and no car access, and Newport_Coast for the
 // 2001 annexation and the IRWD service note. The main Newport Beach article
 // is linked as the entry point to all four.
+//
+// FACT CHECK 2026-09-19. The housing card was attributed to Data USA, an
+// aggregator. It now cites the ACS tables themselves through Census Reporter,
+// with the figures the 2024 one-year release actually shows: B25035 median
+// year built 1979 (plus or minus 3), and B25024 with 44,042 housing units, of
+// which 20,060 are one-unit detached (45.5 percent) and 6,819 are one-unit
+// attached (15.5 percent). The old card said 1978, 45,185 units and 17.5
+// percent "attached duplexes and townhomes"; in B25024 duplexes are their own
+// two-unit row, so the attached share is described as what the table says.
 
 export const newportBeach: CityContent = {
   name: "Newport Beach",
@@ -37,12 +46,18 @@ export const newportBeach: CityContent = {
 
   homes: {
     exposure: "coastal",
-    medianYearBuilt: "1978",
+    medianYearBuilt: "1979",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0651182",
+      sourceLabel: "Census Reporter, ACS 2024 table B25035",
+    },
     facts: [
       {
-        text: "Newport Beach's median year built is 1978, across roughly 45,185 housing units, and only about 45 percent of those are detached single-family homes, with another 17.5 percent attached duplexes and townhomes. A lot of this city is close-set construction on small lots, which makes access and staging a real cost driver on work that would be routine elsewhere.",
-        sourceUrl: "https://datausa.io/profile/geo/newport-beach-ca/",
-        sourceLabel: "Data USA, Census ACS",
+        text: "Newport Beach's median year built is 1979, across roughly 44,000 housing units, and only about 46 percent of those are detached single-family homes, with roughly another 15 percent attached single-family homes such as townhomes. These are survey estimates with real margins of error, but the shape is clear. A lot of this city is close-set construction on small lots, which makes access and staging a real cost driver on work that would be routine elsewhere.",
+        sourceUrl:
+          "https://censusreporter.org/data/table/?table=B25024&geo_ids=16000US0651182",
+        sourceLabel: "Census Reporter, ACS 2024 tables B25024 and B25035",
       },
       {
         text: "For most of the residential city, including the Balboa Peninsula, Balboa Island, Lido Isle and the harbor islands, the distance to open or bay water is close to zero. Newport Coast and the San Joaquin Hills sit above the coast instead and take offshore Santa Ana wind. Those are two different maintenance problems inside one city, and advice written for one does not transfer to the other.",

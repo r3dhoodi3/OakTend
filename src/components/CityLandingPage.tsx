@@ -138,8 +138,8 @@ export function buildCityServiceJsonLd(city: string, siteUrl: string, path: stri
 // by the page files, next to the visible questions it describes: the markup
 // and the words on the page have to say the same thing, and keeping them in
 // one file is how they stay that way. Only emitted when a city actually has
-// content, so the 28 template cities carry no FAQ markup for an FAQ they do
-// not show.
+// content, so the template cities (the ones with no researched entry yet)
+// carry no FAQ markup for an FAQ they do not show.
 export function buildCityFaqJsonLd(content: CityContent) {
   return {
     "@context": "https://schema.org",
@@ -173,7 +173,7 @@ const EXPOSURE_SENTENCE: Record<CityExposure, (city: string) => string> = {
   inland: (city) =>
     `${city} is inland with no direct salt-air exposure, which means hotter summer afternoons and more Santa Ana wind than the coastal cities get, and none of the coastal corrosion problems.`,
   foothill: (city) =>
-    `${city} runs up into the foothills, so it takes more heat, more wind funneled through the canyons, and more wildfire exposure than the flat parts of the county.`,
+    `${city} runs up into the foothills, so parts of the city take more heat, more wind funneled through the canyons, and more wildfire exposure than the flat parts of the county.`,
 };
 
 // Fountain Valley and Huntington Beach have their own top-level routes
@@ -244,7 +244,7 @@ export default function CityLandingPage({
 }: {
   city: string;
   housingParagraph: string;
-  // Absent for the 28 cities that have no researched content yet: this
+  // Absent for the cities that have no researched content yet: this
   // component then renders exactly what it rendered before the content module
   // existed, which src/components/CityLandingPage.test.tsx pins to a snapshot
   // taken before that change.
@@ -344,8 +344,8 @@ export default function CityLandingPage({
 
         {/* Everything from here to the guides list exists only for a city with
             real, sourced content. A city without an entry renders nothing at
-            all here, which is what keeps the other 28 pages byte-identical to
-            what they shipped before this module existed. */}
+            all here, which is what keeps every non-researched page
+            byte-identical to what it shipped before this module existed. */}
         {content && (
           <>
             <section className="mt-14">
@@ -362,7 +362,9 @@ export default function CityLandingPage({
                     Source:{" "}
                     <SourceLink
                       href={content.population.sourceUrl}
-                      label="U.S. Census Bureau"
+                      label={
+                        content.population.sourceLabel ?? "U.S. Census Bureau"
+                      }
                     />
                   </span>
                 </p>
@@ -372,6 +374,20 @@ export default function CityLandingPage({
                       Median year built:
                     </span>{" "}
                     {content.homes.medianYearBuilt}
+                    {content.homes.medianYearBuiltSource && (
+                      <>
+                        .{" "}
+                        <span className="text-xs text-stone-500 dark:text-stone-400">
+                          Source:{" "}
+                          <SourceLink
+                            href={content.homes.medianYearBuiltSource.sourceUrl}
+                            label={
+                              content.homes.medianYearBuiltSource.sourceLabel
+                            }
+                          />
+                        </span>
+                      </>
+                    )}
                   </p>
                 )}
                 <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
@@ -435,7 +451,7 @@ export default function CityLandingPage({
                   {" · Source: "}
                   <SourceLink
                     href={content.water.sourceUrl}
-                    label="Water quality report"
+                    label={content.water.sourceLabel ?? "Water quality report"}
                   />
                 </p>
               </div>

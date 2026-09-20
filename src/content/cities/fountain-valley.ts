@@ -12,6 +12,14 @@ import type { CityContent } from "./types";
 // hardness figure the research found came from a regional reporting site
 // rather than the city's own report. Neither is published here; the growth
 // history and the city's own water quality report carry that weight instead.
+//
+// FACT CHECK 2026-09-19. The fire hazard card and FAQ cited the Orange County
+// Fire Authority, which does not serve this city: OCFA's member city list
+// (https://ocfa.org/about-us/member-cities/) has no Fountain Valley on it, and
+// the city runs its own Fountain Valley Fire Department
+// (https://www.fountainvalley.gov/1470/Fire-Department). Both now cite the
+// State Fire Marshal's fire hazard severity zone page and name the city's own
+// department, the way the Huntington Beach page does.
 
 export const fountainValley: CityContent = {
   name: "Fountain Valley",
@@ -88,9 +96,10 @@ export const fountainValley: CityContent = {
 
   hazards: [
     {
-      text: "Fountain Valley is flat, fully built-out coastal-plain terrain, but the Orange County Fire Authority does not publish a citywide yes or no on fire hazard zones. It points residents at the state's zone viewer for an address-level lookup, which is the honest answer here too: check your own parcel rather than trusting a city-level summary, including this one.",
-      sourceUrl: "https://ocfa.org/residents/fhsz/",
-      sourceLabel: "Orange County Fire Authority",
+      text: "Fountain Valley is flat, fully built-out coastal-plain terrain, and it is protected by the city's own Fountain Valley Fire Department rather than the Orange County Fire Authority. For fire hazard zoning the source is the State Fire Marshal's Fire Hazard Severity Zone maps, which answer by location rather than by city, and for a locally protected area the state says to contact the local jurisdiction, which here means the city's fire department. Check your own parcel rather than trusting a city-level summary, including this one.",
+      sourceUrl:
+        "https://osfm.fire.ca.gov/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones",
+      sourceLabel: "Cal Fire, Office of the State Fire Marshal",
     },
     {
       text: "Most of Fountain Valley's housing went up in the 1960s and 1970s, well before the 1982 law that created Mello-Roos Community Facilities Districts, so the special taxes common in newer South County communities are unusual here. It is still a parcel-level answer, and the county Treasurer-Tax Collector's lookup, or the special assessment line on your tax bill, is where you get it for your own address.",
@@ -157,7 +166,7 @@ export const fountainValley: CityContent = {
     },
     {
       q: "Is my Fountain Valley home in a wildfire hazard zone?",
-      a: "This is flat, fully urbanized coastal plain rather than canyon or hillside terrain, which in Orange County generally means low mapped hazard. That said, the Orange County Fire Authority does not publish a citywide answer, and neither will we: look your own address up on the state's Fire Hazard Severity Zone viewer, which is the only source that answers for your street.",
+      a: "This is flat, fully urbanized coastal plain rather than canyon or hillside terrain, which in Orange County generally means low mapped hazard. That said, we are not going to hand you a citywide answer: look your own address up on the State Fire Marshal's Fire Hazard Severity Zone maps, and if the map leaves you unsure, ask the Fountain Valley Fire Department, which is the city's own department rather than part of the Orange County Fire Authority.",
     },
     {
       q: "Does OakTend only serve Fountain Valley?",

@@ -16,8 +16,9 @@
 // OakTend-marketing/reports-2026-09-16/seo-research-city-pages.md.
 //
 // Cities WITHOUT an entry keep rendering exactly what they render today. The
-// component takes content as an optional prop precisely so the 28 cities that
-// have not been researched yet are untouched until they are.
+// component takes content as an optional prop precisely so the cities that
+// have not been researched yet (21 of the 36 as of 2026-09-19) are untouched
+// until they are.
 
 // How close the city sits to the water, which decides what maintenance advice
 // is honest there. Coastal cities get salt-air wear; inland and foothill
@@ -52,11 +53,21 @@ export type CityContent = {
     value: string;
     asOf: string;
     sourceUrl: string;
+    // What the reader sees on the source link. Optional: when absent the page
+    // says "U.S. Census Bureau", which is only truthful for a census.gov URL.
+    // A city that links to Census Reporter or another republisher of Census
+    // data has to say so here.
+    sourceLabel?: string;
   };
 
   homes: {
     exposure: CityExposure;
     medianYearBuilt?: string;
+    // Where medianYearBuilt came from (ACS table B25035 in practice). Optional
+    // so older entries still compile, but a printed year with no source under
+    // it is the thing this module exists to prevent, so set it whenever
+    // medianYearBuilt is set.
+    medianYearBuiltSource?: { sourceUrl: string; sourceLabel: string };
     facts: Fact[];
   };
 
@@ -72,6 +83,10 @@ export type CityContent = {
     utilityUrl: string;
     summary: string;
     sourceUrl: string;
+    // Label for the source link. Optional: when absent the page says "Water
+    // quality report", so set this whenever sourceUrl is anything other than
+    // an actual water quality report.
+    sourceLabel?: string;
   };
 
   permits: {
