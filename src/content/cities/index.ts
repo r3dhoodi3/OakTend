@@ -7,11 +7,18 @@ import { costaMesa } from "./costa-mesa";
 import { newportBeach } from "./newport-beach";
 import { anaheim } from "./anaheim";
 import { missionViejo } from "./mission-viejo";
+import { gardenGrove } from "./garden-grove";
+import { orange } from "./orange";
+import { fullerton } from "./fullerton";
+import { tustin } from "./tustin";
+import { westminster } from "./westminster";
+import { lakeForest } from "./lake-forest";
+import { yorbaLinda } from "./yorba-linda";
 
 export type { CityContent, CityExposure, Fact } from "./types";
 
 // The cities that have real, sourced content today. Partial on purpose: the
-// other 28 Orange County cities and communities in LAUNCH_CITY_NAMES
+// other 21 Orange County cities and communities in LAUNCH_CITY_NAMES
 // (src/lib/serviceArea.ts) still have pages, and those pages render exactly
 // what they rendered before this module existed. A city joins this map only
 // when a researcher has actually gathered its facts with sources, one file
@@ -37,6 +44,14 @@ export const CITY_CONTENT: Partial<Record<string, CityContent>> = {
   [newportBeach.slug]: newportBeach,
   [anaheim.slug]: anaheim,
   [missionViejo.slug]: missionViejo,
+  // Second wave, researched 2026-09-19.
+  [gardenGrove.slug]: gardenGrove,
+  [orange.slug]: orange,
+  [fullerton.slug]: fullerton,
+  [tustin.slug]: tustin,
+  [westminster.slug]: westminster,
+  [lakeForest.slug]: lakeForest,
+  [yorbaLinda.slug]: yorbaLinda,
 };
 
 // Content for a slug, or undefined when that city has not been researched
