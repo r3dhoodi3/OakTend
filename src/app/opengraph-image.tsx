@@ -31,10 +31,11 @@ export default function OgImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {/* Same house-and-flame mark as components/Logo.tsx, redrawn with
+          {/* Same house-and-sprout mark as components/Logo.tsx, redrawn with
               explicit white fill/stroke instead of currentColor: satori
               renders each image standalone, with no CSS cascade to inherit
-              color from. */}
+              color from. The sprout stays white here too: neither brand green
+              holds enough contrast on the ember background. */}
           <svg
             width="84"
             height="84"
@@ -48,7 +49,26 @@ export default function OgImage() {
             <path d="M3 11.5 12 4l4 3.33V5.5h2.5v3.92L21 11.5" />
             <path d="M5 10.5V20h14v-9.5" />
             <path
-              d="M12 17.8c1.8 0 3-1.2 3-2.8 0-1.9-1.7-2.6-2.2-4-.9.6-1 1.5-.9 2.2-.6-.2-1-.6-1.2-1.2-.9.8-1.7 1.9-1.7 3 0 1.6 1.2 2.8 3 2.8z"
+              d="M12 18.7C12.3 16.6 11.4 15 11.9 12.9 12.1 12 12.4 11.4 12.6 10.9"
+              strokeWidth="1.05"
+            />
+            <path
+              d="M11.75 15.30C11.88 13.99 9.92 13.07 8.63 13.50C8.90 14.83 10.68 16.07 11.75 15.30z"
+              fill="#fff"
+              stroke="none"
+            />
+            <path
+              d="M12.00 14.00C13.19 14.90 15.32 13.53 15.71 12.03C14.24 11.51 11.92 12.51 12.00 14.00z"
+              fill="#fff"
+              stroke="none"
+            />
+            <path
+              d="M12.35 11.70C13.33 11.76 13.98 10.27 13.62 9.32C12.63 9.55 11.75 10.92 12.35 11.70z"
+              fill="#fff"
+              stroke="none"
+            />
+            <path
+              d="M12.20 12.00C12.48 11.29 11.56 10.52 10.79 10.59C10.72 11.36 11.49 12.28 12.20 12.00z"
               fill="#fff"
               stroke="none"
             />
