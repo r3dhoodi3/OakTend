@@ -328,7 +328,7 @@ export default function SystemRow({
       // px-4 py-3 over .card's p-5: with the compact Find a pro button the
       // collapsed row is one line tall, and 20px of padding around one line
       // read as empty space. The expanded detail still has its own p-3 box.
-      className={`card flex items-start justify-between gap-4 px-4 py-3 ${
+      className={`card px-4 py-3 ${
         needsBorder
           ? "!border !border-red-400 dark:!border-red-500"
           : estimatedDue
@@ -336,7 +336,15 @@ export default function SystemRow({
             : ""
       }`}
     >
-      <div className="min-w-0 flex-1">
+      {/* The top line: the opener on the left, Find a pro pinned top-right.
+          Only THIS line is two columns. The whole <li> used to be, with Find a
+          pro vertically centered in a right-hand column the full height of the
+          row - so opening a system slid the button down to the middle of the
+          card, and the gray detail box below was squeezed into the left column
+          with dead space beside it. Everything under this line (photo hint,
+          detail box, reported issue) now runs the card's full width. */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
         {/* The row's own opener: a real button (not the old whole-<li>
             onClick, which a keyboard could not reach at all), so tapping or
             activating the system name opens its info right away - Edit used
@@ -377,6 +385,21 @@ export default function SystemRow({
             {status.label}
           </span>
         </button>
+        </div>
+        <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+          {/* Compact on purpose (founder, 2026-09-17): the row is a one-line
+              list item, and a full 44px CTA next to a 16px name made every
+              row look like a card of its own. Roughly the name's own height on
+              every screen size - the founder wanted the phone to match the
+              desktop, so this one CTA deliberately sits under the 44px rule. */}
+          <Link
+            href={findProHref}
+            className="btn-primary min-h-0 px-2.5 py-1 text-xs"
+          >
+            Find a pro
+          </Link>
+        </div>
+      </div>
         {photos.length > 0 && !expanded && (
           <span className="ml-2 text-xs text-stone-500 dark:text-stone-400">
             {photos.length} photo{photos.length === 1 ? "" : "s"} · tap to view
@@ -517,24 +540,6 @@ export default function SystemRow({
             {openIssue.description ? `: ${openIssue.description}` : ""}.
           </p>
         )}
-      </div>
-
-      <div
-        className="flex shrink-0 flex-col items-end justify-center self-stretch"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Compact on purpose (founder, 2026-09-17): the row is a one-line
-            list item, and a full 44px CTA next to a 16px name made every
-            row look like a card of its own. Roughly the name's own height on
-            every screen size - the founder wanted the phone to match the
-            desktop, so this one CTA deliberately sits under the 44px rule. */}
-        <Link
-          href={findProHref}
-          className="btn-primary min-h-0 px-2.5 py-1 text-xs"
-        >
-          Find a pro
-        </Link>
-      </div>
     </li>
   );
 }

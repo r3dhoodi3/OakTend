@@ -1079,14 +1079,19 @@ export default async function HomePage(
                   {(["later", "done"] as Urgency[])
                     .filter((u) => groupedReminders[u].length > 0)
                     .map((u) => (
-                      <details key={u} open={planOpen} className="group">
+                      // group/sub, not a bare `group`: this sits inside the
+                      // "See this month's tasks" details, which is itself a
+                      // `group`. A bare group-open: on the chevron matched THAT
+                      // (always open while this is visible), so the arrow sat
+                      // pinned at 90 degrees and never turned.
+                      <details key={u} open={planOpen} className="group/sub">
                         <summary
                           // max-sm: "Later"/"Done" group header, ~16px tall at
                           // 12px text before this.
                           className={`focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm ${URGENCY_TONE[u]}`}
                         >
                           <ChevronRight
-                            className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open:rotate-90"
+                            className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open/sub:rotate-90"
                             aria-hidden="true"
                           />
                           {URGENCY_LABEL[u]} ({groupedReminders[u].length})
@@ -1106,10 +1111,12 @@ export default async function HomePage(
                       </details>
                     ))}
 
-                  <details open={planOpen || remindersTotal === 0} className="group">
+                  {/* group/sub for the same reason as the Later/Done groups
+                      above: nested inside another `group` details. */}
+                  <details open={planOpen || remindersTotal === 0} className="group/sub">
                     <summary className="focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm text-stone-600 dark:text-stone-400">
                       <ChevronRight
-                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open:rotate-90"
+                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open/sub:rotate-90"
                         aria-hidden="true"
                       />
                       Seasonal, {seasonLabel} ({SEASONAL_TASKS[season].length})
