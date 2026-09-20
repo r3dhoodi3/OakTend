@@ -265,7 +265,7 @@ export default function ApplyJobButton({
             onClick={() => applyTemplate(t.text)}
             // Phone only: .chip is py-0.5 text-xs, about 20px tall, and
             // these chips fill the application message.
-            className="chip border border-stone-200 bg-white text-stone-600 hover:border-oaktend-300 hover:text-oaktend-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-oaktend-400 dark:hover:text-oaktend-300"
+            className="chip border border-stone-200 bg-white text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-300"
           >
             {t.label}
           </button>
@@ -308,7 +308,7 @@ export default function ApplyJobButton({
           type="button"
           onClick={draftForMe}
           disabled={drafting}
-          className="text-xs font-medium text-oaktend-700 hover:underline disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm"
+          className="text-xs font-medium text-bark-700 hover:underline disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300"
         >
           {drafting ? "Drafting..." : "Draft a message for me"}
         </button>
@@ -353,7 +353,7 @@ export default function ApplyJobButton({
             {discountKind === "member" && " with Pro"}
           </strong>
           {discountKind === "member" && (
-            <span className="chip ml-1 border border-oaktend-200 bg-oaktend-50 font-semibold text-oaktend-700 dark:border-oaktend-500/30 dark:bg-oaktend-500/15 dark:text-oaktend-300">
+            <span className="chip ml-1 border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
               Pro
             </span>
           )}
@@ -362,7 +362,7 @@ export default function ApplyJobButton({
               three (a $99 major lead at $49.99), so it gets said out loud
               here too, not only on the board card. */}
           {discountKind === "intro" && (
-            <span className="chip ml-1 border border-oaktend-200 bg-oaktend-50 font-semibold text-oaktend-700 dark:border-oaktend-500/30 dark:bg-oaktend-500/15 dark:text-oaktend-300">
+            <span className="chip ml-1 border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
               Your first big-ticket lead
             </span>
           )}
@@ -405,7 +405,7 @@ export default function ApplyJobButton({
           the same constant the board and the DB price from, so this line can
           never quote a number the wallet would not actually charge. */}
       {introPrice && (
-        <p className="text-xs font-medium text-oaktend-700 dark:text-oaktend-300">
+        <p className="text-xs font-medium text-bark-700 dark:text-stone-300">
           This is your one-time first big-ticket price - after this apply,
           big-ticket leads are ${LEAD_TIER_FEES.major}.
         </p>

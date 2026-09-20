@@ -327,7 +327,7 @@ export default function BusinessView({
         <div>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Insights{" "}
-            <span className="chip ml-1 bg-oaktend-100 align-middle text-oaktend-800 dark:bg-oaktend-900 dark:text-oaktend-200">
+            <span className="chip ml-1 bg-bark-100 align-middle text-bark-800 dark:bg-bark-700 dark:text-stone-200">
               Pro
             </span>
           </h2>
@@ -461,7 +461,7 @@ export default function BusinessView({
                     still a 20% lift from 10px. */}
                 <p className="flex items-center gap-3 text-[10px] text-stone-500 max-sm:text-xs dark:text-stone-400">
                   <span className="flex items-center gap-1">
-                    <span className="inline-block h-2 w-2 rounded-sm bg-oaktend-500 dark:bg-oaktend-400" />
+                    <span className="inline-block h-2 w-2 rounded-sm bg-bark-500 dark:bg-bark-600" />
                     Applications
                   </span>
                   <span className="flex items-center gap-1">
@@ -501,8 +501,8 @@ export default function BusinessView({
                             className={`w-3 rounded-t-md ${
                               m.applications > 0
                                 ? isCurrent
-                                  ? "bg-oaktend-600 dark:bg-oaktend-500"
-                                  : "bg-oaktend-400 dark:bg-oaktend-500/60"
+                                  ? "bg-bark-600 dark:bg-bark-600"
+                                  : "bg-bark-500 dark:bg-bark-600/60"
                                 : "bg-stone-100 dark:bg-stone-700"
                             }`}
                             style={{ height: `${appHeight}px` }}
@@ -596,7 +596,7 @@ export default function BusinessView({
                 : "Insights shows which categories earn your application fees back, and which ones quietly drain them. "}
               <Link
                 href="/pro/plus"
-                className="font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+                className="font-medium text-bark-700 hover:underline dark:text-stone-300"
               >
                 {trialEligible
                   ? `${proCtaLabel(true)} and unlock Insights`
@@ -628,7 +628,7 @@ export default function BusinessView({
             Nothing in flight.{" "}
             <Link
               href={PRO_LEADS_HREF}
-              className="font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+              className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
               Browse open jobs
             </Link>{" "}
@@ -673,7 +673,7 @@ export default function BusinessView({
             jobs: the{" "}
             <Link
               href="/pro/playbook"
-              className="font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+              className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
               Playbook
             </Link>{" "}

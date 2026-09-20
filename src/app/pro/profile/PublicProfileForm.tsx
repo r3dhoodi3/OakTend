@@ -245,7 +245,7 @@ export default function PublicProfileForm({
                   type="checkbox"
                   name="sms_consent"
                   defaultChecked={smsConsent}
-                  className="mt-1 h-6 w-6 shrink-0 rounded border-stone-300 text-oaktend-600 focus:ring-oaktend-600 dark:border-white/20"
+                  className="mt-1 h-6 w-6 shrink-0 rounded border-stone-300 text-bark-600 focus:ring-bark-600 dark:border-white/20"
                 />
                 <span className="text-sm text-stone-600 dark:text-stone-400">
                   Text me when a job matches or a homeowner replies. Message

@@ -583,13 +583,9 @@ export default function SpotlightTour({
     cardStyle = { top: "50%", transform: "translateY(-50%)" };
   }
 
-  // The two shells accent differently (bark on the homeowner side, OakTend on
-  // the pro side), same split ShowAppGuideButton makes.
-  const ringClass =
-    side === "pro"
-      ? "border-oaktend-600 dark:border-oaktend-400"
-      : "border-bark-600 dark:border-bark-400";
-  const dotClass = side === "pro" ? "bg-oaktend-600" : "bg-bark-600";
+  // Both shells share the bark accent (the pro side dropped the ember red).
+  const ringClass = "border-bark-600 dark:border-bark-400";
+  const dotClass = "bg-bark-600";
 
   // The spotlight layer's tier. A toolbar step rides at z-[60], above the
   // sticky header (homeowner z-40, pro z-30), the bottom tab bar (z-30), and

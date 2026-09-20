@@ -108,16 +108,16 @@ export default async function ProToolsPage(
           </p>
         </div>
 
-        <div className="rounded-xl border border-oaktend-200 bg-oaktend-50 p-4 text-center ring-1 ring-oaktend-200 dark:border-oaktend-800 dark:bg-oaktend-900/40 dark:ring-oaktend-800">
+        <div className="rounded-xl border border-bark-200 bg-bark-50 p-4 text-center ring-1 ring-bark-200 dark:border-bark-700 dark:bg-bark-700/40 dark:ring-bark-700">
           <div className="mb-2 flex justify-center">
             <span aria-hidden="true" className="icon-chip">
               <Lock className="h-5 w-5" />
             </span>
           </div>
-          <p className="text-sm font-medium text-oaktend-800 dark:text-oaktend-200">
+          <p className="text-sm font-medium text-bark-800 dark:text-stone-200">
             Pro membership tool
           </p>
-          <p className="mt-1 text-sm text-oaktend-700 dark:text-oaktend-300">
+          <p className="mt-1 text-sm text-bark-700 dark:text-stone-300">
             {/* The same sentence /api/pro-tools sends on a 402, so the screen
                 never says something the server would not have. */}
             {PRO_TOOLS_PAYWALL.message}{" "}
@@ -142,7 +142,7 @@ export default async function ProToolsPage(
           <ProUpgradeCta
             trialEligible={trialEligible}
             className="btn-primary mt-3"
-            sublineClassName="mt-2 text-xs text-oaktend-700 dark:text-oaktend-300"
+            sublineClassName="mt-2 text-xs text-bark-700 dark:text-stone-300"
           />
         </div>
 

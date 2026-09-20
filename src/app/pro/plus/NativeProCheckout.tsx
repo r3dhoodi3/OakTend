@@ -81,7 +81,7 @@ export default function NativeProCheckout() {
   return (
     <div className="space-y-4">
       <div className="card-hero space-y-3 text-center">
-        <p className="text-lg font-medium text-oaktend-700 dark:text-stone-300">
+        <p className="text-lg font-medium text-bark-700 dark:text-stone-300">
           OakTend Pro membership
         </p>
         <p className="text-2xl font-semibold text-stone-900 dark:text-stone-100">

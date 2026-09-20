@@ -100,7 +100,7 @@ export default function BackgroundCheckCard({
         <div className="space-y-1.5">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-stone-100 dark:bg-stone-700">
             <div
-              className="h-full rounded-full bg-oaktend-500 transition-all"
+              className="h-full rounded-full bg-bark-500 transition-all"
               style={{
                 width: `${Math.round(
                   (paidLeadsKnown / BACKGROUND_CHECK_MIN_PAID_LEADS) * 100

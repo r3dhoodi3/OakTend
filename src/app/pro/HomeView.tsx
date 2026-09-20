@@ -286,7 +286,7 @@ export default function HomeView({
               {showSeeAll && (
                 <Link
                   href={PRO_LEADS_HREF}
-                  className="text-sm font-medium text-oaktend-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                  className="text-sm font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
                 >
                   See all
                 </Link>
@@ -320,7 +320,7 @@ export default function HomeView({
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Link
               href="/pro/billing"
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">Wallet</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
@@ -329,7 +329,7 @@ export default function HomeView({
             </Link>
             <Link
               href={PRO_LEADS_HREF}
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">Open jobs</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
@@ -344,7 +344,7 @@ export default function HomeView({
                 leads board instead, the list this stat actually counts. */}
             <Link
               href={`${PRO_LEADS_HREF}#your-jobs`}
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">Active jobs</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
@@ -357,7 +357,7 @@ export default function HomeView({
                 leads board's results hero uses. */}
             <Link
               href="/pro/business"
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">
                 {appliedCount >= 3 ? "Win rate" : "Applications"}
@@ -392,7 +392,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/business"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 See the breakdown
               </Link>
@@ -405,7 +405,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/plus?reason=leads"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 See OakTend Pro
               </Link>
@@ -426,7 +426,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/feedback"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 Report another bug
               </Link>
