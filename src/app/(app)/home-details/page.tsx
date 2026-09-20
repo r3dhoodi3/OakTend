@@ -10,9 +10,9 @@ export default async function HomeDetailsPage() {
   const cityState = [property.city, property.state].filter(Boolean).join(", ");
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-8">
+    <div className="mx-auto max-w-2xl">
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Home details" }]} />
-      <header className="mb-6">
+      <header className="mb-6 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Home details
         </h1>

@@ -82,7 +82,10 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
     { href: "/walkthrough", label: "Walk your home" },
     { href: "/home-details", label: "Home details" },
     { href: "/documents", label: "Documents" },
-    { href: "/value", label: "Home value" },
+    // Phone sheet only. On desktop the dashboard's "Home value" card is the
+    // way in, so a row here was a duplicate; on phones that card is hidden
+    // (dashboard/page.tsx), which makes this row the only door to /value.
+    { href: "/value", label: "Home value", sheetOnly: true },
     { href: "/taxes", label: "Property taxes" },
     { href: "/inspection", label: "Home inspection" },
     { href: "/learn", label: "Learn about your home" },
@@ -166,7 +169,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
               <p className="px-4 pb-0.5 pt-1 text-[11px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
                 Your home
               </p>
-              {homeLinks.map((l) => (
+              {homeLinks.filter((l) => !l.sheetOnly).map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}

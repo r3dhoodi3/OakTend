@@ -17,7 +17,10 @@ function openMenu(hasPlus = false) {
 }
 
 describe("ToolsMenu phone sheet", () => {
-  it("lists the same links as the desktop dropdown", () => {
+  // The sheet carries everything the desktop dropdown does, plus /value: the
+  // dashboard's Home value card is hidden on phones, so the sheet is the only
+  // way in there, while on desktop that card made the dropdown row a duplicate.
+  it("lists the desktop dropdown's links, plus Home value", () => {
     openMenu();
 
     // Both the desktop dropdown and the phone sheet are mounted at once
@@ -41,6 +44,14 @@ describe("ToolsMenu phone sheet", () => {
       "/quote-check",
       "/home-report",
     ]);
+
+    // Every /value link on the page belongs to the sheet: the desktop
+    // dropdown, mounted alongside it, has none.
+    const valueLinks = screen
+      .getAllByRole("link")
+      .filter((l) => l.getAttribute("href") === "/value");
+    expect(valueLinks).toHaveLength(1);
+    expect(dialog).toContainElement(valueLinks[0]);
   });
 
   // Ask OakTend has one entry point now, the pinned row at the top of the
