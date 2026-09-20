@@ -317,3 +317,42 @@ describe("spotlightPath - the cutout math", () => {
     expect(d).toContain("A5 5 0 0 1");
   });
 });
+
+// The homeowner step list itself (2026-09-19): the weather step is gone - a
+// weather row explains itself - and the Tools menu, which holds most of the
+// app and had no step, took its slot.
+describe("HOMEOWNER_STEPS - what the tour covers", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it("has no weather step, and points at the Tools button right after the systems", () => {
+    const titles = HOMEOWNER_STEPS.map((s) => s.title);
+    expect(titles).toEqual([
+      "Your home score",
+      "Your systems",
+      "Your tools",
+      "Messages and Ask OakTend",
+      "Find a pro",
+    ]);
+    expect(HOMEOWNER_STEPS.some((s) => /weather/i.test(s.title + s.body))).toBe(false);
+    expect(HOMEOWNER_STEPS[2].target).toBe("#tools-menu-button");
+  });
+
+  // In preview nobody applies to a job - the team finds the pro by hand - so
+  // the tour must not promise applicants the homeowner will never see.
+  it("does not promise that pros apply while the preview is on", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    vi.resetModules();
+    const preview = (await import("./SpotlightTour")).HOMEOWNER_STEPS;
+    const findAPro = preview.find((s) => s.title === "Find a pro");
+    expect(findAPro?.body).toMatch(/by hand/);
+    expect(findAPro?.body).not.toMatch(/pros apply/);
+
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
+    vi.resetModules();
+    const normal = (await import("./SpotlightTour")).HOMEOWNER_STEPS;
+    expect(normal.find((s) => s.title === "Find a pro")?.body).toMatch(/pros apply/);
+  });
+});

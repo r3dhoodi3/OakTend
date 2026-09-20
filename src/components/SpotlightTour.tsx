@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { GuideSide } from "@/lib/appGuide";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // The first-run guide, rebuilt as a game-style spotlight tour. Instead of a
 // bottom sheet of cards read in the abstract, each step brings the user to the
@@ -45,9 +46,10 @@ export type TourStep = {
 };
 
 // Every selector here is a hook that already exists in the product markup
-// (an id, an href, an aria-label, a shared utility class), never one added
-// for the tour: the nav files are mid-edit by other work and must not grow
-// tour-specific attributes.
+// (an id, an href, an aria-label, a shared utility class) rather than one
+// added for the tour. The one exception is #tools-menu-button: the Tools
+// button had no stable hook at all (no id, no href, and its aria-expanded is
+// shared with every other disclosure in the header), so it got a plain id.
 export const HOMEOWNER_STEPS: TourStep[] = [
   {
     route: "/dashboard",
@@ -58,18 +60,9 @@ export const HOMEOWNER_STEPS: TourStep[] = [
     title: "Your home score",
     body: "This number is a quick read on how your home is doing. It moves when a system ages or a task gets done, so you find out without going looking.",
   },
-  {
-    route: "/dashboard",
-    // The weather strip has no id of its own; its local-time element carries
-    // a stable aria-label (WeatherStrip.tsx), and climbing to .shadow-card
-    // lands on the strip's own root. While the weather is still loading the
-    // clock does not exist yet, so this step quietly centers instead.
-    target: 'time[aria-label="Local time at your home"]',
-    targetClosest: ".shadow-card",
-    title: "Weather at your place",
-    body: "Current conditions for your home's city, with the week ahead one tap away. Storm alerts show up right below when something is coming.",
-    fallbackPlacement: "below",
-  },
+  // A "Weather at your place" step used to sit here. Removed 2026-09-19: a
+  // weather row explains itself, and the slot is better spent on the Tools
+  // menu below, which holds most of the app and had no step at all.
   {
     route: "/dashboard",
     // The systems inventory, <details id="systems"> on the dashboard. Ringing
@@ -87,6 +80,18 @@ export const HOMEOWNER_STEPS: TourStep[] = [
   },
   {
     route: "/dashboard",
+    // The Tools button in the header (ToolsMenu.tsx), one button at every
+    // width: it opens a dropdown on desktop and a bottom sheet on a phone. It
+    // sits in the sticky header but outside the <nav> strip, which is why the
+    // toolbar test further down also accepts the header itself. Right after
+    // "Your systems" on purpose: the systems are what these tools run on.
+    target: "#tools-menu-button",
+    title: "Your tools",
+    body: "Everything else lives under Tools: walk your home room by room, store documents, check a contractor quote, and see what repairs are coming and what they'll cost.",
+    fallbackPlacement: "below",
+  },
+  {
+    route: "/dashboard",
     // The Messages tab. Scoped to nav so the visible match is the phone tab
     // bar below lg and the header strip's pill from lg up, never a stray link
     // in the page body.
@@ -100,7 +105,12 @@ export const HOMEOWNER_STEPS: TourStep[] = [
     // The Post a Job tab, same nav scoping as above.
     target: 'nav a[href="/contractors"]',
     title: "Find a pro",
-    body: "Post the job once and local pros apply to it. Your phone and email stay private until you pick someone.",
+    // Preview: "local pros apply" is not what happens yet - the team finds a
+    // pro by hand (PREVIEW_POST_JOB_INTRO says the same on the page this tab
+    // opens), so the tour must not promise applicants.
+    body: isHomeownerPreview()
+      ? "Post the job once. Our pro network isn't open yet, so our team finds a local pro for you by hand and reaches out."
+      : "Post the job once and local pros apply to it. Your phone and email stay private until you pick someone.",
     fallbackPlacement: "above",
   },
 ];
@@ -385,7 +395,10 @@ export default function SpotlightTour({
           // A failed scroll only means the measurement happens where we are.
         }
       }
-      const nav = el.closest("nav");
+      // A toolbar target is anything in a <nav> OR in the app's sticky header:
+      // the Tools button sits in the header beside the nav strip, not in it,
+      // and without this its spotlight would paint UNDER the z-40 header.
+      const nav = el.closest("nav, header.sticky");
       setInToolbar(!!nav);
       setPad(nav ? CUTOUT_PAD_TIGHT : CUTOUT_PAD);
       setSafeTop(readSafeTop());
