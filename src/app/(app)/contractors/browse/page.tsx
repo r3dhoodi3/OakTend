@@ -85,9 +85,12 @@ export default async function BrowseProsPage(
           </h1>
         </div>
         <div className="card">
-          <p className="text-stone-700 dark:text-stone-200">
-            Our verified pro network launches soon. Post your job and we&rsquo;ll
-            match you when it opens.
+          <p className="font-medium text-stone-900 dark:text-stone-100">
+            Browsing for contractors is coming soon. Thank you for your patience.
+          </p>
+          <p className="mt-2 text-stone-700 dark:text-stone-200">
+            Need work done now? Post your job and our team will find a local
+            pro for you by hand.
           </p>
           <p className="mt-4">
             <Link
