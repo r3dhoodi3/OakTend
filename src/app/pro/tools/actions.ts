@@ -19,9 +19,8 @@ import { PREVIEW_PROS_COPY } from "@/lib/previewMode";
 // its own tab and draft state, so a redirect would reset that unnecessarily.
 export async function deletePastJobAction(formData: FormData) {
   // PREVIEW MODE (guardrail A2): a pro-side write, reachable as a public POST
-  // even with the shell closed. Any signed-in account passes during preview;
-  // anonymous visitors get the coming-soon door. Constant `true` outside
-  // preview. See src/lib/previewModeServer.ts.
+  // even with the shell closed. Internal accounts pass; constant `true`
+  // outside preview. See src/lib/previewModeServer.ts.
   await assertProSideOpen();
 
   const contractor = await getCurrentContractor();

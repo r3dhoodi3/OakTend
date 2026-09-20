@@ -228,8 +228,7 @@ export async function POST(req: NextRequest) {
   // route is reachable with a plain fetch even though the page that calls it
   // is not. After the 401 so a signed-out request still reads as
   // unauthenticated, and before the model is touched (this route spends real
-  // Anthropic money). Any signed-in account passes during preview; anonymous
-  // visitors get the coming-soon door. Constant `true` outside preview.
+  // Anthropic money). Internal accounts pass; constant `true` outside preview.
   if (!(await isProSideOpenForViewer())) {
     return NextResponse.json({ error: PREVIEW_PROS_COPY }, { status: 403 });
   }

@@ -86,9 +86,8 @@ export async function chooseRoleAction(formData: FormData) {
   // same reason the failed-stamp branch below uses one - Next masks a thrown
   // Error in production and the person would never read the message.
   //
-  // Any signed-in account passes during preview; anonymous visitors get the
-  // coming-soon door. Exactly as everywhere else, so the team and our testers
-  // can still build a test company.
+  // An internal (OakTend team) account is let through, exactly as everywhere
+  // else, so the team can still build a test company.
   if (role === "contractor" && !(await isProSideOpenForViewer())) {
     await setFlash(PREVIEW_PROS_COPY, "info");
     redirect("/welcome/role");

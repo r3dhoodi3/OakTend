@@ -169,7 +169,7 @@ describe("src/lib/subscription.ts in preview (B1)", () => {
     await expect(sub.getPlusTier()).resolves.not.toBe("trialing");
   });
 
-  // The pro side is CLOSED, not upgraded: a signed-in pro tests the real
+  // The pro side is CLOSED, not upgraded: an internal pro tests the real
   // membership rules, so these two must answer off the rows as always.
   it("leaves the pro-side helpers alone", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
@@ -193,12 +193,16 @@ describe("src/lib/subscription.ts in preview (B1)", () => {
 // A2: who the pro side is open to
 // ---------------------------------------------------------------------------
 describe("isProSideOpenForViewer (A2)", () => {
-  // Only the session matters: in preview the pro side is shut to the public
-  // and open to any signed-in account, so there is no internal flag to stub.
-  async function loadGuard(opts: { user?: { id: string } | null }) {
+  async function loadGuard(opts: {
+    user?: { id: string } | null;
+    internal?: boolean;
+  }) {
     vi.resetModules();
     vi.doMock("@/lib/auth", () => ({
       getVerifiedUser: async () => opts.user ?? null,
+    }));
+    vi.doMock("@/lib/internalAccounts", () => ({
+      isInternalUser: async () => opts.internal ?? false,
     }));
     vi.doMock("@/lib/flash", () => ({ setFlash: async () => {} }));
     vi.doMock("next/navigation", () => ({
@@ -216,6 +220,9 @@ describe("isProSideOpenForViewer (A2)", () => {
     const getVerifiedUser = vi.fn(async () => null);
     vi.resetModules();
     vi.doMock("@/lib/auth", () => ({ getVerifiedUser }));
+    vi.doMock("@/lib/internalAccounts", () => ({
+      isInternalUser: async () => false,
+    }));
     vi.doMock("@/lib/flash", () => ({ setFlash: async () => {} }));
     vi.doMock("next/navigation", () => ({ redirect: () => {} }));
     const mod = await import("./previewModeServer");
@@ -230,35 +237,40 @@ describe("isProSideOpenForViewer (A2)", () => {
     await expect(mod.isProSideOpenForViewer()).resolves.toBe(false);
   });
 
-  // The preview door faces the PUBLIC. Any signed-in account - team, tester or
-  // an ordinary pro who already has a login - can use the contractor side
-  // without being flagged internal first.
-  it("lets any signed-in account through in preview", async () => {
+  // The hole this closes (2026-09-19): homeowner signup is public, so "any
+  // signed-in account" meant anyone could make a homeowner login, switch to
+  // their business, and walk into the pro side. Signed in is not enough.
+  it("blocks a signed-in account that is not internal in preview", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const mod = await loadGuard({ user: { id: "real-pro" } });
+    const mod = await loadGuard({ user: { id: "real-pro" }, internal: false });
+    await expect(mod.isProSideOpenForViewer()).resolves.toBe(false);
+  });
+
+  it("lets an internal account through in preview", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const mod = await loadGuard({ user: { id: "team" }, internal: true });
     await expect(mod.isProSideOpenForViewer()).resolves.toBe(true);
   });
 
-  it("assertProSideOpen redirects an anonymous viewer and returns for a signed-in one", async () => {
+  it("assertProSideOpen redirects a blocked pro and returns for an internal one", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
 
-    const blocked = await loadGuard({ user: null });
+    const blocked = await loadGuard({ user: { id: "real" }, internal: false });
     await expect(blocked.assertProSideOpen()).rejects.toThrow("NEXT_REDIRECT:/pro");
 
-    const allowed = await loadGuard({ user: { id: "team" } });
+    const allowed = await loadGuard({ user: { id: "team" }, internal: true });
     await expect(allowed.assertProSideOpen()).resolves.toBeUndefined();
   });
 
-  // A4 applies to EVERYONE, signed-in team accounts included: an OakTend card
-  // is still a real charge. This is the one guard in the file that does not
-  // carve the team out.
+  // A4 applies to EVERYONE, internal included: an OakTend card is still a real
+  // charge. This is the one guard in the file that does not carve the team out.
   it("previewBlocksMoney blocks in preview and never outside it", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const on = await loadGuard({ user: { id: "team" } });
+    const on = await loadGuard({ user: { id: "team" }, internal: true });
     await expect(on.previewBlocksMoney()).resolves.toBe(true);
 
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
-    const off = await loadGuard({ user: { id: "team" } });
+    const off = await loadGuard({ user: { id: "team" }, internal: true });
     await expect(off.previewBlocksMoney()).resolves.toBe(false);
   });
 });

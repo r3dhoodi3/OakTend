@@ -3,9 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getActiveProperty } from "@/lib/property";
 import { SERVICE_CATEGORIES } from "@/lib/constants";
-import { getVerifiedUser } from "@/lib/auth";
-import { isHomeownerPreview } from "@/lib/previewMode";
-import { isInternalUser } from "@/lib/internalAccounts";
+import { isProSideOpenForViewer } from "@/lib/previewModeServer";
 import BrowseProsBoard from "./BrowseProsBoard";
 import {
   MIN_RATING_OPTIONS,
@@ -58,17 +56,12 @@ export default async function BrowseProsPage(
   // `true` outside preview, with no session read and no query, so a normal
   // deploy is unchanged.
   //
-  // NOT isProSideOpenForViewer(): since the 2026-09-16 merge wave that answers
-  // "yes" for ANY signed-in account (it guards the pro side, so testers can
-  // use it without being flagged), and this page sits behind sign-in - so the
-  // coming-soon card below could never render, and a preview homeowner got an
-  // empty "No pros are listed here yet" board instead (found 2026-09-19).
-  // Browsing is a homeowner-facing promise, so it keys on the internal flag:
-  // internal accounts keep the real board of internal test pros, everyone
-  // else in preview gets the honest sentence.
-  const proNetworkOpen = isHomeownerPreview()
-    ? await isInternalUser((await getVerifiedUser())?.id)
-    : true;
+  // This page sits behind sign-in, so the card below only ever renders because
+  // isProSideOpenForViewer() is internal-only in preview. While it briefly
+  // answered "yes" for any signed-in account (2026-09-16 to 2026-09-19) the
+  // card was unreachable and preview homeowners got an empty "No pros are
+  // listed here yet" board instead.
+  const proNetworkOpen = await isProSideOpenForViewer();
 
   // Independent reads: the property gate and the pros list share nothing, so
   // they go out together instead of one after the other.

@@ -24,13 +24,13 @@ afterEach(() => {
 
 // The real landingFor is used throughout: the point of most of these cases is
 // that previewAwareLanding returns what landingFor would have, unchanged.
-//
-// Only the session matters now: during preview the pro side is open to any
-// signed-in account, so there is no internal flag left to stub.
-async function load(opts: { user?: { id: string } | null }) {
+async function load(opts: { user?: { id: string } | null; internal?: boolean }) {
   vi.resetModules();
   vi.doMock("@/lib/auth", () => ({
     getVerifiedUser: async () => opts.user ?? null,
+  }));
+  vi.doMock("@/lib/internalAccounts", () => ({
+    isInternalUser: async () => opts.internal ?? false,
   }));
   return import("@/lib/previewModeServer");
 }
@@ -66,10 +66,12 @@ describe("previewAwareLanding", () => {
     ).toBe("/dashboard");
   });
 
-  it("sends a blocked dual-sided viewer to the home it actually owns", async () => {
+  it("sends a blocked dual-sided account to the home it actually owns", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    // No verified session: that is who the pro side is shut to in preview.
-    const { previewAwareLanding } = await load({ user: null });
+    const { previewAwareLanding } = await load({
+      user: { id: "u1" },
+      internal: false,
+    });
 
     // landingFor would answer "/pro" here - the account prefers the contractor
     // side and has it. That is exactly the answer that trapped them.
@@ -78,28 +80,33 @@ describe("previewAwareLanding", () => {
 
   it("sends a blocked pro with no home to the first-home setup", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const { previewAwareLanding } = await load({ user: null });
+    const { previewAwareLanding } = await load({
+      user: { id: "u1" },
+      internal: false,
+    });
 
     expect(await previewAwareLanding(PRO_ONLY)).toBe("/onboarding");
   });
 
-  it("leaves any signed-in account on landingFor", async () => {
+  it("leaves an internal account on landingFor", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
-    const { previewAwareLanding } = await load({ user: { id: "u1" } });
+    const { previewAwareLanding } = await load({
+      user: { id: "u1" },
+      internal: true,
+    });
 
-    // The team and our testers walk the whole contractor flow while the public
-    // side is shut, and no internal flag is needed for it, so their landing is
-    // the ordinary one.
+    // The team walks the whole contractor flow while the public side is shut,
+    // so their landing is the ordinary one.
     expect(await previewAwareLanding(PRO_AND_HOME)).toBe("/pro");
     expect(await previewAwareLanding(PRO_ONLY)).toBe("/pro");
   });
 
-  it("fails closed: an unreadable session in preview still gets the homeowner side", async () => {
+  it("fails closed: a signed-out read in preview still gets the homeowner side", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { previewAwareLanding } = await load({ user: null });
 
     // Same posture as isProSideOpenForViewer: no verified user means "not
-    // signed in" means "blocked", never "let them onto the pro side".
+    // internal" means "blocked", never "let them onto the pro side".
     expect(await previewAwareLanding(PRO_AND_HOME)).toBe("/dashboard");
   });
 });

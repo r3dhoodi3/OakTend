@@ -28,14 +28,8 @@ afterEach(() => {
 
 // The real previewModeServer and the real action; only the session, the row
 // lookups, the admin client and the flash are stubbed.
-//
-// signedIn is what the gate now turns on: in preview the pro side is shut to
-// the public and open to any signed-in account, so `signedIn: false` is the
-// blocked viewer (isProSideOpenForViewer reads getVerifiedUser, which is
-// stubbed separately from the Supabase client below - that is how the blocked
-// path can be exercised on an action that has already re-authed).
 async function load(opts: {
-  signedIn?: boolean;
+  internal?: boolean;
   hasPro?: boolean;
   hasHome?: boolean;
 }) {
@@ -87,7 +81,10 @@ async function load(opts: {
     landingFor: () => "/pro",
   }));
   vi.doMock("@/lib/auth", () => ({
-    getVerifiedUser: async () => ((opts.signedIn ?? true) ? { id: "u1" } : null),
+    getVerifiedUser: async () => ({ id: "u1" }),
+  }));
+  vi.doMock("@/lib/internalAccounts", () => ({
+    isInternalUser: async () => opts.internal ?? false,
   }));
 
   const { setPreferredSideAction } = await import("@/lib/sideActions");
@@ -104,15 +101,14 @@ describe("setPreferredSideAction in preview", () => {
   it("refuses the switch to contractor without writing the preference", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { setPreferredSideAction, flashes, stamped, refresh } = await load({
-      signedIn: false,
+      internal: false,
       hasPro: true,
       hasHome: true,
     });
     // A genuinely dual-sided account: it HAS the pro side, so nothing but the
-    // preview stands between it and the stamp. A viewer the pro side is shut
-    // to is sent to the public coming-soon door (/pros, waitlist form + a way
-    // back), not toasted on the dashboard, and no flash is queued for a later
-    // page.
+    // preview stands between it and the stamp. It is sent to the public
+    // coming-soon door (/pros, waitlist form + a way back), not toasted on
+    // the dashboard, and no flash is queued for a later page.
     await expect(setPreferredSideAction(form("contractor"))).rejects.toThrow(
       "NEXT_REDIRECT:/pros"
     );
@@ -125,6 +121,7 @@ describe("setPreferredSideAction in preview", () => {
   it("still lets the switch back to homeowner through", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { setPreferredSideAction, stamped } = await load({
+      internal: false,
       hasPro: true,
       hasHome: true,
     });
@@ -137,10 +134,10 @@ describe("setPreferredSideAction in preview", () => {
     expect(stamped).toEqual([]);
   });
 
-  it("lets any signed-in account switch to the pro side in preview", async () => {
+  it("lets an internal account switch to the pro side as before", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { setPreferredSideAction, stamped, flashes } = await load({
-      signedIn: true,
+      internal: true,
       hasPro: true,
       hasHome: true,
     });
@@ -154,6 +151,7 @@ describe("setPreferredSideAction in preview", () => {
 
   it("outside preview the switch to contractor is untouched", async () => {
     const { setPreferredSideAction, stamped, flashes } = await load({
+      internal: false,
       hasPro: true,
       hasHome: true,
     });
