@@ -10,6 +10,8 @@ import {
 } from "@testing-library/react";
 import { LEGAL_LINKS } from "@/lib/legal";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
+import { GUIDE_LINKS } from "@/lib/guides";
+import { CATEGORY_SENTENCE, ENTITY_DESCRIPTION } from "@/lib/siteMetadata";
 
 // Vitest globals are off in this repo (see vitest.config.ts), so
 // testing-library's auto-cleanup never wires itself up on its own.
@@ -207,6 +209,85 @@ describe("landing page, phone split", () => {
     expect(
       container.querySelectorAll('script[type="application/ld+json"]').length
     ).toBeGreaterThan(0);
+  });
+});
+
+// The words a search engine reads to work out WHAT OakTend is. The h1 is the
+// brand promise and names no search anyone types, so these three pieces carry
+// the category: one sentence under the h1, one fixed definition lower down,
+// and a way from the landing page to every guide.
+describe("landing page, what OakTend is", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("says the category in one sentence right under the h1, and on the phone landing too", async () => {
+    await renderLanding();
+    const h1 = screen.getByRole("heading", { level: 1 });
+    expect(h1.nextElementSibling).toHaveTextContent(CATEGORY_SENTENCE);
+
+    const phoneBlock = screen
+      .getByRole("link", { name: "I'm a homeowner" })
+      .closest("div.sm\\:hidden") as HTMLElement;
+    expect(phoneBlock).toHaveTextContent(CATEGORY_SENTENCE);
+  });
+
+  it("defines OakTend with the fixed description, word for word, on every width", async () => {
+    await renderLanding();
+    const section = screen
+      .getByRole("heading", { level: 2, name: "What is OakTend?" })
+      .closest("section") as HTMLElement;
+    expect(section).not.toHaveClass("max-sm:hidden");
+    expect(within(section).getByText(ENTITY_DESCRIPTION)).toBeInTheDocument();
+    expect(section).toHaveTextContent("We never sell your personal information.");
+    expect(
+      within(section).getByRole("link", { name: "About OakTend" })
+    ).toHaveAttribute("href", "/about");
+  });
+
+  it("links to all 12 guides on every width", async () => {
+    await renderLanding();
+    const section = screen
+      .getByRole("heading", { level: 2, name: "Home maintenance guides" })
+      .closest("section") as HTMLElement;
+    expect(section).not.toHaveClass("max-sm:hidden");
+    const hrefs = within(section)
+      .getAllByRole("link")
+      .map((a) => a.getAttribute("href"));
+    expect(GUIDE_LINKS).toHaveLength(12);
+    for (const guide of GUIDE_LINKS) {
+      expect(hrefs).toContain(guide.href);
+    }
+    expect(hrefs).toContain("/guides");
+  });
+
+  // The pro side is closed during the preview, so nothing on this page may
+  // read as a live promise of pros, leads or quotes. Wording only: the doors
+  // themselves go where they always went.
+  it("makes no pro promise in the chips, the contractor band or the price line during the preview", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    await renderLanding();
+    expect(screen.queryByText("Find a pro for")).toBeNull();
+    expect(screen.getByText("Common jobs to post")).toBeInTheDocument();
+    expect(screen.queryByText(/Real local leads/)).toBeNull();
+    expect(
+      screen.getByText("Fix homes for a living? OakTend for Pros is coming soon.")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Join the pro waitlist" })
+    ).toHaveAttribute("href", "/pros");
+    expect(
+      screen.getByText(/Everything in the app is free during our preview/)
+    ).toBeInTheDocument();
+  });
+
+  it("keeps the contractor band's normal wording outside the preview", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
+    await renderLanding();
+    expect(
+      screen.getByText("Fix homes for a living? Real local leads, honest pricing.")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Explore OakTend for Pros" })
+    ).toHaveAttribute("href", "/pros");
   });
 });
 

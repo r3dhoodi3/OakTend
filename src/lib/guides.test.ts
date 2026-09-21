@@ -3,7 +3,9 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   GUIDE_DATES,
+  GUIDE_LINKS,
   GUIDE_PATHS,
+  GUIDE_TITLES,
   buildGuideArticleJsonLd,
   guideDates,
 } from "./guides";
@@ -108,6 +110,30 @@ describe("the guides section agrees with itself", () => {
       found.push(match![1]);
     }
     expect(found).toHaveLength(12);
+  });
+});
+
+// GUIDE_TITLES is the link text the landing page, the /oc hub and the related
+// block on every guide use. It repeats the index cards' titles on purpose (the
+// index's GUIDES array is module-private), so this is what keeps the two from
+// drifting.
+describe("GUIDE_TITLES", () => {
+  it("titles every guide and nothing else, the index excluded", () => {
+    expect(Object.keys(GUIDE_TITLES).sort()).toEqual(
+      GUIDE_PATHS.filter((p) => p !== "/guides").sort()
+    );
+    expect(GUIDE_LINKS).toHaveLength(12);
+  });
+
+  it("uses the same title the index card shows", () => {
+    const src = guideIndexSource();
+    for (const [href, title] of Object.entries(GUIDE_TITLES)) {
+      const card = new RegExp(
+        `href: "${href}",\\s+icon: \\w+,\\s+title: "([^"]+)"`
+      ).exec(src);
+      expect(card, `${href} has no index card`).not.toBeNull();
+      expect(card![1]).toBe(title);
+    }
   });
 });
 

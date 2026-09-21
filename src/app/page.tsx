@@ -8,6 +8,8 @@ import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
 import { LAUNCH_AREA_LABEL, LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
+import { CATEGORY_SENTENCE, ENTITY_DESCRIPTION } from "@/lib/siteMetadata";
+import { GUIDE_LINKS } from "@/lib/guides";
 import { previewAwareLanding } from "@/lib/previewModeServer";
 import Link from "next/link";
 import Image from "next/image";
@@ -496,7 +498,15 @@ export default async function Home(props: {
               <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
                 Know what your home needs before it costs you
               </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              {/* The category line. The h1 is the brand promise and names no
+                  search anyone types; this sentence is the one place above the
+                  fold that says, in plain words, what OakTend IS and where
+                  (src/lib/siteMetadata.ts, shared with the About page).
+                  PhoneLanding carries the same sentence for phone widths. */}
+              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 dark:text-stone-200">
+                {CATEGORY_SENTENCE}
+              </p>
+              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
                 {/* PREVIEW MODE (addendum 4 H). The first sentence is true
                     either way and is unchanged. The second one promises pro
                     matching - "post the job once and the quotes come to you" -
@@ -706,6 +716,35 @@ export default async function Home(props: {
         )}
       </section>
 
+      {/* What is OakTend? One plain definition, word for word the fixed
+          entity description (src/lib/siteMetadata.ts), because this is the
+          paragraph a search engine or an AI answer tool quotes when someone
+          asks what OakTend is. The two sentences after it are the two things
+          people ask next: what happens to my data, and what does it cost.
+          Shown on phone too: a single text card, no layout of its own. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          What is OakTend?
+        </h2>
+        <div className="card mx-auto mt-6 max-w-xl">
+          <p className="leading-relaxed text-stone-700 dark:text-stone-300">
+            {ENTITY_DESCRIPTION}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+            We never sell your personal information.{" "}
+            {isHomeownerPreview()
+              ? "Everything in the app is free during our preview, and no card is needed."
+              : "Your first home is free, and no card is needed."}{" "}
+            <Link
+              href="/about"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              About OakTend
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* FAQ: the questions people actually ask, answered from what the
           product really does. No invented stats, no "vetted" claims.
           FAQ_ITEMS also backs the FAQPage JSON-LD below, so the structured
@@ -766,8 +805,14 @@ export default async function Home(props: {
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-400">
           For contractors
         </h2>
+        {/* PREVIEW MODE. "Real local leads" is a promise of leads, and the
+            pro side is closed during the preview (/pros is a coming-soon page
+            with a waitlist), so the preview heading says that instead. Wording
+            only: the link, its target and its tracking id are unchanged. */}
         <h3 className="mt-2 text-xl font-semibold text-white">
-          Fix homes for a living? Real local leads, honest pricing.
+          {isHomeownerPreview()
+            ? "Fix homes for a living? OakTend for Pros is coming soon."
+            : "Fix homes for a living? Real local leads, honest pricing."}
         </h3>
         {/* PREVIEW MODE (Landen 2026-09-10 requests, landing page). Outside
             preview the paragraph describes the live 5% success fee, which
@@ -799,7 +844,7 @@ export default async function Home(props: {
           data-track="landing_explore_pros"
           className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center"
         >
-          Explore OakTend for Pros
+          {isHomeownerPreview() ? "Join the pro waitlist" : "Explore OakTend for Pros"}
         </Link>
       </section>
 
@@ -816,6 +861,42 @@ export default async function Home(props: {
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
         </h2>
         <CityList cities={CITIES} />
+      </section>
+
+      {/* All 12 guides, from the one list the sitemap and the guides index
+          also read (GUIDE_LINKS, src/lib/guides.ts). The footer's Guides column
+          only ever had room for three, and that footer is hidden on phone, so
+          a phone visitor and a crawler reading the phone layout had no way
+          from here to nine of them. Plain text links: two columns from sm up,
+          one column of 44px rows on phone. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          Home maintenance guides
+        </h2>
+        <p className="mx-auto mt-2 max-w-xl text-center text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          Plain answers on costs, warning signs and schedules, written for
+          Orange County homes.
+        </p>
+        <ul className="mx-auto mt-6 grid max-w-xl gap-x-8 sm:grid-cols-2 sm:gap-y-2">
+          {GUIDE_LINKS.map((guide) => (
+            <li key={guide.href}>
+              <Link
+                href={guide.href}
+                className="flex min-h-11 items-center text-sm text-stone-700 hover:text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300 dark:hover:text-stone-100"
+              >
+                {guide.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-center text-sm">
+          <Link
+            href="/guides"
+            className="inline-flex min-h-11 items-center text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300"
+          >
+            See all guides
+          </Link>
+        </p>
       </section>
 
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">
