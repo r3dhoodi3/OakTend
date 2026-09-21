@@ -392,6 +392,11 @@ export function isPublicPath(path: string): boolean {
     // The other 34 Orange County city pages (src/app/oc/[city]): same
     // reasoning, one route per city instead of one per-city entry here.
     path.startsWith("/oc/") ||
+    // The county hub above them (src/app/oc/page.tsx): a static list of the
+    // city pages. EXACT match only. The slash form "/oc/" is already covered
+    // by the prefix above, and a loose startsWith("/oc") would also open
+    // lookalikes such as "/ocean" or "/oc-anything" to anonymous visitors.
+    path === "/oc" ||
     // Privacy policy + Terms of Service + DMCA policy (src/app/privacy,
     // src/app/terms, src/app/dmca): legally need to be readable by anyone,
     // logged in or not, same reasoning as the guide and city pages above. The

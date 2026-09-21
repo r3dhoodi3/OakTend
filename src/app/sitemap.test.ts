@@ -195,10 +195,12 @@ describe("sitemap coverage", () => {
     }
   });
 
-  it("lists the About page in both modes", async () => {
+  it("lists the About page and the county hub in both modes", async () => {
     for (const mode of ["", "homeowner"]) {
       vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", mode);
-      expect(urls(await sitemap())).toContain(`${SITE_URL}/about`);
+      const list = urls(await sitemap());
+      expect(list).toContain(`${SITE_URL}/about`);
+      expect(list).toContain(`${SITE_URL}/oc`);
     }
   });
 

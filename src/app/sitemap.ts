@@ -76,6 +76,8 @@ const LAST_MODIFIED: Record<string, string> = {
   // today; their previous git date (2026-09-03) would now be wrong.
   "/fountain-valley": "2026-09-20",
   "/huntington-beach": "2026-09-20",
+  // The county hub, src/app/oc/page.tsx. Its own date: see lastModifiedFor.
+  "/oc": "2026-09-20",
   "/privacy": "2026-09-20",
   "/terms": "2026-09-20",
   "/pro-terms": "2026-09-20",
@@ -166,6 +168,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${SITE_URL}/huntington-beach`,
       lastModified: LAST_MODIFIED["/huntington-beach"],
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    // The county hub that lists all 36 (src/app/oc/page.tsx). Above the city
+    // pages in priority because it is the page aimed at the county-wide
+    // search, and every city page's breadcrumb points up to it.
+    {
+      url: `${SITE_URL}/oc`,
+      lastModified: LAST_MODIFIED["/oc"],
       changeFrequency: "monthly",
       priority: 0.8,
     },

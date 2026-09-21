@@ -326,6 +326,18 @@ describe("landing page, cities section", () => {
     expect(irvine).toHaveAttribute("href", "/oc/irvine");
   });
 
+  it("links the county hub from under the city list, outside both list variants", async () => {
+    await renderLanding();
+    const hub = screen.getByRole("link", {
+      name: "Home maintenance in Orange County, city by city",
+    });
+    expect(hub).toHaveAttribute("href", "/oc");
+    // Not inside the phone-only list or the desktop-only grid, so it shows at
+    // every width and neither list's link count changes.
+    expect(hub.closest("div.sm\\:hidden")).toBeNull();
+    expect(hub.closest("ul")).toBeNull();
+  });
+
   it("caps the phone list at 8 cities and expands/collapses in place", async () => {
     await renderLanding();
     const heading = screen.getByRole("heading", {

@@ -861,6 +861,17 @@ export default async function Home(props: {
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
         </h2>
         <CityList cities={CITIES} />
+        {/* The county hub: one page that lists every city by region
+            (src/app/oc/page.tsx). A plain text link so it sits under both the
+            phone list and the desktop chip grid without changing either. */}
+        <p className="mt-4 text-center text-sm">
+          <Link
+            href="/oc"
+            className="inline-flex min-h-11 items-center text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300"
+          >
+            Home maintenance in Orange County, city by city
+          </Link>
+        </p>
       </section>
 
       {/* All 12 guides, from the one list the sitemap and the guides index

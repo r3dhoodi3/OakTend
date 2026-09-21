@@ -240,6 +240,20 @@ describe("unrouted paths fall through to the 404", () => {
     expect(isPublicPath("/about-us")).toBe(false);
     expect(isPublicPath("/aboutx")).toBe(false);
   });
+
+  // The Orange County hub (src/app/oc/page.tsx) sits above the 34 /oc/<city>
+  // pages, which were already public by prefix. The bare path is an exact
+  // match, so nothing that merely starts with "oc" rides along, and neither
+  // path is guarded.
+  it("keeps the bare /oc hub public without opening lookalike paths", () => {
+    expect(isPublicPath("/oc")).toBe(true);
+    expect(isPublicPath("/oc/")).toBe(true);
+    expect(isPublicPath("/oc/irvine")).toBe(true);
+    expect(isGuardedPath("/oc")).toBe(false);
+    expect(isPublicPath("/ocean")).toBe(false);
+    expect(isPublicPath("/oc-cities")).toBe(false);
+    expect(isPublicPath("/ocx")).toBe(false);
+  });
 });
 
 // Global Privacy Control wiring (src/lib/gpc.ts). updateSession and
