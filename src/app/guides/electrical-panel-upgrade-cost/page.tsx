@@ -6,11 +6,13 @@ import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
-// Public SEO guide. The cost range and the "why" copy are pulled from the same
-// REPLACEMENT_INFO.electrical_panel entry the signed-in app uses on the Home
-// Health Score (src/lib/health.ts), so the number here matches the number a
-// homeowner sees after signing up. Lifespan context mirrors
-// DEFAULT_LIFESPANS.electrical_panel (35 years) in the same file.
+// Public SEO guide, aimed at Orange County. Every figure on this page comes
+// from a published source listed in GUIDE_SOURCES (src/lib/guideExtras.ts):
+// the cost range from a 2022 California utility study (NV5 and Redwood Energy
+// for PG&E), a national range from Pecan Street, the build-era share from the
+// Census Bureau. It no longer repeats the app's own planning figure
+// (REPLACEMENT_INFO.electrical_panel in src/lib/health.ts), because that has
+// no published source to cite.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -28,10 +30,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE =
-  "Electrical panel upgrade cost: typical range and when you need one";
+const TITLE = "Electrical panel upgrade cost in Orange County";
 const DESCRIPTION =
-  "The typical cost to upgrade a home electrical panel, when an upgrade is actually needed, 100 vs 200 amp, why permits and a licensed electrician matter, and Orange County specifics.";
+  "What a panel upgrade costs in California, with sourced figures, when you need one, 100 vs. 200 amp, permits, and what to check in Orange County.";
 const CANONICAL = `${SITE_URL}/guides/electrical-panel-upgrade-cost`;
 
 export const metadata: Metadata = {
@@ -56,8 +57,8 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    q: "How much does an electrical panel upgrade cost?",
-    a: "An electrical panel upgrade typically runs about $1,500 to $4,000. Where you land depends mostly on the amperage you move to, whether the meter or service wiring also needs upgrading, the permit and inspection, and the electrician's labor. Moving from 100 amp to 200 amp service costs more than a straight like-for-like panel swap.",
+    q: "How much does an electrical panel upgrade cost in Orange County?",
+    a: "We found no published figure for Orange County alone. The nearest one is a 2022 study for California utilities, in which electricians reported panel upgrades costing $2,000 to $4,500, with an average of $2,780. That covers the homeowner's panel only. The same study found that once utility-side work, trenching, sub-panels, or long wire runs are involved, the total can range from $3,000 to more than $18,000. Nationally, the research group Pecan Street puts panel upgrades at $1,000 to $5,000.",
   },
   {
     q: "When do I actually need a panel upgrade?",
@@ -65,7 +66,7 @@ const FAQS = [
   },
   {
     q: "Should I go with 100 amp or 200 amp?",
-    a: "Most modern homes are served by 200-amp panels, and 200 amp is the common target when you are upgrading, especially if you plan to add an EV charger, heat pump, or solar. A 100-amp service can be fine for a smaller home with modest electrical needs, but it can run short once you stack several large loads. An electrician sizes the service to your home's real and planned loads.",
+    a: "Pecan Street's research says most all-electric homes will need at least a 200-amp panel, so 200 amp is the common target when you are upgrading, especially if you plan to add an EV charger, heat pump, or solar. A 100-amp service can be fine for a smaller home with modest electrical needs, but it can run short once you stack several large loads. An electrician sizes the service to your home's real and planned loads.",
   },
   {
     q: "Do I need a permit to upgrade my electrical panel?",
@@ -117,39 +118,40 @@ export default function ElectricalPanelUpgradeCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Electrical panel upgrade cost: typical range and when you need one" },
+          { label: "Electrical panel upgrade cost in Orange County" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Electrical panel upgrade cost: typical range and when you need one" },
+          { name: "Electrical panel upgrade cost in Orange County" },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Electrical panel upgrade cost: typical range and when you need one
+        Electrical panel upgrade cost in Orange County
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/electrical-panel-upgrade-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        A general planning guide. It is an estimate, not a quote for your home.
-        Prices vary.
+        A planning guide for Orange County homeowners, with sourced figures.
+        It is an estimate, not a quote for your home. Prices vary.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
-          Typical panel upgrade estimate
+          Panel upgrade, California electricians, 2022 study
         </p>
         <p className="mt-1 text-2xl font-bold text-stone-900 dark:text-stone-100">
-          $1,500 to $4,000
+          $2,000 to $4,500
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          Moving to 200-amp service, or upgrading the meter and service wiring
-          at the same time, tends to land toward the higher end.
+          The average in the study was $2,780. That is the homeowner&apos;s
+          panel only. Work on the utility&apos;s side, trenching, or moving
+          the panel can push the total far higher.
         </p>
       </div>
 
@@ -159,14 +161,26 @@ export default function ElectricalPanelUpgradeCostGuide() {
             The typical range
           </h2>
           <p className="mt-2 leading-relaxed">
-            Upgrading a home electrical panel typically costs about{" "}
-            <strong>$1,500 to $4,000</strong>, including the panel, labor, and
-            permit. The price is driven mostly by the amperage you move to (200
-            amp costs more than 100 amp), whether the meter or service wiring
-            also needs upgrading, the permit and inspection, and the
-            electrician&apos;s labor. A straightforward like-for-like swap sits
-            lower in the range; a full service upgrade with new wiring sits
-            higher.
+            We found no published figure for Orange County alone. The nearest
+            one is a 2022 study done for California utilities by NV5 and
+            Redwood Energy, in which electricians reported that a
+            homeowner&apos;s panel upgrade cost{" "}
+            <strong>$2,000 to $4,500</strong>
+            , with an average of{" "}
+            <strong>$2,780</strong>
+            . The electricians worked in PG&E and SDG&E territory, in Northern
+            California and the San Diego area, so treat it as the nearest
+            published figure rather than a local one. Nationally, the research
+            group Pecan Street put panel upgrades at $1,000 to $5,000 in 2021.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            That range is for the panel itself. The same California study
+            found that when the job also involves the utility&apos;s
+            equipment, trenching, a sub-panel, new breakers, or long wire
+            runs, the total can range from $3,000 to more than $18,000, and
+            that moving a panel or converting an overhead service to
+            underground typically ran $3,000 to $10,000. Permit fees in the
+            cities it looked at were $130 to $170.
           </p>
         </section>
 
@@ -212,7 +226,8 @@ export default function ElectricalPanelUpgradeCostGuide() {
           <p className="mt-2 leading-relaxed">
             Amperage is the size of your home&apos;s electrical service. Many
             older homes have 100-amp service, which can be fine for a smaller
-            home with modest needs. Most modern homes run 200-amp service, and
+            home with modest needs. Pecan Street&apos;s research says most
+            all-electric homes will need at least a 200-amp panel, which is why
             200 amp is the usual target when you upgrade, especially if you are
             planning an EV charger, a heat pump, or solar. The right answer is
             not automatic; an electrician sizes the service to your home&apos;s
@@ -260,17 +275,67 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            An Orange County note
+            In Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
-            Orange County homeowners are upgrading panels more often lately,
-            largely because of EV chargers, ADUs, and solar plus battery
-            installs. Many neighborhoods have older housing stock still on
-            100-amp service, so a panel upgrade is a common first step before
-            adding any of those. Permit specifics and utility coordination vary
-            by city and by whether Southern California Edison or your local
-            utility serves your address, so confirm the process locally before
-            you schedule work.
+            Age is the local factor. The Census Bureau&apos;s 2024 American
+            Community Survey puts about 19 percent of Orange County&apos;s
+            housing units in the 1960s and about 22 percent in the 1970s, so
+            roughly four in ten homes here were wired before EV chargers, heat
+            pumps, and home batteries existed. InterNACHI&apos;s life
+            expectancy chart gives a service panel about 60 years, which means
+            panels from the early part of that era are now reaching it. Pecan
+            Street&apos;s research says most all-electric homes will need at
+            least a 200-amp panel.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The utility matters too. Disconnecting and reconnecting the
+            service is coordinated with Southern California Edison or
+            whichever utility serves your address, and the California study
+            above found that utility-side work is where costs and delays grow.
+            Ask the electrician up front who handles the utility request and
+            what it adds.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The Contractors State License Board says anyone who contracts for
+            a job that needs a building permit must hold a valid license,
+            whatever the price. Permit rules and fees differ from city to
+            city. Our city pages are a starting point:{" "}
+            <Link
+              href="/oc/anaheim"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Anaheim
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/fullerton"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Fullerton
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/buena-park"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Buena Park
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/garden-grove"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Garden Grove
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
           </p>
         </section>
 
@@ -292,12 +357,14 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            Data as of July 2026. The cost range reflects OakTend&apos;s in-app
-            planning figure for an electrical panel upgrade. All figures are
-            general estimates, not quotes, and actual prices vary by home,
-            scope, and contractor. OakTend does not set or guarantee prices and
-            is not a contractor. For safety and permit requirements, rely on a
-            licensed electrician and your local building department.
+            Cost figures are from the Service Upgrades for Electrification
+            Retrofits Study (NV5 and Redwood Energy for PG&E, May 2022) and
+            from Pecan Street (2021). Neither is specific to Orange County.
+            All figures are general estimates, not quotes, and actual prices
+            vary by home, scope, and contractor. OakTend does not set or
+            guarantee prices and is not a contractor. For safety and permit
+            requirements, rely on a licensed electrician and your local
+            building department.
           </p>
         </section>
       </div>
