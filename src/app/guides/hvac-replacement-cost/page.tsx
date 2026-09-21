@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
-// Public SEO guide. Cost range and "why" copy are pulled from the same
-// REPLACEMENT_INFO.hvac entry the signed-in app uses on the Home Health
-// Score (src/lib/health.ts), so the number here matches the number a
-// homeowner sees after signing up. Lifespan (18 years) mirrors
-// DEFAULT_LIFESPANS.hvac in the same file.
+// Public SEO guide, aimed at Orange County. Every figure on this page comes
+// from a published source listed in GUIDE_SOURCES (src/lib/guideExtras.ts):
+// lifespans from InterNACHI and ENERGY STAR, coastal corrosion from FEMA, the
+// license rule from CSLB. It no longer repeats the app's own planning figures
+// (REPLACEMENT_INFO / DEFAULT_LIFESPANS in src/lib/health.ts), because those
+// have no published source to cite.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -27,9 +29,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "HVAC replacement cost: typical range and what changes it";
+const TITLE = "HVAC replacement cost in Orange County: what to expect";
 const DESCRIPTION =
-  "The typical national cost to replace a home HVAC system, what drives the price up or down, central AC vs. heat pump, and when a repair makes more sense than replacement.";
+  "What changes the price of a new heating and cooling system in Orange County: size, ducts, central AC vs. heat pump, coastal salt air, and when to repair.";
 const CANONICAL = `${SITE_URL}/guides/hvac-replacement-cost`;
 
 export const metadata: Metadata = {
@@ -54,8 +56,8 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    q: "How much does it cost to replace an HVAC system?",
-    a: "Nationally, replacing a home HVAC system typically runs about $5,000 to $10,000. Where you land in that range depends mostly on the size of unit your home needs, its efficiency rating, whether the ductwork needs work, and the labor to install it and charge the refrigerant.",
+    q: "How much does it cost to replace an HVAC system in Orange County?",
+    a: "No government or utility source publishes a typical installed price for Orange County, so this guide does not print one. Where a quote lands depends mostly on the size of unit your home needs, its efficiency rating, whether the ductwork needs work, and the labor to install it. A similarly sized system that reuses sound ducts is the least expensive version of the job. For a real local number, ask two or three licensed HVAC contractors for written, itemized prices.",
   },
   {
     q: "Should I get a heat pump instead of central AC?",
@@ -63,11 +65,11 @@ const FAQS = [
   },
   {
     q: "When should I repair my HVAC instead of replacing it?",
-    a: "Repair usually makes sense for a system that is still well within its typical 18-year lifespan and has one clear, contained problem, like a failed capacitor or a refrigerant leak in an otherwise sound unit. Replacement tends to make more sense once the system is at or past that typical age, needs a major component like the compressor or heat exchanger, or keeps coming back for repeat repairs.",
+    a: "Repair usually makes sense for a younger system with one clear, contained problem, like a failed capacitor or a refrigerant leak in an otherwise sound unit. ENERGY STAR lists a heat pump or air conditioner more than 10 years old, or a furnace or boiler more than 15 years old, among the signs that it is time to consider replacing. Replacement also tends to make more sense once the system needs a major component like the compressor or heat exchanger, or keeps coming back for repeat repairs.",
   },
   {
     q: "Does living near the coast in Orange County affect my HVAC system?",
-    a: "Coastal Orange County communities generally run milder and see less extreme heat than inland areas, so an AC system there often runs fewer hours per year. Less run time is generally easier on a system, though your specific unit's age, install quality, and maintenance history still matter more than location alone.",
+    a: "Yes, mostly through salt. A FEMA technical bulletin on coastal construction says salt spray carried by onshore winds significantly accelerates the corrosion of metal, that the salt in the air is greatest within 300 to 3,000 feet of the shoreline, and that studies have found faster corrosion as far as 5 to 10 miles inland. An outdoor condenser is mostly metal, so near the beach it is worth asking an installer about coastal protection and rinsing the unit with fresh water.",
   },
 ];
 
@@ -111,40 +113,49 @@ export default function HvacReplacementCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "HVAC replacement cost: typical range and what changes it" },
+          { label: "HVAC replacement cost in Orange County: what to expect" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "HVAC replacement cost: typical range and what changes it" },
+          { name: "HVAC replacement cost in Orange County: what to expect" },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        HVAC replacement cost: typical range and what changes it
+        HVAC replacement cost in Orange County: what to expect
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/hvac-replacement-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        A general, national planning guide. It is not a quote for your home.
+        A planning guide for Orange County homeowners. It is not a quote for
+        your home.
       </p>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            The typical range
+            What it costs
           </h2>
           <p className="mt-2 leading-relaxed">
-            Nationally, replacing a home HVAC system typically costs about{" "}
-            <strong>$5,000 to $10,000</strong>, including equipment and
-            installation. A straightforward, similarly sized system in an
-            average home tends to land toward the lower end; larger homes,
-            higher-efficiency equipment, or a system that needs ductwork
-            changes tend to land higher.
+            We looked for a government or utility source that publishes a
+            typical installed price for replacing a central air conditioner
+            and furnace in Orange County and did not find one, so this guide
+            does not print a number. What holds true everywhere: a similarly
+            sized system that reuses sound ductwork is the least expensive
+            version of the job. Larger homes, higher-efficiency equipment, and
+            duct changes all push the price up.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            ENERGY STAR&apos;s advice before you spend anything: deal with the
+            big air leaks in the house and in the duct system first, because
+            those are sometimes the real reason a system cannot keep up. For a
+            real local number, ask two or three licensed HVAC contractors for
+            written, itemized prices.
           </p>
         </section>
 
@@ -153,7 +164,7 @@ export default function HvacReplacementCostGuide() {
             What actually drives the price
           </h2>
           <p className="mt-2 leading-relaxed">
-            Four things mostly decide where you land in that range:
+            Four things mostly decide where a quote lands:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -176,7 +187,7 @@ export default function HvacReplacementCostGuide() {
           </ul>
           <p className="mt-2 leading-relaxed">
             Homes that need duct work done at the same time see the biggest
-            jump above the typical range.
+            jump in price.
           </p>
         </section>
 
@@ -200,29 +211,89 @@ export default function HvacReplacementCostGuide() {
             When repair beats replacement
           </h2>
           <p className="mt-2 leading-relaxed">
-            An HVAC system has a typical working life of about 18 years. If
-            yours is well under that and the issue is a single, contained
+            Published lifespans vary by equipment. InterNACHI&apos;s life
+            expectancy chart lists 7 to 15 years for a central air
+            conditioner, 10 to 15 years for a heat pump, and 15 to 25 years
+            for a furnace. ENERGY STAR lists a heat pump or air conditioner
+            that is more than 10 years old, or a furnace or boiler that is
+            more than 15 years old, among the signs that it is time to
+            consider replacing.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            If yours is younger than that and the issue is a single, contained
             part, like a capacitor, blower motor, or a refrigerant leak in an
-            otherwise sound system, a repair is usually the faster and
-            cheaper path. Replacement tends to make more sense once the
-            system is at or past its typical lifespan, needs a major part
-            like the compressor or heat exchanger, or has needed more than
-            one repair recently.
+            otherwise sound system, a repair is usually the faster and cheaper
+            path. Replacement tends to make more sense once the system is past
+            those ages, needs a major part like the compressor or heat
+            exchanger, or has needed more than one repair recently.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            A coastal Orange County note
+            In Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
-            Coastal Orange County communities generally run milder than
-            inland Southern California, with less extreme heat, so an AC
-            system there often runs fewer hours in a typical year than the
-            same system further inland. Less run time is generally easier on
-            equipment, though a system&apos;s age, install quality, and
-            maintenance history still matter more than location on their
-            own.
+            Salt air is the coastal factor. A FEMA technical bulletin on
+            coastal construction says salt spray carried by onshore winds
+            significantly accelerates the corrosion of metal, that the salt in
+            the air is greatest within 300 to 3,000 feet of the shoreline, and
+            that studies have found faster corrosion as far as 5 to 10 miles
+            inland. The bulletin is about metal connectors and fasteners, but
+            the same salt lands on an outdoor condenser&apos;s coil and
+            cabinet. Near the beach, ask an installer about coastal protection
+            for the outdoor unit and rinse it with fresh water now and then.
+            Coastal communities also run milder than inland ones, so the
+            system there tends to run fewer hours.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            California&apos;s 2025 Energy Code, which applies to permits
+            applied for on or after January 1, 2026, expands the use of heat
+            pumps in newly built homes. The Contractors State License Board
+            says anyone who contracts for a job that needs a building permit,
+            or for work valued at $1,000 or more in combined labor and
+            materials, must hold a valid license. An HVAC replacement is well
+            past that, so check the license at cslb.ca.gov before you sign.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Permit rules and fees differ from city to city, so ask your
+            city&apos;s building department before work starts. Our city pages
+            are a starting point:{" "}
+            <Link
+              href="/oc/irvine"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Irvine
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/mission-viejo"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Mission Viejo
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/yorba-linda"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Yorba Linda
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/newport-beach"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Newport Beach
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
           </p>
         </section>
 
