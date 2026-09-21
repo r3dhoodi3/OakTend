@@ -16,6 +16,7 @@ import {
   FileCheck,
   Droplets,
   Hammer,
+  Bug,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -133,6 +134,13 @@ const GUIDES = [
     title: "Repiping a house in Orange County",
     blurb:
       "When a whole-house repipe makes sense, how copper and PEX compare on the job, what the permit and inspection involve, and what a bid is built from.",
+  },
+  {
+    href: "/guides/termites-orange-county",
+    icon: Bug,
+    title: "Termites in Orange County",
+    blurb:
+      "Drywood vs subterranean termites, when tenting beats spot treatment, how to read an inspection report, and what a treatment bid is built from.",
   },
 ];
 

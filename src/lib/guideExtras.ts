@@ -241,6 +241,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "La Habra",
     ],
   },
+  "/guides/termites-orange-county": {
+    guides: [
+      "/guides/socal-home-maintenance-calendar",
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/home-maintenance-schedule",
+    ],
+    cities: [
+      "Huntington Beach",
+      "Newport Beach",
+      "Costa Mesa",
+      "Seal Beach",
+      "Tustin",
+      "Orange",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -1046,6 +1061,56 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "U.S. Geological Survey: Hardness of Water",
       supports:
         "Heated hard water leaves calcium carbonate scale that can clog pipes.",
+    },
+  ],
+  "/guides/termites-orange-county": [
+    {
+      href: "https://ipm.ucanr.edu/home-and-landscape/drywood-termites/",
+      label: "UC IPM Pest Notes: Drywood Termites",
+      supports:
+        "Drywood termite signs and swarm timing, whole-structure versus localized treatment, fumigation and heat details, no residual effect, and the d-limonene (orange oil) finding.",
+    },
+    {
+      href: "https://ipm.ucanr.edu/home-and-landscape/subterranean-and-other-termites/",
+      label: "UC IPM Pest Notes: Subterranean and Other Termites",
+      supports:
+        "Where each termite type lives, shelter tubes, subterranean swarm timing, barrier and bait treatments, and the prevention list.",
+    },
+    {
+      href: "https://www.pestboard.ca.gov/forms/termites.pdf",
+      label: "Structural Pest Control Board: Questions and Answers About Termites",
+      supports:
+        "Termite signs, the ant versus termite test, that only fumigation and whole-house heat ensure eradication in the entire structure, the false advertising warning, and the advice not to be rushed.",
+    },
+    {
+      href: "https://www.pestboard.ca.gov/forms/fumigate.pdf",
+      label: "Structural Pest Control Board: Fumigation for Pest Control",
+      supports:
+        "What must be removed or bagged before fumigation, that it can take six hours to one week, secondary locks, and re-entry only after the licensee certifies the house safe.",
+    },
+    {
+      href: "https://www.pestboard.ca.gov/howdoi/terminspect.shtml",
+      label: "Structural Pest Control Board: search for termite inspection information",
+      supports:
+        "The board's database shows whether a property was inspected within the last two years, and copies of the reports can be requested.",
+    },
+    {
+      href: "https://www.pestboard.ca.gov/license.shtml",
+      label: "Structural Pest Control Board: search for a license",
+      supports:
+        "Where to verify a structural pest control company or licensee before hiring.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=8516",
+      label: "California Business and Professions Code section 8516",
+      supports:
+        "The inspection report is due within 10 business days, must separately identify evident infestation and conditions likely to lead to it, and a reinspection within four months cannot cost more than the original.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/safety-and-prevention/prepare-for-fumigation",
+      label: "SoCalGas: how to prepare for fumigation",
+      supports:
+        "SoCalGas closes and restores gas service for a fumigation at no cost, needs two business days of notice, and only it or its certified contractors may operate the service shut-off valve.",
     },
   ],
 };
