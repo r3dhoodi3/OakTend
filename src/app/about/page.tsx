@@ -162,7 +162,8 @@ export default function AboutPage() {
             sources, each one is a page we opened and checked against the
             number it supports. Cost ranges are rough planning figures, not
             quotes, and the real price for your home can land outside them.
-            If you spot something wrong or out of date, tell us through the{" "}
+            Every guide shows the date it was last updated. If you spot
+            something wrong or out of date, tell us through the{" "}
             <Link href="/contact" className={linkClass}>
               contact form
             </Link>{" "}

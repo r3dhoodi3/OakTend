@@ -119,7 +119,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-20",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
@@ -127,7 +127,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/home-maintenance-schedule": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-20",
   },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
@@ -135,7 +135,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-20",
   },
   "/guides/socal-home-maintenance-calendar": {
     datePublished: "2026-07-07",
