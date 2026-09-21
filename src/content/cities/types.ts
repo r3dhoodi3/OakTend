@@ -17,8 +17,9 @@
 //
 // Cities WITHOUT an entry keep rendering exactly what they render today. The
 // component takes content as an optional prop precisely so the cities that
-// have not been researched yet (13 of the 36 as of 2026-09-20) are untouched
-// until they are.
+// have not been researched yet are untouched until they are. (All 36 launch
+// names have an entry as of the fourth wave, 2026-09-20; the prop stays
+// optional for any name added to the launch list later.)
 
 // How close the city sits to the water, which decides what maintenance advice
 // is honest there. Coastal cities get salt-air wear; inland and foothill
@@ -48,6 +49,12 @@ export type CityContent = {
   intro: string;
   // Unique, under 160 characters, no city-name-swap templating.
   metaDescription: string;
+  // The page's <title> (also the OG and Twitter title). Optional: a city
+  // without one keeps the shared title from src/lib/cityCopy.ts. Leads with
+  // the city name and the real local hook, local facts only (no word about
+  // pros, so it is safe with the preview flag on or off), and at most 50
+  // characters because the root layout appends " | OakTend".
+  metaTitle?: string;
 
   population: {
     value: string;
@@ -101,13 +108,15 @@ export type CityContent = {
   // hazard.
   hazards: Fact[];
 
-  // 2 to 4, matched to this city's actual profile rather than a fixed four.
-  // hrefs must resolve to a real folder under src/app/guides.
+  // 2 to 4, matched to this city's actual profile rather than a fixed four:
+  // the SoCal maintenance calendar everywhere, plus the 2 or 3 guides the
+  // city's housing age, water and exposure actually call for. hrefs must
+  // resolve to a real folder under src/app/guides.
   guides: { href: string; title: string; blurb: string }[];
 
-  // 2 or 3 slugs of nearby cities (hub-and-spoke internal linking). These may
-  // point at cities that have no content entry yet: those cities still have
-  // pages, they just render the shared template for now.
+  // 2 to 4 slugs of cities that genuinely border this one or sit next door
+  // (hub-and-spoke internal linking). cities.test.ts checks that every slug is
+  // a launch city and that every city is linked from at least one neighbor.
   neighbors: string[];
 
   // 4 to 6. Real questions, honest answers, marked up as FAQPage JSON-LD.

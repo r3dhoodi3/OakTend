@@ -22,15 +22,29 @@ import { sanClemente } from "./san-clemente";
 import { lagunaNiguel } from "./laguna-niguel";
 import { cypress } from "./cypress";
 import { danaPoint } from "./dana-point";
+import { alisoViejo } from "./aliso-viejo";
+import { laPalma } from "./la-palma";
+import { lagunaBeach } from "./laguna-beach";
+import { lagunaHills } from "./laguna-hills";
+import { lagunaWoods } from "./laguna-woods";
+import { losAlamitos } from "./los-alamitos";
+import { ranchoSantaMargarita } from "./rancho-santa-margarita";
+import { sanJuanCapistrano } from "./san-juan-capistrano";
+import { sealBeach } from "./seal-beach";
+import { stanton } from "./stanton";
+import { villaPark } from "./villa-park";
+import { laderaRanch } from "./ladera-ranch";
+import { midwayCity } from "./midway-city";
 
 export type { CityContent, CityExposure, Fact } from "./types";
 
-// The cities that have real, sourced content today. Partial on purpose: the
-// other 13 Orange County cities and communities in LAUNCH_CITY_NAMES
-// (src/lib/serviceArea.ts) still have pages, and those pages render exactly
-// what they rendered before this module existed. A city joins this map only
-// when a researcher has actually gathered its facts with sources, one file
-// per city under this folder.
+// The cities that have real, sourced content. As of the fourth wave
+// (2026-09-20) that is all 36 names in LAUNCH_CITY_NAMES
+// (src/lib/serviceArea.ts). The type stays Partial on purpose: a name added
+// to the launch list later still gets a page, rendered the way pages rendered
+// before this module existed, and joins this map only when a researcher has
+// actually gathered its facts with sources, one file per city under this
+// folder.
 //
 // Keys are the same slug the routes use: city name lowercased, spaces to
 // hyphens, matching slugFor() in src/app/oc/[city]/page.tsx. Fountain Valley
@@ -69,11 +83,27 @@ export const CITY_CONTENT: Partial<Record<string, CityContent>> = {
   [lagunaNiguel.slug]: lagunaNiguel,
   [cypress.slug]: cypress,
   [danaPoint.slug]: danaPoint,
+  // Fourth wave, researched 2026-09-20: the last 11 cities and the two
+  // unincorporated communities (Ladera Ranch, Midway City), which cite the
+  // County of Orange where a city would cite its own departments.
+  [alisoViejo.slug]: alisoViejo,
+  [laPalma.slug]: laPalma,
+  [lagunaBeach.slug]: lagunaBeach,
+  [lagunaHills.slug]: lagunaHills,
+  [lagunaWoods.slug]: lagunaWoods,
+  [losAlamitos.slug]: losAlamitos,
+  [ranchoSantaMargarita.slug]: ranchoSantaMargarita,
+  [sanJuanCapistrano.slug]: sanJuanCapistrano,
+  [sealBeach.slug]: sealBeach,
+  [stanton.slug]: stanton,
+  [villaPark.slug]: villaPark,
+  [laderaRanch.slug]: laderaRanch,
+  [midwayCity.slug]: midwayCity,
 };
 
 // Content for a slug, or undefined when that city has not been researched
 // yet. Callers treat undefined as "render the page the way it rendered
-// before", never as an error: a city with no entry is the normal case today.
+// before", never as an error.
 export function getCityContent(slug: string): CityContent | undefined {
   // hasOwnProperty rather than a bare index: this reads a plain object with a
   // value that arrives from the URL, and a bare lookup would happily return
