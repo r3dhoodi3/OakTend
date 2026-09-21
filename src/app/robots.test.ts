@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { DISALLOWED_PATHS } from "./robots";
-import { isGuardedPath } from "@/lib/supabase/middleware";
+import robots, { ALLOWED_PUBLIC_PATHS, DISALLOWED_PATHS } from "./robots";
+import { isGuardedPath, isPublicPath } from "@/lib/supabase/middleware";
 
 // robots.txt used to name six of the app's private segments and leave the
 // other twenty-odd open to crawlers. Nothing leaked, because middleware
@@ -67,6 +67,55 @@ describe("robots.txt", () => {
     ]) {
       const blocked = DISALLOWED_PATHS.some((p) => publicPath.startsWith(p));
       expect(blocked, `${publicPath} must stay crawlable`).toBe(false);
+    }
+  });
+
+  // THE PREFIX TRAP. "Disallow: /emergency" is right for the signed-in
+  // /emergency screen, and it also prefix-matches the public /emergency-help
+  // page, which is in the sitemap. A crawler resolves the clash by taking the
+  // LONGEST matching rule (RFC 9309; Google and Bing both follow it), so the
+  // fix is an explicit Allow that is longer than the Disallow it overlaps.
+  function isCrawlable(path: string): boolean {
+    const rule = robots().rules;
+    const first = Array.isArray(rule) ? rule[0] : rule;
+    const allows = ([] as string[]).concat(first.allow ?? []);
+    const disallows = ([] as string[]).concat(first.disallow ?? []);
+    const longest = (rules: string[]) =>
+      Math.max(-1, ...rules.filter((r) => path.startsWith(r)).map((r) => r.length));
+    // A tie goes to Allow, which is also what the spec says.
+    return longest(allows) >= longest(disallows);
+  }
+
+  it("lets crawlers reach /emergency-help despite the /emergency prefix", () => {
+    const first = ([] as any[]).concat(robots().rules)[0];
+    expect(first.allow).toContain("/emergency-help");
+    expect(isCrawlable("/emergency-help")).toBe(true);
+    // And the private twin stays blocked.
+    expect(isCrawlable("/emergency")).toBe(false);
+    expect(isCrawlable("/emergency/gas")).toBe(false);
+  });
+
+  it("only lists an Allow exception for a page that is public and really collides", () => {
+    for (const path of ALLOWED_PUBLIC_PATHS) {
+      expect(isPublicPath(path), `${path} is not public`).toBe(true);
+      expect(isGuardedPath(path), `${path} is guarded`).toBe(false);
+      expect(
+        DISALLOWED_PATHS.some((p) => path.startsWith(p)),
+        `${path} needs no exception`
+      ).toBe(true);
+    }
+  });
+
+  it("blocks no sitemap-worthy public page by prefix", () => {
+    for (const publicPath of [
+      "/emergency-help",
+      "/oc",
+      "/oc/irvine",
+      "/about",
+      "/guides",
+      "/pricing",
+    ]) {
+      expect(isCrawlable(publicPath), `${publicPath} is blocked`).toBe(true);
     }
   });
 });

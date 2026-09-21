@@ -24,6 +24,16 @@ const SITE_URL =
 
 // One entry per private top-level segment. Alphabetical, so a new one is easy
 // to slot in and easy to spot as missing.
+//
+// THE PREFIX TRAP. robots matches by prefix: before adding a public route,
+// check it does not start with one of these (/ask, /inspection, /value,
+// /search, /learn, /plus, /open, /join, /taxes, /forecast, /emergency).
+// "Disallow: /emergency" was written for the signed-in /emergency screen and
+// silently blocked the public /emergency-help page too, which is in the
+// sitemap and is the page someone searches for mid-panic. If a public route
+// has to share a prefix with a private one, list it in ALLOWED_PUBLIC_PATHS
+// below: the longest matching rule wins (RFC 9309, Google and Bing), so the
+// longer Allow beats the shorter Disallow.
 export const DISALLOWED_PATHS = [
   "/account",
   "/api/",
@@ -60,12 +70,18 @@ export const DISALLOWED_PATHS = [
   "/welcome",
 ];
 
+// Public pages whose address starts with a disallowed prefix. Each one needs
+// its own explicit Allow line or the shorter Disallow swallows it (see THE
+// PREFIX TRAP above). src/app/robots.test.ts checks that every entry here is
+// really public and really does collide with a disallowed prefix.
+export const ALLOWED_PUBLIC_PATHS = ["/emergency-help"];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", ...ALLOWED_PUBLIC_PATHS],
         disallow: DISALLOWED_PATHS,
       },
     ],
