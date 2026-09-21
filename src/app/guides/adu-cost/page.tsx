@@ -6,10 +6,14 @@ import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
-// Public SEO guide. Orange County ADU cost ranges by type, aggregated from
-// published contractor pricing and industry cost reports as of July 2026.
-// All figures are typical ranges, never quotes. Deliberately avoids a single
-// national "average ADU cost" because sources diverge roughly 2x. The
+// Public SEO guide, aimed at Orange County. The cost figure on this page
+// comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
+// (the closest market it covers), and the rules from the Government Code and
+// the County of Orange, all listed in GUIDE_SOURCES (src/lib/guideExtras.ts).
+// The Cost vs. Value reuse rules allow narrative excerpts only (no tables),
+// from at most five projects across the whole site, each with the report's
+// name, its URL and the copyright line: keep all three when editing, and do
+// not add a sixth project. Figures are averages, never quotes. The
 // signed-in CTA points at /contractors?category=remodeling (ADU work maps to
 // the remodeling service category, see SERVICE_CATEGORIES in
 // src/lib/constants.ts).
@@ -30,9 +34,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "ADU cost in Orange County: typical ranges by type (2026)";
+const TITLE = "ADU cost in Orange County: what to expect and the rules";
 const DESCRIPTION =
-  "What an ADU typically costs in Orange County by type: garage conversion, attached, and detached, plus cost per square foot, what drives the price, California ADU rules, and how to save. Estimate ranges, not a quote.";
+  "What a detached ADU costs near Orange County, with a sourced 2025 average, why a garage conversion costs less, California ADU rules, and how to save.";
 const CANONICAL = `${SITE_URL}/guides/adu-cost`;
 
 export const metadata: Metadata = {
@@ -60,11 +64,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How much does an ADU cost in Orange County?",
-    a: "It depends heavily on the type. In Orange County, a garage conversion typically runs about $100,000 to $185,000, an attached ADU about $160,000 to $350,000, and a detached ADU about $200,000 to $450,000 or more. On a per-square-foot basis, OC ADUs commonly run around $300 to $400 per square foot. There is no reliable single national average, since published figures diverge widely.",
+    a: "No published cost survey we could find has its own Orange County line, so the closest sourced number is for the Los Angeles market next door. According to the Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com), a new 660 square foot, one-story, one-bedroom detached ADU averaged $178,536 there in 2025, or about $270 per square foot by simple division, and $166,406 nationally. A larger unit costs more. A garage conversion usually costs less, because the walls, roof, and foundation already exist.",
   },
   {
     q: "What is the cheapest type of ADU to build?",
-    a: "Converting an existing garage is usually the cheapest path to an ADU, typically about $100,000 to $185,000 in Orange County. Because the walls, roof, and foundation already exist, you avoid the biggest costs of new construction. The main expenses become insulation, plumbing, electrical, and finishes to turn the shell into a livable unit.",
+    a: "Converting an existing garage is usually the cheapest path to an ADU. Because the walls, roof, and foundation already exist, you avoid the biggest costs of new construction. The main expenses become insulation, plumbing, electrical, and finishes to turn the shell into a livable unit. We did not find a published survey figure for garage conversions, so we do not print a number for them.",
   },
   {
     q: "Do I need my city's approval and a hearing to build an ADU in California?",
@@ -76,7 +80,7 @@ const FAQS = [
   },
   {
     q: "Is an ADU a good investment?",
-    a: "If you are counting on resale, an ADU tends to recoup only a modest share of its cost, often around 41 percent, so resale alone is a weak case. The stronger case is usually rental income, commonly about $1,800 to $4,000 a month for a California ADU, or housing family without paying separate rent or a mortgage elsewhere. Framed as ongoing income or avoided housing cost, the math looks very different than resale.",
+    a: "If you are counting on resale, the numbers are weak. In the Cost vs. Value Report's Los Angeles market for 2025, a detached ADU recouped about 40 percent of its cost at resale. The stronger case is usually rental income over time, or housing family without paying separate rent or a mortgage elsewhere. Check real rents for small units in your own city before you count on a number.",
   },
 ];
 
@@ -139,34 +143,25 @@ export default function AduCostGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/adu-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Typical estimate ranges for OC homeowners, not a quote for your home.
-        Prices vary. Data as of July 2026.
+        Sourced planning figures for Orange County homeowners, not a quote for
+        your home. Prices vary.
       </p>
 
-      {/* Hero cost callout: OC ranges by type above the fold. No single
-          national "average" because published sources diverge roughly 2x. */}
+      {/* Hero cost callout: the one published average we can cite, above the
+          fold. Narrative only, never a table (Cost vs. Value reuse rules). */}
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-6 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
-          Typical Orange County ADU cost by type
+          Average detached ADU, Los Angeles market, 2025
         </p>
-        <ul className="mt-2 space-y-1 text-stone-900 dark:text-stone-100">
-          <li className="flex items-baseline justify-between gap-3">
-            <span>Garage conversion</span>
-            <span className="font-bold">$100,000 to $185,000</span>
-          </li>
-          <li className="flex items-baseline justify-between gap-3">
-            <span>Attached ADU</span>
-            <span className="font-bold">$160,000 to $350,000</span>
-          </li>
-          <li className="flex items-baseline justify-between gap-3">
-            <span>Detached ADU</span>
-            <span className="font-bold">$200,000 to $450,000+</span>
-          </li>
-        </ul>
+        <p className="mt-1 text-2xl font-bold text-stone-900 dark:text-stone-100">
+          $178,536
+        </p>
         <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          On a per-square-foot basis, OC ADUs commonly run about $300 to $400
-          per square foot. We do not quote a single national average, since
-          published figures diverge widely.
+          From the Remodeling 2025 Cost vs. Value Report
+          (www.costvsvalue.com), for a new 660 square foot, one-story,
+          one-bedroom detached unit on a slab. The report has no separate
+          Orange County market, so Los Angeles is the closest one. The
+          national average for the same unit is $166,406.
         </p>
       </div>
 
@@ -180,19 +175,32 @@ export default function AduCostGuide() {
             label, because the type decides how much new structure you are
             building from scratch.
           </p>
+          <p className="mt-2 leading-relaxed">
+            The one published average we can cite is for a detached unit.
+            According to the Remodeling 2025 Cost vs. Value Report
+            (www.costvsvalue.com), a new 660 square foot, one-story detached
+            ADU with one bedroom, one bathroom, a kitchen, and a mini-split
+            heat pump, built on a slab, averaged{" "}
+            <strong>$178,536</strong>
+            {" "}
+            in the Los Angeles market in 2025 and{" "}
+            <strong>$166,406</strong>
+            {" "}
+            nationally. The report has no separate Orange County market.
+          </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Garage conversion: about $100,000 to $185,000.</strong>{" "}
-              The lowest-cost path, since the shell already exists.
+              <strong>Garage conversion:</strong> usually the lowest-cost
+              path, since the shell already exists.
             </li>
             <li>
-              <strong>Attached ADU: about $160,000 to $350,000.</strong> A new
-              unit built onto the existing home, sharing at least one wall.
+              <strong>Attached ADU:</strong> a new unit built onto the
+              existing home, sharing at least one wall.
             </li>
             <li>
-              <strong>Detached ADU: about $200,000 to $450,000 and up.</strong>{" "}
-              A standalone new building, with its own foundation, roof, and
-              utility connections.
+              <strong>Detached ADU:</strong> a standalone new building, with
+              its own foundation, roof, and utility connections. This is the
+              type the figure above describes.
             </li>
           </ul>
         </section>
@@ -203,8 +211,7 @@ export default function AduCostGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             Converting an existing garage is usually the most affordable way
-            to add an ADU, typically about $100,000 to $185,000 in Orange
-            County. The reason is simple: the walls, roof, and foundation are
+            to add an ADU. The reason is simple: the walls, roof, and foundation are
             already there, so you skip the largest costs of new construction.
             The budget instead goes toward insulation, drywall, plumbing,
             electrical, a kitchen and bathroom, windows, and finishes to turn
@@ -224,11 +231,13 @@ export default function AduCostGuide() {
             Cost per square foot
           </h2>
           <p className="mt-2 leading-relaxed">
-            Orange County ADUs commonly run about{" "}
-            <strong>$300 to $400 per square foot</strong>. Detached new builds
-            tend toward the higher end because they include a full foundation,
-            roof, and separate utility connections, while conversions of
-            existing space tend to run lower per foot.
+            Divide the Los Angeles average by the 660 square foot unit it
+            describes and you get about{" "}
+            <strong>$270 per square foot</strong>
+            . Small units cost more per foot than large ones, because every
+            ADU needs a kitchen, a bathroom, and utility connections no matter
+            how small it is. Conversions of existing space tend to run lower
+            per foot than new detached builds.
           </p>
         </section>
 
@@ -308,6 +317,71 @@ export default function AduCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            In Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Orange County has no line of its own in the Cost vs. Value Report,
+            which covers Los Angeles as the nearest market. The Los Angeles
+            average for the detached unit runs about 7 percent above the
+            national one.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            State law does most of the work here. Under Government Code
+            section 66317 a city has 60 days to approve or deny a complete ADU
+            application, with no hearing, and section 66315 bars cities from
+            adding an owner-occupancy requirement. For homes in unincorporated
+            areas, the County of Orange&apos;s OC Development Services says
+            ADU applications are processed ministerially and only require a
+            building permit, and it publishes pre-approved ADU plans you can
+            build from. Government Code section 65852.27 required every city
+            and county to set up a program for pre-approved ADU plans by
+            January 1, 2025, so ask your planning counter what is on its list
+            before paying for a custom design.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Every city still sets its own fees, setbacks, and parking details
+            within the state&apos;s limits. Our city pages are a starting
+            point:{" "}
+            <Link
+              href="/oc/anaheim"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Anaheim
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/santa-ana"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Santa Ana
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/garden-grove"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Garden Grove
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/costa-mesa"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Costa Mesa
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             How to save money
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
@@ -321,9 +395,10 @@ export default function AduCostGuide() {
               runs.
             </li>
             <li>
-              <strong>Use standard or pre-approved plans.</strong> Many OC
-              cities offer pre-approved ADU designs that cut plan-check time
-              and design fees.
+              <strong>Use standard or pre-approved plans.</strong> State law
+              required every city and county to set up a pre-approved ADU plan
+              program by January 1, 2025. Building from a plan on that list
+              can cut plan-check time and design fees.
             </li>
             <li>
               <strong>Keep it single story on the existing slab.</strong>{" "}
@@ -338,15 +413,15 @@ export default function AduCostGuide() {
             A note on value: think income, not resale
           </h2>
           <p className="mt-2 leading-relaxed">
-            If you are counting on resale to justify the cost, an ADU tends to
-            recoup only a modest share, often around 41 percent, so resale
-            alone is a weak case. The stronger case is ongoing value. A
-            California ADU commonly rents for about $1,800 to $4,000 a month,
-            which can offset a meaningful part of a mortgage over time. Housing
-            a family member is the other common motivation, replacing separate
-            rent or a mortgage elsewhere. Framed as monthly income or avoided
-            housing cost rather than a resale bump, the math looks very
-            different.
+            If you are counting on resale to justify the cost, the numbers are
+            weak. In the Cost vs. Value Report&apos;s Los Angeles market for
+            2025, a detached ADU recouped about 40 percent of its cost at
+            resale. The stronger case is ongoing value: rent that offsets part
+            of a mortgage over time, or housing a family member instead of
+            paying separate rent or a mortgage elsewhere. Check real rents for
+            small units in your own city before you count on a number. Framed
+            as monthly income or avoided housing cost rather than a resale
+            bump, the math looks very different.
           </p>
         </section>
 
@@ -368,10 +443,13 @@ export default function AduCostGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-            Prices vary by property and project. Data as of July 2026,
-            aggregated from published contractor pricing and industry cost
-            reports. OakTend does not set, guarantee, or bid these prices and is
-            not a contractor.
+            Cost and resale figures are from the Remodeling 2025 Cost vs.
+            Value Report (www.costvsvalue.com) for the Los Angeles market, the
+            closest market the report covers. © 2025 Zonda Media, a Delaware
+            Corporation. Complete data from the Remodeling 2025 Cost vs. Value
+            Report can be downloaded free at www.costvsvalue.com. Prices vary
+            by property and project. OakTend does not set, guarantee, or bid
+            these prices and is not a contractor.
           </p>
         </section>
       </div>
