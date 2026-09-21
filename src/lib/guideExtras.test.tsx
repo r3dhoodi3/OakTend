@@ -105,8 +105,8 @@ describe("GUIDE_RELATED", () => {
     expect(
       screen.getByRole("link", { name: "All Orange County cities" })
     ).toHaveAttribute("href", "/oc");
-    // No verified sources for this guide, so no Sources heading at all.
-    expect(screen.queryByRole("heading", { name: "Sources" })).toBeNull();
+    // Every guide has verified sources since 2026-09-21, this one included.
+    expect(screen.getByRole("heading", { name: "Sources" })).toBeInTheDocument();
   });
 });
 
@@ -119,7 +119,27 @@ describe("GUIDE_SOURCES", () => {
     "leginfo.legislature.ca.gov",
     "www.energystar.gov",
     "www.usfa.fema.gov",
+    // Added 2026-09-21, each opened that day (see the guide sources report).
+    "www.irwd.com",
+    "www.ocwd.com",
+    "www.nachi.org",
+    "www.federalregister.gov",
+    "www.energy.ca.gov",
+    "www.fema.gov",
+    "www.cslb.ca.gov",
+    "www.jlconline.com",
+    "forecast.weather.gov",
+    "pda.energydataweb.com",
+    "www.pecanstreet.org",
+    "censusreporter.org",
+    "pwds.oc.gov",
+    "www.epa.gov",
+    "ipm.ucanr.edu",
   ];
+
+  it("lists sources for all 12 guides", () => {
+    expect(Object.keys(GUIDE_SOURCES).sort()).toEqual([...GUIDES].sort());
+  });
 
   it("only lists sources for real guides", () => {
     for (const path of Object.keys(GUIDE_SOURCES)) {

@@ -92,54 +92,54 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-03" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-21" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-21",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/home-maintenance-schedule": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/socal-home-maintenance-calendar": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
 };
 

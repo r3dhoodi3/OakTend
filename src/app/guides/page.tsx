@@ -24,49 +24,49 @@ const GUIDES = [
     icon: Droplet,
     title: "Water heater replacement cost",
     blurb:
-      "Typical national price range, what drives it up or down, and when a repair is the smarter call.",
+      "What changes the price in Orange County, hard water and strapping rules, and when a repair is the smarter call.",
   },
   {
     href: "/guides/hvac-replacement-cost",
     icon: Thermometer,
     title: "HVAC replacement cost",
     blurb:
-      "Typical national price range for a new heating and cooling system, and how to tell if yours can be repaired instead.",
+      "What changes the price of a new system in Orange County, coastal salt air, and how to tell if yours can be repaired instead.",
   },
   {
     href: "/guides/roof-replacement-cost",
     icon: Home,
     title: "Roof replacement cost",
     blurb:
-      "The typical national range plus realistic Orange County numbers for shingle and tile, when a repair beats a replacement, and permits.",
+      "A sourced 2025 figure for an asphalt shingle re-roof near Orange County, shingle vs. tile, when a repair beats a replacement, and permits.",
   },
   {
     href: "/guides/electrical-panel-upgrade-cost",
     icon: Zap,
     title: "Electrical panel upgrade cost",
     blurb:
-      "The typical range, when an upgrade is actually needed, 100 vs 200 amp, and why permits and a licensed electrician matter.",
+      "A sourced California range, when an upgrade is actually needed, 100 vs 200 amp, and why permits and a licensed electrician matter.",
   },
   {
     href: "/guides/kitchen-remodel-cost",
     icon: ChefHat,
     title: "Kitchen remodel cost",
     blurb:
-      "What a kitchen remodel runs in Orange County by tier, cost per square foot, what drives the price, and how to save.",
+      "Sourced 2025 averages for a minor and a major kitchen remodel near Orange County, what drives the price, and how to save.",
   },
   {
     href: "/guides/bathroom-remodel-cost",
     icon: Bath,
     title: "Bathroom remodel cost",
     blurb:
-      "Typical Orange County bathroom remodel ranges by tier, cost per square foot, what affects the price, and where to save.",
+      "A sourced 2025 average for a midrange bathroom remodel near Orange County, what affects the price, and where to save.",
   },
   {
     href: "/guides/adu-cost",
     icon: Building2,
     title: "ADU cost",
     blurb:
-      "What an ADU costs in Orange County by type, garage conversion vs attached vs detached, California ADU rules, and how to save.",
+      "A sourced 2025 average for a detached ADU near Orange County, garage conversion vs attached vs detached, California ADU rules, and how to save.",
   },
   {
     href: "/guides/slab-leak-signs",
@@ -188,7 +188,6 @@ export default function GuidesIndex() {
               </h3>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                 Paste a contractor&apos;s quote and see if the price is fair.
-                Your first check is free.
               </p>
             </div>
           </div>
