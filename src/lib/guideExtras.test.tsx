@@ -153,6 +153,7 @@ describe("GUIDE_SOURCES", () => {
     "www.ocwd.com",
     "www.tustinca.org",
     "www.epa.gov",
+    "www.huduser.gov",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -204,13 +205,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 15 guide pages", () => {
+describe("all 16 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(15);
+    expect(dirs).toHaveLength(16);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

@@ -178,10 +178,14 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             problem instead of the incident. It is usually worth pricing once
             a house has had a second leak, because at that point the pipe is
             telling you about its general condition. Our{" "}
+            <Link href="/guides/repipe-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              repipe guide
+            </Link>{" "}
+            covers copper versus PEX and what a bid includes, and our{" "}
             <Link href="/guides/hard-water-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               hard water guide
             </Link>{" "}
-            explains the mineral side of what local water does to plumbing.
+            explains what local water does to plumbing.
           </p>
           <p className="mt-2 leading-relaxed">
             You may also be offered an epoxy lining that coats the inside of

@@ -199,7 +199,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   "/guides/hard-water-orange-county": {
     guides: [
       "/guides/water-heater-replacement-cost",
-      "/guides/slab-leak-signs",
+      "/guides/repipe-orange-county",
       "/guides/home-maintenance-schedule",
     ],
     cities: [
@@ -214,7 +214,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   "/guides/slab-leak-repair-orange-county": {
     guides: [
       "/guides/slab-leak-signs",
-      "/guides/hard-water-orange-county",
+      "/guides/repipe-orange-county",
       "/guides/permits-orange-county",
     ],
     cities: [
@@ -224,6 +224,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Westminster",
       "Anaheim",
       "Cypress",
+    ],
+  },
+  "/guides/repipe-orange-county": {
+    guides: [
+      "/guides/slab-leak-repair-orange-county",
+      "/guides/hard-water-orange-county",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Santa Ana",
+      "Fountain Valley",
+      "Fullerton",
+      "Orange",
+      "Buena Park",
+      "La Habra",
     ],
   },
 };
@@ -963,6 +978,74 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
       supports:
         "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified in lead-safe work practices.",
+    },
+  ],
+  "/guides/repipe-orange-county": [
+    {
+      href: "https://www.huduser.gov/portal/publications/pex_design_guide.pdf",
+      label: "HUD User: Design Guide, Residential PEX Water Supply Plumbing Systems (NAHB Research Center, 2006)",
+      supports:
+        "PEX bends around obstructions with fewer fittings, uses mechanical fittings instead of solder, does not pit or corrode, and must be protected from sunlight within each manufacturer's exposure limit.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports:
+        "Fountain Valley lists a residential repipe among its expedited permits.",
+    },
+    {
+      href: "https://santa-ana.gov/pbx-express-permit/",
+      label: "City of Santa Ana: PBx Same Day Express Permit Program",
+      supports:
+        "Santa Ana lists residential repipes on its same-day express permit list.",
+    },
+    {
+      href: "https://www.yorbalindaca.gov/DocumentCenter/View/5807",
+      label: "City of Yorba Linda: plumbing project exemptions",
+      supports:
+        "Repairing a leak is exempt, but replacing a concealed pipe with new material is new work that needs a permit and an inspection.",
+    },
+    {
+      href: "https://ggcity.org/index.php/building-and-safety/obtaining-building-permit-faqs",
+      label: "City of Garden Grove: obtaining a building permit FAQ",
+      supports:
+        "Having the contractor obtain the permit keeps the contractor responsible for calling for and passing inspections.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.7",
+      label: "California Health and Safety Code section 13113.7",
+      supports:
+        "A permit for work over $1,000 cannot be signed off until the home has approved smoke alarms.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label: "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label: "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "What a contract should detail: the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C36",
+      label: "Contractors State License Board: C-36 Plumbing Contractor classification",
+      supports:
+        "Plumbing work falls under the C-36 Plumbing Contractor classification.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and trained in lead-safe work practices.",
+    },
+    {
+      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
+      label: "U.S. Geological Survey: Hardness of Water",
+      supports:
+        "Heated hard water leaves calcium carbonate scale that can clog pipes.",
     },
   ],
 };

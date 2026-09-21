@@ -127,6 +127,13 @@ const GUIDES = [
     blurb:
       "Spot repair, reroute or repipe: how each slab leak fix works, what drives the price, when a permit is needed, and what to ask your insurer.",
   },
+  {
+    href: "/guides/repipe-orange-county",
+    icon: Wrench,
+    title: "Repiping a house in Orange County",
+    blurb:
+      "When a whole-house repipe makes sense, how copper and PEX compare on the job, what the permit and inspection involve, and what a bid is built from.",
+  },
 ];
 
 const SITE_URL =
