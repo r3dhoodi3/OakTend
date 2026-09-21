@@ -343,10 +343,10 @@ describe("OnboardingForm lookup refusals", () => {
 // against. The copy has to say that rather than promise a check that is not
 // run (claimPropertyAction records the claim as unverified instead).
 describe("OnboardingForm ownership copy", () => {
-  it("promises the county check for a single-family claim", async () => {
+  it("promises the public-records name check for a single-family claim", async () => {
     await toReadyStep();
     expect(
-      screen.getByText(/check the name on your account against the county/i)
+      screen.getByText(/compare the name on your account with the owner name in public property records/i)
     ).toBeInTheDocument();
   });
 
@@ -357,7 +357,7 @@ describe("OnboardingForm ownership copy", () => {
     });
 
     expect(
-      screen.queryByText(/check the name on your account against the county/i)
+      screen.queryByText(/compare the name on your account with the owner name in public property records/i)
     ).toBeNull();
     expect(
       screen.getByText(/Public records only go down to the building/i)

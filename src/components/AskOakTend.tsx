@@ -334,10 +334,12 @@ function MessageActions({
               className="btn-primary flex-col gap-0.5 py-2 leading-tight"
             >
               <span className="text-sm font-semibold">
-                Get 3 free quotes
+                Save this as a job
               </span>
               <span className="text-[11px] font-normal text-bark-100">
-                License-checked local pros compete for your job
+                {isHomeownerPreview()
+                  ? "Our pro network isn't open yet"
+                  : "Local pros can apply once it's posted"}
               </span>
             </Link>
           )}
@@ -635,7 +637,7 @@ export function freshest(inMemory: Msg[], stored: Msg[]): Msg[] {
 }
 
 const DEFAULT_GREETING =
-  "Hi, I'm OakTend. If you have any questions about your home, feel free to ask.";
+  "Hi, I'm Ask OakTend, an AI helper for your home. If you have any questions about it, feel free to ask.";
 const DEFAULT_HEADING_TITLE = "Ask OakTend";
 // Names itself as AI explicitly, not just "assistant": California's bot
 // disclosure law (B&P 17940-17943) wants this clear and conspicuous, and

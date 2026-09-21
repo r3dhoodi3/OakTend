@@ -57,7 +57,7 @@ These figures are not appraisals, not offers, not quotes, and not a promise of w
 
 ## 6. What data is sent to Anthropic
 
-When you use an AI feature, your question and relevant context are sent to Anthropic's API to generate a response. For a homeowner using Ask {{BRAND}}, that can include your first name, property address, city and state, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, and the text of your question. For a contractor using the pro tools, it can include their own account context, such as trades and service area, license and verification status, and the content of an uploaded quote, invoice, or past-job document.
+When you use an AI feature, your question and relevant context are sent to Anthropic's API to generate a response. For a homeowner using Ask {{BRAND}}, that can include your first name, property address, city and state, basic facts about your home, the county assessed value and our estimated value if we have them, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, short summaries of documents you have saved, your recent job posts, any photo or file you attach, and the text of your question. Section 5 of our Privacy Policy has the full list. For a contractor using the pro tools, it can include their own account context, such as trades and service area, license and verification status, and the content of an uploaded quote, invoice, or past-job document.
 
 {{BRAND}} uses the paid, commercial Anthropic API, not a free or consumer product. Under Anthropic's commercial terms, API inputs and outputs are not used to train Anthropic's models. Nothing you send to Ask {{BRAND}} is used to build an advertising profile of you, by {{BRAND}} or by Anthropic.
 
@@ -67,7 +67,7 @@ Ask {{BRAND}} conversation transcripts are not stored on {{BRAND}}'s servers. Th
 
 ## 8. Rate limits
 
-Ask {{BRAND}} has daily and short-burst usage limits, because each question has a real cost to us at the AI vendor. Free accounts get a limited number of questions per day; {{BRAND}} Plus and {{BRAND}} Pro members get higher limits. When you hit a limit, the assistant tells you so rather than failing silently.
+Ask {{BRAND}} has daily and short-burst usage limits, because each question has a real cost to us at the AI vendor. During our preview everyone has the same daily limit. When memberships open, {{BRAND}} Plus and {{BRAND}} Pro members will get higher limits than free accounts. When you hit a limit, the assistant tells you so rather than failing silently.
 
 ## 9. Reporting a bad answer
 
@@ -78,7 +78,7 @@ If Ask {{BRAND}} or another AI feature gives you an answer that is wrong, unsafe
 {{BRAND}} also uses smaller, non-AI-chat automated tools behind the scenes:
 
 - **Fraud and risk scoring:** a rules-based system (not machine learning) that looks at salted, one-way hashes of signals like device, IP address, phone number, parcel, and email. It flags suspicious activity for review; by default it does not automatically block a purchase.
-- **Lead tiering:** an automated system that sorts posted jobs by trade and likely value so contractors see relevant leads.
+- **Job routing:** a posted job is shown to contractors who listed that trade and serve that area.
 - **Document field extraction:** automatically pulls structured fields (like a system type or a warranty date) out of an uploaded document or photo for you to confirm or correct before anything is saved to your account.
 
 None of these automated systems makes a final decision that denies you service, access, or a purchase without a path to human review. If any automated decision affects your account, you can always reach a person by writing to {{SUPPORT_EMAIL}}.

@@ -1,4 +1,5 @@
 import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Social share card for /pricing, built on the shared shell in
 // src/lib/ogCard.tsx (same visual pattern as
@@ -14,6 +15,8 @@ export const alt = "OakTend pricing";
 export default function OgImage() {
   return renderOgCard(
     "Pricing",
-    "Your first home is free. OakTend Plus starts at $1.99/week."
+    isHomeownerPreview()
+      ? "Free during our preview. Memberships are coming soon."
+      : "Your first home is free. OakTend Plus starts at $1.99/week."
   );
 }

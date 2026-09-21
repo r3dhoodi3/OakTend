@@ -691,7 +691,7 @@ export default async function HomePage(
         <section>
           <details className="inline-block">
             <summary className="chip-ok focus-ring w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden max-sm:min-h-11 max-sm:px-3 max-sm:text-sm">
-              Matches county records
+              Matches public records
             </summary>
             {/* max-sm:text-sm: soft trust signal, still worth reading at a
                 floor size on a phone. */}

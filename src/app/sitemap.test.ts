@@ -171,6 +171,39 @@ describe("sitemap coverage", () => {
     expect(list.filter((u) => u.includes("/oc/"))).toHaveLength(34);
   });
 
+  // The pro side is closed during the preview: /pros is a short coming-soon
+  // page and the two pro legal documents cover a product nobody can join yet.
+  // They stay reachable; they just are not worth a crawler's visit.
+  it("leaves the three pro-side pages out while the homeowner preview is on", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const list = urls(await sitemap());
+    for (const path of ["/pros", "/pro-terms", "/pro-data-addendum"]) {
+      expect(list, `${path} is listed in preview`).not.toContain(`${SITE_URL}${path}`);
+    }
+    // Nothing else goes with them.
+    for (const path of ["/", "/pricing", "/emergency-help", "/about", "/terms", "/privacy", "/guides"]) {
+      expect(list).toContain(`${SITE_URL}${path}`);
+    }
+    expect(list.filter((u) => u.includes("/oc/"))).toHaveLength(34);
+  });
+
+  it("lists all three pro-side pages again once the preview is off", async () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
+    const list = urls(await sitemap());
+    for (const path of ["/pros", "/pro-terms", "/pro-data-addendum"]) {
+      expect(list).toContain(`${SITE_URL}${path}`);
+    }
+  });
+
+  it("lists the About page and the county hub in both modes", async () => {
+    for (const mode of ["", "homeowner"]) {
+      vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", mode);
+      const list = urls(await sitemap());
+      expect(list).toContain(`${SITE_URL}/about`);
+      expect(list).toContain(`${SITE_URL}/oc`);
+    }
+  });
+
   it("has no duplicate URLs", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
     const list = urls(await sitemap());

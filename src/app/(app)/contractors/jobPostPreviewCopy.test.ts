@@ -62,11 +62,13 @@ describe("job-post confirmation is honest while pros are closed", () => {
     expect(explainer).toContain("/emergency");
   });
 
-  it("PREVIEW_JOB_POSTED_COPY promises a hand-matched pro, not a launch date", () => {
-    // Decided 2026-09-17: posting stays open in preview and the team finds a
-    // pro for each job by hand, so the copy says that and nothing about pros
-    // applying on their own.
-    expect(PREVIEW_JOB_POSTED_COPY).toContain("find a local pro");
+  it("PREVIEW_JOB_POSTED_COPY says we look by hand and promise nothing", () => {
+    // Decided 2026-09-17: posting stays open in preview and the team looks
+    // for a pro for each job by hand. Reworded 2026-09-20 (legal review C-04):
+    // we look, we do not promise to find one, and nothing about pros applying
+    // on their own.
+    expect(PREVIEW_JOB_POSTED_COPY).toContain("look for a local pro");
+    expect(PREVIEW_JOB_POSTED_COPY).toContain("can't promise");
     expect(PREVIEW_JOB_POSTED_COPY).not.toMatch(/pros (can see|apply)/i);
   });
 });

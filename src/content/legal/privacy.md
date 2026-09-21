@@ -8,7 +8,7 @@ Last updated: {{EFFECTIVE_DATE}}
 
 {{LLC_NAME}} operates {{BRAND}}, a web app and iOS app that helps homeowners in Orange County, California track home maintenance, understand their home systems, and connect with local contractors ("pros"). This policy explains what personal information {{BRAND}} collects, why, who it goes to, and what rights you have over it.
 
-{{BRAND}} is for adults 18 and older. Account creation requires checking a box confirming you are at least 18; we do not ask for or collect a birthdate, and we do not knowingly collect personal information from anyone under 18.
+{{BRAND}} is for adults 18 and older (see Section 11).
 
 This policy covers {{BRAND}}'s website, web app, and iOS app, for both the homeowner side and the pro side, including for people who use both. It does not cover other companies' websites or apps, even ones we link to or mention, such as cslb.ca.gov or a pro's own business website.
 
@@ -24,14 +24,14 @@ California law (Civil Code section 1798.100) requires that, at or before the poi
 
 | CCPA Category | What We Actually Collect | Source | Purpose | Retention | Sold or Shared? |
 |---|---|---|---|---|---|
-| Identifiers (name, email, phone, account ID, IP address) | Name, email, phone (optional), account ID, IP address recorded when you accept our Terms and in ordinary server logs | You, directly; your device, automatically | Creating and securing your account, contacting you, connecting you with pros | While your account is active, plus up to 30 days after a deletion request; server/security logs 12 months | No |
+| Identifiers (name, email, phone, account ID, IP address, device identifiers) | Name, email, phone (optional), account ID, IP address recorded when you accept our Terms and in ordinary server logs, and a device ID cookie and a browser fingerprint cookie (see "Free-trial and fraud checks" in Section 3) | You, directly; your device, automatically | Creating and securing your account, contacting you, connecting you with pros, free-trial and fraud checks | While your account is active, plus up to 30 days after a deletion request; server/security logs 12 months; consent records, which include IP address and browser type, are kept as described in Section 9 | No |
 | Customer records (Cal. Civ. Code 1798.80(e)) | Billing name and email held by Stripe; Stripe customer and subscription IDs; invoice totals | You; Stripe | Billing, subscriptions, refunds | 7 years, for tax and accounting law | No |
 | Commercial information | Jobs you post, quotes, hires and success fees, subscription plan, reviews you write | You; your use of the marketplace | Running the marketplace and your subscription | While account active, plus up to 30 days after deletion | No |
 | Internet or network activity | First-party product-usage events (for example, that a job was posted, which screens you visited and for how long, or which buttons you tapped); cookieless page-view counts from our hosting provider's analytics service, with no cookie and no identifier that lasts beyond a day; push-notification subscription details | Automatically, from your use of {{BRAND}} | Understanding which features are used; delivering push notifications you opted into | Disconnected from your account (de-identified) within 30 days of a deletion request | No |
 | Geolocation | The latitude and longitude of your home, derived from the address you type in, not from your device's GPS | Derived from your address, through our property-data provider, RentCast | Matching you with pros who serve your area; localizing weather and safety alerts | While account active, plus up to 30 days after deletion | No |
-| Professional or employment information (pros only) | Business name, owner name, CSLB contractor license number, self-reported insurance carrier and expiration, background-check status | You; the California CSLB public registry; Checkr, if background checks are enabled | Verifying a pro is licensed and, where enabled, background-checked, before they can quote your job | While account active, plus up to 30 days after deletion | No |
+| Professional or employment information (pros only) | Business name, owner name, CSLB contractor license number, self-reported insurance carrier and expiration, background-check status | You; the California CSLB public registry; Checkr, if background checks are enabled | Showing the result of a public CSLB license lookup on a pro's profile and, where enabled, that a background check was completed | While account active, plus up to 30 days after deletion | No |
 | Sensitive personal information | See Section 4: precise geolocation, license numbers, background-check results, message contents, your password, financial details you enter | You, and the sources above | Running the specific feature that needs it; never advertising or profiling | See Section 9 | No |
-| Inferences | None beyond a simple usage counter, such as a daily count of AI questions asked, used to enforce plan limits | Automatically, from your use of Ask {{BRAND}} | Enforcing free/paid usage limits | While account is active | No |
+| Inferences | A free-trial risk score (low, medium, or high), described in "Free-trial and fraud checks" in Section 3, and a daily count of AI questions asked | Automatically, from your use of {{BRAND}} | Free-trial and fraud checks; enforcing usage limits | While account is active | No |
 | Audio, electronic, visual, or similar information | Photos and documents you choose to upload: system photos, warranties, inspection reports, quotes | You | Building your home record; letting Ask {{BRAND}} read a document or photo you attach | While account active, plus up to 30 days after deletion | No |
 
 We have not sold or shared any category of personal information in the preceding twelve (12) months, and we do not intend to. We may license de-identified and aggregated data, which California law does not treat as personal information; see De-identified and aggregated data in Section 6.
@@ -44,21 +44,25 @@ We have not sold or shared any category of personal information in the preceding
 
 **If you sign up as a pro**, we collect everything above that applies to you, plus your business name, your own name as the account owner, your California contractor (CSLB) license number, a snapshot of your license status, your self-reported insurance carrier and expiration date, any license or insurance documents you upload, your background-check status if that feature is enabled for your account, the jobs you apply to and are hired for and any success fees charged, the notes you keep on your own clients in {{BRAND}}'s CRM tool, and any responses you write to reviews.
 
-**Every account**, homeowner or pro, requires checking a box that reads: "I am at least 18 years old and I have read and agree to the Terms and Privacy Policy." We record that you checked it, along with the date, your IP address, and your browser's user agent string, as our proof that you agreed.
+**Agreeing to our Terms.** If you sign up with email, you tick a box that reads: "I am at least 18 years old and I have read and agree to the Terms and Privacy Policy." If you sign up with Google or Apple, the sign-up screen tells you that continuing confirms the same thing. We record that you agreed, along with the date, your IP address, and your browser's user agent string, as our proof.
 
 One person can have both a homeowner account and a pro account (a "dual-side" account) if they use {{BRAND}} in both roles.
 
 ### Information collected automatically
 
-When you use {{BRAND}}, we automatically collect: your IP address and browser user agent, recorded at the moment you accept our Terms and, separately, in ordinary server request logs; a device identifier and a browser fingerprint, both described fully in Section 6, used only to notice when the same person appears to be creating multiple accounts to claim repeat free trials; your push-notification subscription (a web address and two keys your browser or phone generates, not your email or phone number); and first-party usage events we record ourselves, such as "a job was posted" or "the demo video was played," so we can see what parts of {{BRAND}} are and are not working.
+When you use {{BRAND}}, we automatically collect: your IP address and browser user agent, recorded at the moment you accept our Terms and, separately, in ordinary server request logs; a device identifier and a browser fingerprint, both described in "Free-trial and fraud checks" below, used only to notice when the same person appears to be creating multiple accounts to claim repeat free trials; your push-notification subscription (a web address and two keys your browser or phone generates, not your email or phone number); and first-party usage events we record ourselves, such as "a job was posted" or "the demo video was played," so we can see what parts of {{BRAND}} are and are not working.
+
+### Free-trial and fraud checks
+
+To stop one person opening several accounts to repeat a free trial, we keep scrambled (salted, one-way hashed) versions of your device ID, browser fingerprint, network address, email address, phone number, home parcel, business name, and payment card fingerprint, and we compare them across accounts. The result is a low, medium, or high score kept with your account. It never blocks a purchase on its own. When this check is switched on, a medium or high score can mean a new membership starts billing right away instead of after a free trial. No memberships are sold during our preview, so this has no effect today. If it ever happens to you and you think it is a mistake, write to {{SUPPORT_EMAIL}} and a person will look at it. The hashes are deleted when your account is deleted. Someone who copied them without our separate secret key could not read the original values.
 
 ### Analytics
 
-We use Vercel Web Analytics, a cookieless, privacy-focused analytics service provided by our hosting provider. It records the page you viewed, the page that referred you, your country and region, your device type and browser family, and the outcome of certain in-app actions we define (for example "job posted" or "checkout started"). It does not set cookies, does not use your IP address or any identifier that persists beyond a single day, and cannot follow you across other websites. Vercel processes this data only on our behalf as a service provider and is not permitted to use it for its own purposes. We also keep a first-party record of product events in our own database, as described above, which is never shared with anyone. We do not use any advertising SDK, ad pixel, retargeting tag, session-recording tool, or heatmap tool, and there is no cross-site tracking anywhere in {{BRAND}}, which is why a browser's "Do Not Track" signal doesn't change anything here; see Section 7 for how we do handle the separate Global Privacy Control signal.
+We use Vercel Web Analytics, a cookieless, privacy-focused analytics service provided by our hosting provider. It records the page you viewed, the page that referred you, your country and region, your device type and browser family, and the outcome of certain in-app actions we define (for example "job posted" or "checkout started"). It does not set cookies, does not store your IP address or any identifier that persists beyond a single day, and cannot follow you across other websites. Vercel processes this data only on our behalf as a service provider and is not permitted to use it for its own purposes. We also keep a first-party record of product events in our own database, as described above, which is never shared with anyone. We do not use any advertising SDK, ad pixel, retargeting tag, session-recording tool, or heatmap tool, and there is no cross-site tracking anywhere in {{BRAND}}, which is why a browser's "Do Not Track" signal doesn't change anything here; see Section 7 for how we do handle the separate Global Privacy Control signal.
 
 ### Information from third parties
 
-We receive a limited amount of information about you from outside sources, each described further in Section 6: property, parcel, and automated valuation data from RentCast, when you add a home by address; a snapshot of your California contractor license status from the CSLB's public license-lookup registry, if you are a pro; a pass or no-pass background-check result from Checkr, if that feature is enabled for your account; and your name and email address, if you choose to sign in with Google or Sign in with Apple instead of creating a password.
+We receive a limited amount of information about you from outside sources, each described further in Section 6: property, parcel, and automated valuation data from RentCast, when you add a home by address, including the owner name shown in public property records for that address, which we use only to compare with the name on your account and keep while the home is on your account; a snapshot of your California contractor license status from the CSLB's public license-lookup registry, if you are a pro; a pass or no-pass background-check result from Checkr, if that feature is enabled for your account; and your name and email address, if you choose to sign in with Google or Sign in with Apple instead of creating a password.
 
 ## 4. Sensitive Personal Information
 
@@ -68,7 +72,7 @@ California law treats some categories of personal information as "sensitive," gi
 - **Government-issued license numbers.** A pro's California contractor (CSLB) license number.
 - **Background-check results.** For pros, only if background checks are enabled on your account: a pass or no-pass result from Checkr. {{BRAND}} never receives or stores the underlying report, your Social Security number, or your date of birth; you give those directly to Checkr, not to us.
 - **Message contents.** What you write to a pro, to our support inbox, or to Ask {{BRAND}}.
-- **Your account password**, which we store only as a salted, one-way hash. Nobody at {{BRAND}}, including us, can read your actual password, and neither could someone who broke into our database.
+- **Your account password**, which we store only as a salted, one-way hash. Nobody, including our own team, can read your actual password.
 - **Financial details you choose to enter**, such as your mortgage balance, purchase price, assessed value, and insurance premium, used to power the home-value, tax-appeal, and insurance-checkup tools.
 
 {{BRAND}} does not collect your Social Security number, driver's license number, full financial account or card numbers (Stripe holds those on its own systems), health information, racial or ethnic origin, or biometric data.
@@ -86,28 +90,34 @@ We use the categories described above to:
 - Process payments, subscriptions, and success fees, through Stripe.
 - Send the push notifications, text messages, and emails you have opted into (Section 13).
 - Look up property records, home valuations, weather forecasts, and appliance recall data relevant to your home.
-- Detect and prevent free-trial abuse and account fraud, using one-way hashed identifiers that cannot be reversed (Sections 4 and 6).
+- Detect and prevent free-trial abuse and account fraud, using one-way hashed identifiers (see "Free-trial and fraud checks" in Section 3).
 - Operate, secure, and improve {{BRAND}}, including understanding which features actually get used.
 - Comply with the law, respond to legal process, and enforce our Terms.
 
 ### Ask {{BRAND}} and Anthropic
 
-Ask {{BRAND}} is built on Anthropic's Claude API. When you ask it a question, we send Anthropic your question along with context about your home that helps it answer specifically: your first name, your home systems and their ages, up to 30 of your open maintenance tasks, up to 6 of your recently logged issues, and your property's street address, city, and state. If you attach a photo or a document, that is sent too, so the model can read it. On the pro side, Ask {{BRAND}} for Pros sends comparable account context: your trades and service area, license and verification status, background-check status, and the jobs you have open or applied to.
+Ask {{BRAND}} is built on Anthropic's Claude API. When you ask it a question, we send Anthropic your question along with context about your home that helps it answer specifically: your first name; your property's street address, city, and state; your home's basic facts (year built, size, beds, baths, lot size, and property type); the county assessed value and our own estimated market value, if we have them; your home systems with their ages and condition, and our rough replacement cost ranges for them; up to 30 of your open maintenance tasks; up to 6 of your recently logged issues; a short summary of up to 20 documents you have saved; and the trade, date, and status of your 10 most recent job posts. If you attach a photo or a document, that is sent too, so the model can read it. On the pro side, Ask {{BRAND}} for Pros sends comparable account context: your trades and service area, license and verification status, background-check status, and the jobs you have open or applied to.
 
 Two things worth stating plainly, because they surprise people:
 
 1. **Your street address is included**, not just your city. We send it because location-specific answers (local weather, typical local pricing, permit rules) need it.
 2. **Your transcript is not stored on our servers.** Ask {{BRAND}} conversations live only in your own browser's local storage. {{BRAND}}'s server records a daily usage count, so we can enforce plan limits, but it does not record what you asked or what the model answered.
 
-We also send some financial details to Anthropic only when you actively use specific tools: your purchase price, assessed value, and {{BRAND}}'s own home-value estimate when you generate a Property Tax Appeal Kit; your insurance premium and renewal date when you generate an Insurance Requote Packet; and the full contents of an uploaded contractor's quote when you use the quote analyzer. None of this is sent unless you use that specific tool.
+Apart from the assessed value and estimated value listed above, we send other financial details to Anthropic only when you actively use specific tools: your purchase price, along with the assessed value and {{BRAND}}'s own home-value estimate, when you generate a Property Tax Appeal Kit; your insurance premium and renewal date when you generate an Insurance Requote Packet; and the full contents of an uploaded contractor's quote, which can include that contractor's name, license number, and contact details, when you use the quote analyzer. Your purchase price, insurance details, and uploaded quotes are not sent unless you use that specific tool.
 
-Anthropic is the only AI provider {{BRAND}} uses. Under Anthropic's commercial API terms, the data you send and the answers you get back are not used to train Anthropic's models. Voice input, when you use it, is processed entirely on your own device by your browser's built-in speech recognition; no audio recording is ever sent to Anthropic or to us, only the text it produces. See our AI Disclosure page for a fuller explanation of how AI works in {{BRAND}}.
+Anthropic is the only AI provider {{BRAND}} uses. Under Anthropic's commercial API terms, the data you send and the answers you get back are not used to train Anthropic's models. Anthropic may keep what we send for a limited time under its own terms, to check for misuse. Voice input, when you use it, uses your browser's built-in speech recognition. Depending on your browser, your audio may be sent to the browser maker (for example Google or Apple) to be turned into text. We and Anthropic receive only the text. See our AI Disclosure page for a fuller explanation of how AI works in {{BRAND}}.
 
 ## 6. How We Share Your Information
 
-### With a pro you contact
+### With a pro you choose
 
-When you post a job or message a pro, we give that pro a snapshot of what they need to quote it: your name, email address, phone number, property address, the job category, your description of the problem, its severity, your timing, and a budget range if you gave one. Pros who take on your job see that snapshot. They do not see your broader home profile: your other systems, your financial details, your documents, or your Ask {{BRAND}} history. This is not a "sale" or a "share" of your information under California law. It happens because you chose that pro and asked to be connected, to get a job done, not so anyone can advertise to you or build a profile of you.
+When you post a job, pros who serve your area can see the job itself: the type of work, your description, its severity, your timing, a budget range if you gave one, your photos, your city, and your first name and last initial. They do not see your full name, street address, email, or phone number. When you choose a pro for the job, or when a pro accepts a request you sent straight to them, we give that one pro your name, email address, phone number, and property address so they can do the work. Pros never see your broader home profile: your other systems, your financial details, your documents, or your Ask {{BRAND}} history. This is not a "sale" or a "share" of your information under California law. It happens because you chose that pro and asked to be connected, to get a job done, not so anyone can advertise to you or build a profile of you.
+
+**During our homeowner preview.** The Pro side of {{BRAND}} is not open yet, so no pros are applying to jobs. The {{BRAND}} team can read the jobs you post, and may look by hand for a local pro who could do the work. We ask you before we pass your name, email, phone number, or address to anyone, and we pass them only to a pro you have agreed to. A pro we find by hand during the preview is an independent business that has not signed up to {{BRAND}}, so it has not agreed to our Homeowner Data Use Addendum. That is one reason we ask you first.
+
+### With people you invite to your home
+
+If you invite someone to share your home in {{BRAND}} (a household member), they see what you see for that home: your systems, tasks, issues, photos, documents, job posts, your messages with pros, and the money pages (home value, purchase price, mortgage balance, property tax, and insurance). Only invite people you would show all of that to. You can remove a member at any time from Account > Household.
 
 ### With a homeowner
 
@@ -115,7 +125,7 @@ If you are a pro, homeowners browsing {{BRAND}} can see your public profile: bus
 
 ### Service providers
 
-We share information with the companies that help us run {{BRAND}}, each limited by contract to using it only to provide their service to us and never for their own advertising:
+We share information with the companies that help us run {{BRAND}}. The companies that process personal information for us (the first nine rows) work under data processing terms that limit them to providing their service to us. The rest are public or sign-in services that receive only what the table says, under their own terms:
 
 | Provider | What They Do | What They Receive |
 |---|---|---|
@@ -126,10 +136,10 @@ We share information with the companies that help us run {{BRAND}}, each limited
 | Twilio | Text-message delivery | Your phone number and message content, only if you opted into texts |
 | Resend | Email delivery | Your email address and the content of the email |
 | Anthropic | AI assistant, document and photo analysis | See Section 5 above for the full detail |
-| RentCast | Property records and home valuation | Your address and ZIP code |
+| RentCast | Property records and home valuation | Your street address, including any unit number, and ZIP code |
+| Checkr | Background checks for pros, when enabled | A pro's name and email address |
 | Photon (Komoot, built on OpenStreetMap) | Address suggestions while you type | The partial address you're typing |
 | California CSLB | Public contractor license lookup | A pro's license number |
-| Checkr | Background checks for pros, when enabled | A pro's name and email address |
 | Google | Sign in with Google | Your name and email address, only if you use this sign-in method |
 | Apple | Sign in with Apple; App Store distribution; iOS push notifications | Your name and email, only if you use Apple sign-in; a push token, only if you enable notifications on the iOS app |
 | Web push services (run by Apple, Google, and Mozilla) | Delivering browser and app push notifications | Your push subscription address and keys, not your email or phone number |
@@ -150,27 +160,15 @@ We may share information for other purposes if you give us your clear, specific 
 
 ### What we do not do
 
-We do not sell your personal information; we may license de-identified and aggregated data as described in De-identified and aggregated data above. We do not share personal information for cross-context behavioral advertising. We do not work with data brokers or ad networks. Our hosting provider's cookieless analytics service acts as our service provider and may not use your data for its own purposes. In the preceding twelve (12) months, we have not sold or shared any personal information, and we have no plans to start.
+We do not sell your personal information; we may license de-identified and aggregated data as described in De-identified and aggregated data below. We do not share personal information for cross-context behavioral advertising. We do not work with data brokers or ad networks. Our hosting provider's cookieless analytics service acts as our service provider and may not use your data for its own purposes. In the preceding twelve (12) months, we have not sold or shared any personal information, and we have no plans to start.
 
-**Why giving a pro your job details is not a "sale."** Pros apply to jobs at no charge (a success fee is charged to the pro only if you hire them), and an applying pro sees the contact details you chose to attach to your job post. California's privacy law treats a disclosure you direct yourself, to a recipient you intend to hear from, as outside the definition of a sale (Civil Code section 1798.140(ad)(2)(A)). That is exactly what happens here: you post a job, you decide what contact details go with it, and the only people who see them are pros applying to that job. Every pro also agrees to our Homeowner Data Use Addendum, which limits them to using your details for that job, forbids resale or marketing use, and requires deletion on request. We never provide your information to anyone for their own independent use.
-
-### De-identified and aggregated data
-
-{{BRAND}} may create de-identified, aggregated statistics from information in the app, for example the share of homes in a ZIP code with a roof over twenty (20) years old, or the typical age of water heaters by neighborhood, and license those statistics to outside companies. We produce these statistics by removing your name, address, contact details, document contents, photos, and chat contents, and by grouping the results so that no individual home is identifiable. We never publish or license a statistic that describes fewer than twenty-five (25) homes, and we round and bucket values so that no single home can be picked out.
-
-We publicly commit, as required by California Civil Code section 1798.140(m), that we will not attempt to re-identify de-identified data, and we maintain technical and business safeguards designed to keep it de-identified. Every recipient of this data signs a contract that bars them from attempting to re-identify it, from combining it with other data to re-identify it, and from reselling it or passing it to anyone else except under the same restrictions.
-
-We license this kind of data for uses such as maintenance benchmarks, service-life statistics for home systems, market research, and product development by companies that make or service home products.
-
-This is not a sale of personal information under California law. De-identified, aggregated data is not personal information, and licensing it does not change the promise below.
-
-**Do we sell your personal information?** We do not sell your personal information; we may license de-identified and aggregated data as described in that section.
+**Why giving a pro your job details is not a "sale."** Once the Pro side is open, pros apply to jobs at no charge (a success fee is charged to the pro only if you hire them), and your contact details go only to the pro you choose. California's privacy law treats a disclosure you direct yourself, to a recipient you chose, as outside the definition of a sale (Civil Code section 1798.140(ad)(2)(A)). That is how it works: you post a job, pros apply, you choose one, and choosing that pro is what releases your contact details to them. Every pro who joins {{BRAND}} agrees to our Homeowner Data Use Addendum, which limits them to using your details for that job, forbids resale or marketing use, and requires deletion on request. The one exception is a pro our team finds by hand during the preview, described above. That pro has not joined {{BRAND}} or agreed to the Addendum, which is why we pass your details only after you tell us to. We do not give your personal information to anyone else for their own use.
 
 ### De-identified and aggregated data
 
 {{BRAND}} may create de-identified, aggregated statistics from information in the app, for example the share of homes in a ZIP code with a roof over twenty (20) years old, or the typical age of water heaters by neighborhood, and license those statistics to outside companies. We produce these statistics by removing your name, address, contact details, document contents, photos, and chat contents, and by grouping the results so that no individual home is identifiable. We never publish or license a statistic that describes fewer than twenty-five (25) homes, and we round and bucket values so that no single home can be picked out.
 
-We publicly commit, as required by California Civil Code section 1798.140(m), that we will not attempt to re-identify de-identified data, and we maintain technical and business safeguards designed to keep it de-identified. Every recipient of this data signs a contract that bars them from attempting to re-identify it, from combining it with other data to re-identify it, and from reselling it or passing it to anyone else except under the same restrictions.
+We publicly commit, as required by California Civil Code section 1798.140(m), that we will not attempt to re-identify de-identified data, and we maintain technical and business safeguards designed to keep it de-identified. We have not licensed this data to anyone yet. Before anyone receives it, we will require them to sign a contract that bars them from attempting to re-identify it, from combining it with other data to re-identify it, and from reselling it or passing it to anyone else except under the same restrictions.
 
 We license this kind of data for uses such as maintenance benchmarks, service-life statistics for home systems, market research, and product development by companies that make or service home products.
 
@@ -192,7 +190,7 @@ If you are a California resident, the California Consumer Privacy Act, as amende
 
 ### How to exercise these rights
 
-The fastest way is inside the app: go to **Account > Privacy** to download your data, as a JSON file or a PDF, or to permanently delete your account, both instantly and without waiting on us. For anything else, including a correction request or a general question, email {{PRIVACY_EMAIL}}, call {{PRIVACY_PHONE}}, or write to {{ADDRESS}}.
+The fastest way is inside the app: go to **Account > Privacy** to download your data, as a JSON file or a PDF, or to permanently delete your account, without waiting on us. The download is ready right away. Deletion starts immediately and finishes within 30 days. For anything else, including a correction request or a general question, email {{PRIVACY_EMAIL}}, call {{PRIVACY_PHONE}}, or write to {{ADDRESS}}.
 
 **Verification.** Because you must already be signed in to use Account > Privacy, being logged into your own account is how we verify a request made that way. For a request made by email, we verify your identity by confirming that the email you're writing from matches the one on your account, and we may ask you to confirm additional information only the account holder would know before we act on the request.
 
@@ -208,7 +206,7 @@ The fastest way is inside the app: go to **Account > Privacy** to download your 
 
 **Shine the Light (Cal. Civ. Code 1798.83).** Once a year, free of charge, California residents may ask what personal information we disclosed to third parties for those third parties' own direct marketing purposes during the prior calendar year. We do not disclose personal information for that purpose, so there's nothing to report, but you can still send this request to {{PRIVACY_EMAIL}} and we will confirm that in writing.
 
-**Notice of financial incentive.** {{BRAND}} Plus and {{BRAND}} Pro are paid subscriptions with paid features, such as a monthly home digest and higher AI usage limits. They are products you pay for with money, not a financial incentive tied to your personal information under the CCPA. We do not offer any discount, benefit, or different price in exchange for the collection, sale, or retention of your personal information.
+**Notice of financial incentive.** {{BRAND}} Plus and {{BRAND}} Pro are planned paid subscriptions with paid features, such as a monthly home digest and higher AI usage limits. Neither can be bought during our preview. When they open, they will be products you pay for with money, not a financial incentive tied to your personal information under the CCPA. We do not offer any discount, benefit, or different price in exchange for the collection, sale, or retention of your personal information.
 
 ## 8. If You Live Outside California
 
@@ -226,19 +224,19 @@ The fastest way is inside the app: go to **Account > Privacy** to download your 
 | SMS-consent records and Terms-acceptance records | 3 years after your account closes, as proof of consent |
 | Our record that you made a privacy request | Kept as our own compliance record even after the rest of your account is deleted |
 | First-party product-usage events | Disconnected from your account, and de-identified, within 30 days of a deletion request; once disconnected, the bare event carries no name, contact detail, or free text |
-| Fraud-prevention hashes (Section 6) | Deleted when your account is deleted |
+| Fraud-prevention hashes (Section 3) | Deleted when your account is deleted |
 | Backups | Rotated out automatically within about 30 days |
-| A pro's own copy of your contact information, if you contacted one | Not controlled by {{BRAND}}; see Section 12 |
+| A pro's own copy of your contact information, if you chose one | Not controlled by {{BRAND}}; see Section 12 |
 
 ## 10. Security and Breach Notification
 
-We use administrative, technical, and physical safeguards designed to protect your information, including: row-level security on every database table, so an account can only ever read its own data; server-only service credentials, never exposed to your browser; verified webhook signatures on our Stripe and Twilio integrations, so those channels can't be spoofed; an upload guard that checks the actual bytes of anything you upload, not just its label, enforces a 15MB size cap, and automatically strips hidden metadata, including GPS location, from photos before they're stored; one-way, salted hashing for the fraud-prevention identifiers described in Section 6, so the original values can never be recovered from what we store; HTTPS everywhere; and encryption of stored data, provided as a default by our infrastructure providers. A password-reset link expires in 15 minutes and works only once. If a device goes 30 days without signing in, it is automatically signed out and has to sign back in.
+We use administrative, technical, and physical safeguards designed to protect your information, including: row-level security on our database tables, designed so that an account can only read its own data and the data shared with it; server-only service credentials, never exposed to your browser; verified webhook signatures on our Stripe and Twilio integrations, so those channels can't be spoofed; an upload guard that checks the actual bytes of anything you upload, not just its label, enforces a 15MB size cap, and automatically strips hidden metadata, including GPS location, from photos before they're stored; one-way, salted hashing for the fraud-prevention identifiers described in Section 3, so that someone who copied them without our separate secret key could not read the original values; HTTPS everywhere; and encryption of stored data, provided as a default by our infrastructure providers. A password-reset link expires in 15 minutes and works only once. If a device goes 30 days without signing in, it is automatically signed out and has to sign back in.
 
 No system is perfectly secure, and we cannot promise your information will never be exposed. If a breach occurs that compromises your personal information, we will notify you without unreasonable delay, consistent with California Civil Code section 1798.82 and other applicable law.
 
 ## 11. Children's Privacy
 
-{{BRAND}} is for adults 18 and older. Account creation requires checking a box confirming you are at least 18; we do not ask for or collect a birthdate, and we do not knowingly collect personal information from anyone under 18. Because {{BRAND}} does not sell or share personal information for anyone, the additional CCPA protections that apply specifically to the personal information of consumers under 16 do not change anything in how we actually operate. If you believe a minor has given us personal information, contact {{PRIVACY_EMAIL}} and we will remove it.
+{{BRAND}} is for adults 18 and older. When you create an account we ask you to confirm you are at least 18; we do not ask for or collect a birthdate, and we do not knowingly collect personal information from anyone under 18. Because {{BRAND}} does not sell or share personal information for anyone, the additional CCPA protections that apply specifically to the personal information of consumers under 16 do not change anything in how we actually operate. If you believe a minor has given us personal information, contact {{PRIVACY_EMAIL}} and we will remove it.
 
 ## 12. Account Deletion
 
@@ -253,7 +251,7 @@ We retain a narrow set of records even after deletion, either because the law re
 - **Invoices and payment records**, kept for 7 years, for tax and accounting purposes.
 - **A record that you requested deletion**, so we can prove we complied with your request.
 - **Messages and reviews already visible to another user**, such as a pro you messaged or reviewed, which may remain in their own account, de-identified where possible, because it's also part of their record of that job.
-- **A pro's client record about you.** If you contacted a pro through a job or a message, that pro is a separate business and may keep its own notes about you in the client list feature inside {{BRAND}}. When you delete your account, we remove your name, phone number, email, and address from the in-app client records connected to jobs you posted through {{BRAND}} within 30 days, leaving only the pro's own notes and the job history without your identifying details. Records a pro keeps outside {{BRAND}}, such as a signed contract or an invoice, belong to that pro, and our Pro Terms require pros to honor deletion requests we relay except where the law requires them to keep a record. If you want a specific pro to delete records held outside {{BRAND}}, contact that pro directly.
+- **A pro's client record about you.** If you chose a pro for a job, that pro is a separate business and may keep its own notes about you in the client list feature inside {{BRAND}}. When you delete your account, we remove your name, phone number, email, and address from the in-app client records connected to jobs you posted through {{BRAND}} within 30 days, leaving only the pro's own notes and the job history without your identifying details. Records a pro keeps outside {{BRAND}}, such as a signed contract or an invoice, belong to that pro, and our Pro Terms require pros to honor deletion requests we relay except where the law requires them to keep a record. If you want a specific pro to delete records held outside {{BRAND}}, contact that pro directly.
 
 ## 13. Your Communication Choices
 
@@ -261,7 +259,7 @@ We retain a narrow set of records even after deletion, either because the law re
 
 **Text messages.** Texting is opt-in and off by default. You turn it on with a checkbox in your account settings; pros use the same checkbox to opt into lead-alert texts. Every text we send includes instructions to reply STOP to opt out right away, or HELP for help; we also support START if you want to opt back in later. We only text 10-digit U.S. phone numbers, we only send account and job-related messages, never third-party marketing, and we never send texts between 9 p.m. and 8 a.m. Pacific time, no matter when the underlying event happened.
 
-**Email.** We send transactional emails about your account and jobs (Stripe sends its own separate receipts), a monthly home digest if you're a Plus subscriber, and occasional product updates. Every marketing or digest email includes an unsubscribe link and our mailing address; we honor unsubscribe requests within 10 business days. Transactional emails about your account or an active job keep going even if you unsubscribe from other emails, because those aren't optional marketing, they're how we tell you something happened on your account.
+**Email.** We send transactional emails about your account and jobs (Stripe sends its own separate receipts), a monthly home digest (during our preview, for every homeowner), and occasional product updates. Every marketing or digest email includes an unsubscribe link and our mailing address; we honor unsubscribe requests within 10 business days. Transactional emails about your account or an active job keep going even if you unsubscribe from other emails, because those aren't optional marketing, they're how we tell you something happened on your account.
 
 You can review and change all of these choices under Account > Notifications.
 

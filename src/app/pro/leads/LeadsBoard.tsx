@@ -596,9 +596,9 @@ export default function LeadsBoard({
                       {j.ownershipVerified && (
                         <span
                           className="chip-ok"
-                          title="The name on this account matches the county's public owner record for this address."
+                          title="The account name loosely matches the owner name in public property records. It is not proof of identity or ownership."
                         >
-                          Ownership verified
+                          Name matches public record
                         </span>
                       )}
                       <span className="ml-auto flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">

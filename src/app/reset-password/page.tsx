@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   title: "Reset your password",
   description:
     "Forgot your OakTend password? Enter your email and we'll send you a link to set a new one.",
+  // noindex, follow: a utility page with nothing on it for a searcher. Left
+  // indexable it competes with the landing page for the brand name and shows
+  // up as a bare form in results. "follow" so the links on it still count.
+  // /homeowner-signup is deliberately NOT marked: it is a real entry point.
+  robots: { index: false, follow: true },
 };
 
 // The cookie read makes this route dynamic; that is correct for a page whose

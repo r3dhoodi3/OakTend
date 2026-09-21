@@ -30,11 +30,11 @@ const COPY: Record<
   { title: string; detail: string; onDetail: string }
 > = {
   homeowner: {
-    title: "Get notified when a pro replies or sends a quote",
+    title: "Get messages and weather heads-ups on your phone",
     detail:
-      "OakTend can notify you on your phone even when the app is closed, so you do not have to keep checking.",
+      "OakTend can notify you when someone messages you or rough weather is forecast, even when the app is closed. You can turn this off any time.",
     onDetail:
-      "You will get a notification when a pro replies, sends a quote, or an alert needs your attention.",
+      "You will get a notification when someone messages you or when a weather alert needs your attention. Task reminders stay inside the app.",
   },
   pro: {
     title: "Get notified when a homeowner messages you",

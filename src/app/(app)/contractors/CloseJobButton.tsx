@@ -58,9 +58,8 @@ export default function CloseJobButton({
       {applicantCount > 0 && (
         <p className="max-w-xs text-right text-xs text-stone-500 dark:text-stone-400">
           {applicantCount} pro{applicantCount === 1 ? " has" : "s have"}{" "}
-          already paid to apply. Closing this won&apos;t pick anyone. Every
-          applicant is notified, and their fee comes back as OakTend credit
-          automatically within a week if nobody&apos;s chosen.
+          applied. Closing this won&apos;t pick anyone. We will let them know
+          it is closed.
         </p>
       )}
       {/* inline-block, not w-auto: the trigger keeps .select's w-full, so the

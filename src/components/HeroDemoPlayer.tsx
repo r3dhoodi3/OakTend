@@ -2660,8 +2660,8 @@ export default function HeroDemoPlayer() {
           <span className={styles.playCircle} aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.5v11l9-5.5-9-5.5z" /></svg>
           </span>
-          <span className={styles.posterLabel}>From leak to booked pro</span>
-          <span className={styles.posterSub}>Watch someone use OakTend, 30 seconds</span>
+          <span className={styles.posterLabel}>See your home&apos;s plan</span>
+          <span className={styles.posterSub}>A short walkthrough of OakTend, 30 seconds</span>
           <span className={styles.durationBadge}>0:30</span>
         </button>
       )}

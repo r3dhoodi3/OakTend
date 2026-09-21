@@ -62,11 +62,13 @@ export const LEGAL = {
     email: env("NEXT_PUBLIC_DMCA_AGENT_EMAIL") ?? `dmca@${mailDomain}`,
   },
   /**
-   * ISO date the current document set took effect. Bumped 2026-09-09 when
-   * cookieless Vercel Web Analytics was turned on and the privacy policy and
-   * cookie notice were reworded to disclose it.
+   * ISO date the current document set took effect. Bumped 2026-09-20 for the
+   * legal-review wording pass (payment story, contact release on choosing a
+   * pro, preview paragraphs, small-job license rule, SMS Terms, subprocessors).
+   * If NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE is set in the host, it overrides this
+   * default and has to be bumped there too.
    */
-  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-16",
+  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-20",
   venueCounty: "Orange County, California",
   liabilityCap:
     "the greater of $100 or the amounts you paid to us in the 12 months before the claim",
@@ -118,6 +120,7 @@ export function fillLegalTokens(text: string): string {
 
 /** Footer links for every public and in-app footer. Order is deliberate: most-read first. */
 export const LEGAL_LINKS: ReadonlyArray<{ href: string; label: string }> = [
+  { href: "/about", label: "About" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/pro-terms", label: "Pro Terms" },

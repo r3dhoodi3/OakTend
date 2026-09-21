@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
+import GuideMeta from "@/components/GuideMeta";
+import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
@@ -124,6 +126,9 @@ export default function IsMyContractorQuoteFairGuide() {
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Is my contractor&apos;s quote fair? How to read it before you sign
       </h1>
+      {/* Updated date and byline, from the same date map the sitemap and the
+          Article node read (src/components/GuideMeta.tsx). */}
+      <GuideMeta path="/guides/is-my-contractor-quote-fair" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         General guidance for reading any home repair or improvement quote.
       </p>
@@ -213,6 +218,10 @@ export default function IsMyContractorQuoteFairGuide() {
           </div>
         </section>
       </div>
+
+      {/* Sources (where verified), related guides and city pages
+          (src/components/GuideRelated.tsx, data in src/lib/guideExtras.ts). */}
+      <GuideRelated path="/guides/is-my-contractor-quote-fair" />
 
       <GuideCta
         signedInHref="/quote-check"

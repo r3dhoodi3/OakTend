@@ -58,7 +58,8 @@ export default function Error({
         Something went sideways
       </h1>
       <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-        Your data is safe. Trying again usually clears it up.
+        Something on our end didn&apos;t load. Trying again usually clears it
+        up. If you were saving something, check that it went through.
       </p>
       <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
         <button onClick={tryAgain} className="btn-primary">

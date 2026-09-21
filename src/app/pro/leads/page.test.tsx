@@ -137,7 +137,7 @@ describe("pro lead card phone density (0128)", () => {
     // migration 0149 (it now reads "15% off, posted 3 days ago" instead of
     // "15% off, aging deal", so it reads the same whichever of the two
     // discounts actually won) - agingDealPhrase is that chip.
-    expect(openJobCard).toContain("Ownership verified");
+    expect(openJobCard).toContain("Name matches public record");
     expect(openJobCard).toContain("agingDealPhrase(j.postedAgoLabel)");
     expect(directRequestCard).toContain("First big-ticket lead");
   });

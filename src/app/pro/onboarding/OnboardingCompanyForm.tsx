@@ -953,8 +953,8 @@ function OnboardingCompanyFormInner({
         <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 dark:border-white/10 dark:bg-stone-800/60">
           <p className="text-sm text-stone-600 dark:text-stone-400">
             {LEGAL.brand} charges a 5% success fee (minimum $15, capped at
-            $1,000) only when a homeowner hires you for a job. No per-lead
-            fees, no wallet. See{" "}
+            $1,000) only when a homeowner hires you for a job. Applying,
+            quoting, and messaging are free. See{" "}
             <Link href="/pro-terms" className="underline hover:text-stone-700 dark:hover:text-stone-300">
               Pro Terms
             </Link>{" "}
@@ -992,9 +992,11 @@ function OnboardingCompanyFormInner({
             </li>
             <li>
               Any license I list is active and belongs to me or to the
-              business I am registering, or my work qualifies for the
-              small-job exception under Business and Professions Code section
-              7048.
+              business I am registering. If I have no license, I will only
+              take jobs under $1,000 total that need no building permit, I
+              will do them myself with no helpers, and my ads will say I am
+              not licensed (Business and Professions Code sections 7048 and
+              7027.2).
             </li>
             <li>
               I will tell {LEGAL.brand} within 5 days if my license lapses, is

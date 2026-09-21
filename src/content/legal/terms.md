@@ -6,22 +6,23 @@ Last updated: {{EFFECTIVE_DATE}}
 
 This is a plain-language summary. The numbered sections below are what actually governs.
 
-- {{BRAND}} is run by {{LLC_NAME}}, based at {{ADDRESS}}. You must be eighteen (18) or older and use {{BRAND}} for a property in Orange County, California.
-- {{BRAND}} is a platform, not a contractor. We connect homeowners and independent pros. We are not a party to any job, we do not employ pros, and homeowners pay pros directly, off-platform.
+- {{BRAND}} is run by {{LLC_NAME}}. Our mailing address is {{ADDRESS}}. You must be eighteen (18) or older and use {{BRAND}} for a property in Orange County, California.
+- {{BRAND}} is a platform, not a contractor. We connect homeowners and independent pros. We are not a party to any job and we do not employ pros. When in-app payments open, a homeowner pays the pro's invoice through the app, using Stripe, after the work is done. The money goes from the homeowner to the pro. {{BRAND}} never holds it.
+- {{BRAND}} is in a homeowner preview. The Pro side is not open yet, everything is free, memberships show as coming soon, and no payment of any kind is taken. During the preview our team may look by hand for a local pro for a job you post. We cannot promise to find one, and we do not vet or guarantee any pro. Read "Finding a pro during preview" in section 2.
 - "License verified," "insurance," and "background check" are trust signals with specific, limited meanings. Read section 5 before you rely on any of them.
 - Ask {{BRAND}} is an AI assistant, not a person and not a licensed professional. Its answers, including cost estimates, are not professional advice.
-- Paid plans auto-renew until you cancel. Cancellation is one (1) click in the app. There are no partial refunds on subscriptions. Contractors pay a 5% success fee (minimum $15, capped at $1,000) only when a homeowner hires them through the app; there are no upfront lead fees.
+- Nothing can be bought during the preview. When memberships open, paid plans will auto-renew until you cancel, you will be able to cancel online in the app at any time, and there will be no partial refunds on subscriptions. When the Pro side opens, pros pay a 5% success fee (minimum $15, capped at $1,000) only when a homeowner hires them through the app; there are no upfront lead fees.
 - Most disputes go to individual arbitration, not court, and you waive the right to bring or join a class action. You can opt out within thirty (30) days of first accepting these terms. Read section 18 carefully.
 - Our liability to you is capped at {{LIABILITY_CAP}}, except where California law does not allow that.
 - Pros also agree to a separate Pro Terms of Service covering leads, billing, and CRM use. If you are a pro, both documents apply to you.
 
 ## 1. Agreement, who we are, and eligibility
 
-These Terms of Service (these "Terms") are a contract between you and {{LLC_NAME}} ("{{BRAND}}," "we," "us," or "our"), located at {{ADDRESS}}. By creating an account, checking the signup consent box, or using {{BRAND}}, you agree to these Terms and to our Privacy Policy.
+These Terms of Service (these "Terms") are a contract between you and {{LLC_NAME}} ("{{BRAND}}," "we," "us," or "our"). Our mailing address is {{ADDRESS}}. By creating an account, checking the signup consent box, or using {{BRAND}}, you agree to these Terms and to our Privacy Policy.
 
 To use {{BRAND}}, you must:
 
-- Be at least eighteen (18) years old. We ask you to confirm this with a checkbox at signup. We do not collect a birthdate, so we rely on your word. If you are under eighteen (18), do not use {{BRAND}}.
+- Be at least eighteen (18) years old. If you sign up with email, we ask you to confirm this with a checkbox. If you sign up with Google or Apple, the sign-up screen tells you that continuing confirms it. We do not collect a birthdate, so we rely on your word. If you are under eighteen (18), do not use {{BRAND}}.
 - Be using {{BRAND}} for a property in Orange County, California, or be a pro who serves Orange County. {{BRAND}} serves all of Orange County; there is no smaller service-area restriction inside the county.
 - Keep one (1) account per person, per role. You may hold both a homeowner account and a pro account (a "dual-side account") if you genuinely use both, but you may not create multiple accounts of the same kind to evade a suspension, a limit, or a fee.
 
@@ -33,7 +34,24 @@ If you are a pro, you also agree to the separate Pro Terms of Service, which gov
 
 {{BRAND}} is not a contractor, is not a party to any home improvement contract, and does not perform, supervise, or guarantee any work. We do not employ pros, and no pro is our agent or joint venturer. Nothing in these Terms creates an employment, partnership, joint venture, or agency relationship between {{BRAND}} and any user.
 
-When a homeowner hires a pro through {{BRAND}}, the resulting contract is between the homeowner and the pro. The homeowner pays the pro directly; {{BRAND}} does not process payment between homeowner and pro and does not hold funds in escrow for a job. {{BRAND}} does not verify the quality, safety, timeliness, licensing status beyond the point-in-time check described in section 5, or outcome of any pro's work.
+When a homeowner hires a pro through {{BRAND}}, the resulting contract is between the homeowner and the pro. The homeowner pays the pro. When in-app payments are available, that payment is made through the app after the work is done and is processed by Stripe, and it goes from the homeowner to the pro's own Stripe account. {{BRAND}} is not the seller of the work, does not hold the payment at any point, and does not hold funds in escrow for a job. No in-app payments are available during the preview. {{BRAND}} does not verify the quality, safety, timeliness, licensing status beyond the point-in-time check described in section 5, or outcome of any pro's work.
+
+### Finding a pro during preview
+
+{{BRAND}} is in a homeowner preview and the Pro side is not open yet. You can still post a job. It is saved to your home's record, and while the preview lasts our team may look by hand for a local pro who could do the work.
+
+Please read this part closely:
+
+- We do not promise to find a pro for your job, and we do not promise how long it will take. If something is urgent, call a local licensed company yourself. Do not wait for us.
+- Any pro we point you to is an independent business. They are not our employee, agent, or partner, and we do not supervise their work.
+- We do not vet pros and we do not guarantee their work, their prices, or their conduct. Pointing you to a pro is not a recommendation or an endorsement.
+- A pro we find by hand has not signed up to {{BRAND}} and has not agreed to any of our terms, including our rules on how pros may use your information.
+- We do not charge you or the pro anything for this, and we are not paid by anyone for pointing you to a pro.
+- Before you hire anyone, check their license yourself at cslb.ca.gov, ask for proof of liability insurance (and workers' compensation insurance if they have employees), and get a written contract before any work or payment.
+- We will ask you before we pass your name, phone number, email, or address to a pro.
+- Any agreement you make is between you and that pro. {{BRAND}} is not a party to it, exactly as described above.
+
+Once the Pro side fully opens, pros will apply to posted jobs in the normal way and this preview process ends.
 
 ## 3. Accounts and security
 
@@ -48,7 +66,7 @@ Keep your password and any device you use to access {{BRAND}} secure. Tell us ri
 If you use {{BRAND}} as a homeowner:
 
 - Job posts must be real and honest. Only post a job for a property you own or legitimately control (for example, as a tenant with authority to arrange the work, or a property manager acting for the owner). Do not post fake jobs, jobs to collect pros' contact information without intent to hire, or jobs for a property you have no connection to.
-- Ownership verification, where shown, is a soft trust signal based on a fuzzy match between your account name and county assessor records. It is not identity verification, and condo properties currently show as unverified regardless of your actual ownership. See section 5.
+- The "Name matches public record" signal, where shown, is a soft trust signal based on a fuzzy match between your account name and the owner name in public property records, which we get from our property-data provider. It is not identity verification, and condo properties currently show as unverified regardless of your actual ownership. See section 5.
 - When you choose a pro, you and that pro form your own contract directly. {{BRAND}} is not a party to it, does not draft it, and is not responsible for its terms or performance.
 - California law (Business and Professions Code section 7159) requires a written home improvement contract for most jobs over $500. That is the pro's legal responsibility to provide, not {{BRAND}}'s, but we encourage you to insist on one before work begins and before you pay anything.
 - Before hiring, verify a pro's license directly at cslb.ca.gov. Our "License verified" badge is a helpful signal, described exactly in section 5, but it is not a substitute for checking yourself.
@@ -62,7 +80,7 @@ If you use {{BRAND}} as a homeowner:
 - **License verified.** This means the CSLB license number the pro entered matched an active license in the California Contractors State License Board's public database at the time we last checked. It is a point-in-time public-records check. It is not a guarantee that the license is still active today, that the pro entering the number is actually the license holder, or of the quality of the pro's work. We recheck periodically, not continuously. Verify current status yourself at cslb.ca.gov.
 - **Insurance.** Insurance details (carrier name and expiration date, and an optional uploaded certificate) are self-reported by the pro. {{BRAND}} does not contact the insurance carrier to confirm coverage. Wherever we show an insurance indicator next to "License verified," it is labeled "self-reported."
 - **Background check.** Shown only if the pro completed a background check through our screening partner, with the pro's separate consent. This is not active on the platform today. If we turn it on, we will show it only for pros who actually completed one.
-- **Ownership verified (homeowner).** A fuzzy match between the name on your account and the name on the county assessor's record for the property you entered. It is a soft trust signal, not identity verification, and it does not confirm legal ownership. Condominium properties are not matched against assessor records today and will show as unverified even if you own the unit.
+- **Name matches public record (homeowner).** A fuzzy match between the name on your account and the owner name in public property records for the property you entered, which we get from our property-data provider. It is a soft trust signal, not identity verification, and it does not confirm legal ownership. Condominium properties are not matched today and will show as unmatched even if you own the unit. If your name does not match, you can still use everything; the one difference is that pros get an in-app notice about your jobs instead of an email or text.
 
 We do not use, and do not plan to add, marketing labels like "vetted," "trusted," "best," or "guaranteed" for any pro or homeowner. If you see such a claim anywhere in the app, it does not reflect an actual {{BRAND}} review process, and you should not rely on it; tell us and we will correct it.
 
@@ -75,10 +93,10 @@ Read this carefully:
 - Ask {{BRAND}} is an AI, not a human. It is not a licensed contractor, inspector, engineer, or attorney, and its answers are not professional, legal, or engineering advice.
 - For anything safety-critical, including gas, electrical, structural, or water intrusion issues, consult a licensed professional before you act. In an emergency, call 911 or your utility company, not Ask {{BRAND}}.
 - Cost figures from Ask {{BRAND}} are ballpark estimates. Confirm any real number with a local pro before you commit to spending money.
-- To answer your question, we send relevant home data to Anthropic: your first name, your property's address, city, and state, your home systems, up to thirty (30) of your open maintenance tasks, up to six (6) of your recent issues, and the question you asked. This happens under Anthropic's commercial API terms, which state that inputs sent through the API are not used to train their models.
+- To answer your question, we send relevant home data to Anthropic, including your first name, your property's address, basic facts about your home, your home systems, your open maintenance tasks and recent issues, short summaries of documents you have saved, your recent job posts, any photo or file you attach, and the question you asked. The full list is in Section 5 of our Privacy Policy. This happens under Anthropic's commercial API terms, which state that inputs sent through the API are not used to train their models.
 - Your Ask {{BRAND}} conversation history is not stored on our servers. It stays in your browser's local storage. We keep only usage counters (how many questions you have asked) so we can apply rate limits.
-- Ask {{BRAND}} has daily and per-session usage limits. Homeowner Plus subscribers get higher limits than free accounts.
-- Other automated features on {{BRAND}} include rules-based fraud scoring (built from salted, one-way hashes of signals like device, IP, phone, and parcel data, not raw personal information, and not a machine-learning model), automated lead tiering for pros, and automated extraction of fields from uploaded documents. None of these make an adverse decision about your access to {{BRAND}} without the ability for you to contact us and have a person review it.
+- Ask {{BRAND}} has daily and per-session usage limits. During our preview everyone has the same limits.
+- Other automated features on {{BRAND}} include rules-based fraud scoring (built from salted, one-way hashes of signals like device, IP, phone, and parcel data, not raw personal information, and not a machine-learning model), automated routing of posted jobs to pros who listed that trade and serve that area, and automated extraction of fields from uploaded documents. None of these make an adverse decision about your access to {{BRAND}} without the ability for you to contact us and have a person review it.
 
 ## 7. Home value and cost estimates
 
@@ -94,7 +112,7 @@ Any home value estimate, cost estimate, or "what this might run" figure you see 
 
 You are telling us you have the right to post what you post. Do not upload someone else's copyrighted work, trademarks, or private information without permission, and do not upload anything illegal or deceptive.
 
-**Reviews.** Only a homeowner who chose a pro for a job may review that pro for that job, and only one (1) review per job. We never pay for reviews, never write them for anyone, and never remove a review because it is negative. We only remove a review for a genuine guideline violation, such as profanity, off-platform contact information, harassment, content unrelated to the job, or evidence that it is fake. Pros may post a public response to a review. This approach is consistent with the FTC's Consumer Reviews and Testimonials Rule (16 CFR Part 465): we do not suppress honest reviews and we do not condition anything on a review's sentiment. See our Community Guidelines and Reviews Policy for the full rules.
+**Reviews.** Only a homeowner who chose a pro for a job may review that pro for that job, and only one (1) review per job. We never pay for reviews, never write them for anyone, and never remove a review because it is negative. We only remove a review for a genuine guideline violation, such as profanity, off-platform contact information, harassment, content unrelated to the job, or evidence that it is fake. We plan to let a pro post one (1) public response under a review. Until that is available, a pro can ask us to look at a review by writing to {{SUPPORT_EMAIL}}. This approach is consistent with the FTC's Consumer Reviews and Testimonials Rule (16 CFR Part 465): we do not suppress honest reviews and we do not condition anything on a review's sentiment. See our Community Guidelines and Reviews Policy for the full rules.
 
 **Moderation.** We may remove or restrict content at any time if we believe it violates these Terms, our Community Guidelines, or the law. We are not obligated to monitor content before it is posted, and we are not responsible for content other users post. Content posted by another user belongs to them, not to us, and we do not endorse it. This section reflects our reliance on the legal protections available to platforms that host user content, including 47 U.S.C. Section 230.
 
@@ -102,21 +120,23 @@ You are telling us you have the right to post what you post. Do not upload someo
 
 ## 9. Paid features
 
-Homeowner Plus is a paid subscription available at $1.99 per week, $4.99 per month, or $39.99 per year, with a three (3)-day free trial. Your payment method is charged automatically when the trial ends, unless you cancel first, and the subscription then renews automatically at the price shown for the plan and interval you chose.
+**Preview period.** {{BRAND}} is in a homeowner preview. The Pro side is not open to new signups. Homeowner paid features are free, memberships show as coming soon and cannot be bought, and no charge of any kind is made. We will tell you by email and on this page before that changes. The prices below describe what we plan to offer when memberships open.
 
-You can cancel at any time from Account > Membership in the app, in one (1) step, or through the Stripe billing portal. Canceling stops future renewals; you keep access through the end of the period you already paid for. We do not give partial refunds for the unused part of a billing period.
+When memberships open, we plan to offer Homeowner Plus as a paid subscription at $1.99 per week, $4.99 per month, or $39.99 per year, with a three (3)-day free trial. Your payment method will be charged automatically when the trial ends, unless you cancel first, and the subscription will then renew automatically at the price shown for the plan and interval you chose. You will see the price and these renewal terms, and be asked to agree to them, before any charge.
+
+You will be able to cancel online at any time from your membership page in the app, or through the Stripe billing portal. Canceling stops future renewals; you keep access through the end of the period you already paid for. We do not give partial refunds for the unused part of a billing period.
 
 If we ever raise the price of an active subscription, we will give you at least thirty (30) days' notice by email before the change takes effect, and it will apply starting at your next renewal after that notice.
 
 Our full Billing & Refund Policy, published separately, is the controlling document for billing mechanics, the pro success fee, account credit, and chargebacks. Where anything in these Terms and the Billing & Refund Policy appear to conflict on a billing detail, the Billing & Refund Policy controls.
 
-As required by California Business and Professions Code section 17538, before you complete a purchase we display {{LLC_NAME}}'s legal name and address, {{ADDRESS}}, along with a link to the Billing & Refund Policy.
+As required by California Business and Professions Code section 17538, before you complete a purchase we will display {{LLC_NAME}}'s legal name and address, {{ADDRESS}}, along with a link to the Billing & Refund Policy.
 
 ## 10. SMS, email, and push notifications
 
 If you opt in to text messages, you will receive account and job-related messages, such as a new lead, a new message, or a job update. We do not send third-party marketing texts. Message and data rates may apply, and message frequency varies. Reply STOP to any text to opt out, or HELP for help. Agreeing to receive texts is never a condition of purchasing anything from us. Full details are in our separate SMS Terms.
 
-We send transactional email for account and job notices (receipts come directly from Stripe), a monthly home digest for Homeowner Plus subscribers, and occasional product update emails. Every email includes our physical address and an unsubscribe link. Opting out stops digest and product emails; transactional emails about your account and active jobs continue even after you opt out, because they are necessary to run the service.
+We send transactional email for account and job notices (receipts come directly from Stripe), a monthly home digest, and occasional product update emails. Every email includes our mailing address and an unsubscribe link. Opting out stops digest and product emails; transactional emails about your account and active jobs continue even after you opt out, because they are necessary to run the service.
 
 Push notifications require your browser or device permission and can be turned off at any time in your settings.
 
@@ -166,7 +186,7 @@ If you send us feedback, suggestions, or ideas about {{BRAND}}, you give us a pe
 
 To the extent the law allows, we disclaim all implied warranties, including the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. Some states and countries do not allow the exclusion of implied warranties, so this section may not apply to you in full.
 
-**Disputes with other users and work at your home.** Pros come to homeowners' properties and homeowners let pros into their homes. {{BRAND}} does not screen either side beyond the trust signals in section 5, is not present for the work, and cannot control how any user behaves. If you have a dispute with another user, or a pro's work or a homeowner's conduct causes you loss, injury, or damage, your claim is against that user, not against {{BRAND}}. To the extent the law allows, you release {{LLC_NAME}} and its member, employees, and agents from claims, demands, and damages of every kind arising out of or connected with a dispute between users or with work performed at a property. You waive California Civil Code section 1542, which says: "A general release does not extend to claims that the creditor or releasing party does not know or suspect to exist in his or her favor at the time of executing the release and that, if known by him or her, would have materially affected his or her settlement with the debtor or released party." This release does not cover claims based on {{BRAND}}'s own fraud, willful misconduct, or violation of law, and does not limit anything section 16 says we cannot limit.
+**Disputes with other users and work at your home.** Pros come to homeowners' properties and homeowners let pros into their homes. {{BRAND}} does not screen either side beyond the trust signals in section 5, is not present for the work, and cannot control how any user behaves. If you have a dispute with another user, or a pro's work or a homeowner's conduct causes you loss, injury, or damage, your claim is against that user, not against {{BRAND}}. To the extent the law allows, you release {{LLC_NAME}} and its members, managers, officers, employees, and agents from claims, demands, and damages of every kind arising out of or connected with a dispute between users or with work performed at a property. You waive California Civil Code section 1542, which says: "A general release does not extend to claims that the creditor or releasing party does not know or suspect to exist in his or her favor at the time of executing the release and that, if known by him or her, would have materially affected his or her settlement with the debtor or released party." This release does not cover claims based on {{BRAND}}'s own fraud, willful misconduct, or violation of law, and does not limit anything section 16 says we cannot limit.
 
 ## 16. Limitation of liability
 
@@ -232,7 +252,7 @@ If a change affects section 18, you get a fresh thirty (30)-day window to opt ou
 
 **Electronic communications.** You consent to receive communications from us electronically, including by email, text (if you opt in), and in-app notice, and you agree that these satisfy any legal requirement that a communication be in writing.
 
-**California Civil Code section 1789.3 notice.** California users are entitled to the following consumer rights notice: you may contact us at {{SUPPORT_EMAIL}} or {{ADDRESS}} with any complaint. California residents may also reach the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs by mail at 1625 North Market Blvd., Suite N 112, Sacramento, CA 95834, or by telephone at (800) 952-5210.
+**California Civil Code section 1789.3 notice.** California users are entitled to the following consumer rights notice: the provider of this service is {{LLC_NAME}}, mailing address {{ADDRESS}}, phone {{BUSINESS_PHONE}}. You may contact us at {{SUPPORT_EMAIL}} or at that address with any complaint. Charges for the service, when there are any, are described in our Billing & Refund Policy. California residents may also reach the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs by mail at 1625 North Market Blvd., Suite N 112, Sacramento, CA 95834, or by telephone at (800) 952-5210.
 
 ## 23. Contact
 

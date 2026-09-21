@@ -48,7 +48,7 @@ export function cityPageCopy(city: string): CityPageCopy {
       : `Home maintenance and local pros in ${city}, CA`,
     description: preview
       ? previewCityDescription(city)
-      : `A maintenance plan built for your ${city} home, answers about your own systems, and license-checked local pros when something breaks. Free to start.`,
+      : `A maintenance plan built for your ${city} home, answers about your own systems, and local pros when something breaks. Free to start.`,
     headline: preview
       ? previewCityHeadline(city)
       : `Home maintenance and local pros in ${city}`,
