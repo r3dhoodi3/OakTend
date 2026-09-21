@@ -10,7 +10,7 @@ import CookieNotice from "@/components/CookieNotice";
 import UsageTracker from "@/components/UsageTracker";
 import { Analytics } from "@vercel/analytics/next";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
-import { isHomeownerPreview } from "@/lib/previewMode";
+import { siteDescription, siteTitle } from "@/lib/siteMetadata";
 import { LEGACY_STORAGE_INIT_SCRIPT } from "@/lib/legacyStorage";
 
 // KEEP THIS FILE FREE OF cookies() AND headers().
@@ -100,19 +100,22 @@ const organizationJsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // The default title and description live in src/lib/siteMetadata.ts so the
+  // landing page, the About page and the Organization node below describe
+  // OakTend in the same words.
+  //
+  // PREVIEW MODE. Both strings have a preview variant. The title is aimed at
+  // the search this page should be found for ("home maintenance app" plus the
+  // county); the description names the category, the county and the main
+  // features, and makes no pro, quote, booking or payment claim, because
+  // there is no pro network during the preview. With the flag off both come
+  // back exactly as they were. Build-time constants like everything else in
+  // this file: NEXT_PUBLIC_PREVIEW_MODE is inlined, no request-scoped read.
   title: {
-    default: "OakTend: Your home, looked after",
+    default: siteTitle(),
     template: "%s | OakTend",
   },
-  // PREVIEW MODE (addendum 4 H). This is the site-wide default description -
-  // what a search result or link preview shows for any page without its own -
-  // and its last clause promises reaching a pro. There is no pro network
-  // during the preview, so that half is replaced by the approved framing.
-  // Everything before it is true either way and is unchanged. A build-time
-  // constant like everything else in this file; no request-scoped read.
-  description: isHomeownerPreview()
-    ? "Keep your house in good shape, know what needs attention, and store your home docs. Home maintenance, free during our preview."
-    : "Keep your house in good shape, know what needs attention, store your home docs, and reach a local pro when something breaks.",
+  description: siteDescription(),
   openGraph: {
     siteName: "OakTend",
     type: "website",
