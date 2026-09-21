@@ -60,6 +60,7 @@ export const GUIDE_PATHS = [
   "/guides/socal-home-maintenance-calendar",
   "/guides/permits-orange-county",
   "/guides/hard-water-orange-county",
+  "/guides/slab-leak-repair-orange-county",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -84,6 +85,7 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/socal-home-maintenance-calendar": "SoCal home maintenance calendar",
   "/guides/permits-orange-county": "Building permits in Orange County",
   "/guides/hard-water-orange-county": "Hard water in Orange County",
+  "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -150,6 +152,10 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
     dateModified: "2026-09-20",
   },
   "/guides/hard-water-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/slab-leak-repair-orange-county": {
     datePublished: "2026-09-20",
     dateModified: "2026-09-20",
   },

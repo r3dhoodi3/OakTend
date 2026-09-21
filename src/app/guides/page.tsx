@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   FileCheck,
   Droplets,
+  Hammer,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -118,6 +119,13 @@ const GUIDES = [
     title: "Hard water in Orange County",
     blurb:
       "How hard the tap water is by Orange County water provider, what it does to water heaters and fixtures, how often to flush a tank, and what to know about softeners.",
+  },
+  {
+    href: "/guides/slab-leak-repair-orange-county",
+    icon: Hammer,
+    title: "Slab leak repair in Orange County",
+    blurb:
+      "Spot repair, reroute or repipe: how each slab leak fix works, what drives the price, when a permit is needed, and what to ask your insurer.",
   },
 ];
 

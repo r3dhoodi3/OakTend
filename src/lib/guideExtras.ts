@@ -211,6 +211,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Rancho Santa Margarita",
     ],
   },
+  "/guides/slab-leak-repair-orange-county": {
+    guides: [
+      "/guides/slab-leak-signs",
+      "/guides/hard-water-orange-county",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Fountain Valley",
+      "Huntington Beach",
+      "Garden Grove",
+      "Westminster",
+      "Anaheim",
+      "Cypress",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -892,6 +907,62 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Health and Safety Code section 116786",
       supports:
         "A local agency may limit or prohibit softeners that discharge to the sewer by ordinance, if it makes specific findings.",
+    },
+  ],
+  "/guides/slab-leak-repair-orange-county": [
+    {
+      href: "https://www.epa.gov/watersense/fix-leak-week",
+      label: "U.S. EPA WaterSense: Fix a Leak Week",
+      supports:
+        "The meter test: check the water meter before and after a two-hour period with no water use, and if it changes you probably have a leak.",
+    },
+    {
+      href: "https://www.irwd.com/get-help/meters-and-leaks/water-leaks/",
+      label: "Irvine Ranch Water District: water leaks",
+      supports:
+        "Toilets, faucets and sprinklers are common sources of undetected leaks, and the district re-bills penalty-tier usage at a lower rate after a leak is found and repaired.",
+    },
+    {
+      href: "https://www.yorbalindaca.gov/DocumentCenter/View/5807",
+      label: "City of Yorba Linda: plumbing project exemptions",
+      supports:
+        "Stopping or repairing a leak needs no permit, but removing a defective concealed pipe and replacing it with new material is new work that needs a permit and inspection.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports:
+        "Fountain Valley lists a residential repipe among its expedited permits.",
+    },
+    {
+      href: "https://santa-ana.gov/pbx-express-permit/",
+      label: "City of Santa Ana: PBx Same Day Express Permit Program",
+      supports:
+        "Santa Ana issues residential repipe and water piping permits through its same-day express program.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label: "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label: "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should say who gets the necessary building permits.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C36",
+      label: "Contractors State License Board: C-36 Plumbing Contractor classification",
+      supports:
+        "The C-36 Plumbing Contractor classification covers water supply piping.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified in lead-safe work practices.",
     },
   ],
 };
