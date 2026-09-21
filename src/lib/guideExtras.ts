@@ -883,7 +883,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.energy.ca.gov/programs-and-topics/programs/home-energy-rating-system-hers-program",
       label: "California Energy Commission: Home Energy Rating System program",
       supports:
-        "Energy code testing may be mandatory depending on the work, properly permitted work triggers it, a homeowner may hire an independent rater, and the testing moved to the Energy Code Compliance program on January 1, 2026.",
+        "Energy code testing may be mandatory depending on the work, properly permitted work triggers it, and a homeowner may hire a rater who is independent of the contractor.",
     },
     {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
@@ -1175,7 +1175,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://ocfa.org/ready-set-go/home-hardening/",
       label: "Orange County Fire Authority: home hardening",
       supports:
-        "Flying embers destroy homes miles from wildland areas, and OCFA's part by part guidance on vents, gutters, fences, garages, roofs, patio covers and decks.",
+        "Flying embers destroy homes miles from wildland areas, and OCFA's part by part guidance on vents, gutters, fences, garages and roofs.",
     },
     {
       href: "https://ocfa.org/document/immediate-zone-flyer/",
@@ -1193,7 +1193,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://ocfa.org/ready-set-go/vegetation-management/",
       label: "Orange County Fire Authority: vegetation management",
       supports:
-        "Defensible space as a 360 degree approach, plant separation, the flammable plant list, the planting guide and fuel modification zones.",
+        "OCFA's plant spacing guidance, its list of flammable plants to remove, and its fire-resistive planting guide.",
     },
     {
       href: "https://ocfa.org/ready-set-go/home-assessment/",
@@ -1363,7 +1363,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=4216.2",
       label: "California Government Code section 4216.2",
       supports:
-        "Notice to the regional notification center at least two working days, and not more than 14 calendar days, before digging.",
+        "Notice to the regional notification center at least two working days before digging.",
     },
     {
       href: "https://www.socalgas.com/safety/safety-and-prevention/digging-and-yard-safety",
