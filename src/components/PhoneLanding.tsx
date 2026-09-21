@@ -106,7 +106,7 @@ export default function PhoneLanding({
           meets an h2 first, since that h1 is display:none at this width.
           Classes are unchanged, so it looks the same. */}
       <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 [text-wrap:balance]">
-        Your home, looked after.
+        Your home looked after
       </h2>
       <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-400">
         OakTend checks on your home for you and warns you before things break.

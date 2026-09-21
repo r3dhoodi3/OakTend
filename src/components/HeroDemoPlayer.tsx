@@ -963,7 +963,7 @@ export default function HeroDemoPlayer() {
     // (a real human-sounding voice). speechSynthesis above is only the
     // fallback if a file fails to load or play.
     const VO_TEXT = {
-      hook: "This is OakTend. Your home, looked after.",
+      hook: "This is OakTend. Your home looked after.",
       address: "Just type your address to get started.",
       dash: "OakTend gives your home a health score, and catches problems before they cost you.",
       postjob: "Something break? Post a job in seconds, with the price up front.",
@@ -2555,7 +2555,7 @@ export default function HeroDemoPlayer() {
                 <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
                   <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend</p>
-                  <p className="text-sm text-stone-600">Your home, looked after.</p>
+                  <p className="text-sm text-stone-600">Your home looked after</p>
                   <p className="mt-1 text-sm text-stone-500">
                     Home health score{" "}
                     <span className="align-middle text-2xl font-bold text-green-700" data-x="endScore">71</span>
@@ -2589,7 +2589,7 @@ export default function HeroDemoPlayer() {
             <div className={styles.introCard} data-x="intro" aria-hidden="true">
               <Logo className="h-12 w-12 text-bark-700" tone="green" />
               <span className={styles.introWord}>OakTend</span>
-              <span className={styles.introTag}>Your home, looked after.</span>
+              <span className={styles.introTag}>Your home looked after</span>
             </div>
             <span className={styles.flash} data-x="flash" aria-hidden="true"></span>
           </div>

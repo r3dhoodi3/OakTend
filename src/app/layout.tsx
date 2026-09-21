@@ -85,10 +85,24 @@ const organizationJsonLd = {
   })),
 };
 
+// WebSite JSON-LD. Search engines take the site name they print above a result
+// from this node, not from the Organization one; without it they fall back to
+// the bare domain ("oaktend.com" / "Oaktend.com"). The publisher points at the
+// one Organization node above rather than describing the business twice.
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}#website`,
+  name: "OakTend",
+  alternateName: ["OakTend.com", "Oak Tend"],
+  url: SITE_URL,
+  publisher: { "@id": `${SITE_URL}#organization` },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "OakTend: Your home, looked after",
+    default: "OakTend: Your home looked after",
     template: "%s | OakTend",
   },
   // PREVIEW MODE (addendum 4 H). This is the site-wide default description -
@@ -189,6 +203,10 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>
