@@ -210,7 +210,7 @@ export const sanJuanCapistrano: CityContent = {
     },
   ],
 
-  neighbors: ["dana-point", "laguna-niguel", "mission-viejo"],
+  neighbors: ["dana-point", "laguna-niguel", "mission-viejo", "san-clemente"],
 
   faq: [
     {

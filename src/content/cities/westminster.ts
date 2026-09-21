@@ -20,6 +20,10 @@ import type { CityContent } from "./types";
 // could not read any page describing how water heater, HVAC, reroof or panel
 // permits are handled, so the permits section says so instead of guessing.
 //
+// FIRE SERVICE (added 2026-09-20). The city's fire page was read through a
+// reader proxy because the site blocks direct reads, and Westminster was
+// confirmed on the Orange County Fire Authority's member cities list.
+//
 // LEFT OUT ON PURPOSE. Rainfall (the only figure came from a defunct weather
 // site by way of Wikipedia), a liquefaction statement (no Westminster document
 // was readable), any fire hazard zone claim, Prado Dam, the Indian Village
@@ -33,6 +37,7 @@ export const westminster: CityContent = {
     "Westminster began in 1870 as a Presbyterian temperance colony and did not incorporate until 1957, and its housing is mostly what went up around that incorporation: about three quarters of its homes predate 1980, with a median build year of 1970. What sets it apart for a homeowner is the split in who runs what. The city pumps its own water, all of it groundwater in the most recent report, while sewer and trash belong to a separate agency, the Midway City Sanitary District.",
   metaDescription:
     "Westminster's median home dates to 1970. City well water, a separate sanitary district for sewer lines, flood channels and permits, with sources.",
+  metaTitle: "Westminster: city well water and a sewer district",
 
   population: {
     value: "About 89,547 people",
@@ -44,6 +49,11 @@ export const westminster: CityContent = {
   homes: {
     exposure: "near-coastal",
     medianYearBuilt: "1970",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0684550",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Westminster's median year built is 1970. Of about 28,953 housing units, roughly 16.5 percent went up in the 1950s, 29.6 percent in the 1960s and 24.5 percent in the 1970s, so about three quarters of the city predates 1980, and only about 12.2 percent dates from 2000 or later. Homes of that age are typically on their second or third roof and at or past the point where original panels, drain lines and supply plumbing need a hard look.",
@@ -71,6 +81,11 @@ export const westminster: CityContent = {
         sourceUrl:
           "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010064&Year=2025&isCert=false",
         sourceLabel: "City of Westminster 2025 water quality report",
+      },
+      {
+        text: "Fire service in Westminster comes from a regional agency rather than a city department. The city's fire page says the Orange County Fire Authority, a joint powers authority that provides fire service to 23 cities and all unincorporated areas in the county, has served Westminster since 1995. The page lists three stations in the city: Station 64 at 7351 Westminster Boulevard, Station 65 at 6061 Hefley Street and Station 66 at 15061 Moran Street.",
+        sourceUrl: "https://www.westminster-ca.gov/departments/fire",
+        sourceLabel: "City of Westminster, OCFA fire service in Westminster",
       },
     ],
   },
@@ -143,7 +158,12 @@ export const westminster: CityContent = {
     },
   ],
 
-  neighbors: ["garden-grove", "huntington-beach", "fountain-valley"],
+  neighbors: [
+    "garden-grove",
+    "huntington-beach",
+    "fountain-valley",
+    "midway-city",
+  ],
 
   faq: [
     {
@@ -166,7 +186,11 @@ export const westminster: CityContent = {
       q: "Is Midway City part of Westminster?",
       a: "No. Midway City is an unincorporated community that Westminster borders, and it refused to join when the city incorporated in 1957. The two share the sanitary district for sewer and trash, but building permits for a Midway City address go through the county rather than Westminster's Building Division.",
     },
+    {
+      q: "Who provides fire service in Westminster?",
+      a: "The Orange County Fire Authority. The city's fire page says the authority has served Westminster since 1995 and lists three stations in the city, Station 64 on Westminster Boulevard, Station 65 on Hefley Street and Station 66 on Moran Street. The authority is a joint powers agency that the city's page says serves 23 cities and all unincorporated areas of the county.",
+    },
   ],
 
-  updated: "2026-09-19",
+  updated: "2026-09-20",
 };

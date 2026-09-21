@@ -34,6 +34,7 @@ export const fullerton: CityContent = {
     "Fullerton was founded in 1887 and incorporated in 1904, which gives it something most Orange County cities lack: a real stock of homes from before 1950, including 16 identified historic districts. The Census then counted 13,958 people in 1950 and 56,180 in 1960, and that one decade of tract building is why the median build year sits at 1969. Add hillside neighborhoods beside the Coyote Hills, where the state's Very High fire hazard zone grew in 2025, and one page has to cover a 1920s bungalow, a 1950s ranch house and a hillside lot.",
   metaDescription:
     "Fullerton runs from 1920s bungalows to 1950s tracts to the Coyote Hills. Water hardness by area, permits, historic districts and fire zones.",
+  metaTitle: "Fullerton: 1920s bungalows to Coyote Hills lots",
 
   population: {
     value: "About 140,051 people",
@@ -45,6 +46,11 @@ export const fullerton: CityContent = {
   homes: {
     exposure: "inland",
     medianYearBuilt: "1969",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0628000",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Fullerton's median year built is 1969. Of about 52,304 housing units, roughly 7.8 percent predate 1950, 20.9 percent went up in the 1950s, 23.0 percent in the 1960s and 19.5 percent in the 1970s, so about seven in ten homes are older than 1980, while about 14.3 percent date from 2000 or later. The pre-1950 share is the unusual part for this county, and those houses bring raised foundations, older wiring methods and plaster that the tract homes do not.",
@@ -66,6 +72,12 @@ export const fullerton: CityContent = {
         text: "Fullerton averages about 11.86 inches of rain a year, most of it from December through March, according to the NOAA normals reproduced in the city's Wikipedia entry. It gets less marine-layer cooling than the coast, so the long dry season's sun on roofing, paint and sealants is the everyday wear, and the short wet season is when drainage gets tested.",
         sourceUrl: "https://en.wikipedia.org/wiki/Fullerton,_California",
         sourceLabel: "Wikipedia, Fullerton climate table citing NOAA",
+      },
+      {
+        text: "Fire service in Fullerton comes from the city's own department, the Fullerton Fire Department. The city's station page says the department is ready to respond from six city locations and lists Fire Stations 1 through 6 with the engines, trucks and ambulances assigned to them. Station 1 at 312 E. Commonwealth Avenue is the headquarters.",
+        sourceUrl:
+          "https://www.cityoffullerton.com/government/departments/fire/about-us/fire-station-locations-fire-apparatus",
+        sourceLabel: "City of Fullerton Fire Department, fire station locations",
       },
     ],
   },
@@ -141,14 +153,14 @@ export const fullerton: CityContent = {
         "Typical range and when a repair is smarter, on water that averages about 14 grains per gallon.",
     },
     {
-      href: "/guides/is-my-contractor-quote-fair",
-      title: "Is my contractor quote fair?",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "How to read a quote line by line, which matters most on older houses where surprises hide in the walls.",
+        "Month by month for this climate, built around a wet season that runs December through March and a long dry stretch of sun on roofing and paint.",
     },
   ],
 
-  neighbors: ["anaheim", "brea", "buena-park"],
+  neighbors: ["anaheim", "brea", "buena-park", "la-habra"],
 
   faq: [
     {
@@ -171,7 +183,11 @@ export const fullerton: CityContent = {
       q: "Why does Fullerton have flood control dams?",
       a: "Because Brea Creek and Fullerton Creek run through it. The Army Corps of Engineers built Brea Dam and Fullerton Dam in the early 1940s as single purpose flood control projects, and Brea Creek continues through the central business district below the dam. For a homeowner the practical step is a FEMA flood map lookup for the address, especially on low ground near either creek or its channel.",
     },
+    {
+      q: "Who provides fire service in Fullerton?",
+      a: "The Fullerton Fire Department, which is the city's own department. The city's station page says it responds from six city locations, Fire Stations 1 through 6, and lists the engines, trucks and ambulances assigned to them. Station 1 at 312 E. Commonwealth Avenue is the headquarters.",
+    },
   ],
 
-  updated: "2026-09-19",
+  updated: "2026-09-20",
 };

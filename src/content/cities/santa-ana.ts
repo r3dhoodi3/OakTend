@@ -43,6 +43,7 @@ export const santaAna: CityContent = {
     "Santa Ana has some of the oldest housing stock of any large Orange County city: about a third of its homes predate 1960, roughly 80 percent went up before 1980, and only about 4.2 percent date from 2000 or later. That age shows up in predictable places, including electrical panels sized for a 1960s household, sewer laterals well into their service life, and water heaters already on their second or third replacement. The city also runs its own water utility, and the water is hard enough that scale is simply part of the maintenance calendar here.",
   metaDescription:
     "Santa Ana has some of Orange County's oldest big-city housing, most built before 1980. Panels, sewer laterals, hard city water, and city permits.",
+  metaTitle: "Santa Ana homes: pre-1980 builds and hard water",
 
   population: {
     value: "About 310,000 to 316,000 people",
@@ -72,6 +73,11 @@ export const santaAna: CityContent = {
         sourceUrl:
           "https://storage.googleapis.com/proudcity/santaanaca/uploads/2022/03/City-of-Santa-Ana-HMP-10.11.2022.pdf",
         sourceLabel: "City of Santa Ana Hazard Mitigation Plan, 2022",
+      },
+      {
+        text: "Fire service in Santa Ana comes from the Orange County Fire Authority, which the city's own fire page describes as the fire agency serving the City of Santa Ana. That page says ten fire stations are located throughout the city, providing primary response for fire suppression and emergency medical services.",
+        sourceUrl: "https://santa-ana.gov/departments/fire/",
+        sourceLabel: "City of Santa Ana, Orange County Fire Authority page",
       },
     ],
   },
@@ -149,14 +155,14 @@ export const santaAna: CityContent = {
         "Typical price range and when a repair still makes sense, on water around 250 ppm.",
     },
     {
-      href: "/guides/roof-replacement-cost",
-      title: "Roof replacement cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "Price per square by material, for roofs taking inland heat and Santa Ana wind season.",
+        "Month by month for this climate, including the attic ventilation and roof checks that inland heat makes worth doing.",
     },
   ],
 
-  neighbors: ["tustin", "orange", "costa-mesa"],
+  neighbors: ["tustin", "orange", "costa-mesa", "garden-grove"],
 
   faq: [
     {
@@ -180,10 +186,10 @@ export const santaAna: CityContent = {
       a: "They can. Floral Park is on the National Register of Historic Places and Historic French Park is one of the city's oldest neighborhoods, and homes in that kind of district can carry review requirements for exterior changes that a nearby tract home does not. Check with the city before ordering windows, roofing or paint if your home is in one of them.",
     },
     {
-      q: "Does OakTend only serve Santa Ana?",
-      a: "No. OakTend covers all of Orange County. Santa Ana has its own page because the housing era, the city-run water and the historic districts genuinely change the advice here, not because the service stops at the city line.",
+      q: "Who provides fire service in Santa Ana?",
+      a: "The Orange County Fire Authority. The city's own fire page describes the authority as the fire agency serving the City of Santa Ana, and says ten fire stations are located throughout the city, providing primary response for fire suppression and emergency medical services.",
     },
   ],
 
-  updated: "2026-09-16",
+  updated: "2026-09-20",
 };

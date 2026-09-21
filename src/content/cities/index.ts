@@ -113,3 +113,13 @@ export function getCityContent(slug: string): CityContent | undefined {
     ? CITY_CONTENT[slug]
     : undefined;
 }
+
+// The <title> for a city page: the city's own metaTitle when it has researched
+// content and has written one, otherwise the shared title the caller passes in
+// (cityPageCopy(city).title from src/lib/cityCopy.ts, which follows the preview
+// flag). One function so the three city routes cannot disagree about the rule.
+// A metaTitle is local facts only and says nothing about pros (cities.test.ts
+// sweeps it with every other string), so it is safe with the flag on or off.
+export function cityMetaTitle(slug: string, fallback: string): string {
+  return getCityContent(slug)?.metaTitle ?? fallback;
+}

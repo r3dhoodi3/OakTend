@@ -33,6 +33,7 @@ export const orange: CityContent = {
     "Orange incorporated in 1888, and the square mile around its Plaza is still there: Old Towne was listed on the National Register of Historic Places in 1997 and is described as the largest National Register district in California. Most of the city is far younger than that, built as the population went from 10,027 in 1950 to 77,365 in 1970, and the median build year is 1973. For a homeowner the practical split is this: in Old Towne and in the three Eichler tracts, exterior work starts with design review, and everywhere else it starts with an ordinary permit.",
   metaDescription:
     "Orange pairs a National Register historic district and Eichler tracts with 1960s suburbs. Design review, hard water and permit steps, sourced.",
+  metaTitle: "Orange homes: Old Towne, Eichlers and hard water",
 
   population: {
     value: "About 137,957 people",
@@ -44,6 +45,11 @@ export const orange: CityContent = {
   homes: {
     exposure: "inland",
     medianYearBuilt: "1973",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0653980",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Orange's median year built is 1973. Of about 46,126 housing units, roughly 5.3 percent predate 1950, 12.6 percent went up in the 1950s, 26.2 percent in the 1960s and 20.3 percent in the 1970s, which puts close to two thirds of the city before 1980, while about 14.2 percent dates from 2000 or later. The 1960s are the single biggest decade, so original panels, cast iron drains and first-generation central air are the common conversations.",
@@ -67,6 +73,11 @@ export const orange: CityContent = {
         sourceUrl:
           "https://www.preserveorangecounty.org/places/2019/5/21/the-eichlers-of-orange-fairhaven-fairmeadow-fairhills",
         sourceLabel: "Preserve Orange County, the Eichlers of Orange",
+      },
+      {
+        text: "Fire service in Orange comes from the city's own department, the Orange City Fire Department. Its station page lists eight fire stations, numbered 1 through 8, each with its street address. Station 1 at 1176 E. Chapman Avenue shares its address with the department's main office, which the page lists as open Monday through Thursday, 7 a.m. to 6 p.m.",
+        sourceUrl: "https://orangecityfire.org/locate-a-station",
+        sourceLabel: "Orange City Fire Department, locate a station",
       },
     ],
   },
@@ -148,14 +159,14 @@ export const orange: CityContent = {
         "Price range and when a repair still makes sense, on water that averages about 18 grains per gallon.",
     },
     {
-      href: "/guides/is-my-contractor-quote-fair",
-      title: "Is my contractor quote fair?",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "How to read a quote line by line, including whether it accounts for historic district requirements.",
+        "Month by month for this climate, including the water heater flush that water averaging 18 grains per gallon calls for.",
     },
   ],
 
-  neighbors: ["anaheim", "tustin", "santa-ana"],
+  neighbors: ["anaheim", "tustin", "santa-ana", "villa-park"],
 
   faq: [
     {
@@ -178,7 +189,11 @@ export const orange: CityContent = {
       q: "Is El Modena or Orange Park Acres part of the City of Orange?",
       a: "No, even though the mailing address says Orange. El Modena, North El Modena, Orange Park Acres and Olive are unincorporated county areas surrounded by the city. Permits and code enforcement for those addresses are the county's, not the city's, so confirm which jurisdiction your parcel is in before you apply anywhere.",
     },
+    {
+      q: "Who provides fire service in Orange?",
+      a: "The Orange City Fire Department, which is the city's own department. Its station page lists eight fire stations, numbered 1 through 8, with Station 1 and the department's main office at 1176 E. Chapman Avenue. The page lists that office as open Monday through Thursday, 7 a.m. to 6 p.m.",
+    },
   ],
 
-  updated: "2026-09-19",
+  updated: "2026-09-20",
 };

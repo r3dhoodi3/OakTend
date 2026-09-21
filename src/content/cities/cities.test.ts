@@ -2,7 +2,7 @@ import { existsSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect } from "vitest";
 
-import { CITY_CONTENT, getCityContent } from "./index";
+import { CITY_CONTENT, cityMetaTitle, getCityContent } from "./index";
 import type { CityContent } from "./types";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
@@ -150,14 +150,22 @@ describe.each(entries)("%s content", (key, city) => {
     }
   });
 
-  it("links 2 or 3 nearby cities that are real launch cities", () => {
+  it("links 2 to 4 nearby cities that are real launch cities", () => {
     expect(city.neighbors.length).toBeGreaterThanOrEqual(2);
-    expect(city.neighbors.length).toBeLessThanOrEqual(3);
+    expect(city.neighbors.length).toBeLessThanOrEqual(4);
     expect(new Set(city.neighbors).size).toBe(city.neighbors.length);
     for (const slug of city.neighbors) {
       expect(LAUNCH_SLUGS.has(slug), `${slug} is not a launch city`).toBe(true);
       expect(slug).not.toBe(city.slug);
     }
+  });
+
+  it("links the SoCal maintenance calendar, the one guide that fits every city", () => {
+    expect(
+      city.guides.some(
+        (g) => g.href === "/guides/socal-home-maintenance-calendar",
+      ),
+    ).toBe(true);
   });
 
   it("sources every claim over https", () => {
@@ -166,9 +174,23 @@ describe.each(entries)("%s content", (key, city) => {
     }
   });
 
-  it("keeps the meta description under 160 characters", () => {
-    expect(city.metaDescription.length).toBeLessThan(160);
+  it("keeps the meta description to 155 characters and leads with the city", () => {
+    expect(city.metaDescription.length).toBeLessThanOrEqual(155);
     expect(city.metaDescription.length).toBeGreaterThan(70);
+    expect(city.metaDescription.startsWith(city.name)).toBe(true);
+  });
+
+  // The root layout appends " | OakTend" (10 characters), so 50 here is 60 in
+  // the tab and the search result. Leading with the city name is what makes
+  // the title answer a "<city> home maintenance" search at a glance.
+  it("has its own title: city name first, 25 to 50 characters", () => {
+    expect(city.metaTitle).toBeTruthy();
+    const title = city.metaTitle as string;
+    expect(title.length).toBeGreaterThanOrEqual(25);
+    expect(title.length).toBeLessThanOrEqual(50);
+    expect(title.startsWith(city.name)).toBe(true);
+    expect(title).not.toMatch(/[!?]|\bbest\b/i);
+    expect(cityMetaTitle(city.slug, "shared title")).toBe(title);
   });
 
   it("writes an intro of 2 to 4 sentences", () => {
@@ -185,6 +207,24 @@ describe.each(entries)("%s content", (key, city) => {
       // Escaped rather than written literally so this file does not itself
       // contain the character it bans.
       expect(text.includes("\u2014"), `em dash in: ${text}`).toBe(false);
+    }
+  });
+
+  // Plain ASCII only: no en dash, curly quote, degree sign or accented letter.
+  // Covers the en dash the rule above does not, and keeps a pasted "smart"
+  // character out of a meta tag.
+  it("is plain ASCII throughout", () => {
+    for (const text of stringsIn(city)) {
+      expect(/^[\x20-\x7E]*$/.test(text), `non-ASCII in: ${text}`).toBe(true);
+    }
+  });
+
+  // City content is local facts. It does not talk about the product at all:
+  // the page shell around it does that and follows the preview flag, which
+  // this plain data cannot.
+  it("does not mention the product by name", () => {
+    for (const text of stringsIn(city)) {
+      expect(/oaktend/i.test(text), `product name in: ${text}`).toBe(false);
     }
   });
 
@@ -218,7 +258,33 @@ describe.each(entries)("%s content", (key, city) => {
   });
 });
 
+describe("internal linking across the whole launch area", () => {
+  it("has researched content for every launch city", () => {
+    for (const slug of LAUNCH_SLUGS) {
+      expect(getCityContent(slug), `${slug} has no content`).toBeDefined();
+    }
+    expect(entries.length).toBe(LAUNCH_SLUGS.size);
+  });
+
+  it("gives every city at least one inbound link from a neighbor", () => {
+    const linked = new Set(entries.flatMap(([, city]) => city.neighbors));
+    for (const [key] of entries) {
+      expect(linked.has(key), `no city links to ${key}`).toBe(true);
+    }
+  });
+
+  it("falls back to the shared title for a slug with no content", () => {
+    expect(cityMetaTitle("not-a-city", "shared title")).toBe("shared title");
+    expect(cityMetaTitle("toString", "shared title")).toBe("shared title");
+  });
+});
+
 describe("no two cities share copy", () => {
+  it("has a unique title per city", () => {
+    const titles = entries.map(([, city]) => city.metaTitle);
+    expect(new Set(titles).size).toBe(titles.length);
+  });
+
   it("has a unique intro per city", () => {
     const intros = entries.map(([, city]) => city.intro);
     expect(new Set(intros).size).toBe(intros.length);

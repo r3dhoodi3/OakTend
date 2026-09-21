@@ -3,7 +3,7 @@ import CityLandingPage, {
   buildCityServiceJsonLd,
   cityPageCopy,
 } from "@/components/CityLandingPage";
-import { getCityContent } from "@/content/cities";
+import { cityMetaTitle, getCityContent } from "@/content/cities";
 
 // Top-level city landing page for local SEO ("home maintenance Fountain
 // Valley" type queries) and as the link target for Nextdoor/chamber
@@ -47,9 +47,13 @@ const CONTENT = getCityContent("fountain-valley");
 // cards cannot drift apart.
 const DESCRIPTION = CONTENT?.metaDescription ?? COPY.description;
 
+// Same rule for the title: the city's own metaTitle when it has one, otherwise
+// the shared COPY.title. Used for the tab and both share cards.
+const TITLE = cityMetaTitle("fountain-valley", COPY.title);
+
 export const metadata: Metadata = {
   // The root layout's title template appends "| OakTend"; don't repeat it here.
-  title: COPY.title,
+  title: TITLE,
   description: DESCRIPTION,
   alternates: {
     canonical: CANONICAL,
@@ -59,7 +63,7 @@ export const metadata: Metadata = {
   // layout's generic site-wide card - the same preview for all 36 city pages.
   // Same shape /pricing and the guides use.
   openGraph: {
-    title: COPY.title,
+    title: TITLE,
     description: DESCRIPTION,
     url: CANONICAL,
     siteName: "OakTend",
@@ -74,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: COPY.title,
+    title: TITLE,
     description: DESCRIPTION,
   },
 };

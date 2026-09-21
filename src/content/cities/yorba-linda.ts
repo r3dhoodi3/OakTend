@@ -29,6 +29,7 @@ export const yorbaLinda: CityContent = {
     "Yorba Linda had about 1,198 residents when it incorporated in 1967, and most of what stands today was built in the two decades that followed, which is how the median build year lands at 1983. It sits where Santa Ana Canyon opens onto the county, a canyon the fire authority's own report calls a wind funnel, and the city says more than 4,700 of its acres are now in the state's Very High fire hazard tier. That makes roofing, vents and the first five feet around the house a bigger part of home maintenance here than almost anywhere else in Orange County.",
   metaDescription:
     "Yorba Linda sits at the mouth of Santa Ana Canyon. Fire hazard zones, very hard well water, online permits and what a 1983 median build year means.",
+  metaTitle: "Yorba Linda: canyon wind, fire zones, hard water",
 
   population: {
     value: "About 66,487 people",
@@ -40,6 +41,11 @@ export const yorbaLinda: CityContent = {
   homes: {
     exposure: "foothill",
     medianYearBuilt: "1983",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0686832",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Yorba Linda's median year built is 1983. Of about 22,701 housing units, roughly 32.8 percent went up in the 1980s, 21.4 percent in the 1970s and 14.9 percent in the 1960s, while only about 4.4 percent predate 1960 and about 16.3 percent date from 2000 or later. A 1980s house is at the age where the second roof, the second or third water heater and original windows all come due.",

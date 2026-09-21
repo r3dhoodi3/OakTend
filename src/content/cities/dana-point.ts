@@ -36,6 +36,7 @@ export const danaPoint: CityContent = {
     "Dana Point did not become a city until January 1, 1989, by which time most of it was already built: about 63 percent of the homes standing today date from the 1970s and 1980s, and the median build year is 1979. The ocean sets the terms for owning one. The city says most improvements to a bluff-top house or a house on Beach Road need a Coastal Development Permit, and at Capistrano Beach a November 2018 storm collapsed the county's wooden boardwalk and led to the basketball courts and restroom being demolished. Salt air, not inland heat, does the everyday wear on metal, paint and outdoor equipment here.",
   metaDescription:
     "Dana Point homes mostly date from the 1970s and 1980s. Two water districts, coastal permits on bluffs and Beach Road, erosion and salt air, sourced.",
+  metaTitle: "Dana Point homes: bluffs, salt air and hard water",
 
   population: {
     value: "About 32,790 people",
@@ -193,7 +194,12 @@ export const danaPoint: CityContent = {
     },
   ],
 
-  neighbors: ["laguna-niguel", "san-juan-capistrano", "san-clemente"],
+  neighbors: [
+    "laguna-niguel",
+    "san-juan-capistrano",
+    "san-clemente",
+    "laguna-beach",
+  ],
 
   faq: [
     {

@@ -39,6 +39,7 @@ export const cypress: CityContent = {
     "Cypress incorporated in 1956 under the name Dairy City, a name earned in the years when the city's own history says the area had about 1,000 residents and more than 13,000 cows, and residents voted 208 to 41 the next year to rename it after the rows of cypress trees planted to block the wind around the first schoolhouse. The dairies gave way to tract housing fast: about two in three homes standing today were built in the 1960s and 1970s, and the median build year is 1971. The Los Alamitos Race Course sits inside the city despite its name, and in August 2026 the City Council approved a plan to build out about 134 acres of the specific plan area that covers it.",
   metaDescription:
     "Cypress began as Dairy City in 1956. What 1960s and 1970s tracts, hard Golden State Water, city permits and 2001 flood and dam maps mean for upkeep.",
+  metaTitle: "Cypress homes: Dairy City tracts and hard water",
 
   population: {
     value: "About 49,498 people",
@@ -172,14 +173,14 @@ export const cypress: CityContent = {
         "How to catch one early in a tract house with its original supply plumbing, before the water bill tells you.",
     },
     {
-      href: "/guides/roof-replacement-cost",
-      title: "Roof replacement cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "Price per square by material, for a job the Cypress Building Division lists as needing a permit.",
+        "Month by month for this climate, including roof and gutter checks before the Santa Ana winds the city's safety element describes.",
     },
   ],
 
-  neighbors: ["los-alamitos", "stanton", "buena-park"],
+  neighbors: ["los-alamitos", "stanton", "buena-park", "la-palma"],
 
   faq: [
     {

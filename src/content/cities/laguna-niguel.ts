@@ -38,6 +38,7 @@ export const lagunaNiguel: CityContent = {
     "Laguna Niguel was drawn up before it was built: the city's hazard plan traces it to the Laguna Niguel Corporation's 1959 master plan for about 7,100 acres, and today the city counts more than 120 homeowner associations spread across graded coastal hills. The median build year is 1986, and nearly two in three homes date from the 1980s and 1990s. Two documented events shape upkeep here: the 1998 El Nino landslides that collapsed four houses on Via Estoril, and the May 2022 Coastal Fire, which the Orange County Fire Authority says destroyed 20 homes after embers blew past a maintained fuel modification zone above Aliso Canyon.",
   metaDescription:
     "Laguna Niguel: a 1986 median build year, 120-plus HOAs, hard all-imported water, hillside slope care and what the 2022 Coastal Fire showed about embers.",
+  metaTitle: "Laguna Niguel home care: slopes, HOAs, ember risk",
 
   population: {
     value: "About 64,139 people",
@@ -98,6 +99,11 @@ export const lagunaNiguel: CityContent = {
           "https://www.cityoflagunaniguel.org/1705/Residential-Solar-Permits-with-SolarAPP",
         sourceLabel:
           "City of Laguna Niguel, Residential Solar Permits with SolarAPP+",
+      },
+      {
+        text: "Laguna Niguel does not run its own fire department. The city's Fire Services page says the city partners with the Orange County Fire Authority for fire and emergency medical services, and that the authority serves Laguna Niguel residents through a regional approach, with automatic and mutual aid from outside fire agencies for large incidents.",
+        sourceUrl: "https://www.cityoflagunaniguel.org/939/Fire-Services",
+        sourceLabel: "City of Laguna Niguel, Fire Services",
       },
     ],
   },
@@ -188,7 +194,7 @@ export const lagunaNiguel: CityContent = {
     },
   ],
 
-  neighbors: ["dana-point", "aliso-viejo", "laguna-beach"],
+  neighbors: ["dana-point", "aliso-viejo", "laguna-beach", "laguna-hills"],
 
   faq: [
     {
@@ -210,6 +216,10 @@ export const lagunaNiguel: CityContent = {
     {
       q: "How do I get a building permit in Laguna Niguel?",
       a: "Online, for most things. The Building & Safety Division says its Online Permit Center can be used to apply for all building permits and to request inspections, and asks for 24 hours to process an application. Licensed contractors can get roof-mounted residential solar permits the same day through SolarAPP+. The counter at City Hall is open weekdays from 8 a.m. to 4 p.m. A licensed contractor normally pulls the permit as part of the job, and your homeowner association may want its own approval too.",
+    },
+    {
+      q: "Who provides water and fire service in Laguna Niguel?",
+      a: "Neither is a city department. The city says water and sewer service is provided by Moulton Niguel Water District, whose drinking water is all imported, and its Fire Services page says the city partners with the Orange County Fire Authority for fire and emergency medical services. The fire authority also offers the defensible space disclosure inspections that come up when a home in a fire hazard zone is sold.",
     },
   ],
 

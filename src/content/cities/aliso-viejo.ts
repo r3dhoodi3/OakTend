@@ -197,7 +197,7 @@ export const alisoViejo: CityContent = {
     },
   ],
 
-  neighbors: ["laguna-niguel", "laguna-hills", "laguna-woods"],
+  neighbors: ["laguna-niguel", "laguna-hills", "laguna-woods", "laguna-beach"],
 
   faq: [
     {

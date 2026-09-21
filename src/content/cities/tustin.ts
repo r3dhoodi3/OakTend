@@ -29,6 +29,7 @@ export const tustin: CityContent = {
     "Tustin is three build eras sharing one name: tracts from the 1960s and 1970s such as Tustin Meadows, the Tustin Ranch planned community approved in 1986, and Tustin Legacy, which is still going up on the former Marine Corps air station. That mix is why the median build year of 1983 describes almost no actual street here. Which era you live in also decides who sends your water bill, because the city's own utility serves part of Tustin and Irvine Ranch Water District serves the rest.",
   metaDescription:
     "Tustin mixes 1960s tracts, Tustin Ranch and Tustin Legacy. Two water providers, very hard city well water, reroof rules and permit steps.",
+  metaTitle: "Tustin: three build eras and two water providers",
 
   population: {
     value: "About 78,864 people",
@@ -40,6 +41,11 @@ export const tustin: CityContent = {
   homes: {
     exposure: "inland",
     medianYearBuilt: "1983",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0680854",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Tustin's median year built is 1983, give or take about four years, and the spread behind it matters more than the median. Of about 30,118 housing units, roughly 42.1 percent date from the 1960s and 1970s, about 35.1 percent from the 1980s and 1990s, and about 18.7 percent from 2000 or later, with almost nothing older than 1960. A city split that evenly has no single maintenance profile, so start from your own tract's decade.",
@@ -138,10 +144,10 @@ export const tustin: CityContent = {
         "What a full system runs, for Tustin Ranch homes reaching their second system and Legacy homes reaching their first.",
     },
     {
-      href: "/guides/electrical-panel-upgrade-cost",
-      title: "Electrical panel upgrade cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "The common big-ticket item in the 1960s and 1970s tracts, with the typical price range.",
+        "Month by month for this climate, including the water heater flush that 22-grain city groundwater calls for and roof checks before the November to April rains.",
     },
   ],
 

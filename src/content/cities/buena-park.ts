@@ -43,6 +43,7 @@ export const buenaPark: CityContent = {
     "Buena Park became a city in January 1953 and did most of its building right then: about 43 percent of its roughly 25,800 homes date from the 1950s alone, and the median build year is 1960. The city's own safety element rates liquefaction susceptibility as high across the majority of the city, with the ground south of Malvern Avenue the most exposed, and maps a small Very High fire hazard zone at the north end around the regional park and the Los Coyotes golf course. It is also a city that issues water heater, repipe, rewire and panel upgrade permits instantly online, which suits a place where about half the homes predate 1960.",
   metaDescription:
     "Buena Park's median home dates to 1960. Instant online permits, hard city water, liquefaction south of Malvern Avenue and a small fire zone up north.",
+  metaTitle: "Buena Park homes: 1950s tracts, instant permits",
 
   population: {
     value: "About 82,597 people",
@@ -190,14 +191,14 @@ export const buenaPark: CityContent = {
         "Price range and when a repair still makes sense, on city water that averages 12 to 14 grains per gallon.",
     },
     {
-      href: "/guides/hvac-replacement-cost",
-      title: "HVAC replacement cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "What a full system runs, in a city whose safety element projects extreme heat days rising from two a year to about eleven.",
+        "Month by month for this climate, including what to check before the winter storms the city says cause localized flooding in the north.",
     },
   ],
 
-  neighbors: ["fullerton", "anaheim", "la-palma"],
+  neighbors: ["fullerton", "anaheim", "la-palma", "cypress"],
 
   faq: [
     {

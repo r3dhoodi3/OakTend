@@ -46,6 +46,7 @@ export const brea: CityContent = {
     "Brea is Spanish for tar, the stuff that seeped out of these hills, and the oil never fully left: the city's 2024 hazard plan, citing the state oil regulator, counts 879 oil and gas wells inside city limits, 261 of them still active. The houses mostly came later, with the 57 freeway and the Brea Mall, which is why more than a quarter of the homes here date from the 1970s and the median build year is 1978. North and east of that flat 1970s core the city climbs into hills and canyons where the State Fire Marshal's 2025 map shows the Very High fire hazard tier and where, by the city's own account, the Whittier Fault cuts through the eastern half of town.",
   metaDescription:
     "Brea grew up on an oil field. What 1970s tracts, hard blended water, Class A reroof rules, the Whittier Fault and hillside fire zones mean for upkeep.",
+  metaTitle: "Brea home upkeep: oil-field tracts and fire zones",
 
   population: {
     value: "About 47,469 people",
@@ -190,7 +191,7 @@ export const brea: CityContent = {
     },
   ],
 
-  neighbors: ["la-habra", "fullerton", "yorba-linda"],
+  neighbors: ["la-habra", "fullerton", "yorba-linda", "placentia"],
 
   faq: [
     {

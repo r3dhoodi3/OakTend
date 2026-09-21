@@ -34,6 +34,7 @@ export const missionViejo: CityContent = {
     "Mission Viejo was built almost entirely under one master plan, by one company, inside one tight window: more than 90 percent of its homes went up between 1960 and 1999, and the median build year is 1979. The plan put the roads in the valleys and the houses on the hillsides, in stucco and barrel tile, which is why so much of the city looks alike and, more to the point, ages alike. The practical effect is that roofs, water heaters and furnaces on a Mission Viejo street tend to come due together rather than one house at a time.",
   metaDescription:
     "Mission Viejo was built to one master plan, median build year 1979. What that shared age means for roofs, water, HOAs, and permits.",
+  metaTitle: "Mission Viejo: one master plan, one build window",
 
   population: {
     value: "About 91,600 to 93,700 people",
@@ -68,6 +69,11 @@ export const missionViejo: CityContent = {
         sourceUrl:
           "https://www.missionviejo.gov/departments/public-works/water-conservation",
         sourceLabel: "City of Mission Viejo, water conservation",
+      },
+      {
+        text: "Fire service in Mission Viejo comes from the Orange County Fire Authority. The city's fire services page says the authority provides fire prevention, fire suppression and emergency services, and that Mission Viejo is one of its partner cities. The page lists three fire stations serving the city: Station 9 on Shops Boulevard, Station 24 on Marguerite Parkway and Station 31 on Olympiad Road.",
+        sourceUrl: "https://www.missionviejo.gov/departments/fire-services",
+        sourceLabel: "City of Mission Viejo, fire services",
       },
     ],
   },
@@ -125,12 +131,6 @@ export const missionViejo: CityContent = {
         "Price per square by material, for tile roofs that reach the end of their run street by street.",
     },
     {
-      href: "/guides/hvac-replacement-cost",
-      title: "HVAC replacement cost",
-      blurb:
-        "What a full system runs, and central AC versus a heat pump, for homes on their second system.",
-    },
-    {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
@@ -142,9 +142,20 @@ export const missionViejo: CityContent = {
       blurb:
         "How to catch one early in a slab-foundation home built in the 1960s or 1970s.",
     },
+    {
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
+      blurb:
+        "Month by month for this climate, a way to pace the upkeep in a city where more than 90 percent of homes share one 40-year build window.",
+    },
   ],
 
-  neighbors: ["lake-forest", "laguna-hills", "rancho-santa-margarita"],
+  neighbors: [
+    "lake-forest",
+    "laguna-hills",
+    "rancho-santa-margarita",
+    "ladera-ranch",
+  ],
 
   faq: [
     {
@@ -168,10 +179,10 @@ export const missionViejo: CityContent = {
       a: "Because the city was built that way. More than 90 percent of Mission Viejo's homes went up between 1960 and 1999, and half of them in a single 20-year stretch, so equipment installed at the same time reaches the end of its life at the same time. It is genuinely useful information: if two neighbors have replaced a water heater or a roof this year, yours is the same age, and planning the spend beats discovering it.",
     },
     {
-      q: "Does OakTend only serve Mission Viejo?",
-      a: "No. OakTend covers all of Orange County. Mission Viejo has its own page because a city built to one plan in one window ages differently from a city built piece by piece, not because the service stops at the city line.",
+      q: "Who provides fire service in Mission Viejo?",
+      a: "The Orange County Fire Authority. The city's fire services page says the authority provides fire prevention, fire suppression and emergency services and that Mission Viejo is one of its partner cities. It lists three stations serving the city: Station 9 on Shops Boulevard, Station 24 on Marguerite Parkway and Station 31 on Olympiad Road.",
     },
   ],
 
-  updated: "2026-09-16",
+  updated: "2026-09-20",
 };

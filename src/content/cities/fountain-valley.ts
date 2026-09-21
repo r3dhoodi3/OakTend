@@ -28,6 +28,7 @@ export const fountainValley: CityContent = {
     "Fountain Valley incorporated in 1957 with about 2,000 residents and then grew more than 1,400 percent in the following decade, which is why so much of the city reads as one continuous stretch of 1960s and 1970s tract housing. Homes of that era are well past the point where original plumbing runs, panels and roofing are still original by design rather than by luck. The city sits a few miles back from the Huntington Beach coastline, so marine air reaches it without a beachfront's constant salt load, and it sits directly over the Orange County groundwater basin on water hard enough to scale a water heater.",
   metaDescription:
     "Fountain Valley went from farmland to built out in one decade. What that shared build age means for permits, hard water, and repairs.",
+  metaTitle: "Fountain Valley: a city built in a single decade",
 
   population: {
     value: "About 56,000 to 57,000 people",
@@ -145,7 +146,7 @@ export const fountainValley: CityContent = {
     },
   ],
 
-  neighbors: ["huntington-beach", "costa-mesa", "santa-ana"],
+  neighbors: ["huntington-beach", "costa-mesa", "santa-ana", "westminster"],
 
   faq: [
     {
@@ -169,8 +170,8 @@ export const fountainValley: CityContent = {
       a: "This is flat, fully urbanized coastal plain rather than canyon or hillside terrain, which in Orange County generally means low mapped hazard. That said, we are not going to hand you a citywide answer: look your own address up on the State Fire Marshal's Fire Hazard Severity Zone maps, and if the map leaves you unsure, ask the Fountain Valley Fire Department, which is the city's own department rather than part of the Orange County Fire Authority.",
     },
     {
-      q: "Does OakTend only serve Fountain Valley?",
-      a: "No. OakTend covers all of Orange County. Fountain Valley has its own page because the build history, the basin water and the city's own permit process genuinely change the advice here, not because the service stops at the city line.",
+      q: "Who provides fire service in Fountain Valley?",
+      a: "The city's own Fountain Valley Fire Department, rather than the Orange County Fire Authority. It shows up in permitting too: anything that needs Fire Department review has to be submitted as paper plans through the Building Division instead of the online portal. For fire hazard zoning, the state says to contact the local jurisdiction in a locally protected area, which here means that same city department.",
     },
   ],
 

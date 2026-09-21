@@ -30,6 +30,7 @@ export const lakeForest: CityContent = {
     "Lake Forest was the community of El Toro until it incorporated in 1991, and it takes its name from two man-made lakes and about 400 acres of eucalyptus planted in the early 1900s. Nine years later the city annexed Foothill Ranch and Portola Hills, so it is really two places: a 1970s and 1980s flatland suburb, and newer foothill neighborhoods against the Santa Ana Mountains. The city's own hazard plan records the 2007 Santiago fire reaching the backyards of homes in those two foothill communities, which is the clearest way to explain why the maintenance advice changes as you go uphill.",
   metaDescription:
     "Lake Forest is two places: the older El Toro tracts and the Foothill Ranch hills. Three water districts, fire zones and permit steps, sourced.",
+  metaTitle: "Lake Forest: El Toro tracts, foothill fire zones",
 
   population: {
     value: "About 87,164 people",
@@ -41,6 +42,11 @@ export const lakeForest: CityContent = {
   homes: {
     exposure: "foothill",
     medianYearBuilt: "1985",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0639496",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Lake Forest's median year built is 1985. Of about 31,620 housing units, roughly 25.6 percent went up in the 1970s, 32.4 percent in the 1980s and 15.5 percent in the 1990s, only about 1 percent predates 1960, and about 15.1 percent has been built since 2010. The common house here is 35 to 50 years old: past its first roof and its first two water heaters, and often on original windows and ducting.",
@@ -63,6 +69,11 @@ export const lakeForest: CityContent = {
         sourceUrl:
           "https://www.lakeforestca.gov/Documents/Departments/Public%20Safety/Local%20Hazard%20Mitigation%20Plan/FINAL-City-of-Lake-Forest-LHMP-9-6-24.pdf",
         sourceLabel: "City of Lake Forest Local Hazard Mitigation Plan, 2024",
+      },
+      {
+        text: "The city's fire page says fire services in Lake Forest are provided by the Orange County Fire Authority, which handles fire protection and suppression, inspection services, paramedic emergency medical services and hazardous material response. The page lists three stations in the city: Station 19 on El Toro Road, Station 42 on Ridgeline Road and Station 54 on Pauling Avenue.",
+        sourceUrl: "https://www.lakeforestca.gov/departments/fire/index.php",
+        sourceLabel: "City of Lake Forest, fire services",
       },
     ],
   },
@@ -176,7 +187,11 @@ export const lakeForest: CityContent = {
       q: "Where do I get a building permit in Lake Forest?",
       a: "From the city's Building Division, which runs an online portal called eLakeForest for submitting certain permit types, paying invoices and checking the inspection schedule. The city also posts handouts, including one on water heater installation. It does not spell out which permits are online and which are over the counter, so ask the division about your specific job. A licensed contractor normally pulls the permit as part of the work.",
     },
+    {
+      q: "Who provides fire service in Lake Forest?",
+      a: "The Orange County Fire Authority. The city's fire page says the authority provides fire protection and suppression, inspection services, paramedic emergency medical services and hazardous material response in Lake Forest, and it lists three stations in the city: Station 19 on El Toro Road, Station 42 on Ridgeline Road and Station 54 on Pauling Avenue.",
+    },
   ],
 
-  updated: "2026-09-19",
+  updated: "2026-09-20",
 };

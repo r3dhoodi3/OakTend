@@ -39,6 +39,7 @@ export const laHabra: CityContent = {
     "La Habra sits in Orange County, but its fire engines belong to the Los Angeles County Fire Department, which the city hires under contract, and about 73 percent of its water in fiscal 2024-25 was groundwater from the Main San Gabriel Basin, bought from California Domestic Water Company. The homes are mostly one postwar wave: the median build year is 1968 and about 71 percent of housing units went up between 1950 and 1979. The state's 2025 fire hazard map also draws a band of Very High, High and Moderate zones along the city's southern edge, the side of town where a city planning document describes the hills as part of the West Coyote Hills oil field.",
   metaDescription:
     "La Habra's median home dates to 1968. Los Angeles County fire service, hard San Gabriel basin water, online permits and the 2025 fire zone map.",
+  metaTitle: "La Habra homes: LA County fire, San Gabriel water",
 
   population: {
     value: "About 61,970 people",
@@ -178,10 +179,10 @@ export const laHabra: CityContent = {
         "What a full system runs, in a city whose hazard plan ranks extreme heat second and whose permit page lists HVAC replacement as permit work.",
     },
     {
-      href: "/guides/roof-replacement-cost",
-      title: "Roof replacement cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "Price per square by material, and why the roof assembly rating matters if your parcel is in the zoned band along the southern edge.",
+        "Month by month for this climate, including getting the air conditioning serviced before the summer heat the city's hazard plan ranks second.",
     },
   ],
 

@@ -4,7 +4,7 @@ import CityLandingPage, {
   buildCityServiceJsonLd,
   cityPageCopy,
 } from "@/components/CityLandingPage";
-import { getCityContent } from "@/content/cities";
+import { cityMetaTitle, getCityContent } from "@/content/cities";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 
 // Generic city landing page for every Orange County launch city EXCEPT
@@ -76,9 +76,13 @@ export async function generateMetadata(props: {
   // off. One constant so the search snippet and both share cards agree.
   const description =
     getCityContent(slug)?.metaDescription ?? copy.description;
+  // Same idea for the title: a researched city that has written its own
+  // metaTitle (city name plus the real local hook) uses it, everyone else
+  // keeps the shared one. One constant so the tab and both share cards agree.
+  const title = cityMetaTitle(slug, copy.title);
   return {
     // The root layout's title template appends "| OakTend"; don't repeat it.
-    title: copy.title,
+    title,
     description,
     alternates: {
       canonical,
@@ -87,7 +91,7 @@ export async function generateMetadata(props: {
     // shared the root layout's generic site-wide share card. Same shape
     // /pricing and the guides use.
     openGraph: {
-      title: copy.title,
+      title,
       description,
       url: canonical,
       siteName: "OakTend",
@@ -100,7 +104,7 @@ export async function generateMetadata(props: {
     },
     twitter: {
       card: "summary_large_image",
-      title: copy.title,
+      title,
       description,
     },
   };

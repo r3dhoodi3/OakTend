@@ -36,6 +36,7 @@ export const newportBeach: CityContent = {
     "Newport Beach is a harbor city as much as a beach city, and whole neighborhoods sit on dredged islands and a sandspit where the water is on two sides of the house instead of one. Nearly the entire city lies inside the California Coastal Zone, so exterior work, additions and anything touching a dock, seawall or bulkhead usually needs a coastal development permit on top of the building permit. And if you own bayfront, the seawall in front of your house is yours to keep in good repair, an obligation almost nowhere else in Orange County carries.",
   metaDescription:
     "Newport Beach sits in the Coastal Zone, on a working harbor. Coastal permits, seawall duty, city water, and salt-air upkeep, sourced.",
+  metaTitle: "Newport Beach homes: seawalls and coastal permits",
 
   population: {
     value: "About 82,970 people",
@@ -69,6 +70,12 @@ export const newportBeach: CityContent = {
         sourceUrl: "https://www.newportbeachca.gov/Home/ShowDocument?id=18490",
         sourceLabel: "City of Newport Beach water quality report",
       },
+      {
+        text: "Fire service here comes from the city's own Newport Beach Fire Department. The department's page says its 152 full-time employees and more than 200 part-time and seasonal employees provide 24-hour protection and response, and it lists Fire Operations, Emergency Medical Services, Fire Prevention and Lifeguard Operations among its divisions.",
+        sourceUrl:
+          "https://www.newportbeachca.gov/government/departments/fire-department",
+        sourceLabel: "Newport Beach Fire Department",
+      },
     ],
   },
 
@@ -81,7 +88,7 @@ export const newportBeach: CityContent = {
       "Newport Coast",
       "Bay Island",
     ],
-    note: "Several of these are literally man-made. Balboa Island was dredged and filled starting in 1906 and is now one of the densest small communities in the country; Lido Isle was dredged from 1923, laid out with Italian street names and about 800 homes, roughly 250 of them waterfront, and was one of the first Southern California developments built with underground utilities. Bay Island has 23 homes and no car access. Newport Coast is a hillside master-planned community annexed into the city in 2001, and it is served by Irvine Ranch Water District rather than the city utility.",
+    note: "Several of these are literally man-made. Balboa Island was dredged and filled starting in 1906; Lido Isle was dredged from 1923, laid out with Italian street names and about 800 homes, roughly 250 of them waterfront. Bay Island has 23 homes and no car access. Newport Coast is a hillside master-planned community annexed into the city in 2001, and it is served by Irvine Ranch Water District rather than the city utility.",
     sourceUrl: "https://en.wikipedia.org/wiki/Newport_Beach,_California",
   },
 
@@ -161,7 +168,7 @@ export const newportBeach: CityContent = {
     },
   ],
 
-  neighbors: ["costa-mesa", "irvine", "laguna-beach"],
+  neighbors: ["costa-mesa", "irvine", "laguna-beach", "huntington-beach"],
 
   faq: [
     {
@@ -185,10 +192,10 @@ export const newportBeach: CityContent = {
       a: "It depends where you live. Most of Newport Beach is on the city's own utility, blended at roughly 80 percent groundwater and 20 percent imported water. Newport Coast is served by Irvine Ranch Water District, and some pockets by Mesa Water District. Your water bill names the agency, and that is the one whose water quality report actually describes what comes out of your tap.",
     },
     {
-      q: "Does OakTend only serve Newport Beach?",
-      a: "No. OakTend covers all of Orange County. Newport Beach has its own page because coastal permitting, harbor structures and salt-air wear genuinely change the advice here, not because the service stops at the city line.",
+      q: "Who provides fire service in Newport Beach?",
+      a: "The city's own Newport Beach Fire Department. Its page says 152 full-time employees and more than 200 part-time and seasonal employees provide 24-hour protection and response, across divisions that include Fire Operations, Emergency Medical Services, Fire Prevention and Lifeguard Operations. For fire hazard severity zones, the city runs an address lookup, so check your own street there.",
     },
   ],
 
-  updated: "2026-09-16",
+  updated: "2026-09-20",
 };

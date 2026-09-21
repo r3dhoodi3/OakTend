@@ -26,6 +26,7 @@ export const gardenGrove: CityContent = {
     "Garden Grove is a 1950s city: the Census counted 5,762 people here in 1950 and 84,238 in 1960, and more than a third of the homes standing today were built in that one decade. The median build year is 1964, the oldest of any large Orange County city we have researched so far, so original drain lines, panels and supply plumbing are an everyday topic rather than an exception. The city's own safety element adds two things most Orange County pages cannot say: a majority of the city sits on ground subject to liquefaction, and the eastern third is in a FEMA 100-year flood zone.",
   metaDescription:
     "Garden Grove's median home dates to 1964. What 1950s tracts, hard city well water, online permits and a mapped flood zone mean for upkeep.",
+  metaTitle: "Garden Grove homes: 1950s tracts and a flood zone",
 
   population: {
     value: "About 172,331 people",
@@ -37,6 +38,11 @@ export const gardenGrove: CityContent = {
   homes: {
     exposure: "inland",
     medianYearBuilt: "1964",
+    medianYearBuiltSource: {
+      sourceUrl:
+        "https://censusreporter.org/data/table/?table=B25035&geo_ids=16000US0629000",
+      sourceLabel: "Census Reporter, ACS 2024 one-year table B25035",
+    },
     facts: [
       {
         text: "Garden Grove's median year built is 1964. Of about 52,475 housing units, roughly 36.4 percent went up in the 1950s alone, another 24.5 percent in the 1960s, and only about 4.6 percent date from 2000 or later. About four in five homes here predate 1980, which puts original sewer laterals, electrical panels and supply plumbing on the agenda for most of the city at once.",
@@ -59,6 +65,11 @@ export const gardenGrove: CityContent = {
         sourceUrl:
           "https://ggcity.org/sites/default/files/2021-09/SafetyElement_Redlinedr.pdf",
         sourceLabel: "City of Garden Grove General Plan, safety element",
+      },
+      {
+        text: "Fire service here comes from the Orange County Fire Authority. The city's page says the authority is responsible for fire protection services for the City of Garden Grove, and that it also performs fire safety inspections of existing structures and fire plan review and inspection of new developments. The page lists seven authority stations in the city, numbered 80 through 86.",
+        sourceUrl: "https://ggcity.org/fire/orange-county-fire-authority",
+        sourceLabel: "City of Garden Grove, Orange County Fire Authority",
       },
     ],
   },
@@ -138,14 +149,14 @@ export const gardenGrove: CityContent = {
         "Price range and when a repair still makes sense, on well water that averages about 18 grains per gallon.",
     },
     {
-      href: "/guides/roof-replacement-cost",
-      title: "Roof replacement cost",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "Price per square by material, for a job Garden Grove lets you permit online.",
+        "Month by month for this climate, including the water heater flush that 18-grain well water calls for and drain checks before winter storms.",
     },
   ],
 
-  neighbors: ["westminster", "anaheim", "santa-ana"],
+  neighbors: ["westminster", "anaheim", "santa-ana", "stanton"],
 
   faq: [
     {
@@ -168,7 +179,11 @@ export const gardenGrove: CityContent = {
       q: "Should I worry about liquefaction in Garden Grove?",
       a: "It is worth knowing about rather than worrying about. The city's own safety element says a majority of Garden Grove is subject to liquefaction, which is about how saturated, loose soil behaves in strong shaking. For an existing house it mostly matters when you plan an addition, foundation work or a purchase. Look your address up on the state's Seismic Hazard Zone map and bring the result to whoever engineers the work.",
     },
+    {
+      q: "Who provides fire service in Garden Grove?",
+      a: "The Orange County Fire Authority. The city's own page says the authority is responsible for fire protection services for Garden Grove and lists seven authority stations in the city, numbered 80 through 86. The authority also handles fire safety inspections of existing structures and fire plan review for new developments here.",
+    },
   ],
 
-  updated: "2026-09-19",
+  updated: "2026-09-20",
 };

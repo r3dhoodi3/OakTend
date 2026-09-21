@@ -50,6 +50,7 @@ export const irvine: CityContent = {
     "Irvine's median home was built in 2002, the newest large-city housing stock in Orange County, and that changes what maintenance here actually looks like. Most Irvine homes are not fighting failing drains or undersized panels; they are reaching the first replacement of an original water heater, furnace, or roof, often a whole village at a time because the village went up in one stretch. Add architectural review in most villages and a permit system that has just moved to a new portal, and the real questions here are usually timing and approvals rather than whether something is about to fail.",
   metaDescription:
     "Irvine's median home was built in 2002. What that means for water heaters, HOA approvals, Irvine Ranch Water District water, and city permits.",
+  metaTitle: "Irvine homes: whole villages aging in lockstep",
 
   population: {
     value: "About 318,693 people",
@@ -85,6 +86,11 @@ export const irvine: CityContent = {
           "https://usclimatedata.com/climate/irvine/california/united-states/usca2494",
         sourceLabel: "US Climate Data, Irvine",
       },
+      {
+        text: "Fire service in Irvine comes from the Orange County Fire Authority. The city appears on the authority's list of member cities, and the authority describes itself as a regional fire service agency serving 23 Orange County cities and all unincorporated areas from 78 fire stations across the county.",
+        sourceUrl: "https://ocfa.org/about-us/member-cities/",
+        sourceLabel: "Orange County Fire Authority, member cities",
+      },
     ],
   },
 
@@ -99,7 +105,7 @@ export const irvine: CityContent = {
       "Cypress Village",
       "Great Park Neighborhoods",
     ],
-    note: "Irvine is organized into villages, not loose neighborhoods, and the village tells you the build era: Turtle Rock dates to 1967 and was one of the first five, Woodbridge is a 1970s and 1980s build around its two man-made lakes, Northwood is the one village developed independently of the Irvine Company, and Woodbury, Stonegate, Orchard Hills, Cypress Village and the Great Park Neighborhoods are all 2000s or later.",
+    note: "Irvine is organized into villages, not loose neighborhoods, and the village tells you the build era: Turtle Rock dates to 1967, Woodbridge is a 1970s and 1980s build around its two man-made lakes, Northwood is the one village developed independently of the Irvine Company, and Woodbury, Stonegate, Orchard Hills, Cypress Village and the Great Park Neighborhoods are all 2000s or later.",
     sourceUrl: "https://www.irvineconnection.com/irvines-22-villages/",
   },
 
@@ -159,14 +165,14 @@ export const irvine: CityContent = {
         "Price per square by material, useful when a whole village's original roofs come due within a few years of each other.",
     },
     {
-      href: "/guides/is-my-contractor-quote-fair",
-      title: "Is my contractor quote fair?",
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
       blurb:
-        "How to read a quote line by line before you sign, and what an honest one includes.",
+        "Month by month for this climate, including sun wear on roofing and paint and getting winter runoff off the lot.",
     },
   ],
 
-  neighbors: ["tustin", "lake-forest", "newport-beach"],
+  neighbors: ["tustin", "lake-forest", "newport-beach", "costa-mesa"],
 
   faq: [
     {
@@ -190,10 +196,10 @@ export const irvine: CityContent = {
       a: "We are not going to answer that for you, and anyone who answers it for a whole city is guessing. No city-adopted fire hazard map was available for Irvine when this page was checked, and the villages that back onto open space, such as Shady Canyon, Quail Hill and parts of Turtle Rock, are precisely where a citywide answer would mislead. Look your own address up on the Cal Fire zone viewer; it answers by parcel.",
     },
     {
-      q: "Does OakTend only serve Irvine?",
-      a: "No. OakTend covers all of Orange County. Irvine has its own page because the facts above are genuinely different here than they are ten miles away, not because the service stops at the city line.",
+      q: "Who provides fire service in Irvine?",
+      a: "The Orange County Fire Authority. Irvine is one of the member cities on the authority's list, and the authority says it serves 23 Orange County cities and all unincorporated areas from 78 fire stations across the county. For fire hazard zoning, the state's parcel lookup is still the place to check your own address.",
     },
   ],
 
-  updated: "2026-09-16",
+  updated: "2026-09-20",
 };

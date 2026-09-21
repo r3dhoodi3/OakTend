@@ -40,6 +40,7 @@ export const huntingtonBeach: CityContent = {
     "Huntington Beach's median home was built in 1972, so the typical house here is a postwar tract home past fifty, and it is doing that aging within a couple of miles of salt air. Coastal exposure is the difference that matters: paint, metal fixtures, roof flashing and outdoor HVAC equipment wear faster near the water than the same parts would inland. The city also runs its own water utility, and that water is hard, which quietly shortens the life of water heaters and fixtures across the whole city.",
   metaDescription:
     "Huntington Beach's median home was built in 1972, on the coast. Salt-air wear, hard city water, the HB permit portal, and guides that fit.",
+  metaTitle: "Huntington Beach: 1972 tract homes in salt air",
 
   population: {
     value: "About 193,000 to 193,200 people",
@@ -161,7 +162,7 @@ export const huntingtonBeach: CityContent = {
     },
   ],
 
-  neighbors: ["fountain-valley", "costa-mesa", "westminster"],
+  neighbors: ["fountain-valley", "costa-mesa", "westminster", "seal-beach"],
 
   faq: [
     {
@@ -185,8 +186,8 @@ export const huntingtonBeach: CityContent = {
       a: "It is worth checking, because this is one of the Orange County cities where the answer is sometimes yes. The city sits low between the Santa Ana River and the Bolsa Chica wetlands, so FEMA's Flood Map Service Center is the right check for flood zoning and the California Geological Survey's seismic hazard lookup is the right one for liquefaction. Both answer by address, not by city.",
     },
     {
-      q: "Does OakTend only serve Huntington Beach?",
-      a: "No. OakTend covers all of Orange County. Huntington Beach has its own page because coastal exposure and city-run water genuinely change the advice here, not because the service stops at the city line.",
+      q: "Who provides fire service in Huntington Beach?",
+      a: "The city's own Huntington Beach Fire Department, not the Orange County Fire Authority. That matters for one practical reason: the department is also the local source on fire hazard zones, and it says the city has areas the State Fire Marshal rates Moderate and High, and none rated Very High. Check a specific address through the city's page or the state viewer rather than an OCFA map.",
     },
   ],
 

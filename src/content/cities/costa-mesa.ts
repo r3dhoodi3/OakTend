@@ -29,6 +29,7 @@ export const costaMesa: CityContent = {
     "Costa Mesa's southern edge sits about a mile from the Pacific, close enough for marine mornings and some coastal wear without a beachfront's direct salt load. Its housing skews older than the Orange County average and, unusually for this county, most Costa Mesa households rent rather than own, so the maintenance questions here come as often from owners of small older buildings as from single-family tracts. Two water districts split the city, and Mesa Water, which serves most of it, now pumps essentially all of its supply from local wells instead of importing it.",
   metaDescription:
     "Costa Mesa sits a mile from the coast, rents more than it owns, and drinks all-local groundwater. Permits, water, hazards, with sources.",
+  metaTitle: "Costa Mesa: older homes and two water districts",
 
   population: {
     value: "About 109,000 to 112,000 people",
@@ -140,7 +141,7 @@ export const costaMesa: CityContent = {
     },
   ],
 
-  neighbors: ["newport-beach", "huntington-beach", "santa-ana"],
+  neighbors: ["newport-beach", "huntington-beach", "santa-ana", "fountain-valley"],
 
   faq: [
     {
@@ -164,8 +165,8 @@ export const costaMesa: CityContent = {
       a: "Somewhat. You get marine-layer mornings and moderated summer heat, and exterior metal, paint and outdoor equipment age faster than they would in Anaheim or Santa Ana. You do not get the constant, direct salt exposure that beachfront blocks in Newport Beach or Huntington Beach deal with, so coastal-specific advice applies here in a milder form rather than not at all.",
     },
     {
-      q: "Does OakTend only serve Costa Mesa?",
-      a: "No. OakTend covers all of Orange County. Costa Mesa has its own page because the age of the housing, the renter share and the two-district water split genuinely change the advice here, not because the service stops at the city line.",
+      q: "Who provides fire service in Costa Mesa?",
+      a: "The city's own department, Costa Mesa Fire & Rescue, not the Orange County Fire Authority. For fire hazard zoning, the State Fire Marshal's maps answer by location rather than by city, and for a locally protected area like this one the state says to contact the local jurisdiction, so look your own parcel up rather than relying on a citywide answer.",
     },
   ],
 

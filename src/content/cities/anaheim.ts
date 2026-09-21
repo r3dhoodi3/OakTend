@@ -50,6 +50,7 @@ export const anaheim: CityContent = {
     "Anaheim is really two maintenance cities under one name. West and central Anaheim is flat, dense and old, with about a quarter of its homes built before 1960 and a citywide median build year of 1973, while Anaheim Hills is hillside and canyon, master-planned from 1971 onward, and the only part of the city with mapped Very High fire hazard land. The city also runs its own water utility, and its groundwater is very hard, averaging about 21 grains per gallon in the city's own testing.",
   metaDescription:
     "Anaheim is two cities: older flat tracts west and central, and Anaheim Hills in a Very High fire hazard zone. Water, permits, sources.",
+  metaTitle: "Anaheim: old flat tracts and hillside fire zones",
 
   population: {
     value: "About 344,000 to 347,000 people",
@@ -83,6 +84,11 @@ export const anaheim: CityContent = {
         text: "Anaheim sits inland and gets less marine-layer cooling than the coast, and the city's own planning documents put its historical average annual maximum temperature near 76 degrees, projected toward 80 by 2064, on about 14 inches of rain a year. Heat load on roofing, attic ventilation and HVAC capacity is the seasonal problem here; freeze protection is not.",
         sourceUrl: "https://anaheim.net/DocumentCenter/View/58325/Ch_05-18_WF",
         sourceLabel: "City of Anaheim General Plan PEIR",
+      },
+      {
+        text: "Fire service in Anaheim comes from the city's own department, Anaheim Fire & Rescue. The department says it is made up of more than 250 trained fire professionals, and that its 11 fire stations cover a geographical area of 50 square miles that includes homes, commercial areas and areas that interface with wildlands.",
+        sourceUrl: "https://www.anaheim.net/6096/Fire-Rescue",
+        sourceLabel: "City of Anaheim, Anaheim Fire & Rescue",
       },
     ],
   },
@@ -161,20 +167,20 @@ export const anaheim: CityContent = {
         "The common big-ticket item in a pre-1980 home, and one of only three permit types Anaheim issues fully online.",
     },
     {
-      href: "/guides/hvac-replacement-cost",
-      title: "HVAC replacement cost",
-      blurb:
-        "What a full system runs, sized for inland heat rather than a coastal city's mild summers.",
-    },
-    {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
         "Typical range and when a repair is smarter, on some of the hardest water in the county.",
     },
+    {
+      href: "/guides/socal-home-maintenance-calendar",
+      title: "SoCal home maintenance calendar",
+      blurb:
+        "Month by month for this climate, including the yearly water heater flush that very hard groundwater calls for and defensible space work in the hills.",
+    },
   ],
 
-  neighbors: ["orange", "fullerton", "garden-grove"],
+  neighbors: ["orange", "fullerton", "garden-grove", "stanton"],
 
   faq: [
     {
@@ -198,10 +204,10 @@ export const anaheim: CityContent = {
       a: "It depends heavily on which part of the city. Anaheim Hills has 23 documented community associations, including a large planned-community master association, so an architectural review step before exterior work is normal there. The older flatland tracts were mostly built before HOAs became standard in California development. Mello-Roos is a parcel-level answer either way: check the Orange County Treasurer-Tax Collector's lookup or the special assessment charges section of your tax bill.",
     },
     {
-      q: "Does OakTend only serve Anaheim?",
-      a: "No. OakTend covers all of Orange County. Anaheim has its own page because the hills and the flatlands are genuinely different maintenance problems, and because the city's own water and fire maps say specific things about specific addresses here, not because the service stops at the city line.",
+      q: "Who provides fire service in Anaheim?",
+      a: "Anaheim Fire & Rescue, which is the city's own fire department. The department says it has more than 250 trained fire professionals and 11 fire stations serving about 50 square miles, including the areas that interface with wildlands. For a hills address, the city's fire hazard severity zone page is still the place to check whether the parcel is in a mapped zone.",
     },
   ],
 
-  updated: "2026-09-16",
+  updated: "2026-09-20",
 };

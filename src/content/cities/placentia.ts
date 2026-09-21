@@ -47,6 +47,7 @@ export const placentia: CityContent = {
     "Placentia had only about 5,000 residents in 1960 and nearly 25,000 by 1970, by the city's own count, and that burst still shows: about half of the housing units standing today were built in the 1960s and 1970s. It is also a city that does things its own way, with its own Placentia Fire and Life Safety Department, whose first shift was July 1, 2020, and two different water suppliers whose hardness numbers are not the same. The city's safety element adds what sits underneath: oil wells and pipelines still operate inside city limits, and the majority of the city, generally west of Rose Drive, is in the mapped inundation area for Carbon Canyon Dam.",
   metaDescription:
     "Placentia has its own fire department and two water suppliers. Hardness by provider, permits, oil wells, flood pockets and what 1960s-70s homes need.",
+  metaTitle: "Placentia homes: two water suppliers and oil wells",
 
   population: {
     value: "About 52,826 people",
@@ -188,7 +189,7 @@ export const placentia: CityContent = {
     },
   ],
 
-  neighbors: ["yorba-linda", "fullerton", "anaheim"],
+  neighbors: ["yorba-linda", "fullerton", "anaheim", "brea"],
 
   faq: [
     {

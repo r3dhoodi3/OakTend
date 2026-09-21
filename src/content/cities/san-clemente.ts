@@ -47,6 +47,7 @@ export const sanClemente: CityContent = {
     "San Clemente began in December 1925 as Ole Hanson's planned Spanish village, where every deed required a handmade red tile roof and whitewashed stucco walls, yet only about 1 percent of the homes standing today predate 1940 and roughly a quarter were built since 2000. The older town sits on coastal bluffs and canyons above a railroad that runs along the sand, and slides off those slopes shut the line in 2023 and again in 2024, one of them from private property. The ocean side of town, generally up to Interstate 5, is in the Coastal Zone without a fully certified Local Coastal Program, so exterior work there can mean a separate coastal development permit on top of the city building permit.",
   metaDescription:
     "San Clemente homes sit between sliding coastal bluffs and inland hills. Coastal permits, three water agencies, hard water and red tile roofs, sourced.",
+  metaTitle: "San Clemente homes: bluffs, tile roofs, hard water",
 
   population: {
     value: "About 63,273 people",

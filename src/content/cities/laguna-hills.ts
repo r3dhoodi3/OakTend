@@ -208,7 +208,7 @@ export const lagunaHills: CityContent = {
     },
   ],
 
-  neighbors: ["laguna-woods", "mission-viejo", "laguna-niguel"],
+  neighbors: ["laguna-woods", "mission-viejo", "laguna-niguel", "aliso-viejo"],
 
   faq: [
     {
