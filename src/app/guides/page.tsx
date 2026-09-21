@@ -17,6 +17,7 @@ import {
   Droplets,
   Hammer,
   Bug,
+  Flame,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -141,6 +142,13 @@ const GUIDES = [
     title: "Termites in Orange County",
     blurb:
       "Drywood vs subterranean termites, when tenting beats spot treatment, how to read an inspection report, and what a treatment bid is built from.",
+  },
+  {
+    href: "/guides/santa-ana-wind-wildfire-home-prep",
+    icon: Flame,
+    title: "Santa Ana wind and wildfire prep",
+    blurb:
+      "Getting an Orange County home ready for wind and fire season: defensible space, the first 5 feet, vents, gutters, fences, red flag days and alerts.",
   },
 ];
 

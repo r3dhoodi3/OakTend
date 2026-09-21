@@ -256,6 +256,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Orange",
     ],
   },
+  "/guides/santa-ana-wind-wildfire-home-prep": {
+    guides: [
+      "/guides/socal-home-maintenance-calendar",
+      "/guides/roof-replacement-cost",
+      "/guides/home-maintenance-schedule",
+    ],
+    cities: [
+      "Yorba Linda",
+      "Lake Forest",
+      "Rancho Santa Margarita",
+      "Laguna Beach",
+      "San Clemente",
+      "Anaheim",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -1111,6 +1126,98 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "SoCalGas: how to prepare for fumigation",
       supports:
         "SoCalGas closes and restores gas service for a fumigation at no cost, needs two business days of notice, and only it or its certified contractors may operate the service shut-off valve.",
+    },
+  ],
+  "/guides/santa-ana-wind-wildfire-home-prep": [
+    {
+      href: "https://forecast.weather.gov/glossary.php?word=santa+ana",
+      label: "National Weather Service glossary: Santa Ana Wind",
+      supports:
+        "The definition of a Santa Ana wind.",
+    },
+    {
+      href: "https://forecast.weather.gov/glossary.php?word=red+flag+warning",
+      label: "National Weather Service glossary: Red Flag Warning",
+      supports:
+        "A Red Flag Warning calls attention to weather that may result in extreme burning conditions.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/home-hardening/",
+      label: "Orange County Fire Authority: home hardening",
+      supports:
+        "Flying embers destroy homes miles from wildland areas, and OCFA's part by part guidance on vents, gutters, fences, garages, roofs, patio covers and decks.",
+    },
+    {
+      href: "https://ocfa.org/document/immediate-zone-flyer/",
+      label: "Orange County Fire Authority: Immediate Zone flyer",
+      supports:
+        "The 0 to 5 foot zone recommendations: hardscape, no combustible mulch, low plants under 2 feet, firewood 30 feet away, and noncombustible fencing attached to the home.",
+    },
+    {
+      href: "https://ocfa.org/document/red-flag-warning-2/",
+      label: "Orange County Fire Authority: Red Flag Warning flyer",
+      supports:
+        "The conditions behind a Red Flag Warning (winds of 15 mph or more, humidity of 25 percent or less, temperatures above 75 degrees) and the yard work guidance.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/vegetation-management/",
+      label: "Orange County Fire Authority: vegetation management",
+      supports:
+        "Defensible space as a 360 degree approach, plant separation, the flammable plant list, the planting guide and fuel modification zones.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/home-assessment/",
+      label: "Orange County Fire Authority: online home assessment",
+      supports:
+        "The online home assessment, the in-person assessment request, the phone number, and tile, asphalt and metal listed as noncombustible roof materials.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/defensible-space-disclosure/",
+      label: "Orange County Fire Authority: defensible space disclosure",
+      supports:
+        "Civil Code 1102.19's seller documentation requirement in high and very high fire hazard severity zones, and which cities' own fire departments handle it.",
+    },
+    {
+      href: "https://ocfa.org/about-us/member-cities/",
+      label: "Orange County Fire Authority: member cities",
+      supports:
+        "OCFA serves 23 cities and all unincorporated areas.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/insurance/",
+      label: "Orange County Fire Authority: insurance",
+      supports:
+        "Insurers are mandating home hardening and vegetation management, their requirements may be stricter than OCFA's, and OCFA does not do insurance inspections.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/set/",
+      label: "Orange County Fire Authority: Ready, Set, Go!",
+      supports:
+        "Leaving early is the safest choice, and a supply kit should cover every household member for at least 3 days.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/other-wildfire-resources/",
+      label: "Orange County Fire Authority: other wildfire resources",
+      supports:
+        "AlertOC is listed among OCFA's wildfire resources.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=4291",
+      label: "California Public Resources Code section 4291",
+      supports:
+        "100 feet of defensible space in state responsibility areas, the ember-resistant zone within 5 feet, and when that requirement takes effect for new and existing structures.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=51182",
+      label: "California Government Code section 51182",
+      supports:
+        "100 feet of defensible space in locally designated very high fire hazard severity zones, a roof kept free of leaves and needles, and tree limbs kept 10 feet from a chimney outlet.",
+    },
+    {
+      href: "https://www.sce.com/outages-safety/outage-preparedness/outage-types/public-safety-power-shutoff-psps",
+      label: "Southern California Edison: Public Safety Power Shutoff",
+      supports:
+        "What a Public Safety Power Shutoff is, and that anyone can sign up for address level alerts.",
     },
   ],
 };
