@@ -37,7 +37,7 @@ export const huntingtonBeach: CityContent = {
   name: "Huntington Beach",
   slug: "huntington-beach",
   intro:
-    "Huntington Beach's median home was built in 1972, so the typical house here is a postwar tract home past fifty, and it is doing that aging within a couple of miles of salt air. Coastal exposure is the difference that matters: paint, metal fixtures, roof flashing and outdoor HVAC equipment wear faster near the water than the same parts would inland. The city also runs its own water utility rather than buying through a wholesaler, and that water is hard, which quietly shortens the life of water heaters and fixtures across the whole city.",
+    "Huntington Beach's median home was built in 1972, so the typical house here is a postwar tract home past fifty, and it is doing that aging within a couple of miles of salt air. Coastal exposure is the difference that matters: paint, metal fixtures, roof flashing and outdoor HVAC equipment wear faster near the water than the same parts would inland. The city also runs its own water utility, and that water is hard, which quietly shortens the life of water heaters and fixtures across the whole city.",
   metaDescription:
     "Huntington Beach's median home was built in 1972, on the coast. Salt-air wear, hard city water, the HB permit portal, and guides that fit.",
 

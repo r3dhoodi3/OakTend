@@ -149,7 +149,7 @@ export const costaMesa: CityContent = {
     },
     {
       q: "Who supplies my water in Costa Mesa, and is it hard?",
-      a: "Most of the city is on Mesa Water District, which now draws essentially all of its supply from nine local wells rather than importing. Part of the city falls in Irvine Ranch Water District instead, so check your bill to see which one you are on. Both supplies are hard enough that scale in a water heater is normal here, but for an actual number, read the current water quality report from your own district rather than a citywide estimate.",
+      a: "Most of the city is on Mesa Water District, which now draws essentially all of its supply from nine local wells rather than importing. Part of the city falls in Irvine Ranch Water District instead, so check your bill to see which one you are on. Hardness differs between the two districts, so for an actual number, read the current water quality report from your own district rather than a citywide estimate.",
     },
     {
       q: "Is my Costa Mesa home in a fire or flood zone?",
