@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import StructuredData from "@/components/StructuredData";
 import { LEGAL } from "@/lib/legal";
+import { ENTITY_DESCRIPTION } from "@/lib/siteMetadata";
 
 // Public top-level page, same pattern as src/app/privacy-choices/page.tsx: see
 // src/lib/supabase/middleware.ts for the allowlist entry and
@@ -12,13 +14,49 @@ import { LEGAL } from "@/lib/legal";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+const CANONICAL = `${SITE_URL}/about`;
+
+// Fixed wording, held once so the meta description, the share card and the
+// AboutPage node below cannot drift from each other.
+const DESCRIPTION =
+  "OakTend is a free home maintenance app for Orange County, California homeowners, run by OakTend LLC in Fountain Valley. Who we are, what the app does, where our local facts come from, and how to reach us.";
+
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "OakTend is a home maintenance app for Orange County, California homeowners, run by OakTend LLC. Who we are, what the app does, and how to reach us.",
+  description: DESCRIPTION,
   alternates: {
-    canonical: `${SITE_URL}/about`,
+    canonical: CANONICAL,
   },
+  openGraph: {
+    title: "About OakTend",
+    description: DESCRIPTION,
+    url: CANONICAL,
+    siteName: "OakTend",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About OakTend",
+    description: DESCRIPTION,
+  },
+};
+
+// AboutPage, pointing at the ONE Organization node the root layout emits
+// (src/lib/organizationJsonLd.ts) by @id rather than describing the business a
+// second time. This is the page a search engine or an AI answer tool reads to
+// decide who is behind the site, so it says so in the structured data too.
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": CANONICAL,
+  url: CANONICAL,
+  name: "About OakTend",
+  description: DESCRIPTION,
+  inLanguage: "en-US",
+  about: { "@id": `${SITE_URL}#organization` },
+  mainEntity: { "@id": `${SITE_URL}#organization` },
+  publisher: { "@id": `${SITE_URL}#organization` },
 };
 
 const linkClass = "text-bark-700 hover:underline dark:text-stone-300";
@@ -26,6 +64,7 @@ const linkClass = "text-bark-700 hover:underline dark:text-stone-300";
 export default function AboutPage() {
   return (
     <main id="main" className="mx-auto max-w-2xl px-6 pb-16 pt-10">
+      <StructuredData data={aboutJsonLd} />
       <p className="text-sm">
         <Link
           href="/"
@@ -38,9 +77,11 @@ export default function AboutPage() {
       <h1 className="mt-4 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         About OakTend
       </h1>
+      {/* The fixed entity description, word for word
+          (src/lib/siteMetadata.ts): the same definition the landing page and
+          the Organization node carry. */}
       <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
-        OakTend is a home maintenance app for homeowners in Orange County,
-        California.
+        {ENTITY_DESCRIPTION}
       </p>
 
       <div className="mt-8 space-y-8 text-stone-700 dark:text-stone-300">
@@ -50,9 +91,9 @@ export default function AboutPage() {
           </h2>
           <p className="mt-2 leading-relaxed">
             OakTend is run by OakTend LLC, a California limited liability
-            company formed in September 2026. We are a small, founder-run
-            team, and we live and work in Orange County. When you write to us,
-            one of us reads it and answers.
+            company formed in September 2026 and based in Fountain Valley. We
+            are a small, founder-run team, and we live and work in Orange
+            County. When you write to us, one of us reads it and answers.
           </p>
         </section>
 
@@ -102,6 +143,30 @@ export default function AboutPage() {
               list of cities
             </Link>
             .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How we source our local facts
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Our{" "}
+            <Link href="/guides" className={linkClass}>
+              guides
+            </Link>{" "}
+            and city pages are written by the OakTend team. For rules and
+            local conditions we read the public source, such as the state
+            contractor license board, state housing rules, city building
+            departments and local water agencies, and where a guide lists
+            sources, each one is a page we opened and checked against the
+            number it supports. Cost ranges are rough planning figures, not
+            quotes, and the real price for your home can land outside them.
+            If you spot something wrong or out of date, tell us through the{" "}
+            <Link href="/contact" className={linkClass}>
+              contact form
+            </Link>{" "}
+            and we will fix it.
           </p>
         </section>
 
