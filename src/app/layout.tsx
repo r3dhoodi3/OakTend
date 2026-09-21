@@ -9,7 +9,7 @@ import ZoomLock from "@/components/ZoomLock";
 import CookieNotice from "@/components/CookieNotice";
 import UsageTracker from "@/components/UsageTracker";
 import { Analytics } from "@vercel/analytics/next";
-import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
+import { buildOrganizationJsonLd } from "@/lib/organizationJsonLd";
 import { siteDescription, siteTitle } from "@/lib/siteMetadata";
 import { LEGACY_STORAGE_INIT_SCRIPT } from "@/lib/legacyStorage";
 
@@ -58,45 +58,16 @@ const themeInit = `(function () {
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // Organization JSON-LD, so search results can attribute pages to OakTend as a
-// business rather than guessing from the page title. Mirrors the Service
-// JSON-LD CityLandingPage builds per city (src/components/CityLandingPage.tsx):
-// same reasoning, root-level scope. areaServed is built from the same
-// LAUNCH_CITY_NAMES the ZIP gates and the pro checkboxes read, so the
-// structured data can never claim a city OakTend has stopped (or not yet
-// started) serving. Only two of these cities have a landing page of their own;
-// the rest are served without one, which is fine here - this is a service-area
-// claim, not a sitemap.
+// business rather than guessing from the page title. The node itself is built
+// in src/lib/organizationJsonLd.ts (testable there without importing a layout
+// that pulls in next/font).
 //
 // This is the ONE Organization node in the app. The landing page used to emit
 // a second one (name/url/logo) alongside its WebApplication, which left two
 // competing descriptions of the same business on the highest-value page; the
 // logo moved here instead, and the stable @id gives anything that wants to
 // point at OakTend-the-organization something to reference.
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${SITE_URL}#organization`,
-  name: "OakTend",
-  legalName: "OakTend LLC",
-  description:
-    "OakTend is a home maintenance app that helps Orange County, California homeowners keep track of their home's systems, upkeep, and documents.",
-  foundingDate: "2026-09",
-  url: SITE_URL,
-  logo: `${SITE_URL}/icon-512.png`,
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    telephone: "+1-714-468-5480",
-    email: "hello@oaktend.com",
-    areaServed: "US",
-    availableLanguage: "English",
-  },
-  sameAs: ["https://www.instagram.com/oaktend"],
-  areaServed: LAUNCH_CITY_NAMES.map((city) => ({
-    "@type": "City",
-    name: `${city}, CA`,
-  })),
-};
+const organizationJsonLd = buildOrganizationJsonLd(SITE_URL);
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
