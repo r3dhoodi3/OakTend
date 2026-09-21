@@ -65,6 +65,7 @@ export const GUIDE_PATHS = [
   "/guides/termites-orange-county",
   "/guides/santa-ana-wind-wildfire-home-prep",
   "/guides/new-homeowner-first-year-orange-county",
+  "/guides/orange-county-home-maintenance-checklist",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -95,6 +96,8 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/santa-ana-wind-wildfire-home-prep":
     "Santa Ana wind and wildfire prep",
   "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
+  "/guides/orange-county-home-maintenance-checklist":
+    "Orange County home maintenance checklist",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -181,6 +184,10 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
     dateModified: "2026-09-20",
   },
   "/guides/new-homeowner-first-year-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
     dateModified: "2026-09-20",
   },

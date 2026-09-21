@@ -245,7 +245,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/socal-home-maintenance-calendar",
       "/guides/is-my-contractor-quote-fair",
-      "/guides/home-maintenance-schedule",
+      "/guides/orange-county-home-maintenance-checklist",
     ],
     cities: [
       "Huntington Beach",
@@ -258,7 +258,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     guides: [
-      "/guides/socal-home-maintenance-calendar",
+      "/guides/orange-county-home-maintenance-checklist",
       "/guides/roof-replacement-cost",
       "/guides/new-homeowner-first-year-orange-county",
     ],
@@ -275,7 +275,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/permits-orange-county",
       "/guides/hard-water-orange-county",
-      "/guides/santa-ana-wind-wildfire-home-prep",
+      "/guides/orange-county-home-maintenance-checklist",
     ],
     cities: [
       "Irvine",
@@ -284,6 +284,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Fountain Valley",
       "Huntington Beach",
       "Aliso Viejo",
+    ],
+  },
+  "/guides/orange-county-home-maintenance-checklist": {
+    guides: [
+      "/guides/socal-home-maintenance-calendar",
+      "/guides/santa-ana-wind-wildfire-home-prep",
+      "/guides/termites-orange-county",
+    ],
+    cities: [
+      "Anaheim",
+      "Irvine",
+      "Huntington Beach",
+      "Santa Ana",
+      "Mission Viejo",
+      "Fullerton",
     ],
   },
 };
@@ -1355,6 +1370,98 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "SoCalGas: contact 811 before you dig",
       supports:
         "Contacting 811 before digging is free.",
+    },
+  ],
+  "/guides/orange-county-home-maintenance-checklist": [
+    {
+      href: "https://forecast.weather.gov/glossary.php?word=santa+ana",
+      label: "National Weather Service glossary: Santa Ana Wind",
+      supports:
+        "The definition of a Santa Ana wind.",
+    },
+    {
+      href: "https://forecast.weather.gov/glossary.php?word=marine+push",
+      label: "National Weather Service glossary: Marine Push",
+      supports:
+        "A marine push replaces the air mass with ocean air that is much cooler and much more humid.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/home-hardening/",
+      label: "Orange County Fire Authority: home hardening",
+      supports:
+        "Flying embers destroy homes miles from wildland areas, leaves in rain gutters can ignite, and OCFA's vent guidance: most homes have 1/4-inch screens and 1/8-inch metal mesh is recommended.",
+    },
+    {
+      href: "https://ocfa.org/document/red-flag-warning-2/",
+      label: "Orange County Fire Authority: Red Flag Warning flyer",
+      supports:
+        "On a Red Flag Warning day, do yard work that needs a motor before 10 a.m. and never when the wind is blowing.",
+    },
+    {
+      href: "https://ocfa.org/residents/sandbags/",
+      label: "Orange County Fire Authority: sandbags",
+      supports:
+        "Most OCFA fire stations have empty sandbags, some also have sand, and residents should bring a shovel.",
+    },
+    {
+      href: "https://www.tustinca.org/1642/Free-Sandbags",
+      label: "City of Tustin: free sandbags",
+      supports:
+        "Tustin offers residents free fill-your-own sandbags at its maintenance facility and at self-serve sites.",
+    },
+    {
+      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
+      label: "U.S. Geological Survey: Hardness of Water",
+      supports:
+        "Heated hard water forms calcium carbonate scale that can shorten equipment life, raise heating costs and clog pipes.",
+    },
+    {
+      href: "https://www.tustinca.org/223/Flushing-Out-Your-Water-Heater",
+      label: "City of Tustin: flushing out your water heater",
+      supports:
+        "Periodic flushing removes water heater sediment, following the manufacturer's owner's guide.",
+    },
+    {
+      href: "https://www.irwd.com/learn/save-water-money/watering-guide/",
+      label: "Irvine Ranch Water District: watering guide",
+      supports:
+        "The district publishes a month by month irrigation schedule.",
+    },
+    {
+      href: "https://www.energystar.gov/saveathome/heating-cooling/maintenance-checklist",
+      label: "ENERGY STAR heating and cooling maintenance checklist",
+      supports:
+        "Inspect, clean or change air filters once a month, and check cooling in spring and heating in fall before contractors get busy.",
+    },
+    {
+      href: "https://ocfa.org/safety-programs/smoke-alarm-home-escape-plan/",
+      label: "Orange County Fire Authority: smoke alarms and home escape plan",
+      supports:
+        "Test smoke alarms once a month, replace the battery every six months, and replace the alarm every 10 years.",
+    },
+    {
+      href: "https://ipm.ucanr.edu/home-and-landscape/drywood-termites/",
+      label: "UC IPM Pest Notes: Drywood Termites",
+      supports:
+        "Drywood termite swarmers fly during daytime hours in summer and fall.",
+    },
+    {
+      href: "https://ipm.ucanr.edu/home-and-landscape/subterranean-and-other-termites/",
+      label: "UC IPM Pest Notes: Subterranean and Other Termites",
+      supports:
+        "The common subterranean species swarms in the afternoon in spring or fall on clear days after a soaking rain.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
+      label: "California Health and Safety Code section 19211",
+      supports:
+        "Residential water heaters must be braced, anchored or strapped against earthquake motion.",
+    },
+    {
+      href: "https://www.ocassessor.gov/tax-saving-programs/homeowners-exemptions",
+      label: "Orange County Assessor: Homeowners' Exemptions",
+      supports:
+        "The February 15 deadline for the full Homeowners' Exemption.",
     },
   ],
 };

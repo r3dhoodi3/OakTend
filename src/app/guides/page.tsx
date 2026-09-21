@@ -19,6 +19,7 @@ import {
   Bug,
   Flame,
   KeyRound,
+  ListChecks,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -157,6 +158,13 @@ const GUIDES = [
     title: "New homeowner checklist",
     blurb:
       "Your first week, month and year in an Orange County home: shutoffs, the water heater, alarms, tax bills, Mello-Roos, HOA papers and permit history.",
+  },
+  {
+    href: "/guides/orange-county-home-maintenance-checklist",
+    icon: ListChecks,
+    title: "Orange County home maintenance checklist",
+    blurb:
+      "A month by month checklist built around what actually wears on Orange County homes: Santa Ana winds, first rains, the marine layer, hard water, termites and earthquakes.",
   },
 ];
 
