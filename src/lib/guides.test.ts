@@ -83,7 +83,7 @@ describe("GUIDE_DATES", () => {
 describe("the guides section agrees with itself", () => {
   it("dates every guide the index links to", () => {
     const hrefs = hrefsFromIndex();
-    expect(hrefs.length).toBe(18);
+    expect(hrefs.length).toBe(19);
     for (const href of hrefs) {
       expect(GUIDE_DATES[href], `${href} is linked but undated`).toBeDefined();
     }
@@ -100,7 +100,7 @@ describe("the guides section agrees with itself", () => {
 
   // The path each guide hands <GuideArticleJsonLd> is what keys into
   // GUIDE_DATES, so a typo there silently drops that guide's Article node.
-  it("renders an Article node on all 18, each with a path the map knows", () => {
+  it("renders an Article node on all 19, each with a path the map knows", () => {
     const found: string[] = [];
     for (const dir of guideRouteDirs()) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
@@ -109,7 +109,7 @@ describe("the guides section agrees with itself", () => {
       expect(match![1]).toBe(`/guides/${dir}`);
       found.push(match![1]);
     }
-    expect(found).toHaveLength(18);
+    expect(found).toHaveLength(19);
   });
 });
 
@@ -122,7 +122,7 @@ describe("GUIDE_TITLES", () => {
     expect(Object.keys(GUIDE_TITLES).sort()).toEqual(
       GUIDE_PATHS.filter((p) => p !== "/guides").sort()
     );
-    expect(GUIDE_LINKS).toHaveLength(18);
+    expect(GUIDE_LINKS).toHaveLength(19);
   });
 
   it("uses the same title the index card shows", () => {

@@ -160,6 +160,10 @@ describe("GUIDE_SOURCES", () => {
     "forecast.weather.gov",
     "ocfa.org",
     "www.sce.com",
+    "www.earthquakeauthority.com",
+    "www.crmp.org",
+    "octreasurer.gov",
+    "www.ocassessor.gov",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -211,13 +215,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 18 guide pages", () => {
+describe("all 19 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(18);
+    expect(dirs).toHaveLength(19);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

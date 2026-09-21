@@ -185,7 +185,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/contractor-deposit-rules-california",
       "/guides/water-heater-replacement-cost",
-      "/guides/is-my-contractor-quote-fair",
+      "/guides/new-homeowner-first-year-orange-county",
     ],
     cities: [
       "Irvine",
@@ -260,7 +260,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/socal-home-maintenance-calendar",
       "/guides/roof-replacement-cost",
-      "/guides/home-maintenance-schedule",
+      "/guides/new-homeowner-first-year-orange-county",
     ],
     cities: [
       "Yorba Linda",
@@ -269,6 +269,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Laguna Beach",
       "San Clemente",
       "Anaheim",
+    ],
+  },
+  "/guides/new-homeowner-first-year-orange-county": {
+    guides: [
+      "/guides/permits-orange-county",
+      "/guides/hard-water-orange-county",
+      "/guides/santa-ana-wind-wildfire-home-prep",
+    ],
+    cities: [
+      "Irvine",
+      "Mission Viejo",
+      "Ladera Ranch",
+      "Fountain Valley",
+      "Huntington Beach",
+      "Aliso Viejo",
     ],
   },
 };
@@ -1218,6 +1233,128 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Southern California Edison: Public Safety Power Shutoff",
       supports:
         "What a Public Safety Power Shutoff is, and that anyone can sign up for address level alerts.",
+    },
+  ],
+  "/guides/new-homeowner-first-year-orange-county": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
+      label: "California Health and Safety Code section 19211",
+      supports:
+        "Residential water heaters must be braced, anchored or strapped, and the seller must certify in writing that this was done.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.8",
+      label: "California Health and Safety Code section 13113.8",
+      supports:
+        "Every single-family home that is sold must have an operable smoke alarm.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=17926",
+      label: "California Health and Safety Code section 17926",
+      supports:
+        "A carbon monoxide device is required in a home with a fossil fuel appliance, a fireplace or an attached garage.",
+    },
+    {
+      href: "https://ocfa.org/safety-programs/smoke-alarm-home-escape-plan/",
+      label: "Orange County Fire Authority: smoke alarms and home escape plan",
+      supports:
+        "Test smoke alarms once a month and replace the whole alarm every 10 years.",
+    },
+    {
+      href: "https://www.irwd.com/get-help/meters-and-leaks/water-leaks/",
+      label: "Irvine Ranch Water District: water leaks",
+      supports:
+        "Where the house valve and the customer valve are, and what each one controls.",
+    },
+    {
+      href: "https://ggcity.org/index.php/pw/shutoff-valves",
+      label: "City of Garden Grove: shut-off valves",
+      supports:
+        "City water shut-off valves are not to be operated by customers except in an extreme emergency.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/emergency-information/shut-off-natural-gas",
+      label: "SoCalGas: how to shut off your natural gas",
+      supports:
+        "Where the meter shut-off valve is, the quarter turn with a 12-inch wrench, when not to turn the gas off, and not turning it back on yourself.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/safety-and-prevention/earthquake-excess-flow-valves",
+      label: "SoCalGas: earthquake and excess flow valves",
+      supports:
+        "An earthquake valve may be required by an insurer or a local building department, must go on the house line, and is installed by a qualified professional because SoCalGas no longer installs them.",
+    },
+    {
+      href: "https://www.earthquakeauthority.com/california-earthquake-insurance-policies/homeowners",
+      label: "California Earthquake Authority: homeowners policies",
+      supports:
+        "In most cases earthquake damage is not covered by a homeowners policy, and a separate policy is needed.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label: "California Residential Mitigation Program: Earthquake Brace + Bolt",
+      supports:
+        "The retrofit is only done on wood-framed homes built before 1980 with a raised foundation, with grants in eligible ZIP codes.",
+    },
+    {
+      href: "https://octreasurer.gov/property-tax/informationfaqs/important-dates",
+      label: "Orange County Treasurer-Tax Collector: important dates",
+      supports:
+        "Secured property tax installments are due November 1 and February 1, late after December 10 and April 10, with a 10 percent penalty.",
+    },
+    {
+      href: "https://octreasurer.gov/property-tax/informationfaqs/new-home-buyers",
+      label: "Orange County Treasurer-Tax Collector: new home buyers",
+      supports:
+        "Supplemental bills are generally one-time bills after a change of ownership, normally arrive within one year, and are not usually paid by mortgage companies.",
+    },
+    {
+      href: "https://www.ocassessor.gov/tax-saving-programs/homeowners-exemptions",
+      label: "Orange County Assessor: Homeowners' Exemptions",
+      supports:
+        "The Homeowners' Exemption exempts $7,000 of value, saves at least $70 a year, requires the home to be your principal residence on January 1, and has a February 15 deadline for the full amount.",
+    },
+    {
+      href: "https://octreasurer.gov/melloroos",
+      label: "Orange County Treasurer-Tax Collector: Mello-Roos information",
+      supports:
+        "What the Mello-Roos Act is, that the bonds are secured by special taxes billed on the property tax bill, and the county's map and bill description guide.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=53325.3",
+      label: "California Government Code section 53325.3",
+      supports:
+        "A Mello-Roos tax is a special tax and not a special assessment.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4525",
+      label: "California Civil Code section 4525",
+      supports:
+        "The HOA documents a seller must provide, including governing documents and a statement of assessments and fees.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4775",
+      label: "California Civil Code section 4775",
+      supports:
+        "Who maintains, repairs and replaces the common area, a separate interest and exclusive use common area, unless the declaration says otherwise.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/building-division/permit-history-by-address-modifications",
+      label: "City of Newport Beach: permit history by address",
+      supports:
+        "Newport Beach offers permit history by address on its website.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=4216.2",
+      label: "California Government Code section 4216.2",
+      supports:
+        "Notice to the regional notification center at least two working days, and not more than 14 calendar days, before digging.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/safety-and-prevention/digging-and-yard-safety",
+      label: "SoCalGas: contact 811 before you dig",
+      supports:
+        "Contacting 811 before digging is free.",
     },
   ],
 };

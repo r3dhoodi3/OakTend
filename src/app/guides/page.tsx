@@ -18,6 +18,7 @@ import {
   Hammer,
   Bug,
   Flame,
+  KeyRound,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -149,6 +150,13 @@ const GUIDES = [
     title: "Santa Ana wind and wildfire prep",
     blurb:
       "Getting an Orange County home ready for wind and fire season: defensible space, the first 5 feet, vents, gutters, fences, red flag days and alerts.",
+  },
+  {
+    href: "/guides/new-homeowner-first-year-orange-county",
+    icon: KeyRound,
+    title: "New homeowner checklist",
+    blurb:
+      "Your first week, month and year in an Orange County home: shutoffs, the water heater, alarms, tax bills, Mello-Roos, HOA papers and permit history.",
   },
 ];
 
