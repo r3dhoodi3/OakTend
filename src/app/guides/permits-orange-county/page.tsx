@@ -335,11 +335,10 @@ export default function PermitsOrangeCountyGuide() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Do I need HOA approval too?
-          </h2>
+          <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">HOA approval is separate</h3>
           <p className="mt-2 leading-relaxed">
-            Often, and it is a separate approval. Irvine&apos;s permit page tells
+            If you live in an association, plan on two approvals. Irvine&apos;s
+            permit page tells
             residents to check whether a project is allowed under their
             association&apos;s CC&amp;Rs, and Fountain Valley&apos;s HVAC handout says
             association approval is required in an HOA tract.

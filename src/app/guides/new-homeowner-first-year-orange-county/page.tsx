@@ -170,8 +170,9 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How do I check the water heater?
+            What should I check for earthquake safety?
           </h2>
+          <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Water heater straps</h3>
           <p className="mt-2 leading-relaxed">
             Look for two metal straps, one in the upper third of the tank and
             one in the lower third, anchored to the wall framing. California
@@ -192,9 +193,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Do I need an earthquake gas shutoff valve?
-          </h2>
+          <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Earthquake gas shutoff valves</h3>
           <p className="mt-2 leading-relaxed">
             We did not find a statewide or Orange County rule that requires
             one on a single-family home, though we did not check every city.
@@ -281,7 +280,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Which HOA documents should I keep?
+            Which HOA documents and permit records should I have?
           </h2>
           <p className="mt-2 leading-relaxed">
             If the home is in an association, Civil Code section 4525 lists
@@ -301,9 +300,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How do I look up the permit history?
-          </h2>
+          <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Permit history</h3>
           <p className="mt-2 leading-relaxed">
             Ask the city&apos;s building division what permits are on file for
             your address. It tells you whether the patio cover or the remodel

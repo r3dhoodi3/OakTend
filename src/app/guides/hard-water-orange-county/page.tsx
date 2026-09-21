@@ -368,6 +368,10 @@ export default function HardWaterOrangeCountyGuide() {
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">
               Irvine
             </Link>
+            . Or see every city on the{" "}
+            <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">
+              Orange County hub
+            </Link>
             .
           </p>
         </section>
