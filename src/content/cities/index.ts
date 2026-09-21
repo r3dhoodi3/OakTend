@@ -14,11 +14,19 @@ import { tustin } from "./tustin";
 import { westminster } from "./westminster";
 import { lakeForest } from "./lake-forest";
 import { yorbaLinda } from "./yorba-linda";
+import { buenaPark } from "./buena-park";
+import { laHabra } from "./la-habra";
+import { placentia } from "./placentia";
+import { brea } from "./brea";
+import { sanClemente } from "./san-clemente";
+import { lagunaNiguel } from "./laguna-niguel";
+import { cypress } from "./cypress";
+import { danaPoint } from "./dana-point";
 
 export type { CityContent, CityExposure, Fact } from "./types";
 
 // The cities that have real, sourced content today. Partial on purpose: the
-// other 21 Orange County cities and communities in LAUNCH_CITY_NAMES
+// other 13 Orange County cities and communities in LAUNCH_CITY_NAMES
 // (src/lib/serviceArea.ts) still have pages, and those pages render exactly
 // what they rendered before this module existed. A city joins this map only
 // when a researcher has actually gathered its facts with sources, one file
@@ -52,6 +60,15 @@ export const CITY_CONTENT: Partial<Record<string, CityContent>> = {
   [westminster.slug]: westminster,
   [lakeForest.slug]: lakeForest,
   [yorbaLinda.slug]: yorbaLinda,
+  // Third wave, researched 2026-09-20.
+  [buenaPark.slug]: buenaPark,
+  [laHabra.slug]: laHabra,
+  [placentia.slug]: placentia,
+  [brea.slug]: brea,
+  [sanClemente.slug]: sanClemente,
+  [lagunaNiguel.slug]: lagunaNiguel,
+  [cypress.slug]: cypress,
+  [danaPoint.slug]: danaPoint,
 };
 
 // Content for a slug, or undefined when that city has not been researched

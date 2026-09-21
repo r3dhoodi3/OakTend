@@ -23,8 +23,8 @@ import {
 
 // Two jobs here, and the first one is the important one.
 //
-// 1. THE CITIES THAT HAVE NO CONTENT YET MUST NOT MOVE (21 of the 36 as of
-//    2026-09-19; it was 28 when this file was written). The first snapshot
+// 1. THE CITIES THAT HAVE NO CONTENT YET MUST NOT MOVE (13 of the 36 as of
+//    2026-09-20; it was 28 when this file was written). The first snapshot
 //    below was written by running this file against the component as it stood
 //    on main BEFORE the content prop existed (breadcrumb trail and
 //    BreadcrumbList included), so it is a record of what /oc/<city> shipped.

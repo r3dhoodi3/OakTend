@@ -17,7 +17,7 @@
 //
 // Cities WITHOUT an entry keep rendering exactly what they render today. The
 // component takes content as an optional prop precisely so the cities that
-// have not been researched yet (21 of the 36 as of 2026-09-19) are untouched
+// have not been researched yet (13 of the 36 as of 2026-09-20) are untouched
 // until they are.
 
 // How close the city sits to the water, which decides what maintenance advice
