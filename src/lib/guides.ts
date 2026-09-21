@@ -58,6 +58,7 @@ export const GUIDE_PATHS = [
   "/guides/is-my-contractor-quote-fair",
   "/guides/contractor-deposit-rules-california",
   "/guides/socal-home-maintenance-calendar",
+  "/guides/permits-orange-county",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -80,6 +81,7 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/contractor-deposit-rules-california":
     "How much can a contractor ask for up front?",
   "/guides/socal-home-maintenance-calendar": "SoCal home maintenance calendar",
+  "/guides/permits-orange-county": "Building permits in Orange County",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -140,6 +142,10 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   "/guides/socal-home-maintenance-calendar": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-21",
+  },
+  "/guides/permits-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
   },
 };
 

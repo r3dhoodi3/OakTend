@@ -135,6 +135,12 @@ describe("GUIDE_SOURCES", () => {
     "pwds.oc.gov",
     "www.epa.gov",
     "ipm.ucanr.edu",
+    "cityofirvine.gov",
+    "www.fountainvalley.gov",
+    "www.yorbalindaca.gov",
+    "ggcity.org",
+    "santa-ana.gov",
+    "www.newportbeachca.gov",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -186,13 +192,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 12 guide pages", () => {
+describe("all 13 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(12);
+    expect(dirs).toHaveLength(13);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

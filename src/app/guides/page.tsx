@@ -13,6 +13,7 @@ import {
   Bath,
   Building2,
   ShieldCheck,
+  FileCheck,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -102,6 +103,13 @@ const GUIDES = [
     title: "SoCal home maintenance calendar",
     blurb:
       "A month-by-month calendar for coastal Southern California: AC strain, termite swarm season, Santa Ana wind prep, and first-rain checks.",
+  },
+  {
+    href: "/guides/permits-orange-county",
+    icon: FileCheck,
+    title: "Building permits in Orange County",
+    blurb:
+      "When a home project needs a permit in Orange County, project by project, with real city examples: water heaters, reroofs, panels, HVAC, fences and patio covers.",
   },
 ];
 
