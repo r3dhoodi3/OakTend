@@ -66,33 +66,34 @@ export const revalidate = 3600;
 // not from the thin page.tsx wrapper around it - the wrapper is not where
 // the words live.
 const LAST_MODIFIED: Record<string, string> = {
-  "/": "2026-09-16",
-  "/pros": "2026-09-16",
+  "/": "2026-09-20",
+  "/pros": "2026-09-20",
   "/pricing": "2026-09-17",
-  "/emergency-help": "2026-09-17",
+  "/emergency-help": "2026-09-20",
   // The city pages: 2026-09-18, this pass. It rewrote their headline, title,
   // description and pro-promise copy for the preview (src/lib/previewMode.ts)
   // and added the breadcrumb line, so the words on the page really did change
   // today; their previous git date (2026-09-03) would now be wrong.
-  "/fountain-valley": "2026-09-18",
-  "/huntington-beach": "2026-09-18",
-  "/oc": "2026-09-18",
-  "/privacy": "2026-09-16",
-  "/terms": "2026-09-16",
-  "/pro-terms": "2026-09-15",
-  "/pro-data-addendum": "2026-09-16",
-  "/ai-disclosure": "2026-09-16",
+  "/fountain-valley": "2026-09-20",
+  "/huntington-beach": "2026-09-20",
+  "/oc": "2026-09-20",
+  "/privacy": "2026-09-20",
+  "/terms": "2026-09-20",
+  "/pro-terms": "2026-09-20",
+  "/pro-data-addendum": "2026-09-20",
+  "/ai-disclosure": "2026-09-20",
   "/dmca": "2026-09-16",
-  "/billing": "2026-09-15",
-  "/sms-terms": "2026-09-15",
-  "/accessibility": "2026-09-15",
-  "/guidelines": "2026-09-16",
+  "/billing": "2026-09-20",
+  "/sms-terms": "2026-09-20",
+  "/accessibility": "2026-09-20",
+  "/guidelines": "2026-09-20",
   "/security": "2026-09-03",
   "/law-enforcement": "2026-09-15",
-  "/cookies": "2026-09-16",
-  "/subprocessors": "2026-09-15",
-  "/privacy-choices": "2026-09-17",
+  "/cookies": "2026-09-20",
+  "/subprocessors": "2026-09-20",
+  "/privacy-choices": "2026-09-20",
   "/contact": "2026-09-17",
+  "/about": "2026-09-20",
 };
 
 // Every /oc/<city> page is the same file with a different city name in it
@@ -214,6 +215,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: LAST_MODIFIED["/contact"],
       changeFrequency: "monthly",
       priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified: LAST_MODIFIED["/about"],
+      changeFrequency: "monthly",
+      priority: 0.4,
     },
     // GUIDE_PATHS and the dates both come from src/lib/guides.ts, which is
     // also what src/components/GuideArticleJsonLd.tsx builds each guide's

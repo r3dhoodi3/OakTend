@@ -249,7 +249,7 @@ async function runCron(req: NextRequest) {
           JOB_CATEGORIES,
           lead.category
         )} job`,
-        body: "Take a look before they book up elsewhere.",
+        body: "Open the job to compare them and pick one when you are ready.",
         url,
       });
     } catch (err) {

@@ -459,6 +459,10 @@ export function isPublicPath(path: string): boolean {
     // message would defeat the point of building it.
     path === "/contact" ||
     path.startsWith("/contact/") ||
+    // Public About page (src/app/about): who runs OakTend and how to reach
+    // us. Read by signed-out visitors and crawlers, same as /contact.
+    path === "/about" ||
+    path.startsWith("/about/") ||
     // Email unsubscribe (src/app/unsubscribe): CAN-SPAM requires the opt-out
     // to work with no login, and it is opened straight from an email by a
     // recipient who usually has no session. The route authenticates via a

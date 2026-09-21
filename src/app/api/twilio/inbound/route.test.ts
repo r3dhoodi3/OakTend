@@ -129,9 +129,9 @@ describe("POST /api/twilio/inbound", () => {
       const response = await POST(inbound(keyword));
       expect(response.status).toBe(200);
       const xml = await textOf(response);
-      expect(xml).toContain("You have opted in to OakTend text messages");
+      expect(xml).toContain("You're opted in to OakTend account and job alerts");
       expect(xml).toContain("Msg&amp;data rates may apply");
-      expect(xml).toContain("Reply STOP to opt out, HELP for help");
+      expect(xml).toContain("Reply HELP for help. Reply STOP to opt out.");
       expect(updates).toHaveLength(1);
       expect(updates[0].id).toBe("user-1");
       expect(updates[0].fields.sms_consent).toBe(true);
@@ -143,7 +143,7 @@ describe("POST /api/twilio/inbound", () => {
     const response = await POST(inbound("HELP"));
     expect(response.status).toBe(200);
     const xml = await textOf(response);
-    expect(xml).toContain("OakTend: home maintenance help");
+    expect(xml).toContain("OakTend Alerts: account and job texts.");
     expect(xml).toContain("Msg&amp;data rates may apply");
     expect(updates).toEqual([]);
   });
@@ -151,7 +151,7 @@ describe("POST /api/twilio/inbound", () => {
   it("answers INFO the same as HELP", async () => {
     const response = await POST(inbound("INFO"));
     const xml = await textOf(response);
-    expect(xml).toContain("OakTend: home maintenance help");
+    expect(xml).toContain("OakTend Alerts: account and job texts.");
   });
 
   it("still sends the STOP confirmation when no matching user is found", async () => {

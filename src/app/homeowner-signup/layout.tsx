@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Create your account",
   description:
-    "Create a free OakTend account to keep your house in good shape, store your home docs, and reach a pro when something breaks.",
+    "Create a free OakTend account to keep your house in good shape and store your home documents. Free during our preview.",
 };
 
 export default function HomeownerSignUpLayout({

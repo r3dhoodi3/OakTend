@@ -222,9 +222,9 @@ export default function ContractorDepositRulesGuide() {
 
         <div className="rounded-xl border border-stone-200 bg-white p-5 text-center dark:border-stone-700 dark:bg-stone-800/40">
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-            Keeping the whole job in one place makes this easier. OakTend chat
-            keeps your messages and payment trail with a pro in one record you
-            can look back on.
+            Keeping the whole job in one place makes this easier. OakTend
+            keeps your messages about a job in one record you can look back
+            on.
           </p>
           <Link
             href="/homeowner-signup"
@@ -335,7 +335,7 @@ export default function ContractorDepositRulesGuide() {
 
       <GuideCta
         signedInHref="/contractors"
-        signedInLabel="Find a licensed pro"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

@@ -59,7 +59,7 @@ const benefits = [
     ),
   },
   {
-    label: "Local pros, fee shown before you post a job.",
+    label: "A record of every system in your home.",
     // Map pin.
     icon: (
       <>

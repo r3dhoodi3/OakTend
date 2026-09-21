@@ -866,7 +866,7 @@ export async function postJobAction(formData: FormData) {
           user_id: match.user_id,
           kind: "new_lead",
           title: `New ${categoryLabel} job posted nearby`,
-          body: "A homeowner just posted a job. Apply before other pros do.",
+          body: "A homeowner just posted a job. Applying is free.",
           url: PRO_LEADS_HREF,
         },
       ];
@@ -982,7 +982,7 @@ export async function updateJobAction(
       .eq("lead_id", leadId);
     if ((count ?? 0) > 0) {
       return err(
-        "Pros have already paid to apply to this job, so its category can't change. Edit the details, or post the new work as a separate job."
+        "Pros have already applied to this job, so its category can't change. Edit the details, or post the new work as a separate job."
       );
     }
   }
@@ -1155,11 +1155,10 @@ export async function closeJobAction(formData: FormData) {
                 .in("id", userIds)
             : { data: [] as { id: string; email: string | null; phone: string | null; sms_consent: boolean | null }[] };
           const userById = new Map((users ?? []).map((u) => [u.id, u]));
-          // The money line is the ghost-protection rule, unchanged by this
-          // close: nobody was chosen, so the fee comes back as wallet credit
-          // on the usual 7-day schedule.
-          const creditLine =
-            " If you paid to apply, that fee comes back to your wallet as credit, not cash, on the usual 7-day schedule.";
+          // No money line: applying is free under the success-fee model, so
+          // there is no fee to return when a job closes (wording pass
+          // 2026-09-20, legal review H-21).
+          const creditLine = "";
           const body = reason
             ? `They closed it without choosing anyone: ${reason}.${creditLine}`
             : `They closed it without choosing anyone.${creditLine}`;
@@ -1905,7 +1904,7 @@ export async function postDirectPubliclyAction(formData: FormData) {
           user_id: match.user_id,
           kind: "new_lead",
           title: `New ${categoryLabel} job posted nearby`,
-          body: "A homeowner just posted a job. Apply before other pros do.",
+          body: "A homeowner just posted a job. Applying is free.",
           url: PRO_LEADS_HREF,
         },
       ];
@@ -2016,8 +2015,8 @@ export async function rehireProAction(
       await admin.from("notifications").insert({
         user_id: contractor.user_id,
         kind: "new_lead",
-        title: `${homeownerName} wants to hire you again: free repeat lead`,
-        body: "No apply fee, they already trust your work. Check your jobs to say hi.",
+        title: `${homeownerName} wants to hire you again`,
+        body: "They asked for you by name. Open your jobs to reply.",
         url: PRO_LEADS_HREF,
       });
     }

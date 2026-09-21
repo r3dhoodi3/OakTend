@@ -44,8 +44,9 @@ export default function GlobalError({}: {
               lineHeight: 1.5,
             }}
           >
-            Your data is safe. Trying again usually clears it up; if it keeps
-            happening, give it a minute and come back.
+            Something on our end didn&apos;t load. Trying again usually clears
+            it up; if it keeps happening, give it a minute and come back. If
+            you were saving something, check that it went through.
           </p>
           <button
             // A full page reload, not reset(): if the whole site was down or

@@ -71,7 +71,7 @@ const FAQS = [
   },
   {
     q: "Why does hiring a licensed electrician matter for panel work?",
-    a: "A panel upgrade involves the main service connection and carries real shock and fire risk if it is done wrong. A licensed electrician is trained and accountable for the work, pulls the required permit, and gets it inspected. In California, electrical work at or above the licensing threshold must be done by a licensed contractor, and a permitted job protects you at resale and with your insurer.",
+    a: "A panel upgrade involves the main service connection and carries real shock and fire risk if it is done wrong. A licensed electrician is trained and accountable for the work, pulls the required permit, and gets it inspected. A panel upgrade needs a permit, so California's small-job exception for unlicensed workers does not apply to it at any price. Hire a licensed electrical contractor (CSLB class C-10) and check the license at cslb.ca.gov. A permitted job protects you at resale and with your insurer.",
   },
 ];
 
@@ -242,9 +242,11 @@ export default function ElectricalPanelUpgradeCostGuide() {
           </p>
           <p className="mt-2 leading-relaxed">
             A licensed electrician is trained and accountable for the work,
-            pulls the required permit, and gets it inspected. In California,
-            electrical work at or above the state licensing threshold has to be
-            done by a licensed contractor, and a permitted, inspected upgrade
+            pulls the required permit, and gets it inspected. A panel upgrade
+            needs a permit, so California&apos;s small-job exception for
+            unlicensed workers does not apply to it at any price. Hire a
+            licensed electrical contractor (CSLB class C-10) and check the
+            license at cslb.ca.gov. A permitted, inspected upgrade
             leaves a clean record that protects you at resale and with your
             insurer. Confirm your electrician is pulling the permit, and check
             with your city&apos;s building department for the exact requirement.
@@ -297,7 +299,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
       <GuideCta
         signedInHref="/contractors?category=electrical"
-        signedInLabel="Find an electrician for your home"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

@@ -466,8 +466,8 @@ async function saveProSmsConsent(
         // sendSms (src/lib/notify.ts) always appends its own "Reply STOP to
         // opt out." after title+body, so that phrase is deliberately left
         // out of this copy - repeating it here would say it twice.
-        title: `You're opted in to ${LEGAL.brand} text messages for account and job-related alerts.`,
-        body: "Msg&data rates may apply. Message frequency varies. Reply HELP for help.",
+        title: `You're opted in to ${LEGAL.brand} account and job alerts.`,
+        body: "Msg&data rates may apply. Msg frequency varies. Reply HELP for help.",
         phone: sendPhone,
         smsConsent: true,
       });
@@ -2780,7 +2780,7 @@ export async function declineDirectRequestAction(formData: FormData) {
         userId: ownerUserId,
         kind: "direct_declined",
         title: `${contractor.name} passed on your request`,
-        body: "You can post this job to all local pros instead and get more options.",
+        body: "You can post this job so other local pros can apply.",
         url: "/contractors",
         email: wantsProMessages ? owner?.email ?? null : null,
         phone: wantsProMessages ? owner?.phone ?? null : null,

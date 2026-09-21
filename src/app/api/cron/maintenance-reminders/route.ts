@@ -271,7 +271,7 @@ async function runCron(req: NextRequest) {
                 ? `Overdue: ${one.title} is still waiting on you`
                 : `${b.overdue.length} maintenance tasks are overdue`,
               body: one
-                ? "A few minutes now can save a repair bill later."
+                ? "Open OakTend to mark it done or pick a new date."
                 : titleList(b.overdue),
               url: "/dashboard#this-month",
               email: user.email,

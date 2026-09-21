@@ -80,7 +80,7 @@ export default async function WelcomeRolePage(
                 I&apos;m a homeowner
               </span>
               <span className="mt-1 block text-sm text-stone-500 dark:text-stone-400">
-                Keep up your home and find trusted local pros.
+                Keep up your home and keep its records in one place.
               </span>
             </button>
           </form>

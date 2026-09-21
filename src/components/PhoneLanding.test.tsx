@@ -87,7 +87,7 @@ describe("PhoneLanding", () => {
     for (const line of [
       "Freeze and heat warnings before things break.",
       "Maintenance reminders for what your home has.",
-      "Local pros, fee shown before you post a job.",
+      "A record of every system in your home.",
     ]) {
       expect(screen.getByText(line)).toBeInTheDocument();
     }

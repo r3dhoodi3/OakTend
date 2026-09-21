@@ -21,6 +21,7 @@ import {
   NO_BIDDING_WARS_LINE,
   NO_CONTRACT_LINE,
 } from "@/lib/guaranteeCopy";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Which side of the app an entry belongs to. "both" entries surface in the
 // homeowner search and the pro search alike.
@@ -43,8 +44,9 @@ export const FAQ_INDEX: FaqEntry[] = [
   // ---- Homeowner ----
   {
     question: "Is OakTend free?",
-    answer:
-      "Your first home is free to track, with no card, forever. OakTend Plus is an optional subscription for the money-saving tools on top.",
+    answer: isHomeownerPreview()
+      ? "Yes. Everything is free during our preview, with no card. Memberships (OakTend Plus) are coming soon, and nothing can be bought yet."
+      : "Your first home is free to track, with no card. OakTend Plus is an optional subscription for extra tools on top.",
     keywords: ["price", "pricing", "cost", "pay", "plan", "subscription"],
     side: "homeowner",
     href: "/pricing",
@@ -94,8 +96,9 @@ export const FAQ_INDEX: FaqEntry[] = [
   },
   {
     question: "How do I get quotes from contractors?",
-    answer:
-      "Post a job from the Post a Job page or ask OakTend to help. Local pros can then message you, and any price they send in chat is captured so you can compare them side by side.",
+    answer: isHomeownerPreview()
+      ? "Our pro network isn't open yet. You can post a job from the Post a Job page or ask OakTend to help, and it is saved to your home's record. During our preview the OakTend team may look for a local pro by hand, with no promise that we find one. Once pros open, they will message you in the app and any price they send in chat is captured so you can compare."
+      : "Post a job from the Post a Job page or ask OakTend to help. Local pros can then message you, and any price they send in chat is captured so you can compare them side by side.",
     keywords: ["quote", "contractor", "pro", "hire", "estimate", "job"],
     side: "homeowner",
     href: "/contractors",
@@ -103,7 +106,7 @@ export const FAQ_INDEX: FaqEntry[] = [
   {
     question: "Is my data private?",
     answer:
-      "Your home data is yours. Every record is protected so that only you can see your home, and you can delete your account and all associated data at any time from Account security.",
+      "Your home data is yours. Your home's record is private to your account and the people you share it with, and you can delete your account at any time from Account > Privacy. A few records, like invoices, are kept where the law requires it, as our Privacy Policy explains.",
     keywords: ["privacy", "data", "delete", "security", "sell"],
     side: "homeowner",
     href: "/account/privacy",

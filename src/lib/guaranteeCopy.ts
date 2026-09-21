@@ -63,7 +63,7 @@ export const FIRST_APPLICATION_NEEDS_LICENSE =
 // its term. Say only that; never claim there is no optional membership at
 // all.
 export const NO_CONTRACT_LINE =
-  "No fee just to be listed and no contract to sign: applying to jobs is the only charge. If you add Pro membership, cancel it from your account any time, no penalty.";
+  "There is no fee to be listed, to apply, to quote, or to message, and no contract to sign. If a homeowner hires you, OakTend charges 5% of the agreed job price, $15 minimum, $1,000 cap. If you add Pro membership, cancel it from your account any time, no penalty.";
 
 // NO_BIDDING_WARS_LINE: every job's fee is fixed by its tier (light, skilled,
 // or big-ticket, src/lib/constants.ts LEAD_TIER_FEES) and printed on the
@@ -72,7 +72,7 @@ export const NO_CONTRACT_LINE =
 // no way to see or beat another pro's price, which is what makes "no bidding
 // wars" true rather than a slogan.
 export const NO_BIDDING_WARS_LINE =
-  "No bidding wars, ever: every job has one flat fee for its tier, shown before you tap, never an auction against other pros.";
+  "No bidding wars: applying is free, the success fee is the same 5% for every pro, and you never see or have to beat another pro's price.";
 
 // The sentence every "License verified" badge must carry: what was checked
 // and when. A bare "Verified" chip is a claim with no evidence behind it; the

@@ -1520,11 +1520,12 @@ export default function OnboardingForm({
                   </>
                 ) : (
                   <>
-                    By claiming this home, you&apos;re confirming you own or
-                    manage it. We also check the name on your account against
-                    the county&apos;s public owner record. This helps pros trust
-                    that jobs here are real. Nothing bad happens if it
-                    doesn&apos;t match.
+                    By claiming this home, you&apos;re confirming you own it or
+                    manage it for the owner. We compare the name on your
+                    account with the owner name in public property records
+                    (from our data provider). If it doesn&apos;t match you can
+                    still use everything. The one difference: pros get an
+                    in-app notice about your jobs instead of an email or text.
                   </>
                 )}
               </p>

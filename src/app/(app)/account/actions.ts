@@ -257,8 +257,8 @@ export async function saveAccountAction(formData: FormData) {
         // sendSms (src/lib/notify.ts) always appends its own "Reply STOP to
         // opt out." after title+body, so that phrase is left out of this
         // copy on purpose - repeating it here would say it twice.
-        title: `You're opted in to ${LEGAL.brand} text messages for account and job-related alerts.`,
-        body: "Msg&data rates may apply. Message frequency varies. Reply HELP for help.",
+        title: `You're opted in to ${LEGAL.brand} account and job alerts.`,
+        body: "Msg&data rates may apply. Msg frequency varies. Reply HELP for help.",
         phone,
         smsConsent: true,
       });

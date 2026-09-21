@@ -222,12 +222,12 @@ export default function BathroomRemodelCostGuide() {
             optional next step for a reader ready to price their own project. */}
         <section>
           <p className="leading-relaxed">
-            Ready to see real numbers for your bathroom?{" "}
+            Planning a bathroom remodel?{" "}
             <Link
               href="/contractors?category=remodeling"
               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
-              Get quotes from local remodeling pros →
+              Track this project in OakTend →
             </Link>
           </p>
         </section>
@@ -325,7 +325,7 @@ export default function BathroomRemodelCostGuide() {
 
       <GuideCta
         signedInHref="/contractors?category=remodeling"
-        signedInLabel="Get bathroom remodel quotes"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

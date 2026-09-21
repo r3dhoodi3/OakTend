@@ -2,12 +2,14 @@
 
 Last updated: 2026-09-02. Owner: Landen Chu. Co-founder: William Tran.
 
-This is the one file to read when you come back to this. It says where everything is, what is decided, what is not, what to do next, and what we learned. The full document set is in Google Drive: OakTend / 07: Legal / Paperwork (https://drive.google.com/drive/folders/1Q0n_8vjaomzxcFCahTwvtUQ2MrQn8E8a). The site copies live in the repo at src/content/legal.
+> Note added 2026-09-20. Parts of this file are out of date. OakTend LLC was formed on 2026-09-03 (California LLC no. B20260403864), the brand, domain, mailboxes and DMCA agent registration (DMCA-1080343) are done, and the fee model changed on 2026-09-10 to a 5% success fee paid by the pro when hired, with free applying and no prepaid balance. The to-do list below is kept as history. The published documents in src/content/legal are the current truth. This file holds internal company detail and should move out of the code repo into the company's private Drive.
+
+This is the one file to read when you come back to this. It says where everything is, what is decided, what is not, what to do next, and what we learned. The full document set is in the company's Google Drive, under OakTend / 07: Legal / Paperwork (ask Landen for access; the link is deliberately not kept in the repo). The site copies live in the repo at src/content/legal.
 
 ## Current
 
 **Company**
-- Entity decision: California two-member LLC, Landen and William 50/50 (decided 2026-09-02). Landen holds the tiebreaker on product and operations, William on his domain, both must agree on the major decisions list, deadlock goes to mediation then a shotgun buy-sell. Not formed yet. No S corp election until profit is consistently above about $80,000 a year. No Delaware or Wyoming.
+- Entity decision: California two-member LLC, Landen and William 50/50 (decided 2026-09-02). Landen holds the tiebreaker on product and operations, William on his domain, both must agree on the major decisions list, deadlock goes to mediation then a shotgun buy-sell. Formed 2026-09-03 as OakTend LLC. No S corp election until profit is consistently above about $80,000 a year. No Delaware or Wyoming.
 - Vesting: 12-month cliff, then monthly, fully vested at 3 or 4 years (you pick). Both founders vest. Each must file an IRS 83(b) election within 30 days of signing. See docs 16 and 27.
 - Brand: OakTend (decided 2026-09-03; LLC filed as OakTend LLC the same night, Northwest Registered Agent, oaktend.com/.app/.homes registered on Cloudflare). "Hearth" could not be the launch brand: Shogun Enterprises holds a live federal trademark on HEARTH for contractor software (gethearth.com) and an iOS app called "Hearth: Home Maintenance" already exists. The codebase was renamed to OakTend on 2026-09-03; the {{BRAND}} token in every document fills as OakTend. USPTO intent-to-use filing for OAKTEND (classes 35 and 42) is still to do, owned by the LLC.
 - Business city: the code says Fountain Valley, an older note said Huntington Beach, the runbook used Orange as the example. The city license goes to wherever the business is actually based. Confirm.
@@ -78,7 +80,7 @@ Do these in order. Items 1 to 4 are blocking.
 
 - The legal contact in the code still points at Landen's personal Gmail until the env vars are set. Two lawyers had already flagged that as a risk; the fix is the mailboxes in step 4.
 - The pro onboarding now requires accepting the Pro Terms with a checkbox and records it separately from the general terms.
-- Wallet credit for leads is not cash and only applies to lead fees, never to membership. Ghost protection re-charges the fee only if the wallet can cover it. Both are now stated exactly in docs 03 and 07.
+- The fee model described in an earlier version of this note was retired on 2026-09-10. The Pro Terms and the Billing policy now describe a 5% success fee paid by the pro when hired ($15 minimum, $1,000 cap), with free applying.
 - Anthropic keeps API data up to 30 days for trust and safety and does not train on it. Ask transcripts never leave the user's browser.
 - The insurance-on-file gate for major leads (migration 0153) is a real product rule and is now in the Pro Terms.
 - If you ever hire, add an employee handbook, workers' comp, and the California employee data privacy notice. Not needed today.

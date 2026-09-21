@@ -220,12 +220,12 @@ export default function KitchenRemodelCostGuide() {
         {/* Mid-page get-quotes CTA. Cost numbers are never gated. */}
         <section>
           <p className="leading-relaxed">
-            Ready to see real numbers for your kitchen?{" "}
+            Planning a kitchen remodel?{" "}
             <Link
               href="/contractors?category=remodeling"
               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
-              Get quotes from local remodeling pros →
+              Track this project in OakTend →
             </Link>
           </p>
         </section>
@@ -324,7 +324,7 @@ export default function KitchenRemodelCostGuide() {
 
       <GuideCta
         signedInHref="/contractors?category=remodeling"
-        signedInLabel="Get kitchen remodel quotes"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

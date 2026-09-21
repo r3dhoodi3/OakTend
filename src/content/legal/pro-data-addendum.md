@@ -10,13 +10,13 @@ Last updated: {{EFFECTIVE_DATE}}
 
 **Homeowner Data** means any personal information about a homeowner that you receive through {{BRAND}}, including their name, contact information, property address, job description, photos, messages, and anything else in a lead or in a message thread.
 
-**Lead** means a specific job a homeowner posted on {{BRAND}}, together with the Homeowner Data that comes with it once you are in contact about it.
+**Lead** means a specific job a homeowner posted on {{BRAND}}, together with the Homeowner Data that comes with it. The homeowner's contact information becomes part of the Lead only once the homeowner has chosen you for the job.
 
 **Permitted Purpose** means responding to, quoting, and performing the specific job the Lead was for, and the ordinary follow-up that job requires, such as scheduling, invoicing, and warranty service on that same job.
 
 ## 2. This is the homeowner's direction, not a sale to you
 
-A homeowner controls when their contact information reaches a pro. They post a job, and by posting it, they choose to have their contact details released to pros who apply. That is a disclosure the homeowner directed, to a recipient (you) bound by contract to the limits in this addendum. It is why {{BRAND}}'s Privacy Policy correctly says this is not a "sale" or "share" of the homeowner's information under the California Consumer Privacy Act: under Civil Code 1798.140(ad)(2)(A), a disclosure a consumer directs a business to make to a third party is not a sale. {{BRAND}} is not paying you for the homeowner's data, and you are not paying {{BRAND}} for it either. There is no fee to apply, quote, or message about a job. The only charge is the success fee described in the Pro Terms, and it is charged only if the homeowner hires you, for the completed introduction, never for the data. When you handle Homeowner Data on {{BRAND}}'s behalf, for example in messages routed through the platform, you act more like a service provider or contractor under Civil Code 1798.140(ag) with respect to that data, bound by the restrictions below.
+A homeowner controls when their contact information reaches a pro. They post a job, pros apply, and the homeowner chooses one. Choosing you is what releases their contact details to you. That is a disclosure the homeowner directed, to a recipient (you) bound by contract to the limits in this addendum. It is why {{BRAND}}'s Privacy Policy correctly says this is not a "sale" or "share" of the homeowner's information under the California Consumer Privacy Act: under Civil Code 1798.140(ad)(2)(A), a disclosure a consumer directs a business to make to a third party is not a sale. {{BRAND}} is not paying you for the homeowner's data, and you are not paying {{BRAND}} for it either. There is no fee to apply, quote, or message about a job. The only charge is the success fee described in the Pro Terms, and it is charged only if the homeowner hires you, for the completed introduction, never for the data. When you handle Homeowner Data on {{BRAND}}'s behalf, for example in messages routed through the platform, you act more like a service provider or contractor under Civil Code 1798.140(ag) with respect to that data, bound by the restrictions below.
 
 ## 3. Permitted purpose only
 
@@ -56,7 +56,7 @@ If you use a subcontractor, employee, or office staff to help respond to or perf
 
 We may ask you, no more than once a year absent a specific concern, to confirm in writing that you have complied with this addendum, including your deletion practices. We may suspend or terminate your account under the Pro Terms if we find you have violated this addendum.
 
-Both {{BRAND}} and you agree that a Lead disclosure made under this addendum is not a "sale" or a "share" of personal information under the California Consumer Privacy Act, since it happens at the homeowner's direction, to a contractually restricted recipient, for the purpose the homeowner asked for. Neither of you may treat it as a sale or a share, and neither of you may use that label as grounds to use the data more broadly than this addendum allows.
+Both {{BRAND}} and you agree that a Lead disclosure made under this addendum is not a "sale" or a "share" of personal information under the California Consumer Privacy Act, since it happens at the homeowner's direction, to a contractually restricted recipient, for the purpose the homeowner asked for. Neither of us may treat it as a sale or a share, and neither of us may use that label as grounds to use the data more broadly than this addendum allows.
 
 ## 10. The homeowner's rights still apply
 
@@ -70,4 +70,4 @@ This addendum survives the end of your relationship with {{BRAND}}, however that
 
 ## Acceptance
 
-By checking the box during pro onboarding next to "I have read and agree to the Homeowner Data Use Addendum," you accept this addendum as part of your acceptance of the Pro Terms. We record that acceptance the same way we record your acceptance of the Pro Terms: with a timestamp, your IP address, and your user agent.
+You accept this addendum when you accept the Pro Terms during pro onboarding. The Pro Terms incorporate this addendum by reference, and the onboarding acknowledgment includes your promise to use homeowner information only for the job it was given to you for. We record that acceptance the same way we record your acceptance of the Pro Terms: with a timestamp, your IP address, and your user agent.

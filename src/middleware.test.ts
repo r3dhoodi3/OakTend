@@ -229,6 +229,17 @@ describe("unrouted paths fall through to the 404", () => {
       expect(isPublicPath(path), path).toBe(true);
     }
   });
+
+  // The About page (added 2026-09-20) is public the same way /contact is: the
+  // exact path, or the path plus a slash. It is NOT a loose prefix, so a
+  // lookalike such as /about-us never becomes public by accident. Standing
+  // rule: never put a signed-in page under src/app/about/.
+  it("keeps /about public without opening lookalike paths", () => {
+    expect(isPublicPath("/about")).toBe(true);
+    expect(isPublicPath("/about/")).toBe(true);
+    expect(isPublicPath("/about-us")).toBe(false);
+    expect(isPublicPath("/aboutx")).toBe(false);
+  });
 });
 
 // Global Privacy Control wiring (src/lib/gpc.ts). updateSession and

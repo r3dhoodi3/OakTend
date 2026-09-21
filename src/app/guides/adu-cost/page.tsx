@@ -259,12 +259,12 @@ export default function AduCostGuide() {
         {/* Mid-page get-quotes CTA. Cost numbers are never gated. */}
         <section>
           <p className="leading-relaxed">
-            Ready to see real numbers for your property?{" "}
+            Planning an ADU for your property?{" "}
             <Link
               href="/contractors?category=remodeling"
               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
-              Get quotes from local ADU builders →
+              Track this project in OakTend →
             </Link>
           </p>
         </section>
@@ -373,7 +373,7 @@ export default function AduCostGuide() {
 
       <GuideCta
         signedInHref="/contractors?category=remodeling"
-        signedInLabel="Get ADU build quotes"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

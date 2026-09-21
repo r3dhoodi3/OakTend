@@ -178,13 +178,13 @@ export default async function Home(props: {
   const VALUE = [
     {
       icon: TrendingUp,
-      title: "No surprise repair bills",
+      title: "Fewer surprise repair bills",
       body: "See what may need replacing soon and how much to save each month. A big repair becomes a plan, not a panic.",
     },
     {
       icon: Bell,
       title: "Know before it breaks",
-      body: "OakTend watches for storms, recalls, and aging systems like your water heater or furnace, then sends the alert. You never have to check.",
+      body: "OakTend watches for storms, recalls, and aging systems like your water heater or furnace, then sends the alert, so you don't have to keep checking.",
     },
     {
       icon: MessageSquare,
@@ -193,8 +193,10 @@ export default async function Home(props: {
     },
     {
       icon: Wrench,
-      title: "The right pro, fast",
-      body: "Post the job once and OakTend fills in your home's details for you, so local pros can quote it fast.",
+      title: isHomeownerPreview() ? "Jobs saved with your home" : "The right pro, fast",
+      body: isHomeownerPreview()
+        ? "Write the job down once and OakTend fills in your home's details for you. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one."
+        : "Post the job once and OakTend fills in your home's details for you, so local pros can quote it fast.",
     },
   ];
 
@@ -240,16 +242,20 @@ export default async function Home(props: {
     {
       q: "Who are the pros?",
       a: isHomeownerPreview()
-        ? "Our pro network isn't open yet. During the preview you can post a job and keep it in your home's records, and we'll match you when the pro side launches."
-        : "Local pros who set up their own OakTend profiles. If a pro has a California license number, we check it live with the state's contractor license board (the CSLB) and show the result. Some trades, like handyman work or cleaning, don't require a license, so not every pro will have that badge. Pros can also complete an optional background check, which shows on their profile if they do. You always see exactly what's been verified and what hasn't.",
+        ? "Our pro network isn't open yet. During the preview you can post a job and it is saved to your home's record. Our team may then look for a local pro by hand. We can't promise to find one. Any pro we point you to is an independent business, not our employee, and we don't vet or guarantee their work, so check their license at cslb.ca.gov and ask for proof of insurance before you hire. Once the pro side opens, pros will apply to jobs in the app."
+        : "Local pros who set up their own OakTend profiles. If a pro has a California license number, we check it live with the state's contractor license board (the CSLB) and show the result. Not every pro will have that badge. Some work, like house cleaning, does not need a contractor license. Small repair jobs under $1,000 that need no permit can also be done by an unlicensed person working alone. Construction or repair work above that needs a licensed contractor. Pros can also complete an optional background check, which shows on their profile if they do. You always see exactly what's been verified and what hasn't.",
     },
     {
       q: "Will I get flooded with calls once I post a job?",
-      a: "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
+      a: isHomeownerPreview()
+        ? "No. Your contact info stays private until you pick a pro yourself. During the preview no pro sees your job or your details unless you tell us to pass them on."
+        : "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
     },
     {
       q: "Where is OakTend available?",
-      a: "We're serving all of Orange County, California right now, with local pros across the county. If you're outside Orange County you can still sign up and join the waitlist, which is how we decide where OakTend goes next.",
+      a: isHomeownerPreview()
+        ? "OakTend is for homes in Orange County, California. Our pro network isn't open yet."
+        : "OakTend is for homes in Orange County, California, with local pros across the county.",
     },
     {
       q: "What does Plus cost?",
@@ -283,7 +289,7 @@ export default async function Home(props: {
     },
     {
       q: "Where does my home's info come from?",
-      a: "When we have county records for your address, we pre-fill your home's year built, size, and other facts. You can correct anything that's off once you're in.",
+      a: "When we have public property records for your address (from our data provider), we pre-fill your home's year built, size, and other facts. You can correct anything that's off once you're in.",
     },
     {
       q: "What happens if I cancel or delete my account?",
@@ -359,7 +365,7 @@ export default async function Home(props: {
   // row (.chip-ok tone).
   const TRUST_SIGNALS = [
     "State contractor license (CSLB) checks",
-    "County-records ownership match (we confirm the poster owns the home)",
+    "Owner name compared with public records",
     "Your contact info stays private",
   ];
 
@@ -533,7 +539,7 @@ export default async function Home(props: {
                   so it reads as "all clear" here too. This exact trio is the
                   founder's pick. */}
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-                {["About 30 seconds", "No card needed", "Cancel anytime"].map((label) => (
+                {["About 30 seconds", "No card needed", isHomeownerPreview() ? "Free in preview" : "Cancel anytime"].map((label) => (
                   <CheckPill key={label} label={label} />
                 ))}
               </div>
@@ -579,7 +585,7 @@ export default async function Home(props: {
           rounded full, and stay plain text labels - no trade pictograms. */}
       <section className="mt-12 max-sm:hidden sm:mt-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
-          Find a pro for
+          {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
         <ul className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2">
           {SERVICE_SCENT.map((s) => (
@@ -744,8 +750,8 @@ export default async function Home(props: {
           Get started free
         </Link>
         <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-          Free for your first home. About 30 seconds to sign up. No card
-          needed.
+          {isHomeownerPreview() ? "Free during our preview." : "Free for your first home."}{" "}
+          About 30 seconds to sign up. No card needed.
         </p>
       </section>
 
@@ -775,12 +781,12 @@ export default async function Home(props: {
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
           {isHomeownerPreview() ? (
             <>
-              You don&rsquo;t pay until you get hired. No subscription, no lead
-              fees, no bidding wars.
+              You don&rsquo;t pay until you get hired. No subscription required,
+              no lead fees, no bidding wars.
             </>
           ) : (
             <>
-              Apply and quote for free, no subscription. You pay a 5% success
+              Apply and quote for free, no subscription required. You pay a 5% success
               fee, capped at $1,000, only when a homeowner hires you through
               OakTend.
             </>

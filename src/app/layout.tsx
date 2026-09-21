@@ -77,8 +77,21 @@ const organizationJsonLd = {
   "@type": "Organization",
   "@id": `${SITE_URL}#organization`,
   name: "OakTend",
+  legalName: "OakTend LLC",
+  description:
+    "OakTend is a home maintenance app that helps Orange County, California homeowners keep track of their home's systems, upkeep, and documents.",
+  foundingDate: "2026-09",
   url: SITE_URL,
   logo: `${SITE_URL}/icon-512.png`,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    telephone: "+1-714-468-5480",
+    email: "hello@oaktend.com",
+    areaServed: "US",
+    availableLanguage: "English",
+  },
+  sameAs: ["https://www.instagram.com/oaktend"],
   areaServed: LAUNCH_CITY_NAMES.map((city) => ({
     "@type": "City",
     name: `${city}, CA`,
@@ -99,7 +112,7 @@ export const metadata: Metadata = {
   // constant like everything else in this file; no request-scoped read.
   description: isHomeownerPreview()
     ? "Keep your house in good shape, know what needs attention, and store your home docs. Home maintenance, free during our preview."
-    : "Keep your house in good shape, know what needs attention, store your home docs, and reach a trustworthy pro when something breaks.",
+    : "Keep your house in good shape, know what needs attention, store your home docs, and reach a local pro when something breaks.",
   openGraph: {
     siteName: "OakTend",
     type: "website",

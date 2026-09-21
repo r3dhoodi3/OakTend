@@ -7,6 +7,7 @@ import { freeTastesLeft } from "@/lib/freeAiTasteServer";
 import InspectionRequest from "./InspectionRequest";
 import InspectionUpload from "./InspectionUpload";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Home inspection hub: request a professional inspection (posts a job to
 // local inspectors, same flow as any other trade), or add a report the
@@ -57,8 +58,9 @@ export default async function InspectionPage() {
             Get your home inspected
           </h2>
           <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-            Post a job and local inspectors will apply. You review them
-            and pick who you want.
+            {isHomeownerPreview()
+              ? "Our pro network is not open yet. Send this and we will keep it in your home's record. Our team may look for a local inspector by hand, with no promise that we find one."
+              : "Post a job and local inspectors will apply. You review them and pick who you want."}
           </p>
         </div>
         <InspectionRequest

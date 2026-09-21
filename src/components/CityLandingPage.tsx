@@ -82,12 +82,12 @@ function valueCards(): {
       : {
           icon: Wrench,
           title: "Local pros, no bidding war",
-          body: "Pros are license-checked against the CSLB when a license is on file, and every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
+          body: "When a pro lists a California license, we check it against the state's public CSLB database and show the result. Every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
         },
     {
       icon: Gift,
       title: "Free to start",
-      body: "Free for your first home, no card needed.",
+      body: "Free during our preview, no card needed.",
     },
   ];
 }

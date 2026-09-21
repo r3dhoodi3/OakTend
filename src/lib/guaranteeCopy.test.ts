@@ -110,15 +110,16 @@ describe("no-contract and no-bidding-wars lines say only what is true today", ()
     expect(NO_CONTRACT_LINE).not.toMatch(/\bannual fee\b/i); // an annual cadence exists; "no annual fee" alone would overclaim
   });
 
-  it("NO_BIDDING_WARS_LINE matches the real pricing shape: one flat fee per tier", () => {
-    // Truthful only because every tier really is one fixed number, not a
-    // range or a bid - if LEAD_TIER_FEES ever grows a range this line and
-    // this assertion both need to change together.
+  it("NO_BIDDING_WARS_LINE matches the success-fee model: free to apply, same 5% for everyone", () => {
+    // Reworded 2026-09-20 (legal review H-10): the per-tier flat fee is the
+    // retired model. The LEAD_TIER_FEES shape check stays until that constant
+    // is deleted with the rest of the retired code.
     for (const fee of Object.values(LEAD_TIER_FEES)) {
       expect(typeof fee).toBe("number");
     }
-    expect(NO_BIDDING_WARS_LINE).toContain("one flat fee for its tier");
-    expect(NO_BIDDING_WARS_LINE).toContain("shown before you tap");
+    expect(NO_BIDDING_WARS_LINE).toContain("applying is free");
+    expect(NO_BIDDING_WARS_LINE).toContain("same 5%");
+    expect(NO_BIDDING_WARS_LINE).not.toContain("tier");
   });
 });
 

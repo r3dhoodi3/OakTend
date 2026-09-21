@@ -39,7 +39,10 @@ const UUID_RE =
 // TODO(legal): bump VERSION whenever /terms or /pro-terms changes materially.
 // 2026-08-30: /pro-terms gained the insurance duty + venue clause (big-job
 // proof-of-insurance gate, migration 0153), which is a material change.
-const VERSION = "2026-08-30";
+// 2026-09-20: /terms and /pro-terms reworded for the homeowner preview (the
+// payment story, contact release, finding a pro by hand). Nothing reads this
+// value to gate anything; it only stamps new acceptance rows.
+const VERSION = "2026-09-20";
 
 export async function recordTermsAcceptance(
   userId: string,
