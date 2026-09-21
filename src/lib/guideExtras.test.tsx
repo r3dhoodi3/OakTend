@@ -141,6 +141,17 @@ describe("GUIDE_SOURCES", () => {
     "ggcity.org",
     "santa-ana.gov",
     "www.newportbeachca.gov",
+    "pwds.oc.gov",
+    "www.energy.ca.gov",
+    "www.cslb.ca.gov",
+    "www.usgs.gov",
+    "www.mesawater.org",
+    "smwd.com",
+    "www.ylwd.com",
+    "www.irwd.com",
+    "etwd.com",
+    "www.ocwd.com",
+    "www.tustinca.org",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -192,13 +203,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 13 guide pages", () => {
+describe("all 14 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(13);
+    expect(dirs).toHaveLength(14);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

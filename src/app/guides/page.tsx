@@ -14,6 +14,7 @@ import {
   Building2,
   ShieldCheck,
   FileCheck,
+  Droplets,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -110,6 +111,13 @@ const GUIDES = [
     title: "Building permits in Orange County",
     blurb:
       "When a home project needs a permit in Orange County, project by project, with real city examples: water heaters, reroofs, panels, HVAC, fences and patio covers.",
+  },
+  {
+    href: "/guides/hard-water-orange-county",
+    icon: Droplets,
+    title: "Hard water in Orange County",
+    blurb:
+      "How hard the tap water is by Orange County water provider, what it does to water heaters and fixtures, how often to flush a tank, and what to know about softeners.",
   },
 ];
 

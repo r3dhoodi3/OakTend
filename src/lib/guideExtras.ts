@@ -196,6 +196,21 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Newport Beach",
     ],
   },
+  "/guides/hard-water-orange-county": {
+    guides: [
+      "/guides/water-heater-replacement-cost",
+      "/guides/slab-leak-signs",
+      "/guides/home-maintenance-schedule",
+    ],
+    cities: [
+      "Fountain Valley",
+      "Newport Beach",
+      "Costa Mesa",
+      "Yorba Linda",
+      "Irvine",
+      "Rancho Santa Margarita",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -803,6 +818,80 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Contractors State License Board: owner-builder risks",
       supports:
         "The board's warning to be wary of consultants or unlicensed individuals who talk homeowners into becoming an owner-builder.",
+    },
+  ],
+  "/guides/hard-water-orange-county": [
+    {
+      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
+      label: "U.S. Geological Survey: Hardness of Water",
+      supports:
+        "The four hardness bands (soft to very hard, in milligrams per liter), and that heated hard water forms scale that can shorten equipment life, raise heating costs and clog pipes.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/DocumentCenter/View/24438",
+      label: "City of Fountain Valley: 2026 Water Quality Report",
+      supports:
+        "Fountain Valley local groundwater hardness: average 217 ppm, range 171 to 256, or 13 grains per gallon.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/home/showpublisheddocument/78695/639150596746970000",
+      label: "City of Newport Beach: 2026 Annual Water Quality Report",
+      supports:
+        "Newport Beach groundwater hardness: average 232 ppm, range 47.5 to 475. Metropolitan imported water: average 236 ppm, range 191 to 280, or 14 grains per gallon.",
+    },
+    {
+      href: "https://www.mesawater.org/sites/default/files/2026-06/final2026consumerconfidencereport.pdf",
+      label: "Mesa Water District: 2026 Consumer Confidence Report",
+      supports:
+        "Mesa Water groundwater hardness: average 113 ppm, range 20.6 to 293, or 6.6 grains per gallon.",
+    },
+    {
+      href: "https://smwd.com/DocumentCenter/View/6349/2026-Water-Quality-Report",
+      label: "Santa Margarita Water District: 2026 Water Quality Report",
+      supports:
+        "Santa Margarita hardness: average 256 mg/L, range 210 to 300, or 15 grains per gallon, and a supply of imported, treated surface water.",
+    },
+    {
+      href: "https://www.ylwd.com/services/your-water/water-quality/water-quality-faq/",
+      label: "Yorba Linda Water District: water quality FAQ",
+      supports:
+        "Imported water averages 18 grains of hardness and the district's well water averages 20, and the district discourages self-regenerating softeners.",
+    },
+    {
+      href: "https://www.irwd.com/learn/water-quality-report/",
+      label: "Irvine Ranch Water District: water quality report and FAQ",
+      supports:
+        "Imported water is typically hard and well water moderately hard, hardness does not affect safety, and the district discourages self-regenerating softeners because brine is not removed when wastewater is recycled.",
+    },
+    {
+      href: "https://etwd.com/your-water/water-quality/water-quality-faqs",
+      label: "El Toro Water District: water quality FAQs",
+      supports:
+        "The district's water is generally considered hard, Colorado River water picks up calcium and magnesium, and hard water is an aesthetic issue, not a health concern.",
+    },
+    {
+      href: "https://www.ocwd.com/learning-center/how-water-works-in-oc/",
+      label: "Orange County Water District: how water works in OC",
+      supports:
+        "Agencies over the groundwater basin pump about 85 percent of demand and import about 15 percent, and about 600,000 people in south county rely mostly on imported water.",
+    },
+    {
+      href: "https://www.tustinca.org/223/Flushing-Out-Your-Water-Heater",
+      label: "City of Tustin: flushing out your water heater",
+      supports:
+        "Manufacturers recommend periodic flushing to remove sediment, and white particles may be calcium carbonate scale from the water heater.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=116785",
+      label: "California Health and Safety Code section 116785",
+      supports:
+        "The conditions under which a residential water softener may be installed, including off-site regeneration or demand control and a salt efficiency rating.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=116786",
+      label: "California Health and Safety Code section 116786",
+      supports:
+        "A local agency may limit or prohibit softeners that discharge to the sewer by ordinance, if it makes specific findings.",
     },
   ],
 };
