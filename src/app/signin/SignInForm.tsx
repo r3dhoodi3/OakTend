@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import PasswordInput from "@/components/PasswordInput";
 import { createClient } from "@/lib/supabase/client";
 import { safeNextPath } from "@/lib/safeNext";
 import { friendlyAuthError } from "@/lib/friendlyAuthError";
@@ -65,7 +65,6 @@ export default function SignInForm({
     : "/homeowner-signup";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   // Set to the typed email when sign-in fails specifically because the account
@@ -183,30 +182,14 @@ export default function SignInForm({
             </label>
             {/* Same show/hide toggle as the two signup pages, so the control
                 looks and sits the same wherever a password is typed. */}
-            <div className="relative">
-              <input
-                id="password"
-                className="input pr-10"
-                type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((s) => !s)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                className="focus-ring absolute inset-y-0 right-0 flex items-center px-3 text-stone-400 hover:text-stone-600 max-sm:px-3.5 dark:hover:text-stone-200"
-              >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
-                ) : (
-                  <Eye className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
-                )}
-              </button>
-            </div>
+            <PasswordInput
+              id="password"
+              autoComplete="current-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             {/* Phone only: 16px tall, right-aligned. This is the recovery
                 path for someone who cannot read what they typed. */}
             <p className="mt-1.5 text-right text-xs max-sm:text-sm">
