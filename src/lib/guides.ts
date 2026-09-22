@@ -60,6 +60,33 @@ export const GUIDE_PATHS = [
   "/guides/socal-home-maintenance-calendar",
 ] as const;
 
+// The short link text for each guide, for anywhere that links to guides from
+// outside the index: the landing page's guide list, the /oc hub, and the
+// related-guides block on every guide (src/components/GuideRelated.tsx). Same
+// titles the index cards use (GUIDES in src/app/guides/page.tsx), and
+// src/lib/guides.test.ts fails if the two drift or a guide is missing here.
+// "/guides" itself is not in this map: it is the index, not a guide.
+export const GUIDE_TITLES: Record<string, string> = {
+  "/guides/water-heater-replacement-cost": "Water heater replacement cost",
+  "/guides/hvac-replacement-cost": "HVAC replacement cost",
+  "/guides/roof-replacement-cost": "Roof replacement cost",
+  "/guides/electrical-panel-upgrade-cost": "Electrical panel upgrade cost",
+  "/guides/kitchen-remodel-cost": "Kitchen remodel cost",
+  "/guides/bathroom-remodel-cost": "Bathroom remodel cost",
+  "/guides/adu-cost": "ADU cost",
+  "/guides/slab-leak-signs": "Slab leak signs",
+  "/guides/home-maintenance-schedule": "Home maintenance schedule",
+  "/guides/is-my-contractor-quote-fair": "Is my contractor's quote fair?",
+  "/guides/contractor-deposit-rules-california":
+    "How much can a contractor ask for up front?",
+  "/guides/socal-home-maintenance-calendar": "SoCal home maintenance calendar",
+};
+
+// The guides as { href, title } in GUIDE_PATHS order, index excluded.
+export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter(
+  (path) => path !== "/guides"
+).map((path) => ({ href: path, title: GUIDE_TITLES[path] }));
+
 // "/guides" is in here too, even though the index is a list rather than an
 // Article: the sitemap needs a lastmod for it like every other URL, and its
 // own page file has a real history to read one from. Nothing renders Article
@@ -80,7 +107,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-20",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
@@ -92,7 +119,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-20",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
@@ -100,7 +127,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/home-maintenance-schedule": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-20",
   },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
@@ -108,7 +135,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-20",
   },
   "/guides/socal-home-maintenance-calendar": {
     datePublished: "2026-07-07",

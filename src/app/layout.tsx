@@ -9,8 +9,8 @@ import ZoomLock from "@/components/ZoomLock";
 import CookieNotice from "@/components/CookieNotice";
 import UsageTracker from "@/components/UsageTracker";
 import { Analytics } from "@vercel/analytics/next";
-import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
-import { isHomeownerPreview } from "@/lib/previewMode";
+import { buildOrganizationJsonLd } from "@/lib/organizationJsonLd";
+import { siteDescription, siteTitle } from "@/lib/siteMetadata";
 import { LEGACY_STORAGE_INIT_SCRIPT } from "@/lib/legacyStorage";
 
 // KEEP THIS FILE FREE OF cookies() AND headers().
@@ -58,32 +58,16 @@ const themeInit = `(function () {
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // Organization JSON-LD, so search results can attribute pages to OakTend as a
-// business rather than guessing from the page title. Mirrors the Service
-// JSON-LD CityLandingPage builds per city (src/components/CityLandingPage.tsx):
-// same reasoning, root-level scope. areaServed is built from the same
-// LAUNCH_CITY_NAMES the ZIP gates and the pro checkboxes read, so the
-// structured data can never claim a city OakTend has stopped (or not yet
-// started) serving. Only two of these cities have a landing page of their own;
-// the rest are served without one, which is fine here - this is a service-area
-// claim, not a sitemap.
+// business rather than guessing from the page title. The node itself is built
+// in src/lib/organizationJsonLd.ts (testable there without importing a layout
+// that pulls in next/font).
 //
 // This is the ONE Organization node in the app. The landing page used to emit
 // a second one (name/url/logo) alongside its WebApplication, which left two
 // competing descriptions of the same business on the highest-value page; the
 // logo moved here instead, and the stable @id gives anything that wants to
 // point at OakTend-the-organization something to reference.
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${SITE_URL}#organization`,
-  name: "OakTend",
-  url: SITE_URL,
-  logo: `${SITE_URL}/icon-512.png`,
-  areaServed: LAUNCH_CITY_NAMES.map((city) => ({
-    "@type": "City",
-    name: `${city}, CA`,
-  })),
-};
+const organizationJsonLd = buildOrganizationJsonLd(SITE_URL);
 
 // WebSite JSON-LD. Search engines take the site name they print above a result
 // from this node, not from the Organization one; without it they fall back to
@@ -101,19 +85,22 @@ const websiteJsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // The default title and description live in src/lib/siteMetadata.ts so the
+  // landing page, the About page and the Organization node below describe
+  // OakTend in the same words.
+  //
+  // PREVIEW MODE. Both strings have a preview variant. The title is aimed at
+  // the search this page should be found for ("home maintenance app" plus the
+  // county); the description names the category, the county and the main
+  // features, and makes no pro, quote, booking or payment claim, because
+  // there is no pro network during the preview. With the flag off both come
+  // back exactly as they were. Build-time constants like everything else in
+  // this file: NEXT_PUBLIC_PREVIEW_MODE is inlined, no request-scoped read.
   title: {
-    default: "OakTend: Your home looked after",
+    default: siteTitle(),
     template: "%s | OakTend",
   },
-  // PREVIEW MODE (addendum 4 H). This is the site-wide default description -
-  // what a search result or link preview shows for any page without its own -
-  // and its last clause promises reaching a pro. There is no pro network
-  // during the preview, so that half is replaced by the approved framing.
-  // Everything before it is true either way and is unchanged. A build-time
-  // constant like everything else in this file; no request-scoped read.
-  description: isHomeownerPreview()
-    ? "Keep your house in good shape, know what needs attention, and store your home docs. Home maintenance, free during our preview."
-    : "Keep your house in good shape, know what needs attention, store your home docs, and reach a trustworthy pro when something breaks.",
+  description: siteDescription(),
   openGraph: {
     siteName: "OakTend",
     type: "website",

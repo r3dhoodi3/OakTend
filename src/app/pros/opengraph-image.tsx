@@ -24,6 +24,6 @@ export default function OgImage() {
 
   return renderOgCard(
     "OakTend for Pros",
-    "Real local leads. Pay only when you apply."
+    "Apply for free. Pay 5% only when you are hired."
   );
 }

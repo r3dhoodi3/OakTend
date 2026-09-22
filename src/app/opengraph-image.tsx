@@ -11,7 +11,7 @@ import { ogFontOption } from "@/lib/ogFont";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "OakTend: your home, looked after";
+export const alt = "OakTend: your home looked after";
 
 const CREAM = "#fbf7f2";
 const HOUSE_BROWN = "#915d32";

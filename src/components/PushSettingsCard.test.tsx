@@ -138,7 +138,7 @@ describe("PushSettingsCard", () => {
   it("uses the homeowner wording on the homeowner side", async () => {
     await mount("homeowner");
     expect(
-      screen.getByText("Get notified when a pro replies or sends a quote")
+      screen.getByText("Get messages and weather heads-ups on your phone")
     ).toBeInTheDocument();
   });
 

@@ -81,7 +81,7 @@ function makeStream() {
 // The canned opener the chat starts every conversation with; it is part of the
 // saved list, so the order assertions below account for it.
 const GREETING =
-  "Hi, I'm OakTend. If you have any questions about your home, feel free to ask.";
+  "Hi, I'm Ask OakTend, an AI helper for your home. If you have any questions about it, feel free to ask.";
 
 const delta = (text: string) => `${JSON.stringify({ delta: text })}\n`;
 const done = (payload: Record<string, unknown>) =>

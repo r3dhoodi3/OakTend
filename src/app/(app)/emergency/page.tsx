@@ -32,7 +32,14 @@ export default async function EmergencyPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Home emergency</h1>
         <p className="mt-1 text-stone-500 dark:text-stone-400">
           Something wrong right now? Pick what&apos;s happening below. The steps are
-          short, do them in order.
+          short. Do them in order.
+        </p>
+        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          If someone is hurt, trapped, or in danger, call 911 now. If you smell
+          gas or a carbon monoxide alarm sounds, get everyone outside first and
+          call from there. These are general safety steps, not an emergency
+          service. OakTend is software, not a contractor or a utility. If you
+          are not sure a step is safe, skip it, get out, and call 911.
         </p>
       </div>
 
@@ -51,8 +58,10 @@ export default async function EmergencyPage() {
         <div>
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">Be ready before it happens</h2>
           <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-            Take a photo of each shutoff now, on a calm day. Next time there&apos;s an
-            emergency, we&apos;ll show it to you right where you need it.
+            Take a photo of each shutoff now, on a calm day. Next time there&apos;s a
+            water or power problem, we&apos;ll show the photo right in the steps.
+            The gas shutoff photo is for your gas company or plumber. If you
+            smell gas, just leave.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">

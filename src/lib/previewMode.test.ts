@@ -63,7 +63,7 @@ describe("the copy constants", () => {
     // 2026-09-17: posting stays open in preview and the team matches each
     // job by hand, so the confirmation promises that instead of a launch.
     expect(PREVIEW_JOB_POSTED_COPY).toBe(
-      "Saved to your home's record. Our pro network isn't open yet, so our team will find a local pro for this job by hand and reach out to you."
+      "Saved to your home's record. Our pro network isn't open yet. Our team may look for a local pro for this job by hand, but we can't promise to find one. If it's urgent, call a local licensed company now."
     );
   });
 });

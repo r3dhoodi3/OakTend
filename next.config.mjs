@@ -131,6 +131,25 @@ const nextConfig = {
   // verification build write somewhere else while the dev server keeps
   // running. Hosted builds (e.g. Vercel) never set it, so they use .next.
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  // METADATA IN <head> FOR EVERY CRAWLER.
+  //
+  // The homepage is dynamic (src/app/page.tsx reads searchParams.code and the
+  // auth cookie), so Next streams its title, description and canonical into
+  // the BODY for every user agent except its own built-in list of old-style
+  // bots. Googlebot, GPTBot and PerplexityBot were all receiving them in the
+  // body (verified against production on 2026-09-20; Bingbot got them in the
+  // head). Google only reads page metadata from <head>, and the AI crawlers
+  // do not run the script that moves the tags up afterwards.
+  //
+  // This regex is matched against the User-Agent header; /.*/ matches all of
+  // them, which makes metadata blocking for everyone. The anonymous homepage
+  // does no network work, so the cost is negligible. Statically generated
+  // pages (guides, city pages) already had their metadata in the head and are
+  // unaffected. Top level, not under `experimental`: Next 15.2 and later.
+  //
+  // If the two homepage redirects ever move into middleware and "/" becomes
+  // prerendered, this stops being needed and can stay or go.
+  htmlLimitedBots: /.*/,
   // How much of a request body Next will hand to middleware before it gives
   // up on the rest. Default 10MB, and it TRUNCATES rather than rejecting.
   //

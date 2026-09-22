@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
+import GuideMeta from "@/components/GuideMeta";
+import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
@@ -131,6 +133,9 @@ export default function RoofReplacementCostGuide() {
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Roof replacement cost in Orange County: what to expect
       </h1>
+      {/* Updated date and byline, from the same date map the sitemap and the
+          Article node read (src/components/GuideMeta.tsx). */}
+      <GuideMeta path="/guides/roof-replacement-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         A general planning guide with national and Orange County ranges. It is
         an estimate, not a quote for your home. Prices vary.
@@ -326,9 +331,13 @@ export default function RoofReplacementCostGuide() {
         </section>
       </div>
 
+      {/* Sources (where verified), related guides and city pages
+          (src/components/GuideRelated.tsx, data in src/lib/guideExtras.ts). */}
+      <GuideRelated path="/guides/roof-replacement-cost" />
+
       <GuideCta
         signedInHref="/contractors?category=roof"
-        signedInLabel="Find a roofer for your home"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

@@ -4,6 +4,7 @@ import { getUser } from "@/lib/auth";
 import SupportForm from "./SupportForm";
 import ShowAppGuideButton from "@/components/ShowAppGuideButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 const FAQ: { q: string; a: string; href?: string; hrefLabel?: string }[] = [
   {
@@ -12,7 +13,11 @@ const FAQ: { q: string; a: string; href?: string; hrefLabel?: string }[] = [
   },
   {
     q: "How do I get quotes from contractors?",
-    a: "Post a job from the Post a Job page or ask OakTend to help. Local pros can then message you, and any price they send in chat is captured so you can compare them side by side.",
+    // Preview-aware so the answer goes back to the normal one on its own
+    // when the pro side opens (same switch the home page FAQ uses).
+    a: isHomeownerPreview()
+      ? "Our pro network isn't open yet. You can post a job from the Post a Job page or ask OakTend to help, and it is saved to your home's record. During our preview the OakTend team may look for a local pro by hand, with no promise that we find one. Once pros open, they will message you in the app and any price they send in chat is captured so you can compare."
+      : "Post a job from the Post a Job page or ask OakTend to help. Local pros can then message you, and any price they send in chat is captured so you can compare them side by side.",
   },
   {
     q: "What is Ask OakTend?",
@@ -20,7 +25,7 @@ const FAQ: { q: string; a: string; href?: string; hrefLabel?: string }[] = [
   },
   {
     q: "Is my data private?",
-    a: "Your home data is yours. Every record is protected so that only you can see your home, and you can delete your account and all associated data at any time from Account security.",
+    a: "Your home data is yours. Your home's record is private to your account and the people you share it with, and you can delete your account at any time from Account > Privacy. A few records, like invoices, are kept where the law requires it, as our Privacy Policy explains.",
   },
   {
     q: "How does OakTend decide when something needs maintenance?",

@@ -962,13 +962,14 @@ export const THIRD_PARTIES: ThirdParty[] = [
   {
     // OakTend's ONE AI vendor. Every AI feature runs on Anthropic's Claude
     // through Anthropic's paid API - see /ai-disclosure, which this entry has
-    // to agree with word for word on what actually leaves the app. Audio is
-    // deliberately absent: voice input is on-device browser speech
-    // recognition, so no recording is ever made or sent anywhere.
+    // to agree with on what actually leaves the app. Audio never goes to
+    // Anthropic or to us. Voice input uses the browser's own speech
+    // recognition, which in some browsers sends the audio to the browser
+    // maker (legal review 2026-09-19, N-61), so the copy says that.
     name: "Anthropic (Claude)",
     role: "AI assistant, document reading, and photo analysis",
     receives:
-      "The question you ask, plus context from your home profile (first name, address, systems, open tasks, recent issues), and any photo or document you submit to an AI feature. No audio: dictation runs on your own device and no recording is sent. Also your purchase price, assessed value, and OakTend's own home-value estimate when you generate a Property Tax Appeal Kit; your insurance premium and renewal date when you generate an Insurance Requote Packet; and the full contents of a contractor's quote when you use the quote analyzer. For contractors: their wallet balance (cash and bonus), license number and verification status, and background-check status when they use Ask OakTend for Pros; their own past-job dollar totals (labor and materials) when they use the estimate or invoice tools; and the full image of an uploaded past invoice, quote, or receipt when they add it to their pricing history.",
+      "The question you ask, plus context from your home profile (first name, address, basic facts about the home, the county assessed value and our estimated value if we have them, systems, open tasks, recent issues, short summaries of saved documents, and recent job posts), and any photo or document you submit to an AI feature. No audio goes to Anthropic or to us: voice input uses your browser's speech recognition, which may send audio to the browser maker (for example Google or Apple), and we receive only the text. Also your purchase price, assessed value, and OakTend's own home-value estimate when you generate a Property Tax Appeal Kit; your insurance premium and renewal date when you generate an Insurance Requote Packet; and the full contents of a contractor's quote when you use the quote analyzer. For contractors: their trades and service area, license number and verification status, background-check status, and their open jobs when they use Ask OakTend for Pros; their own past-job dollar totals (labor and materials) when they use the estimate or invoice tools; and the full image of an uploaded past invoice, quote, or receipt when they add it to their pricing history.",
   },
   {
     name: "RentCast",

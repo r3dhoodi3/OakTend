@@ -2,9 +2,10 @@
 
 A homeowner maintenance tool with a home-services marketplace attached. The
 owner's job-to-be-done is the product: keep my house in good shape, tell me
-what needs attention, store my home docs, and get me a trustworthy contractor
-when something breaks. Pros pay for leads; homeowners can upgrade to OakTend
-Plus for proactive alerts and reports.
+what needs attention, store my home docs, and help me reach a local contractor
+when something breaks. The site is in a homeowner preview: everything is free,
+the pro side is closed, and no payments are taken. See "Data and revenue"
+below for the planned model.
 
 Launching in Orange County, CA: Huntington Beach, Fountain Valley, Seal
 Beach, Westminster, Midway City, Garden Grove, Santa Ana, Costa Mesa, and
@@ -34,11 +35,13 @@ For the current state of the project, decisions, and what is next, read
 
 - Contractor signup and onboarding, CSLB license verification with identity
   lock (one license per account, `src/lib/licenseMatch.ts`)
-- Job board filtered to the pro's launch cities, lead purchase with a prepaid
-  wallet, first-apply guarantee, refunds
+- Job board filtered to the pro's launch cities. Applying is free; the planned
+  charge is a 5% success fee when a homeowner hires the pro. (Code for the
+  retired prepaid wallet and per-lead fee model is still in the tree and is
+  due to be removed.)
 - CRM, past jobs, structured quotes and invoices, reviews, win cards, widget
 - Pro Plus, playbook, tools, weekly digest, compliance calendar
-- Background checks (Checkr) paid by OakTend after 3 paid leads
+- Background checks (Checkr), not active today
 
 **Public** (`src/app/`)
 
@@ -63,7 +66,7 @@ For the current state of the project, decisions, and what is next, read
   reason, so every call site awaits it.
 - **Supabase**: Postgres, Auth (email + password with confirmation, Google,
   Apple), Storage (private photo and document buckets)
-- **Stripe** subscriptions and wallet top-ups, **Resend**, **Twilio**,
+- **Stripe** subscriptions (off during the preview), **Resend**, **Twilio**,
   **Checkr**, **RentCast**, **Anthropic** (Claude, the only AI provider)
 - **Vitest** + Testing Library for unit tests
 - Deployed on **Vercel**
@@ -116,8 +119,8 @@ Required to run the app at all:
 
 Optional, each turns on one feature and is skipped when missing:
 
-- `STRIPE_SECRET_KEY` (+ price ids, webhook secret): checkout, billing portal,
-  wallet top-ups. Pages load without it; billing actions fail with an error that
+- `STRIPE_SECRET_KEY` (+ price ids, webhook secret): checkout and the billing
+  portal. Pages load without it; billing actions fail with an error that
   names the variable. A test-mode key works locally.
 - `ANTHROPIC_API_KEY`: Ask OakTend, quote analysis, document extraction, and
   every other AI feature. All of them run on Claude.
@@ -192,10 +195,17 @@ because it still covers the dev-server path.
 ## Data and revenue, honestly
 
 - **Condition signal**: `home_systems` + `issues` are most of the value.
-- **Revenue**: pros buy leads (`contractor_leads`) with a prepaid wallet;
-  homeowners subscribe to OakTend Plus. No license or RESPA exposure.
-- **Sell-intent** lives in a separate `intent_signals` table with a
-  `shared_consent` flag. Opt-in warm intros only; see [PRIVACY.md](./PRIVACY.md).
+- **Revenue, when it starts**: an optional homeowner membership, an optional
+  pro membership, and a 5% fee paid by the pro when a homeowner hires them
+  ($15 minimum, $1,000 cap). The homeowner pays the pro's invoice in the app
+  through Stripe after the work is done, with no holds. Nothing is charged
+  during the homeowner preview.
+- **Personal information is not sold.** A homeowner's contact details reach a
+  pro only after the homeowner chooses that pro. The published policy is
+  `src/content/legal/privacy.md`.
+- The early idea of passing sell-intent signals to real estate agents was
+  dropped. An unused `intent_signals` table is left over from it and nothing
+  writes to it.
 
 ## Working agreements
 

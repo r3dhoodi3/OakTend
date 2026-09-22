@@ -278,25 +278,31 @@ async function fetchParcelFacts(
   userId: string | null
 ): Promise<ParcelFacts> {
   const key = process.env.RENTCAST_API_KEY;
-  if (key) {
-    try {
-      // Single call: the property record only. The AVM market-value lookup
-      // was removed, so market_value fields stay null (home value can be
-      // entered manually later on the value page).
-      // Either a real record, blank facts marked "unavailable" (we couldn't
-      // ask), or null for a true miss. Only null falls through to blankFacts.
-      const record = await fetchFromRentcast(street.trim(), zip.trim(), key, userId);
-      if (record) return record;
-    } catch (err) {
-      // fetchFromRentcast catches its own failures, so this is a belt-and-
-      // braces path (an unexpected throw). It is still a "couldn't ask", not
-      // a "no such address".
-      console.error("RentCast lookup failed:", err);
-      return unavailableFacts(street, zip);
-    }
+  // NO KEY IS "UNAVAILABLE", NOT "NONE". It used to fall through to
+  // blankFacts (source "none"), which lookupParcel caches for a day as if
+  // RentCast had answered "no such address". The database is shared between
+  // deployments, so a local dev machine with no key (2026-09-19/20: William
+  // testing five homes on localhost) wrote day-long blanks that the LIVE site
+  // then served for those addresses. "Unavailable" is never cached, which is
+  // the rule for every other way of not getting an answer.
+  if (!key) return unavailableFacts(street, zip);
+  try {
+    // Single call: the property record only. The AVM market-value lookup
+    // was removed, so market_value fields stay null (home value can be
+    // entered manually later on the value page).
+    // Either a real record, blank facts marked "unavailable" (we couldn't
+    // ask), or null for a true miss. Only null falls through to blankFacts.
+    const record = await fetchFromRentcast(street.trim(), zip.trim(), key, userId);
+    if (record) return record;
+  } catch (err) {
+    // fetchFromRentcast catches its own failures, so this is a belt-and-
+    // braces path (an unexpected throw). It is still a "couldn't ask", not
+    // a "no such address".
+    console.error("RentCast lookup failed:", err);
+    return unavailableFacts(street, zip);
   }
-  // address_line1 is the street line; the unit lives in its own column and is
-  // never folded in here.
+  // A true miss (RentCast answered and has no record). address_line1 is the
+  // street line; the unit lives in its own column and is never folded in here.
   return blankFacts(street, zip);
 }
 
@@ -1055,7 +1061,10 @@ async function fetchMarketValueFacts(
   userId: string | null = null
 ): Promise<MarketValueFacts> {
   const key = process.env.RENTCAST_API_KEY;
-  if (!key) return BLANK_MARKET_VALUE;
+  // "Unavailable", never "none": same reason as fetchFromRentcast above. A
+  // "none" here was cached for a day in the shared parcel_cache, so a
+  // keyless localhost could blank a live home's value for that long.
+  if (!key) return UNAVAILABLE_MARKET_VALUE;
 
   const address = `${lookupStreet(street, unit)}, ${zip}`;
   const url = `https://api.rentcast.io/v1/avm/value?address=${encodeURIComponent(address)}`;

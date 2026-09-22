@@ -55,9 +55,11 @@ describe("/pros states the success-fee model, not the retired per-lead model", (
   it("states the honest, currently-true trust facts instead of the retired guarantees", () => {
     expect(page).toContain("No pay-to-apply, ever");
     expect(page).toContain("Keep 100% of what you");
-    expect(page).toContain("verified the");
-    expect(page).toContain("homeowner");
-    expect(page).toContain("ownership");
+    // Reworded 2026-09-20 (legal review H-06): a name match against public
+    // records, never "we verified ownership".
+    expect(page).toContain("matched public");
+    expect(page).toContain("property records");
+    expect(page).not.toContain("verified the");
     expect(page).toContain("Cancel it any time");
   });
 

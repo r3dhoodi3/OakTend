@@ -79,8 +79,8 @@ export default function CookieNotice() {
       className="fixed left-4 right-4 z-40 bottom-[calc(3.5rem_+_env(safe-area-inset-bottom)_+_1rem)] rounded-xl border border-stone-200 bg-white p-4 shadow-menu lg:bottom-4 sm:left-auto sm:right-6 sm:max-w-sm dark:border-white/10 dark:bg-stone-900"
     >
       <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
-        We use only the cookies that keep you signed in and make OakTend work.
-        No ad cookies, ever.
+        We use cookies for sign-in, security, and fraud prevention. No ad
+        cookies.
       </p>
       <div className="mt-3 flex items-center justify-between gap-3">
         <Link

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import Lightbox from "@/components/Lightbox";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 export type PrepKey = "water_shutoff" | "gas_shutoff" | "breaker_panel";
 
@@ -75,7 +76,9 @@ export default function PanicCard({
                   {i === 0 && prepPhotoSrc && (
                     <div className="mt-2 rounded-md bg-bark-50 p-2 dark:bg-bark-700/30">
                       <p className="mb-1 text-xs font-medium text-bark-700 dark:text-stone-300">
-                        Your shutoff is here:
+                        {flow.prepKey === "breaker_panel"
+                          ? "Your breaker panel is here:"
+                          : "Your shutoff is here:"}
                       </p>
                       <button
                         type="button"
@@ -104,8 +107,14 @@ export default function PanicCard({
               </li>
             ))}
           </ol>
+          {isHomeownerPreview() && (
+            <p className="text-sm text-stone-500 dark:text-stone-400">
+              Our pro network is not open yet. For repairs, call a local
+              licensed company now.
+            </p>
+          )}
           <Link href={ctaHref} className="btn-primary flex w-full text-center">
-            Get a pro on it
+            {isHomeownerPreview() ? "Save this job" : "Get a pro on it"}
           </Link>
         </div>
       )}

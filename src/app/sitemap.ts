@@ -66,45 +66,69 @@ export const revalidate = 3600;
 // not from the thin page.tsx wrapper around it - the wrapper is not where
 // the words live.
 const LAST_MODIFIED: Record<string, string> = {
-  "/": "2026-09-16",
-  "/pros": "2026-09-16",
+  "/": "2026-09-20",
+  "/pros": "2026-09-20",
   "/pricing": "2026-09-17",
-  "/emergency-help": "2026-09-17",
+  "/emergency-help": "2026-09-20",
   // The city pages: 2026-09-18, this pass. It rewrote their headline, title,
   // description and pro-promise copy for the preview (src/lib/previewMode.ts)
   // and added the breadcrumb line, so the words on the page really did change
   // today; their previous git date (2026-09-03) would now be wrong.
-  "/fountain-valley": "2026-09-18",
-  "/huntington-beach": "2026-09-18",
-  "/oc": "2026-09-18",
-  "/privacy": "2026-09-16",
-  "/terms": "2026-09-16",
-  "/pro-terms": "2026-09-15",
-  "/pro-data-addendum": "2026-09-16",
-  "/ai-disclosure": "2026-09-16",
+  "/fountain-valley": "2026-09-20",
+  "/huntington-beach": "2026-09-20",
+  // The county hub, src/app/oc/page.tsx. Its own date: see lastModifiedFor.
+  "/oc": "2026-09-20",
+  "/privacy": "2026-09-20",
+  "/terms": "2026-09-20",
+  "/pro-terms": "2026-09-20",
+  "/pro-data-addendum": "2026-09-20",
+  "/ai-disclosure": "2026-09-20",
   "/dmca": "2026-09-16",
-  "/billing": "2026-09-15",
-  "/sms-terms": "2026-09-15",
-  "/accessibility": "2026-09-15",
-  "/guidelines": "2026-09-16",
+  "/billing": "2026-09-20",
+  "/sms-terms": "2026-09-20",
+  "/accessibility": "2026-09-20",
+  "/guidelines": "2026-09-20",
   "/security": "2026-09-03",
   "/law-enforcement": "2026-09-15",
-  "/cookies": "2026-09-16",
-  "/subprocessors": "2026-09-15",
-  "/privacy-choices": "2026-09-17",
+  "/cookies": "2026-09-20",
+  "/subprocessors": "2026-09-20",
+  "/privacy-choices": "2026-09-20",
   "/contact": "2026-09-17",
+  "/about": "2026-09-20",
 };
 
 // Every /oc/<city> page is the same file with a different city name in it
-// (src/app/oc/[city]/page.tsx), so they all share one date - the one keyed
-// "/oc" above. Looked up through this rather than given 34 identical entries.
+// (src/app/oc/[city]/page.tsx), so they all share one date. Its own constant
+// rather than a "/oc" key in the map above, because "/oc" is a real page with
+// a history of its own (the county hub, src/app/oc/page.tsx).
+//
+// PER-CITY DATES: not yet, because on this branch there is nothing to read
+// one from - all 34 pages render from one template and one shared copy file.
+// The researched city pages (src/content/cities/<slug>.ts, on the city-pages
+// branch) are one file per city. When they merge, give each file a
+// `lastUpdated` and add it to CITY_LAST_MODIFIED below; any city without an
+// entry keeps the shared date, so a partial rollout stays honest.
+const CITY_PAGES_LAST_MODIFIED = "2026-09-20";
+const CITY_LAST_MODIFIED: Record<string, string> = {};
+
 function lastModifiedFor(path: string): string | undefined {
-  if (path.startsWith("/oc/")) return LAST_MODIFIED["/oc"];
+  if (path.startsWith("/oc/")) {
+    return CITY_LAST_MODIFIED[path] ?? CITY_PAGES_LAST_MODIFIED;
+  }
   return LAST_MODIFIED[path];
 }
 
+// PREVIEW MODE: the three pro-side pages are left out while the pro side is
+// closed. /pros is a short coming-soon page with a waitlist form, and the two
+// pro legal documents govern a product nobody can sign up for yet. All three
+// still exist and still return 200 (a pro following a link must reach them),
+// so this is not a noindex - they are simply not pages worth asking a crawler
+// to spend its visit on, and /pros at priority 0.8 was telling it the
+// opposite. With the flag off all three are listed exactly as before.
+const PREVIEW_HIDDEN_PATHS = new Set(["/pros", "/pro-terms", "/pro-data-addendum"]);
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const entries: MetadataRoute.Sitemap = [
+  const allEntries: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
       lastModified: LAST_MODIFIED["/"],
@@ -144,6 +168,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${SITE_URL}/huntington-beach`,
       lastModified: LAST_MODIFIED["/huntington-beach"],
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    // The county hub that lists all 36 (src/app/oc/page.tsx). Above the city
+    // pages in priority because it is the page aimed at the county-wide
+    // search, and every city page's breadcrumb points up to it.
+    {
+      url: `${SITE_URL}/oc`,
+      lastModified: LAST_MODIFIED["/oc"],
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -215,6 +248,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.3,
     },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified: LAST_MODIFIED["/about"],
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
     // GUIDE_PATHS and the dates both come from src/lib/guides.ts, which is
     // also what src/components/GuideArticleJsonLd.tsx builds each guide's
     // Article node from. One map, so the <lastmod> here and the dateModified
@@ -226,6 +265,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     })),
   ];
+
+  const preview = isHomeownerPreview();
+  const entries = preview
+    ? allEntries.filter(
+        (entry) => !PREVIEW_HIDDEN_PATHS.has(entry.url.slice(SITE_URL.length))
+      )
+    : allEntries;
 
   // PREVIEW MODE: NO /p/ URLs AT ALL, and this is not a judgement call.
   //
@@ -242,9 +288,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // listing any of it would be handing a crawler a sitemap full of
   // guaranteed 404s - the single worst thing a sitemap can contain.
   //
-  // Nothing else in this file is preview-dependent: the marketing pages all
-  // still exist, they just say different things (src/lib/previewMode.ts).
-  if (isHomeownerPreview()) return entries;
+  // The only other preview-dependent thing in this file is
+  // PREVIEW_HIDDEN_PATHS above: the rest of the marketing pages all still
+  // exist, they just say different things (src/lib/previewMode.ts).
+  if (preview) return entries;
 
   try {
     const admin = createAdminClient();

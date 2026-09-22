@@ -22,7 +22,7 @@ All of the following are first-party cookies: set by {{BRAND}} itself, read only
 | `oaktend_last_reason` | Remembers why you were shown a paywall or upgrade prompt (for example, after asking a question or filing a report), so we can show the right message on the next page | Short-lived | First-party, functional only |
 | `oaktend_ho_chat_seen` / `oaktend_chat_seen` | Tracks which chat threads and messages you've already viewed, so unread counts are accurate | 180 days | First-party, functional only |
 | `oaktend_campaign` | Remembers which referral or campaign link brought you here, so that if you sign up we can credit the right one | 30 days | First-party, httpOnly |
-| `oaktend_gpc_seen` | Records that your browser's Global Privacy Control signal was noticed, so we log it once instead of on every page you open | Until you close your browser | First-party, httpOnly |
+| `oaktend_gpc_seen` | Records that your browser's Global Privacy Control signal was noticed during this visit | Until you close your browser | First-party, httpOnly |
 
 Cookies set before our September 2026 name change carry the earlier prefix. We still read them during a transition period that ends December 31, 2026, and after that they are ignored.
 

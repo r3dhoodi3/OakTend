@@ -22,7 +22,7 @@ import CookieNotice from "./CookieNotice";
 
 const DISMISSED_KEY = "oaktend_cookie_notice_dismissed";
 const TEXT =
-  "We use only the cookies that keep you signed in and make OakTend work. No ad cookies, ever.";
+  "We use cookies for sign-in, security, and fraud prevention. No ad cookies.";
 
 beforeEach(() => {
   window.localStorage.clear();

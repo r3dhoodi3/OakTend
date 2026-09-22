@@ -1,5 +1,7 @@
 # Pro Landing Page Demo Video: Transcript and Caption Sync
 
+> Note added 2026-09-20. This transcript records the video as it was cut. Two lines in it describe the fee model that was retired on 2026-09-10 and must not be reused: the `leads` line ("with the lead fee shown up front") and the unused `end.mp3` clip about a fee coming back as credit. Under the current model applying is free and the only charge is a 5% success fee when a homeowner hires the pro. The replacement `leads` line is "New jobs post here. Applying is free." The re-record and the removal of `public/demo-vo/pro/end.mp3` are still to do (legal review 2026-09-19, N-73).
+
 Source of truth: `src/components/ProDemoPlayer.tsx` (current working tree, Aug 10 re-cut plus the Aug 14 founder notes: dead-air fix, wallet clause cut, new ending line, plus the 2026-09-04 OakTend rename).
 Video length: 28.5 seconds (76 beats at 160 BPM, 375 ms per beat).
 VO files: `public/demo-vo/pro/*.mp3` (msedge-tts en-US-AvaNeural, rate -8%, 24 kHz 96 kbps CBR mono). `apply.mp3` and `won.mp3` were regenerated on 2026-08-14 with those same settings, and `hook.mp3` was re-recorded on 2026-09-04 with those same settings again for the OakTend rename. `hook` is the only pro clip whose line ever spoke the brand.

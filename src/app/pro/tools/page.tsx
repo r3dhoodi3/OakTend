@@ -57,7 +57,7 @@ const TOOLS: Array<{ icon: LucideIcon; title: string; body: string }> = [
   {
     icon: Mail,
     title: "Follow-up writer",
-    body: "The message you keep meaning to send: nudge a quiet quote, ask a happy customer for a review, or check in on past work.",
+    body: "The message you keep meaning to send: nudge a quiet quote, ask a customer for a review, or check in on past work.",
   },
 ];
 

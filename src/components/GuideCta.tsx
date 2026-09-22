@@ -55,8 +55,8 @@ export default function GuideCta({
           See this for YOUR home
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-300">
-          Everything above is a general, national range. OakTend already
-          knows your home&apos;s actual age, size, and systems.
+          The numbers above are general ranges. OakTend already has the age,
+          size, and systems you entered for your home.
         </p>
         <Link
           href={signedInHref}
@@ -74,9 +74,9 @@ export default function GuideCta({
         Get the answer for YOUR home
       </h2>
       <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-300">
-        Everything above is a general, national range. OakTend knows your
-        home&apos;s actual age, size, and systems, and turns that into a
-        house-specific answer, free.
+        The numbers above are general ranges. OakTend uses the age, size, and
+        systems you enter for your home to give you a planning range of your
+        own, free.
       </p>
       <Link
         href="/homeowner-signup"

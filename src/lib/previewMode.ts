@@ -60,13 +60,13 @@ export const PRO_WAITLIST_CONFIRMATION = "You're on the list.";
 // team finds a pro for each job by hand, so the promise is "we'll find one
 // for you", not "when it launches".
 export const PREVIEW_JOB_POSTED_COPY =
-  "Saved to your home's record. Our pro network isn't open yet, so our team will find a local pro for this job by hand and reach out to you.";
+  "Saved to your home's record. Our pro network isn't open yet. Our team may look for a local pro for this job by hand, but we can't promise to find one. If it's urgent, call a local licensed company now.";
 
 // The intro under the "Post a job" heading during the preview. The normal
 // line says "local pros apply", which is not what happens yet; this one says
 // what does. One constant beside the banner copy above so the two agree.
 export const PREVIEW_POST_JOB_INTRO =
-  "Describe what you need and post it. Our pro network isn't open yet, so our team finds a local pro for you by hand and reaches out.";
+  "Describe what you need and post it. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one, so for anything urgent call a local licensed company.";
 
 // ---------------------------------------------------------------------------
 // CITY LANDING PAGES (/fountain-valley, /huntington-beach, /oc/<city>)
@@ -105,11 +105,11 @@ export function previewCityTitle(city: string): string {
 // same thing PREVIEW_JOB_POSTED_COPY says, in the shorter form a search
 // snippet has room for.
 export function previewCityDescription(city: string): string {
-  return `A maintenance plan built for your ${city} home and answers about your own systems. Our pro network isn't open yet, so post your job and our team finds a local pro by hand. Free during our preview.`;
+  return `A maintenance plan built for your ${city} home and answers about your own systems. Our pro network isn't open yet. Post a job and our team may look for a local pro by hand, with no promise of a match. Free during our preview.`;
 }
 
 // The third value card, which normally promises license-checked pros applying
 // and a pile of quotes to compare.
-export const PREVIEW_CITY_PROS_CARD_TITLE = "A local pro, found by hand";
+export const PREVIEW_CITY_PROS_CARD_TITLE = "We may look for a local pro by hand";
 export const PREVIEW_CITY_PROS_CARD_BODY =
-  "Our pro network isn't open yet. Post your job and our team finds a local pro for you by hand, then reaches out to you.";
+  "Our pro network isn't open yet. Post your job and our team may look for a local pro by hand. We can't promise to find one. Any pro is an independent business we have not vetted, so check their license at cslb.ca.gov before you hire.";

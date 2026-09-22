@@ -8,6 +8,8 @@ import { FOUNDER, PLUS_PLAN } from "@/lib/constants";
 import { LAUNCH_AREA_LABEL, LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { LEGAL, LEGAL_LINKS } from "@/lib/legal";
 import { isHomeownerPreview } from "@/lib/previewMode";
+import { CATEGORY_SENTENCE, ENTITY_DESCRIPTION } from "@/lib/siteMetadata";
+import { GUIDE_LINKS } from "@/lib/guides";
 import { previewAwareLanding } from "@/lib/previewModeServer";
 import Link from "next/link";
 import Image from "next/image";
@@ -178,13 +180,13 @@ export default async function Home(props: {
   const VALUE = [
     {
       icon: TrendingUp,
-      title: "No surprise repair bills",
+      title: "Fewer surprise repair bills",
       body: "See what may need replacing soon and how much to save each month. A big repair becomes a plan, not a panic.",
     },
     {
       icon: Bell,
       title: "Know before it breaks",
-      body: "OakTend watches for storms, recalls, and aging systems like your water heater or furnace, then sends the alert. You never have to check.",
+      body: "OakTend watches for storms, recalls, and aging systems like your water heater or furnace, then sends the alert, so you don't have to keep checking.",
     },
     {
       icon: MessageSquare,
@@ -193,8 +195,10 @@ export default async function Home(props: {
     },
     {
       icon: Wrench,
-      title: "The right pro, fast",
-      body: "Post the job once and OakTend fills in your home's details for you, so local pros can quote it fast.",
+      title: isHomeownerPreview() ? "Jobs saved with your home" : "The right pro, fast",
+      body: isHomeownerPreview()
+        ? "Write the job down once and OakTend fills in your home's details for you. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one."
+        : "Post the job once and OakTend fills in your home's details for you, so local pros can quote it fast.",
     },
   ];
 
@@ -240,16 +244,20 @@ export default async function Home(props: {
     {
       q: "Who are the pros?",
       a: isHomeownerPreview()
-        ? "Our pro network isn't open yet. During the preview you can post a job and keep it in your home's records, and we'll match you when the pro side launches."
-        : "Local pros who set up their own OakTend profiles. If a pro has a California license number, we check it live with the state's contractor license board (the CSLB) and show the result. Some trades, like handyman work or cleaning, don't require a license, so not every pro will have that badge. Pros can also complete an optional background check, which shows on their profile if they do. You always see exactly what's been verified and what hasn't.",
+        ? "Our pro network isn't open yet. During the preview you can post a job and it is saved to your home's record. Our team may then look for a local pro by hand. We can't promise to find one. Any pro we point you to is an independent business, not our employee, and we don't vet or guarantee their work, so check their license at cslb.ca.gov and ask for proof of insurance before you hire. Once the pro side opens, pros will apply to jobs in the app."
+        : "Local pros who set up their own OakTend profiles. If a pro has a California license number, we check it live with the state's contractor license board (the CSLB) and show the result. Not every pro will have that badge. Some work, like house cleaning, does not need a contractor license. Small repair jobs under $1,000 that need no permit can also be done by an unlicensed person working alone. Construction or repair work above that needs a licensed contractor. Pros can also complete an optional background check, which shows on their profile if they do. You always see exactly what's been verified and what hasn't.",
     },
     {
       q: "Will I get flooded with calls once I post a job?",
-      a: "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
+      a: isHomeownerPreview()
+        ? "No. Your contact info stays private until you pick a pro yourself. During the preview no pro sees your job or your details unless you tell us to pass them on."
+        : "No. Your contact info stays private until you pick a pro yourself. Every pro who wants the job applies inside OakTend, you compare them there, and nothing reaches your phone until you choose someone.",
     },
     {
       q: "Where is OakTend available?",
-      a: "We're serving all of Orange County, California right now, with local pros across the county. If you're outside Orange County you can still sign up and join the waitlist, which is how we decide where OakTend goes next.",
+      a: isHomeownerPreview()
+        ? "OakTend is for homes in Orange County, California. Our pro network isn't open yet."
+        : "OakTend is for homes in Orange County, California, with local pros across the county.",
     },
     {
       q: "What does Plus cost?",
@@ -283,7 +291,7 @@ export default async function Home(props: {
     },
     {
       q: "Where does my home's info come from?",
-      a: "When we have county records for your address, we pre-fill your home's year built, size, and other facts. You can correct anything that's off once you're in.",
+      a: "When we have public property records for your address (from our data provider), we pre-fill your home's year built, size, and other facts. You can correct anything that's off once you're in.",
     },
     {
       q: "What happens if I cancel or delete my account?",
@@ -359,7 +367,7 @@ export default async function Home(props: {
   // row (.chip-ok tone).
   const TRUST_SIGNALS = [
     "State contractor license (CSLB) checks",
-    "County-records ownership match (we confirm the poster owns the home)",
+    "Owner name compared with public records",
     "Your contact info stays private",
   ];
 
@@ -490,7 +498,15 @@ export default async function Home(props: {
               <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
                 Know what your home needs before it costs you
               </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              {/* The category line. The h1 is the brand promise and names no
+                  search anyone types; this sentence is the one place above the
+                  fold that says, in plain words, what OakTend IS and where
+                  (src/lib/siteMetadata.ts, shared with the About page).
+                  PhoneLanding carries the same sentence for phone widths. */}
+              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 dark:text-stone-200">
+                {CATEGORY_SENTENCE}
+              </p>
+              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
                 {/* PREVIEW MODE (addendum 4 H). The first sentence is true
                     either way and is unchanged. The second one promises pro
                     matching - "post the job once and the quotes come to you" -
@@ -533,7 +549,7 @@ export default async function Home(props: {
                   so it reads as "all clear" here too. This exact trio is the
                   founder's pick. */}
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-                {["About 30 seconds", "No card needed", "Cancel anytime"].map((label) => (
+                {["About 30 seconds", "No card needed", isHomeownerPreview() ? "Free in preview" : "Cancel anytime"].map((label) => (
                   <CheckPill key={label} label={label} />
                 ))}
               </div>
@@ -579,7 +595,7 @@ export default async function Home(props: {
           rounded full, and stay plain text labels - no trade pictograms. */}
       <section className="mt-12 max-sm:hidden sm:mt-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
-          Find a pro for
+          {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
         <ul className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2">
           {SERVICE_SCENT.map((s) => (
@@ -700,6 +716,35 @@ export default async function Home(props: {
         )}
       </section>
 
+      {/* What is OakTend? One plain definition, word for word the fixed
+          entity description (src/lib/siteMetadata.ts), because this is the
+          paragraph a search engine or an AI answer tool quotes when someone
+          asks what OakTend is. The two sentences after it are the two things
+          people ask next: what happens to my data, and what does it cost.
+          Shown on phone too: a single text card, no layout of its own. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          What is OakTend?
+        </h2>
+        <div className="card mx-auto mt-6 max-w-xl">
+          <p className="leading-relaxed text-stone-700 dark:text-stone-300">
+            {ENTITY_DESCRIPTION}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+            We never sell your personal information.{" "}
+            {isHomeownerPreview()
+              ? "Everything in the app is free during our preview, and no card is needed."
+              : "Your first home is free, and no card is needed."}{" "}
+            <Link
+              href="/about"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              About OakTend
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* FAQ: the questions people actually ask, answered from what the
           product really does. No invented stats, no "vetted" claims.
           FAQ_ITEMS also backs the FAQPage JSON-LD below, so the structured
@@ -744,8 +789,8 @@ export default async function Home(props: {
           Get started free
         </Link>
         <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-          Free for your first home. About 30 seconds to sign up. No card
-          needed.
+          {isHomeownerPreview() ? "Free during our preview." : "Free for your first home."}{" "}
+          About 30 seconds to sign up. No card needed.
         </p>
       </section>
 
@@ -760,8 +805,14 @@ export default async function Home(props: {
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-400">
           For contractors
         </h2>
+        {/* PREVIEW MODE. "Real local leads" is a promise of leads, and the
+            pro side is closed during the preview (/pros is a coming-soon page
+            with a waitlist), so the preview heading says that instead. Wording
+            only: the link, its target and its tracking id are unchanged. */}
         <h3 className="mt-2 text-xl font-semibold text-white">
-          Fix homes for a living? Real local leads, honest pricing.
+          {isHomeownerPreview()
+            ? "Fix homes for a living? OakTend for Pros is coming soon."
+            : "Fix homes for a living? Real local leads, honest pricing."}
         </h3>
         {/* PREVIEW MODE (Landen 2026-09-10 requests, landing page). Outside
             preview the paragraph describes the live 5% success fee, which
@@ -775,12 +826,12 @@ export default async function Home(props: {
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
           {isHomeownerPreview() ? (
             <>
-              You don&rsquo;t pay until you get hired. No subscription, no lead
-              fees, no bidding wars.
+              You don&rsquo;t pay until you get hired. No subscription required,
+              no lead fees, no bidding wars.
             </>
           ) : (
             <>
-              Apply and quote for free, no subscription. You pay a 5% success
+              Apply and quote for free, no subscription required. You pay a 5% success
               fee, capped at $1,000, only when a homeowner hires you through
               OakTend.
             </>
@@ -793,7 +844,7 @@ export default async function Home(props: {
           data-track="landing_explore_pros"
           className="mt-5 inline-block rounded-lg border border-stone-500 px-6 py-2.5 font-medium text-white hover:border-white hover:bg-white/10 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center"
         >
-          Explore OakTend for Pros
+          {isHomeownerPreview() ? "Join the pro waitlist" : "Explore OakTend for Pros"}
         </Link>
       </section>
 
@@ -810,6 +861,53 @@ export default async function Home(props: {
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
         </h2>
         <CityList cities={CITIES} />
+        {/* The county hub: one page that lists every city by region
+            (src/app/oc/page.tsx). A plain text link so it sits under both the
+            phone list and the desktop chip grid without changing either. */}
+        <p className="mt-4 text-center text-sm">
+          <Link
+            href="/oc"
+            className="inline-flex min-h-11 items-center text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300"
+          >
+            Home maintenance in Orange County, city by city
+          </Link>
+        </p>
+      </section>
+
+      {/* All 12 guides, from the one list the sitemap and the guides index
+          also read (GUIDE_LINKS, src/lib/guides.ts). The footer's Guides column
+          only ever had room for three, and that footer is hidden on phone, so
+          a phone visitor and a crawler reading the phone layout had no way
+          from here to nine of them. Plain text links: two columns from sm up,
+          one column of 44px rows on phone. */}
+      <section className="mt-16 sm:mt-24">
+        <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+          Home maintenance guides
+        </h2>
+        <p className="mx-auto mt-2 max-w-xl text-center text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          Plain answers on costs, warning signs and schedules, written for
+          Orange County homes.
+        </p>
+        <ul className="mx-auto mt-6 grid max-w-xl gap-x-8 sm:grid-cols-2 sm:gap-y-2">
+          {GUIDE_LINKS.map((guide) => (
+            <li key={guide.href}>
+              <Link
+                href={guide.href}
+                className="flex min-h-11 items-center text-sm text-stone-700 hover:text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300 dark:hover:text-stone-100"
+              >
+                {guide.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-center text-sm">
+          <Link
+            href="/guides"
+            className="inline-flex min-h-11 items-center text-bark-700 hover:underline sm:min-h-0 dark:text-stone-300"
+          >
+            See all guides
+          </Link>
+        </p>
       </section>
 
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">

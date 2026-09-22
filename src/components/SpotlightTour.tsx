@@ -109,7 +109,7 @@ export const HOMEOWNER_STEPS: TourStep[] = [
     // pro by hand (PREVIEW_POST_JOB_INTRO says the same on the page this tab
     // opens), so the tour must not promise applicants.
     body: isHomeownerPreview()
-      ? "Post the job once. Our pro network isn't open yet, so our team finds a local pro for you by hand and reaches out."
+      ? "Post the job once. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one."
       : "Post the job once and local pros apply to it. Your phone and email stay private until you pick someone.",
     fallbackPlacement: "above",
   },
@@ -125,7 +125,7 @@ export const PRO_STEPS: TourStep[] = [
     target: '.card-link[href="/pro/billing"]',
     targetClosest: ".grid",
     title: "Today's numbers",
-    body: "Your wallet, open jobs, active work, and win rate in one row. Each card opens the page behind it.",
+    body: "Your billing, open jobs, active work, and win rate in one row. Each card opens the page behind it.",
   },
   {
     route: "/pro",

@@ -1,8 +1,10 @@
 > **Superseded 2026-09-07.** See `docs/APP-STORE-SUBMISSION.md` for the current plan: the
 > Capacitor scaffold now exists (`capacitor.config.ts`, `ios/`, `android/`), and the decision on
 > item 3 below changed - OakTend Plus and OakTend Pro membership now sell through Apple/Google IAP
-> (RevenueCat), not "sell on web, app honors the entitlement" as this file recommended. The lead-fee
-> and wallet-deposit reasoning in item 3 (3.1.3(e), Stripe stays) is unchanged and still current.
+> (RevenueCat), not "sell on web, app honors the entitlement" as this file recommended. The fee
+> model this file discusses in item 3 was retired on 2026-09-10. The current model is a 5% success
+> fee paid by the pro when hired, with free applying; the 3.1.3(e) reasoning (payment for real-world
+> work outside the app, so Stripe stays) still applies to it. Nothing is sold during the preview.
 > This file is kept for its dated research; do not follow item 3's membership recommendation.
 
 # App Store approval checklist for a future OakTend iOS app
@@ -33,8 +35,8 @@ https://developer.apple.com/support/offering-account-deletion-in-your-app/
 ## 3. Payments: Stripe is REQUIRED, not just allowed (Guideline 3.1.3(e))
 
 For physical goods and services consumed OUTSIDE the app, Apple's rule is that you MUST use
-purchase methods other than in-app purchase. Homeowner payments and contractor lead fees for
-real-world home services fall squarely here - Stripe stays, IAP is not wanted. (Older articles
+purchase methods other than in-app purchase. Homeowner payments to a contractor and the
+contractor's success fee for real-world home services fall squarely here - Stripe stays, IAP is not wanted. (Older articles
 cite this as 3.1.5(a); it now lives at 3.1.3(e). Current 3.1.5 is Cryptocurrencies.)
 
 One gray area to manage deliberately: the PRO MEMBERSHIP subscription. As long as its value is
@@ -70,7 +72,7 @@ shell; the experience must feel adapted to iOS, not a bookmark.
   one seeded contractor account with realistic data. Missing or broken demo logins are among the
   most common rejections.
 - Reviewer notes should explain the two-sided flow and state explicitly that all payments are for
-  real-world home services (heads off a mistaken 3.1.1 IAP flag on the wallet/lead fees).
+  real-world home services (heads off a mistaken 3.1.1 IAP flag on the success fee).
 - A public privacy policy URL is mandatory.
 
 ## 7. User-generated content (Guideline 1.2)

@@ -48,7 +48,7 @@ export default function EmergencyHelpPage() {
       </h1>
       <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-400">
         Something wrong right now? Pick what&apos;s happening below. The steps are
-        short, do them in order. No account needed.
+        short. Do them in order. No account needed.
       </p>
 
       {/* Life-safety caveat, first thing on the page. Red accent is reserved
@@ -65,7 +65,13 @@ export default function EmergencyHelpPage() {
               <li>If you smell gas, leave the house first and call from outside. Don&apos;t flip switches or use your phone indoors.</li>
               <li>Never step into standing water to reach a breaker panel or an outlet. If you&apos;d have to stand in water, leave it for an electrician.</li>
               <li>Stay far away from any downed power line and call 911.</li>
+              <li>If a carbon monoxide alarm sounds, or people feel a headache, dizziness, or nausea at home, get everyone outside to fresh air and call 911 from outside.</li>
             </ul>
+            <p className="mt-2">
+              These are general safety steps, not an emergency service. OakTend is
+              software, not a contractor or a utility. If you are not sure a step
+              is safe, skip it, get out, and call 911.
+            </p>
           </div>
         </div>
       </div>
@@ -79,15 +85,16 @@ export default function EmergencyHelpPage() {
       {/* Calm CTA once the immediate danger is handled. */}
       <section className="card mt-8 space-y-3">
         <h2 className="font-semibold text-stone-900 dark:text-stone-100">
-          Once you are safe, OakTend can line up a local pro
+          Once you are safe
         </h2>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          Create a free account and post the job with your photos. It&apos;s saved
-          to your home&apos;s record, and OakTend matches you with license-checked
-          local pros as soon as they are available.
+          For repairs, call a local licensed company now. Our pro network is not
+          open yet, so don&apos;t wait on OakTend for an emergency. With a free
+          account you can save what happened, with photos, to your home&apos;s
+          record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
-          Post the job
+          Save it to my home&apos;s record
         </Link>
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
           Already have an OakTend account? The in-app version at{" "}

@@ -51,10 +51,6 @@ const HELP_WORDS = new Set(["HELP", "INFO"]);
 
 const TWIML_EMPTY_RESPONSE = "<Response></Response>";
 
-// Canonical site origin for the support link in the HELP reply. Same env var
-// and fallback the rest of the app uses (src/app/layout.tsx etc.).
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
 // XML-escape values dropped into TwiML. The HELP body contains "&" (in
 // "Msg&data"), which is not valid raw in XML, so at minimum & < > must be
 // encoded or Twilio rejects the TwiML.
@@ -67,10 +63,11 @@ function escapeXml(s: string): string {
 
 // One compliant HELP/INFO auto-reply, returned as TwiML so Twilio sends it
 // back to the texter (the same reply channel this route already speaks - no
-// separate REST call needed). Identifies the sender, points to support, and
-// restates the rate + opt-out disclosure carriers look for.
+// separate REST call needed). Names the program, gives the support email and
+// phone, and restates the rate + opt-out disclosure carriers look for. Word
+// for word what src/content/legal/sms-terms.md section 6 publishes.
 function helpTwiml(): string {
-  const message = `${LEGAL.brand}: home maintenance help. Support: ${SITE_URL}/contact Msg&data rates may apply. Reply STOP to opt out.`;
+  const message = `${LEGAL.brand} Alerts: account and job texts. Help: ${LEGAL.supportEmail} or ${LEGAL.businessPhone}. Msg&data rates may apply. Msg frequency varies. Reply STOP to opt out.`;
   return `<Response><Message>${escapeXml(message)}</Message></Response>`;
 }
 
@@ -88,7 +85,7 @@ function stopTwiml(): string {
 // restating the same rate/frequency/opt-out disclosure the Account checkbox
 // promises, so a text-triggered opt-in reads exactly like a checkbox one.
 function startTwiml(): string {
-  const message = `You have opted in to ${LEGAL.brand} text messages for account and job-related alerts. Msg&data rates may apply. Message frequency varies. Reply STOP to opt out, HELP for help.`;
+  const message = `You're opted in to ${LEGAL.brand} account and job alerts. Msg&data rates may apply. Msg frequency varies. Reply HELP for help. Reply STOP to opt out.`;
   return `<Response><Message>${escapeXml(message)}</Message></Response>`;
 }
 

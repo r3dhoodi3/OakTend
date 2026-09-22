@@ -139,8 +139,8 @@ In order:
 11. **Demo account (see section "e" below).**
 12. **App Review notes** - paste the draft in section "f" below into App Store Connect's App
     Review Information > Notes field, filled in with the real demo credentials.
-13. Submit. If a reviewer pushes back on the lead-fee/wallet-deposit Stripe flow as an IAP
-    violation, respond with the same 3.1.3(e) framing from section "f".
+13. Submit. If a reviewer asks about the success fee, respond with the same 3.1.3(e) framing
+    from section "f": it is a fee for real-world work done at the home, outside the app.
 
 ---
 
@@ -201,33 +201,33 @@ tonight's throwaway-account rule) - not created by this pass.
 ## f. App Review notes draft (paste into App Store Connect)
 
 ```
-OakTend is a two-sided home-services marketplace: homeowners track their home's systems and
-maintenance, and post jobs; licensed contractors ("pros") browse and apply to those jobs.
+OakTend helps homeowners track their home's systems and maintenance and keep their home
+records. A marketplace for independent local contractors ("pros") is planned and is closed in
+this version: there is no open pro sign-up and nothing can be bought.
 
 DEMO ACCOUNTS
 Homeowner: [Landen fills in email/password]
-Contractor: [Landen fills in email/password]
 
-WHY MOST PAYMENTS USE OUR OWN CHECKOUT (STRIPE), NOT IN-APP PURCHASE
-Two kinds of purchase exist in this app, and they are handled differently on purpose:
+PAYMENTS
+Nothing is sold in this version. Everything is free during our preview and memberships show as
+"coming soon".
 
-1. OakTend Plus (homeowner) and OakTend Pro (contractor) MEMBERSHIP SUBSCRIPTIONS unlock digital
-   features inside the app (AI-assisted tools, unlimited chat with our AI assistant, document
-   analysis, priority job matching). These go through Apple/Google In-App Purchase, per guideline
-   3.1.1, via RevenueCat.
+What is planned, so you know what to expect in a later version:
 
-2. LEAD FEES ($25-$99, paid by a contractor to be introduced to a specific homeowner's posted job)
-   and WALLET DEPOSITS (a contractor pre-funding their lead-fee balance) use our own Stripe
-   checkout, not IAP. These purchase access to a real-world home-repair job that is performed and
-   consumed entirely outside the app, at the homeowner's house - the same category guideline
-   3.1.3(e) describes ("goods or services that will be consumed outside of the app"), and the same
-   model established home-services marketplace apps use for their own lead-fee products (Thumbtack,
-   Angi, TaskRabbit, HomeAdvisor all sell lead credits to their pros through their own payment
-   rails, not platform IAP). Nothing purchased through this flow unlocks any additional in-app
-   feature, screen, or content - it is solely the fee to be introduced to one specific job.
+1. OakTend Plus (homeowner) and OakTend Pro (contractor) MEMBERSHIP SUBSCRIPTIONS will unlock
+   digital features inside the app. When offered in the app, they will use In-App Purchase, per
+   guideline 3.1.1.
 
-To see this flow: sign in as the contractor demo account, go to the Jobs tab, and apply to any
-open job - the fee screen there is the Stripe flow described above.
+2. When the marketplace opens, the only other charge is a 5% SUCCESS FEE ($15 minimum, $1,000
+   cap) paid by the contractor when a homeowner hires them for real-world work done at the
+   homeowner's house, outside the app. The homeowner pays the contractor's invoice for that
+   real-world work through Stripe. These are payments for services consumed outside the app, the
+   category guideline 3.1.3(e) describes. Applying to jobs is free. There are no fees to apply
+   and no prepaid balances.
+
+Not every contractor on the future marketplace will hold a state license, because California
+allows some small jobs without one. Where a contractor lists a license number, the app shows the
+result of a public state license lookup and the date it was checked.
 
 We're happy to discuss this further if there are questions about the distinction.
 ```

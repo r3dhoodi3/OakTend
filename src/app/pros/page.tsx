@@ -578,8 +578,8 @@ export default async function ProsLanding(props: {
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
               <span>
-                Every job lead shows whether we&apos;ve verified the
-                homeowner&apos;s ownership against county records.
+                Each job shows whether the poster&apos;s name matched public
+                property records.
               </span>
             </li>
             <li className="flex items-start gap-2">
@@ -593,11 +593,11 @@ export default async function ProsLanding(props: {
         </div>
       </section>
 
-      {/* Honesty line: this matches the wallet's actual bonus terms */}
+      {/* Honesty line. The old deposit-bonus paragraph was removed with the
+          retired wallet model (legal review H-09). */}
       <p className="mx-auto mt-12 max-w-md text-center text-xs text-stone-500 dark:text-stone-400">
-        Deposits of $200 or more earn bonus credit on top. Bonus credit
-        expires 60 days after you get it. The money you deposited never
-        expires.
+        Applying, quoting, and messaging are free. The only fee is 5% of the
+        job when a homeowner hires you, $15 minimum, $1,000 cap.
       </p>
 
       <footer className="mt-16 border-t border-stone-200 pt-6 text-center dark:border-white/10">

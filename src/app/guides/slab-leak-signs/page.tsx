@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
+import GuideMeta from "@/components/GuideMeta";
+import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
@@ -125,6 +127,9 @@ export default function SlabLeakSignsGuide() {
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Slab leak signs: how to spot one early
       </h1>
+      {/* Updated date and byline, from the same date map the sitemap and the
+          Article node read (src/components/GuideMeta.tsx). */}
+      <GuideMeta path="/guides/slab-leak-signs" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         General guidance for homeowners, especially in older Orange County
         tract homes.
@@ -227,6 +232,10 @@ export default function SlabLeakSignsGuide() {
           </div>
         </section>
       </div>
+
+      {/* Sources (where verified), related guides and city pages
+          (src/components/GuideRelated.tsx, data in src/lib/guideExtras.ts). */}
+      <GuideRelated path="/guides/slab-leak-signs" />
 
       <GuideCta />
     </main>
