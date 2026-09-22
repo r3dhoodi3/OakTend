@@ -587,7 +587,11 @@ export default async function Home(props: {
           post-a-job form on /contractors lands pre-filled (it reads
           ?category=). Chips reuse the header link's neutral outline shape,
           rounded full, and stay plain text labels - no trade pictograms. */}
-      <section className="mt-12 max-sm:hidden sm:mt-16">
+      {/* These two sections sit inside the hero band, so on a tall desktop
+          they are on screen while the page loads. They carry the entrance
+          too, picking up where the hero copy leaves off (450ms), or the top
+          half of the first screen animated and the bottom half sat still. */}
+      <section className="hero-rise mt-12 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] sm:mt-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
@@ -610,7 +614,7 @@ export default async function Home(props: {
       {/* Trust strip: three already-true signals in the green "all clear"
           pill, the same tone as the hero reassurance row. No invented
           numbers - only what OakTend actually does today. */}
-      <section className="mt-8 max-sm:hidden">
+      <section className="hero-rise mt-8 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms]">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           What we check
         </h2>
