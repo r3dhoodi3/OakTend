@@ -676,7 +676,7 @@ export default async function Home(props: {
                 href={`/homeowner-signup?next=${encodeURIComponent(
                   `/contractors?category=${s.value}`
                 )}`}
-                className="inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
+                className="pill-grow inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
               >
                 {s.label}
               </Link>
