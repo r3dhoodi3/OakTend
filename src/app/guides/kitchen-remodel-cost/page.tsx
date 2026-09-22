@@ -123,7 +123,7 @@ export default function KitchenRemodelCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Kitchen remodel cost in Orange County" },
+          { name: "Kitchen remodel cost in Orange County" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

@@ -82,6 +82,7 @@ export default function FountainValleyPage() {
       />
       <CityLandingPage
         city="Fountain Valley"
+        path="/fountain-valley"
         housingParagraph={HOUSING_PARAGRAPH}
       />
     </>
