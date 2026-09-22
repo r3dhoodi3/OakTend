@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import PasswordInput from "@/components/PasswordInput";
 import SubmitButton from "@/components/SubmitButton";
 import PasswordStrengthMeter from "@/components/PasswordStrengthMeter";
 import Turnstile, {
@@ -309,17 +310,14 @@ export default function AccountSecurityPanel({
           {hasPassword && (
             <div>
               <label className="label">Current Password</label>
-              <div className="relative">
-                <FieldIcon>{keyIcon}</FieldIcon>
-                <input
-                  name="current_password"
-                  type="password"
-                  autoComplete="current-password"
-                  className="input pl-9"
-                  placeholder="Enter current password"
-                  required
-                />
-              </div>
+              <PasswordInput
+                leading={<FieldIcon>{keyIcon}</FieldIcon>}
+                name="current_password"
+                autoComplete="current-password"
+                className="pl-9"
+                placeholder="Enter current password"
+                required
+              />
               <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
                 We ask for this so nobody else can move your sign-in email.
               </p>
@@ -369,52 +367,43 @@ export default function AccountSecurityPanel({
           <form action={updatePasswordAction} className="mt-5 max-w-md space-y-4">
             <div>
               <label className="label">Current Password</label>
-              <div className="relative">
-                <FieldIcon>{keyIcon}</FieldIcon>
-                <input
-                  name="current_password"
-                  type="password"
-                  autoComplete="current-password"
-                  className="input pl-9"
-                  placeholder="Enter current password"
-                  required
-                />
-              </div>
+              <PasswordInput
+                leading={<FieldIcon>{keyIcon}</FieldIcon>}
+                name="current_password"
+                autoComplete="current-password"
+                className="pl-9"
+                placeholder="Enter current password"
+                required
+              />
             </div>
   
             <div>
               <label className="label">New Password</label>
-              <div className="relative">
-                <FieldIcon>{lockSmall}</FieldIcon>
-                <input
-                  name="new_password"
-                  type="password"
-                  autoComplete="new-password"
-                  className="input pl-9"
-                  placeholder="At least 8 characters"
-                  minLength={8}
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                />
-              </div>
+              <PasswordInput
+                leading={<FieldIcon>{lockSmall}</FieldIcon>}
+                name="new_password"
+                autoComplete="new-password"
+                className="pl-9"
+                placeholder="At least 8 characters"
+                minLength={8}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
               <PasswordStrengthMeter password={newPassword} />
             </div>
   
             <div>
               <label className="label">Confirm New Password</label>
-              <div className="relative">
-                <FieldIcon>{lockSmall}</FieldIcon>
-                <input
-                  name="confirm_password"
-                  type="password"
-                  autoComplete="new-password"
-                  className="input pl-9"
-                  placeholder="Confirm new password"
-                  minLength={8}
-                  required
-                />
-              </div>
+              <PasswordInput
+                leading={<FieldIcon>{lockSmall}</FieldIcon>}
+                name="confirm_password"
+                autoComplete="new-password"
+                className="pl-9"
+                placeholder="Confirm new password"
+                minLength={8}
+                required
+              />
             </div>
   
             {/* Turnstile for the CAPTCHA-gated current-password re-auth on the
@@ -548,17 +537,14 @@ export default function AccountSecurityPanel({
               {hasPassword ? (
                 <div>
                   <label className="label">Enter your password to confirm</label>
-                  <div className="relative">
-                    <FieldIcon>{keyIcon}</FieldIcon>
-                    <input
-                      name="current_password"
-                      type="password"
-                      autoComplete="current-password"
-                      className="input pl-9"
-                      placeholder="Current password"
-                      required
-                    />
-                  </div>
+                  <PasswordInput
+                    leading={<FieldIcon>{keyIcon}</FieldIcon>}
+                    name="current_password"
+                    autoComplete="current-password"
+                    className="pl-9"
+                    placeholder="Current password"
+                    required
+                  />
                 </div>
               ) : (
                 /* No password on this account, so there's nothing to re-enter.
