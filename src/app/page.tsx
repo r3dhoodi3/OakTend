@@ -104,6 +104,85 @@ function CheckPill({ label }: { label: string }) {
   );
 }
 
+// LANDING BANDS (2026-09-21). The desktop page used to be twelve sections on
+// the one cream body colour, with two dark rounded cards floating in the
+// middle: one long scroll with no chapters. Each group of sections now sits
+// in a full-width band - cream (the body colour), white, or dark - so a
+// change of topic reads as a change of background. Dark is kept for the two
+// moments that earn it: the product demo and the closing ask. The band owns
+// the vertical rhythm: every section inside starts at mt-0 and siblings get
+// the same gap, so the old per-section top margins no longer stack on top of
+// the band's own padding. The phone landing (PhoneLanding.tsx) is untouched;
+// sections that show on phones simply render inside a band there too.
+//
+// TWO LOOKS, one switch (BAND_STYLE), while the founder picks:
+//   "full" - every band runs edge to edge across the viewport.
+//   "card" - white and dark bands are big rounded cards sitting in the page
+//            column with a gap between them; "warm" bands are just the body
+//            colour with nothing drawn, since a cream card on a cream page
+//            would be invisible.
+//   "mixed" - the two dark bands run edge to edge (the demo theatre and the
+//            closing ask are the page's big moments), the white ones are
+//            cards, warm stays plain.
+const BAND_STYLE: "full" | "card" | "mixed" = "mixed";
+
+function Band({
+  tone,
+  wide = false,
+  className = "",
+  children,
+}: {
+  tone: "warm" | "white" | "dark";
+  // The hero band is the one wider (max-w-5xl) column; everything else keeps
+  // the reading column the sections were designed for.
+  wide?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const bg =
+    tone === "dark"
+      ? "bg-stone-900 dark:bg-stone-950"
+      : tone === "white"
+        ? "bg-white dark:bg-stone-800"
+        : "bg-oaktend-50 dark:bg-stone-900";
+  const rhythm =
+    "[&>section]:mt-0 [&>section+section]:mt-16 sm:[&>section+section]:mt-24";
+  const column = wide ? "max-w-5xl" : "max-w-3xl";
+
+  const asCard =
+    BAND_STYLE === "card" || (BAND_STYLE === "mixed" && tone !== "dark");
+  if (asCard) {
+    // The card is as wide as the hero column, so the reading column inside it
+    // sits with generous side padding, the way the old dark cards did.
+    const card =
+      tone === "warm"
+        ? ""
+        : `${bg} rounded-3xl border ${
+            tone === "dark" ? "border-transparent" : "border-stone-200 dark:border-white/10"
+          }`;
+    // Half the gap above and half below, so card-to-card and card-to-band
+    // spacing come out the same (a full band in mixed mode carries the same
+    // half gap as a margin).
+    return (
+      <div className={`mx-auto max-w-5xl px-6 py-3 sm:py-4 ${className}`.trim()}>
+        <div className={`${card} px-6 py-12 sm:px-10 sm:py-16`.trim()}>
+          <div className={`mx-auto ${column} ${rhythm}`}>{children}</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`${bg} ${BAND_STYLE === "mixed" ? "my-3 sm:my-4" : ""} ${className}`.trim()}
+    >
+      <div className={`mx-auto px-6 py-12 sm:py-20 ${rhythm} ${column}`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 // Root: route signed-in users into the app, everyone else to the marketing-lite
 // landing. Kept server-side so there's no flash of the wrong screen.
 //
@@ -434,7 +513,7 @@ export default async function Home(props: {
           flat fill, oaktend-50 in light and stone-900 in dark (matching the
           body), no gradient. */}
       <div className="bg-oaktend-50 dark:bg-stone-900">
-        <div className="mx-auto max-w-5xl px-6 pt-6">
+        <div className="mx-auto max-w-5xl px-6 pb-16 pt-6 sm:pb-20">
           {/* PHONE ONLY (sm:hidden, see PhoneLanding.tsx). Below `sm` this
               block IS the landing page: wordmark, one line, a hero photo, two
               role doors (homeowner/contractor), a quiet sign-in, three benefit
@@ -581,21 +660,6 @@ export default async function Home(props: {
             </div>
           </div>
 
-          {/* The demo replaces what used to be a static Health Score mockup:
-              same content, but now it actually plays. Click to play, inline,
-              never a takeover, see HeroDemoPlayer.tsx. Loaded through
-              HeroDemoPlayerLazy so the player's chunk stays out of this
-              page's first-load JS; the poster paints at the same size either
-              way, so there is no shift when it arrives. */}
-          <section className="mt-16 flex flex-col items-center max-sm:hidden sm:mt-20">
-            <div className="w-full max-w-xl">
-              <HeroDemoPlayerLazy />
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-3xl px-6">
       {/* Service scent: the common jobs, as flat clickable chips. Each drops
           into homeowner signup with the category preset in ?next= so the
           post-a-job form on /contractors lands pre-filled (it reads
@@ -635,6 +699,56 @@ export default async function Home(props: {
         </div>
       </section>
 
+        </div>
+      </div>
+
+      {/* The demo gets the page's first dark band: a theatre for the video,
+          which also lifts its warm tones off the background. */}
+      <Band tone="dark" className="max-sm:hidden">
+        {/* The demo replaces what used to be a static Health Score mockup:
+            same content, but now it actually plays. Click to play, inline,
+            never a takeover, see HeroDemoPlayer.tsx. Loaded through
+            HeroDemoPlayerLazy so the player's chunk stays out of this
+            page's first-load JS; the poster paints at the same size either
+            way, so there is no shift when it arrives. */}
+        <section className="mt-16 max-sm:hidden sm:mt-20">
+          {/* Title and one honest line beside the player (founder, 2026-09-21:
+              "for transparency"). The demo is a scripted, rendered walkthrough
+              of the real screens, not a recording of a customer's home, and
+              in preview the pro-quote ending shows what the product does once
+              the pro network opens, so both of those are said plainly here
+              rather than left for the viewer to assume. Light text: this
+              section always sits on the dark band.
+
+              Split layout, mirroring the hero above (copy left, picture
+              right) but staggered: the text column sits a little higher than
+              the player's centre line, so the two do not read as one flat
+              row. Below lg it stacks, text first. */}
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
+            <div className="text-center lg:-mt-10 lg:text-left">
+              <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
+                Product demo
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
+                See OakTend in 30 seconds
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
+                A walkthrough of the real app: claim your address, get your
+                home score, post a job, and hear back from a pro. Built from
+                the actual screens, with a sample home.
+                {isHomeownerPreview()
+                  ? " The pro side is not open yet during our preview, so the last part shows what happens once it is."
+                  : ""}
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-xl lg:mx-0">
+              <HeroDemoPlayerLazy />
+            </div>
+          </div>
+        </section>
+      </Band>
+
+      <Band tone="white">
       {/* How it works: steps on the left, a flat photo of real work on the
           right. Collapses to one column below lg (steps, then photo). */}
       <section className="mt-16 max-sm:hidden sm:mt-24">
@@ -689,17 +803,20 @@ export default async function Home(props: {
         </div>
       </section>
 
+      </Band>
+
+      <Band tone="warm">
       {/* Trust band, same as the /pros version. Shown on phone too (founder
           request, 2026-09-16). */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
-        <h2 className="text-2xl font-semibold text-white [text-wrap:balance]">
+      <section className="mt-16 text-center sm:mt-24">
+        <h2 className="text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Real people, real answers
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
           Message us and a real person on our team will answer. Pros see only
           what you choose to share.
         </p>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-300">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
           OakTend started close to home and now serves homeowners across{" "}
           {LAUNCH_AREA_LABEL}, California, from Seal Beach to San Clemente.
         </p>
@@ -710,20 +827,23 @@ export default async function Home(props: {
             still drops out entirely when blank. */}
         <Link
           href="/contact"
-          className="mt-4 inline-block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+          className="mt-4 inline-block text-sm text-bark-700 hover:underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
         >
           Questions? Contact us →
         </Link>
         {FOUNDER.cellPhone && (
           <a
             href={`tel:${FOUNDER.cellPhone.replace(/[^\d+]/g, "")}`}
-            className="mt-1 block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+            className="mt-1 block text-sm text-bark-700 hover:underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
           >
             Or call or text {FOUNDER.cellPhone} →
           </a>
         )}
       </section>
 
+      </Band>
+
+      <Band tone="white">
       {/* What is OakTend? One plain definition, word for word the fixed
           entity description (src/lib/siteMetadata.ts), because this is the
           paragraph a search engine or an AI answer tool quotes when someone
@@ -779,12 +899,16 @@ export default async function Home(props: {
         </div>
       </section>
 
+      </Band>
+
+      {/* The second dark band: the closing ask and the pro door, together. */}
+      <Band tone="dark">
       {/* Closing CTA: one more clear door in before the pro band switches
           audience. The only other filled primary button is the hero's.
           Shown on phone too (founder request, 2026-09-16); .btn-primary
           already enforces the 44px tap minimum. */}
       <section className="mt-16 text-center sm:mt-24">
-        <h2 className="mx-auto max-w-xl text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+        <h2 className="mx-auto max-w-xl text-2xl font-semibold text-white [text-wrap:balance]">
           Know what your home needs before it costs you
         </h2>
         <Link
@@ -796,7 +920,7 @@ export default async function Home(props: {
         >
           Get started free
         </Link>
-        <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-sm text-stone-300">
           {isHomeownerPreview() ? "Free during our preview." : "Free for your first home."}{" "}
           About 30 seconds to sign up. No card needed.
         </p>
@@ -806,7 +930,7 @@ export default async function Home(props: {
           link. Outline button on purpose: the filled primary on this page is
           reserved for the homeowner CTAs. Shown on phone too (founder
           request, 2026-09-16). */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
+      <section className="mt-16 text-center sm:mt-24">
         {/* stone-400 in BOTH modes: this band's fill is always dark (stone-900
             / stone-950), so the light-mode stone-500 the other eyebrows use
             would sit too dark against it. */}
@@ -864,6 +988,9 @@ export default async function Home(props: {
           toggle state lives in CityList.tsx (src/components/CityList.tsx), a
           client component. Desktop (sm and up) renders the same chip markup
           this section always used. */}
+      </Band>
+
+      <Band tone="white">
       <section className="mt-16 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
@@ -1053,7 +1180,7 @@ export default async function Home(props: {
           </Link>
         ))}
       </footer>
-      </div>
+      </Band>
     </main>
   );
 }
