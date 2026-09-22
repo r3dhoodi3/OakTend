@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
+import PasswordInput from "@/components/PasswordInput";
 import { createClient } from "@/lib/supabase/client";
 import { friendlyAuthError } from "@/lib/friendlyAuthError";
 import PasswordStrengthMeter from "@/components/PasswordStrengthMeter";
@@ -145,10 +146,8 @@ export default function ResetPasswordForm({
               <label className="label" htmlFor="password">
                 New password
               </label>
-              <input
+              <PasswordInput
                 id="password"
-                className="input"
-                type="password"
                 autoComplete="new-password"
                 placeholder="At least 8 characters"
                 value={password}

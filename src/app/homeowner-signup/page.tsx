@@ -22,7 +22,7 @@ import AppleSignInButton, {
 } from "@/components/AppleSignInButton";
 import PasswordStrengthMeter from "@/components/PasswordStrengthMeter";
 import EmailCodeVerify from "@/components/EmailCodeVerify";
-import { Eye, EyeOff } from "lucide-react";
+import PasswordInput from "@/components/PasswordInput";
 
 // Real per-user sign-up. Creates a Supabase Auth account from the user's email
 // + password. If email confirmation is OFF in Supabase, the user is signed in
@@ -77,7 +77,6 @@ export default function HomeownerSignUpPage(props: {
   const [password, setPassword] = useState("");
   // Show/hide toggle for the single password field. The reveal makes a
   // separate confirm-password field redundant, so there isn't one.
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   // Set when the account exists but email confirmation is still pending;
@@ -241,33 +240,15 @@ export default function HomeownerSignUpPage(props: {
             <label className="label" htmlFor="password">
               Password
             </label>
-            <div className="relative">
-              <input
-                id="password"
-                className="input pr-10"
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                placeholder="At least 8 characters"
-                minLength={8}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((s) => !s)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                // Phone only: a slightly wider strip and a bigger glyph.
-                // The show/hide toggle is how you check what you typed.
-                className="focus-ring absolute inset-y-0 right-0 flex items-center px-3 text-stone-400 hover:text-stone-600 max-sm:px-3.5 dark:hover:text-stone-200"
-              >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
-                ) : (
-                  <Eye className="h-4 w-4 max-sm:h-5 max-sm:w-5" />
-                )}
-              </button>
-            </div>
+            <PasswordInput
+              id="password"
+              autoComplete="new-password"
+              placeholder="At least 8 characters"
+              minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <PasswordStrengthMeter password={password} />
           </div>
           {/* Every inline link on this page carries max-sm:py-3. Padding on
