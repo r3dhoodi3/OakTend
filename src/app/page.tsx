@@ -20,6 +20,7 @@ import PhoneLanding from "@/components/PhoneLanding";
 import ThemeToggle from "@/components/ThemeToggle";
 import StructuredData from "@/components/StructuredData";
 import CityList from "@/components/CityList";
+import Band from "@/components/Band";
 import { TrendingUp, Bell, MessageSquare, Wrench } from "lucide-react";
 
 const SITE_URL =
@@ -101,85 +102,6 @@ function CheckPill({ label }: { label: string }) {
       </svg>
       {label}
     </span>
-  );
-}
-
-// LANDING BANDS (2026-09-21). The desktop page used to be twelve sections on
-// the one cream body colour, with two dark rounded cards floating in the
-// middle: one long scroll with no chapters. Each group of sections now sits
-// in a full-width band - cream (the body colour), white, or dark - so a
-// change of topic reads as a change of background. Dark is kept for the two
-// moments that earn it: the product demo and the closing ask. The band owns
-// the vertical rhythm: every section inside starts at mt-0 and siblings get
-// the same gap, so the old per-section top margins no longer stack on top of
-// the band's own padding. The phone landing (PhoneLanding.tsx) is untouched;
-// sections that show on phones simply render inside a band there too.
-//
-// TWO LOOKS, one switch (BAND_STYLE), while the founder picks:
-//   "full" - every band runs edge to edge across the viewport.
-//   "card" - white and dark bands are big rounded cards sitting in the page
-//            column with a gap between them; "warm" bands are just the body
-//            colour with nothing drawn, since a cream card on a cream page
-//            would be invisible.
-//   "mixed" - the two dark bands run edge to edge (the demo theatre and the
-//            closing ask are the page's big moments), the white ones are
-//            cards, warm stays plain.
-const BAND_STYLE: "full" | "card" | "mixed" = "mixed";
-
-function Band({
-  tone,
-  wide = false,
-  className = "",
-  children,
-}: {
-  tone: "warm" | "white" | "dark";
-  // The hero band is the one wider (max-w-5xl) column; everything else keeps
-  // the reading column the sections were designed for.
-  wide?: boolean;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  const bg =
-    tone === "dark"
-      ? "bg-stone-900 dark:bg-stone-950"
-      : tone === "white"
-        ? "bg-white dark:bg-stone-800"
-        : "bg-oaktend-50 dark:bg-stone-900";
-  const rhythm =
-    "[&>section]:mt-0 [&>section+section]:mt-16 sm:[&>section+section]:mt-24";
-  const column = wide ? "max-w-5xl" : "max-w-3xl";
-
-  const asCard =
-    BAND_STYLE === "card" || (BAND_STYLE === "mixed" && tone !== "dark");
-  if (asCard) {
-    // The card is as wide as the hero column, so the reading column inside it
-    // sits with generous side padding, the way the old dark cards did.
-    const card =
-      tone === "warm"
-        ? ""
-        : `${bg} rounded-3xl border ${
-            tone === "dark" ? "border-transparent" : "border-stone-200 dark:border-white/10"
-          }`;
-    // Half the gap above and half below, so card-to-card and card-to-band
-    // spacing come out the same (a full band in mixed mode carries the same
-    // half gap as a margin).
-    return (
-      <div className={`mx-auto max-w-5xl px-6 py-3 sm:py-4 ${className}`.trim()}>
-        <div className={`${card} px-6 py-12 sm:px-10 sm:py-16`.trim()}>
-          <div className={`mx-auto ${column} ${rhythm}`}>{children}</div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`${bg} ${BAND_STYLE === "mixed" ? "my-3 sm:my-4" : ""} ${className}`.trim()}
-    >
-      <div className={`mx-auto px-6 py-12 sm:py-20 ${rhythm} ${column}`}>
-        {children}
-      </div>
-    </div>
   );
 }
 
@@ -665,7 +587,11 @@ export default async function Home(props: {
           post-a-job form on /contractors lands pre-filled (it reads
           ?category=). Chips reuse the header link's neutral outline shape,
           rounded full, and stay plain text labels - no trade pictograms. */}
-      <section className="mt-12 max-sm:hidden sm:mt-16">
+      {/* These two sections sit inside the hero band, so on a tall desktop
+          they are on screen while the page loads. They carry the entrance
+          too, picking up where the hero copy leaves off (450ms), or the top
+          half of the first screen animated and the bottom half sat still. */}
+      <section className="hero-rise mt-12 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] sm:mt-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
@@ -676,7 +602,7 @@ export default async function Home(props: {
                 href={`/homeowner-signup?next=${encodeURIComponent(
                   `/contractors?category=${s.value}`
                 )}`}
-                className="inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
+                className="pill-grow inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
               >
                 {s.label}
               </Link>
@@ -688,7 +614,7 @@ export default async function Home(props: {
       {/* Trust strip: three already-true signals in the green "all clear"
           pill, the same tone as the hero reassurance row. No invented
           numbers - only what OakTend actually does today. */}
-      <section className="mt-8 max-sm:hidden">
+      <section className="hero-rise mt-8 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms]">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           What we check
         </h2>
