@@ -120,7 +120,7 @@ export default function WaterHeaterReplacementCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Water heater replacement cost: typical range and what changes it" },
+          { name: "Water heater replacement cost: typical range and what changes it" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

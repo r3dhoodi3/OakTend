@@ -118,7 +118,7 @@ export default function HvacReplacementCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "HVAC replacement cost: typical range and what changes it" },
+          { name: "HVAC replacement cost: typical range and what changes it" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
