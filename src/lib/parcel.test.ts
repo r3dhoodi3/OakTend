@@ -439,13 +439,18 @@ describe("lookupParcel source semantics", () => {
     }
   });
 
-  it('with no key configured nothing is looked up and the source is "none"', async () => {
+  // No key is "we could not ask", not "no such address". The database is
+  // shared between deployments, so a keyless localhost that cached "none" for
+  // a day (2026-09-19/20) blanked those addresses on the LIVE site too.
+  it('with no key configured nothing is looked up, the source is "unavailable", and nothing is cached', async () => {
     delete process.env.RENTCAST_API_KEY;
     const fetchSpy = vi.fn();
     vi.stubGlobal("fetch", fetchSpy);
     const facts = await lookupParcel("17361 Ash St", "92708");
-    expect(facts.source).toBe("none");
+    expect(facts.source).toBe("unavailable");
+    expect(facts.address_line1).toBe("17361 Ash St");
     expect(fetchSpy).not.toHaveBeenCalled();
+    expect(writes).toEqual([]);
   });
 });
 
@@ -572,6 +577,19 @@ describe("lookupMarketValue source semantics", () => {
     );
     const facts = await lookupMarketValue("17361 Ash St", "92708");
     expect(facts.source).toBe("unavailable");
+    expect(writes).toEqual([]);
+  });
+
+  // The 2026-09-20 live-site blank: a keyless localhost wrote "none" for the
+  // AVM key and the live site served it for a day.
+  it('with no key configured the estimate is "unavailable" and nothing is cached', async () => {
+    delete process.env.RENTCAST_API_KEY;
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    const facts = await lookupMarketValue("17361 Ash St", "92708");
+    expect(facts.source).toBe("unavailable");
+    expect(facts.market_value).toBeNull();
+    expect(fetchSpy).not.toHaveBeenCalled();
     expect(writes).toEqual([]);
   });
 });
