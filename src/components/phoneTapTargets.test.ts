@@ -121,7 +121,9 @@ describe("phone tap targets, 44px floor", () => {
     const src = read("src/app/(app)/dashboard/page.tsx");
     // "Matches county records" chip toggle, and its explainer paragraph.
     expect(src).toContain('chip-ok focus-ring w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden max-sm:min-h-11 max-sm:px-3 max-sm:text-sm');
-    expect(src).toContain("mt-1.5 max-w-sm text-xs max-sm:text-sm text-stone-500");
+    // (Its top gap moved onto AnimatedDetails' content box as pt-1.5 when the
+    // chip started sliding open, so the paragraph no longer carries mt-1.5.)
+    expect(src).toContain("max-w-sm text-xs max-sm:text-sm text-stone-500");
     // "Why this score?" and "See this month's tasks" disclosures.
     expect(src).toContain("opacity-80 hover:opacity-100 max-sm:min-h-11");
     expect(src).toContain("text-sm font-medium text-stone-700 max-sm:min-h-11 dark:text-stone-300");
