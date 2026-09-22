@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AnimatedDetails from "@/components/AnimatedDetails";
 
 // Notice at collection (Cal. Civ. Code 1798.100(a), 11 CCR 7012): at or before
 // the point where personal information is collected, say what is being
@@ -31,17 +32,26 @@ export default function NoticeAtCollection({
   // link/disclosure to the notice satisfies 11 CCR 7012; keeping the detail
   // in-page rather than only on /privacy keeps it "at or before" collection.
   return (
-    <details className="group text-xs leading-relaxed text-stone-600 dark:text-stone-400">
-      {/* The hover underline sits on the words only. On the summary itself it
-          also ran under the arrow, and flipped to the top of it when the arrow
-          rotated open. */}
-      <summary className="group/summary inline-flex cursor-pointer list-none items-center gap-1 font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden">
-        <span className="group-hover/summary:underline">What we collect here and why</span>
-        <span aria-hidden className="text-stone-400 transition-transform group-open:rotate-180 dark:text-stone-500">
-          &#9662;
-        </span>
-      </summary>
-      <div className="mt-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-800/60">
+    <AnimatedDetails
+      className="group text-xs leading-relaxed text-stone-600 dark:text-stone-400"
+      // The hover underline sits on the words only. On the summary itself it
+      // also ran under the arrow, and flipped to the top of it when the arrow
+      // rotated open.
+      summaryClassName="group/summary inline-flex cursor-pointer list-none items-center gap-1 font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden"
+      summary={
+        <>
+          <span className="group-hover/summary:underline">What we collect here and why</span>
+          <span
+            aria-hidden
+            className="text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-180 dark:text-stone-500"
+          >
+            &#9662;
+          </span>
+        </>
+      }
+      contentClassName="pt-2"
+    >
+      <div className="rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-800/60">
         <p>
           {collects} We use it to {purpose}
         </p>
@@ -58,6 +68,6 @@ export default function NoticeAtCollection({
           </Link>
         </p>
       </div>
-    </details>
+    </AnimatedDetails>
   );
 }

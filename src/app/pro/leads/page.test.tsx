@@ -50,11 +50,12 @@ const RETURN_MARKER = ["", "  return (", ""].join("\n");
 
 describe("pro lead card phone density (0128)", () => {
   it("folds the direct-request card's detail behind a collapsed-by-default <details>", () => {
-    // A real <details> disclosure, not force-opened - native <details> starts
-    // collapsed unless it carries the `open` attribute, and this never sets
-    // one, so it is collapsed by default.
-    expect(directRequestCard).toContain('<details className="group sm:hidden">');
-    expect(directRequestCard).not.toMatch(/<details[^>]*\bopen\b/);
+    // A real <details> disclosure underneath (AnimatedDetails renders one, and
+    // slides it open since 2026-09-21), not force-opened: it starts collapsed
+    // unless it is given defaultOpen, and this never passes one.
+    expect(directRequestCard).toContain("<AnimatedDetails");
+    expect(directRequestCard).toContain('className="group sm:hidden"');
+    expect(directRequestCard).not.toMatch(/<AnimatedDetails[^>]*\bdefaultOpen\b/);
     expect(directRequestCard).toContain("Details");
     // The same content (the shared detailsContent variable) is always
     // visible above sm, via a second, non-collapsing copy.
@@ -64,8 +65,9 @@ describe("pro lead card phone density (0128)", () => {
   });
 
   it("folds the open-job card's detail behind a collapsed-by-default <details>", () => {
-    expect(openJobCard).toContain('<details className="group sm:hidden">');
-    expect(openJobCard).not.toMatch(/<details[^>]*\bopen\b/);
+    expect(openJobCard).toContain("<AnimatedDetails");
+    expect(openJobCard).toContain('className="group sm:hidden"');
+    expect(openJobCard).not.toMatch(/<AnimatedDetails[^>]*\bdefaultOpen\b/);
     expect(openJobCard).toContain("Details");
     expect(openJobCard).toContain(
       '<div className="hidden space-y-3 sm:block">{detailsContent}</div>'
@@ -91,12 +93,12 @@ describe("pro lead card phone density (0128)", () => {
   });
 
   it("leaves DirectRequestActions and ApplyJobButton outside the <details>, unconditioned by the toggle", () => {
-    const directDetailsClose = directRequestCard.lastIndexOf("</details>");
+    const directDetailsClose = directRequestCard.lastIndexOf("</AnimatedDetails>");
     const directActionIdx = directRequestCard.indexOf("<DirectRequestActions");
     expect(directDetailsClose).toBeGreaterThan(-1);
     expect(directActionIdx).toBeGreaterThan(directDetailsClose);
 
-    const openDetailsClose = openJobCard.lastIndexOf("</details>");
+    const openDetailsClose = openJobCard.lastIndexOf("</AnimatedDetails>");
     const applyIdx = openJobCard.indexOf("<ApplyJobButton");
     expect(openDetailsClose).toBeGreaterThan(-1);
     expect(applyIdx).toBeGreaterThan(openDetailsClose);

@@ -1,5 +1,7 @@
 "use client";
 
+import AnimatedDetails from "@/components/AnimatedDetails";
+
 // STREAMING FIX, not a behaviour change - same treatment as
 // src/app/pro/chats/ChatsView.tsx and src/app/pro/leads/LeadsBoard.tsx, and
 // for the same reason (scratchpad/debug-DBG3.md): React Flight defers any
@@ -216,24 +218,30 @@ export default function DirectRequestCard({
           posted-ago/timing - collapsed by default on phone via a real
           <details> disclosure, always visible above sm. */}
       <div>
-        <details className="group sm:hidden">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-medium text-oaktend-700 [&::-webkit-details-marker]:hidden dark:text-oaktend-300">
-            Details
-            <svg
-              viewBox="0 0 20 20"
-              className="h-4 w-4 transition-transform group-open:rotate-180"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </summary>
-          <div className="mt-2 space-y-3">{detailsContent}</div>
-        </details>
+        <AnimatedDetails
+          className="group sm:hidden"
+          summaryClassName="flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-medium text-oaktend-700 [&::-webkit-details-marker]:hidden dark:text-oaktend-300"
+          summary={
+            <>
+              Details
+              <svg
+                viewBox="0 0 20 20"
+                className="h-4 w-4 transition-transform duration-300 group-data-[shown=true]:rotate-180"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </>
+          }
+          contentClassName="pt-2"
+        >
+          <div className="space-y-3">{detailsContent}</div>
+        </AnimatedDetails>
         <div className="hidden space-y-3 sm:block">{detailsContent}</div>
       </div>
 

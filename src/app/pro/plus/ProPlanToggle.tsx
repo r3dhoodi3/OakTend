@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { ChevronRight } from "lucide-react";
+import AnimatedDetails from "@/components/AnimatedDetails";
 import { startProCheckoutAction } from "./actions";
 import AutoRenewalTerms from "@/components/AutoRenewalTerms";
 import AutoRenewalConsentCheckbox from "@/components/AutoRenewalConsentCheckbox";
@@ -430,21 +431,25 @@ export default function ProPlanToggle({
           </p>
           {/* Collapsed on a phone, open on desktop. See PHONE DISCLOSURE at
               the top of this file. */}
-          <details className="group sm:hidden">
-            <summary className="focus-ring mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-stone-700 [&::-webkit-details-marker]:hidden dark:text-stone-300">
-              <ChevronRight
-                className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-150 group-open:rotate-90 dark:text-stone-500"
-                aria-hidden="true"
-              />
-              Billing terms
-            </summary>
-            <div className="mt-2">
-              <AutoRenewalTerms
-                plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}
-                introEligible={trialEligible}
-              />
-            </div>
-          </details>
+          <AnimatedDetails
+            className="group sm:hidden"
+            summaryClassName="focus-ring mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-stone-700 [&::-webkit-details-marker]:hidden dark:text-stone-300"
+            summary={
+              <>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-90 dark:text-stone-500"
+                  aria-hidden="true"
+                />
+                Billing terms
+              </>
+            }
+            contentClassName="pt-2"
+          >
+            <AutoRenewalTerms
+              plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}
+              introEligible={trialEligible}
+            />
+          </AnimatedDetails>
           <div className="max-sm:hidden">
             <AutoRenewalTerms
               plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}
