@@ -13,12 +13,18 @@ function money(n: number): string {
 // DB during render). needsFetch is computed server-side from market_value
 // being null plus an address on file.
 //
-// A per-property flag in localStorage means we attempt this exactly once, ever,
-// per browser. This matters for the MISS case: if the address returns no value,
-// market_value stays null, so without this guard the fetch would re-fire every
-// single time the tab is reopened. We mark "tried" BEFORE firing, so even a
-// failed or empty lookup is never retried on reopen. The in-memory ref still
-// guards React Strict Mode's dev double-invoke within one mount.
+// A per-property flag in localStorage means we attempt this once per browser
+// once we have a real ANSWER. This matters for the MISS case: if the address
+// returns no value, market_value stays null, so without this guard the fetch
+// would re-fire every single time the tab is reopened. The flag is set when
+// the action reports a hit or a real miss ("RentCast has no estimate for this
+// address") - NOT when it could not ask at all (no key, a timeout, an outage,
+// over budget). It used to be set BEFORE firing, which made one bad moment
+// permanent: a home whose first attempt failed never got a value in that
+// browser (2026-09-20). A failed attempt now simply tries again on the next
+// visit; the server's own budget and its one-hour error cache keep that from
+// turning into a retry storm. The in-memory ref still guards React Strict
+// Mode's dev double-invoke within one mount.
 export default function ValueAutoFetch({
   needsFetch,
   propertyId,
@@ -49,9 +55,8 @@ export default function ValueAutoFetch({
 
     const flagKey = `oaktend_avm_tried_${propertyId}`;
     try {
-      // Already attempted once for this property: never run again, hit or miss.
+      // Already answered once for this property: never run again, hit or miss.
       if (localStorage.getItem(flagKey)) return;
-      localStorage.setItem(flagKey, "1");
     } catch {
       // localStorage unavailable (private mode, etc.): fall through and attempt
       // once for this mount anyway; the ref guard still prevents a double-fire.
@@ -59,6 +64,16 @@ export default function ValueAutoFetch({
 
     fetchAndSaveMarketValueAction()
       .then((result) => {
+        // A real answer, either way, is the end of asking in this browser. An
+        // "unavailable" (or a malformed result) leaves the flag unset.
+        if (result?.ok || result?.reason === "miss") {
+          try {
+            localStorage.setItem(flagKey, "1");
+          } catch {
+            // Same as above: no storage, no flag, the ref guard still holds
+            // for this mount.
+          }
+        }
         if (!result?.ok) return;
         if (typeof result.marketValue === "number") {
           setFetched(result.marketValue);

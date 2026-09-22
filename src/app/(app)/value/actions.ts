@@ -156,10 +156,16 @@ export async function fetchAndSaveMarketValueAction(): Promise<{
   marketValue?: number;
   marketValueLow?: number | null;
   marketValueHigh?: number | null;
+  // Only on ok: false. "miss" is a real answer (RentCast has no estimate for
+  // this address) and the caller may stop asking; "unavailable" is every way
+  // of NOT getting an answer (no session, no address, over budget, no key, a
+  // timeout, an outage) and the caller should try again another day.
+  // ValueAutoFetch keys its once-per-browser flag on this.
+  reason?: "miss" | "unavailable";
 }> {
   try {
     const property = await getActiveProperty();
-    if (!property) return { ok: false };
+    if (!property) return { ok: false, reason: "unavailable" };
 
     const raw = property as any;
     // Already have a value on file (from onboarding's own AVM call, an
@@ -177,7 +183,7 @@ export async function fetchAndSaveMarketValueAction(): Promise<{
     // address_line1/zip are pre-existing typed columns, no cast needed.
     const street = property.address_line1 || null;
     const zip = property.zip || null;
-    if (!street || !zip) return { ok: false };
+    if (!street || !zip) return { ok: false, reason: "unavailable" };
 
     // METERED, because this action can reach RentCast. The parcel_cache row
     // (30 days for a hit, 1 day for a miss) absorbs the normal case, but an
@@ -191,13 +197,18 @@ export async function fetchAndSaveMarketValueAction(): Promise<{
     const {
       data: { user },
     } = await (await createClient()).auth.getUser();
-    if (!user) return { ok: false };
-    if (!(await avmBudgetAllows(user.id))) return { ok: false };
+    if (!user) return { ok: false, reason: "unavailable" };
+    if (!(await avmBudgetAllows(user.id))) return { ok: false, reason: "unavailable" };
 
     // The unit rides along (migration 0127): an AVM run on the bare street
     // values the building, not this condo.
     const facts = await lookupMarketValue(street, zip, property.unit, user.id);
-    if (facts.market_value == null) return { ok: false };
+    if (facts.market_value == null) {
+      return {
+        ok: false,
+        reason: facts.source === "none" ? "miss" : "unavailable",
+      };
+    }
 
     const supabase = await createClient();
     const { error } = await (supabase.from("properties") as any)
@@ -221,7 +232,7 @@ export async function fetchAndSaveMarketValueAction(): Promise<{
     // Fail soft: a lookup or write hiccup should never surface as a 500 on a
     // background fetch the owner didn't explicitly ask for.
     console.error("fetchAndSaveMarketValueAction failed:", err);
-    return { ok: false };
+    return { ok: false, reason: "unavailable" };
   }
 }
 
