@@ -349,8 +349,13 @@ export default async function ProsLanding(props: {
               homeowner landing: what the demo is, and that it is a
               walkthrough of the real screens rather than a recording of a
               real job. Light text: this section always sits on a dark band. */}
+          {/* The demo carries the hero entrance too, picking up where the
+              pitch above leaves off (its last piece is at 450ms). This band
+              is on screen while the page loads on a desktop - the pro hero is
+              shorter than the homeowner one - so without it the words rose in
+              and the video beside them just sat there. */}
           <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
-            <div className="text-center lg:-mt-10 lg:text-left">
+            <div className="hero-rise text-center motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] lg:-mt-10 lg:text-left">
               <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
                 Product demo
               </p>
@@ -363,7 +368,7 @@ export default async function ProsLanding(props: {
                 actual screens, with a sample job.
               </p>
             </div>
-            <div className="mx-auto w-full max-w-xl lg:mx-0">
+            <div className="hero-rise mx-auto w-full max-w-xl motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms] lg:mx-0">
               <ProDemoPlayerLazy />
             </div>
           </div>
