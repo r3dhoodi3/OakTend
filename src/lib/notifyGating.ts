@@ -125,6 +125,17 @@ export const PUSH_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "new_lead",
   // The homeowner closed the job out (the pro won or lost it).
   "job_closed",
+  // A person on the OakTend team wrote back on this homeowner's job
+  // (src/lib/jobUpdates.ts). During the preview this is how "we found you
+  // someone" arrives, which makes it the homeowner-side twin of new_lead.
+  "job_update",
+  // The team's own alert that a job was just posted. Speed to lead is the
+  // whole point while matching is done by hand, and this one only ever goes to
+  // flagged internal accounts, so it can never buzz a customer's phone.
+  "job_posted_team",
+  // Deliberately NOT here: job_posted, the homeowner's own receipt. They are
+  // standing in the app looking at the job they just posted; the bell row and
+  // the email are the point, a buzz in their pocket is not.
   // The homeowner picked another pro and the losing pro's lead fee came back
   // as wallet credit (src/app/(app)/contractors/actions.ts). Same reasoning as
   // job_closed: a money moment the pro is waiting on, and "you lost the bid,
@@ -242,6 +253,14 @@ export const TRANSACTIONAL_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "new_review",
   "applicant_waiting",
   "quote_analysis",
+  // The three job kinds in src/lib/jobUpdates.ts. A receipt for a posting the
+  // person just made, the team's alert about it, and the team's answer on that
+  // same posting: all three are replies to an action somebody took, none of
+  // them is a campaign, and a homeowner who has already had two nudges this
+  // week must still get the receipt for the job they just posted.
+  "job_posted",
+  "job_posted_team",
+  "job_update",
   // Money moved, or a card just failed to move it. Also the auto-renewal
   // disclosures the law requires - see the "never gate a billing notice" note
   // on PLUS_GATED_NOTIFICATION_KINDS above; the same reasoning applies here.

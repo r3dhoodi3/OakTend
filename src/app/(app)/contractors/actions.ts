@@ -26,6 +26,15 @@ import { setFlash } from "@/lib/flash";
 import { hasPlus } from "@/lib/subscription";
 import { alertProsForNewLead } from "@/lib/proAlerts";
 import { sendNotification } from "@/lib/notify";
+import { isHomeownerPreview } from "@/lib/previewMode";
+import {
+  JOB_POSTED_KIND,
+  JOB_POSTED_TEAM_KIND,
+  jobPostedReceipt,
+  jobUpdateUrl,
+  teamJobAlert,
+} from "@/lib/jobUpdates";
+import { teamAlertRecipients } from "@/lib/teamAlerts";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { isBlockedBetween } from "@/lib/blocks";
 import {
@@ -876,6 +885,70 @@ export async function postJobAction(formData: FormData) {
     }
   } catch {
     // Notifications are a nice-to-have here, not part of the posting flow.
+  }
+
+  // The two ends this action never had: a receipt for the person who posted,
+  // and an alert to the OakTend team. Everything above tells PROS about the
+  // job; before this block the homeowner got no bell row, no email, nothing,
+  // and neither did we. During the preview that is the whole failure mode -
+  // the pro fan-out reaches nobody, matching is done by hand, and a posted job
+  // could sit unseen by every human involved until somebody opened Supabase.
+  //
+  // ADMIN CLIENT for both: public.notifications has owner read/update policies
+  // and no insert policy at all (migration 0026), so a session-client insert
+  // is refused. Every other sendNotification call in this file passes `admin`
+  // for the same reason.
+  //
+  // Best-effort, like its neighbours. The lead row is already committed and
+  // the post has already succeeded; a notification hiccup must not turn that
+  // into an error page.
+  try {
+    const postedLabel = labelFor(JOB_CATEGORIES, category);
+    const receipt = jobPostedReceipt({
+      categoryLabel: postedLabel,
+      preview: isHomeownerPreview(),
+    });
+    await sendNotification(admin, {
+      userId: user.id,
+      kind: JOB_POSTED_KIND,
+      title: receipt.title,
+      body: receipt.body,
+      // Points at this specific job, so a team update later lands the owner on
+      // the same card. Falls back to the section when the insert didn't return
+      // an id (it always does, but the type allows null).
+      url: inserted?.id ? jobUpdateUrl(inserted.id) : "/contractors#your-jobs",
+      // The contact address on the posting itself, which is what the owner
+      // just confirmed on the form; the account address is the fallback.
+      email: homeownerEmail ?? user.email ?? null,
+      // No SMS on purpose: this is a receipt for something the owner did in
+      // the app seconds ago, and smsConsent is the only thing that would open
+      // that channel anyway.
+    });
+
+    // Every flagged team account except the poster - a founder testing from
+    // their own homeowner account does not need to be told about their own
+    // job. One send each rather than a bulk insert: this is two people, and
+    // the email half is the one that actually gets us to the job in time.
+    const alert = teamJobAlert({
+      categoryLabel: postedLabel,
+      timing,
+      city: property.city ?? null,
+      homeownerName,
+      description: issueDescription,
+    });
+    for (const member of await teamAlertRecipients()) {
+      if (member.id === user.id) continue;
+      await sendNotification(admin, {
+        userId: member.id,
+        kind: JOB_POSTED_TEAM_KIND,
+        title: alert.title,
+        body: alert.body,
+        url: "/backoffice/jobs",
+        email: member.email,
+      });
+    }
+  } catch (e) {
+    console.error("postJobAction: receipt / team alert failed:", e);
   }
 
   revalidatePath("/contractors");

@@ -475,6 +475,14 @@ export const EMAIL_TRANSACTIONAL_KINDS: ReadonlySet<string> = new Set([
   "new_lead",
   "applicant_waiting",
   "quote_analysis",
+  // src/lib/jobUpdates.ts. All three are mail about an active job of the
+  // recipient's own - the receipt for one they just posted, and the team's
+  // answer on it - which is the core of the transactional exemption rather
+  // than an engagement nudge. job_posted_team only ever addresses a flagged
+  // internal account, so its exemption never reaches a customer.
+  "job_posted",
+  "job_posted_team",
+  "job_update",
   "apply_receipt",
   "apply_credit_back",
   "ghost_refund",
