@@ -35,13 +35,10 @@ function dueChip(
   done: boolean,
   days: number | null
 ): { label: string; className: string } | null {
-  if (done) {
-    return {
-      label: "Done",
-      className: "border-green-200 bg-green-50 text-green-700 dark:border-green-900 dark:bg-green-950/40 dark:text-green-200",
-    };
-  }
-  if (!due) return null;
+  // No chip once it is done: the filled green check and the strikethrough
+  // already say so, and a "Done" pill beside them said it a third time
+  // (founder, 2026-09-22).
+  if (done || !due) return null;
   if (days === null || Number.isNaN(days)) {
     return {
       label: formatDue(due),
@@ -170,11 +167,14 @@ export default function ReminderItem({
     <li className="list-none">
       <div
         // Row height is no longer pinned to a single line: the title below
-        // wraps instead of truncating, so the row grows with it. items-start
-        // (rather than items-center) keeps the checkbox and the chip/delete
-        // button pinned to the top of the row when the title wraps to 2-3
-        // lines, instead of floating dead-center against a tall block of text.
-        className={`flex items-start justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors max-sm:py-0.5 ${
+        // wraps instead of truncating, so the row grows with it. items-center
+        // (was items-start, 2026-09-22): the Delete button carries a 44px tap
+        // height, so with everything top-aligned the title and checkbox sat
+        // at the top of a row that was mostly Delete's padding, and the three
+        // never lined up. Centred, a one-line title, its checkbox, the chip
+        // and Delete all sit on one line; a wrapped title centres the
+        // controls against its block, which reads fine.
+        className={`flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors max-sm:py-0.5 ${
           done ? "bg-stone-50/60 dark:bg-stone-700/40" : "hover:bg-stone-50 dark:hover:bg-stone-700/40"
         }`}
       >
@@ -189,9 +189,7 @@ export default function ReminderItem({
           aria-label={due ? `${title}, due ${formatDue(due)}` : title}
           // Phone only: the button was only as tall as its text (~20px) in a
           // 40px row. Marking a task done is the most repeated action here.
-          // items-start so the checkbox sits by the title's first line rather
-          // than centering against a wrapped multi-line title.
-          className="flex min-w-0 flex-1 items-start gap-3 text-left max-sm:min-h-11"
+          className="flex min-w-0 flex-1 items-center gap-3 text-left max-sm:min-h-11"
         >
           <span
             className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[11px] max-sm:h-6 max-sm:w-6 max-sm:text-xs ${
@@ -217,7 +215,7 @@ export default function ReminderItem({
             {title}
           </span>
         </button>
-        <div className="flex shrink-0 items-start gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {chip && (
             <span
               className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-xs font-medium ${chip.className}`}
