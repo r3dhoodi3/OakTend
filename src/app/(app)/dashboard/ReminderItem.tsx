@@ -174,9 +174,10 @@ export default function ReminderItem({
         // never lined up. Centred, a one-line title, its checkbox, the chip
         // and Delete all sit on one line; a wrapped title centres the
         // controls against its block, which reads fine.
-        className={`flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors max-sm:py-0.5 ${
-          done ? "bg-stone-50/60 dark:bg-stone-700/40" : "hover:bg-stone-50 dark:hover:bg-stone-700/40"
-        }`}
+        // Hover tint only, done or not (founder, 2026-09-22): a done row used
+        // to keep a permanent grey fill, which read as a third "done" marker
+        // on top of the check and the strikethrough.
+        className="flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-stone-50 max-sm:py-0.5 dark:hover:bg-stone-700/40"
       >
         <button
           type="button"
