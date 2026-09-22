@@ -44,6 +44,17 @@ body {
   top: 0.5rem;
 }
 
+/* Landing hero entrance (animate-hero-rise in tailwind.config.ts). Paused,
+   held at its transparent first frame, while the root carries
+   data-fonts-pending - set before paint and cleared once the web font has
+   loaded or 600ms has passed (heroFontsInit in src/app/layout.tsx). Without
+   this the fallback-to-Inter swap landed mid-fade and read as the headline
+   changing size. The hero-rise class is only a hook for this rule; the
+   animation itself is the Tailwind utility on the same element. */
+html[data-fonts-pending] .hero-rise {
+  animation-play-state: paused;
+}
+
 /* Accessibility statement commitment: respect a visitor's OS-level reduced
    motion preference everywhere, not just on the handful of components that
    opted in individually with motion-reduce: utilities. This is a blanket

@@ -495,7 +495,12 @@ export default async function Home(props: {
               centered read. */}
           <div className="mt-14 grid items-center gap-10 max-sm:hidden sm:mt-20 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-              <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
+              {/* HERO ENTRANCE (trial, 2026-09-21): each piece rises and
+                  fades in on load, headline first, then every ~90ms down the
+                  column; the photo fades in alongside. animate-hero-rise is
+                  transform + opacity only, runs once, and is motion-safe: so
+                  reduce-motion visitors see the page at rest. */}
+              <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 hero-rise motion-safe:animate-hero-rise dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
                 Know what your home needs before it costs you
               </h1>
               {/* The category line. The h1 is the brand promise and names no
@@ -503,10 +508,10 @@ export default async function Home(props: {
                   fold that says, in plain words, what OakTend IS and where
                   (src/lib/siteMetadata.ts, shared with the About page).
                   PhoneLanding carries the same sentence for phone widths. */}
-              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 dark:text-stone-200">
+              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-200">
                 {CATEGORY_SENTENCE}
               </p>
-              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-400">
                 {/* PREVIEW MODE (addendum 4 H). The first sentence is true
                     either way and is unchanged. The second one promises pro
                     matching - "post the job once and the quotes come to you" -
@@ -538,7 +543,7 @@ export default async function Home(props: {
                 // is "how many visitors took it", not which of the two
                 // identical buttons they happened to be next to.
                 data-track="landing_get_started"
-                className="btn-primary mt-8 px-6 py-3 text-base shadow-lift"
+                className="btn-primary mt-8 px-6 py-3 text-base shadow-lift hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:270ms]"
               >
                 Get started free
               </Link>
@@ -548,15 +553,16 @@ export default async function Home(props: {
                   Green is the success tone everywhere else in the app (.chip-ok),
                   so it reads as "all clear" here too. This exact trio is the
                   founder's pick. */}
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-2 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:360ms] lg:justify-start">
                 {["About 30 seconds", "No card needed", isHomeownerPreview() ? "Free in preview" : "Cancel anytime"].map((label) => (
                   <CheckPill key={label} label={label} />
                 ))}
               </div>
-              <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+              {/* The two small lines share one delay: they read as a pair. */}
+              <p className="mt-4 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
                 Serving {LAUNCH_AREA_LABEL}
               </p>
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
                 Outside the county? Join the waitlist and we&apos;ll tell you when we expand.
               </p>
               {/* No "Already have an account? Sign in" here anymore: the header
@@ -568,7 +574,9 @@ export default async function Home(props: {
                 aspect-[3/2] box reserves the space so it never shifts layout,
                 and the first frame loads with priority since it's above the
                 fold. */}
-            <div className="overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
+            {/* The photo comes in with the second line of copy, a touch later
+                than the headline so the eye lands on the words first. */}
+            <div className="overflow-hidden rounded-xl border border-stone-200 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:border-white/10">
               <HeroPhotoCycler photos={HERO_PHOTOS} />
             </div>
           </div>
