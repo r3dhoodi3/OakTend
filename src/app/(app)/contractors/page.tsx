@@ -708,8 +708,9 @@ export default async function ContractorsPage(
 
         <PostJobButton serverError={postError} />
         <p className="text-xs text-stone-500 dark:text-stone-400">
-          Your contact stays private. Only the pro you choose from the applicants
-          gets your name, address, and contact details.
+          {isPreview
+            ? "Your contact stays private. We ask you before we pass it to any pro."
+            : "Your contact stays private. Only the pro you choose from the applicants gets your name, address, email and phone."}
         </p>
         </DraftJobProvider>
       </form>
@@ -719,8 +720,7 @@ export default async function ContractorsPage(
           <div>
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">My Pros</h2>
             <p className="text-sm text-stone-500 dark:text-stone-400">
-              Already worked with someone great? Hire them again, free, no
-              apply fee.
+              Already worked with someone you liked? Ask them back.
             </p>
           </div>
           <ul className="space-y-2">
@@ -769,9 +769,8 @@ export default async function ContractorsPage(
               Juggling more than one project?
             </p>
             <p className="text-sm text-bark-700 dark:text-stone-300">
-              Free covers 3 open jobs at a time. OakTend Plus is unlimited, plus
-              priority matching so pros see yours first. Start weekly with a
-              3-day free trial, or go monthly at $4.99.
+              Free covers 3 open jobs at a time. OakTend Plus is unlimited.
+              Start weekly with a 3-day free trial, or go monthly at $4.99.
             </p>
           </div>
           <Link href="/plus" className="btn-primary shrink-0">
@@ -1050,7 +1049,7 @@ export default async function ContractorsPage(
                     <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
                       You closed this job without choosing a pro.
                       {apps.length > 0
-                        ? " Applicants who already paid to apply were notified, and their fee comes back to them as OakTend credit automatically if you haven't picked anyone within a week of applying."
+                        ? " The pros who applied were told."
                         : ""}
                     </div>
                   ) : apps.length === 0 ? (
@@ -1061,26 +1060,36 @@ export default async function ContractorsPage(
                           or third open job actually needs. */}
                       {l.id !== explainerLeadId ? (
                         <p className="text-sm text-stone-500 dark:text-stone-400">
-                          {l.timing === "asap"
-                            ? "Live and marked urgent. No applications yet."
-                            : "Live. No applications yet."}
+                          {isPreview
+                            ? "Saved. Our pro network isn't open yet."
+                            : l.timing === "asap"
+                              ? "Live and marked urgent. No applications yet."
+                              : "Live. No applications yet."}
                         </p>
                       ) : (
                       <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
                         {/* An asap job shouldn't be told "a day or two": point
                             a real emergency at faster help instead. */}
-                        {l.timing === "asap" ? (
+                        {l.timing === "asap" && isPreview ? (
+                          <p>
+                            Saved. Our pro network isn&apos;t open yet, so no pro
+                            will see this today. If this is urgent, call a local
+                            24-hour company now. For gas, leave the house and
+                            call 911 or your gas company from outside.
+                          </p>
+                        ) : l.timing === "asap" ? (
                           <p>
                             Your job is live and marked urgent. For active
-                            flooding or gas, don&apos;t wait: call a 24/7 pro
-                            directly, and use the{" "}
+                            flooding, don&apos;t wait: call a 24/7 pro directly.
+                            For gas, leave the house and call 911 or your gas
+                            company from outside. See the{" "}
                             <Link
                               href="/emergency"
                               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
                             >
                               Emergency page
                             </Link>{" "}
-                            for shutoff steps.
+                            for what to do first.
                           </p>
                         ) : isPreview ? (
                           // Same reasoning as the posted-job banner above:

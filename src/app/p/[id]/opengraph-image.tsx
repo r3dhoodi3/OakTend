@@ -130,7 +130,7 @@ export default async function OgImage({
             OakTend
           </div>
           <div style={{ fontSize: 36, color: OAKTEND_700, marginTop: 16 }}>
-            Trusted pros for your home
+            Local pros for your home
           </div>
         </div>
       ),
@@ -240,7 +240,7 @@ export default async function OgImage({
             OakTend
           </div>
           <div style={{ fontSize: 36, color: OAKTEND_700, marginTop: 16 }}>
-            Trusted pros for your home
+            Local pros for your home
           </div>
         </div>
       ),

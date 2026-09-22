@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { COLD_START_FREE_POSTING } from "@/lib/constants";
+import { isHomeownerPreview } from "@/lib/previewMode";
 import { markPushMoment } from "@/lib/pushPrompt";
 import {
   normalizeContactEmail,
@@ -141,8 +142,9 @@ export default function PostJobButton({
         </p>
       )}
       <p className="text-xs text-stone-500 dark:text-stone-400">
-        Pros who pay to apply will see your name, address, phone (if added),
-        and the details below.
+        {isHomeownerPreview()
+          ? "During our preview no pro sees your name, address, email or phone unless you tell us to pass them on."
+          : "Pros see the job details, your city and your photos when they apply. Only the pro you choose gets your name, address, email and phone."}
       </p>
       <button
         ref={btnRef}
@@ -164,7 +166,7 @@ export default function PostJobButton({
           line disappears with the flag. */}
       {COLD_START_FREE_POSTING && (
         <p className="text-xs text-stone-500 dark:text-stone-400">
-          Job posting is free while we launch in your area.
+          Posting a job is free.
         </p>
       )}
     </div>

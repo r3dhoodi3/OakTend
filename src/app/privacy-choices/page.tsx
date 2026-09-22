@@ -37,7 +37,7 @@ export default function PrivacyChoicesPage() {
         Your Privacy Choices
       </h1>
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Last updated 2026-09-15.
+        Last updated {LEGAL.effectiveDate}.
       </p>
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         The short answer. See the{" "}
@@ -86,7 +86,7 @@ export default function PrivacyChoicesPage() {
               Account &gt; Privacy
             </Link>{" "}
             to download a copy of your data, as a JSON file or a PDF, or to permanently delete your
-            account, both instantly and without waiting on us.
+            account, without waiting on us. Deletion starts immediately and finishes within 30 days.
           </p>
         </section>
 

@@ -136,7 +136,7 @@ export default function PushPrompt({ side }: { side: PushSide }) {
   const title =
     side === "pro"
       ? "Get notified when a homeowner messages you"
-      : "Get notified when a pro replies or sends a quote";
+      : "Get messages and weather heads-ups on your phone";
 
   return (
     // Phone only, and lifted clear of the fixed bottom tab bar the same way

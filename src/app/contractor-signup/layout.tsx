@@ -11,16 +11,24 @@ import ProsComingSoon from "@/components/pro/ProsComingSoon";
 // PREVIEW MODE swaps both strings for ones that make no product claim, for the
 // same reason /pros does: this is what a search result and a link preview show
 // while the contractor side is closed.
+//
+// noindex, follow in BOTH modes: a signup form has nothing on it for a
+// searcher, and /pros is the pro-side page meant to be found. "follow" so the
+// links on it still count. /homeowner-signup is deliberately not marked.
+const NOINDEX_FOLLOW = { index: false, follow: true } as const;
+
 export const metadata: Metadata = isHomeownerPreview()
   ? {
       title: { absolute: "Pros are coming soon | OakTend for Pros" },
       description:
         "OakTend for Pros opens after our homeowner preview. Leave your email and we'll tell you first.",
+      robots: NOINDEX_FOLLOW,
     }
   : {
       title: { absolute: "Create your pro account | OakTend for Pros" },
       description:
         "Apply and quote for free. A 5% success fee applies only when a homeowner hires you, never for a lead.",
+      robots: NOINDEX_FOLLOW,
     };
 
 export default async function ContractorSignUpLayout({

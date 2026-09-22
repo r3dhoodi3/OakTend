@@ -26,7 +26,6 @@ Last updated: {{EFFECTIVE_DATE}}
 
 We know about the following gaps and are working through them:
 
-- **No skip-to-content link yet.** Keyboard users currently have to tab through the header and navigation on every page before reaching the main content.
 - **Reduced motion is only partially handled.** Some animations respect `prefers-reduced-motion` (for example, card hover effects); others do not yet.
 - **No formal accessibility audit has been completed.** Our current measures are based on ongoing engineering practice, not an independent WCAG audit.
 - **PDF exports (Home Report, insurance packet, tax appeal letter) may not be tagged for screen readers.** We have not verified that generated PDFs meet PDF/UA tagging requirements.

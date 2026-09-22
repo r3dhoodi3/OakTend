@@ -22,9 +22,12 @@ describe("household: names the caretaking use case", () => {
     );
     // Still there: the existing lines this one was added next to, not a
     // replacement for them.
-    expect(page).toContain(
-      "A member can see and manage the day-to-day: systems, tasks, issues,"
-    );
-    expect(page).toContain("Plus is personal, so a member doesn&apos;t get the owner&apos;s");
+    // Reworded 2026-09-20 (legal review N-114): the card now says plainly
+    // that a member also sees the money pages, and the Plus line matches
+    // hasPlus() in src/lib/subscription.ts (Plus carries with the home).
+    expect(page).toContain("A member sees everything you see for this home");
+    expect(page).toContain("the money pages (home value, purchase price, mortgage balance,");
+    expect(page).toContain("If the owner has Plus, members get Plus features on this home");
+    expect(page).not.toContain("Plus is personal");
   });
 });

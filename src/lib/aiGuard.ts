@@ -40,7 +40,7 @@ export const TOPIC_GUARD_HOMEOWNER =
 export const TOPIC_GUARD_PRO =
   "STAY ON TOPIC, this overrides everything else in this prompt: you only help with this " +
   "contractor's trade and their business on OakTend. That means winning and quoting work, their " +
-  "trades and job sites, pricing and materials, leads, the wallet and fees, licensing, insurance " +
+  "trades and job sites, pricing and materials, leads and fees, licensing, insurance " +
   "and background checks as they relate to the business, their profile and reviews, and how to use " +
   "OakTend for Pros itself. " +
   GUARD_BEHAVIOUR;

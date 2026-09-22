@@ -2,7 +2,7 @@
 
 Last updated: {{EFFECTIVE_DATE}}
 
-**Plain-language summary:** Be honest, be respectful, and keep contact and payment on {{BRAND}} until you have actually met. We automatically mask profanity and slurs in messages and reviews, remove contact information from reviews, and let you block or report anyone. Reviews can only come from a homeowner whose job the pro was actually assigned to, one (1) review per job. We never pay for reviews, never let a rating be bought, and never remove a review just because it is negative.
+**Plain-language summary:** Be honest, be respectful, and keep your conversations on {{BRAND}} so our safety and reporting tools can help you. We automatically mask profanity and slurs in messages and reviews, remove contact information from reviews, and let you block or report anyone. Reviews can only come from a homeowner whose job the pro was actually assigned to, one (1) review per job. We never pay for reviews, never let a rating be bought, and never remove a review just because it is negative.
 
 # Part 1: Community Guidelines
 
@@ -18,7 +18,7 @@ Be honest and be civil. Disagreements happen, especially about the price or qual
 
 ## 3. No scams or off-platform run-arounds
 
-Do not use {{BRAND}} to run a scam, request payment outside the normal way a job is priced and paid, or pressure someone to move a conversation off {{BRAND}} to avoid our safety and reporting tools. Do not scrape, harvest, or collect other users' contact information for outside use.
+Do not use {{BRAND}} to run a scam, ask for money under false pretenses, or pressure someone to move a conversation off {{BRAND}} to avoid our safety and reporting tools. Do not scrape, harvest, or collect other users' contact information for outside use.
 
 ## 4. No fake accounts
 
@@ -94,7 +94,7 @@ We do not hide, delay, or bury negative reviews. A contractor cannot make a nega
 
 ## 17. Contractors cannot remove reviews
 
-A contractor cannot delete or edit a homeowner's review. A contractor may post one (1) public response to a review, visible under it, to give their side of the story.
+A contractor cannot delete or edit a homeowner's review. We plan to let a contractor post one (1) public response to a review, visible under it, to give their side of the story. Until that is available, a contractor can ask us to look at a review by writing to {{SUPPORT_EMAIL}}.
 
 ## 18. When we do remove a review, and how we tell you
 

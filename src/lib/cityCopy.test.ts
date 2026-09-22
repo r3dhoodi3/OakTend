@@ -31,7 +31,7 @@ describe("cityPageCopy, preview off", () => {
       "Home maintenance and local pros in Fountain Valley, CA"
     );
     expect(copy.description).toBe(
-      "A maintenance plan built for your Fountain Valley home, answers about your own systems, and license-checked local pros when something breaks. Free to start."
+      "A maintenance plan built for your Fountain Valley home, answers about your own systems, and local pros when something breaks. Free to start."
     );
     expect(copy.headline).toBe(
       "Home maintenance and local pros in Fountain Valley"

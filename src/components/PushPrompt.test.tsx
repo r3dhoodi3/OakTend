@@ -16,7 +16,7 @@ import PushPrompt from "./PushPrompt";
 import { markPushMoment, SNOOZE_MS } from "@/lib/pushPrompt";
 
 const VAPID = "BIl-j3FtrO2v8sn6QNcEI6llH0Sg_bJPIWOy3c0NdfKqWqAjT4qyGPjzaNWSt-LDUCDPgyHg8tbM4gVqwQreZvk";
-const HOMEOWNER_TITLE = "Get notified when a pro replies or sends a quote";
+const HOMEOWNER_TITLE = "Get messages and weather heads-ups on your phone";
 const PRO_TITLE = "Get notified when a homeowner messages you";
 
 const IOS_SAFARI_UA =

@@ -1,5 +1,7 @@
 # Legal and compliance to-do (for Landen, to take to a CA attorney)
 
+> Note added 2026-09-20. Several items below are done and the text under them is out of date: OakTend LLC exists (formed 2026-09-03, California LLC no. B20260403864), the legal name, mailing address, contact emails and DMCA agent details are set in the live site's settings, and the DMCA agent is registered with the Copyright Office (DMCA-1080343). The auto-renewal checkbox also exists now. Still true: nothing here has been reviewed by counsel. The current review notes are the two legal-review reports dated 2026-09-19.
+
 Rewritten 2026-09-02. The full legal document set is now published as real
 site pages, rendered from Markdown in `src/content/legal/*.md` (see
 `src/components/LegalDocument.tsx` and `src/lib/legalMarkdown.tsx`). Editing a
@@ -55,8 +57,8 @@ fallbacks are what currently render on every legal page. Set these in Vercel
 (and `.env.local`) once each fact is real:
 
 - `NEXT_PUBLIC_LEGAL_BRAND` - product name (default "OakTend").
-- `NEXT_PUBLIC_LEGAL_ENTITY_NAME` - the formed LLC's legal name. **Not set. The LLC does not exist yet.**
-- `NEXT_PUBLIC_LEGAL_ADDRESS` - registered business address. **Not set.** Required before purchase under Cal. B&P 17538 and in every email under CAN-SPAM.
+- `NEXT_PUBLIC_LEGAL_ENTITY_NAME` - the formed LLC's legal name. Set in the live site's settings since 2026-09-12 (OakTend LLC).
+- `NEXT_PUBLIC_LEGAL_ADDRESS` - mailing address. Set in the live site's settings since 2026-09-12. Required before purchase under Cal. B&P 17538 and in every email under CAN-SPAM.
 - `NEXT_PUBLIC_LEGAL_DOMAIN` - defaults to the host in `NEXT_PUBLIC_SITE_URL`; only set this separately if the legal domain differs from the site's own host.
 - `NEXT_PUBLIC_LEGAL_EMAIL`, `NEXT_PUBLIC_SUPPORT_EMAIL`, `NEXT_PUBLIC_PRIVACY_EMAIL`, `NEXT_PUBLIC_SECURITY_EMAIL` - default to `legal@`/`support@`/`privacy@`/`security@` the domain above. Set these once real, monitored inboxes exist; the legal address in particular currently routes to a personal inbox and needs to move off it.
 - `NEXT_PUBLIC_PRIVACY_PHONE` - optional; blank hides the phone line on `/privacy` and `/privacy-choices`.

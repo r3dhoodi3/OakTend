@@ -89,16 +89,19 @@ export default async function HouseholdPage() {
 
       <div className="card space-y-2 p-6">
         <p className="text-sm text-stone-600 dark:text-stone-300">
-          A member can see and manage the day-to-day: systems, tasks, issues,
-          photos, documents, job posts, and messages.
+          A member sees everything you see for this home: systems, tasks,
+          issues, photos, documents, job posts, your messages with pros, and
+          the money pages (home value, purchase price, mortgage balance,
+          property tax, and insurance). Only invite people you would show all
+          of that to.
         </p>
         <p className="text-sm text-stone-600 dark:text-stone-300">
           A member can&apos;t edit the home&apos;s details, remove the home,
           or invite anyone else.
         </p>
         <p className="text-sm text-stone-600 dark:text-stone-300">
-          Plus is personal, so a member doesn&apos;t get the owner&apos;s
-          Plus.
+          If the owner has Plus, members get Plus features on this home
+          too.
         </p>
         {/* Names the case that actually creates a genuinely new account (a
             parent's home, a managed rental), not just a second login inside

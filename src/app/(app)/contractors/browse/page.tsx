@@ -95,8 +95,9 @@ export default async function BrowseProsPage(
             Browsing for contractors is coming soon. Thank you for your patience.
           </p>
           <p className="mt-2 text-stone-700 dark:text-stone-200">
-            Need work done now? Post your job and our team will find a local
-            pro for you by hand.
+            Need work done now? Post your job and our team may look for a
+            local pro by hand. We can&apos;t promise to find one, so for
+            anything urgent call a local licensed company.
           </p>
           <p className="mt-4">
             <Link

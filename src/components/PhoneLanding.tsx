@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import HeroPhotoCycler from "@/components/HeroPhotoCycler";
 import { isHomeownerPreview } from "@/lib/previewMode";
+import { CATEGORY_SENTENCE } from "@/lib/siteMetadata";
 
 // The phone landing: everything a visitor who already downloaded the app
 // needs, plus just enough substance that the screen does not read as empty.
@@ -59,7 +60,7 @@ const benefits = [
     ),
   },
   {
-    label: "Local pros, fee shown before you post a job.",
+    label: "A record of every system in your home.",
     // Map pin.
     icon: (
       <>
@@ -108,8 +109,14 @@ export default function PhoneLanding({
       <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 [text-wrap:balance]">
         Your home, looked after.
       </h2>
+      {/* Leads with the category sentence (src/lib/siteMetadata.ts): the
+          desktop hero that carries it is display:none at this width, and this
+          is the layout a phone visitor and a mobile-first crawler both read.
+          One paragraph, not two, because the fold budget above the doors has
+          room for one more line and not for a second block. */}
       <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-400">
-        OakTend checks on your home for you and warns you before things break.
+        {CATEGORY_SENTENCE} It checks on your home for you and warns you before
+        things break.
       </p>
 
       {/* Hero photo: the visual anchor the phone screen was missing. Same

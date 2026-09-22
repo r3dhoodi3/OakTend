@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
+import GuideMeta from "@/components/GuideMeta";
+import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
@@ -71,7 +73,7 @@ const FAQS = [
   },
   {
     q: "Why does hiring a licensed electrician matter for panel work?",
-    a: "A panel upgrade involves the main service connection and carries real shock and fire risk if it is done wrong. A licensed electrician is trained and accountable for the work, pulls the required permit, and gets it inspected. In California, electrical work at or above the licensing threshold must be done by a licensed contractor, and a permitted job protects you at resale and with your insurer.",
+    a: "A panel upgrade involves the main service connection and carries real shock and fire risk if it is done wrong. A licensed electrician is trained and accountable for the work, pulls the required permit, and gets it inspected. A panel upgrade needs a permit, so California's small-job exception for unlicensed workers does not apply to it at any price. Hire a licensed electrical contractor (CSLB class C-10) and check the license at cslb.ca.gov. A permitted job protects you at resale and with your insurer.",
   },
 ];
 
@@ -130,6 +132,9 @@ export default function ElectricalPanelUpgradeCostGuide() {
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Electrical panel upgrade cost: typical range and when you need one
       </h1>
+      {/* Updated date and byline, from the same date map the sitemap and the
+          Article node read (src/components/GuideMeta.tsx). */}
+      <GuideMeta path="/guides/electrical-panel-upgrade-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         A general planning guide. It is an estimate, not a quote for your home.
         Prices vary.
@@ -242,9 +247,11 @@ export default function ElectricalPanelUpgradeCostGuide() {
           </p>
           <p className="mt-2 leading-relaxed">
             A licensed electrician is trained and accountable for the work,
-            pulls the required permit, and gets it inspected. In California,
-            electrical work at or above the state licensing threshold has to be
-            done by a licensed contractor, and a permitted, inspected upgrade
+            pulls the required permit, and gets it inspected. A panel upgrade
+            needs a permit, so California&apos;s small-job exception for
+            unlicensed workers does not apply to it at any price. Hire a
+            licensed electrical contractor (CSLB class C-10) and check the
+            license at cslb.ca.gov. A permitted, inspected upgrade
             leaves a clean record that protects you at resale and with your
             insurer. Confirm your electrician is pulling the permit, and check
             with your city&apos;s building department for the exact requirement.
@@ -295,9 +302,13 @@ export default function ElectricalPanelUpgradeCostGuide() {
         </section>
       </div>
 
+      {/* Sources (where verified), related guides and city pages
+          (src/components/GuideRelated.tsx, data in src/lib/guideExtras.ts). */}
+      <GuideRelated path="/guides/electrical-panel-upgrade-cost" />
+
       <GuideCta
         signedInHref="/contractors?category=electrical"
-        signedInLabel="Find an electrician for your home"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

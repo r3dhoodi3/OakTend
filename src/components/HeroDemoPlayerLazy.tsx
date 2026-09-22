@@ -23,8 +23,8 @@ const HeroDemoPlayer = dynamic(() => import("./HeroDemoPlayer"), {
   loading: () => (
     <DemoPoster
       styles={styles}
-      label="From leak to booked pro"
-      sub="Watch someone use OakTend, 30 seconds"
+      label="See your home's plan"
+      sub="A short walkthrough of OakTend, 30 seconds"
       duration="0:30"
       ariaLabel="Play the OakTend demo, about 30 seconds, with sound"
     />

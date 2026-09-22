@@ -52,8 +52,8 @@ export default function HireAgainButton({
               Hire {contractorName} again
             </h2>
             <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-              This is a free repeat lead: no apply fee, since you&apos;ve already
-              worked together. Tell them what you need and we&apos;ll open a chat.
+              You&apos;ve already worked together. Tell them what you need and
+              we&apos;ll open a chat.
             </p>
 
             <form

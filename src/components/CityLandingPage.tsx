@@ -83,12 +83,12 @@ function valueCards(): {
       : {
           icon: Wrench,
           title: "Local pros, no bidding war",
-          body: "Pros are license-checked against the CSLB when a license is on file, and every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
+          body: "When a pro lists a California license, we check it against the state's public CSLB database and show the result. Every pro who applies shows up in one place, so you compare and choose instead of sorting through a pile of quotes.",
         },
     {
       icon: Gift,
       title: "Free to start",
-      body: "Free for your first home, no card needed.",
+      body: "Free during our preview, no card needed.",
     },
   ];
 }
@@ -270,10 +270,10 @@ export default function CityLandingPage({
             wanted plain "/" separators and the brand name, which is also what
             Google renders in a result's breadcrumb line.
 
-            "Orange County" is deliberately NOT a link. There is no /oc index
-            page - src/app/oc contains only the [city] route - so linking it
-            would be a 404 in the one place a crawler is most likely to
-            follow. Plain text is a valid BreadcrumbList item.
+            "Orange County" links to the county hub (src/app/oc/page.tsx),
+            which lists every city by area. It was plain text while /oc was a
+            404; the hub exists now, so the crumb is a real way up a level for
+            a reader and a crawler both.
 
             Small, muted, one line: same text-sm stone-500 the site uses for
             every secondary link (see the guides footer), so it sits above the
@@ -286,7 +286,12 @@ export default function CityLandingPage({
             OakTend
           </Link>
           <span aria-hidden="true"> / </span>
-          <span>Orange County</span>
+          <Link
+            href="/oc"
+            className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
+          >
+            Orange County
+          </Link>
           <span aria-hidden="true"> / </span>
           <span aria-current="page" className="text-stone-700 dark:text-stone-300">
             {city}
@@ -297,7 +302,7 @@ export default function CityLandingPage({
         <BreadcrumbJsonLd
           items={[
             { name: "OakTend", href: "/" },
-            { name: "Orange County" },
+            { name: "Orange County", href: "/oc" },
             { name: city },
           ]}
           siteUrl={SITE_URL}

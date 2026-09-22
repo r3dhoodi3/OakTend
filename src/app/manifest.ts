@@ -24,7 +24,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "OakTend",
     short_name: "OakTend",
     description:
-      "Keep your house in good shape, know what needs attention, and reach a trustworthy pro when something breaks.",
+      "Keep your house in good shape, know what needs attention, and store your home documents.",
     start_url: "/open?source=pwa",
     scope: "/",
     display: "standalone",

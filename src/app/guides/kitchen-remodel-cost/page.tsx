@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
+import GuideMeta from "@/components/GuideMeta";
+import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
@@ -129,6 +131,9 @@ export default function KitchenRemodelCostGuide() {
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Kitchen remodel cost in Orange County
       </h1>
+      {/* Updated date and byline, from the same date map the sitemap and the
+          Article node read (src/components/GuideMeta.tsx). */}
+      <GuideMeta path="/guides/kitchen-remodel-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         Typical estimate ranges for OC and SoCal homeowners, not a quote for
         your home. Prices vary. Data as of July 2026.
@@ -220,12 +225,12 @@ export default function KitchenRemodelCostGuide() {
         {/* Mid-page get-quotes CTA. Cost numbers are never gated. */}
         <section>
           <p className="leading-relaxed">
-            Ready to see real numbers for your kitchen?{" "}
+            Planning a kitchen remodel?{" "}
             <Link
               href="/contractors?category=remodeling"
               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
             >
-              Get quotes from local remodeling pros →
+              Track this project in OakTend →
             </Link>
           </p>
         </section>
@@ -322,9 +327,13 @@ export default function KitchenRemodelCostGuide() {
         </section>
       </div>
 
+      {/* Sources (where verified), related guides and city pages
+          (src/components/GuideRelated.tsx, data in src/lib/guideExtras.ts). */}
+      <GuideRelated path="/guides/kitchen-remodel-cost" />
+
       <GuideCta
         signedInHref="/contractors?category=remodeling"
-        signedInLabel="Get kitchen remodel quotes"
+        signedInLabel="Track this in OakTend"
       />
     </main>
   );

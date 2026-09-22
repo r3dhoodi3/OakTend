@@ -445,7 +445,7 @@ async function runCron(req: NextRequest) {
         pipelineParts.push(
           `${plural(deals.length, "open job")} in your trades ${
             deals.length === 1 ? "has" : "have"
-          } a reduced apply fee right now.`
+          } been open for a few days.`
         );
       }
 
