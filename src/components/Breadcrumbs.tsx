@@ -85,10 +85,13 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
 export type JsonLdCrumb = {
   name: string;
   // Relative ("/guides") or absolute; resolved against siteUrl when relative.
-  // Omit on the last item to match the current-page-has-no-item convention,
-  // or pass its canonical URL - both are valid schema.org, and a URL is
-  // marginally better for rich-result eligibility.
-  href?: string;
+  // REQUIRED on every crumb, the current page included. This used to be
+  // optional on the last item ("the current page has no item" is a valid
+  // schema.org reading), and Search Console flagged exactly that on
+  // 2026-09-22 as a critical Breadcrumbs error - "Missing field item" -
+  // which stops the rich result from showing at all. Google wants a URL on
+  // each ListItem, so the last one gets the page's own canonical URL.
+  href: string;
 };
 
 export function breadcrumbListJsonLd(items: JsonLdCrumb[], siteUrl: string) {
@@ -99,9 +102,7 @@ export function breadcrumbListJsonLd(items: JsonLdCrumb[], siteUrl: string) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      ...(item.href
-        ? { item: item.href.startsWith("http") ? item.href : `${siteUrl}${item.href}` }
-        : {}),
+      item: item.href.startsWith("http") ? item.href : `${siteUrl}${item.href}`,
     })),
   };
 }

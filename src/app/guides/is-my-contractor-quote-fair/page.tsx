@@ -118,7 +118,7 @@ export default function IsMyContractorQuoteFairGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Is my contractor's quote fair? How to read it before you sign" },
+          { name: "Is my contractor's quote fair? How to read it before you sign" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

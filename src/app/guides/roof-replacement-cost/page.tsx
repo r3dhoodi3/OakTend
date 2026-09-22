@@ -125,7 +125,7 @@ export default function RoofReplacementCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Roof replacement cost in Orange County: what to expect" },
+          { name: "Roof replacement cost in Orange County: what to expect" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

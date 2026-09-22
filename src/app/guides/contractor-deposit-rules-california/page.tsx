@@ -129,7 +129,7 @@ export default function ContractorDepositRulesGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "How much can a contractor ask for up front in California?" },
+          { name: "How much can a contractor ask for up front in California?" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
