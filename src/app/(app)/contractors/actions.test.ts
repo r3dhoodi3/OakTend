@@ -142,7 +142,12 @@ vi.mock("@/lib/internalAccounts", () => ({
 // "server-only" reason. A live getter so one test can put a founder on the
 // list; the default is the empty list, i.e. nobody flagged and no founder
 // account - which must still leave the homeowner's own receipt untouched.
-let teamRecipients: { id: string; email: string | null }[] = [];
+let teamRecipients: {
+  id: string;
+  email: string | null;
+  phone: string | null;
+  sms_consent: boolean | null;
+}[] = [];
 vi.mock("@/lib/teamAlerts", () => ({
   teamAlertRecipients: vi.fn(async () => teamRecipients),
 }));
@@ -631,15 +636,27 @@ describe("postJobAction: the receipt and the team alert", () => {
     expect(receipt.url).toContain("job=lead-1");
     // The contact address typed on the posting wins over the account address.
     expect(receipt.email).toBe("jane@example.com");
-    // A receipt for something they did seconds ago is not worth a text.
+    // A receipt for something they did seconds ago is not worth a text - and
+    // a text costs real money per message, unlike the bell row.
     expect(receipt.smsConsent).toBeUndefined();
+    expect(receipt.phone).toBeUndefined();
   });
 
   it("alerts every team account except the one that posted", async () => {
     installGoodPost();
     teamRecipients = [
-      { id: "user-1", email: "owner@example.com" },
-      { id: "founder-2", email: "founder@oaktend.com" },
+      {
+        id: "user-1",
+        email: "owner@example.com",
+        phone: "+17145550111",
+        sms_consent: true,
+      },
+      {
+        id: "founder-2",
+        email: "founder@oaktend.com",
+        phone: "+17145550122",
+        sms_consent: true,
+      },
     ];
 
     await runAndCatchRedirect(fd(REAL_SUBMIT));
@@ -654,6 +671,30 @@ describe("postJobAction: the receipt and the team alert", () => {
     // Enough to act on without opening anything: where, and what.
     expect(alert.title).toContain("Fountain Valley");
     expect(alert.body).toContain("Jane Doe");
+    // Texted too - speed to lead is the job while matching is by hand. The
+    // consent value is passed through from that founder's own row, never
+    // assumed: sendSms refuses anything but an explicit true.
+    expect(alert.phone).toBe("+17145550122");
+    expect(alert.smsConsent).toBe(true);
+  });
+
+  it("never texts a founder whose own row has no consent on file", async () => {
+    installGoodPost();
+    teamRecipients = [
+      {
+        id: "founder-2",
+        email: "founder@oaktend.com",
+        phone: "+17145550122",
+        sms_consent: false,
+      },
+    ];
+
+    await runAndCatchRedirect(fd(REAL_SUBMIT));
+
+    // The value is handed over as-is rather than filtered here, because the
+    // TCPA gate lives in sendSms and must stay the single door. What matters
+    // is that a false is never laundered into a true on the way.
+    expect(sentTo("founder-2")[0].smsConsent).toBe(false);
   });
 
   it("still posts the job when the notifications fail", async () => {

@@ -24,13 +24,25 @@ import { FOUNDER } from "@/lib/constants";
 // must cost the homeowner nothing. An empty list is a valid answer and means
 // "nobody to tell".
 
-export type TeamRecipient = { id: string; email: string | null };
+// phone and sms_consent ride along so the caller can hand them straight to
+// sendNotification without a second lookup. sms_consent is passed through
+// untouched and never inferred: sendSms only texts when it is exactly true
+// (the TCPA gate in src/lib/notify.ts), so a founder who never ticked the box
+// gets the bell row and the email and no text, like anybody else.
+export type TeamRecipient = {
+  id: string;
+  email: string | null;
+  phone: string | null;
+  sms_consent: boolean | null;
+};
+
+const TEAM_COLUMNS = "id, email, phone, sms_consent";
 
 export async function teamAlertRecipients(): Promise<TeamRecipient[]> {
   try {
     const admin = createAdminClient();
     const { data, error } = await (admin.from("users") as any)
-      .select("id, email")
+      .select(TEAM_COLUMNS)
       .eq("is_internal", true)
       .limit(20);
     if (!error && data?.length) {
@@ -45,7 +57,7 @@ export async function teamAlertRecipients(): Promise<TeamRecipient[]> {
     const ownerEmail = FOUNDER.email?.trim();
     if (!ownerEmail) return [];
     const { data: owner, error: ownerError } = await (admin.from("users") as any)
-      .select("id, email")
+      .select(TEAM_COLUMNS)
       .eq("email", ownerEmail)
       .maybeSingle();
     if (ownerError) {

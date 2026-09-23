@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "perf:budget": "node scripts/checkBundleBudget.mjs",
+    "email:test": "node scripts/emailSelfTest.mjs",
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types typescript --local > src/lib/database.types.ts"

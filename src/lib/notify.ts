@@ -1,4 +1,4 @@
-// Build-time guard: this module reads the Resend/Twilio secrets and pulls in
+// Build-time guard: this module reads the SendGrid/Twilio secrets and pulls in
 // the service-role client, so importing it from a Client Component must fail
 // the build, not ship any of that.
 import "server-only";
@@ -62,9 +62,12 @@ import { LEGAL } from "@/lib/legal";
 // To activate push: generate a VAPID key pair and set
 //   NEXT_PUBLIC_VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT
 // See src/lib/push.ts and docs/GO-LIVE-WIRING.md.
-// To activate email: create a Resend account (resend.com) and set
-//   RESEND_API_KEY - from resend.com/api-keys
-//   RESEND_FROM    - a verified sender, e.g. "OakTend <hello@yourdomain.com>"
+// To activate email: verify a sender on Twilio SendGrid and set
+//   SENDGRID_API_KEY - from sendgrid.com, Settings > API Keys (Mail Send only)
+//   SENDGRID_FROM    - a VERIFIED sender, e.g. "OakTend <hello@oaktend.com>"
+//   EMAIL_REPLY_TO  - optional, where a REPLY goes (see the note in sendEmail)
+//   (RESEND_API_KEY / RESEND_FROM still work and are used only when the
+//   SendGrid pair is absent - see the provider note above sendEmail.)
 // To activate SMS: create a Twilio account (twilio.com) and set
 //   TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER
 //
@@ -409,7 +412,7 @@ function isLiveHomeownerRow(row: {
 // bracketed "[TODO(legal): ...]" placeholder text until the owner sets the
 // corresponding env vars - the same safety net src/app/dmca/page.tsx uses, so
 // the pre-launch legal sweep's grep for TODO(legal) still catches an unfilled
-// address before real mail goes out (email is dormant until RESEND_API_KEY is
+// address before real mail goes out (email is dormant until a provider key is
 // set regardless).
 //
 // Uniform footer on ALL emails, including transactional-critical ones: that
@@ -508,24 +511,83 @@ export function isEmailOptOutExempt(kind: string): boolean {
   return EMAIL_TRANSACTIONAL_KINDS.has(kind);
 }
 
-// Fires once per process: warns that emails will only reach the account
-// owner until RESEND_FROM is set to a verified-domain sender, instead of the
-// Resend sandbox default below. A module-level flag, not a per-call check,
-// so a hot path doesn't re-log this on every notification.
-let warnedSandboxFrom = false;
+// ---------------------------------------------------------------------------
+// WHICH EMAIL PROVIDER (Twilio SendGrid as of 2026-09-22, Resend before that)
+// ---------------------------------------------------------------------------
+//
+// Resend was never actually delivering to real recipients: no OakTend domain
+// had been verified with it, so every send either fell back to the sandbox
+// sender (which only reaches the account owner) or did not go at all - see
+// the domain gap in docs/GO-LIVE-WIRING.md. The move to SendGrid puts mail on
+// the same vendor as the SMS half of this file, which is one account, one
+// bill and one status page instead of two.
+//
+// BOTH ARE READ, SENDGRID FIRST, so the cutover needs no coordinated moment:
+// set the SendGrid pair in Vercel and mail moves over on the next request;
+// leave the Resend key in place and nothing is stranded if the SendGrid
+// sender turns out not to be verified yet. Once SendGrid has been delivering
+// for a while, deleting RESEND_API_KEY from Vercel retires that path with no
+// code change, and the resend branch below can then be removed in one commit.
+//
+// SENDGRID_FROM IS REQUIRED for the SendGrid path, unlike RESEND_FROM: Resend
+// has a sandbox sender to fall back to and SendGrid has no equivalent - an
+// unverified sender is simply a 403. So a key with no from address is not
+// "SendGrid is configured", it is a misconfiguration, and this falls through
+// to Resend (if that is still set) rather than sending nothing silently.
+type EmailProvider = "sendgrid" | "resend";
 
-// Email via the Resend REST API. Plain fetch, no SDK, so there is no new
-// dependency to install. Dormant until RESEND_API_KEY is set. Exported (not
-// just called internally by sendOutboundChannels) so the opt-out exemption
-// below can be driven directly in tests rather than only inferred from
+function emailProvider(): EmailProvider | null {
+  if (process.env.SENDGRID_API_KEY && process.env.SENDGRID_FROM)
+    return "sendgrid";
+  if (process.env.RESEND_API_KEY) return "resend";
+  return null;
+}
+
+// Fires once per process each: the SendGrid key without its sender, and the
+// Resend sandbox fallback. Module-level flags, not per-call checks, so a hot
+// path doesn't re-log either on every notification.
+let warnedSandboxFrom = false;
+let warnedSendgridFrom = false;
+
+// "OakTend <hello@oaktend.com>" -> { name, email }. Resend takes that string
+// as-is; SendGrid wants the two halves apart. Anything that isn't in the
+// angle-bracket form is treated as a bare address, which is the other legal
+// value for these env vars.
+export function parseFromAddress(raw: string): { email: string; name?: string } {
+  const match = /^\s*(.*?)\s*<\s*([^>]+?)\s*>\s*$/.exec(raw);
+  if (!match) return { email: raw.trim() };
+  const name = match[1].replace(/^"|"$/g, "").trim();
+  return name ? { email: match[2], name } : { email: match[2] };
+}
+
+// Email via the provider's REST API - Twilio SendGrid, or Resend while its key
+// is still set. Plain fetch, no SDK, so there is no new dependency to install.
+// Dormant until one of those pairs of env vars exists. Exported (not just
+// called internally by sendOutboundChannels) so the opt-out exemption below
+// can be driven directly in tests rather than only inferred from
 // sendNotification's side effects.
 export async function sendEmail(
   input: NotificationInput,
   knownOptOut?: boolean | null
 ): Promise<void> {
-  if (!process.env.RESEND_API_KEY || !input.email) return;
+  const provider = emailProvider();
+  if (!provider || !input.email) return;
 
-  if (!process.env.RESEND_FROM && !warnedSandboxFrom) {
+  if (
+    process.env.SENDGRID_API_KEY &&
+    !process.env.SENDGRID_FROM &&
+    !warnedSendgridFrom
+  ) {
+    warnedSendgridFrom = true;
+    console.warn(
+      "sendEmail: SENDGRID_API_KEY is set but SENDGRID_FROM is not, so " +
+        "SendGrid cannot be used (it has no sandbox sender - an unverified " +
+        "From is a 403). Set SENDGRID_FROM to a verified sender on the " +
+        "SendGrid account."
+    );
+  }
+
+  if (provider === "resend" && !process.env.RESEND_FROM && !warnedSandboxFrom) {
     warnedSandboxFrom = true;
     console.warn(
       "sendEmail: RESEND_FROM is not set, falling back to the Resend sandbox " +
@@ -586,35 +648,90 @@ export async function sendEmail(
     // field and keeps its newlines - that is what makes it readable.
     const subject = stripControlChars(input.title);
     const bodyText = input.body ? `${subject}\n\n${input.body}` : subject;
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: process.env.RESEND_FROM || "OakTend <onboarding@resend.dev>",
-        to: input.email,
-        subject,
-        text: `${bodyText}\n${emailFooter(unsubscribeUrl)}`,
-      }),
-    });
+    const text = `${bodyText}\n${emailFooter(unsubscribeUrl)}`;
+
+    // WHERE A REPLY GOES. Without this header a reply goes to the From
+    // address, which is only useful while From is a mailbox a person reads -
+    // it is `hello@oaktend.com` today, forwarded to the founders by Cloudflare
+    // Email Routing. The moment the sender moves to a no-reply address or a
+    // dedicated sending subdomain (the normal next step, so the app's sending
+    // reputation is isolated from the real mailbox), every reply would go
+    // nowhere and nobody would ever know - a customer answering "yes, Tuesday
+    // works" into a black hole is the worst kind of silent failure.
+    //
+    // So: set EMAIL_REPLY_TO to the address a human actually reads, and it is
+    // attached to every message. Unset, the header is simply omitted and
+    // behaviour is exactly what it was.
+    //
+    // It changes NOTHING about authentication. SPF, DKIM and DMARC all align
+    // against the From domain; Reply-To is not authenticated and not checked,
+    // so pointing it at another domain cannot hurt deliverability.
+    const replyToRaw = process.env.EMAIL_REPLY_TO?.trim();
+    const replyTo = replyToRaw ? parseFromAddress(replyToRaw) : null;
+
+    // Same message, same footer, same unsubscribe link either way - only the
+    // envelope differs. SendGrid answers 202 with an empty body on success.
+    const response =
+      provider === "sendgrid"
+        ? await fetch("https://api.sendgrid.com/v3/mail/send", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              personalizations: [{ to: [{ email: input.email }] }],
+              from: parseFromAddress(process.env.SENDGRID_FROM as string),
+              ...(replyTo ? { reply_to: replyTo } : {}),
+              subject,
+              content: [{ type: "text/plain", value: text }],
+            }),
+          })
+        : await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: process.env.RESEND_FROM || "OakTend <onboarding@resend.dev>",
+              to: input.email,
+              // Resend takes the header as a plain string, where SendGrid
+              // wants the two halves apart - hence the raw value here and the
+              // parsed object above.
+              ...(replyToRaw ? { reply_to: replyToRaw } : {}),
+              subject,
+              text,
+            }),
+          });
     if (!response.ok) {
-      // NEVER log the raw provider body: Resend echoes the recipient email
-      // address back inside 403 sandbox and validation error messages, and
-      // Vercel logs are third-party retention. Parse out only the machine
-      // error name and log that plus the HTTP status - enough to debug, no
-      // recipient PII. `name` is a fixed enum string (e.g. "validation_error",
-      // "invalid_from_address"); the free-text `message` is dropped on purpose.
+      // NEVER log the raw provider body, on either provider: Resend echoes the
+      // recipient email address back inside 403 sandbox and validation error
+      // messages, SendGrid can echo it inside an `errors[].message`, and Vercel
+      // logs are third-party retention. Parse out only the machine-readable
+      // half and log that plus the HTTP status - enough to debug against the
+      // provider's error reference, no recipient PII.
+      //
+      // Resend: `name`, a fixed enum string ("validation_error",
+      // "invalid_from_address"). SendGrid: `errors[0].field`, a JSON path into
+      // the request ("personalizations.0.to.0.email", "from.email"), which
+      // names the offending FIELD and never carries its value. Both free-text
+      // `message` fields are dropped on purpose.
       let code = "unknown";
       try {
-        const parsed = (await response.json()) as { name?: unknown };
+        const parsed = (await response.json()) as {
+          name?: unknown;
+          errors?: { field?: unknown }[];
+        };
         if (typeof parsed?.name === "string") code = parsed.name;
+        const field = parsed?.errors?.[0]?.field;
+        if (typeof field === "string") code = field;
       } catch {
         // Body unreadable or not JSON; status alone still tells us something.
+        // A SendGrid 202 has an empty body and never reaches here anyway.
       }
       console.error(
-        `sendEmail: Resend API rejected the request (status ${response.status}, code ${code})`
+        `sendEmail: ${provider} API rejected the request (status ${response.status}, code ${code})`
       );
     }
   } catch {

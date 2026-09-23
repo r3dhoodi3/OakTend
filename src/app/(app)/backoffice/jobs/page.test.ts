@@ -66,6 +66,18 @@ describe("backoffice/jobs: the update reaches the right person", () => {
     expect(actions).toContain("userId: property.user_id");
   });
 
+  // TCPA: consent is recorded per ACCOUNT (users.sms_consent, migration
+  // 0073). contractor_leads.homeowner_phone is a number typed into a job form
+  // by somebody who consented to nothing, so texting it because it happens to
+  // be on the posting is exactly the exposure the gate exists to prevent.
+  it("texts the account's number and consent, never the one typed on the job", () => {
+    expect(actions).toContain("phone: owner?.phone ?? null");
+    expect(actions).toContain("smsConsent: owner?.sms_consent ?? null");
+    // The column is named in a comment explaining why it is NOT used; what
+    // must never appear is it being handed over as the destination.
+    expect(actions).not.toContain("phone: lead.homeowner_phone");
+  });
+
   it("refuses a blank update and a lead id that isn't one", () => {
     expect(actions).toContain("normalizeJobUpdate(");
     expect(actions).toContain("if (!/^[0-9a-f-]{36}$/i.test(leadId)) notFound();");

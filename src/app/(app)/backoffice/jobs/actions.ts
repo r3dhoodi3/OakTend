@@ -68,6 +68,20 @@ export async function postJobUpdateAction(formData: FormData) {
     redirect("/backoffice/jobs");
   }
 
+  // The owner's own contact row, for the two outbound channels. THE TEXT IS
+  // SENT TO users.phone, NOT to contractor_leads.homeowner_phone: consent is
+  // recorded per account (users.sms_consent, migration 0073), and a number
+  // typed into a job form is not a number that consented to anything. Texting
+  // it because it happens to be on the posting is exactly the TCPA exposure
+  // the gate exists to prevent. Email is the other way round - the address on
+  // the posting is the one the owner just chose for this job - so that one
+  // wins, with the account address as the fallback.
+  const { data: owner } = await (admin as any)
+    .from("users")
+    .select("email, phone, sms_consent")
+    .eq("id", property.user_id)
+    .maybeSingle();
+
   const copy = jobUpdateNotification({
     categoryLabel: labelFor(JOB_CATEGORIES, lead.category),
     message,
@@ -78,7 +92,9 @@ export async function postJobUpdateAction(formData: FormData) {
     title: copy.title,
     body: copy.body,
     url: jobUpdateUrl(lead.id),
-    email: lead.homeowner_email ?? null,
+    email: lead.homeowner_email ?? owner?.email ?? null,
+    phone: owner?.phone ?? null,
+    smsConsent: owner?.sms_consent ?? null,
   });
 
   await setFlash(

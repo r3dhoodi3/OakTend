@@ -928,7 +928,7 @@ export async function postJobAction(formData: FormData) {
     // Every flagged team account except the poster - a founder testing from
     // their own homeowner account does not need to be told about their own
     // job. One send each rather than a bulk insert: this is two people, and
-    // the email half is the one that actually gets us to the job in time.
+    // the outbound half is the one that actually gets us to the job in time.
     const alert = teamJobAlert({
       categoryLabel: postedLabel,
       timing,
@@ -945,6 +945,13 @@ export async function postJobAction(formData: FormData) {
         body: alert.body,
         url: "/backoffice/jobs",
         email: member.email,
+        // Texted as well, because speed to lead is the whole job while
+        // matching is done by hand: an alert read tomorrow morning is a job
+        // already lost. The TCPA gate is untouched - sendSms fires only when
+        // sms_consent is exactly true on that founder's own row, and the same
+        // 8am-9pm quiet hours apply to us as to anyone else.
+        phone: member.phone,
+        smsConsent: member.sms_consent,
       });
     }
   } catch (e) {
