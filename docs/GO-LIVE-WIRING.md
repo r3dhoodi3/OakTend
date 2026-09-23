@@ -48,10 +48,20 @@ SendGrid has been delivering for a while and that path retires itself with no co
    every message. So `SENDGRID_API_KEY` without `SENDGRID_FROM` is treated as "not
    configured" and falls through to Resend rather than failing every send silently. A
    one-off warning is logged when that happens.
-4. Verify: trigger any email path (e.g. the review-request flow or a cron that sends digests)
-   and confirm delivery to a real non-owner address. A rejected send logs the HTTP status and
-   the offending field path (never the recipient's address), so check the Vercel function
-   logs if nothing arrives.
+4. Optionally set `EMAIL_REPLY_TO` (e.g. `OakTend <hello@oaktend.com>`), which is attached to
+   every outgoing message whichever provider sends it. Unset, a reply goes to the From
+   address - which is fine only while From is a mailbox somebody reads. Set it as soon as the
+   sender becomes a `no-reply@` address or a dedicated sending subdomain (the usual move, so
+   the app's sending reputation is isolated from the real mailbox), or customer replies go
+   nowhere and nothing reports it. Reply-To is not authenticated by SPF, DKIM or DMARC -
+   those all align against From - so it can point at any domain without hurting delivery.
+5. Verify: `npm run email:test -- you@example.com` sends one real message through whichever
+   provider is configured and prints the provider's own answer, including the fix for a
+   401/403. Then trigger an in-app path (e.g. posting a job, which mails the poster a
+   receipt) and confirm delivery to a real non-owner address. A rejected send logs the HTTP
+   status and the offending field path (never the recipient's address), so check the Vercel
+   function logs if nothing arrives - and remember that acceptance is not delivery, so check
+   SendGrid's Activity feed for drops and bounces.
 
 **Supabase Auth email is a SEPARATE pipe.** Signup confirmations and password resets are sent
 by Supabase, not by `notify.ts`, and they do not read these env vars at all. To move those to

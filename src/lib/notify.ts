@@ -65,6 +65,7 @@ import { LEGAL } from "@/lib/legal";
 // To activate email: verify a sender on Twilio SendGrid and set
 //   SENDGRID_API_KEY - from sendgrid.com, Settings > API Keys (Mail Send only)
 //   SENDGRID_FROM    - a VERIFIED sender, e.g. "OakTend <hello@oaktend.com>"
+//   EMAIL_REPLY_TO  - optional, where a REPLY goes (see the note in sendEmail)
 //   (RESEND_API_KEY / RESEND_FROM still work and are used only when the
 //   SendGrid pair is absent - see the provider note above sendEmail.)
 // To activate SMS: create a Twilio account (twilio.com) and set
@@ -649,6 +650,25 @@ export async function sendEmail(
     const bodyText = input.body ? `${subject}\n\n${input.body}` : subject;
     const text = `${bodyText}\n${emailFooter(unsubscribeUrl)}`;
 
+    // WHERE A REPLY GOES. Without this header a reply goes to the From
+    // address, which is only useful while From is a mailbox a person reads -
+    // it is `hello@oaktend.com` today, forwarded to the founders by Cloudflare
+    // Email Routing. The moment the sender moves to a no-reply address or a
+    // dedicated sending subdomain (the normal next step, so the app's sending
+    // reputation is isolated from the real mailbox), every reply would go
+    // nowhere and nobody would ever know - a customer answering "yes, Tuesday
+    // works" into a black hole is the worst kind of silent failure.
+    //
+    // So: set EMAIL_REPLY_TO to the address a human actually reads, and it is
+    // attached to every message. Unset, the header is simply omitted and
+    // behaviour is exactly what it was.
+    //
+    // It changes NOTHING about authentication. SPF, DKIM and DMARC all align
+    // against the From domain; Reply-To is not authenticated and not checked,
+    // so pointing it at another domain cannot hurt deliverability.
+    const replyToRaw = process.env.EMAIL_REPLY_TO?.trim();
+    const replyTo = replyToRaw ? parseFromAddress(replyToRaw) : null;
+
     // Same message, same footer, same unsubscribe link either way - only the
     // envelope differs. SendGrid answers 202 with an empty body on success.
     const response =
@@ -662,6 +682,7 @@ export async function sendEmail(
             body: JSON.stringify({
               personalizations: [{ to: [{ email: input.email }] }],
               from: parseFromAddress(process.env.SENDGRID_FROM as string),
+              ...(replyTo ? { reply_to: replyTo } : {}),
               subject,
               content: [{ type: "text/plain", value: text }],
             }),
@@ -675,6 +696,10 @@ export async function sendEmail(
             body: JSON.stringify({
               from: process.env.RESEND_FROM || "OakTend <onboarding@resend.dev>",
               to: input.email,
+              // Resend takes the header as a plain string, where SendGrid
+              // wants the two halves apart - hence the raw value here and the
+              // parsed object above.
+              ...(replyToRaw ? { reply_to: replyToRaw } : {}),
               subject,
               text,
             }),

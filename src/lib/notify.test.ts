@@ -277,4 +277,44 @@ describe("email provider selection", () => {
     await sendEmail(note);
     expect(fetch).not.toHaveBeenCalled();
   });
+
+  // Without a Reply-To, a reply goes to the From address - fine while that is
+  // a mailbox somebody reads, silently fatal the moment the sender moves to a
+  // no-reply address or a dedicated sending subdomain.
+  describe("reply-to", () => {
+    it("attaches the address SendGrid's way when EMAIL_REPLY_TO is set", async () => {
+      vi.stubEnv("SENDGRID_API_KEY", "sg-key");
+      vi.stubEnv("SENDGRID_FROM", "OakTend <notifications@mail.oaktend.com>");
+      vi.stubEnv("EMAIL_REPLY_TO", "OakTend <hello@oaktend.com>");
+
+      await sendEmail(note);
+
+      expect(lastRequest().body.reply_to).toEqual({
+        name: "OakTend",
+        email: "hello@oaktend.com",
+      });
+    });
+
+    // Resend wants the header as a plain string, SendGrid as an object.
+    it("attaches it Resend's way on the fallback path", async () => {
+      vi.stubEnv("RESEND_API_KEY", "resend-key");
+      vi.stubEnv("EMAIL_REPLY_TO", "hello@oaktend.com");
+
+      await sendEmail(note);
+
+      expect(lastRequest().body.reply_to).toBe("hello@oaktend.com");
+    });
+
+    it("omits the header entirely when it is unset or blank", async () => {
+      vi.stubEnv("SENDGRID_API_KEY", "sg-key");
+      vi.stubEnv("SENDGRID_FROM", "OakTend <hello@oaktend.com>");
+      vi.stubEnv("EMAIL_REPLY_TO", "   ");
+
+      await sendEmail(note);
+
+      // Absent, not null and not an empty object: a provider handed an empty
+      // reply_to can reject the whole message.
+      expect("reply_to" in lastRequest().body).toBe(false);
+    });
+  });
 });

@@ -64,6 +64,10 @@ async function main() {
   const sendgridKey = process.env.SENDGRID_API_KEY;
   const sendgridFrom = process.env.SENDGRID_FROM;
   const resendKey = process.env.RESEND_API_KEY;
+  // Optional, and worth testing for real: hit reply on the message this sends
+  // and see where it goes. A Reply-To that points at a mailbox nobody reads is
+  // invisible until a customer answers into it.
+  const replyTo = process.env.EMAIL_REPLY_TO?.trim();
 
   // The same precedence sendEmail applies, restated out loud so a
   // misconfiguration is visible before anything is sent.
@@ -78,6 +82,9 @@ async function main() {
   const subject = "OakTend email self-test";
   const text =
     "If you are reading this, the sender is configured and DNS is doing its job.\n\n" +
+    (replyTo
+      ? `Hit reply: it should go to ${replyTo}, not to the From address.\n\n`
+      : "No EMAIL_REPLY_TO is set, so a reply goes to the From address.\n\n") +
     `Sent ${new Date().toISOString()} by scripts/emailSelfTest.mjs.`;
 
   let response;
@@ -94,6 +101,7 @@ async function main() {
       body: JSON.stringify({
         personalizations: [{ to: [{ email: to }] }],
         from: parseFrom(sendgridFrom),
+        ...(replyTo ? { reply_to: parseFrom(replyTo) } : {}),
         subject,
         content: [{ type: "text/plain", value: text }],
       }),
@@ -108,7 +116,15 @@ async function main() {
         Authorization: `Bearer ${resendKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from, to, subject, text }),
+      body: JSON.stringify({
+        from,
+        to,
+        // Resend takes the header as a plain string; SendGrid wants the two
+        // halves apart. Same split as sendEmail.
+        ...(replyTo ? { reply_to: replyTo } : {}),
+        subject,
+        text,
+      }),
     });
   } else {
     console.error(
