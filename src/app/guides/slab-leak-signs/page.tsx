@@ -119,7 +119,7 @@ export default function SlabLeakSignsGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Slab leak signs: how to spot one early" },
+          { name: "Slab leak signs: how to spot one early" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

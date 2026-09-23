@@ -135,9 +135,13 @@ export function buildCityServiceJsonLd(city: string, siteUrl: string, path: stri
 
 export default function CityLandingPage({
   city,
+  path,
   housingParagraph,
 }: {
   city: string;
+  // The page's own route ("/fountain-valley", "/oc/irvine"): the breadcrumb
+  // list's last item needs the page's URL.
+  path: string;
   housingParagraph: string;
 }) {
   const copy = cityPageCopy(city);
@@ -193,7 +197,7 @@ export default function CityLandingPage({
           items={[
             { name: "OakTend", href: "/" },
             { name: "Orange County", href: "/oc" },
-            { name: city },
+            { name: city, href: path },
           ]}
           siteUrl={SITE_URL}
         />

@@ -36,6 +36,7 @@ import {
   STALE_RELOAD_MESSAGE,
 } from "@/lib/staleDeploy";
 import { Home } from "lucide-react";
+import AnimatedDetails from "@/components/AnimatedDetails";
 
 // LAUNCH_ONLY_MESSAGE used to be duplicated here by hand, because ./actions.ts
 // is a "use server" file and can only export async functions to a client
@@ -1381,22 +1382,26 @@ export default function OnboardingForm({
                   pattern as NoticeAtCollection) so the expanded section stays
                   short: name is all that's actually needed on top of the address
                   to claim. */}
-              <details className="group">
-                {/* Hover underline on the words only, never under the arrow
-                    (same fix as NoticeAtCollection.tsx). */}
-                <summary className="group/summary inline-flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden">
-                  <span className="group-hover/summary:underline">
-                    Know more details? Add them (optional)
-                  </span>
-                  <span
-                    aria-hidden
-                    className="text-stone-400 transition-transform group-open:rotate-180 dark:text-stone-500"
-                  >
-                    &#9662;
-                  </span>
-                </summary>
-
-                <div className="mt-3 space-y-4">
+              <AnimatedDetails
+                // Hover underline on the words only, never under the arrow
+                // (same fix as NoticeAtCollection.tsx).
+                summaryClassName="group/summary inline-flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-bark-700 dark:text-stone-300 [&::-webkit-details-marker]:hidden"
+                summary={
+                  <>
+                    <span className="group-hover/summary:underline">
+                      Know more details? Add them (optional)
+                    </span>
+                    <span
+                      aria-hidden
+                      className="text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-180 dark:text-stone-500"
+                    >
+                      &#9662;
+                    </span>
+                  </>
+                }
+                contentClassName="pt-3"
+              >
+                <div className="space-y-4">
                   {/* State and City only. There WAS a third ZIP box here, and
                       it was the only field in the whole form actually named
                       "zip" - so the claim read this optional, hidden-behind-a-
@@ -1499,7 +1504,7 @@ export default function OnboardingForm({
                     </div>
                   </div>
                 </div>
-              </details>
+              </AnimatedDetails>
 
               {/* Two versions on purpose, because only one of them is true.
                   The county record for a street address with a unit on it is

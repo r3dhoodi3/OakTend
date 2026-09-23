@@ -106,7 +106,9 @@ export default function PhoneLanding({
           desktop hero's (src/app/page.tsx). The cost: a phone screen reader
           meets an h2 first, since that h1 is display:none at this width.
           Classes are unchanged, so it looks the same. */}
-      <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+      {/* HERO ENTRANCE (trial, 2026-09-21): same staggered rise as the desktop
+          hero in page.tsx. motion-safe: so reduce-motion sees the page at rest. */}
+      <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 hero-rise motion-safe:animate-hero-rise dark:text-stone-100 [text-wrap:balance]">
         Your home looked after
       </h2>
       {/* Leads with the category sentence (src/lib/siteMetadata.ts): the
@@ -114,7 +116,7 @@ export default function PhoneLanding({
           is the layout a phone visitor and a mobile-first crawler both read.
           One paragraph, not two, because the fold budget above the doors has
           room for one more line and not for a second block. */}
-      <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-400">
+      <p className="mt-3 text-base leading-relaxed text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-400">
         {CATEGORY_SENTENCE} It checks on your home for you and warns you before
         things break.
       </p>
@@ -124,7 +126,7 @@ export default function PhoneLanding({
           page.tsx so the image set has one home), in the same rounded frame.
           The cycler reserves its own aspect-[3/2] box, so it never shifts the
           doors as photos load. */}
-      <div className="mt-6 overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
+      <div className="mt-6 overflow-hidden rounded-xl border border-stone-200 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:border-white/10">
         <HeroPhotoCycler photos={photos} />
       </div>
 
@@ -132,7 +134,7 @@ export default function PhoneLanding({
           is above the 44px thumb minimum .btn already enforces. Each goes
           STRAIGHT to its real signup form, not to a "who are you?" fork:
           this screen is the fork. */}
-      <div className="mt-8 flex flex-col gap-3">
+      <div className="mt-8 flex flex-col gap-3 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:270ms]">
         <Link
           href="/homeowner-signup"
           // The two role doors are the whole point of this screen, so the

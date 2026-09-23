@@ -124,7 +124,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Electrical panel upgrade cost: typical range and when you need one" },
+          { name: "Electrical panel upgrade cost: typical range and when you need one" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

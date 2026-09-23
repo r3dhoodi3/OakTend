@@ -173,7 +173,7 @@ export default function HomeMaintenanceScheduleGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Home maintenance schedule: how often to do everything" },
+          { name: "Home maintenance schedule: how often to do everything" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

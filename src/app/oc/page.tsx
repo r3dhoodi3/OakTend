@@ -137,7 +137,7 @@ export default function OrangeCountyHub() {
           </span>
         </nav>
         <BreadcrumbJsonLd
-          items={[{ name: "OakTend", href: "/" }, { name: "Orange County" }]}
+          items={[{ name: "OakTend", href: "/" }, { name: "Orange County", href: CANONICAL }]}
           siteUrl={SITE_URL}
         />
         <script
