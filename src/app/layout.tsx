@@ -88,6 +88,20 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 // point at OakTend-the-organization something to reference.
 const organizationJsonLd = buildOrganizationJsonLd(SITE_URL);
 
+// WebSite JSON-LD. Search engines take the site name they print above a result
+// from this node, not from the Organization one; without it they fall back to
+// the bare domain ("oaktend.com" / "Oaktend.com"). The publisher points at the
+// one Organization node above rather than describing the business twice.
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}#website`,
+  name: "OakTend",
+  alternateName: ["OakTend.com", "Oak Tend"],
+  url: SITE_URL,
+  publisher: { "@id": `${SITE_URL}#organization` },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   // The default title and description live in src/lib/siteMetadata.ts so the
@@ -196,6 +210,10 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>

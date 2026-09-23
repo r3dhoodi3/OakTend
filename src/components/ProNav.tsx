@@ -106,7 +106,7 @@ export default function ProNav({
         running its own. Without it the pro shell paid for two of each on
         every page. */}
     <UnreadProvider role="contractor">
-    <header className="sticky top-0 z-30 border-b border-stone-200 bg-oaktend-50 dark:border-white/10 dark:bg-stone-900">
+    <header className="sticky top-0 z-30 border-b border-stone-200 bg-bark-50 dark:border-white/10 dark:bg-stone-900">
       {/* One row at every width, mirroring the homeowner Nav: brand left,
           bell + profile pinned top-right, nothing stacks on a phone. */}
       {/* The row itself is a client component ONLY because of the search
@@ -125,7 +125,7 @@ export default function ProNav({
             href="/pro"
             className="flex shrink-0 items-center gap-2 whitespace-nowrap text-lg font-semibold text-stone-900 dark:text-stone-100"
           >
-            <Logo className="h-6 w-6 text-oaktend-700 dark:text-oaktend-400" />
+            <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" />
             <span className="relative leading-tight">
               <span>
                 OakTend{" "}
@@ -152,7 +152,7 @@ export default function ProNav({
               {hasHome && (
                 <SidePill
                   label="Business"
-                  accent="oaktend"
+                  accent="bark"
                   size="sm"
                   className="absolute left-0 top-full mt-0.5 hidden sm:block"
                 />
@@ -168,7 +168,7 @@ export default function ProNav({
                 640-1023px five pills plus the wordmark did not fit one row and
                 the strip was painted over the brand. */}
             <nav className="-mx-1 hidden items-center gap-1 overflow-x-auto px-1 lg:flex">
-              <NavLinks links={LINKS} accent="oaktend" />
+              <NavLinks links={LINKS} accent="bark" />
             </nav>
             {/* Back office is NOT a header button anymore: it duplicated the
                 "Back office" entry already in the profile menu below, and its
@@ -185,7 +185,7 @@ export default function ProNav({
             <Link
               href="/pro/search"
               aria-label="Search"
-              className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-oaktend-100 hover:text-oaktend-700 sm:hidden dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-bark-100 hover:text-bark-700 sm:hidden dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -212,7 +212,7 @@ export default function ProNav({
                 href: "/pro/plus",
                 active: isMember,
                 tierName: "OakTend Pro",
-                accent: "oaktend",
+                accent: "bark",
               }}
               themeToggle
               links={[
@@ -271,7 +271,7 @@ export default function ProNav({
         <div className="-mt-5 pl-12 pb-1.5 sm:hidden">
           <SidePill
             label={company ?? "Business"}
-            accent="oaktend"
+            accent="bark"
             className="inline-block max-w-[75vw] truncate align-middle"
           />
         </div>
@@ -284,9 +284,9 @@ export default function ProNav({
         docks above this bar on the same lg breakpoint. */}
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-30 flex items-stretch border-t border-stone-200 bg-oaktend-50 pb-[env(safe-area-inset-bottom)] lg:hidden dark:border-white/10 dark:bg-stone-900"
+      className="fixed inset-x-0 bottom-0 z-30 flex items-stretch border-t border-stone-200 bg-bark-50 pb-[env(safe-area-inset-bottom)] lg:hidden dark:border-white/10 dark:bg-stone-900"
     >
-      <NavLinks links={BOTTOM_LINKS} variant="bottom" accent="oaktend" />
+      <NavLinks links={BOTTOM_LINKS} variant="bottom" accent="bark" />
     </nav>
     </UnreadProvider>
     </>

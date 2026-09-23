@@ -13,15 +13,15 @@ import { APP_GUIDE_EVENT } from "@/lib/appGuide";
 // the seen stamp, exactly as ShowAppGuideButton does.
 //
 // Icon-only to match the other header controls (search, bell), with an
-// accessible name. Accent follows the shell: bark on the homeowner side,
-// oaktend on the pro side, same split every other two-shell control makes.
+// accessible name. Both shells use the bark accent (the pro side dropped the
+// ember red), so the two entries below are the same on purpose.
 //
-// Hover is the -100 shade, not -50: the headers themselves are bark-50 /
-// oaktend-50, so a -50 hover was the header's own colour and read as dead.
+// Hover is the -100 shade, not -50: the headers themselves are bark-50, so a
+// -50 hover was the header's own colour and read as dead.
 const ACCENT = {
   homeowner:
     "text-stone-500 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
-  pro: "text-stone-500 hover:bg-oaktend-100 hover:text-oaktend-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
+  pro: "text-stone-500 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
 } as const;
 
 export default function TourButton({

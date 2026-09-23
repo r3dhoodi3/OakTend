@@ -109,7 +109,7 @@ export default function PhoneLanding({
       {/* HERO ENTRANCE (trial, 2026-09-21): same staggered rise as the desktop
           hero in page.tsx. motion-safe: so reduce-motion sees the page at rest. */}
       <h2 className="mt-12 text-3xl font-semibold tracking-tight text-stone-900 hero-rise motion-safe:animate-hero-rise dark:text-stone-100 [text-wrap:balance]">
-        Your home, looked after.
+        Your home looked after
       </h2>
       {/* Leads with the category sentence (src/lib/siteMetadata.ts): the
           desktop hero that carries it is display:none at this width, and this

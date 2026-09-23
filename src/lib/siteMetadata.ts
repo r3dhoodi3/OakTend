@@ -31,7 +31,7 @@ export const CATEGORY_SENTENCE =
 
 // The brand line the default <title> carried before it was aimed at a search.
 // Still the non-preview default, and still on the page as the tagline.
-const BRAND_TITLE = "OakTend: Your home, looked after";
+const BRAND_TITLE = "OakTend: Your home looked after";
 
 // 52 characters, so it is not cut off in a search result.
 const PREVIEW_TITLE = "OakTend: free home maintenance app for Orange County";

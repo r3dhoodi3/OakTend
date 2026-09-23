@@ -46,7 +46,7 @@ export default async function ProSearchPage(props: {
               autoFocus={!q}
               placeholder="Type, then press Search"
               aria-label="Search"
-              className="w-full rounded-xl border border-stone-200 bg-white py-2.5 pl-9 pr-3 text-base sm:text-sm text-stone-900 placeholder:text-stone-500 focus:border-oaktend-500 focus:outline-none dark:border-white/10 dark:bg-stone-800 dark:text-stone-100"
+              className="w-full rounded-xl border border-stone-200 bg-white py-2.5 pl-9 pr-3 text-base sm:text-sm text-stone-900 placeholder:text-stone-500 focus:border-bark-500 focus:outline-none dark:border-white/10 dark:bg-stone-800 dark:text-stone-100"
             />
           </span>
           <button type="submit" className="btn-primary shrink-0">
@@ -73,7 +73,7 @@ export default async function ProSearchPage(props: {
           </h2>
           <Link
             href={`/pro/ask?q=${encodeURIComponent(q)}`}
-            className="flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 hover:bg-oaktend-50 max-sm:min-h-11 dark:border-white/10 dark:bg-stone-800 dark:hover:bg-stone-700"
+            className="flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 hover:bg-bark-50 max-sm:min-h-11 dark:border-white/10 dark:bg-stone-800 dark:hover:bg-stone-700"
           >
             <span className="text-stone-500 dark:text-stone-400">
               <Sparkles className="h-5 w-5" aria-hidden="true" />
@@ -100,7 +100,7 @@ export default async function ProSearchPage(props: {
               <li key={r.href}>
                 <Link
                   href={r.href}
-                  className="flex items-center px-4 py-3 hover:bg-oaktend-50 max-sm:min-h-11 dark:hover:bg-stone-700"
+                  className="flex items-center px-4 py-3 hover:bg-bark-50 max-sm:min-h-11 dark:hover:bg-stone-700"
                 >
                   <span className="truncate text-sm font-medium text-stone-900 dark:text-stone-100">
                     {r.label}
@@ -127,7 +127,7 @@ export default async function ProSearchPage(props: {
                 {f.href && (
                   <Link
                     href={f.href}
-                    className="mt-2 inline-block text-sm font-medium text-oaktend-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                    className="mt-2 inline-block text-sm font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
                   >
                     Open page
                   </Link>

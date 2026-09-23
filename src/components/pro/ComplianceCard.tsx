@@ -217,7 +217,7 @@ function LicenseVerificationBlock({ v }: { v: LicenseVerification }) {
       </p>
       <Link
         href="/pro/profile"
-        className="mt-1 inline-block text-xs font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+        className="mt-1 inline-block text-xs font-medium text-bark-700 hover:underline dark:text-stone-300"
       >
         {v.status === "verified" || (v.status === "unverified" && !v.cslbEligible)
           ? "Manage on your profile →"
@@ -351,14 +351,14 @@ function ComplianceRow({
           accept="image/*,.pdf"
           onChange={onPick}
           disabled={busy}
-          className="block text-sm text-stone-600 file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-oaktend-100 file:px-3 file:py-1.5 file:text-oaktend-800 file:transition-colors hover:file:bg-oaktend-200 disabled:file:cursor-not-allowed disabled:hover:file:bg-oaktend-100 dark:text-stone-300 dark:file:bg-oaktend-900/40 dark:file:text-oaktend-200 dark:hover:file:bg-oaktend-900/70"
+          className="block text-sm text-stone-600 file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-bark-100 file:px-3 file:py-1.5 file:text-bark-800 file:transition-colors hover:file:bg-bark-200 disabled:file:cursor-not-allowed disabled:hover:file:bg-bark-100 dark:text-stone-300 dark:file:bg-bark-700 dark:file:text-stone-200 dark:hover:file:bg-bark-800"
         />
         {state.docPath && (
           <a
             href={`/api/pro-compliance?path=${encodeURIComponent(state.docPath)}`}
             target="_blank"
             rel="noreferrer"
-            className="text-sm font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+            className="text-sm font-medium text-bark-700 hover:underline dark:text-stone-300"
           >
             View document
           </a>
