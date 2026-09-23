@@ -122,6 +122,13 @@ const config: Config = {
           600: "#8a6a3c",
           700: "#6f5636",
         },
+        // Sprout green: the leaf inside the house mark (components/Logo.tsx).
+        // 600 on light surfaces, 300 on dark ones. Scoped to the mark only;
+        // buttons and links stay on the browns above.
+        sprout: {
+          300: "#b5d69a",
+          600: "#4f7d3a",
+        },
       },
     },
   },

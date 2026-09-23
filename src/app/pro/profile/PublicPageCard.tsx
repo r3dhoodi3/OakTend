@@ -163,7 +163,7 @@ export default function PublicPageCard({
           <div>
             <h2 className="font-semibold text-stone-900 dark:text-stone-100">
               Share kit{" "}
-              <span className="ml-1 rounded-full border border-oaktend-200 bg-oaktend-50 px-2 py-0.5 text-xs font-medium text-oaktend-700 dark:border-oaktend-800 dark:bg-oaktend-900/40 dark:text-oaktend-300">
+              <span className="ml-1 rounded-full border border-bark-200 bg-bark-50 px-2 py-0.5 text-xs font-medium text-bark-700 dark:border-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
                 Pro member
               </span>
             </h2>
@@ -231,7 +231,7 @@ export default function PublicPageCard({
           <div>
             <h2 className="font-semibold text-stone-900 dark:text-stone-100">
               Page extras{" "}
-              <span className="ml-1 rounded-full border border-oaktend-200 bg-oaktend-50 px-2 py-0.5 text-xs font-medium text-oaktend-700 dark:border-oaktend-800 dark:bg-oaktend-900/40 dark:text-oaktend-300">
+              <span className="ml-1 rounded-full border border-bark-200 bg-bark-50 px-2 py-0.5 text-xs font-medium text-bark-700 dark:border-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
                 Pro member
               </span>
             </h2>

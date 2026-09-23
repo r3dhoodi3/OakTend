@@ -1896,7 +1896,7 @@ export default function LeadChat({
                     setBody(t.text);
                     focusComposer();
                   }}
-                  className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600 hover:border-oaktend-300 hover:text-oaktend-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-oaktend-400 dark:hover:text-oaktend-300"
+                  className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-300"
                 >
                   {t.label}
                 </button>

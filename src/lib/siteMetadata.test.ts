@@ -61,7 +61,7 @@ describe("site title and description, preview mode", () => {
 describe("site title and description, preview off", () => {
   it("keeps the brand title and the original description", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
-    expect(siteTitle()).toBe("OakTend: Your home, looked after");
+    expect(siteTitle()).toBe("OakTend: Your home looked after");
     expect(siteDescription()).toBe(
       "Keep your house in good shape, know what needs attention, store your home docs, and reach a local pro when something breaks."
     );
@@ -69,7 +69,7 @@ describe("site title and description, preview off", () => {
 
   it("treats anything but the exact flag value as off", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "true");
-    expect(siteTitle()).toBe("OakTend: Your home, looked after");
+    expect(siteTitle()).toBe("OakTend: Your home looked after");
   });
 });
 

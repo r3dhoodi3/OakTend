@@ -260,7 +260,7 @@ export default async function ProsLanding(props: {
 
   return (
     <main id="main" className="pb-16">
-      {/* Warm band wraps header and hero: a single flat fill, oaktend-50 in
+      {/* Warm band wraps header and hero: a single flat fill, bark-50 in
           light and stone-900 in dark (matching the body), no gradient. */}
       <div className="bg-oaktend-50 dark:bg-stone-900">
         <div className="mx-auto max-w-3xl px-6 pb-16 pt-6 sm:pb-20">
