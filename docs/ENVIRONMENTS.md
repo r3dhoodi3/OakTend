@@ -83,7 +83,7 @@ do not reuse the production one.
 | `SUPABASE_SERVICE_ROLE_KEY` | The staging project's service_role key from step 1. |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The staging project's, from step 1. |
 | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` / the price ids | The test-mode values from step 2. |
-| `RESEND_API_KEY` | Leave it UNSET on Preview. With no key, no email goes out. That is the right default for a branch deploy. |
+| `SENDGRID_API_KEY` / `SENDGRID_FROM` | Leave UNSET on Preview. With no key, no email goes out. That is the right default for a branch deploy. (`RESEND_API_KEY` / `RESEND_FROM` are the retired fallback pair - same rule.) |
 | `TWILIO_*` | Leave UNSET on Preview, same reason. |
 | `OUTBOUND_DISABLED` | Set to `1` on Preview as a belt-and-braces second stop (`docs/GO-LIVE-WIRING.md` section 9). |
 | `STAGING_SUPABASE_URL` | The staging project URL, set on **both** Production and Preview. This is what `src/lib/envGuard.ts` compares against; without it the guard cannot know which project is staging. |
@@ -105,7 +105,7 @@ get half-right.
 3. For every variable in the list, click **Edit** and set the environment
    checkboxes deliberately:
    - **Production only:** live Supabase URL/keys, live Stripe keys and price
-     ids, live `RESEND_API_KEY`, `TWILIO_*`, production `RISK_HASH_SALT`,
+     ids, live `SENDGRID_API_KEY`, `TWILIO_*`, production `RISK_HASH_SALT`,
      production `VAPID_*`, production `ANTHROPIC_API_KEY`,
      `NEXT_PUBLIC_SITE_URL`.
    - **Preview only:** every staging/test value from steps 1 to 3.

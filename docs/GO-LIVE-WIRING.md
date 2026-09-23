@@ -27,19 +27,38 @@ and share one fail-closed auth check.
 4. Verify: in Vercel's Cron tab, trigger one job manually and check the function log shows a
    200, not a 401.
 
-## 2. Email (Resend)
+## 2. Email (Twilio SendGrid)
 
 The sending code in `src/lib/notify.ts` is real and dormant until keys exist.
 
-1. Create a Resend account and verify your sending domain (add the DNS records Resend gives
-   you; wait for "verified").
-2. In Vercel, set `RESEND_API_KEY` and `RESEND_FROM` (must be an address on the verified
-   domain, e.g. `OakTend <hello@yourdomain.com>`).
-   Warning: if `RESEND_FROM` is left unset, the code falls back to Resend's sandbox sender,
-   which only delivers to the account owner's inbox. Set both or neither.
-3. Verify: trigger any email path (e.g. the review-request flow or a cron that sends digests)
-   and confirm delivery to a real non-owner address. Failed sends now log status + body to
-   the server logs, so check the Vercel function logs if nothing arrives.
+**Provider moved from Resend to Twilio SendGrid on 2026-09-22** - same vendor as the SMS half
+below, so one account, one bill, one status page. `sendEmail` reads BOTH pairs and prefers
+SendGrid, so the cutover needs no coordinated moment: set the SendGrid pair and the next
+request goes through it. Leaving `RESEND_API_KEY` in place strands nothing; delete it once
+SendGrid has been delivering for a while and that path retires itself with no code change.
+
+1. In SendGrid, verify a sender: Single Sender Verification for one address, or Domain
+   Authentication (the DNS records it gives you) to send from anything on the domain. Domain
+   authentication is what keeps mail out of spam, so do it before real users exist.
+2. Create an API key with the **Mail Send** permission only - nothing here needs another
+   SendGrid scope.
+3. In Vercel, set `SENDGRID_API_KEY` and `SENDGRID_FROM` (a VERIFIED sender, e.g.
+   `OakTend <hello@oaktend.com>`; a bare address works too).
+   Warning: unlike Resend, SendGrid has NO sandbox sender - an unverified From is a 403 on
+   every message. So `SENDGRID_API_KEY` without `SENDGRID_FROM` is treated as "not
+   configured" and falls through to Resend rather than failing every send silently. A
+   one-off warning is logged when that happens.
+4. Verify: trigger any email path (e.g. the review-request flow or a cron that sends digests)
+   and confirm delivery to a real non-owner address. A rejected send logs the HTTP status and
+   the offending field path (never the recipient's address), so check the Vercel function
+   logs if nothing arrives.
+
+**Supabase Auth email is a SEPARATE pipe.** Signup confirmations and password resets are sent
+by Supabase, not by `notify.ts`, and they do not read these env vars at all. To move those to
+SendGrid too: Supabase dashboard -> Auth -> SMTP settings -> host `smtp.sendgrid.net`, port
+587, username the literal string `apikey`, password = the same API key, sender = the verified
+address. Until that is set, Supabase's built-in mailer keeps its low hourly cap and its own
+sender.
 
 ## 3. SMS (Twilio)
 
@@ -265,7 +284,7 @@ Pull it when:
 
 - a cron is looping and texting the same people repeatedly,
 - a job-post fan-out is firing at the wrong audience,
-- a preview or staging deploy turns out to be pointed at the live Resend or
+- a preview or staging deploy turns out to be pointed at the live SendGrid or
   Twilio credentials.
 
 It is read on every send, not cached at cold start, so it takes effect on the
