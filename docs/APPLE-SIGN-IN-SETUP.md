@@ -170,8 +170,8 @@ Redirect URLs allow list (Authentication > URL Configuration).
 Apple's private relay (`@privaterelay.appleid.com`) only forwards mail from senders the app's
 developer account has registered. Anything else bounces with `550 5.1.1 unauthorized sender`.
 In the Apple Developer portal, under Services > "Sign in with Apple for Email Communication",
-register OakTend's sending domain AND every from-address (the Resend domain/addresses once
-GO-LIVE-WIRING happens), and make sure SPF/DKIM pass for them. Do this as part of turning Resend
+register OakTend's sending domain AND every from-address (the SendGrid domain/addresses once
+GO-LIVE-WIRING happens), and make sure SPF/DKIM pass for them. Do this as part of turning email
 on, or every "Hide My Email" user silently never gets reminders, receipts, or confirmations.
 
 ## One behavior worth knowing
