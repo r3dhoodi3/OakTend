@@ -99,7 +99,13 @@ export type NotificationInput = {
 // is best-effort and never fails the caller.
 export async function sendNotification(
   supabase: SupabaseClient<Database>,
-  input: NotificationInput
+  input: NotificationInput,
+  // Optional, and passed straight through to sendOutboundChannels. Exists so a
+  // caller that already knows something about the recipient (a batched fan-out
+  // that read every row at once, or one honoring a per-channel switch) does not
+  // have to choose between this function and the outbound half. Omitted by
+  // almost every call site, which behaves exactly as before.
+  overrides?: OutboundChannelOverrides
 ): Promise<boolean> {
   // The marketing/campaign frequency cap, checked FIRST: a person already at
   // budget for the week gets neither the bell row nor the outbound channels
@@ -128,7 +134,7 @@ export async function sendNotification(
     return false;
   }
 
-  await sendOutboundChannels(input);
+  await sendOutboundChannels(input, overrides);
   return true;
 }
 
@@ -197,6 +203,17 @@ export type OutboundChannelOverrides = {
   // null gets the safe fall-open behavior rather than an accidental send
   // decision made on no data.
   emailOptOut?: boolean | null;
+  // Hold the web push for this one send, because the recipient switched that
+  // channel off for this kind of message (today: a pro's job-alert toggles,
+  // src/lib/proAlertPrefs.ts).
+  //
+  // It needs its own flag because push is the one channel a caller CANNOT
+  // suppress by withholding data. Email and SMS are held back by handing over
+  // no address and no number; push needs neither, and is started below before
+  // the contact fields are even looked at. Undefined or false leaves push
+  // behaving exactly as it always has - its own allowlist, its own opt-out and
+  // its own quiet hours all still apply on top of this.
+  suppressPush?: boolean;
 };
 
 // The outbound (email + SMS) half of sendNotification, split out so the
@@ -231,16 +248,21 @@ export async function sendOutboundChannels(
   // gate - see the note in src/lib/notifyGating.ts - and it has its own
   // allowlist of kinds, its own opt-out, and its own quiet-hours rule, all of
   // which sendPush applies itself.
-  const pushing = sendPush(input.userId, {
-    title: input.title,
-    body: input.body,
-    url: input.url,
-    // Group by kind AND destination, so five replies in one chat thread replace
-    // each other on the lock screen while a message and a new quote stay two
-    // separate notifications.
-    tag: `${input.kind}:${input.url ?? ""}`,
-    kind: input.kind,
-  });
+  // suppressPush is checked here rather than inside sendPush because it is a
+  // per-SEND decision the caller made, not a property of the recipient that
+  // sendPush could look up for itself.
+  const pushing = overrides?.suppressPush
+    ? Promise.resolve()
+    : sendPush(input.userId, {
+        title: input.title,
+        body: input.body,
+        url: input.url,
+        // Group by kind AND destination, so five replies in one chat thread
+        // replace each other on the lock screen while a message and a new
+        // quote stay two separate notifications.
+        tag: `${input.kind}:${input.url ?? ""}`,
+        kind: input.kind,
+      });
 
   // Nothing left to send when the caller passed no outbound contact at all -
   // sendEmail/sendSms would both no-op. Returning here also spares the Plus

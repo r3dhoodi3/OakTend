@@ -8,6 +8,7 @@ import {
   type AlertRecipientRow,
 } from "@/lib/proAlertBatch";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import { proAlertChannels } from "@/lib/proAlertPrefs";
 import { isInternalUser } from "@/lib/internalAccounts";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import { launchCityForZip } from "@/lib/serviceArea";
@@ -453,6 +454,11 @@ export async function alertProsForNewLead(
           await Promise.all(
             batch.map(async (userId) => {
               const contact = rowByUser.get(userId);
+              // Same per-channel switches the main path applies through
+              // buildAlertOutbound. This is the rare fallback (the bulk insert
+              // failed), but a pro who turned email off must not start
+              // receiving it again just because a different code path ran.
+              const channels = proAlertChannels(contact?.notification_prefs);
               const sent = await sendNotification(admin, {
                 ...payload,
                 userId,
@@ -461,12 +467,20 @@ export async function alertProsForNewLead(
                 // externalChannels is false - sendNotification always writes
                 // it, and only reaches for email/SMS when it actually has
                 // contact details to use.
-                email: externalChannels ? contact?.email ?? null : null,
-                phone: externalChannels
-                  ? contactPhoneByUser.get(userId) ?? contact?.phone ?? null
-                  : null,
-                smsConsent: externalChannels && contact?.sms_consent === true,
-              });
+                email:
+                  externalChannels && channels.email
+                    ? contact?.email ?? null
+                    : null,
+                phone:
+                  externalChannels && channels.sms
+                    ? contactPhoneByUser.get(userId) ?? contact?.phone ?? null
+                    : null,
+                smsConsent:
+                  externalChannels &&
+                  channels.sms &&
+                  contact?.sms_consent === true,
+              },
+              { suppressPush: !channels.push });
               if (sent) alerted.add(userId);
             })
           );
@@ -498,7 +512,11 @@ export async function alertProsForNewLead(
                   phone: r.phone,
                   smsConsent: r.smsConsent,
                 },
-                { emailOptOut: r.emailOptOut }
+                // A pro who switched phone notifications off still gets the
+                // bell row (written by the bulk insert above) and whichever of
+                // email/SMS they kept - buildAlertOutbound has already blanked
+                // the contact details for the ones they turned off.
+                { emailOptOut: r.emailOptOut, suppressPush: !r.push }
               )
             )
           );

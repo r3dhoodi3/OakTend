@@ -231,6 +231,13 @@ export default function ProNav({
                 // homeowner Plus row - so no duplicate plain "Membership" link
                 // here pointing at the same /pro/plus.
                 { href: "/pro/billing", label: "Billing" },
+                // How a new job reaches this pro (email / text / phone
+                // notification). An account setting, so it sits beside Billing
+                // rather than under the business profile. Until it existed the
+                // fan-out in src/lib/proAlerts.ts could not be turned off by
+                // any means at all - not even the CAN-SPAM unsubscribe, which
+                // "new_lead" is exempt from.
+                { href: "/pro/notifications", label: "Job alerts" },
                 { href: "/pro/privacy", label: "Your privacy rights" },
                 { href: "/pro/help", label: "Help" },
                 // The other side of the account, mirroring Nav.tsx: a switch
