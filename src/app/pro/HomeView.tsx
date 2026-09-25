@@ -100,8 +100,6 @@ export default function HomeView({
   directRequests,
   directRequestCount,
   showSeeAll,
-  balance,
-  hasPaidMajor,
   insuranceCurrent,
   openCount,
   activeCount,
@@ -128,8 +126,6 @@ export default function HomeView({
   directRequestCount: number;
   /** True when there are more requests than the preview shows. */
   showSeeAll: boolean;
-  balance: number;
-  hasPaidMajor: boolean;
   /** Whether this pro has current insurance on file (0153), for the big-job gate on direct-request cards. */
   insuranceCurrent: boolean;
   openCount: number;
@@ -317,8 +313,6 @@ export default function HomeView({
                 <DirectRequestCard
                   key={d.id}
                   d={d.row}
-                  balance={balance}
-                  hasPaidMajor={hasPaidMajor}
                   hasCurrentInsurance={insuranceCurrent}
                   // Resolved on the server, not in the card: this line reads
                   // the clock, so it has to be settled there or hydration

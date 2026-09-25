@@ -169,14 +169,21 @@ describe("phone tap targets, 44px floor", () => {
     expect(src).not.toContain('className="textarea w-full text-sm"');
   });
 
-  it("ApplyJobButton bolds the fee amount and the credit-back words in the confirm-step disclaimer", () => {
+  // This used to pin the confirm step's bolded fee sentence ("Applying charges
+  // the $50 lead fee from your wallet") along with the ghost-protection and
+  // credit-back promises around it. Applying is free as of migration 0172, so
+  // the sentence and all three guarantees are gone. What is worth pinning now
+  // is the inverse: that none of that money copy can come back here by
+  // accident while the action it described no longer charges anything.
+  it("ApplyJobButton's confirm step names no fee, no wallet and no credit-back promise", () => {
     const src = read("src/app/pro/ApplyJobButton.tsx");
-    const marker = "The fee amount and the credit-back words are bolded";
-    const p = src.slice(src.indexOf(marker), src.indexOf(marker) + 800);
-    expect(p).toContain("<strong>{fee}</strong>");
-    expect(p).toContain("ghostProtectionGuaranteeRich()");
-    expect(p).toContain("firstApplicationGuaranteeRich()");
-    expect(p).toContain("creditNotCashLineRich()");
+    expect(src).not.toContain("ghostProtectionGuaranteeRich");
+    expect(src).not.toContain("firstApplicationGuaranteeRich");
+    expect(src).not.toContain("creditNotCashLineRich");
+    // The rendered sentence, not the phrase: the comment left in its place
+    // names the old copy on purpose, so that it is clear what was removed.
+    expect(src).not.toContain("Applying charges the");
+    expect(src).not.toContain("<BillingLegalLine");
   });
 
   it("ProToolsClient's draft box reads at 16px on a phone, 10 rows, with a 44px Copy button", () => {

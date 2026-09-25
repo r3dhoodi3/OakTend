@@ -63,9 +63,6 @@ import type { LeadDiscountKind } from "@/lib/leadPricing";
 import AhaEventReporter from "@/components/AhaEventReporter";
 import { AHA_FIRST_LEAD } from "@/lib/trackAhaEvents";
 import {
-  ghostProtectionGuaranteeRich,
-  firstApplicationGuaranteeRich,
-  creditNotCashLineRich,
 } from "@/lib/guaranteeCopy";
 import { proCtaLabel, proTrialSubline } from "@/components/pro/ProUpgradeCta";
 import { STATUS_LABEL } from "../leadStatusLabel";
@@ -105,21 +102,9 @@ export type OpenJobVM = {
    *  has no name on file. Never the full name: that only unlocks once the
    *  homeowner accepts this pro (see AssignedJobVM.homeownerName). */
   homeownerDisplay: string | null;
-  /** Phone glance line: the fee slot, then timing/city. */
-  feeGlance: string;
+  /** Phone glance line: timing and city. (The fee slot it opened with is
+   *  gone - applying is free as of migration 0172.) */
   glanceLine2: string;
-  /** Effective fee, already money()-formatted. */
-  feeStr: string;
-  /** Pre-markdown fee, shown struck through when a markdown applies. */
-  baseStr: string;
-  /** Winning discount's percent off, 0 when the listing is still fresh or the intro price won. */
-  off: number;
-  /** True when the one-time big-ticket intro price is what is being charged. */
-  introPrice: boolean;
-  /** Which single discount priced this card (never two at once, migration 0149). */
-  discountKind: LeadDiscountKind;
-  /** "Pro members pay $X" quiet line, already money()-formatted; null when membership would not actually beat this card's price. */
-  memberQuoteStr: string | null;
   description: string | null;
   photoUrls: string[];
   budgetLabel: string | null;
@@ -140,9 +125,6 @@ export type OpenJobVM = {
   bigJob: boolean;
   /** True when this is a big job AND the pro has no current insurance on file, so the apply button is withheld. */
   insuranceRequired: boolean;
-  feeCents: number;
-  canAfford: boolean;
-  billingHref: string;
 };
 
 // One job the homeowner picked this pro for.
@@ -186,10 +168,7 @@ function agingDealPhrase(postedAgoLabel: string | null): string {
 }
 
 export default function LeadsBoard({
-  lowBalance,
   directRequests,
-  balance,
-  hasPaidMajor,
   insuranceCurrent,
   openJobs,
   sort,
@@ -200,10 +179,7 @@ export default function LeadsBoard({
   pendingApps,
   declinedApps,
 }: {
-  lowBalance: boolean;
   directRequests: DirectRequestItem[];
-  balance: number;
-  hasPaidMajor: boolean;
   /** Whether this pro has current insurance on file (0153), for the big-job gate on direct-request cards. */
   insuranceCurrent: boolean;
   openJobs: OpenJobVM[];
@@ -246,18 +222,8 @@ export default function LeadsBoard({
 
   return (
     <>
-      {/* One compact line, not a card: the only banner this page still carries
-          on its own, so it stays a single sentence rather than the old
-          card-plus-button block. */}
-      {lowBalance && (
-        <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-          Low on funds.{" "}
-          <Link href="/pro/billing" className="font-medium underline">
-            Add funds
-          </Link>{" "}
-          to keep applying.
-        </p>
-      )}
+      {/* A "Low on funds - add funds to keep applying" line sat here. There
+          is nothing to run out of: applying is free (migration 0172). */}
 
       {/* ---- Asked for you: a homeowner reached out to this pro directly ----
           Sits above the open board because it is exclusive: only this pro can
@@ -286,8 +252,6 @@ export default function LeadsBoard({
               <DirectRequestCard
                 key={d.id}
                 d={d.row}
-                balance={balance}
-                hasPaidMajor={hasPaidMajor}
                 hasCurrentInsurance={insuranceCurrent}
                 postedAgoLabel={d.postedAgoLabel}
               />
@@ -312,26 +276,23 @@ export default function LeadsBoard({
               Jobs homeowners posted in your categories. Apply to one and the
               homeowner reviews you. If they pick you, you get their contact.
             </p>
-            {/* The price of applying belonged on the board itself, not only on
-                Billing: a pro should never have to leave the inbox to find out
-                what a tap costs. Both numbers come from LEAD_TIER_FEES, the
-                one place the tiers live, so this line cannot drift from the
-                per-card fee shown below. */}
+            {/* This line quoted the per-lead price range and the three
+                guarantees that softened it (ghost protection, the first-apply
+                return, credit-not-cash), and linked to Billing for the rest.
+                Applying is free as of migration 0172, so the price is gone and
+                with it every promise about getting it back. What is worth
+                saying instead is the one thing that decides a job now. */}
             <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-              Applying costs ${LEAD_TIER_FEES.light} to ${LEAD_TIER_FEES.major}{" "}
-              per lead depending on the trade. {ghostProtectionGuaranteeRich()}{" "}
-              {firstApplicationGuaranteeRich()} {creditNotCashLineRich()}{" "}
-              <Link
-                href="/pro/billing"
-                className="underline hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:hover:text-stone-300"
-              >
-                Details on Billing
-              </Link>
-              .
+              Applying is free. Send a note with your application - homeowners
+              read them, and the pros who write one win more work.
             </p>
           </div>
-          {openJobs.length > 1 && (
+          {openJobs.length > 1 && LEAD_SORT_OPTIONS.length > 1 && (
             // Buttons, not links: nothing is being navigated to any more. Each
+            // one is hidden entirely while only "Newest" exists (the
+            // "Cheapest fee" order went with the per-lead fee, migration
+            // 0172): a single-option control is a button that cannot change
+            // anything. Each
             // one keeps the 44px phone target it had, adds touch-manipulation
             // (no 300ms tap delay) and an active: state so a tap shows
             // instantly, and carries aria-pressed so a screen reader hears
@@ -387,16 +348,9 @@ export default function LeadsBoard({
                 <li className="flex items-start gap-2 text-stone-600 dark:text-stone-400">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-bark-600 dark:text-stone-400" aria-hidden="true" />
                   <span>
-                    Not chosen? The fee comes back on its own as wallet
-                    credit, not cash, spendable on any lead, and it expires
-                    after 60 days.{" "}
-                    <Link
-                      href="/pro/billing"
-                      className="font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
-                    >
-                      Fund your wallet
-                    </Link>{" "}
-                    so you can apply the moment something posts.
+                    Applying is free. Send a note with your application - the
+                    homeowner reads it, and it is what usually decides who
+                    gets the job.
                   </span>
                 </li>
               )}
@@ -523,41 +477,10 @@ export default function LeadsBoard({
                         <span className="min-w-0 flex-1 font-medium text-stone-900 dark:text-stone-100">
                           {j.categoryLabel}
                         </span>
-                        {/* The base price struck through and a "Pro" chip
-                            ride along on the phone glance line too (not just
-                            the desktop row below): a pro should never have to
-                            widen their browser to see the deal a card is
-                            offering. */}
-                        <span className="shrink-0 text-right text-sm font-semibold text-stone-700 [font-variant-numeric:tabular-nums] dark:text-stone-300">
-                          {(j.off > 0 || j.introPrice) && (
-                            <span className="mr-1 text-xs font-normal text-stone-400 line-through dark:text-stone-500">
-                              {j.baseStr}
-                            </span>
-                          )}
-                          {j.feeGlance}
-                          {j.discountKind === "member" && (
-                            <span className="chip ml-1 border border-bark-200 bg-bark-50 align-middle font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-                              Pro
-                            </span>
-                          )}
-                          {/* B5. The desktop row below has always labeled the
-                              first-big-ticket intro price; this phone line
-                              did not, so a $99 lead showing as $49.99 read as
-                              a silent ~50% discount for no stated reason -
-                              exactly what the 2026-09-07 tester reported
-                              seeing right after a job was posted. Never a
-                              price change without a visible reason. */}
-                          {j.introPrice && (
-                            <span className="chip ml-1 border border-bark-200 bg-bark-50 align-middle font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-                              First big-ticket
-                            </span>
-                          )}
-                          {j.discountKind === "aging" && (
-                            <span className="chip ml-1 border border-amber-200 bg-amber-100 align-middle font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-                              {j.off}% off
-                            </span>
-                          )}
-                        </span>
+                        {/* The price lived here on the phone glance line -
+                            struck-through base, the fee, and the Pro / intro /
+                            aging badges. Applying is free (migration 0172), so
+                            there is no price to glance at. */}
                       </div>
                       {j.glanceLine2 && (
                         // CR3#6: this line sat at the 12px floor; text-sm
@@ -602,57 +525,14 @@ export default function LeadsBoard({
                           Name matches public record
                         </span>
                       )}
-                      <span className="ml-auto flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
-                        {j.introPrice && (
-                          <span className="chip border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-                            First big-ticket lead
-                          </span>
-                        )}
-                        {/* Never two badges at once (0149): a card shows
-                            EITHER the member discount OR the aging deal,
-                            whichever actually won - never both, and never the
-                            loser silently applied underneath. */}
-                        {j.discountKind === "member" && (
-                          <span className="chip border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-                            Pro
-                          </span>
-                        )}
-                        {j.discountKind === "aging" && (
-                          <span className="chip border border-amber-200 bg-amber-100 font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-                            {j.off}% off, {agingDealPhrase(j.postedAgoLabel)}
-                          </span>
-                        )}
-                        <span className="[font-variant-numeric:tabular-nums]">
-                          Apply fee{" "}
-                          {(j.off > 0 || j.introPrice) && (
-                            <span className="text-stone-500 line-through dark:text-stone-400">
-                              {j.baseStr}
-                            </span>
-                          )}{" "}
-                          {j.feeStr}
-                          {j.discountKind === "member" && " with Pro"}
-                        </span>
-                      </span>
+                      {/* "Apply fee $50", the struck-through base price and
+                          the Pro / first-big-ticket / aging-deal badges filled
+                          the right of this row. All of it described a charge
+                          that no longer happens (migration 0172). */}
                     </div>
-                    {/* The honest "Pro members pay $X" quiet line (marketplace
-                        trust: a price change is always a visible line, never
-                        a silent adjustment - research-money-R3.md). Lives
-                        outside both breakpoint-gated blocks above so it is
-                        rendered exactly once for the list item's space-y-3 to
-                        count, and only appears when this pro is NOT a member
-                        AND membership would actually beat the price already
-                        shown - never a number that reads as a saving but
-                        would not be one (see memberQuoteStr in page.tsx). */}
-                    {j.memberQuoteStr && (
-                      <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
-                        <Link
-                          href="/pro/plus?reason=leads"
-                          className="underline hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:hover:text-stone-300"
-                        >
-                          Pro members pay {j.memberQuoteStr}
-                        </Link>
-                      </p>
-                    )}
+                    {/* The "Pro members pay $X" quiet line stood here. A
+                        membership cannot discount an application that is free
+                        (migration 0172), so there is no saving left to quote. */}
                   </div>
 
                   {/* Folded detail: description, photos, budget/quality/scope
@@ -741,17 +621,12 @@ export default function LeadsBoard({
                           file.
                         </p>
                       )}
+                      {/* Applying is free (migration 0172), so the fee, the
+                          discount chips, the affordability check and the
+                          deposit link are all gone from this call. */}
                       <ApplyJobButton
                         leadId={j.id}
-                        fee={j.feeStr}
-                        feeCents={j.feeCents}
                         category={j.categoryLabel}
-                        introPrice={j.introPrice}
-                        baseFee={j.off > 0 || j.introPrice ? j.baseStr : null}
-                        discountKind={j.discountKind}
-                        memberQuoteStr={j.memberQuoteStr}
-                        canAfford={j.canAfford}
-                        billingHref={j.billingHref}
                       />
                     </>
                   )}
@@ -800,11 +675,9 @@ export default function LeadsBoard({
               Pending applications{" "}
               <span className="text-stone-500 dark:text-stone-400">({pendingApps.length})</span>
             </h2>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
-              Ghost protection: if the homeowner never responds and no one is
-              picked, your fee comes back as <strong>wallet credit</strong>{" "}
-              after 7 days. One reply from them ends it.
-            </p>
+            {/* The ghost-protection line ("your fee comes back as wallet
+                credit after 7 days") stood here. Applying is free as of
+                migration 0172, so there is no fee to return. */}
           </div>
           <ul className="space-y-2">
             {pendingApps.map((a) => (
@@ -843,13 +716,9 @@ export default function LeadsBoard({
             Not selected{" "}
             <span className="text-stone-500 dark:text-stone-400">({declinedApps.length})</span>
           </h2>
-          {/* The 0107 credit-back promise, stated where the loss lands: every
-              applicant here gets their fee back as credit, not just a
-              first-timer, so it is rendered from the canonical sentence. */}
-          <p className="text-xs text-stone-500 dark:text-stone-400">
-            {firstApplicationGuaranteeRich()} {creditNotCashLineRich()} Check
-            your billing page for it.
-          </p>
+          {/* The credit-back promise stood here, where the loss lands.
+              Applying costs nothing as of migration 0172, so losing costs
+              nothing either and there is no credit to promise. */}
           <ul className="space-y-2">
             {declinedApps.map((a) => (
               <li

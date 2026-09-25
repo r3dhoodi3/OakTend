@@ -250,8 +250,6 @@ export default async function ProHome() {
       }))}
       directRequestCount={directRequests.length}
       showSeeAll={directRequests.length > DIRECT_PREVIEW}
-      balance={balance}
-      hasPaidMajor={hasPaidMajor}
       insuranceCurrent={insuranceCurrent}
       openCount={open.length}
       activeCount={activeCount}
