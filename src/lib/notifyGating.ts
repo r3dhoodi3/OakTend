@@ -319,3 +319,40 @@ export const MARKETING_BUDGET_WINDOW_MS =
 export function marketingBudgetAllows(countInWindow: number): boolean {
   return countInWindow < MARKETING_BUDGET_MAX_PER_WINDOW;
 }
+
+// ---------------------------------------------------------------------------
+// Where a recipient goes to stop THIS kind of email
+// ---------------------------------------------------------------------------
+//
+// THE PROBLEM THIS SOLVES. Every email carries the same CAN-SPAM footer with an
+// unsubscribe link (emailFooter in src/lib/notify.ts), and that link is real:
+// it sets notification_prefs.email_opt_out. But the kinds on
+// EMAIL_TRANSACTIONAL_KINDS are exempt from that flag by design - account,
+// billing and active-job mail keeps going regardless, which is both lawful and
+// what our own Terms promise. For those kinds the footer therefore offers an
+// exit that does nothing, with no hint of where the real switch is.
+//
+// "new_lead" is the case that made this urgent: a pro's job alerts are
+// transactional-exempt, so a pro drowning in them could click unsubscribe as
+// often as they liked and keep receiving every one. The next step after a
+// broken unsubscribe is a spam complaint, and that costs the sending domain's
+// reputation - which is shared with every other email OakTend sends.
+//
+// A kind belongs here ONLY when a real page governs that kind's email channel.
+// An entry is a promise to the recipient that following the link lets them stop
+// this mail; pointing at a page that cannot actually turn the kind off would be
+// the same broken promise one level down. Paths are site-relative and made
+// absolute against NEXT_PUBLIC_SITE_URL by the caller.
+export const EMAIL_PREFS_PATH_BY_KIND: ReadonlyMap<string, string> = new Map([
+  // Pro job alerts, switched per channel at /pro/notifications
+  // (src/lib/proAlertPrefs.ts). The email switch there is enforced by
+  // withholding the address in buildAlertOutbound, so it genuinely stops this
+  // mail.
+  ["new_lead", "/pro/notifications"],
+]);
+
+// The preferences path for this kind, or null when the footer's ordinary
+// unsubscribe link is the recipient's real exit.
+export function emailPrefsPathForKind(kind: string): string | null {
+  return EMAIL_PREFS_PATH_BY_KIND.get(kind) ?? null;
+}

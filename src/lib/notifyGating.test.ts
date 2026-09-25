@@ -1,11 +1,13 @@
 import { describe, it, expect } from "vitest";
 import {
+  emailPrefsPathForKind,
   isPlusGatedKind,
   isPushHeldForQuietHours,
   isPushKind,
   isTransactionalKind,
   marketingBudgetAllows,
   shouldSendOutboundChannels,
+  EMAIL_PREFS_PATH_BY_KIND,
   MARKETING_BUDGET_MAX_PER_WINDOW,
   PLUS_GATED_NOTIFICATION_KINDS,
   PUSH_NOTIFICATION_KINDS,
@@ -323,5 +325,43 @@ describe("marketingBudgetAllows", () => {
 
   it("blocks a send that is already well over the ceiling", () => {
     expect(marketingBudgetAllows(MARKETING_BUDGET_MAX_PER_WINDOW + 5)).toBe(false);
+  });
+});
+
+describe("emailPrefsPathForKind", () => {
+  it("points a pro's job alerts at the page that switches them off", () => {
+    expect(emailPrefsPathForKind("new_lead")).toBe("/pro/notifications");
+  });
+
+  it("returns null for a kind whose real exit is the unsubscribe link", () => {
+    // The footer is left exactly as it was for these: a digest or a campaign IS
+    // stopped by email_opt_out, so "unsubscribe from these emails" is honest.
+    for (const kind of ["home_digest", "seasonal_check", "weekly_digest"]) {
+      expect(emailPrefsPathForKind(kind)).toBeNull();
+    }
+    expect(emailPrefsPathForKind("a_kind_nobody_has_classified")).toBeNull();
+  });
+
+  it("only ever names a site-relative path, so the caller owns the origin", () => {
+    // notify.ts builds the absolute URL by concatenating NEXT_PUBLIC_SITE_URL
+    // with this value. A full URL stored here would render as
+    // "https://oaktend.comhttps://..." - or worse, a live link pointing at
+    // whatever host somebody pasted in.
+    for (const path of EMAIL_PREFS_PATH_BY_KIND.values()) {
+      expect(path.startsWith("/")).toBe(true);
+      expect(path).not.toContain("//");
+    }
+  });
+
+  it("every kind here is one the marketing cap treats as transactional", () => {
+    // The whole reason an entry exists is that unsubscribe does not stop this
+    // kind. A kind that is NOT transactional is already stopped by the ordinary
+    // opt-out, so naming a settings page for it would be pointing the recipient
+    // at the long way round. (notify.ts's EMAIL_TRANSACTIONAL_KINDS is the list
+    // that literally governs the exemption; it lives in a server-only module,
+    // and src/lib/notify.test.ts checks this same invariant against it there.)
+    for (const kind of EMAIL_PREFS_PATH_BY_KIND.keys()) {
+      expect(isTransactionalKind(kind)).toBe(true);
+    }
   });
 });

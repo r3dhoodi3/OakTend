@@ -9,6 +9,7 @@ import { signUnsubscribeToken } from "@/lib/unsubscribeToken";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { isHomeownerPreview } from "@/lib/previewMode";
 import {
+  emailPrefsPathForKind,
   isPlusGatedKind,
   isTransactionalKind,
   marketingBudgetAllows,
@@ -442,14 +443,37 @@ function isLiveHomeownerRow(row: {
 // requirement is a per-category call that can be layered on later (skip the
 // unsubscribe line for a specific `input.kind`); it is not worth risking a
 // missing footer on a message that should have carried one tonight.
-function emailFooter(unsubscribeUrl: string): string {
+//
+// `prefsUrl` (from emailPrefsPathForKind, src/lib/notifyGating.ts) is set for
+// the kinds whose email channel has a real settings page AND which are exempt
+// from email_opt_out - so for them the unsubscribe link alone is an exit that
+// does nothing. Two things change when it is present, and nothing changes at
+// all when it is not:
+//
+//   1. A line naming the page that actually governs this mail, ABOVE the
+//      unsubscribe line, because it is the one the recipient wants.
+//   2. The unsubscribe line stops claiming to cover "these emails", which for
+//      an exempt kind is simply false, and says what it really does. The link
+//      stays: it still works, and it is still the guaranteed exit from the
+//      digests and campaigns the same person may be getting.
+//
+// The link is never DROPPED for an exempt kind, only relabelled. A footer
+// without one risks a missing opt-out on a message that turns out to need it,
+// which is the whole reason the uniform footer above exists.
+function emailFooter(
+  unsubscribeUrl: string,
+  prefsUrl?: string | null
+): string {
   return [
     "",
     "--",
     LEGAL.brand,
     LEGAL.legalName,
     LEGAL.address,
-    `Unsubscribe from these emails: ${unsubscribeUrl}`,
+    ...(prefsUrl ? [`Choose which of these emails you get: ${prefsUrl}`] : []),
+    prefsUrl
+      ? `Unsubscribe from marketing email: ${unsubscribeUrl}`
+      : `Unsubscribe from these emails: ${unsubscribeUrl}`,
   ].join("\n");
 }
 
@@ -670,7 +694,14 @@ export async function sendEmail(
     // field and keeps its newlines - that is what makes it readable.
     const subject = stripControlChars(input.title);
     const bodyText = input.body ? `${subject}\n\n${input.body}` : subject;
-    const text = `${bodyText}\n${emailFooter(unsubscribeUrl)}`;
+    // Where this KIND is switched off, when the unsubscribe link above is not
+    // that place (see emailPrefsPathForKind). Null for almost every kind, which
+    // leaves the footer exactly as it was.
+    const prefsPath = emailPrefsPathForKind(input.kind);
+    const text = `${bodyText}\n${emailFooter(
+      unsubscribeUrl,
+      prefsPath ? `${siteUrl}${prefsPath}` : null
+    )}`;
 
     // WHERE A REPLY GOES. Without this header a reply goes to the From
     // address, which is only useful while From is a mailbox a person reads -
