@@ -160,10 +160,10 @@ describe.each(entries)("%s content", (key, city) => {
     }
   });
 
-  it("links the SoCal maintenance calendar, the one guide that fits every city", () => {
+  it("links the Orange County maintenance checklist, the one guide that fits every city", () => {
     expect(
       city.guides.some(
-        (g) => g.href === "/guides/socal-home-maintenance-calendar",
+        (g) => g.href === "/guides/orange-county-home-maintenance-checklist",
       ),
     ).toBe(true);
   });

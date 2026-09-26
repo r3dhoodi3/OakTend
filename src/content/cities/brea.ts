@@ -184,8 +184,8 @@ export const brea: CityContent = {
         "What an upgrade runs when the panel is original to a 1970s tract, the largest single decade of Brea's housing.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including slope drains before winter and brush before Santa Ana season.",
     },

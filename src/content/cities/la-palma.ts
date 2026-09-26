@@ -200,8 +200,8 @@ export const laPalma: CityContent = {
         "Price per square by material, in a city whose code requires a fire-retardant covering, Class B at minimum, on any reroof.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including clearing yard drains before winter on ground where the water table sits 5 to 13 feet down.",
     },

@@ -100,9 +100,9 @@ const GUIDE_LINKS = [
     blurb: "How to spot one early in an older slab-foundation home.",
   },
   {
-    href: "/guides/socal-home-maintenance-calendar",
-    title: "SoCal home maintenance calendar",
-    blurb: "A month-by-month calendar built for the coastal SoCal climate.",
+    href: "/guides/orange-county-home-maintenance-checklist",
+    title: "Orange County home maintenance checklist",
+    blurb: "A month-by-month calendar built for the Orange County climate, coast and inland.",
   },
   {
     href: "/guides/water-heater-replacement-cost",

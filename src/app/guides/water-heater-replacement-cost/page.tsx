@@ -257,7 +257,7 @@ export default function WaterHeaterReplacementCostGuide() {
             recommends flushing the tank once a year so sediment does not
             build up (see our{" "}
             <Link
-              href="/guides/home-maintenance-schedule"
+              href="/guides/orange-county-home-maintenance-checklist"
               className="text-bark-700 hover:underline dark:text-stone-300"
             >
               home maintenance schedule

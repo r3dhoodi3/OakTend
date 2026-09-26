@@ -353,8 +353,8 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             Sign up for AlertOC, the
             county&apos;s emergency notification system, which OCFA lists among
             its wildfire resources. Our{" "}
-            <Link href="/guides/socal-home-maintenance-calendar" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-              Southern California maintenance calendar
+            <Link href="/guides/orange-county-home-maintenance-checklist" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              Orange County maintenance checklist
             </Link>{" "}
             shows where wind prep sits in the year.
           </p>

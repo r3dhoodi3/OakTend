@@ -203,8 +203,8 @@ export const sanJuanCapistrano: CityContent = {
         "What to watch for in a city where about 36 percent of the homes date from the 1970s and the original plumbing is near 50 years old.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month, including brush clearance before fire season and the drain and slope checks a hillside or creekside lot needs before winter storms.",
     },

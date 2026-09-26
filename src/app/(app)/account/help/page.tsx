@@ -30,8 +30,8 @@ const FAQ: { q: string; a: string; href?: string; hrefLabel?: string }[] = [
   {
     q: "How does OakTend decide when something needs maintenance?",
     a: "OakTend uses your system's typical lifespan and the age you gave it to flag what is coming due.",
-    href: "/guides/home-maintenance-schedule",
-    hrefLabel: "See the full maintenance schedule",
+    href: "/guides/orange-county-home-maintenance-checklist",
+    hrefLabel: "See the full maintenance checklist",
   },
   {
     q: "How do I know if a contractor's quote is fair?",

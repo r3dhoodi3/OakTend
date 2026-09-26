@@ -62,7 +62,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   "/guides/water-heater-replacement-cost": {
     guides: [
       "/guides/hvac-replacement-cost",
-      "/guides/home-maintenance-schedule",
+      "/guides/orange-county-home-maintenance-checklist",
       "/guides/slab-leak-signs",
     ],
     cities: ["Anaheim", "Fullerton", "Garden Grove", "Orange", "Santa Ana"],
@@ -71,13 +71,13 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/water-heater-replacement-cost",
       "/guides/electrical-panel-upgrade-cost",
-      "/guides/socal-home-maintenance-calendar",
+      "/guides/orange-county-home-maintenance-checklist",
     ],
     cities: ["Irvine", "Lake Forest", "Mission Viejo", "Tustin", "Yorba Linda"],
   },
   "/guides/roof-replacement-cost": {
     guides: [
-      "/guides/socal-home-maintenance-calendar",
+      "/guides/orange-county-home-maintenance-checklist",
       "/guides/is-my-contractor-quote-fair",
       "/guides/contractor-deposit-rules-california",
     ],
@@ -124,7 +124,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   "/guides/slab-leak-signs": {
     guides: [
       "/guides/water-heater-replacement-cost",
-      "/guides/home-maintenance-schedule",
+      "/guides/orange-county-home-maintenance-checklist",
       "/guides/is-my-contractor-quote-fair",
     ],
     cities: [
@@ -134,20 +134,6 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "La Palma",
       "Los Alamitos",
       "Westminster",
-    ],
-  },
-  "/guides/home-maintenance-schedule": {
-    guides: [
-      "/guides/socal-home-maintenance-calendar",
-      "/guides/water-heater-replacement-cost",
-      "/guides/hvac-replacement-cost",
-    ],
-    cities: [
-      "Ladera Ranch",
-      "Laguna Woods",
-      "Lake Forest",
-      "Rancho Santa Margarita",
-      "Villa Park",
     ],
   },
   "/guides/is-my-contractor-quote-fair": {
@@ -165,21 +151,6 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "/guides/roof-replacement-cost",
     ],
     cities: ["Costa Mesa", "Dana Point", "Fullerton", "Garden Grove", "Santa Ana"],
-  },
-  "/guides/socal-home-maintenance-calendar": {
-    guides: [
-      "/guides/home-maintenance-schedule",
-      "/guides/roof-replacement-cost",
-      "/guides/slab-leak-signs",
-    ],
-    cities: [
-      "Dana Point",
-      "Laguna Beach",
-      "Midway City",
-      "Newport Beach",
-      "San Clemente",
-      "Seal Beach",
-    ],
   },
   "/guides/permits-orange-county": {
     guides: [
@@ -200,7 +171,7 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     guides: [
       "/guides/water-heater-replacement-cost",
       "/guides/repipe-orange-county",
-      "/guides/home-maintenance-schedule",
+      "/guides/orange-county-home-maintenance-checklist",
     ],
     cities: [
       "Fountain Valley",
@@ -243,9 +214,9 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/termites-orange-county": {
     guides: [
-      "/guides/socal-home-maintenance-calendar",
-      "/guides/is-my-contractor-quote-fair",
       "/guides/orange-county-home-maintenance-checklist",
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/new-homeowner-first-year-orange-county",
     ],
     cities: [
       "Huntington Beach",
@@ -288,17 +259,20 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/orange-county-home-maintenance-checklist": {
     guides: [
-      "/guides/socal-home-maintenance-calendar",
       "/guides/santa-ana-wind-wildfire-home-prep",
       "/guides/termites-orange-county",
+      "/guides/hard-water-orange-county",
     ],
+    // Laguna Woods, Villa Park and Midway City were linked only from the two
+    // guides merged into this one, so they moved here to keep every city
+    // page reachable from a guide.
     cities: [
       "Anaheim",
       "Irvine",
       "Huntington Beach",
-      "Santa Ana",
-      "Mission Viejo",
-      "Fullerton",
+      "Laguna Woods",
+      "Villa Park",
+      "Midway City",
     ],
   },
 };
@@ -967,45 +941,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "The two-hour water meter test, and the 12,000 gallons a month winter threshold for a family of four.",
     },
   ],
-  "/guides/home-maintenance-schedule": [
-    {
-      href: "https://www.energystar.gov/saveathome/heating-cooling/maintenance-checklist",
-      label: "ENERGY STAR heating and cooling maintenance checklist",
-      supports: "Checking the air filter once a month.",
-    },
-    {
-      href: "https://www.energystar.gov/saveathome/heating-cooling",
-      label: "ENERGY STAR: heat and cool efficiently",
-      supports:
-        "Changing the air filter when it looks dirty, and at least every 3 months.",
-    },
-    {
-      href: "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
-      label: "U.S. Fire Administration: smoke alarms",
-      supports:
-        "Testing smoke alarms monthly, replacing batteries at least once a year, and replacing the alarms themselves every 10 years.",
-    },
-    {
-      href: "https://www.irwd.com/learn/water-quality-report/",
-      label:
-        "Irvine Ranch Water District: water quality questions and answers",
-      supports:
-        "Flushing the water heater once a year; imported water is typically hard and the district's well water is moderately hard.",
-    },
-    {
-      href: "https://ipm.ucanr.edu/home-and-landscape/drywood-termites/",
-      label:
-        "University of California Statewide IPM Program: drywood termites",
-      supports:
-        "Drywood termite swarmers are most often seen during daytime hours in summer and fall.",
-    },
-    {
-      href: "https://forecast.weather.gov/glossary.php?word=santa%20ana",
-      label: "National Weather Service glossary: Santa Ana wind",
-      supports:
-        "Santa Ana winds are strong, hot, dust-bearing winds that descend to the Pacific coast from the inland desert regions.",
-    },
-  ],
   "/guides/is-my-contractor-quote-fair": [
     {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
@@ -1064,41 +999,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Contractors State License Board: what kind of contractor do you need",
       supports:
         "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-  ],
-  "/guides/socal-home-maintenance-calendar": [
-    {
-      href: "https://www.fema.gov/sites/default/files/2020-07/fema_tb8_corrosion_protection_metal_connectors_coastal_areas.pdf",
-      label:
-        "FEMA: NFIP Technical Bulletin 8, corrosion protection for metal connectors and fasteners in coastal areas (June 2019)",
-      supports:
-        "Salt spray carried by onshore winds significantly accelerates the corrosion of metal, is greatest within 300 to 3,000 feet of the shoreline, and has been measured as far as 5 to 10 miles inland.",
-    },
-    {
-      href: "https://www.irwd.com/learn/water-quality-report/",
-      label:
-        "Irvine Ranch Water District: water quality questions and answers",
-      supports:
-        "Imported water is typically hard, and the district recommends flushing the water heater once a year.",
-    },
-    {
-      href: "https://ipm.ucanr.edu/home-and-landscape/drywood-termites/",
-      label:
-        "University of California Statewide IPM Program: drywood termites",
-      supports:
-        "Drywood termite swarmers are most often seen during daytime hours in summer and fall.",
-    },
-    {
-      href: "https://forecast.weather.gov/glossary.php?word=santa%20ana",
-      label: "National Weather Service glossary: Santa Ana wind",
-      supports:
-        "Santa Ana winds are strong, hot, dust-bearing winds that descend to the Pacific coast from the inland desert regions.",
-    },
-    {
-      href: "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
-      label: "U.S. Fire Administration: smoke alarms",
-      supports:
-        "Testing smoke alarms monthly, replacing 9-volt batteries at least once a year, and replacing alarms after 10 years.",
     },
   ],
   "/guides/permits-orange-county": [
@@ -1782,6 +1682,51 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Orange County Assessor: Homeowners' Exemptions",
       supports:
         "The February 15 deadline for the full Homeowners' Exemption.",
+    },
+    // Added 2026-09-25 when this guide became the maintenance hub: the NOAA
+    // normals were fetched that day, the NWS bulletin and the CRMP page were
+    // opened that day, and the FEMA, ENERGY STAR and IRWD pages came across
+    // from the two merged guides, where they were opened on 2026-09-21.
+    {
+      href: "https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-monthly-1991-2020&stations=USW00093184&format=json&dataTypes=MLY-PRCP-NORMAL",
+      label:
+        "NOAA National Centers for Environmental Information: 1991-2020 monthly precipitation normals, Santa Ana John Wayne Airport (station USW00093184)",
+      supports:
+        "Monthly normals in inches: January 2.59, February 2.64, March 1.62, April 0.52, May 0.27, June 0.01, July 0.04, August 0.01, September 0.10, October 0.54, November 0.80, December 2.04. They sum to 11.18 a year, 8.89 of it December through March, 0.06 June through August.",
+    },
+    {
+      href: "https://www.weather.gov/media/sti/climate/STIP/43CDPW/43cdpw-TMurphree.pdf",
+      label:
+        "National Weather Service Science and Technology Infusion Climate Bulletin: Santa Ana Events in California (Murphree, Szasz and Jones, 2018)",
+      supports:
+        "Santa Ana events are most common in October through March, and raise wildfire risk most when they occur during or soon after the end of the summer dry season.",
+    },
+    {
+      href: "https://www.fema.gov/sites/default/files/2020-07/fema_tb8_corrosion_protection_metal_connectors_coastal_areas.pdf",
+      label:
+        "FEMA: NFIP Technical Bulletin 8, corrosion protection for metal connectors and fasteners in coastal areas (June 2019)",
+      supports:
+        "Salt spray carried by onshore winds significantly accelerates the corrosion of metal, is greatest within 300 to 3,000 feet of the shoreline, and has been measured as far as 5 to 10 miles inland.",
+    },
+    {
+      href: "https://www.energystar.gov/saveathome/heating-cooling",
+      label: "ENERGY STAR: heat and cool efficiently",
+      supports:
+        "Change the air filter when it looks dirty, and at least every 3 months.",
+    },
+    {
+      href: "https://www.irwd.com/learn/water-quality-report/",
+      label:
+        "Irvine Ranch Water District: water quality questions and answers",
+      supports:
+        "Water imported from the Colorado River and Northern California is typically hard, and the district recommends flushing the water heater once a year.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label:
+        "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
+      supports:
+        "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation, in the high hazard ZIP codes the program lists; the retrofit bolts the house to its foundation.",
     },
   ],
 };

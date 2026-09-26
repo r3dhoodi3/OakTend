@@ -161,8 +161,8 @@ export const newportBeach: CityContent = {
         "Typical range and when a repair still makes sense, on water around 13 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what coastal exteriors need and when.",
     },

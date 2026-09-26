@@ -189,8 +189,8 @@ export const laderaRanch: CityContent = {
         "Price per square by material, where the county requires a permit to re-roof and the association reviews what shows.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including yard drains before winter and brush on the fence line before Santa Ana season.",
     },

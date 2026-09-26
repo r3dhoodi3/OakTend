@@ -5,23 +5,28 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import { GUIDE_TITLES } from "@/lib/guides";
 
-// Public SEO guide: the Orange County checklist. It sits beside two older
-// guides and must not contradict them: cadences match
-// src/app/guides/home-maintenance-schedule/page.tsx (filter monthly, water
-// heater flush yearly, HVAC service yearly, gutters before rain) and the month
-// placement matches src/app/guides/socal-home-maintenance-calendar/page.tsx
-// (wind prep in September, rain prep in October and November, HVAC tune-up in
-// April, termite watch in late summer). What this page adds is the Orange
-// County layer: who publishes what locally (OCFA, the water districts, city
-// sandbag programs) and links to the county-specific guides.
-// Sourced facts (opened 2026-09-21, links in GUIDE_SOURCES,
-// src/lib/guideExtras.ts): NWS glossary (Santa Ana wind), OCFA (alarms,
-// sandbags, red flag guidance, vents), ENERGY STAR (filters, pre-season
-// check-ups), UC IPM (swarm timing), USGS (scale), City of Tustin (flushing,
-// sandbags), IRWD (monthly watering guide), Health and Safety Code 19211.
-// The marine layer section is plain description with no figures: we found no
-// official page to cite for it, and the page makes no measurable claim.
+// Public SEO guide and THE maintenance hub. Since 2026-09-25 it is the one
+// page for Orange County home maintenance: the two older overlapping guides,
+// /guides/home-maintenance-schedule (how often) and
+// /guides/socal-home-maintenance-calendar (month by month), were merged into
+// it and now 308 here (next.config.mjs redirects). Their useful, sourced
+// content lives below: the cadence table came from the schedule, the salt air
+// figures and several month tasks from the calendar. Link here, never to the
+// old URLs.
+//
+// Sourced facts (links and the statement each supports are in GUIDE_SOURCES,
+// src/lib/guideExtras.ts): NOAA NCEI 1991-2020 monthly normals for John Wayne
+// Airport (rain by month, fetched 2026-09-25), NWS climate bulletin (Santa Ana
+// events most common October to March), NWS glossary (Santa Ana wind, marine
+// push), OCFA (embers, vents, red flag days, sandbags, alarms), FEMA TB 8
+// (salt spray), ENERGY STAR (filters, check-ups), IRWD (hard water, yearly
+// flush, watering guide), USGS (scale), City of Tustin (flushing, sandbags),
+// UC IPM (swarm timing), Health and Safety Code 19211, CRMP (Earthquake Brace
+// + Bolt), OC Assessor (Homeowners' Exemption).
+// The marine layer section is plain description with no figures beyond the
+// NWS definition.
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -42,9 +47,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Orange County home maintenance checklist by month";
+// 40 characters, so with the layout's " | OakTend" it is 50.
+const TITLE = "Orange County home maintenance checklist";
 const DESCRIPTION =
-  "A month by month home maintenance checklist for Orange County: Santa Ana winds, first rains, marine layer, hard water, termites and earthquake basics.";
+  "Home maintenance for Orange County, month by month: rain and Santa Ana wind timing, how often to do each job, and a guide for every system in the house.";
 const CANONICAL = `${SITE_URL}/guides/orange-county-home-maintenance-checklist`;
 
 export const metadata: Metadata = {
@@ -67,9 +73,12 @@ export const metadata: Metadata = {
   },
 };
 
-// One to three jobs a month, so the list gets done. Anything with a safety or
-// code angle is explained, with its source, in the sections below the grid.
-const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
+const linkClass =
+  "text-bark-700 underline hover:no-underline dark:text-stone-300";
+
+// Three jobs a month, so the list gets done, and one line on why the month
+// is the right one. Every figure in a `why` line is in GUIDE_SOURCES.
+const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] = [
   {
     month: "January",
     focus: "Rain watch",
@@ -78,6 +87,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Test smoke and carbon monoxide alarms",
       "Look at the base of the water heater for rust or a puddle",
     ],
+    why: "January averages about 2.6 inches of rain at John Wayne Airport. A stain found now is cheap to trace.",
   },
   {
     month: "February",
@@ -87,6 +97,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Clear yard drains and downspout outlets again",
       "File the Homeowners' Exemption by February 15 if you bought last year",
     ],
+    why: "February is the wettest month on the 1991 to 2020 normals, also about 2.6 inches.",
   },
   {
     month: "March",
@@ -96,6 +107,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Walk the outside for cracked caulk, peeling paint and stucco cracks",
       "Watch for subterranean termite swarms on warm days after rain",
     ],
+    why: "Rain tapers off: about 1.6 inches in March, half an inch in April. Finish storm repairs now.",
   },
   {
     month: "April",
@@ -105,6 +117,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Clean the dryer vent",
       "Soak faucet aerators and shower heads in vinegar to clear scale",
     ],
+    why: "ENERGY STAR suggests the cooling check-up in spring, before the busy season.",
   },
   {
     month: "May",
@@ -114,6 +127,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Check hose bibs and the irrigation valve box for drips",
       "Touch up exterior paint and sealant where bare wood shows",
     ],
+    why: "FEMA says salt spray corrodes metal fastest within 300 to 3,000 feet of the shoreline.",
   },
   {
     month: "June",
@@ -123,24 +137,27 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Make sure attic vents are clear, and note the screen size for fire season",
       "Raise sprinkler run times only as far as the plants need",
     ],
+    why: "June, July and August together average less than a tenth of an inch of rain. Dry months are for outside work.",
   },
   {
     month: "July",
     focus: "Peak AC",
     tasks: [
       "Check the HVAC filter",
-      "Watch the water bill and the floor for slab leak signs",
+      "Watch the water bill and the floor for slab leak signs, like a warm spot",
       "Look for drywood termite pellets under eaves and window sills",
     ],
+    why: "Drywood termite swarmers fly during the day in summer and fall.",
   },
   {
     month: "August",
     focus: "Termite swarm watch",
     tasks: [
       "Check the HVAC filter",
-      "Watch for daytime termite swarmers and discarded wings",
+      "Watch for daytime termite swarmers and discarded wings on sills",
       "Trim dead wood out of trees before wind season",
     ],
+    why: "A small pile of wings on a sill is the clearest sign a swarm was termites, not ants.",
   },
   {
     month: "September",
@@ -148,8 +165,9 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
     tasks: [
       "Clean the roof and gutters of leaves and needles",
       "Clear the first 5 feet around the house of dead plants and stored wood",
-      "Fix loose tiles, fence sections and gate latches",
+      "Fix loose tiles, fence sections and gate latches, and plan where patio furniture goes on windy days",
     ],
+    why: "Santa Ana wind events are most common from October through March, so September is the month to get ahead.",
   },
   {
     month: "October",
@@ -159,6 +177,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Check roof flashing and sealant while it is dry",
       "Turn the sprinkler timer down for fall",
     ],
+    why: "Rain comes back slowly: about half an inch in October, 0.8 inch in November and 2 inches in December.",
   },
   {
     month: "November",
@@ -168,6 +187,7 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Flush the tank water heater",
       "Check weatherstripping, and that soil still slopes away from the house",
     ],
+    why: "Subterranean termites can swarm on a clear afternoon after a soaking fall rain.",
   },
   {
     month: "December",
@@ -177,7 +197,59 @@ const MONTHS: { month: string; focus: string; tasks: string[] }[] = [
       "Check the water heater's earthquake straps",
       "Update your home inventory with photos, and file the year's receipts",
     ],
+    why: "A good month to check whether an older raised-foundation home qualifies for an Earthquake Brace + Bolt grant.",
   },
+];
+
+// How often, for the jobs where a published source gives an interval. The
+// rest are placed by month in the calendar above instead of being given an
+// interval nobody publishes.
+const CADENCE: { task: string; when: string }[] = [
+  {
+    task: "HVAC air filter",
+    when: "Check once a month. Change it when it looks dirty, and at least every 3 months.",
+  },
+  {
+    task: "AC and heating check-ups",
+    when: "Cooling in spring, heating in fall, before contractors get busy.",
+  },
+  {
+    task: "Smoke alarms",
+    when: "Test once a month. Replace a replaceable battery every six months, and the whole alarm every 10 years.",
+  },
+  {
+    task: "Tank water heater",
+    when: "Flush once a year, following the owner's guide. Check the earthquake straps at the same time.",
+  },
+  {
+    task: "Tankless water heater",
+    when: "Descale on the maker's schedule. Hard water is a reason to stay on it.",
+  },
+  {
+    task: "Gutters and roof",
+    when: "Clear leaves and needles before wind season, and check flashing before the first rain.",
+  },
+  {
+    task: "Sprinkler timer",
+    when: "Adjust by season: down in fall, low through the wet months, back up in spring.",
+  },
+];
+
+// Every system guide, so the hub is the one page that reaches all of them.
+// Link text comes from GUIDE_TITLES, the same titles the guides index shows.
+const SYSTEM_GUIDES: { href: string; note: string }[] = [
+  { href: "/guides/water-heater-replacement-cost", note: "age, warning signs and replacement cost" },
+  { href: "/guides/hard-water-orange-county", note: "hardness by water provider and what it does" },
+  { href: "/guides/slab-leak-signs", note: "how to spot a leak under the floor early" },
+  { href: "/guides/slab-leak-repair-orange-county", note: "spot repair, reroute or repipe" },
+  { href: "/guides/repipe-orange-county", note: "when a whole-house repipe makes sense" },
+  { href: "/guides/hvac-replacement-cost", note: "repair or replace, and what it costs" },
+  { href: "/guides/roof-replacement-cost", note: "lifespan by material and replacement cost" },
+  { href: "/guides/electrical-panel-upgrade-cost", note: "older panels and what an upgrade involves" },
+  { href: "/guides/termites-orange-county", note: "drywood vs subterranean, and treatment" },
+  { href: "/guides/santa-ana-wind-wildfire-home-prep", note: "defensible space, vents and red flag days" },
+  { href: "/guides/permits-orange-county", note: "which jobs need a permit" },
+  { href: "/guides/new-homeowner-first-year-orange-county", note: "your first week, month and year" },
 ];
 
 export default function OrangeCountyHomeMaintenanceChecklistGuide() {
@@ -212,22 +284,40 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Orange County home maintenance checklist by month
+        Orange County home maintenance checklist, month by month
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/orange-county-home-maintenance-checklist" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Written for Orange County homeowners. There is no snow to plan around
-        here, so the year is built on four local things instead: Santa Ana
-        winds, the first rains, the marine layer and hard water. General
-        information, not professional advice for your home.
+        Written for Orange County homeowners, coast and inland. There is no
+        snow to plan around here, so the year is built on four local things
+        instead: Santa Ana winds, the first rains, the marine layer and hard
+        water. General information, not professional advice for your home.
       </p>
+
+      <section className="mt-8 text-stone-700 dark:text-stone-300">
+        <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+          When the weather turns here
+        </h2>
+        <p className="mt-2 leading-relaxed">
+          On NOAA&apos;s 1991 to 2020 normals, John Wayne Airport gets about
+          11.2 inches of rain a year, and close to 9 of those inches fall from
+          December through March. June, July and August together average less
+          than a tenth of an inch. Santa Ana wind events, the dry offshore
+          winds that drive fire season, are most common from October through
+          March, according to a National Weather Service climate bulletin, and
+          raise the wildfire risk most when they come during or soon after
+          the summer dry season. So the
+          outside work goes in the dry months, wind prep in September, and rain
+          prep in October and November.
+        </p>
+      </section>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {MONTHS.map((m) => (
           <section key={m.month} className="card">
-            <div className="flex items-baseline justify-between">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
               <h2 className="font-semibold text-stone-900 dark:text-stone-100">{m.month}</h2>
               <span className="text-xs font-medium text-bark-700 dark:text-stone-300">
                 {m.focus}
@@ -238,6 +328,9 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
                 <li key={task}>{task}</li>
               ))}
             </ul>
+            <p className="mt-3 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+              {m.why}
+            </p>
           </section>
         ))}
       </div>
@@ -245,20 +338,38 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Why does Orange County need its own checklist?
+            How often should each job happen?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Most checklists were written for places with basements and
-            frozen pipes. What wears out an Orange County house is a dry
-            wind in fall, a short wet season that arrives all at once, damp
-            salty mornings near the coast, and mineral-heavy water all year.
-            The months above are arranged around those four, plus termites
-            and earthquakes. For how often to do each job in general, our{" "}
-            <Link href="/guides/home-maintenance-schedule" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-              home maintenance schedule
-            </Link>{" "}
-            has it.
+            The calendar says when. This says how often, for the jobs where a
+            published source gives an interval.
           </p>
+          <div className="mt-3 overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-stone-50 text-left dark:bg-stone-800">
+                  <th className="px-3 py-2.5 font-semibold text-stone-700 sm:px-4 dark:text-stone-300">
+                    Job
+                  </th>
+                  <th className="px-3 py-2.5 font-semibold text-stone-700 sm:px-4 dark:text-stone-300">
+                    How often
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-100 dark:divide-white/10">
+                {CADENCE.map((row) => (
+                  <tr key={row.task}>
+                    <td className="w-[38%] px-3 py-2.5 align-top font-medium text-stone-900 sm:px-4 dark:text-stone-100">
+                      {row.task}
+                    </td>
+                    <td className="px-3 py-2.5 align-top text-stone-600 sm:px-4 dark:text-stone-400">
+                      {row.when}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section>
@@ -279,11 +390,11 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
           </p>
           <p className="mt-2 leading-relaxed">
             The rest is ordinary wind sense: fix loose tiles and fence
-            sections and take dead limbs out of trees. On a Red Flag Warning
-            day, OCFA says to do
-            any yard work that needs a motor before 10 a.m. and never when
-            the wind is blowing. Our{" "}
-            <Link href="/guides/santa-ana-wind-wildfire-home-prep" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+            sections, take dead limbs out of trees, and put away patio
+            umbrellas and light furniture before a wind event. On a Red Flag
+            Warning day, OCFA says to do any yard work that needs a motor
+            before 10 a.m. and never when the wind is blowing. Our{" "}
+            <Link href="/guides/santa-ana-wind-wildfire-home-prep" className={linkClass}>
               Santa Ana wind and wildfire prep guide
             </Link>{" "}
             goes through defensible space and the rest of the house.
@@ -298,7 +409,8 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
             Months of dust and leaves sit on the roof and in the drains, and
             the first real storm finds every weak spot at once. Do the dry
             work in October and November: gutters, yard drains, roof flashing
-            and the grading next to the foundation.
+            and the grading next to the foundation, which should slope away
+            from the house so water drains off instead of pooling.
           </p>
           <p className="mt-2 leading-relaxed">
             If your lot takes runoff from a slope or the street, find your
@@ -314,21 +426,27 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            What does the marine layer do to a house?
+            What do the marine layer and salt air do to a house?
           </h2>
           <p className="mt-2 leading-relaxed">
             The Weather Service&apos;s term is a marine push: ocean air moving in,
             much cooler and much more humid. In late spring and early summer
             it is a regular visitor in the coastal cities. For a house that
             means surfaces that stay damp until midday and, close to the
-            beach, salt in that dampness. Paint, window tracks, door
-            hardware, light fixtures, garage door springs and the outdoor
-            half of the air conditioner all show it first.
+            beach, salt in that dampness. A FEMA technical bulletin says salt
+            spray carried by onshore winds significantly speeds up the
+            corrosion of metal, most of all within 300 to 3,000 feet of the
+            shoreline, and has been measured as far as 5 to 10 miles inland.
+            Paint, window tracks, door hardware, light fixtures, garage door
+            springs and the outdoor half of the air conditioner all show it
+            first.
           </p>
           <p className="mt-2 leading-relaxed">
             The habit that helps is cheap: rinse outdoor metal, screens and
             windows with fresh water, keep exterior paint and sealant intact,
-            and look at the fasteners on gates and railings once a year.
+            and look at the fasteners on gates and railings once a year. In a
+            beach city, look over gutters, flashing and the AC condenser more
+            often than the calendar above says.
           </p>
         </section>
 
@@ -337,16 +455,18 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
             How does hard water change the routine?
           </h2>
           <p className="mt-2 leading-relaxed">
-            It adds three jobs. The U.S. Geological Survey explains that when
-            hard water is heated, as in a water heater, calcium carbonate
-            scale forms, and that scale can shorten equipment life, raise
-            heating costs and clog pipes. So flush a tank water heater once
-            a year, following the owner&apos;s guide, which is also what the City
-            of Tustin&apos;s water division tells its customers. Descale a
-            tankless heater on the maker&apos;s schedule. And soak aerators and
-            shower heads in vinegar when the flow drops. How hard your water
-            is depends on your provider, and our{" "}
-            <Link href="/guides/hard-water-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+            It adds three jobs. The Irvine Ranch Water District says the water
+            it imports from the Colorado River and Northern California is
+            typically hard, and recommends flushing the water heater once a
+            year. The U.S. Geological Survey explains why: when hard water is
+            heated, calcium carbonate scale forms, and that scale can shorten
+            equipment life, raise heating costs and clog pipes. So flush a
+            tank water heater once a year, following the owner&apos;s guide,
+            which is also what the City of Tustin&apos;s water division tells its
+            customers. Descale a tankless heater on the maker&apos;s schedule.
+            And soak aerators and shower heads in vinegar when the flow drops.
+            How hard your water is depends on your provider, and our{" "}
+            <Link href="/guides/hard-water-orange-county" className={linkClass}>
               hard water guide
             </Link>{" "}
             lists the figures by district.
@@ -376,10 +496,10 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>HVAC.</strong> ENERGY STAR says to inspect, clean or
-              change air filters once a month, and to have the cooling
-              system checked in spring and the heating system in fall,
-              before contractors get busy.
+              <strong>HVAC.</strong> ENERGY STAR says to check the air filter
+              once a month, change it when it looks dirty and at least every
+              3 months, and to have the cooling system checked in spring and
+              the heating system in fall, before contractors get busy.
             </li>
             <li>
               <strong>Alarms.</strong> OCFA says to test smoke alarms once a
@@ -392,7 +512,7 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
               summer and fall, and the common subterranean species swarms on
               clear afternoons after a soaking rain in spring or fall. Those
               are the weeks to look. Our{" "}
-              <Link href="/guides/termites-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              <Link href="/guides/termites-orange-county" className={linkClass}>
                 Orange County termite guide
               </Link>{" "}
               covers what to do if you find them.
@@ -401,33 +521,63 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
               <strong>Earthquakes.</strong> California Health and Safety Code
               section 19211 requires residential water heaters to be braced,
               anchored or strapped. Straps loosen and get removed during
-              repairs, so look once a year.
+              repairs, so look once a year. If your home was built before
+              1980 on a raised foundation, the state&apos;s{" "}
+              <a
+                href="https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit"
+                rel="noopener"
+                className={linkClass}
+              >
+                Earthquake Brace + Bolt program
+              </a>{" "}
+              offers grants of up to $3,000 toward a retrofit that bolts the
+              house to its foundation, in ZIP codes the program lists as high hazard. Check
+              its site for your ZIP code and the next application window.
             </li>
           </ul>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Guides for each system in your home
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            When a job on the list turns into a question, these go deeper.
+          </p>
+          <ul className="mt-2 space-y-2 text-sm leading-relaxed">
+            {SYSTEM_GUIDES.map((g) => (
+              <li key={g.href}>
+                <Link href={g.href} className="font-medium text-bark-700 underline hover:no-underline dark:text-stone-300">
+                  {GUIDE_TITLES[g.href]}
+                </Link>
+                <span className="text-stone-500 dark:text-stone-400">: {g.note}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
             Local notes by city:{" "}
             <Link href="/oc/anaheim" className="text-bark-700 hover:underline dark:text-stone-300">Anaheim</Link>,{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
             <Link href="/huntington-beach" className="text-bark-700 hover:underline dark:text-stone-300">Huntington Beach</Link>,{" "}
+            <Link href="/oc/newport-beach" className="text-bark-700 hover:underline dark:text-stone-300">Newport Beach</Link>,{" "}
             <Link href="/oc/santa-ana" className="text-bark-700 hover:underline dark:text-stone-300">Santa Ana</Link>,{" "}
-            <Link href="/oc/mission-viejo" className="text-bark-700 hover:underline dark:text-stone-300">Mission Viejo</Link> and{" "}
+            <Link href="/oc/mission-viejo" className="text-bark-700 hover:underline dark:text-stone-300">Mission Viejo</Link>,{" "}
+            <Link href="/oc/lake-forest" className="text-bark-700 hover:underline dark:text-stone-300">Lake Forest</Link>,{" "}
+            <Link href="/oc/san-clemente" className="text-bark-700 hover:underline dark:text-stone-300">San Clemente</Link> and{" "}
             <Link href="/oc/fullerton" className="text-bark-700 hover:underline dark:text-stone-300">Fullerton</Link>, or every city on the{" "}
-            <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>. For a coast-focused
-            version of the year, see our{" "}
-            <Link href="/guides/socal-home-maintenance-calendar" className="text-bark-700 hover:underline dark:text-stone-300">
-              Southern California maintenance calendar
-            </Link>
-            .
+            <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>.
           </p>
         </section>
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
             As of September 2026. Months are a guide, not a rule: the first
-            rain and the first wind event move around from year to year. This
-            is general information, not professional, legal or safety advice.
-            Follow your appliance manuals and your local fire department&apos;s
-            instructions.
+            rain and the first wind event move around from year to year. Roof,
+            ladder, electrical and hot-water jobs carry real risk, so do what
+            you can from the ground and leave the rest to someone trained for
+            it. This is general information, not professional, legal or safety
+            advice. Follow your appliance manuals and your local fire
+            department&apos;s instructions.
           </p>
         </section>
       </div>

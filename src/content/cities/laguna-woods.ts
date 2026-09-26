@@ -192,8 +192,8 @@ export const lagunaWoods: CityContent = {
         "What a remodel costs before the local extras: the Village says retiling a shower can expose asbestos-era materials, and the city asks for a survey first.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including air conditioner service before the heat and slope drains before winter storms.",
     },

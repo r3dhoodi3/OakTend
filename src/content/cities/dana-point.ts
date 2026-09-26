@@ -187,8 +187,8 @@ export const danaPoint: CityContent = {
         "Price per square by material, for a city where most roofs sit on 1970s and 1980s houses and are on their second life.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month, including the drain and slope checks a bluff or canyon lot needs before winter storms.",
     },

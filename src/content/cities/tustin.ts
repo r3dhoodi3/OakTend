@@ -144,8 +144,8 @@ export const tustin: CityContent = {
         "What a full system runs, for Tustin Ranch homes reaching their second system and Legacy homes reaching their first.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including the water heater flush that 22-grain city groundwater calls for and roof checks before the November to April rains.",
     },
