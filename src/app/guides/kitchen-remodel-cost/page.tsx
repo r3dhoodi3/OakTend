@@ -5,6 +5,7 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
 // Public SEO guide, aimed at Orange County. Every cost figure on this page
 // comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
@@ -13,6 +14,10 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // tables), from at most five projects across the whole site, each with the
 // report's name, its URL and the copyright line: keep all three when editing,
 // and do not add a sixth project. Figures are averages, never quotes. The
+// Orange County section (housing age by city, older-home rules, energy code,
+// HOA, coastal zone) and the city table cite their own sources: the table's
+// rules and data live in src/lib/ocRemodelCities.ts. The pro side is closed,
+// so nothing here offers to find, match or book a contractor. The
 // signed-in CTA
 // points at /contractors?category=remodeling (kitchen work maps to the
 // remodeling service category, see SERVICE_CATEGORIES in src/lib/constants.ts).
@@ -33,9 +38,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Kitchen remodel cost in Orange County: what to expect";
+// Kept to 37 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "Kitchen remodel cost in Orange County";
 const DESCRIPTION =
-  "What a kitchen remodel costs near Orange County: sourced 2025 averages for a minor and a major remodel, what drives the price, and hiring rules.";
+  "Sourced 2025 kitchen remodel averages near Orange County, why older OC homes cost more, city permit notes, and how to read a contractor's estimate.";
 const CANONICAL = `${SITE_URL}/guides/kitchen-remodel-cost`;
 
 export const metadata: Metadata = {
@@ -78,6 +84,25 @@ const FAQS = [
   {
     q: "Does a kitchen remodel add value at resale?",
     a: "The smaller job does better. In the Cost vs. Value Report's Los Angeles market for 2025, the minor midrange remodel recouped about 127 percent of its cost at resale, while the major midrange remodel recouped about 57 percent. Beyond resale, an updated, functional kitchen is one of the rooms buyers and daily users notice most, which is part of why it stays a popular project.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "What is included in a midrange versus a high-end kitchen remodel?",
+    a: "In the Cost vs. Value Report's terms, a minor midrange remodel keeps the cabinet boxes and replaces the fronts and hardware, the range and refrigerator, laminate counters, the sink and faucet, and the flooring. A major midrange remodel replaces the cabinets with semi-custom ones, adds an island, and puts in a full set of new appliances and lighting. An upscale remodel moves to custom cabinets, stone counters, and built-in or commercial-grade appliances, and costs far more than either.",
+  },
+  {
+    q: "Do I need HOA approval before remodeling my kitchen?",
+    a: "If you live in a homeowners association, check your CC&Rs before work starts. Interior work often needs no association approval, but anything visible from outside, like a new window, door, or exterior vent, usually goes through the association's architectural review as well as the city permit. California Civil Code section 4765 requires the association to decide in writing, in good faith, and to explain any denial.",
+  },
+  {
+    q: "What is Title 24 and does it apply to my kitchen remodel?",
+    a: "Title 24 is California's building code, and Part 6 of it is the Energy Code. Permits applied for on or after January 1, 2026 fall under the 2025 Energy Code. In a permitted kitchen remodel, new lighting, windows, or appliances can bring parts of it into play, while like-for-like repairs generally do not. Your city's permit counter can tell you which parts apply to your plans.",
+  },
+  {
+    q: "How much does a building permit cost in Orange County?",
+    a: "There is no single county-wide fee. Each city sets its own permit fees, often based on the value of the work and on which trades (plumbing, electrical, mechanical) are involved, and unincorporated areas go through the County of Orange. Ask your city's permit counter for its current fee schedule before you budget, and check whether the contractor's bid includes permit fees.",
   },
 ];
 
@@ -271,6 +296,18 @@ export default function KitchenRemodelCostGuide() {
             before signing.
           </p>
           <p className="mt-2 leading-relaxed">
+            A home improvement contract over $500 has to be in writing, and
+            the <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+          <p className="mt-2 leading-relaxed">
             On permits, moving electrical, plumbing, or gas, or removing a
             wall, generally requires one in OC cities. Purely cosmetic updates
             like paint or new cabinet fronts without wiring or plumbing
@@ -283,37 +320,73 @@ export default function KitchenRemodelCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            In Orange County
+            Why it costs more in Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
             Orange County has no line of its own in the Cost vs. Value Report,
             which covers Los Angeles as the nearest market. The Los Angeles
             averages run about 4 to 5 percent above the national ones for the
             same two kitchen projects, so expect local prices above national
-            figures you see elsewhere.
+            figures you see elsewhere. Beyond labor, five local things tend to
+            add to a kitchen budget.
           </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Older houses.</strong> About 57 percent of Orange
+              County&apos;s housing units were built before 1980, by the Census
+              Bureau&apos;s 2020 to 2024 American Community Survey. In Fountain
+              Valley it is about 82 percent, in Garden Grove 77 percent, and in
+              Santa Ana 74 percent, while Irvine is about 21 percent. Opening a
+              wall in a kitchen that age can turn up wiring or plumbing that
+              has to be brought up to current code, and older tracts can still
+              have galvanized steel supply pipe or cast iron drains that are
+              worth replacing while the walls are open.
+            </li>
+            <li>
+              <strong>Asbestos and lead.</strong> Cal/OSHA presumes that
+              sprayed or troweled-on surfacing, such as an acoustic popcorn
+              ceiling, in a building built in 1980 or earlier contains asbestos
+              unless testing shows it does not. Anyone paid to disturb paint in
+              a home built before 1978 must follow the EPA&apos;s lead-safe
+              work rules, and California adds its own lead rules for
+              construction work. Testing and safe removal are real line items.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> Permits applied for on or
+              after January 1, 2026 fall under California&apos;s 2025 Energy
+              Code. New lighting, windows, or appliances in a permitted remodel
+              can bring parts of it into play.
+            </li>
+            <li>
+              <strong>HOA review.</strong> If your home is in an association,
+              a new window, door, or exterior vent usually needs the
+              association&apos;s approval as well as the city permit, and
+              Irvine&apos;s own permit page tells residents to check their
+              HOA&apos;s CC&amp;Rs. California Civil Code section 4765 requires
+              the association to decide in writing, in good faith, and to
+              explain a denial.
+            </li>
+            <li>
+              <strong>The coastal zone.</strong> Parts of Huntington Beach and
+              Newport Beach are in the California coastal zone, where
+              development can need a coastal development permit on top of the
+              building permit. If your remodel changes the outside of the
+              house, ask the city whether that applies to your lot.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits and home age by city
+          </h2>
           <p className="mt-2 leading-relaxed">
-            The age of the house matters too. The Census Bureau&apos;s 2024
-            American Community Survey puts about 12 percent of Orange
-            County&apos;s housing units in the 1950s, 19 percent in the 1960s,
-            and 22 percent in the 1970s. In a kitchen of that age, opening a
-            wall can turn up wiring or plumbing that has to be brought up to
-            current code, so leave room in the budget for it.
+            What each city&apos;s own permit page says, with a link to where
+            applications go. Where a city&apos;s page does not list what needs
+            a permit, we say so rather than guess.
           </p>
-          <p className="mt-2 leading-relaxed">
-            California&apos;s rules protect you here. A contractor needs a
-            state license for any job of $1,000 or more, a home improvement
-            contract over $500 has to be in writing, and the down payment
-            cannot exceed $1,000 or 10 percent, whichever is less (see our{" "}
-            <Link
-              href="/guides/contractor-deposit-rules-california"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              deposit rules guide
-            </Link>
-            ).
-          </p>
-          <p className="mt-2 leading-relaxed">
+          <OcRemodelCityTable />
+          <p className="mt-3 leading-relaxed">
             Permit rules and fees differ from city to city. Our city pages are
             a starting point:{" "}
             <Link
@@ -351,6 +424,54 @@ export default function KitchenRemodelCostGuide() {
               all Orange County cities
             </Link>
             .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real bid for your kitchen arrives, check it against this list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              The scope is itemized: demolition, cabinets, counters,
+              appliances, plumbing, electrical, and finishes. A line marked
+              &quot;allowance&quot; is a placeholder that can go up.
+            </li>
+            <li>It says who gets the building permits.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>Start and completion dates are written in.</li>
+            <li>
+              It says how surprises behind the walls, like old pipe, asbestos,
+              or lead paint, will be priced.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
           </p>
         </section>
 

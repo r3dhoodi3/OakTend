@@ -5,6 +5,7 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
 // Public SEO guide, aimed at Orange County. The cost figure on this page
 // comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
@@ -13,6 +14,10 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // tables), from at most five projects across the whole site, each with the
 // report's name, its URL and the copyright line: keep all three when editing,
 // and do not add a sixth project. Figures are averages, never quotes. The
+// Orange County section (housing age by city, older-home rules, energy code,
+// HOA, coastal zone) and the city table cite their own sources: the table's
+// rules and data live in src/lib/ocRemodelCities.ts. The pro side is closed,
+// so nothing here offers to find, match or book a contractor. The
 // signed-in CTA
 // points at /contractors?category=remodeling (bathroom work maps to the
 // remodeling service category, see SERVICE_CATEGORIES in src/lib/constants.ts).
@@ -33,9 +38,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Bathroom remodel cost in Orange County: what to expect";
+// Kept to 38 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "Bathroom remodel cost in Orange County";
 const DESCRIPTION =
-  "What a bathroom remodel costs near Orange County: a sourced 2025 average for a midrange remodel, what drives the price, permits, and hiring rules.";
+  "A sourced 2025 bathroom remodel average near Orange County, why older OC homes cost more, city permit notes, and how to read a contractor's estimate.";
 const CANONICAL = `${SITE_URL}/guides/bathroom-remodel-cost`;
 
 export const metadata: Metadata = {
@@ -78,6 +84,21 @@ const FAQS = [
   {
     q: "Is a bathroom remodel worth it at resale?",
     a: "In the Cost vs. Value Report's Los Angeles market for 2025, the midrange bathroom remodel recouped about 90 percent of its cost at resale, so it comes close but does not fully pay for itself. The stronger case is usually daily use and not deferring a bathroom that is leaking or failing, since those problems only get more expensive the longer they wait.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "How much does it cost to remodel a small bathroom?",
+    a: "The Cost vs. Value Report's midrange bathroom is a small one, 5 by 7 feet, and replacing every fixture in it averaged $27,143 in the Los Angeles market in 2025 (www.costvsvalue.com). A cosmetic refresh that keeps the tub and the layout costs less. Moving the toilet or shower, custom tile, or high-end fixtures cost more.",
+  },
+  {
+    q: "What plumbing problems are common in older Orange County homes?",
+    a: "About 57 percent of Orange County's housing units were built before 1980, according to the Census Bureau's 2020 to 2024 American Community Survey, and about three in four or more in Fountain Valley, Garden Grove, and Santa Ana. Older tracts can still have galvanized steel supply pipe and cast iron drains. A bathroom remodel opens the walls and floor, so it is the cheapest time to replace them.",
+  },
+  {
+    q: "What is Title 24 and does it apply to my bathroom remodel?",
+    a: "Title 24 is California's building code, and Part 6 of it is the Energy Code. Permits applied for on or after January 1, 2026 fall under the 2025 Energy Code. In a permitted bathroom remodel, new lighting or a new exhaust fan can bring parts of it into play, while like-for-like repairs generally do not. Your city's permit counter can tell you which parts apply.",
   },
 ];
 
@@ -273,6 +294,18 @@ export default function BathroomRemodelCostGuide() {
             license before signing.
           </p>
           <p className="mt-2 leading-relaxed">
+            A home improvement contract over $500 has to be in writing, and
+            the <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+          <p className="mt-2 leading-relaxed">
             On permits, purely cosmetic work like paint, flooring, or a
             like-for-like vanity swap generally does not need one. Once you
             change plumbing, electrical, or the layout, most OC cities
@@ -286,42 +319,72 @@ export default function BathroomRemodelCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            In Orange County
+            Why it costs more in Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
             Orange County has no line of its own in the Cost vs. Value Report,
             which covers Los Angeles as the nearest market. The Los Angeles
             average runs about 4 percent above the national one for the same
             bathroom, so expect local prices above national figures you see
-            elsewhere.
+            elsewhere. A bathroom is where an older house shows its age
+            first, because it packs the most plumbing into the least space.
           </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Older houses.</strong> About 57 percent of Orange
+              County&apos;s housing units were built before 1980, by the Census
+              Bureau&apos;s 2020 to 2024 American Community Survey: about 82
+              percent in Fountain Valley, 77 percent in Garden Grove, and 74
+              percent in Santa Ana, against about 21 percent in Irvine. Older
+              tracts can still have galvanized steel supply pipe and cast iron
+              drains behind the tile. If the house sits on a concrete slab,
+              moving a toilet or shower drain also means cutting concrete,
+              which is why keeping the layout saves so much.
+            </li>
+            <li>
+              <strong>Asbestos and lead.</strong> Cal/OSHA presumes that
+              sprayed or troweled-on surfacing, such as an acoustic popcorn
+              ceiling, in a building built in 1980 or earlier contains asbestos
+              unless testing shows it does not. Anyone paid to disturb paint in
+              a home built before 1978 must follow the EPA&apos;s lead-safe
+              work rules, and California adds its own lead rules for
+              construction work. Ask whether a bid includes testing.
+            </li>
+            <li>
+              <strong>Hard water.</strong> The Irvine Ranch Water District
+              says the imported water in its system is typically hard and that
+              the minerals leave white spots on glassware. Expect the same on
+              clear shower glass and dark fixtures when you choose finishes.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> Permits applied for on or
+              after January 1, 2026 fall under California&apos;s 2025 Energy
+              Code. New lighting or a new exhaust fan in a permitted remodel
+              can bring parts of it into play.
+            </li>
+            <li>
+              <strong>HOA review and the coastal zone.</strong> Most bathroom
+              work is inside the house, but a new or enlarged window can need
+              your association&apos;s approval as well as the city permit
+              (California Civil Code section 4765 requires the association to
+              decide in writing and explain a denial). In the coastal parts of
+              Huntington Beach and Newport Beach, work that changes the outside
+              of the house can also need a coastal development permit.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits and home age by city
+          </h2>
           <p className="mt-2 leading-relaxed">
-            Two local things are worth planning for. Age is one: the Census
-            Bureau&apos;s 2024 American Community Survey puts about 19 percent
-            of Orange County&apos;s housing units in the 1960s and 22 percent
-            in the 1970s, so budget for what opening a 50-year-old wall can
-            turn up. If the house sits on a concrete slab, moving a toilet or
-            shower drain also means cutting concrete, which is why keeping the
-            layout saves so much. Water is the other: the Irvine Ranch Water
-            District says the imported water in its system is typically hard
-            and that the minerals leave white spots on glassware. Expect the
-            same on clear shower glass and dark fixtures when you choose
-            finishes.
+            What each city&apos;s own permit page says, with a link to where
+            applications go. Where a city&apos;s page does not list what needs
+            a permit, we say so rather than guess.
           </p>
-          <p className="mt-2 leading-relaxed">
-            California&apos;s rules protect you here. A contractor needs a
-            state license for any job of $1,000 or more, a home improvement
-            contract over $500 has to be in writing, and the down payment
-            cannot exceed $1,000 or 10 percent, whichever is less (see our{" "}
-            <Link
-              href="/guides/contractor-deposit-rules-california"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              deposit rules guide
-            </Link>
-            ).
-          </p>
-          <p className="mt-2 leading-relaxed">
+          <OcRemodelCityTable />
+          <p className="mt-3 leading-relaxed">
             Permit rules and fees differ from city to city. Our city pages are
             a starting point:{" "}
             <Link
@@ -359,6 +422,54 @@ export default function BathroomRemodelCostGuide() {
               all Orange County cities
             </Link>
             .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real bid for your bathroom arrives, check it against this list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              The scope is itemized: demolition, waterproofing, tile,
+              plumbing, fixtures, electrical, and the fan. A line marked
+              &quot;allowance&quot; is a placeholder that can go up.
+            </li>
+            <li>It says who gets the building permits.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>Start and completion dates are written in.</li>
+            <li>
+              It says how rotted subfloor, old pipe, asbestos, or lead paint
+              found after demolition will be priced.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
           </p>
         </section>
 
