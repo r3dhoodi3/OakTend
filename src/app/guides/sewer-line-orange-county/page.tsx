@@ -182,10 +182,9 @@ export default function SewerLineOrangeCountyGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             A plumber runs a camera through the lateral to see its condition.
-            The recording is the evidence everyone works from. Huntington
-            Beach, for example, has the owner hire a contractor to clean and
-            video the line, then reviews the video to decide whether the
-            problem is in the city&apos;s part.
+            Huntington Beach, for example, has the owner hire a contractor to
+            clean and video the line, then reviews the video to decide whether
+            the problem is in the city&apos;s part.
           </p>
           <p className="mt-2 leading-relaxed">
             Keep a copy that shows the date, the address and a footage counter

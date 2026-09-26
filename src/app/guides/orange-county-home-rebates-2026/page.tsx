@@ -185,16 +185,14 @@ export default function OrangeCountyHomeRebatesGuide() {
             What does SCE offer electric customers?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Southern California Edison&apos;s rebate page mostly points
-            elsewhere rather than listing amounts, so we list what it says and
-            no more:
+            Southern California Edison&apos;s rebate page lists few amounts,
+            so neither do we:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
               <strong>Golden State Rebates:</strong> instant rebate coupons on
               air conditioners, smart thermostats, electric heat pump water
               heaters and gas water heaters, used at participating retailers.
-              SCE&apos;s page gives no amounts.
             </li>
             <li>
               <strong>Smart thermostat bill credit:</strong> $75 when you let
@@ -237,8 +235,7 @@ export default function OrangeCountyHomeRebatesGuide() {
             SoCal Water$mart is the regional rebate program of the
             Metropolitan Water District of Southern California, and it says
             rebates vary by water agency. Some Orange County agencies also
-            list their own amounts. What you can get depends on which agency
-            sends your water bill.
+            list their own amounts.
           </p>
           <ul className="mt-3 space-y-3">
             <li className={cardClass}>
@@ -253,8 +250,8 @@ export default function OrangeCountyHomeRebatesGuide() {
                 holds rain water, and irrigation changes; synthetic turf does
                 not qualify. Devices: premium high-efficiency toilets $40
                 each, rotating sprinkler nozzles $2 each (at least 30),
-                high-efficiency clothes washers from $85. The program says
-                amounts vary by water agency and depend on funding.
+                high-efficiency clothes washers from $85. Amounts depend on
+                funding.
               </p>
               <AsOf
                 href="https://socalwatersmart.com/en/residential/rebates/available-rebates/turf-replacement-program/"
@@ -376,9 +373,8 @@ export default function OrangeCountyHomeRebatesGuide() {
             </li>
           </ul>
           <p className="mt-3 leading-relaxed">
-            Utility rebates above can still apply to a heat pump water heater:
-            SCE points to Golden State Rebates coupons, and Anaheim Public
-            Utilities lists its own $400 rebate.
+            The SCE and Anaheim rebates above can still apply to a heat pump
+            water heater.
           </p>
         </section>
 
@@ -387,28 +383,24 @@ export default function OrangeCountyHomeRebatesGuide() {
             Can I get a grant for an earthquake retrofit?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Possibly, if your home is old enough and sits on a raised
-            foundation. The California Residential Mitigation Program&apos;s
-            Earthquake Brace + Bolt grants pay up to $3,000 toward bolting a
-            wood-framed house built before 1980 to its raised foundation,
-            bracing any cripple walls in the crawl space, and strapping the
-            water heater. Income-qualified households can get up to $7,000
-            more, which the program says may pay up to the full cost, with a
-            household income of $94,480 or less. Grants are only for the ZIP
-            codes the program lists.
+            Possibly, if you have a wood-framed house built before 1980 on a
+            raised foundation, in a ZIP code the program lists. The California
+            Residential Mitigation Program&apos;s Earthquake Brace + Bolt
+            grants pay up to $3,000. Households with an income of $94,480 or
+            less can get up to $7,000 more, which the program says may pay up
+            to the full cost. Registration opens for a limited time each year,
+            and as of {CHECKED_ON} the program had not posted 2026 dates.
           </p>
           <p className="mt-2 leading-relaxed">
-            Registration opens for a limited time each year. The 2025 window
-            closed on October 17, 2025, and as of {CHECKED_ON} the program had
-            not posted 2026 dates. Its 2025 Southern California list included
-            ZIP codes in Anaheim, Huntington Beach, Irvine and Santa Ana,
-            among other Orange County cities; the list can change, so check
-            your own ZIP code with the program. About
-            57 percent of Orange County homes were built before 1980; see{" "}
+            Our{" "}
+            <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
+              earthquake retrofit guide
+            </Link>{" "}
+            covers the work, the permit order and the insurance discount, and{" "}
             <Link href="/guides/orange-county-home-age" className={linkClass}>
               how old Orange County homes are
             </Link>{" "}
-            by city.
+            shows the pre-1980 share by city.
           </p>
           <AsOf
             href="https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit"
@@ -487,11 +479,8 @@ export default function OrangeCountyHomeRebatesGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            All amounts and statuses as of {CHECKED_ON}, from each
-            program&apos;s own page. We review this page every quarter.
             OakTend does not run, fund or guarantee any of these programs, and
-            this is not tax or financial advice. Check with the program before
-            you buy.
+            this is not tax or financial advice.
           </p>
         </section>
       </div>

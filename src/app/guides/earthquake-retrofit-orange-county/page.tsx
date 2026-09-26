@@ -109,14 +109,14 @@ export default function EarthquakeRetrofitOrangeCountyGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             Houses raised on a foundation, with a crawl space under the
-            floor. The California Earthquake Authority puts it simply: older
-            houses with steps up to the first floor can shift off their
-            foundations in an earthquake. A house built on a concrete slab is
-            not the kind this retrofit is for.
+            floor. The California Earthquake Authority says older houses with
+            steps up to the first floor can shift off their foundations in an
+            earthquake. A house on a concrete slab is not the kind this
+            retrofit is for.
           </p>
           <p className="mt-2 leading-relaxed">
-            The state&apos;s Earthquake Brace + Bolt program draws the line
-            more exactly. Its 2026 rules cover detached houses of one to four
+            The state&apos;s Earthquake Brace + Bolt program is more exact.
+            Its 2026 rules cover detached houses of one to four
             units, built before 1980, on level ground or a low slope, with a
             continuous raised perimeter foundation. Mobile and manufactured
             homes do not qualify.
@@ -213,9 +213,10 @@ export default function EarthquakeRetrofitOrangeCountyGuide() {
             On a California Earthquake Authority policy, it can. The CEA
             offers up to a 25% premium discount for a pre-1980 house like the
             ones above once it is bolted, its cripple walls are braced where
-            they exist and its water heater is secured. Your insurer needs the CEA&apos;s Dwelling Retrofit
-            Verification form signed by a contractor or structural engineer,
-            or a Brace + Bolt verification number.
+            they exist and its water heater is secured. Your insurer needs the
+            CEA&apos;s Dwelling Retrofit Verification form signed by a
+            contractor or structural engineer, or a Brace + Bolt verification
+            number.
           </p>
         </section>
 

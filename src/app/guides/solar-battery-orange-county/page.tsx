@@ -154,8 +154,8 @@ export default function SolarBatteryOrangeCountyGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             SCE&apos;s prices are highest on summer weekdays from 4 to 9
-            p.m., as the sun goes down. A battery
-            stores daytime solar to use or export in those hours, and the
+            p.m., as the sun goes down. A battery stores daytime solar to use
+            or export in those hours, and the
             CPUC names that as the way to get the most bill savings under the
             tariff. Some solar and battery installs also need a bigger
             electrical panel; see our{" "}
@@ -218,12 +218,13 @@ export default function SolarBatteryOrangeCountyGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             California Civil Code section 714 voids HOA rules that effectively
-            prohibit solar. An HOA can set reasonable restrictions: for a
-            solar electric system, ones that add no more than $1,000 to the
-            cost or cut efficiency by no more than 10 percent. It must decide
-            in writing, and an application not denied in writing within 45
-            days is deemed approved, unless the delay comes from a reasonable
-            request for more information.
+            prohibit solar. For a solar electric system, a reasonable
+            restriction can add no more than $1,000 to the cost or cut
+            efficiency by no more than 10 percent. Our{" "}
+            <Link href="/guides/hoa-coastal-commission-remodel-orange-county" className={LINK}>
+              HOA and coastal remodel guide
+            </Link>{" "}
+            covers the written decision and the 45-day deadline.
           </p>
         </section>
 
@@ -264,9 +265,9 @@ export default function SolarBatteryOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            As of September 2026. Tariffs, rates and permit systems change;
-            your utility and your city have the current rules. This is general
-            information, not financial, tax or legal advice.
+            As of September 2026. Your utility and your city have the current
+            rules. This is general information, not financial, tax or legal
+            advice.
           </p>
         </section>
       </div>

@@ -156,7 +156,7 @@ export default function WindowReplacementCostGuide() {
             <li>
               <strong>Small jobs get more room.</strong> Up to 75 square feet
               of replacement windows can meet a U-factor of 0.40 and an SHGC
-              of 0.35 instead, which helps when only a few windows change.
+              of 0.35 instead.
             </li>
             <li>
               <strong>Sealing.</strong> New windows must be caulked and sealed
@@ -202,9 +202,8 @@ export default function WindowReplacementCostGuide() {
             HOA review and salt air
           </h2>
           <p className="mt-2 leading-relaxed">
-            In an HOA, new windows change how the house looks from the
-            street, so expect architectural review before the order goes in.
-            Our{" "}
+            In an HOA, expect architectural review before the order goes in,
+            since new windows change how the house looks. Our{" "}
             <Link href="/guides/hoa-coastal-commission-remodel-orange-county" className={LINK}>
               HOA and coastal remodel guide
             </Link>{" "}

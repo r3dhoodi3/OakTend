@@ -1446,20 +1446,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "No impact fee on an ADU with 750 square feet or less of interior livable space or a junior ADU of 500 square feet or less; above 750 square feet, impact fees are proportional to the primary dwelling; units under 500 square feet of interior livable space are treated as not triggering school fees.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB462",
-      label:
-        "California Assembly Bill 462 (2025-2026), chaptered text (Chapter 491, approved October 10, 2025, urgency statute)",
-      supports:
-        "Takes effect immediately; amends Government Code section 66329 so a coastal development permit for an ADU is approved or denied within 60 days of a complete application, concurrently with the ADU review and without a public hearing.",
-    },
-    {
-      href: "https://www.bwslaw.com/insights/public-law-update-2025-adu-legislative-update/",
-      label:
-        "Burke, Williams & Sorensen (law firm): 2025 ADU legislative update (December 15, 2025)",
-      supports:
-        "SB 543 and AB 1154 were among the ADU bills of the 2025 session; SB 543 takes effect January 1, 2026 with its fee limits in effect from October 10, 2025.",
-    },
-    {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65852.27",
       label:
         "California Government Code section 65852.27",
@@ -2699,18 +2685,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
       supports:
         "Checked 2026-09-26: up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; up to $7,000 more for households earning $94,480 or less, which may pay up to 100 percent of the cost; registration open a limited time each year; no 2026 dates posted.",
-    },
-    {
-      href: "https://www.crmp.org/press-room/press-releases",
-      label: "California Residential Mitigation Program: press releases",
-      supports:
-        "The 2025 Earthquake Brace + Bolt registration deadline was extended to October 17, 2025; no 2026 registration release as of 2026-09-26.",
-    },
-    {
-      href: "https://www.crmp.org/sites/crmp/files/documents/2024/ebb-soca-zips_2025_12-16-24.pdf",
-      label: "California Residential Mitigation Program: 2025 EBB ZIP codes in Southern California",
-      supports:
-        "The 2025 list includes ZIP codes for Anaheim, Huntington Beach, Irvine and Santa Ana, among other Orange County cities.",
     },
   ],
   // Added 2026-09-26 (seo/new-pages-d). Every page below was opened that day,

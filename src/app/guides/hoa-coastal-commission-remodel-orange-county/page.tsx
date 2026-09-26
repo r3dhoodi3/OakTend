@@ -72,23 +72,23 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Do I need HOA approval before remodeling?",
-    a: "If your association's governing documents require approval for the change, yes, and that is common for anything that changes the outside of the house. California Civil Code section 4765 then requires the association to decide in good faith, in writing, and to explain a denial along with how to ask the board to reconsider. HOA approval is separate from the city building permit; one never replaces the other.",
+    a: "If your association's governing documents require approval for the change, yes, and that is common for anything that changes the outside of the house. HOA approval is separate from the city building permit; one never replaces the other.",
   },
   {
     q: "Can my HOA deny my remodel?",
-    a: "It can, but not on any grounds it likes. Under Civil Code section 4765, a decision may not be unreasonable, arbitrary or capricious, cannot violate the law, and a denial must be in writing with an explanation. You are entitled to reconsideration by the board at an open meeting. For an ADU, solar panels or an EV charger, state law goes further and voids rules that effectively prohibit them.",
+    a: "It can, but under Civil Code section 4765 not unreasonably, arbitrarily or against the law, and a denial must be in writing with a way to ask the board to reconsider. Rules that effectively prohibit an ADU, solar panels or an EV charger are void.",
   },
   {
     q: "Do I need a coastal development permit to remodel my house?",
-    a: "Only if the house is in the coastal zone, and even then many improvements to an existing single-family home are exempt under Public Resources Code section 30610. The exemption does not cover, for example, work within 50 feet of a coastal bluff edge, or a 10 percent or larger increase in floor area or height on lots between the sea and the first public road. Ask your city, because the local coastal program can differ.",
+    a: "Only if the house is in the coastal zone, and even then many improvements to an existing single-family home are exempt under Public Resources Code section 30610. Ask your city, because the local coastal program can differ.",
   },
   {
     q: "Who issues coastal development permits in Orange County?",
-    a: "Where the city has a certified local coastal program, the city does. The Coastal Commission's chart lists certified programs for Huntington Beach, Newport Beach, Irvine, Laguna Beach, Laguna Niguel and Dana Point, with some areas left out. Seal Beach and San Clemente have no certified program, so the Commission issues coastal permits there.",
+    a: "The city, where it has a certified local coastal program. Seal Beach and San Clemente do not, so the Coastal Commission issues coastal permits there.",
   },
   {
     q: "How long does a coastal permit for an ADU take?",
-    a: "Since AB 462 took effect on October 10, 2025, the coastal development permit for an ADU has to be approved or denied within 60 days of a complete application, alongside the city's own ADU review and without a public hearing. Where there is no certified local coastal program, the Coastal Commission has the same 60 days, or the application is deemed approved, with an exception when the ADU is filed together with a new house.",
+    a: "Since AB 462 took effect on October 10, 2025, the coastal development permit for an ADU has to be decided within 60 days of a complete application, alongside the city's own ADU review and without a public hearing.",
   },
 ];
 
@@ -217,8 +217,8 @@ export default function HoaCoastalRemodelGuide() {
           A remodel in Orange County can need up to three separate approvals:
           your HOA, if its documents require one; the city building permit;
           and a coastal development permit, if the lot is in the coastal zone
-          and the work is not exempt. Each one is independent. Getting one
-          never stands in for another.
+          and the work is not exempt. Getting one never stands in for
+          another.
         </p>
       </div>
 
@@ -349,9 +349,9 @@ export default function HoaCoastalRemodelGuide() {
             Each coastal city writes a local coastal program. Once the
             Commission certifies it, the city issues most coastal permits
             itself (section 30519). Where there is no certified program, you
-            apply to the Commission. Here is the status the Commission&apos;s
-            October 2024 status chart lists for Orange County cities with land
-            in the coastal zone:
+            apply to the Commission. The Commission&apos;s October 2024 status
+            chart lists these Orange County cities with land in the coastal
+            zone:
           </p>
           <ul className="mt-4 space-y-3">
             {COASTAL_CITIES.map((c) => (
@@ -517,9 +517,7 @@ export default function HoaCoastalRemodelGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-            General information, not legal advice. Statutes, local coastal
-            programs and HOA documents change, and your city and association
-            apply them to your lot. City coastal program status is from the
+            City coastal program status is from the
             Coastal Commission&apos;s chart dated October 9, 2024, checked
             against city pages on September 26, 2026. OakTend is not a law
             firm or a contractor.

@@ -122,11 +122,10 @@ export default function OrangeCountyHomeAgeGuide() {
           {formatShare(county.pre1980)}%
         </p>
         <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          More than half of the county&apos;s housing units were built in 1979
-          or earlier, and the median home was built in {county.medianYear}.
-          Only {formatShare(county.since2000)}% were built in 2000 or later.
-          U.S. Census Bureau, American Community Survey 5-year estimates for
-          2020 to 2024, read on September 26, 2026.
+          The median home was built in {county.medianYear}, and only{" "}
+          {formatShare(county.since2000)}% were built in 2000 or later. U.S.
+          Census Bureau, American Community Survey 5-year estimates for 2020
+          to 2024, read on September 26, 2026.
         </p>
       </div>
 
@@ -146,10 +145,9 @@ export default function OrangeCountyHomeAgeGuide() {
           </p>
           <OcHomeAgeTable />
           <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-            Source: U.S. Census Bureau, American Community Survey 5-year
-            estimates 2020 to 2024, tables B25034 and B25035, through Census
-            Reporter. Incorporated cities only; unincorporated communities such
-            as Ladera Ranch are left out. You are welcome to cite this table;
+            Source: the Census tables above, through Census Reporter.
+            Incorporated cities only; unincorporated communities such as
+            Ladera Ranch are left out. You are welcome to cite this table;
             please link back to this page.
           </p>
         </section>
@@ -212,7 +210,7 @@ export default function OrangeCountyHomeAgeGuide() {
           <p className="mt-2 leading-relaxed">
             Build year is a clue, not a diagnosis. Houses get rewired,
             repiped and remodeled, so treat each of these as a question to ask
-            about your house rather than a fact about it.
+            about your house.
           </p>
           <ul className="mt-3 space-y-3">
             <li className="rounded-xl border border-stone-200 p-4 leading-relaxed dark:border-white/10">
@@ -225,10 +223,10 @@ export default function OrangeCountyHomeAgeGuide() {
                 typical life of cast iron waste pipe at about 60 years above
                 ground and 50 to 60 years below ground, and says its chart is a
                 general guideline, not a guarantee. Some older homes also have
-                galvanized steel water pipe. We could not find a government or
-                code source that says when Orange County builders stopped using
-                it or how long it lasts, so we do not print a date: ask an
-                inspector what your supply lines are made of. Our{" "}
+                galvanized steel water pipe; we found no official source for
+                when Orange County builders stopped using it or how long it
+                lasts, so ask an inspector what your supply lines are made of.
+                Our{" "}
                 <Link href="/guides/repipe-orange-county" className={linkClass}>
                   repiping guide
                 </Link>{" "}
@@ -301,15 +299,13 @@ export default function OrangeCountyHomeAgeGuide() {
               </p>
               <p className="mt-1 text-sm">
                 The California Residential Mitigation Program&apos;s Earthquake
-                Brace + Bolt grants of up to $3,000 are only for wood-framed
-                homes built before 1980 on a raised foundation, in the ZIP
-                codes the program lists. The retrofit bolts the house to its
-                foundation, braces any cripple walls in the crawl space with
-                plywood, and includes strapping the water heater. What the program says about 2026 is on our{" "}
-                <Link href="/guides/orange-county-home-rebates-2026" className={linkClass}>
-                  Orange County rebates page
-                </Link>
-                .
+                Brace + Bolt grants are only for wood-framed homes built before
+                1980 on a raised foundation, in the ZIP codes the program
+                lists. Our{" "}
+                <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
+                  earthquake retrofit guide
+                </Link>{" "}
+                covers the grant and the work.
               </p>
             </li>
           </ul>
@@ -381,11 +377,10 @@ export default function OrangeCountyHomeAgeGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            Figures from the U.S. Census Bureau&apos;s American Community
-            Survey 5-year estimates for 2020 to 2024, read September 26, 2026.
             The pre-1980 share, the 2000-or-later share and their margins are
-            our own sums of the published rows. This is general information,
-            not an inspection, legal or safety advice for your home.
+            our own sums of the published Census rows. This is general
+            information, not an inspection, legal or safety advice for your
+            home.
           </p>
         </section>
       </div>
