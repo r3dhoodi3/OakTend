@@ -125,7 +125,7 @@ export default function WaterHeaterReplacementCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Water heater replacement cost in Orange County" },
+          { name: "Water heater replacement cost in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

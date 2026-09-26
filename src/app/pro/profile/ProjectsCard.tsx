@@ -240,7 +240,7 @@ export default function ProjectsCard({
           Free accounts can showcase up to {FREE_PROJECT_LIMIT} projects.
           OakTend Pro members get unlimited projects and public Before/After
           badges.{" "}
-          <Link href="/pro/plus" className="text-oaktend-700 hover:underline dark:text-oaktend-300">
+          <Link href="/pro/plus" className="text-bark-700 hover:underline dark:text-stone-300">
             {proCtaLabel(trialEligible)}
           </Link>
           {trialEligible ? ` ${proTrialSubline()}` : ""}

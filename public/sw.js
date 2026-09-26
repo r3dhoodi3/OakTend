@@ -21,7 +21,7 @@
  * ships. skipWaiting + clients.claim mean the new worker takes over on the next
  * page load instead of waiting for every tab to close.
  */
-const VERSION = "oaktend-sw-2";
+const VERSION = "oaktend-sw-3";
 
 // The one cached asset: the self-contained loading screen served when a
 // navigation stalls. It lives in public/ next to this file.

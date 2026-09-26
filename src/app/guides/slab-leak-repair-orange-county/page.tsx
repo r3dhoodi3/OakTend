@@ -88,7 +88,7 @@ export default function SlabLeakRepairOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Slab leak repair in Orange County" },
+          { name: "Slab leak repair in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

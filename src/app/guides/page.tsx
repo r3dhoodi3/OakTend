@@ -200,7 +200,7 @@ export default function GuidesIndex() {
         items={[{ label: "Home", href: "/" }, { label: "Guides" }]}
       />
       <BreadcrumbJsonLd
-        items={[{ name: "Home", href: "/" }, { name: "Guides" }]}
+        items={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }]}
         siteUrl={SITE_URL}
       />
 

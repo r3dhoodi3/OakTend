@@ -333,7 +333,7 @@ export default function SocalHomeMaintenanceCalendarGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Orange County home maintenance calendar" },
+          { name: "Orange County home maintenance calendar", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

@@ -120,7 +120,7 @@ export default function HvacReplacementCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "HVAC replacement cost in Orange County: what to expect" },
+          { name: "HVAC replacement cost in Orange County: what to expect", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

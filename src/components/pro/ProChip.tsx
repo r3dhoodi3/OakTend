@@ -25,7 +25,7 @@ export default function ProChip({
       className={`chip ${
         tone === "free"
           ? "border border-green-200 bg-green-50 text-green-700 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300"
-          : "bg-oaktend-100 text-oaktend-700 dark:bg-oaktend-700 dark:text-stone-300"
+          : "bg-bark-100 text-bark-700 dark:bg-bark-700 dark:text-stone-300"
       } ${className}`}
     >
       {label}

@@ -118,7 +118,7 @@ export default function HardWaterOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Hard water in Orange County" },
+          { name: "Hard water in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

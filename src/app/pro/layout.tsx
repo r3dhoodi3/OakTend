@@ -102,7 +102,7 @@ export default async function ProLayout({
         <header className="border-b border-stone-200 bg-white dark:border-white/10 dark:bg-stone-900">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
             <span className="flex items-center gap-2 text-lg font-semibold text-stone-900 dark:text-stone-100">
-              <Logo className="h-6 w-6 text-oaktend-700 dark:text-oaktend-400" />
+              <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" />
               <span>
                 OakTend{" "}
                 <span className="font-normal text-stone-500 dark:text-stone-400">for Pros</span>

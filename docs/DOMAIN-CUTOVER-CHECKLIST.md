@@ -25,9 +25,10 @@ that outlived the cutover. It is no longer a runbook, so there are no steps left
   `STRIPE_WEBHOOK_SECRET` in Vercel matches that endpoint's signing secret. The handler fails
   closed on a missing or wrong secret (`src/app/api/stripe/webhook/route.ts`), so a mismatch
   would have shown up as silently dropped webhooks, never as bad data.
-- **Apple, Google, Resend.** Sign in with Apple's Services ID, the Google OAuth client's
-  origins and redirect URIs, and Resend's verified sending domain and `RESEND_FROM` all use
-  `oaktend.com`.
+- **Apple, Google, SendGrid.** Sign in with Apple's Services ID, the Google OAuth client's
+  origins and redirect URIs, and the email provider's authenticated sending domain and
+  `SENDGRID_FROM` all use `oaktend.com`. (Resend held this role until 2026-09-22; while its
+  key is still set as the fallback, its verified domain has to stay valid too.)
 - **Code.** The brand rename sweep replaced every hardcoded old-domain string in app code and
   test fixtures, and fixed two outbound `User-Agent` headers that pointed at a domain the
   project never owned. They now send `OakTend/1.0 (+https://oaktend.com)`.

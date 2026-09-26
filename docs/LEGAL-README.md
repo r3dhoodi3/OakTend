@@ -36,7 +36,7 @@ Do these in order. Items 1 to 4 are blocking.
 2. **File the LLC** on bizfile.sos.ca.gov (Articles of Organization, $70) and get the EIN at irs.gov (free, same day; answer "partnership" for tax classification). Statement of Information within 90 days ($20). Runbook 17, Part 1.
 3. **File both 83(b) elections** within 30 days of signing. Certified mail, keep the receipt. Doc 27 has the exact steps. Missing this deadline cannot be fixed.
 4. **Pick the brand and buy the domain.** Then set up legal@, support@, privacy@, security@ mailboxes and set the NEXT_PUBLIC_LEGAL_* env vars in Vercel (list in docs/LEGAL-TODO.md in the repo). Until then the site shows bracketed TODO placeholders on purpose.
-5. Open the business bank account. Move Stripe, Twilio, Resend, Vercel, Supabase, and Apple billing to the LLC and EIN.
+5. Open the business bank account. Move Stripe, Twilio (SMS + SendGrid), Vercel, Supabase, and Apple billing to the LLC and EIN.
 6. Register the DMCA agent at dmca.copyright.gov ($6) and paste the agent details into the env vars.
 7. Book the lawyer hour. Send docs 02, 03, 04, 07, 09, 16, 19, 22, 23. Ask for a fixed-fee review and markup, not a rewrite. Andrew Gale, Incorporation Attorney, Orange, (714) 634-4838 is the listing you found. Adams and Pham in Costa Mesa is the better fit for the marketplace terms if Gale hesitates.
 8. Sign the vendor DPAs (doc 06 appendix) before real user volume.

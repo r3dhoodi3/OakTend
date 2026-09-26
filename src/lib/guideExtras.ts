@@ -329,7 +329,8 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
 // midrange bath, ADU. Using a sixth means dropping one of those first.
 //
 // Every entry below was opened and checked on 2026-09-20 or 2026-09-21,
-// except the ones added to the kitchen, bathroom and ADU guides on
+// except the three Zone 0 entries on the wildfire guide, opened 2026-09-25,
+// and the ones added to the kitchen, bathroom and ADU guides on
 // 2026-09-25 (older-home rules, energy code, HOA, coastal zone, the 2026 ADU
 // bills, pre-approved plans, ACS 2020-2024 housing age), which were opened
 // that day or were already on this list from 2026-09-21. The city table on
@@ -1542,6 +1543,25 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Government Code section 51182",
       supports:
         "100 feet of defensible space in locally designated very high fire hazard severity zones, a roof kept free of leaves and needles, and tree limbs kept 10 feet from a chimney outlet.",
+    },
+    // The three Zone 0 entries below were opened on 2026-09-25.
+    {
+      href: "https://www.bbklaw.com/resources/la090926-california-board-of-forestry-adopts-emergency-zone-0-regulations-under-ab-3074",
+      label: "Best Best & Krieger: Board of Forestry adopts emergency Zone 0 regulations (September 9, 2026)",
+      supports:
+        "The Board adopted emergency Zone 0 regulations on August 19, 2026, submitted them to the Office of Administrative Law on August 28, and the comment period closed September 2; the adopted version applies throughout state responsibility areas and, in local responsibility areas, only to occupied structures in very high fire hazard severity zones; new structures wait for fuels-management guidance the Board has up to a year to post, and existing structures follow three years after new structures.",
+    },
+    {
+      href: "https://www.publicceo.com/2026/09/california-board-of-forestry-adopts-emergency-zone-0-regulations-under-ab-3074/",
+      label: "PublicCEO: California Board of Forestry adopts emergency Zone 0 regulations (September 15, 2026)",
+      supports:
+        "The same adoption, submission and comment dates, where the adopted version applies, and the timing for new and existing structures.",
+    },
+    {
+      href: "https://oal.ca.gov/emergency_regulations/recent_actions_taken_on_emergency_regulations/",
+      label: "California Office of Administrative Law: recent actions on emergency regulations",
+      supports:
+        "The Zone 0 filing (2026-0828-03E) is listed as withdrawn on September 8, 2026.",
     },
     {
       href: "https://www.sce.com/outages-safety/outage-preparedness/outage-types/public-safety-power-shutoff-psps",

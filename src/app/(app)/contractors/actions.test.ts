@@ -138,6 +138,19 @@ vi.mock("@/lib/internalAccounts", () => ({
   isInternalContractor: vi.fn(async () => false),
   internalUserIdsAmong: vi.fn(async () => new Set<string>()),
 }));
+// The team alert's recipient list (src/lib/teamAlerts.ts), mocked for the same
+// "server-only" reason. A live getter so one test can put a founder on the
+// list; the default is the empty list, i.e. nobody flagged and no founder
+// account - which must still leave the homeowner's own receipt untouched.
+let teamRecipients: {
+  id: string;
+  email: string | null;
+  phone: string | null;
+  sms_consent: boolean | null;
+}[] = [];
+vi.mock("@/lib/teamAlerts", () => ({
+  teamAlertRecipients: vi.fn(async () => teamRecipients),
+}));
 
 // The apply_credit_back notice (inside chooseApplicantAction below) describes
 // a wallet-credit mechanic that is retired, so it is gated behind
@@ -194,6 +207,7 @@ async function runAndCatchRedirect(form: FormData): Promise<string> {
 
 beforeEach(() => {
   activeProperty = { ...LAUNCH_PROPERTY };
+  teamRecipients = [];
   rateLimitAnswers = [];
   dbTables = null;
   adminTables = null;
@@ -206,6 +220,10 @@ beforeEach(() => {
   }) as unknown as typeof alertProsForNewLead);
   vi.mocked(setFlash).mockClear();
   vi.mocked(redirect).mockClear();
+  // postJobAction sends notifications of its own now (the homeowner's receipt
+  // and the team alert), so the calls have to be cleared between tests or the
+  // blocks below that read mock.calls[0] would pick up a previous test's.
+  vi.mocked(sendNotification).mockClear();
   vi.spyOn(console, "error").mockImplementation(() => {});
   vi.spyOn(console, "warn").mockImplementation(() => {});
 });
@@ -577,6 +595,122 @@ describe("postJobAction success path", () => {
     const tracked = events.rows[0];
     expect(tracked.event).toBe("post_job");
     expect(tracked.props).toEqual({ category: "plumbing" });
+  });
+});
+
+// Before this, a posted job told the homeowner nothing (no bell row, no email)
+// and told the OakTend team nothing at all - which during the preview, where
+// every match is made by hand, meant a job nobody living had seen. See
+// src/lib/jobUpdates.ts.
+describe("postJobAction: the receipt and the team alert", () => {
+  function installGoodPost() {
+    const sink = {
+      rows: [] as Record<string, unknown>[],
+      returning: { id: "lead-1", created_at: "2026-08-28T12:00:00.000Z" },
+    };
+    dbTables = () => tableStub([null, [{ id: "lead-1" }]], sink);
+    adminTables = () => tableStub([[]]);
+    vi.mocked(alertProsForNewLead).mockImplementation(
+      async () => new Set<string>()
+    );
+    return sink;
+  }
+
+  function sentTo(userId: string) {
+    return vi
+      .mocked(sendNotification)
+      .mock.calls.map(([, input]) => input)
+      .filter((input) => input.userId === userId);
+  }
+
+  it("sends the poster a receipt that points at the job they just posted", async () => {
+    installGoodPost();
+
+    await runAndCatchRedirect(fd(REAL_SUBMIT));
+
+    const [receipt, ...extra] = sentTo("user-1");
+    expect(extra).toHaveLength(0);
+    expect(receipt.kind).toBe("job_posted");
+    // The lead id the insert answered with, so a later team update lands the
+    // owner on this same card.
+    expect(receipt.url).toContain("job=lead-1");
+    // The contact address typed on the posting wins over the account address.
+    expect(receipt.email).toBe("jane@example.com");
+    // A receipt for something they did seconds ago is not worth a text - and
+    // a text costs real money per message, unlike the bell row.
+    expect(receipt.smsConsent).toBeUndefined();
+    expect(receipt.phone).toBeUndefined();
+  });
+
+  it("alerts every team account except the one that posted", async () => {
+    installGoodPost();
+    teamRecipients = [
+      {
+        id: "user-1",
+        email: "owner@example.com",
+        phone: "+17145550111",
+        sms_consent: true,
+      },
+      {
+        id: "founder-2",
+        email: "founder@oaktend.com",
+        phone: "+17145550122",
+        sms_consent: true,
+      },
+    ];
+
+    await runAndCatchRedirect(fd(REAL_SUBMIT));
+
+    // The poster gets their receipt and nothing else, even though they are on
+    // the team list: nobody needs an alert about their own job.
+    expect(sentTo("user-1").map((i) => i.kind)).toEqual(["job_posted"]);
+    const [alert] = sentTo("founder-2");
+    expect(alert.kind).toBe("job_posted_team");
+    expect(alert.url).toBe("/backoffice/jobs");
+    expect(alert.email).toBe("founder@oaktend.com");
+    // Enough to act on without opening anything: where, and what.
+    expect(alert.title).toContain("Fountain Valley");
+    expect(alert.body).toContain("Jane Doe");
+    // Texted too - speed to lead is the job while matching is by hand. The
+    // consent value is passed through from that founder's own row, never
+    // assumed: sendSms refuses anything but an explicit true.
+    expect(alert.phone).toBe("+17145550122");
+    expect(alert.smsConsent).toBe(true);
+  });
+
+  it("never texts a founder whose own row has no consent on file", async () => {
+    installGoodPost();
+    teamRecipients = [
+      {
+        id: "founder-2",
+        email: "founder@oaktend.com",
+        phone: "+17145550122",
+        sms_consent: false,
+      },
+    ];
+
+    await runAndCatchRedirect(fd(REAL_SUBMIT));
+
+    // The value is handed over as-is rather than filtered here, because the
+    // TCPA gate lives in sendSms and must stay the single door. What matters
+    // is that a false is never laundered into a true on the way.
+    expect(sentTo("founder-2")[0].smsConsent).toBe(false);
+  });
+
+  it("still posts the job when the notifications fail", async () => {
+    installGoodPost();
+    vi.mocked(sendNotification).mockRejectedValueOnce(
+      new Error("resend is down")
+    );
+
+    // The lead row is already committed by this point; a notifier hiccup must
+    // not turn a successful post into an error page.
+    const url = new URL(
+      await runAndCatchRedirect(fd(REAL_SUBMIT)),
+      "https://example.test"
+    );
+    expect(url.searchParams.get("posted")).toBeTruthy();
+    expect(url.searchParams.get("error")).toBeNull();
   });
 });
 

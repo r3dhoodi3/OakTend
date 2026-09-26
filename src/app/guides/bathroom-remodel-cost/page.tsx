@@ -149,7 +149,7 @@ export default function BathroomRemodelCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Bathroom remodel cost in Orange County" },
+          { name: "Bathroom remodel cost in Orange County" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

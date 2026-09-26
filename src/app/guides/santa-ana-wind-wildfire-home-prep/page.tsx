@@ -11,16 +11,23 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // law, the National Weather Service or Southern California Edison, and the
 // reader is sent to OCFA for an assessment of their own home.
 //
-// ZONE 0 STATUS: what the page says is limited to what we could open on
-// 2026-09-21. Public Resources Code 4291 and Government Code 51182 (both read
-// on leginfo) require an ember-resistant zone within 5 feet "based on
-// regulations promulgated by the board", and PRC 4291(g) says the requirement
-// takes effect for new structures once the Board of Forestry updates its
-// regulations and guidance, and for existing structures three years after
-// that. The Board of Forestry, CAL FIRE and State Fire Marshal websites all
-// returned 403 to us that day, so we could NOT confirm whether the regulation
-// is final or its effective date. The page says exactly that and does not
-// give a date. Re-check before relying on it.
+// ZONE 0 STATUS, re-checked 2026-09-25. Public Resources Code 4291 and
+// Government Code 51182 (both read on leginfo) require an ember-resistant zone
+// within 5 feet "based on regulations promulgated by the board", and PRC
+// 4291(g) says the requirement takes effect for new structures once the Board
+// of Forestry updates its regulations and guidance, and for existing
+// structures three years after that. The Board adopted emergency Zone 0
+// regulations on 2026-08-19 and submitted them to the Office of
+// Administrative Law (OAL) on 2026-08-28; OAL's comment period closed
+// 2026-09-02 (BBK client alert dated 2026-09-09, republished by PublicCEO
+// 2026-09-15). OAL's own emergency regulations page lists that filing,
+// 2026-0828-03E, as "Withdrawn, September 8, 2026", and on 2026-09-25 it was
+// not on OAL's list of emergency regulations under review. Neither BBK nor
+// PublicCEO mentions the withdrawal, and OAL gives no reason, so the page
+// states no reason and no date for a resubmission. The applicability and
+// timing on the page describe the version the Board adopted, and the page
+// says it may change. The Board of Forestry website still returned 403 to us.
+// Re-check OAL before relying on any of it.
 //
 // Other sources (opened 2026-09-21, links in GUIDE_SOURCES,
 // src/lib/guideExtras.ts): OCFA Ready, Set, Go! pages and flyers (home
@@ -98,7 +105,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Santa Ana wind and wildfire home prep" },
+          { name: "Santa Ana wind and wildfire home prep", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
@@ -205,16 +212,28 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             ignition from flying embers.
           </p>
           <p className="mt-2 leading-relaxed">
-            Here is what we can confirm as of September 21, 2026. Both
-            statutes above say an ember-resistant zone is required within 5
-            feet of the structure, based on regulations written by the State
-            Board of Forestry and Fire Protection. Section 4291 says the
-            requirement takes effect for new structures once the Board
-            updates its regulations and guidance, and for existing structures
-            three years after that. We were not able to open the Board&apos;s Zone
-            0 page on that date, so we cannot tell you whether the regulation
-            is final or give you an effective date. Check that page or ask
-            your fire department before you plan around a deadline.
+            Not yet. Both statutes above say an ember-resistant zone is
+            required within 5 feet of the structure, based on regulations
+            written by the State Board of Forestry and Fire Protection. The
+            Board adopted emergency Zone 0 regulations on August 19, 2026 and
+            sent them to the state Office of Administrative Law on August 28.
+            The public comment period there closed on September 2. The Office
+            of Administrative Law then listed the filing as withdrawn on
+            September 8, 2026, and as of September 25 it was not back under
+            review. The Board can file it again, so the rule is not in effect
+            and has no effective date yet.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The version the Board adopted would apply to buildings throughout
+            state responsibility areas, and in areas where a city or the
+            county is responsible for fire protection, only to occupied
+            structures in a very high fire hazard severity zone. For new
+            structures it would wait until the Board posts updated guidance
+            on managing fuels, which the Board has up to a year to do.
+            Existing structures would get three years after the date set for
+            new structures, which matches what Section 4291 says. The Board
+            may change any of this before it files again, so check with your
+            fire department before you plan around a deadline.
           </p>
           <p className="mt-2 leading-relaxed">
             You do not need a deadline to do the work. OCFA&apos;s Immediate Zone
@@ -370,10 +389,11 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            As of September 21, 2026. Wildfire rules are changing, and OCFA
+            As of September 25, 2026. Wildfire rules are changing, and OCFA
             itself notes that new state requirements may be enacted at any
-            time. We could not confirm the current status of the state Zone 0
-            regulation. This is general information, not legal, insurance or
+            time. The state Zone 0 regulation was withdrawn from review on
+            September 8, 2026 and could be filed again at any time. This is
+            general information, not legal, insurance or
             safety advice. In an emergency follow the instructions of fire
             and law enforcement officials, and call 911.
           </p>

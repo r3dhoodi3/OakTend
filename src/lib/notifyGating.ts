@@ -125,6 +125,17 @@ export const PUSH_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "new_lead",
   // The homeowner closed the job out (the pro won or lost it).
   "job_closed",
+  // A person on the OakTend team wrote back on this homeowner's job
+  // (src/lib/jobUpdates.ts). During the preview this is how "we found you
+  // someone" arrives, which makes it the homeowner-side twin of new_lead.
+  "job_update",
+  // The team's own alert that a job was just posted. Speed to lead is the
+  // whole point while matching is done by hand, and this one only ever goes to
+  // flagged internal accounts, so it can never buzz a customer's phone.
+  "job_posted_team",
+  // Deliberately NOT here: job_posted, the homeowner's own receipt. They are
+  // standing in the app looking at the job they just posted; the bell row and
+  // the email are the point, a buzz in their pocket is not.
   // The homeowner picked another pro and the losing pro's lead fee came back
   // as wallet credit (src/app/(app)/contractors/actions.ts). Same reasoning as
   // job_closed: a money moment the pro is waiting on, and "you lost the bid,
@@ -242,6 +253,14 @@ export const TRANSACTIONAL_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "new_review",
   "applicant_waiting",
   "quote_analysis",
+  // The three job kinds in src/lib/jobUpdates.ts. A receipt for a posting the
+  // person just made, the team's alert about it, and the team's answer on that
+  // same posting: all three are replies to an action somebody took, none of
+  // them is a campaign, and a homeowner who has already had two nudges this
+  // week must still get the receipt for the job they just posted.
+  "job_posted",
+  "job_posted_team",
+  "job_update",
   // Money moved, or a card just failed to move it. Also the auto-renewal
   // disclosures the law requires - see the "never gate a billing notice" note
   // on PLUS_GATED_NOTIFICATION_KINDS above; the same reasoning applies here.
@@ -299,4 +318,41 @@ export const MARKETING_BUDGET_WINDOW_MS =
 // one more allowed?
 export function marketingBudgetAllows(countInWindow: number): boolean {
   return countInWindow < MARKETING_BUDGET_MAX_PER_WINDOW;
+}
+
+// ---------------------------------------------------------------------------
+// Where a recipient goes to stop THIS kind of email
+// ---------------------------------------------------------------------------
+//
+// THE PROBLEM THIS SOLVES. Every email carries the same CAN-SPAM footer with an
+// unsubscribe link (emailFooter in src/lib/notify.ts), and that link is real:
+// it sets notification_prefs.email_opt_out. But the kinds on
+// EMAIL_TRANSACTIONAL_KINDS are exempt from that flag by design - account,
+// billing and active-job mail keeps going regardless, which is both lawful and
+// what our own Terms promise. For those kinds the footer therefore offers an
+// exit that does nothing, with no hint of where the real switch is.
+//
+// "new_lead" is the case that made this urgent: a pro's job alerts are
+// transactional-exempt, so a pro drowning in them could click unsubscribe as
+// often as they liked and keep receiving every one. The next step after a
+// broken unsubscribe is a spam complaint, and that costs the sending domain's
+// reputation - which is shared with every other email OakTend sends.
+//
+// A kind belongs here ONLY when a real page governs that kind's email channel.
+// An entry is a promise to the recipient that following the link lets them stop
+// this mail; pointing at a page that cannot actually turn the kind off would be
+// the same broken promise one level down. Paths are site-relative and made
+// absolute against NEXT_PUBLIC_SITE_URL by the caller.
+export const EMAIL_PREFS_PATH_BY_KIND: ReadonlyMap<string, string> = new Map([
+  // Pro job alerts, switched per channel at /pro/notifications
+  // (src/lib/proAlertPrefs.ts). The email switch there is enforced by
+  // withholding the address in buildAlertOutbound, so it genuinely stops this
+  // mail.
+  ["new_lead", "/pro/notifications"],
+]);
+
+// The preferences path for this kind, or null when the footer's ordinary
+// unsubscribe link is the recipient's real exit.
+export function emailPrefsPathForKind(kind: string): string | null {
+  return EMAIL_PREFS_PATH_BY_KIND.get(kind) ?? null;
 }

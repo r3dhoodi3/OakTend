@@ -86,7 +86,7 @@ export default function PermitsOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Building permits in Orange County" },
+          { name: "Building permits in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
