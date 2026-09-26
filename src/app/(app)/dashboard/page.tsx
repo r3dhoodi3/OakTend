@@ -59,6 +59,10 @@ import HomeValueAutoFetch from "../value/ValueAutoFetch";
 import ProjectChips from "../contractors/ProjectChips";
 import { estimateSeasonalEnergyCost } from "@/lib/energy";
 import type { Issue } from "@/lib/database.types";
+import {
+  openJobsSummary,
+  liveApplicantsByLead,
+} from "@/lib/openJobsSummary";
 
 // Shared "Plus" badge chip, used on every paywalled CTA/card on this page.
 // className lets each call site set its own margin, everything else fixed.
@@ -171,6 +175,7 @@ export default async function HomePage(
     { data: tasks },
     { data: pics },
     { data: jobs },
+    { data: leadApps },
     { data: docs },
     credits,
   ] = await Promise.all([
@@ -217,6 +222,16 @@ export default async function HomePage(
       .from("contractor_leads")
       .select("id, contractor_id")
       .eq("property_id", property.id),
+    // Live applications on this home's jobs, so the card can say how many
+    // pros are waiting rather than how many jobs are open. RLS scopes
+    // lead_applications to the owner's own leads, and the count is capped:
+    // a homeowner cannot have enough applications for this to be unbounded,
+    // but the limit keeps one runaway job from paging in hundreds of rows on
+    // the home screen.
+    (supabase as any)
+      .from("lead_applications")
+      .select("lead_id, status, refunded_at")
+      .limit(200),
     supabase
       .from("documents")
       .select("id, title, warranty_expires, system_type")
@@ -231,8 +246,15 @@ export default async function HomePage(
     readFreeCredits(),
   ]);
 
-  // Open jobs = postings the owner has put up that no pro has been picked for yet.
-  const openJobsCount = (jobs ?? []).filter((j) => !j.contractor_id).length;
+  // Open jobs = postings the owner has put up that no pro has been picked
+  // for yet, plus how many pros are waiting on them. openJobsSummary decides
+  // the wording so this card and the strip on /contractors can never disagree
+  // (src/lib/openJobsSummary.ts).
+  const jobsSummary = openJobsSummary(
+    (jobs ?? []) as { id: string; contractor_id?: string | null }[],
+    liveApplicantsByLead((leadApps ?? []) as any[])
+  );
+  const openJobsCount = jobsSummary.openJobs;
 
   // Whether a maintenance plan already exists, so the CTA can switch from
   // "Build my plan" to "View my plan". Only plan-generated tasks count - a
@@ -829,8 +851,22 @@ export default async function HomePage(
               No open jobs
             </p>
           )}
-          <p className="text-sm text-stone-500 dark:text-stone-400">
-            {openJobsCount > 0 ? "View job postings" : "Post your first job"}
+          {/* The number above is how many jobs are open; this line is how many
+              pros are waiting on them, which is the half that CHANGES between
+              visits and the only reason to tap. It is emphasised when somebody
+              has actually applied and muted otherwise. */}
+          <p
+            className={`text-sm ${
+              jobsSummary.applicants > 0
+                ? "font-medium text-bark-700 dark:text-stone-300"
+                : "text-stone-500 dark:text-stone-400"
+            }`}
+          >
+            {jobsSummary.applicants > 0
+              ? jobsSummary.label
+              : openJobsCount > 0
+                ? "View job postings"
+                : "Post your first job"}
           </p>
         </Link>
         {/* Renders nothing: it exists to fire the one-per-home AVM lookup

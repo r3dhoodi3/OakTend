@@ -81,6 +81,9 @@ function chain(data: unknown) {
     order: () => obj,
     in: () => obj,
     not: () => obj,
+    // The applications read behind the Open jobs card's "3 pros applied" line
+    // is bounded, so the stub has to stay chainable past .limit() too.
+    limit: () => obj,
     maybeSingle: () => Promise.resolve({ data: null, error: null }),
     then: (resolve: (v: { data: unknown; error: null }) => void) =>
       resolve({ data, error: null }),
