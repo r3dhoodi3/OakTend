@@ -90,7 +90,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "New homeowner checklist for Orange County" },
+          { name: "New homeowner checklist for Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

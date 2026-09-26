@@ -206,7 +206,7 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Orange County home maintenance checklist" },
+          { name: "Orange County home maintenance checklist", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

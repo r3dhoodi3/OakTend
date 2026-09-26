@@ -98,7 +98,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Santa Ana wind and wildfire home prep" },
+          { name: "Santa Ana wind and wildfire home prep", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

@@ -93,7 +93,7 @@ export default function TermitesOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Termites in Orange County" },
+          { name: "Termites in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

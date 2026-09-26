@@ -93,7 +93,7 @@ export default function RepipeOrangeCountyGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Repiping a house in Orange County" },
+          { name: "Repiping a house in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
