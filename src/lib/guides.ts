@@ -181,7 +181,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-25",
   },
   "/guides/new-homeowner-first-year-orange-county": {
     datePublished: "2026-09-20",

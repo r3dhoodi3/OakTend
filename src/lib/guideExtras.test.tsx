@@ -156,6 +156,10 @@ describe("GUIDE_SOURCES", () => {
     "www.crmp.org",
     "octreasurer.gov",
     "www.ocassessor.gov",
+    // Added 2026-09-25 for the Zone 0 status on the wildfire guide.
+    "www.bbklaw.com",
+    "www.publicceo.com",
+    "oal.ca.gov",
   ];
 
   it("lists sources for all 12 guides", () => {
