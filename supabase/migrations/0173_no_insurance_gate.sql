@@ -271,12 +271,11 @@ begin
   -- person carrying the risk decides. See 0173's header.
   -- 0140: a block between these two people. Same predicate as apply_to_lead's
   -- gate (0138), same wording, same reason: symmetric, and it must not tell
-  -- the pro which side blocked whom. This is the third and last place a pro
-  -- spends wallet money - the job board (open_jobs_for_me) and apply_to_lead
-  -- were closed in 0138; this was the one left open. Placed after every
-  -- existing "is this request even available" check and before
-  -- get_or_create_wallet, so it costs nothing extra and still refuses before
-  -- any wallet is touched.
+  -- the pro which side blocked whom. This was the third and last place a
+  -- pro spent wallet money - the job board (open_jobs_for_me) and
+  -- apply_to_lead were closed in 0138; this was the one left open. Nothing
+  -- spends anything here now (0172), but the check stays exactly where it
+  -- was: a blocked pair must not be able to open a chat either.
   if exists (
     select 1
     from contractor_leads l
@@ -292,8 +291,7 @@ begin
   -- apply_to_lead's guard. my_direct_requests no longer lists the pairing and
   -- requestProAction refuses to create it, so this is the backstop for a row
   -- that predates the flag or a direct PostgREST call. Placed alongside the
-  -- block check above, still before get_or_create_wallet, so a refused unlock
-  -- moves no money.
+  -- block check above, before anything is written.
   select pr.user_id into v_owner
     from contractor_leads l
     join properties pr on pr.id = l.property_id
