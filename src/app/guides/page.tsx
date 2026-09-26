@@ -19,6 +19,8 @@ import {
   Bug,
   Flame,
   KeyRound,
+  Activity,
+  Route,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -129,6 +131,21 @@ const GUIDES = [
     title: "Termites in Orange County",
     blurb:
       "Drywood vs subterranean termites, when tenting beats spot treatment, how to read an inspection report, and what a treatment bid is built from.",
+  },
+  // Added 2026-09-26 (seo/new-pages-c).
+  {
+    href: "/guides/earthquake-retrofit-orange-county",
+    icon: Activity,
+    title: "Earthquake retrofit in Orange County",
+    blurb:
+      "Which older raised-foundation houses need bolting and bracing, the Brace + Bolt grant, the insurance discount and the permit.",
+  },
+  {
+    href: "/guides/sewer-line-orange-county",
+    icon: Route,
+    title: "Sewer line problems in Orange County",
+    blurb:
+      "Who owns the pipe to the street in your city, the signs of a failing line, camera inspections, repair options and permits.",
   },
   {
     href: "/guides/santa-ana-wind-wildfire-home-prep",

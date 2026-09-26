@@ -31,6 +31,9 @@ const OC_GUIDES = [
   "santa-ana-wind-wildfire-home-prep",
   "new-homeowner-first-year-orange-county",
   "orange-county-home-maintenance-checklist",
+  // Added 2026-09-26 (seo/new-pages-c).
+  "earthquake-retrofit-orange-county",
+  "sewer-line-orange-county",
 ];
 
 // The guides that talk about what a job costs without printing a number.
