@@ -194,8 +194,8 @@ export const stanton: CityContent = {
         "Price per square by material, in a city whose reroofing guide calls for a Class A assembly and does not allow wood roofing.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including clearing yard drains on a flat lot before winter and servicing the air conditioner before the heat.",
     },

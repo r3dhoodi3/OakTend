@@ -109,7 +109,7 @@ export type CityContent = {
   hazards: Fact[];
 
   // 2 to 4, matched to this city's actual profile rather than a fixed four:
-  // the SoCal maintenance calendar everywhere, plus the 2 or 3 guides the
+  // the Orange County maintenance checklist everywhere, plus the 2 or 3 guides the
   // city's housing age, water and exposure actually call for. hrefs must
   // resolve to a real folder under src/app/guides.
   guides: { href: string; title: string; blurb: string }[];

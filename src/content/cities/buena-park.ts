@@ -191,8 +191,8 @@ export const buenaPark: CityContent = {
         "Price range and when a repair still makes sense, on city water that averages 12 to 14 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what to check before the winter storms the city says cause localized flooding in the north.",
     },

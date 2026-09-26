@@ -173,8 +173,8 @@ export const anaheim: CityContent = {
         "Typical range and when a repair is smarter, on some of the hardest water in the county.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including the yearly water heater flush that very hard groundwater calls for and defensible space work in the hills.",
     },

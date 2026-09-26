@@ -143,8 +143,8 @@ export const missionViejo: CityContent = {
         "How to catch one early in a slab-foundation home built in the 1960s or 1970s.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, a way to pace the upkeep in a city where more than 90 percent of homes share one 40-year build window.",
     },

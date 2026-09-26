@@ -165,8 +165,8 @@ export const irvine: CityContent = {
         "Price per square by material, useful when a whole village's original roofs come due within a few years of each other.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including sun wear on roofing and paint and getting winter runoff off the lot.",
     },

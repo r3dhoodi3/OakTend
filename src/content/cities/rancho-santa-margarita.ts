@@ -213,8 +213,8 @@ export const ranchoSantaMargarita: CityContent = {
         "Typical range and when a repair is smarter, on water that both local districts report at 14 to 17 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including brush and tree work before the Santa Ana season and slope drains before winter.",
     },

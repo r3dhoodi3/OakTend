@@ -155,8 +155,8 @@ export const huntingtonBeach: CityContent = {
         "Typical price range and when a repair still makes sense, on water hard enough to scale a tank early.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "A month-by-month calendar written for this climate, including what coastal exteriors need and when.",
     },

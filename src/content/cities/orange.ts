@@ -159,8 +159,8 @@ export const orange: CityContent = {
         "Price range and when a repair still makes sense, on water that averages about 18 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including the water heater flush that water averaging 18 grains per gallon calls for.",
     },

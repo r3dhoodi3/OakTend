@@ -157,8 +157,8 @@ export const lakeForest: CityContent = {
         "Typical range and when a repair is smarter, on mostly imported water that stays hard all year.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what to clear before Santa Ana wind season.",
     },

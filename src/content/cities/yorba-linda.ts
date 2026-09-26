@@ -148,8 +148,8 @@ export const yorbaLinda: CityContent = {
         "What a full system runs for a 1980s house, and central AC versus a heat pump.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what to do before Santa Ana wind season.",
     },

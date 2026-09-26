@@ -151,8 +151,8 @@ export const westminster: CityContent = {
         "Price range and when a repair still makes sense, on all-groundwater supply that averages about 14 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what to clear before the winter storms reach the channels.",
     },

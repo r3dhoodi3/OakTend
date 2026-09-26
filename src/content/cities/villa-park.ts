@@ -207,8 +207,8 @@ export const villaPark: CityContent = {
         "What an upgrade runs when the panel is original to a house from the 1960s or 1970s, about three of every four homes here.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including brush and gutters before Santa Ana season on the east edge of the city.",
     },

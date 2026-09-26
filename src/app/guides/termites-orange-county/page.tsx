@@ -355,8 +355,8 @@ export default function TermitesOrangeCountyGuide() {
             inorganic material between soil and structural wood, move wood
             piles away from the house, fix leaks promptly, and keep exterior
             wood sealed or painted. Our{" "}
-            <Link href="/guides/socal-home-maintenance-calendar" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-              Southern California maintenance calendar
+            <Link href="/guides/orange-county-home-maintenance-checklist" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              Orange County maintenance checklist
             </Link>{" "}
             puts the yearly check in swarm season.
           </p>

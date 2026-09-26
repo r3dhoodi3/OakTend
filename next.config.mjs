@@ -237,6 +237,22 @@ const nextConfig = {
         destination: "/dashboard#systems",
         permanent: false,
       },
+      // Guide merges, 308 PERMANENT (2026-09-25). Three maintenance guides
+      // overlapped; the two older ones were folded into the Orange County
+      // checklist, which is now the maintenance hub, and their page folders
+      // were deleted. 308 passes the old URLs' links (Pinterest pins, posts,
+      // printed QR codes) and search signals to the hub. Internal links point
+      // at the hub directly, so these only answer outside links.
+      {
+        source: "/guides/home-maintenance-schedule",
+        destination: "/guides/orange-county-home-maintenance-checklist",
+        permanent: true,
+      },
+      {
+        source: "/guides/socal-home-maintenance-calendar",
+        destination: "/guides/orange-county-home-maintenance-checklist",
+        permanent: true,
+      },
     ];
   },
   // Baseline security headers on every response. HSTS forces HTTPS, the frame

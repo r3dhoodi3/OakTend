@@ -196,8 +196,8 @@ export const losAlamitos: CityContent = {
         "What a backyard unit runs, in a city that offers two pre-approved plans: a 563 square foot one-bedroom and an 876 square foot two-bedroom.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including clearing gutters and yard drains before winter on streets the city says are nearly flat.",
     },

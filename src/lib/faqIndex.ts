@@ -117,7 +117,7 @@ export const FAQ_INDEX: FaqEntry[] = [
       "OakTend uses your system's typical lifespan and the age you gave it to flag what is coming due.",
     keywords: ["maintenance", "reminder", "schedule", "due", "lifespan"],
     side: "homeowner",
-    href: "/guides/home-maintenance-schedule",
+    href: "/guides/orange-county-home-maintenance-checklist",
   },
   {
     question: "How do I know if a contractor's quote is fair?",

@@ -210,8 +210,8 @@ export const lagunaBeach: CityContent = {
         "Typical range and when a repair still makes sense, on water both districts report at roughly 12 to 17 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month, including spring weed abatement and the gutter cleaning and tree trimming the city asks for before storm season.",
     },
