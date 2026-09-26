@@ -121,6 +121,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     ],
     cities: ["Anaheim", "Costa Mesa", "Garden Grove", "San Juan Capistrano", "Santa Ana"],
   },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/garage-conversion-vs-adu-orange-county": {
+    guides: [
+      "/guides/adu-cost",
+      "/guides/permits-orange-county",
+      "/guides/hoa-coastal-commission-remodel-orange-county",
+    ],
+    cities: [
+      "Newport Beach",
+      "Anaheim",
+      "Santa Ana",
+      "Irvine",
+      "Huntington Beach",
+      "Garden Grove",
+    ],
+  },
   "/guides/slab-leak-signs": {
     guides: [
       "/guides/water-heater-replacement-cost",
@@ -165,6 +181,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Garden Grove",
       "Santa Ana",
       "Newport Beach",
+    ],
+  },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/hoa-coastal-commission-remodel-orange-county": {
+    guides: [
+      "/guides/garage-conversion-vs-adu-orange-county",
+      "/guides/kitchen-remodel-cost",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Seal Beach",
+      "Laguna Beach",
+      "Dana Point",
+      "San Clemente",
+      "Newport Beach",
+      "Laguna Niguel",
     ],
   },
   "/guides/hard-water-orange-county": {
@@ -1269,6 +1301,150 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
+  // Added 2026-09-26 (SEO plan section 2, new pages A). Every entry was
+  // opened and checked that day.
+  "/guides/garage-conversion-vs-adu-orange-county": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66313",
+      label:
+        "California Government Code section 66313",
+      supports:
+        "An ADU provides complete independent living facilities on a lot with a primary residence; a junior ADU is no more than 500 square feet of interior livable space and contained entirely within a single-family residence.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66314",
+      label:
+        "California Government Code section 66314",
+      supports:
+        "An ADU may be within or attached to the home, including an attached garage, or detached, including a detached garage (d)(3); no setback for an existing structure converted to an ADU, and no more than 4 feet side and rear for a new one (d)(7); no replacement of parking when a garage, carport or parking space is converted to or demolished for an ADU (d)(11); no fire sprinklers if the primary residence is not required to have them (d)(12).",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66317",
+      label:
+        "California Government Code section 66317 (as amended by SB 543, effective January 1, 2026)",
+      supports:
+        "ADU approval is ministerial with no hearing; the permitting agency has 15 business days to give written notice whether an application is complete; it must approve or deny within 60 days of a complete application when a dwelling exists, or the application is deemed approved; a denial comes with written comments; there is a written appeal process.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66321",
+      label:
+        "California Government Code section 66321",
+      supports:
+        "A city cannot cap ADU size below 850 square feet, or 1,000 square feet with more than one bedroom.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66322",
+      label:
+        "California Government Code section 66322",
+      supports:
+        "No parking standards for an ADU within one-half mile walking distance of public transit, or one that is part of the proposed or existing primary residence or an accessory structure, among other cases.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66323",
+      label:
+        "California Government Code section 66323",
+      supports:
+        "A city must ministerially approve any combination of one ADU and one junior ADU within the existing space of a single-family dwelling or accessory structure (up to 150 square feet of expansion of an accessory structure, limited to ingress and egress; exterior access; setbacks sufficient for fire and safety) and one detached new ADU with 4-foot side and rear setbacks, which a city may limit to no less than 800 square feet.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66333",
+      label:
+        "California Government Code section 66333 (as amended by AB 1154, effective January 1, 2026)",
+      supports:
+        "A junior ADU needs a separate entrance and an efficiency kitchen; enclosed uses within the residence, such as attached garages, are part of the residence; owner-occupancy may be required only when the junior ADU shares sanitation facilities; a junior ADU rental must be for more than 30 days.",
+    },
+    {
+      href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
+      label:
+        "California Department of Housing and Community Development: Accessory Dwelling Unit Handbook (March 2026)",
+      supports:
+        "No parking may be required for a junior ADU, even when converted from an attached garage; junior ADUs are not allowed in detached accessory structures and only one is allowed per lot; ADU conversions are subject to all applicable building, health and safety, and fire standards for dwellings; the 150 square foot expansion example is a stairwell; ADU parking may not exceed one space per unit or bedroom; a demolition permit for a detached garage replaced by an ADU is issued at the same time as the ADU permit.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB543",
+      label:
+        "California Senate Bill 543 (2025-2026), chaptered text (Chapter 520, approved October 10, 2025)",
+      supports:
+        "No impact fee on an ADU with 750 square feet or less of interior livable space or a junior ADU of 500 square feet or less; above 750 square feet, impact fees are proportional to the primary dwelling; units under 500 square feet of interior livable space are treated as not triggering school fees.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB462",
+      label:
+        "California Assembly Bill 462 (2025-2026), chaptered text (Chapter 491, approved October 10, 2025, urgency statute)",
+      supports:
+        "Takes effect immediately; amends Government Code section 66329 so a coastal development permit for an ADU is approved or denied within 60 days of a complete application, concurrently with the ADU review and without a public hearing.",
+    },
+    {
+      href: "https://www.bwslaw.com/insights/public-law-update-2025-adu-legislative-update/",
+      label:
+        "Burke, Williams & Sorensen (law firm): 2025 ADU legislative update (December 15, 2025)",
+      supports:
+        "SB 543 and AB 1154 were among the ADU bills of the 2025 session; SB 543 takes effect January 1, 2026 with its fee limits in effect from October 10, 2025.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65852.27",
+      label:
+        "California Government Code section 65852.27",
+      supports:
+        "Every city and county had to set up a program for pre-approved ADU plans by January 1, 2025.",
+    },
+    {
+      href: "https://newportbeachadu.org/adu-plans-2",
+      label:
+        "City of Newport Beach: ADU standard plans",
+      supports:
+        "Newport Beach offers five pre-reviewed standard ADU plans: three detached units and two garage conversions (Plan 4, one-car garage; Plan 5, two-car garage); supplemental items such as a site plan and Title 24 energy analysis are still required.",
+    },
+    {
+      href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",
+      label:
+        "City of Irvine: ADU Standard Plan Program",
+      supports:
+        "Irvine offers pre-approved architectural and structural ADU plans designed by licensed professionals.",
+    },
+    {
+      href: "https://santa-ana.gov/pre-approved-adu-plans/",
+      label:
+        "City of Santa Ana: Pre-Approved ADU Plans",
+      supports:
+        "Santa Ana offers pre-approved studio, one-bedroom and two-bedroom detached ADU plans.",
+    },
+    {
+      href: "https://www.anaheim.net/6351/Pre-Approved-Plan-Catalogue",
+      label:
+        "City of Anaheim: Pre-Approved Plan Catalogue (ADU Express)",
+      supports:
+        "Anaheim offers four free pre-approved ADU plans.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
+      label:
+        "City of Huntington Beach: accessory dwelling units",
+      supports:
+        "Huntington Beach has a pre-approved ADU plan, and development in its coastal zone may require a coastal development permit.",
+    },
+    {
+      href: "https://pwds.oc.gov/service-areas/oc-development-services/planning-development/accessory-dwelling-units",
+      label:
+        "County of Orange, OC Development Services: accessory dwelling units",
+      supports:
+        "The county publishes pre-approved ADU plans for unincorporated Orange County.",
+    },
+    {
+      href: "https://www.jlconline.com/cost-vs-value/2025/pacific/los-angeles-ca/",
+      label:
+        "Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com): Los Angeles, California",
+      supports:
+        "A new 660 square foot, one-story detached ADU averaged $178,536 in the Los Angeles market in 2025. The report has no separate Orange County market.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4751",
+      label:
+        "California Civil Code section 4751",
+      supports:
+        "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable; reasonable restrictions are allowed.",
+    },
+  ],
   "/guides/slab-leak-signs": [
     {
       href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
@@ -1457,6 +1633,150 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Contractors State License Board: owner-builder risks",
       supports:
         "The board's warning to be wary of consultants or unlicensed individuals who talk homeowners into becoming an owner-builder.",
+    },
+  ],
+  // Added 2026-09-26 (SEO plan section 2, new pages A). Every entry was
+  // opened and checked that day.
+  "/guides/hoa-coastal-commission-remodel-orange-county": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4000",
+      label:
+        "California Civil Code section 4000",
+      supports:
+        "The Civil Code part governing associations is the Davis-Stirling Common Interest Development Act.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4760",
+      label:
+        "California Civil Code section 4760",
+      supports:
+        "Any change in the exterior appearance of a separate interest must follow the governing documents and applicable law.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "Where governing documents require approval of a physical change: a fair, reasonable and expeditious written procedure with prompt deadlines and a maximum response time; decisions in good faith, not unreasonable, arbitrary or capricious, and not violating law or the building code; decisions in writing, with a denial explaining why and how to seek reconsideration; reconsideration by the board at an open meeting; an annual notice to members of what needs approval and the procedure.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4751",
+      label:
+        "California Civil Code section 4751",
+      supports:
+        "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable; reasonable restrictions are allowed.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714.3",
+      label:
+        "California Civil Code section 714.3",
+      supports:
+        "Restrictions that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void; reasonable restrictions shall not include any fees or other financial requirements.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714",
+      label:
+        "California Civil Code section 714",
+      supports:
+        "A restriction that effectively prohibits or restricts a solar energy system is void; an association must decide in writing, and an application not denied in writing within 45 days is deemed approved unless the delay is a reasonable request for more information.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4745",
+      label:
+        "California Civil Code section 4745",
+      supports:
+        "An association cannot effectively prohibit or unreasonably restrict an EV charging station in an owner's unit or designated parking space; an application not denied in writing within 60 days is deemed approved unless the delay is a reasonable request for more information.",
+    },
+    {
+      href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
+      label:
+        "California Department of Housing and Community Development: Accessory Dwelling Unit Handbook (March 2026)",
+      supports:
+        "Examples of an HOA effectively prohibiting an ADU include any delay in review beyond the timeframes required of local agencies (60 days).",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30600",
+      label:
+        "California Public Resources Code section 30600 (Coastal Act)",
+      supports:
+        "Anyone performing development in the coastal zone must obtain a coastal development permit, in addition to any other permit required by law.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30106",
+      label:
+        "California Public Resources Code section 30106 (Coastal Act)",
+      supports:
+        "Development includes placing or erecting any structure, grading, and construction, reconstruction, demolition, or alteration of the size of any structure.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30519",
+      label:
+        "California Public Resources Code section 30519 (Coastal Act)",
+      supports:
+        "Once a local coastal program is certified, permit authority over new development is delegated to the local government, except for appeals and for tidelands, submerged lands and public trust lands.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30603",
+      label:
+        "California Public Resources Code section 30603 (Coastal Act)",
+      supports:
+        "After certification, a local coastal permit decision can be appealed to the Commission for development between the sea and the first public road, within 300 feet of a beach, within 100 feet of a wetland or stream, or within 300 feet of the top of a coastal bluff, among others.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30610",
+      label:
+        "California Public Resources Code section 30610 (Coastal Act)",
+      supports:
+        "No coastal development permit is needed for improvements to existing single-family residences, except classes the Commission specifies by regulation, or for repair and maintenance that does not enlarge or expand the structure.",
+    },
+    {
+      href: "https://www.law.cornell.edu/regulations/california/14-CCR-13250",
+      label:
+        "California Code of Regulations, title 14, section 13250 (Cornell Legal Information Institute)",
+      supports:
+        "Garages, pools, fences and sheds are part of a single-family residence for the exemption, but guest houses and self-contained residential units are not; improvements still need a permit on a beach, in a wetland, seaward of mean high tide, in an environmentally sensitive habitat area, in a highly scenic area, or within 50 feet of a bluff edge; between the sea and the first public road or within 300 feet of a beach, a 10 percent or larger floor area increase, a height increase over 10 percent, or a significant non-attached structure such as a garage, fence or shoreline protective works; or where the original permit said future improvements need one.",
+    },
+    {
+      href: "https://documents.coastal.ca.gov/assets/rflg/LCPStatusSummaryChart.pdf",
+      label:
+        "California Coastal Commission: Summary of LCP Program Activity and LCP Status Chart, FY 2023-24 (October 9, 2024)",
+      supports:
+        "Year effectively certified: Huntington Beach 1985, Newport Beach 2017, Irvine 1982, Laguna Beach 1993, Laguna Niguel 1990, Dana Point 1989; Seal Beach and San Clemente listed with no certified LCP; uncertified areas include Huntington Beach's Sunset Beach annexation, Newport Banning Ranch and the Newport Coast annexation, and Laguna Beach's Hobo Canyon, Three Arch Bay, Blue Lagoon and Irvine Cove; the Commission keeps permit authority in uncertified areas.",
+    },
+    {
+      href: "https://documents.coastal.ca.gov/reports/2026/5/w8c/w8c-5-2026-report.pdf",
+      label:
+        "California Coastal Commission: staff report, application 5-25-0754, Seal Beach (hearing May 13, 2026)",
+      supports:
+        "A Seal Beach single-family remodel with first and second floor additions went to the Commission because the City of Seal Beach does not have a certified Local Coastal Program.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development-/planning-division/local-coastal-program-launch-page/faq",
+      label:
+        "City of Newport Beach: Local Coastal Program FAQ",
+      supports:
+        "Newport Beach's LCP was certified effective January 30, 2017 and the city issues most coastal permits; the categorical exclusion removes single-unit and two-unit projects from the permit requirement except the first row of shoreline lots and the Bay Shores community; approvals in appeal areas can be appealed to the Commission.",
+    },
+    {
+      href: "https://www.sanclemente.gov/295/Coastal-Planning",
+      label:
+        "City of San Clemente: Coastal Planning",
+      supports:
+        "The Commission certified San Clemente's LCP Land Use Plan update on August 10, 2018; the Implementation Plan is still being drafted, so the city does not yet have a fully certified LCP.",
+    },
+    {
+      href: "https://www.coastal.ca.gov/maps/czb/",
+      label:
+        "California Coastal Commission: coastal zone boundary maps",
+      supports:
+        "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB462",
+      label:
+        "California Assembly Bill 462 (2025-2026), chaptered text (Chapter 491, approved October 10, 2025, urgency statute)",
+      supports:
+        "Takes effect immediately; amends Government Code section 66329: the local government approves or denies an ADU coastal development permit within 60 days of a complete application, concurrently with the ADU review and without public hearings, and that decision is not appealable under section 30603; without a certified LCP, the Commission has 60 days or the application is deemed approved, unless the ADU is filed with a new dwelling.",
     },
   ],
   "/guides/hard-water-orange-county": [

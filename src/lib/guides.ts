@@ -55,10 +55,14 @@ export const GUIDE_PATHS = [
   "/guides/kitchen-remodel-cost",
   "/guides/bathroom-remodel-cost",
   "/guides/adu-cost",
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/garage-conversion-vs-adu-orange-county",
   "/guides/slab-leak-signs",
   "/guides/is-my-contractor-quote-fair",
   "/guides/contractor-deposit-rules-california",
   "/guides/permits-orange-county",
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/hoa-coastal-commission-remodel-orange-county",
   "/guides/hard-water-orange-county",
   "/guides/slab-leak-repair-orange-county",
   "/guides/repipe-orange-county",
@@ -82,11 +86,14 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/kitchen-remodel-cost": "Kitchen remodel cost",
   "/guides/bathroom-remodel-cost": "Bathroom remodel cost",
   "/guides/adu-cost": "ADU cost",
+  "/guides/garage-conversion-vs-adu-orange-county": "Garage conversion vs ADU",
   "/guides/slab-leak-signs": "Slab leak signs",
   "/guides/is-my-contractor-quote-fair": "Is my contractor's quote fair?",
   "/guides/contractor-deposit-rules-california":
     "How much can a contractor ask for up front?",
   "/guides/permits-orange-county": "Building permits in Orange County",
+  "/guides/hoa-coastal-commission-remodel-orange-county":
+    "HOA and coastal approvals",
   "/guides/hard-water-orange-county": "Hard water in Orange County",
   "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
   "/guides/repipe-orange-county": "Repiping a house in Orange County",
@@ -108,7 +115,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-25" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-26" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-25",
@@ -127,7 +134,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
@@ -135,7 +142,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
+  },
+  "/guides/garage-conversion-vs-adu-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
@@ -151,7 +162,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/permits-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
+  },
+  "/guides/hoa-coastal-commission-remodel-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",

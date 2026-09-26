@@ -19,6 +19,9 @@ import {
   Bug,
   Flame,
   KeyRound,
+  // Added 2026-09-26 (new pages A).
+  Warehouse,
+  Waves,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -74,6 +77,14 @@ const GUIDES = [
     blurb:
       "A sourced 2025 average for a detached ADU near Orange County, garage conversion vs attached vs detached, California ADU rules, and how to save.",
   },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  {
+    href: "/guides/garage-conversion-vs-adu-orange-county",
+    icon: Warehouse,
+    title: "Garage conversion vs ADU",
+    blurb:
+      "Garage room, garage ADU, junior ADU or a new detached unit: the parking, setback, fee and approval rules for each in Orange County, and the 2026 changes.",
+  },
   {
     href: "/guides/slab-leak-signs",
     icon: Wrench,
@@ -101,6 +112,14 @@ const GUIDES = [
     title: "Building permits in Orange County",
     blurb:
       "When a home project needs a permit in Orange County, project by project, with real city examples: water heaters, reroofs, panels, HVAC, fences and patio covers.",
+  },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  {
+    href: "/guides/hoa-coastal-commission-remodel-orange-county",
+    icon: Waves,
+    title: "HOA and coastal approvals",
+    blurb:
+      "HOA architectural review and Coastal Commission permits for Orange County remodels: your rights under Davis-Stirling, which cities issue coastal permits, and what is exempt.",
   },
   {
     href: "/guides/hard-water-orange-county",
