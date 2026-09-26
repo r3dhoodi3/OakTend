@@ -147,7 +147,7 @@ Where things stand as of tonight, so the list below reads against reality:
   already **all of Orange County** (migration 0129), not just FV/HB.
 
 Still open from the list below, in current priority order: service-role key
-rotation (6), Resend SMTP (2), signup captcha (3), RLS audit (1), per-IP rate
+rotation (6), SMTP in Supabase (2), signup captcha (3), RLS audit (1), per-IP rate
 limits (4), confirm-email back ON in Supabase Auth, deleting the throwaway
 test accounts, `TWILIO_*` in Vercel (14), delete `GEMINI_API_KEY` (7).
 Apple key rotation from item 11 is DONE (08-30: old key revoked, new key
@@ -205,8 +205,9 @@ What is still owed, in order. Items marked (Landen) need his logins or a secret.
 1. (Landen) Vercel env: only 15 variables exist on the project. Missing and
    read by the code: `ANTHROPIC_API_KEY` (every AI feature is dead without it),
    `STRIPE_SECRET_KEY` plus the `STRIPE_PRICE_*` / `STRIPE_PRO_*` ids (checkout
-   and wallet deposits), `RISK_HASH_SALT`, `CRON_SECRET`, `RESEND_API_KEY` +
-   `RESEND_FROM`, the three `TWILIO_*` vars, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
+   and wallet deposits), `RISK_HASH_SALT`, `CRON_SECRET`, `SENDGRID_API_KEY` +
+   `SENDGRID_FROM` (the email provider as of 2026-09-22; `RESEND_*` is now only
+   a fallback), the three `TWILIO_*` vars, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
    Confirm `NEXT_PUBLIC_SITE_URL` = `https://oaktend.com`, then redeploy.
 2. Turnstile: there is NO widget in Landen's Cloudflare account, so the
    `captchaToken` plumbing you built runs with no key and is a no-op. Create
@@ -218,7 +219,7 @@ What is still owed, in order. Items marked (Landen) need his logins or a secret.
    The verify screen now has a 60 second resend cooldown and a 5 per page cap
    instead.
 4. Cloudflare Email Routing for oaktend.com (hello, support, legal, privacy,
-   security) is still not set up. Do it before Resend goes live so replies to
+   security) is still not set up. Do it before the sending domain goes live so replies to
    the sending domain land somewhere.
 
 ## Before launch
@@ -250,11 +251,13 @@ What is still owed, in order. Items marked (Landen) need his logins or a secret.
    On 08-20 the live `properties` table had drifted to wide open from a
    dashboard click; other tables were spot-checked, not audited. Never use the
    dashboard policy templates; every policy lives in `supabase/migrations`.
-2. **Email: Resend SMTP in Supabase.** Supabase Auth's built-in mailer only
+2. **Email: SendGrid SMTP in Supabase.** Supabase Auth's built-in mailer only
    delivers to project team members (about 2 an hour). Authentication ->
-   SMTP settings -> Resend host, port 465, user `resend`, password = Resend API
-   key, sender on the verified domain. Until this is on, nobody outside the
-   team can sign up with email.
+   SMTP settings -> host `smtp.sendgrid.net`, port 587, user the literal string
+   `apikey`, password = the SendGrid API key, sender on the authenticated
+   domain. Until this is on, nobody outside the team can sign up with email.
+   (This is a SEPARATE pipe from the app's own mail in `src/lib/notify.ts`:
+   setting `SENDGRID_*` in Vercel does nothing for signup and reset email.)
 3. **Signup captcha.** Supabase -> Authentication -> Attack Protection ->
    enable captcha, provider Cloudflare Turnstile. Needs a free Turnstile site
    key + secret from dash.cloudflare.com (Turnstile -> Add site, domain =
@@ -294,7 +297,7 @@ What is still owed, in order. Items marked (Landen) need his logins or a secret.
     rotate the Apple key `34UDQ3MTXM`: it was pasted into a chat on 08-21.
 12. Register OakTend's sending domain for Apple private relay email (Apple
     portal -> Services -> Sign in with Apple for Email Communication) once
-    Resend is live, or Hide-My-Email users never get mail.
+    the sender domain is live, or Hide-My-Email users never get mail.
 13. Block disposable email domains at signup (Supabase has no built-in list;
     smallest option is a deny-list check in the signup server action).
 14. **Twilio for SMS.** Trial account exists (number +1 737 258 3478, keys in

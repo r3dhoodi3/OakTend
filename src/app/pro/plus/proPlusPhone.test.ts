@@ -28,7 +28,9 @@ describe("pro plus: the phone disclosure, matching the homeowner page", () => {
   it("folds the itemized terms behind a 'Billing terms' details on phones only", () => {
     // Two elements, one per breakpoint: `open` is a boolean attribute no media
     // query can drive.
-    expect(toggle).toContain('<details className="group sm:hidden">');
+    // AnimatedDetails renders a real <details> and slides it (2026-09-21).
+    expect(toggle).toContain("<AnimatedDetails");
+    expect(toggle).toContain('className="group sm:hidden"');
     expect(toggle).toContain("Billing terms");
     expect(toggle).toContain('<div className="max-sm:hidden">');
     // Same shape the homeowner page uses.

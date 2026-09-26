@@ -91,12 +91,12 @@ export default function ProNudge({
   }
 
   return (
-    <div className="card flex items-start gap-3 border-oaktend-200 bg-oaktend-50 dark:border-oaktend-500/30 dark:bg-oaktend-500/15">
+    <div className="card flex items-start gap-3 border-bark-200 bg-bark-50 dark:border-bark-700/40 dark:bg-bark-700/30">
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium text-oaktend-800 dark:text-oaktend-200">
+        <p className="text-sm font-medium text-bark-800 dark:text-stone-200">
           OakTend Pro
         </p>
-        <p className="mt-1 text-sm text-oaktend-700 dark:text-oaktend-300">
+        <p className="mt-1 text-sm text-bark-700 dark:text-stone-300">
           +{depositBoostPts}% bonus on every deposit and ${monthlyCreditDollars}{" "}
           of lead credit every month, once your membership is paid.
         </p>
@@ -114,7 +114,7 @@ export default function ProNudge({
         onClick={dismiss}
         aria-label="Hide this for today"
         // 44px so it is a real tap target on a phone, not a 20px glyph.
-        className="-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-oaktend-700 hover:bg-oaktend-100 dark:text-oaktend-300 dark:hover:bg-oaktend-500/20"
+        className="-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-bark-700 hover:bg-bark-100 dark:text-stone-300 dark:hover:bg-bark-700/40"
       >
         <X className="h-5 w-5" aria-hidden="true" />
       </button>

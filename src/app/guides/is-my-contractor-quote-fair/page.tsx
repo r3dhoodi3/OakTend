@@ -122,7 +122,7 @@ export default function IsMyContractorQuoteFairGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Is my contractor's quote fair? An Orange County guide" },
+          { name: "Is my contractor's quote fair? An Orange County guide", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

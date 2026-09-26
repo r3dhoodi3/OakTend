@@ -176,7 +176,7 @@ export function PlusMember({
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">OakTend Pro</h1>
       </div>
       <div className="card space-y-4 text-center">
-        <p className="text-lg font-medium text-oaktend-700 dark:text-oaktend-300">
+        <p className="text-lg font-medium text-bark-700 dark:text-stone-300">
           You&apos;re an OakTend Pro member
         </p>
         {/* During the trial, current_period_end IS the trial end, so calling
@@ -383,8 +383,8 @@ export function PlusPitch({
     // exact order and phone gets the new one.
     <div className="mx-auto flex max-w-3xl flex-col gap-8">
       {reasonCopy && (
-        <div className="order-1 card border-oaktend-200 bg-oaktend-50 text-center dark:border-oaktend-500/30 dark:bg-oaktend-500/15">
-          <p className="text-sm text-oaktend-800 dark:text-oaktend-200">
+        <div className="order-1 card border-bark-200 bg-bark-50 text-center dark:border-bark-700/40 dark:bg-bark-700/30">
+          <p className="text-sm text-bark-800 dark:text-stone-200">
             {reasonCopy}
           </p>
         </div>

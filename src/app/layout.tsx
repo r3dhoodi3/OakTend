@@ -55,6 +55,25 @@ const themeInit = `(function () {
   } catch (e) {}
 })();`;
 
+// Holds the landing hero's entrance (.hero-rise, see globals.css) until the
+// web font has arrived, so the rise never shows the fallback font swapping to
+// Inter mid-fade - which read as the text flashing sizes (2026-09-21). Runs
+// before first paint like themeInit. The attribute is SET here and REMOVED
+// when fonts are ready or after a 600ms cap, whichever is first, so a slow
+// font can only delay the entrance briefly, and with scripts off the
+// attribute is never set and the entrance simply plays.
+const heroFontsInit = `(function () {
+  try {
+    var h = document.documentElement;
+    h.setAttribute("data-fonts-pending", "1");
+    var done = function () { h.removeAttribute("data-fonts-pending"); };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(done, done);
+    }
+    setTimeout(done, 600);
+  } catch (e) {}
+})();`;
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // Organization JSON-LD, so search results can attribute pages to OakTend as a
@@ -68,6 +87,20 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 // logo moved here instead, and the stable @id gives anything that wants to
 // point at OakTend-the-organization something to reference.
 const organizationJsonLd = buildOrganizationJsonLd(SITE_URL);
+
+// WebSite JSON-LD. Search engines take the site name they print above a result
+// from this node, not from the Organization one; without it they fall back to
+// the bare domain ("oaktend.com" / "Oaktend.com"). The publisher points at the
+// one Organization node above rather than describing the business twice.
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}#website`,
+  name: "OakTend",
+  alternateName: ["OakTend.com", "Oak Tend"],
+  url: SITE_URL,
+  publisher: { "@id": `${SITE_URL}#organization` },
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -173,9 +206,14 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: LEGACY_STORAGE_INIT_SCRIPT }}
         />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script dangerouslySetInnerHTML={{ __html: heroFontsInit }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>

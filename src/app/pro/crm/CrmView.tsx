@@ -477,7 +477,7 @@ export default function CrmView({
           <div>
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               More with Pro{" "}
-              <span className="chip ml-1 bg-oaktend-100 align-middle text-oaktend-800 dark:bg-oaktend-900 dark:text-oaktend-200">
+              <span className="chip ml-1 bg-bark-100 align-middle text-bark-800 dark:bg-bark-700 dark:text-stone-200">
                 Pro
               </span>
             </h2>
@@ -507,19 +507,19 @@ export default function CrmView({
               <Link
                 key={f.title}
                 href={href}
-                className="card group ring-1 ring-transparent transition hover:ring-oaktend-300 dark:hover:ring-oaktend-400"
+                className="card group ring-1 ring-transparent transition hover:ring-bark-500 dark:hover:ring-bark-500"
               >
                 <div className="flex items-center justify-between">
                   <span className="icon-chip">
                     <f.icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   {!member && (
-                    <span className="chip bg-oaktend-100 text-oaktend-800 dark:bg-oaktend-900 dark:text-oaktend-200">
+                    <span className="chip bg-bark-100 text-bark-800 dark:bg-bark-700 dark:text-stone-200">
                       Pro
                     </span>
                   )}
                 </div>
-                <p className="mt-2 font-semibold text-stone-900 group-hover:text-oaktend-800 dark:text-stone-100 dark:group-hover:text-oaktend-300">
+                <p className="mt-2 font-semibold text-stone-900 group-hover:text-bark-800 dark:text-stone-100 dark:group-hover:text-bark-300">
                   {f.title}
                 </p>
                 <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{f.body}</p>

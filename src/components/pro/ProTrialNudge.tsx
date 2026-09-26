@@ -377,7 +377,7 @@ export default function ProTrialNudge({
         </div>
 
         <div className="mt-2 flex flex-col items-center text-center">
-          <Logo className="h-9 w-9 text-oaktend-700 dark:text-oaktend-400" />
+          <Logo className="h-9 w-9 text-bark-700 dark:text-stone-400" />
           <p className="mt-2 text-sm font-medium text-stone-500 dark:text-stone-400">
             OakTend Pro
           </p>
@@ -412,12 +412,12 @@ export default function ProTrialNudge({
             className={[
               "relative flex h-full flex-col rounded-xl border p-3 text-left transition-colors",
               plan === "yearly"
-                ? "border-oaktend-600 bg-oaktend-50 ring-2 ring-oaktend-600 ring-offset-1 ring-offset-white dark:bg-oaktend-900/30 dark:ring-offset-stone-900"
+                ? "border-bark-600 bg-bark-50 ring-2 ring-bark-600 ring-offset-1 ring-offset-white dark:border-bark-500 dark:bg-bark-700/30 dark:ring-bark-500 dark:ring-offset-stone-900"
                 : "border-stone-200 bg-white hover:border-stone-300 dark:border-white/10 dark:bg-stone-800 dark:hover:border-white/20",
             ].join(" ")}
           >
             {YEARLY_SAVE_PCT > 0 && (
-              <span className="absolute -top-2.5 left-3 whitespace-nowrap rounded-full bg-oaktend-600 px-2 py-0.5 text-[10px] font-medium text-white">
+              <span className="absolute -top-2.5 left-3 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-medium text-white">
                 Save {YEARLY_SAVE_PCT}%
               </span>
             )}
@@ -444,7 +444,7 @@ export default function ProTrialNudge({
             className={[
               "flex h-full flex-col rounded-xl border p-3 text-left transition-colors",
               plan === "monthly"
-                ? "border-oaktend-600 bg-oaktend-50 ring-2 ring-oaktend-600 ring-offset-1 ring-offset-white dark:bg-oaktend-900/30 dark:ring-offset-stone-900"
+                ? "border-bark-600 bg-bark-50 ring-2 ring-bark-600 ring-offset-1 ring-offset-white dark:border-bark-500 dark:bg-bark-700/30 dark:ring-bark-500 dark:ring-offset-stone-900"
                 : "border-stone-200 bg-white hover:border-stone-300 dark:border-white/10 dark:bg-stone-800 dark:hover:border-white/20",
             ].join(" ")}
           >

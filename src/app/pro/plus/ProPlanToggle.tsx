@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { ChevronRight } from "lucide-react";
+import AnimatedDetails from "@/components/AnimatedDetails";
 import { startProCheckoutAction } from "./actions";
 import AutoRenewalTerms from "@/components/AutoRenewalTerms";
 import AutoRenewalConsentCheckbox from "@/components/AutoRenewalConsentCheckbox";
@@ -255,10 +256,10 @@ export default function ProPlanToggle({
     [
       "flex h-full flex-col rounded-xl border p-4 text-left transition-colors",
       plan === key
-        ? "border-oaktend-600 ring-2 ring-oaktend-600 ring-offset-1 ring-offset-oaktend-50 dark:ring-offset-stone-900"
+        ? "border-bark-600 ring-2 ring-bark-600 ring-offset-1 ring-offset-bark-50 dark:border-bark-500 dark:ring-bark-500 dark:ring-offset-stone-900"
         : "border-stone-200 hover:border-stone-300 dark:border-white/10 dark:hover:border-white/20",
       key === "yearly"
-        ? "bg-oaktend-50 shadow-lift dark:bg-oaktend-900/30"
+        ? "bg-bark-50 shadow-lift dark:bg-bark-700/30"
         : "bg-white dark:bg-stone-800",
     ].join(" ");
 
@@ -322,7 +323,7 @@ export default function ProPlanToggle({
           )}
           className={`relative order-1 sm:order-2 ${columnClass("yearly")}`}
         >
-          <span className="absolute -top-2.5 left-4 whitespace-nowrap rounded-full bg-oaktend-600 px-2 py-0.5 text-[10px] font-medium text-white max-sm:text-xs">
+          <span className="absolute -top-2.5 left-4 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-medium text-white max-sm:text-xs">
             Best value
           </span>
           <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
@@ -339,7 +340,7 @@ export default function ProPlanToggle({
           <span className="mt-0.5 block text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
             About {YEARLY_PER_DAY} a day
           </span>
-          <span className="mt-2 block text-xs font-medium text-oaktend-700 max-sm:text-sm dark:text-oaktend-300">
+          <span className="mt-2 block text-xs font-medium text-bark-700 max-sm:text-sm dark:text-stone-300">
             Save {YEARLY_SAVING} vs monthly
           </span>
           <span className="mt-0.5 block text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
@@ -397,7 +398,7 @@ export default function ProPlanToggle({
       <div className="card-hero space-y-4 text-center">
         <div className="space-y-0.5">
           {trialEligible && (
-            <p className="text-sm font-medium text-oaktend-700 dark:text-oaktend-300">
+            <p className="text-sm font-medium text-bark-700 dark:text-stone-300">
               Free for {PRO_PLAN.trialDays} days
             </p>
           )}
@@ -430,21 +431,25 @@ export default function ProPlanToggle({
           </p>
           {/* Collapsed on a phone, open on desktop. See PHONE DISCLOSURE at
               the top of this file. */}
-          <details className="group sm:hidden">
-            <summary className="focus-ring mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-stone-700 [&::-webkit-details-marker]:hidden dark:text-stone-300">
-              <ChevronRight
-                className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-150 group-open:rotate-90 dark:text-stone-500"
-                aria-hidden="true"
-              />
-              Billing terms
-            </summary>
-            <div className="mt-2">
-              <AutoRenewalTerms
-                plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}
-                introEligible={trialEligible}
-              />
-            </div>
-          </details>
+          <AnimatedDetails
+            className="group sm:hidden"
+            summaryClassName="focus-ring mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-stone-700 [&::-webkit-details-marker]:hidden dark:text-stone-300"
+            summary={
+              <>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-90 dark:text-stone-500"
+                  aria-hidden="true"
+                />
+                Billing terms
+              </>
+            }
+            contentClassName="pt-2"
+          >
+            <AutoRenewalTerms
+              plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}
+              introEligible={trialEligible}
+            />
+          </AnimatedDetails>
           <div className="max-sm:hidden">
             <AutoRenewalTerms
               plan={plan === "monthly" ? "pro_monthly" : "pro_yearly"}

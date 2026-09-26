@@ -2,9 +2,9 @@
 // accounts that hold BOTH a homeowner and a pro side - Nav.tsx passes it only
 // when hasPro is true, ProNav.tsx only when hasHome is true, so a single-side
 // account sees nothing new here. One accent color, no gradient, matching the
-// flat-color design rule; the accent follows whichever side's own token the
-// calling nav already uses (bark for Nav.tsx, oaktend for ProNav.tsx) so this
-// never introduces a third brand color.
+// flat-color design rule; the accent follows the token the calling nav
+// already uses (bark for both Nav.tsx and ProNav.tsx now; the ember "oaktend"
+// option has no caller) so this never introduces a third brand color.
 //
 // `label` is a free string: usually a short side name ("Home" / "Business"),
 // but the pro phone header passes the company name here, so callers that do

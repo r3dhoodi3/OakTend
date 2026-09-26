@@ -174,7 +174,7 @@ export default function HomeMaintenanceScheduleGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Home maintenance schedule for Orange County homes" },
+          { name: "Home maintenance schedule for Orange County homes", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

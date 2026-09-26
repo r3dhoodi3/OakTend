@@ -84,7 +84,13 @@ describe("buildAlertOutbound", () => {
     ]);
   });
 
-  it("drops recipients with no email and no phone", () => {
+  // A pro with neither an address nor a number used to be dropped here, which
+  // silently cost them their web PUSH too: push needs no contact detail at all
+  // (sendOutboundChannels starts it before it looks at them, precisely so a
+  // caller holding neither still reaches a phone), but it can only do that for
+  // a recipient this function actually returns. They are kept now, with both
+  // contact fields null, so email and SMS still cannot fire.
+  it("keeps a recipient with no email and no phone, so push still reaches them", () => {
     const out = buildAlertOutbound(["has-email", "has-phone", "has-neither"], {
       externalChannels: true,
       rowByUser: rows([
@@ -94,7 +100,90 @@ describe("buildAlertOutbound", () => {
       ]),
       contactPhoneByUser: new Map(),
     });
-    expect(out.map((r) => r.userId)).toEqual(["has-email", "has-phone"]);
+    expect(out.map((r) => r.userId)).toEqual([
+      "has-email",
+      "has-phone",
+      "has-neither",
+    ]);
+    expect(out[2].email).toBeNull();
+    expect(out[2].phone).toBeNull();
+    expect(out[2].push).toBe(true);
+  });
+
+  // ...but only while push is actually wanted. With every channel off there is
+  // genuinely nothing to do, and the recipient is dropped as before.
+  it("drops a recipient with no contact details who also turned push off", () => {
+    const out = buildAlertOutbound(["nothing-at-all"], {
+      externalChannels: true,
+      rowByUser: rows([
+        [
+          "nothing-at-all",
+          {
+            email: null,
+            phone: null,
+            notification_prefs: { pro_alert_push: false },
+          },
+        ],
+      ]),
+      contactPhoneByUser: new Map(),
+    });
+    expect(out).toHaveLength(0);
+  });
+
+  // The per-channel switches (src/lib/proAlertPrefs.ts). Enforced by
+  // withholding the contact detail, so a channel a pro turned off cannot fire
+  // however the downstream rules change.
+  describe("per-channel job-alert switches", () => {
+    const full = {
+      email: "a@example.com",
+      phone: "+15551112222",
+      sms_consent: true,
+    };
+    const build = (prefs?: Record<string, unknown>) =>
+      buildAlertOutbound(["p"], {
+        externalChannels: true,
+        rowByUser: rows([["p", { ...full, notification_prefs: prefs as any }]]),
+        contactPhoneByUser: new Map(),
+      })[0];
+
+    it("defaults every channel on for a pro who never opened the settings", () => {
+      expect(build()).toMatchObject({
+        email: "a@example.com",
+        phone: "+15551112222",
+        smsConsent: true,
+        push: true,
+      });
+    });
+
+    it("blanks the address when email is switched off, keeping the rest", () => {
+      const r = build({ pro_alert_email: false });
+      expect(r.email).toBeNull();
+      expect(r.phone).toBe("+15551112222");
+      expect(r.push).toBe(true);
+    });
+
+    it("blanks the number AND the consent when texts are switched off", () => {
+      const r = build({ pro_alert_sms: false });
+      expect(r.phone).toBeNull();
+      // Not just the number: consent is reported false too, so nothing
+      // downstream can reconstruct a send from some fallback number.
+      expect(r.smsConsent).toBe(false);
+      expect(r.email).toBe("a@example.com");
+    });
+
+    it("reports push off without touching email or SMS", () => {
+      const r = build({ pro_alert_push: false });
+      expect(r.push).toBe(false);
+      expect(r.email).toBe("a@example.com");
+      expect(r.phone).toBe("+15551112222");
+    });
+
+    // Only a literal false is off, matching proAlertChannelOn: a legacy row
+    // holding null, a string or a 1 must not read as "switched off" and go
+    // dark on somebody.
+    it("treats anything but a literal false as on", () => {
+      expect(build({ pro_alert_email: null }).email).toBe("a@example.com");
+    });
   });
 
   it("reads the CAN-SPAM opt-out off the batched prefs, and only on a literal true", () => {

@@ -689,18 +689,20 @@ export default async function HomePage(
           space-y-8 stack. */}
       {property.ownership_status === "verified" && (
         <section>
-          <details className="inline-block">
-            <summary className="chip-ok focus-ring w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden max-sm:min-h-11 max-sm:px-3 max-sm:text-sm">
-              Matches public records
-            </summary>
+          <AnimatedDetails
+            className="group inline-block"
+            summaryClassName="chip-ok focus-ring w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden max-sm:min-h-11 max-sm:px-3 max-sm:text-sm"
+            summary="Matches public records"
+            contentClassName="pt-1.5"
+          >
             {/* max-sm:text-sm: soft trust signal, still worth reading at a
                 floor size on a phone. */}
-            <p className="mt-1.5 max-w-sm text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+            <p className="max-w-sm text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
               The name on your account matches the county assessor&apos;s
               public owner-of-record for this address. It&apos;s a soft trust
               signal we show pros, not proof of ownership.
             </p>
-          </details>
+          </AnimatedDetails>
         </section>
       )}
 
@@ -731,16 +733,17 @@ export default async function HomePage(
                 from the "Why this score?" breakdown below. A first-time
                 visitor sees the score before they see any explanation of it
                 otherwise, so this sits right next to the title. */}
-            <details className="group">
-              <summary className="focus-ring cursor-pointer list-none text-xs font-medium underline opacity-70 [&::-webkit-details-marker]:hidden hover:opacity-100 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center">
-                What is this?
-              </summary>
-              <p className="mt-1 max-w-xs text-xs opacity-80">
+            <AnimatedDetails
+              summaryClassName="focus-ring cursor-pointer list-none text-xs font-medium underline opacity-70 [&::-webkit-details-marker]:hidden hover:opacity-100 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+              summary="What is this?"
+              contentClassName="pt-1"
+            >
+              <p className="max-w-xs text-xs opacity-80">
                 Your home score is a quick read on how your home is doing. It
                 starts at 100 and drops for systems that are aging, past due,
                 or rated poor, and for open issues you&apos;ve reported.
               </p>
-            </details>
+            </AnimatedDetails>
           </div>
           <p className="stat-number mt-1 text-4xl">{score}/100</p>
           <p className="text-sm">{mostlyEstimated ? "Estimated score" : band.label}</p>
@@ -752,15 +755,21 @@ export default async function HomePage(
             Updates on its own as systems age, get confirmed, or issues open
             and close.
           </p>
-          <details className="group mt-2 text-sm">
-            <summary className="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden opacity-80 hover:opacity-100 max-sm:min-h-11">
-              <ChevronRight
-                className="h-4 w-4 shrink-0 transition-transform duration-150 group-open:rotate-90"
-                aria-hidden="true"
-              />
-              Why this score?
-            </summary>
-            <ul className="mt-2 space-y-1">
+          <AnimatedDetails
+            className="group mt-2 text-sm"
+            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden opacity-80 hover:opacity-100 max-sm:min-h-11"
+            summary={
+              <>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 transition-transform duration-300 group-data-[shown=true]:rotate-90"
+                  aria-hidden="true"
+                />
+                Why this score?
+              </>
+            }
+            contentClassName="pt-2"
+          >
+            <ul className="space-y-1">
               <li className="flex justify-between">
                 <span>Starting score</span>
                 <span className="font-medium">100</span>
@@ -800,7 +809,7 @@ export default async function HomePage(
                   : "Make this score real: confirm your systems"}
               </Link>
             )}
-          </details>
+          </AnimatedDetails>
         </div>
         {/* Phone: hidden. "Open jobs" is a jobs concept, not a home-state one,
             and the home page was too long to scroll. The count now lives at the
@@ -895,15 +904,21 @@ export default async function HomePage(
               </p>
             </>
           )}
-          <details className="group mt-2 text-sm">
-            <summary className="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 text-stone-500 [&::-webkit-details-marker]:hidden hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300">
-              <ChevronRight
-                className="h-4 w-4 shrink-0 transition-transform duration-150 group-open:rotate-90"
-                aria-hidden="true"
-              />
-              How this is estimated?
-            </summary>
-            <p className="mt-1.5 text-xs text-stone-500 dark:text-stone-400">
+          <AnimatedDetails
+            className="group mt-2 text-sm"
+            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 text-stone-500 [&::-webkit-details-marker]:hidden hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
+            summary={
+              <>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 transition-transform duration-300 group-data-[shown=true]:rotate-90"
+                  aria-hidden="true"
+                />
+                How this is estimated?
+              </>
+            }
+            contentClassName="pt-1.5"
+          >
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               Estimated from your home&apos;s size, age, and typical energy
               prices in your state, plus your HVAC&apos;s age and type if
               you&apos;ve added one. It&apos;s a ballpark, not a bill.
@@ -914,7 +929,7 @@ export default async function HomePage(
             >
               Add home details
             </Link>
-          </details>
+          </AnimatedDetails>
         </div>
       </section>
 
@@ -1038,17 +1053,22 @@ export default async function HomePage(
               forceOpen={planOpen}
               className="group mt-3"
               testId="this-month-tasks"
+              summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden text-sm font-medium text-stone-700 max-sm:min-h-11 dark:text-stone-300"
+              summary={
+                <>
+                  <ChevronRight
+                    className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-90 dark:text-stone-500"
+                    aria-hidden="true"
+                  />
+                  See this month&apos;s tasks
+                </>
+              }
+              // The top gap is padding on the clipped box, so it closes with
+              // the content instead of lingering as an empty strip.
+              contentClassName="pt-3"
             >
-              <summary className="focus-ring flex w-fit cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden text-sm font-medium text-stone-700 max-sm:min-h-11 dark:text-stone-300">
-                <ChevronRight
-                  className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-150 group-open:rotate-90 dark:text-stone-500"
-                  aria-hidden="true"
-                />
-                See this month&apos;s tasks
-              </summary>
-
               <ChecklistProvider>
-                <div className="mt-3 space-y-4">
+                <div className="space-y-4">
                   {/* Near-term work stays in view; everything further out
                       folds into collapsed groups so the card shows a handful
                       of tasks, not a wall. */}
@@ -1081,22 +1101,28 @@ export default async function HomePage(
                     .map((u) => (
                       // group/sub, not a bare `group`: this sits inside the
                       // "See this month's tasks" details, which is itself a
-                      // `group`. A bare group-open: on the chevron matched THAT
-                      // (always open while this is visible), so the arrow sat
-                      // pinned at 90 degrees and never turned.
-                      <details key={u} open={planOpen} className="group/sub">
-                        <summary
-                          // max-sm: "Later"/"Done" group header, ~16px tall at
-                          // 12px text before this.
-                          className={`focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm ${URGENCY_TONE[u]}`}
-                        >
-                          <ChevronRight
-                            className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open/sub:rotate-90"
-                            aria-hidden="true"
-                          />
-                          {URGENCY_LABEL[u]} ({groupedReminders[u].length})
-                        </summary>
-                        <ul className="mt-1 space-y-0.5">
+                      // `group`. A bare group variant on the chevron matched
+                      // THAT (always open while this is visible), so the
+                      // arrow sat pinned at 90 degrees and never turned.
+                      <AnimatedDetails
+                        key={u}
+                        defaultOpen={planOpen}
+                        className="group/sub"
+                        // max-sm: "Later"/"Done" group header, ~16px tall at
+                        // 12px text before this.
+                        summaryClassName={`focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm ${URGENCY_TONE[u]}`}
+                        summary={
+                          <>
+                            <ChevronRight
+                              className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-data-[shown=true]/sub:rotate-90"
+                              aria-hidden="true"
+                            />
+                            {URGENCY_LABEL[u]} ({groupedReminders[u].length})
+                          </>
+                        }
+                        contentClassName="pt-1"
+                      >
+                        <ul className="space-y-0.5">
                           {groupedReminders[u].map((t) => (
                             <ReminderItem
                               key={t.id}
@@ -1108,26 +1134,33 @@ export default async function HomePage(
                             />
                           ))}
                         </ul>
-                      </details>
+                      </AnimatedDetails>
                     ))}
 
                   {/* group/sub for the same reason as the Later/Done groups
                       above: nested inside another `group` details. */}
-                  <details open={planOpen || remindersTotal === 0} className="group/sub">
-                    <summary className="focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm text-stone-600 dark:text-stone-400">
-                      <ChevronRight
-                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-150 group-open/sub:rotate-90"
-                        aria-hidden="true"
-                      />
-                      Seasonal, {seasonLabel} ({SEASONAL_TASKS[season].length})
-                    </summary>
-                    <ul className="mt-1 space-y-0.5">
+                  <AnimatedDetails
+                    defaultOpen={planOpen || remindersTotal === 0}
+                    className="group/sub"
+                    summaryClassName="focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm text-stone-600 dark:text-stone-400"
+                    summary={
+                      <>
+                        <ChevronRight
+                          className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-data-[shown=true]/sub:rotate-90"
+                          aria-hidden="true"
+                        />
+                        Seasonal, {seasonLabel} ({SEASONAL_TASKS[season].length})
+                      </>
+                    }
+                    contentClassName="pt-1"
+                  >
+                    <ul className="space-y-0.5">
                       <SeasonalChecklist
                         period={monthKey}
                         tasks={SEASONAL_TASKS[season]}
                       />
                     </ul>
-                  </details>
+                  </AnimatedDetails>
                 </div>
               </ChecklistProvider>
 
@@ -1428,16 +1461,22 @@ export default async function HomePage(
           now sit at the top of /contractors on phone, right above the Post a
           job form they prefill. Desktop keeps this block exactly as it was. */}
       {isFirstVisit ? (
-        <details className="group space-y-3 max-sm:hidden">
-          <summary className="focus-ring flex w-fit cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden text-lg font-semibold text-stone-900 dark:text-stone-100">
-            <ChevronRight
-              className="h-5 w-5 shrink-0 text-stone-400 transition-transform duration-150 group-open:rotate-90 dark:text-stone-500"
-              aria-hidden="true"
-            />
-            Thinking about a project?
-          </summary>
+        <AnimatedDetails
+          className="group max-sm:hidden"
+          summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden text-lg font-semibold text-stone-900 dark:text-stone-100"
+          summary={
+            <>
+              <ChevronRight
+                className="h-5 w-5 shrink-0 text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-90 dark:text-stone-500"
+                aria-hidden="true"
+              />
+              Thinking about a project?
+            </>
+          }
+          contentClassName="space-y-3 pt-3"
+        >
           {projectChips}
-        </details>
+        </AnimatedDetails>
       ) : (
         <section className="space-y-3 max-sm:hidden">
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">

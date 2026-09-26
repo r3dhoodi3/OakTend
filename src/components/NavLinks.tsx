@@ -84,8 +84,9 @@ export default function NavLinks({
 }: {
   links: NavLink[];
   variant?: "top" | "bottom";
-  // Which brand accent marks the active/hover link: bark for the homeowner
-  // shell (Nav), OakTend for the pro shell (ProNav). Kept as a prop instead of
+  // Which brand accent marks the active/hover link. Both shells pass bark now
+  // (Nav and ProNav read as one product); the ember "oaktend" accent is kept
+  // as an option but no caller uses it. Kept as a prop instead of
   // reading the route so this component stays a plain rendering of whatever
   // it's handed. Full class strings are spelled out per accent below (not
   // interpolated) so Tailwind's compiler can see them.

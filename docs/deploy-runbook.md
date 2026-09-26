@@ -9,21 +9,23 @@ assistant can execute.
 ## Monthly cost at launch
 Vercel Pro $20 (Hobby ToS forbids commercial use, full stop) + Supabase Pro
 $25 (free tier PAUSES after 7 idle days and has zero backups) + Sentry free +
-Resend free + UptimeRobot free = ~$45/mo + Stripe's 2.9% + 30c per charge.
+SendGrid free + UptimeRobot free = ~$45/mo + Stripe's 2.9% + 30c per charge.
 
 ## Order of operations
 1. OWNER (do first, has lead time): buy domain; upgrade Vercel to Pro;
    upgrade the Supabase project (ref tubkvvfkwggaddcmcjqv) to Pro; START
    STRIPE LIVE-MODE VERIFICATION (business details + bank, can take days);
-   create Resend, Sentry, UptimeRobot accounts.
+   create SendGrid (under Twilio), Sentry, UptimeRobot accounts.
 2. Pre-deploy code fixes: DONE for the cron/widget middleware allowlist
    (2026-07-07). Still open: renumber the duplicate 0019/0020/0021 migration
    filenames before adopting the CLI workflow (order-sensitive: needs its own
    careful session, see below).
-3. Resend: verify the domain (DKIM/SPF DNS records at the registrar), create
-   an API key.
-4. Supabase custom SMTP: Project Settings -> Auth -> SMTP -> smtp.resend.com,
-   port 465, username "resend", password = Resend API key. Then raise the
+3. SendGrid: authenticate the domain (the DKIM/SPF DNS records it gives you,
+   at the registrar), then create an API key with the Mail Send scope only.
+   (Resend held this role until 2026-09-22 and still works as a fallback.)
+4. Supabase custom SMTP: Project Settings -> Auth -> SMTP -> smtp.sendgrid.net,
+   port 587, username the literal string "apikey", password = that same
+   SendGrid API key. Then raise the
    auth email rate limit (default sender allows ~2/hour: signups stall
    without this).
 5. Supabase Auth settings: Confirm email ON, secure email change ON, leaked
@@ -44,7 +46,7 @@ Resend free + UptimeRobot free = ~$45/mo + Stripe's 2.9% + 30c per charge.
    STRIPE_PRO_MONTHLY/_YEARLY_PRICE_ID, STRIPE_PRO_INTRO_COUPON_ID
    (optional), CRON_SECRET (Sensitive; this exact name makes Vercel attach
    it as the Bearer token on cron calls), ANTHROPIC_API_KEY (Sensitive),
-   RESEND_API_KEY (Sensitive), RESEND_FROM, RENTCAST_API_KEY (Sensitive,
+   SENDGRID_API_KEY (Sensitive), SENDGRID_FROM, RENTCAST_API_KEY (Sensitive,
    optional; free key at app.rentcast.io enables parcel pre-fill).
    Never set NEXT_DIST_DIR on Vercel. Leave Supabase vars OUT of Preview
    scope so preview deploys cannot touch the production database.
@@ -148,4 +150,4 @@ on 2026-08-19 - every migration now has a unique version prefix, so a
 
 ## Weekly 5-minute health check
 UptimeRobot red? Vercel cron runs all green? Stripe webhook failed
-deliveries? New Sentry issues? Supabase DB size + Resend bounce rate.
+deliveries? New Sentry issues? Supabase DB size + SendGrid bounce rate.

@@ -23,7 +23,21 @@ export type AlertRecipientRow = {
   email?: string | null;
   phone?: string | null;
   sms_consent?: boolean | null;
-  notification_prefs?: { email_opt_out?: boolean | null } | null;
+  // Carries BOTH the CAN-SPAM email_opt_out flag and this pro's own per-channel
+  // job-alert switches (src/lib/proAlertPrefs.ts). One jsonb column, one read.
+  notification_prefs?:
+    | ({ email_opt_out?: boolean | null } & ProAlertPrefsShape)
+    | null;
+};
+
+// Declared structurally rather than imported, so this module stays the
+// dependency-free decision layer described at the top of the file. The keys
+// and the default-on rule live in src/lib/proAlertPrefs.ts, which is where a
+// fourth channel would be added.
+type ProAlertPrefsShape = {
+  pro_alert_email?: boolean | null;
+  pro_alert_sms?: boolean | null;
+  pro_alert_push?: boolean | null;
 };
 
 // One recipient's resolved outbound plan: what sendOutboundChannels should be
@@ -41,6 +55,12 @@ export type AlertOutbound = {
   // on - the same outcome as its own lookup failing, which is what happened
   // before this was batched.
   emailOptOut: boolean | undefined;
+  // This pro's web-push switch. Push is not driven by a contact detail (it
+  // needs no address and no number), so unlike email and SMS it cannot be
+  // turned off by withholding something - sendOutboundChannels starts it
+  // before it even looks at the contact fields. It travels as its own flag and
+  // is honored there. True unless the pro explicitly switched it off.
+  push: boolean;
 };
 
 // Turns the batched users read into per-recipient outbound plans.
@@ -69,15 +89,36 @@ export function buildAlertOutbound(
   const out: AlertOutbound[] = [];
   for (const userId of userIds) {
     const row = opts.rowByUser.get(userId);
-    const email = row?.email ?? null;
-    const phone = opts.contactPhoneByUser.get(userId) ?? row?.phone ?? null;
-    if (!email && !phone) continue;
+    // This pro's own per-channel switches. Absent means ON - a pro who never
+    // opened the settings page still gets their leads, which is the product
+    // they signed up for. Only an explicit false turns a channel off.
+    const prefs = row?.notification_prefs;
+    const emailOn = prefs?.pro_alert_email !== false;
+    const smsOn = prefs?.pro_alert_sms !== false;
+    const pushOn = prefs?.pro_alert_push !== false;
+
+    // A switched-off channel is enforced by withholding the contact detail,
+    // which is the same mechanism the externalChannels gate above uses: there
+    // is then nothing for sendEmail or sendSms to send TO, so neither can fire
+    // however the downstream rules change. It also means a pro who turned off
+    // email keeps their bell row, because that was written by the bulk insert
+    // long before this function ran.
+    const email = emailOn ? row?.email ?? null : null;
+    const phone = smsOn
+      ? opts.contactPhoneByUser.get(userId) ?? row?.phone ?? null
+      : null;
+
+    // Dropped only when there is nothing to do on ANY of the three. Push needs
+    // neither an address nor a number, so a pro who turned off email and SMS
+    // but kept phone notifications must still reach this list.
+    if (!email && !phone && !pushOn) continue;
     out.push({
       userId,
       email,
       phone,
-      smsConsent: row?.sms_consent === true,
+      smsConsent: smsOn && row?.sms_consent === true,
       emailOptOut: row ? row.notification_prefs?.email_opt_out === true : undefined,
+      push: pushOn,
     });
   }
   return out;

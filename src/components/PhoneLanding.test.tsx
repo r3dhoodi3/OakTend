@@ -109,7 +109,7 @@ describe("PhoneLanding", () => {
     render(<PhoneLanding photos={PHOTOS} />);
     expect(
       // Level 2: the page's one h1 is the desktop hero's (src/app/page.tsx).
-      screen.getByRole("heading", { level: 2, name: "Your home, looked after." })
+      screen.getByRole("heading", { level: 2, name: "Your home looked after" })
     ).toBeInTheDocument();
     expect(screen.queryByText(/How it works/i)).toBeNull();
     expect(screen.queryByText(/What OakTend watches for you/i)).toBeNull();

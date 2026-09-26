@@ -117,11 +117,34 @@ function HouseMark({ className }: { className?: string }) {
     >
       <path d="M3 11.5 12 4l4 3.33V5.5h2.5v3.92L21 11.5" />
       <path d="M5 10.5V20h14v-9.5" />
-      <path
-        d="M12 17.8c1.8 0 3-1.2 3-2.8 0-1.9-1.7-2.6-2.2-4-.9.6-1 1.5-.9 2.2-.6-.2-1-.6-1.2-1.2-.9.8-1.7 1.9-1.7 3 0 1.6 1.2 2.8 3 2.8z"
-        fill="currentColor"
-        stroke="none"
-      />
+      {/* Sprout in the light green: the watermark sits on the dark stage. */}
+      <g className="text-sprout-300">
+        <path
+          d="M12 18.7C12.3 16.6 11.4 15 11.9 12.9 12.1 12 12.4 11.4 12.6 10.9"
+          stroke="currentColor"
+          strokeWidth="1.05"
+        />
+        <path
+          d="M11.75 15.30C11.88 13.99 9.92 13.07 8.63 13.50C8.90 14.83 10.68 16.07 11.75 15.30z"
+          fill="currentColor"
+          stroke="none"
+        />
+        <path
+          d="M12.00 14.00C13.19 14.90 15.32 13.53 15.71 12.03C14.24 11.51 11.92 12.51 12.00 14.00z"
+          fill="currentColor"
+          stroke="none"
+        />
+        <path
+          d="M12.35 11.70C13.33 11.76 13.98 10.27 13.62 9.32C12.63 9.55 11.75 10.92 12.35 11.70z"
+          fill="currentColor"
+          stroke="none"
+        />
+        <path
+          d="M12.20 12.00C12.48 11.29 11.56 10.52 10.79 10.59C10.72 11.36 11.49 12.28 12.20 12.00z"
+          fill="currentColor"
+          stroke="none"
+        />
+      </g>
     </svg>
   );
 }
@@ -139,7 +162,7 @@ function LockMark() {
 // The demo pages copy the LIVE pro app (see ProNav.tsx): the "OakTend for Pros"
 // wordmark, the four daily tabs (Leads, Messages, Clients, My Business), a
 // notification bell, and the company avatar. The nav sits on the real pro
-// shell's warm oaktend-50 fill, not the homeowner's white. Rendered at natural
+// shell's warm bark-50 fill, not the homeowner's white. Rendered at natural
 // size, then the page scales to fit the device, so every pixel matches the
 // production stylesheet.
 function ProAppNav({
@@ -159,9 +182,9 @@ function ProAppNav({
   return (
     // Tight spacing so the whole strip, company name included, always fits the
     // frame: nothing on the right edge may clip.
-    <header className="flex items-center gap-2 border-b border-stone-200/70 bg-oaktend-50 px-4 py-3">
+    <header className="flex items-center gap-2 border-b border-stone-200/70 bg-bark-50 px-4 py-3">
       <span className="flex shrink-0 items-center gap-1.5 text-lg font-semibold text-stone-900">
-        <Logo className="h-6 w-6 text-oaktend-700" /> OakTend{" "}
+        <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend{" "}
         <span className="font-normal text-stone-500">for Pros</span>
       </span>
       <span className="flex flex-1 items-center">
@@ -170,7 +193,7 @@ function ProAppNav({
             key={t}
             {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
             className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium ${
-              i === active ? "bg-oaktend-100 text-oaktend-800" : "text-stone-600"
+              i === active ? "bg-bark-100 text-bark-800" : "text-stone-600"
             }`}
           >
             {t}
@@ -193,7 +216,7 @@ function ProAppNav({
         <path d="M13.7 21a2 2 0 0 1-3.4 0" />
       </svg>
       <span className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-stone-700">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-oaktend-100 text-sm font-semibold text-oaktend-700">R</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">R</span>
         Rivera Plumbing <span className="text-[10px] text-stone-400">▾</span>
       </span>
     </header>
@@ -2533,7 +2556,7 @@ export default function ProDemoPlayer() {
                             <span data-x="applyNote"></span>
                           </span>
                         </div>
-                        <span className="text-xs font-medium text-oaktend-700" data-x="draftBtn">Draft it for me</span>
+                        <span className="text-xs font-medium text-bark-700" data-x="draftBtn">Draft it for me</span>
                         <p className="text-xs text-stone-500">
                           Applying, quoting, and messaging are always free. Hired? OakTend charges a
                           5% success fee, minimum $15.
@@ -2563,7 +2586,7 @@ export default function ProDemoPlayer() {
                   <h1 className="text-xl font-semibold text-stone-900">Messages</h1>
                   <div className="mt-3 grid grid-cols-[220px_1fr] gap-4">
                     <div className="card p-0">
-                      <div className="border-l-2 border-oaktend-500 bg-oaktend-50 px-4 py-3">
+                      <div className="border-l-2 border-bark-500 bg-bark-50 px-4 py-3">
                         <p className="text-sm font-semibold text-stone-900">Dana M. · Plumbing</p>
                         <p className="text-xs text-stone-500">Kitchen sink leak</p>
                       </div>
@@ -2605,7 +2628,7 @@ export default function ProDemoPlayer() {
               {/* ---------- End card (pro value prop + success-fee model) ---------- */}
               <div className={styles.page} data-page="endPage">
                 <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
-                  <Logo className="h-12 w-12 text-oaktend-700" />
+                  <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend for Pros</p>
                   <p className="text-sm text-stone-600">Win work in your trade.</p>
                   <p className="mt-1 text-sm text-stone-500">

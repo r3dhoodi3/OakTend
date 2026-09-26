@@ -116,7 +116,7 @@ export default async function DynamicCityPage(props: {
           ).replace(/</g, "\\u003c"),
         }}
       />
-      <CityLandingPage city={city} housingParagraph={HOUSING_PARAGRAPH} />
+      <CityLandingPage city={city} path={`/oc/${slug}`} housingParagraph={HOUSING_PARAGRAPH} />
     </>
   );
 }

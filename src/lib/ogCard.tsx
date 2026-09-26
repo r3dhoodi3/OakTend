@@ -7,9 +7,9 @@ import { ogFontOption } from "@/lib/ogFont";
 // corner, a bottom accent bar, real font via ogFontOption(). No gradients,
 // no glass, nothing dynamic to fetch, so every card here is a plain sync
 // render. Existing before this: src/app/opengraph-image.tsx (site default,
-// dark oaktend-600 background) and src/app/p/[id]/opengraph-image.tsx (per-pro
-// card, fetches data). This file exists so the guide/pricing/pros cards do
-// not each copy-paste the same JSX and palette 15 times.
+// same cream ground, centered mark) and src/app/p/[id]/opengraph-image.tsx
+// (per-pro card, fetches data). This file exists so the guide/pricing/pros
+// cards do not each copy-paste the same JSX and palette 15 times.
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
