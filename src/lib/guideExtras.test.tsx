@@ -182,6 +182,9 @@ describe("GUIDE_SOURCES", () => {
     "www.law.cornell.edu",
     "documents.coastal.ca.gov",
     "www.sanclemente.gov",
+    // New pages B, 2026-09-26 (home age data, rebates), each opened that day.
+    "www.census.gov",
+    "socalwatersmart.com",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -233,13 +236,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 20 guide pages", () => {
+describe("all 22 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(20);
+    expect(dirs).toHaveLength(22);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

@@ -22,6 +22,8 @@ import {
   // Added 2026-09-26 (new pages A).
   Warehouse,
   Waves,
+  History,
+  PiggyBank,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -169,6 +171,21 @@ const GUIDES = [
     title: "Orange County home maintenance checklist",
     blurb:
       "The month by month maintenance calendar for Orange County homes, how often to do each job, and links to every system guide: winds, first rains, salt air, hard water and termites.",
+  },
+  // New pages B, 2026-09-26.
+  {
+    href: "/guides/orange-county-home-age",
+    icon: History,
+    title: "How old are Orange County homes?",
+    blurb:
+      "Census figures for all 34 cities: the share of homes built before 1980, the median year built, and what each era means for wiring, pipes, lead paint and asbestos.",
+  },
+  {
+    href: "/guides/orange-county-home-rebates-2026",
+    icon: PiggyBank,
+    title: "Orange County home rebates in 2026",
+    blurb:
+      "SoCalGas, SCE, turf and water device rebates, the state heat pump programs and earthquake retrofit grants, each dated and reviewed every quarter.",
   },
 ];
 

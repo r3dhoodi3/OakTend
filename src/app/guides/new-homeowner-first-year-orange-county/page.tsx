@@ -211,7 +211,14 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
             foundation, look at Earthquake Brace + Bolt: the program says its
             retrofit is only done on wood-framed homes built before 1980 with
             a raised foundation, and it offers grants in eligible ZIP
-            codes.
+            codes. To see how your city&apos;s housing compares, look at{" "}
+            <Link
+              href="/guides/orange-county-home-age"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              how old Orange County homes are
+            </Link>
+            .
           </p>
         </section>
 
