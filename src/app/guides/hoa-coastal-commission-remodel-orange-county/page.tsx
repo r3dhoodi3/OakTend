@@ -75,20 +75,8 @@ const FAQS = [
     a: "If your association's governing documents require approval for the change, yes, and that is common for anything that changes the outside of the house. HOA approval is separate from the city building permit; one never replaces the other.",
   },
   {
-    q: "Can my HOA deny my remodel?",
-    a: "It can, but under Civil Code section 4765 not unreasonably, arbitrarily or against the law, and a denial must be in writing with a way to ask the board to reconsider. Rules that effectively prohibit an ADU, solar panels or an EV charger are void.",
-  },
-  {
     q: "Do I need a coastal development permit to remodel my house?",
     a: "Only if the house is in the coastal zone, and even then many improvements to an existing single-family home are exempt under Public Resources Code section 30610. Ask your city, because the local coastal program can differ.",
-  },
-  {
-    q: "Who issues coastal development permits in Orange County?",
-    a: "The city, where it has a certified local coastal program. Seal Beach and San Clemente do not, so the Coastal Commission issues coastal permits there.",
-  },
-  {
-    q: "How long does a coastal permit for an ADU take?",
-    a: "Since AB 462 took effect on October 10, 2025, the coastal development permit for an ADU has to be decided within 60 days of a complete application, alongside the city's own ADU review and without a public hearing.",
   },
 ];
 

@@ -100,7 +100,7 @@ describe("the guides section agrees with itself", () => {
 
   // The path each guide hands <GuideArticleJsonLd> is what keys into
   // GUIDE_DATES, so a typo there silently drops that guide's Article node.
-  it("renders an Article node on all 20, each with a path the map knows", () => {
+  it("renders an Article node on all 26, each with a path the map knows", () => {
     const found: string[] = [];
     for (const dir of guideRouteDirs()) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");

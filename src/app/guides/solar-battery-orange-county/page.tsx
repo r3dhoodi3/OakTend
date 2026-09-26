@@ -234,8 +234,8 @@ export default function SolarBatteryOrangeCountyGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             The Residential Clean Energy Credit covered 30 percent of the cost
-            of solar and of batteries of at least 3 kWh installed from 2022
-            through 2025. The IRS says it is not available for property placed
+            of solar installed from 2022 through 2025, and batteries of at
+            least 3 kWh from 2023. The IRS says it is not available for property placed
             in service after December 31, 2025. If a 2026 quote still
             subtracts it, ask the installer to explain in writing.
           </p>

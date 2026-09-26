@@ -2831,7 +2831,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.irs.gov/credits-deductions/residential-clean-energy-credit",
       label: "IRS: Residential Clean Energy Credit (page reviewed July 4, 2026)",
       supports:
-        "The credit was 30 percent of qualified costs, including batteries of at least 3 kWh, for property installed from 2022 through December 31, 2025, and is not available for property placed in service after December 31, 2025. Checked 2026-09-26.",
+        "The credit was 30 percent of qualified costs for solar installed from 2022 through December 31, 2025, and for batteries of at least 3 kWh from 2023; it is not available for property placed in service after December 31, 2025. Checked 2026-09-26.",
     },
   ],
 };

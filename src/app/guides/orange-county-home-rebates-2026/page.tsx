@@ -383,24 +383,13 @@ export default function OrangeCountyHomeRebatesGuide() {
             Can I get a grant for an earthquake retrofit?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Possibly, if you have a wood-framed house built before 1980 on a
-            raised foundation, in a ZIP code the program lists. The California
-            Residential Mitigation Program&apos;s Earthquake Brace + Bolt
-            grants pay up to $3,000. Households with an income of $94,480 or
-            less can get up to $7,000 more, which the program says may pay up
-            to the full cost. Registration opens for a limited time each year,
-            and as of {CHECKED_ON} the program had not posted 2026 dates.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Our{" "}
+            Possibly: Earthquake Brace + Bolt pays up to $3,000 toward
+            retrofitting an older raised-foundation house, and more for
+            income-qualified households; our{" "}
             <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
               earthquake retrofit guide
             </Link>{" "}
-            covers the work, the permit order and the insurance discount, and{" "}
-            <Link href="/guides/orange-county-home-age" className={linkClass}>
-              how old Orange County homes are
-            </Link>{" "}
-            shows the pre-1980 share by city.
+            covers who qualifies and how to apply.
           </p>
           <AsOf
             href="https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit"

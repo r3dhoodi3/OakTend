@@ -298,14 +298,12 @@ export default function OrangeCountyHomeAgeGuide() {
                 Built before 1980 on a raised foundation: earthquake retrofit
               </p>
               <p className="mt-1 text-sm">
-                The California Residential Mitigation Program&apos;s Earthquake
-                Brace + Bolt grants are only for wood-framed homes built before
-                1980 on a raised foundation, in the ZIP codes the program
-                lists. Our{" "}
+                These homes may qualify for an Earthquake Brace + Bolt grant;
+                see our{" "}
                 <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
                   earthquake retrofit guide
-                </Link>{" "}
-                covers the grant and the work.
+                </Link>
+                .
               </p>
             </li>
           </ul>

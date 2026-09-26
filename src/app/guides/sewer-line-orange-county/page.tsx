@@ -130,9 +130,11 @@ export default function SewerLineOrangeCountyGuide() {
           <p className="mt-2 leading-relaxed">
             Not the Orange County Sanitation District. OC San runs the large
             regional sewers and treatment plants, and says it is not a local
-            sewer provider. Your city is, except in Yorba Linda, Irvine, Tustin
-            and unincorporated areas, which have their own districts. Each
-            local provider decides where your part ends, and they differ:
+            sewer provider. OC San says your city is usually the local
+            provider, except in Yorba Linda, Irvine, Tustin and unincorporated
+            areas, and some cities are served by a sanitary district, such as
+            Costa Mesa&apos;s. Each local provider decides where your part
+            ends, and they differ:
           </p>
           <ul className="mt-3 space-y-2">
             {OWNERSHIP.map((o) => (

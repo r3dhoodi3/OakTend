@@ -78,20 +78,8 @@ const FAQS = [
     a: "A garage becomes an ADU only when it is turned into a separate home with complete independent living facilities. A garage turned into a bedroom, gym or office is not a unit, so the state ADU rules on parking, setbacks and approval deadlines do not cover it.",
   },
   {
-    q: "Do I have to replace my garage parking if I convert it to an ADU?",
-    a: "No. Government Code section 66314 bars a city from requiring replacement spaces when a garage is converted to an ADU or torn down to build one. A garage turned into an ordinary room follows your city's own parking rules.",
-  },
-  {
     q: "Can I convert my garage into a junior ADU?",
     a: "An attached garage, yes, because state law counts it as part of the house. A detached garage cannot, since a junior ADU has to be inside the house, but it can become a regular ADU.",
-  },
-  {
-    q: "How long does the city have to approve a garage ADU?",
-    a: "Under Government Code section 66317, 15 business days to say whether the application is complete, then 60 days to approve or deny it, with no public hearing. If it misses the 60 days, the application is deemed approved.",
-  },
-  {
-    q: "Is a garage conversion cheaper than a detached ADU?",
-    a: "Usually, because the walls, roof and foundation already exist. We found no published survey figure for garage conversions, so we do not print one.",
   },
 ];
 
@@ -128,21 +116,21 @@ const OPTIONS = [
     what: "A separate home with complete independent living facilities, in an attached or detached garage.",
     size: "Uses the existing shell. A detached garage may grow up to 150 square feet, only to fit an entry or exit.",
     parking: "No replacement parking for the lost garage spaces, and no parking for the ADU itself.",
-    approval: "Ministerial: no hearing, a decision within 60 days of a complete application.",
+    approval: "State approval clock (see below).",
   },
   {
     name: "Junior ADU",
     what: "A unit inside the house, which can include an attached garage. Can share a bathroom with the house.",
     size: "No more than 500 square feet of interior livable space. Own entrance and at least an efficiency kitchen.",
     parking: "No parking can be required, even when it is converted from an attached garage.",
-    approval: "Ministerial, 60 days. A city can require the owner to live on site only if it shares a bathroom with the house.",
+    approval: "State approval clock. A city can require the owner to live on site only if it shares a bathroom with the house.",
   },
   {
     name: "New detached ADU",
     what: "A new building on the lot, with its own foundation, roof and utility runs.",
     size: "A city must allow at least 800 square feet with 4 foot side and rear setbacks.",
     parking: "At most one space per unit or bedroom, and none within half a mile walk of public transit.",
-    approval: "Ministerial, 60 days, plus a demolition permit issued at the same time if it replaces a detached garage.",
+    approval: "State approval clock, plus a demolition permit issued at the same time if it replaces a detached garage.",
   },
 ];
 
@@ -196,8 +184,8 @@ export default function GarageConversionVsAduGuide() {
         <p className="mt-2 leading-relaxed text-stone-800 dark:text-stone-200">
           Turning a garage into a room is an ordinary remodel. Turning it into
           an ADU creates a second home on the lot, and California law then
-          protects you: no replacement parking, no new setbacks, and a city
-          decision within 60 days with no hearing. A junior ADU is a smaller
+          protects you: no replacement parking, no new setbacks, and a firm
+          approval deadline. A junior ADU is a smaller
           unit, up to 500 square feet, inside the house or an attached garage.
         </p>
       </div>
