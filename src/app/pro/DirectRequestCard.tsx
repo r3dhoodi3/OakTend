@@ -29,11 +29,8 @@ import JobPhotoStrip from "./JobPhotoStrip";
 import DirectRequestActions from "./DirectRequestActions";
 import {
   SEVERITY_STYLE,
-  money,
-  feeGlanceLabel,
   qualityChips,
   scopeChips,
-  introFeeFor,
 } from "@/lib/proLeadCard";
 
 // One "Asked for you" card: a homeowner reached out to this pro directly.
@@ -45,8 +42,6 @@ import {
 // either got touched. Same markup, same classes, same fee math.
 export default function DirectRequestCard({
   d,
-  balance,
-  hasPaidMajor,
   hasCurrentInsurance = true,
   postedAgoLabel,
 }: {
@@ -54,11 +49,6 @@ export default function DirectRequestCard({
   // live-priced fee. Untyped for the same reason the board is - the RPC's
   // shape is not in the generated types.
   d: any;
-  // The pro's spendable wallet balance in dollars, for the can-afford branch.
-  balance: number;
-  // Has this pro ever paid for a big-ticket lead? Decides whether the one-time
-  // intro price applies. Computed once per page from my_applications.
-  hasPaidMajor: boolean;
   // Whether this pro has current insurance on file (big-job gate, migration
   // 0153). Defaults to true so a call site that has not been wired yet shows
   // the unlock button and the server-side gate still refuses - never the
@@ -68,17 +58,15 @@ export default function DirectRequestCard({
   // usable created_at, exactly as the helper returns.
   postedAgoLabel: string | null;
 }) {
-  const normalFee = Number(d.fee_cents ?? 0) / 100;
-  const introFee = introFeeFor(d.category, normalFee, hasPaidMajor);
-  const fee = introFee ?? normalFee;
-  const feeStr = money(fee);
+  // The fee math (base price, the one-time big-ticket intro, the formatted
+  // string) stood here. Accepting a direct request is free as of migration
+  // 0172, so the card prices nothing.
   const chips = qualityChips(d);
   const scope = scopeChips(d);
   const budgetLabel =
     d.budget_range && d.budget_range !== "not-sure"
       ? labelFor(BUDGET_RANGES, d.budget_range)
       : null;
-  const feeGlance = feeGlanceLabel(fee, feeStr);
   const glanceLine2 = [
     d.timing ? labelFor(TIMING_OPTIONS, d.timing) : null,
     d.city ? `in ${d.city}` : null,
@@ -166,9 +154,6 @@ export default function DirectRequestCard({
             <span className="min-w-0 flex-1 font-medium text-stone-900 dark:text-stone-100">
               {labelFor(JOB_CATEGORIES, d.category)}
             </span>
-            <span className="shrink-0 text-sm font-semibold text-stone-700 [font-variant-numeric:tabular-nums] dark:text-stone-300">
-              {feeGlance}
-            </span>
           </div>
           {glanceLine2 && (
             <p className="mt-0.5 truncate text-xs text-stone-500 dark:text-stone-400">
@@ -195,22 +180,9 @@ export default function DirectRequestCard({
               {d.issue_severity}
             </span>
           )}
-          <span className="ml-auto flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
-            {introFee !== null && (
-              <span className="chip border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-                First big-ticket lead
-              </span>
-            )}
-            <span className="[font-variant-numeric:tabular-nums]">
-              Unlock fee{" "}
-              {introFee !== null && (
-                <span className="text-stone-500 line-through dark:text-stone-400">
-                  {money(normalFee)}
-                </span>
-              )}{" "}
-              {feeStr}
-            </span>
-          </span>
+          {/* "Unlock fee $50", its struck-through base and the
+              first-big-ticket chip filled the right of this row. Accepting a
+              direct request is free as of migration 0172. */}
         </div>
       </div>
 
@@ -247,16 +219,10 @@ export default function DirectRequestCard({
 
       <DirectRequestActions
         leadId={d.id}
-        fee={feeStr}
-        feeCents={Math.round(fee * 100)}
         // Big-job insurance gate (0153): a major-tier request cannot be
         // unlocked without current insurance on file, so the actions row
-        // swaps the pay button for the requirement (Pass stays available).
+        // swaps the Accept button for the requirement (Pass stays available).
         insuranceRequired={isMajorCategory(d.category ?? "") && !hasCurrentInsurance}
-        canAfford={balance >= fee}
-        billingHref={`/pro/billing?need=${Math.max(0, fee - balance).toFixed(
-          2
-        )}&category=${encodeURIComponent(d.category ?? "")}`}
       />
     </li>
   );

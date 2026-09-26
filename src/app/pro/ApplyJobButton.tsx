@@ -1,40 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { markPushMoment } from "@/lib/pushPrompt";
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { Sparkles } from "lucide-react";
 import InlineSpinner from "@/components/InlineSpinner";
-import BillingLegalLine from "@/components/BillingLegalLine";
 import { applyToJobAction } from "./actions";
 import {
   readComposeDraft,
   saveComposeDraftDebounced,
   clearComposeDraft,
 } from "@/lib/proComposeDraft";
-import { LEAD_TIER_FEES } from "@/lib/constants";
-import type { LeadDiscountKind } from "@/lib/leadPricing";
-import {
-  ghostProtectionGuaranteeRich,
-  firstApplicationGuaranteeRich,
-  creditNotCashLineRich,
-} from "@/lib/guaranteeCopy";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 
-// Submit button for the "Confirm and pay" form below. Needs its own
-// component because useFormStatus only reports pending state inside a
-// descendant of the <form> it belongs to, not the component rendering the
-// form itself.
-function ConfirmPayButton({ fee }: { fee: string }) {
+// Submit button for the confirm form below. Needs its own component because
+// useFormStatus only reports pending state inside a descendant of the <form>
+// it belongs to, not the component rendering the form itself.
+function SendApplicationButton() {
   const { pending } = useFormStatus();
-    // A pro paying for a lead is exactly the moment the push prompt is allowed
-    // to appear: they now have money on a job and want to know the second the
+    // Applying to a job is exactly the moment the push prompt is allowed to
+    // appear: the pro now has a bid in and wants to know the second the
     // homeowner replies. markPushMoment only stamps localStorage; the prompt
     // itself decides whether to ask (see src/lib/pushPrompt.ts). Fired on the
     // tap rather than on a success callback because this is a plain server-
-    // action form with no client success state - a rare failed charge means at
-    // worst one prompt shown a moment early.
+    // action form with no client success state - a rare failure means at worst
+    // one prompt shown a moment early.
   return (
     <button
       type="submit"
@@ -43,7 +33,7 @@ function ConfirmPayButton({ fee }: { fee: string }) {
       className="btn-primary flex-1 text-sm"
     >
       {pending && <InlineSpinner />}
-      Confirm and pay {fee}
+      Send application
     </button>
   );
 }
@@ -77,55 +67,28 @@ function quickApplyTemplates(category: string): { label: string; text: string }[
   ];
 }
 
-// Apply to an open job. Applying charges the per-category fee from the wallet,
-// so it always takes an explicit confirmation first (and lets the pro add a note
-// to the homeowner). If the wallet can't cover the fee, it points to billing.
+// Apply to an open job.
+//
+// APPLYING IS FREE as of migration 0172 - OakTend takes 5% of a paid invoice
+// instead of charging per lead. Everything this component used to carry about
+// money is gone with it: the price on the button, the struck-through
+// member/aging/intro discounts, the "Pro members pay $X" line, the
+// insufficient-balance branch that sent a pro to the deposit page, the
+// ghost-protection credit-back promise, and the Cal. B&P 17538 pre-purchase
+// disclosure (there is no purchase left to disclose).
+//
+// The confirm step STAYS. It is not a payment gate any more - it is where the
+// pro writes the note the homeowner actually reads, which is the whole of what
+// wins a job now.
 export default function ApplyJobButton({
   leadId,
-  fee,
-  feeCents,
-  canAfford,
   category,
-  introPrice = false,
-  baseFee = null,
-  discountKind = null,
-  memberQuoteStr = null,
-  billingHref = "/pro/billing",
 }: {
   leadId: string;
-  fee: string;
-  // True when the price on this card is the one-time first big-ticket intro
-  // (migration 0113), so the confirm step can say plainly that the next
-  // big-ticket lead costs the normal price. Nothing gates on it - the DB
-  // re-derives the real price under the wallet lock at charge time.
-  introPrice?: boolean;
-  // The displayed fee in cents, posted to the action so it can refuse to
-  // charge when the live price has climbed above what this card showed
-  // (e.g. the first big-ticket intro was consumed in another tab). Optional:
-  // without it the action simply skips that guard.
-  feeCents?: number;
-  canAfford: boolean;
   // Job category label (already resolved via labelFor on the board), used to
   // personalize the quick-apply templates. Optional so nothing breaks if a
   // caller doesn't have it handy; the templates just fall back to "this".
   category?: string;
-  // Pre-markdown fee, already money()-formatted, shown struck through above
-  // the confirm price when a member or aging discount (or the intro price)
-  // applies. Null when the card is charging the plain base fee.
-  baseFee?: string | null;
-  // Which single discount priced this card (migration 0149) - never two at
-  // once. Drives the "Pro" chip and the " with Pro" suffix on the confirm
-  // price; null renders neither.
-  discountKind?: LeadDiscountKind;
-  // "Pro members pay $X", already money()-formatted, for a NON-member on a
-  // lead where membership would actually beat the price shown. Null hides
-  // the quiet line entirely - see memberQuoteStr in
-  // src/app/pro/leads/page.tsx for why it is sometimes null even for a
-  // non-member (membership would not have helped THIS lead).
-  memberQuoteStr?: string | null;
-  // Billing link carrying job context (?need=&category=) so the deposit page
-  // can say what the funds are for and preselect an amount that covers it.
-  billingHref?: string;
 }) {
   const [confirming, setConfirming] = useState(false);
   const [message, setMessage] = useState("");
@@ -221,27 +184,20 @@ export default function ApplyJobButton({
     }
   }
 
-  if (!canAfford) {
-    return (
-      <Link href={billingHref} className="btn-primary text-sm">
-        Add funds to apply ({fee})
-      </Link>
-    );
-  }
-
   if (!confirming) {
     return (
       <button
         type="button"
         onClick={() => setConfirming(true)}
         // Usage analytics: the lead card's Apply button, which OPENS the
-        // confirm step rather than spending the fee. The pro_apply event
+        // confirm step rather than sending anything. The pro_apply event
         // (server-side) counts the applications that actually completed, so
-        // these two together show how many pros back out at the fee.
+        // these two together show how many pros open the note box and never
+        // send it.
         data-track="lead_apply"
         className="btn-primary text-sm"
       >
-        Apply · {fee}
+        Apply
       </button>
     );
   }
@@ -254,9 +210,6 @@ export default function ApplyJobButton({
       className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-900"
     >
       <input type="hidden" name="id" value={leadId} />
-      {Number.isFinite(feeCents) && (
-        <input type="hidden" name="fee_cents" value={feeCents} />
-      )}
       <div className="flex flex-wrap gap-1.5">
         {quickApplyTemplates(category || "this").map((t) => (
           <button
@@ -335,81 +288,13 @@ export default function ApplyJobButton({
           </button>
         </div>
       )}
-      {/* Price line at the moment of confirm, same discount rule the board's
-          card already showed (never two discounts at once, migration 0149):
-          the struck-through base, a "Pro" chip and " with Pro" when the
-          member discount is what is being charged, or the quiet
-          "Pro members pay $X" line for a non-member on a lead where
-          membership would actually beat this price. This is the same
-          feeCents the RPC will charge - see the "Applying charges" line
-          right below, which prints the identical `fee` string. */}
-      {baseFee && (
-        <p className="text-xs text-stone-600 dark:text-stone-300">
-          <span className="text-stone-400 line-through dark:text-stone-500">
-            {baseFee}
-          </span>{" "}
-          <strong>
-            {fee}
-            {discountKind === "member" && " with Pro"}
-          </strong>
-          {discountKind === "member" && (
-            <span className="chip ml-1 border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-              Pro
-            </span>
-          )}
-          {/* B5: the struck-through base price with no stated reason is what
-              reads as a mystery discount. "intro" is the biggest cut of the
-              three (a $99 major lead at $49.99), so it gets said out loud
-              here too, not only on the board card. */}
-          {discountKind === "intro" && (
-            <span className="chip ml-1 border border-bark-200 bg-bark-50 font-semibold text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300">
-              Your first big-ticket lead
-            </span>
-          )}
-          {discountKind === "aging" && (
-            <span className="chip ml-1 border border-amber-200 bg-amber-100 font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-              Unclaimed-job discount
-            </span>
-          )}
-        </p>
-      )}
-      {memberQuoteStr && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
-          <Link
-            href="/pro/plus?reason=leads"
-            className="underline hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:hover:text-stone-300"
-          >
-            Pro members pay {memberQuoteStr}
-          </Link>
-        </p>
-      )}
-      {/* The fee amount and the credit-back words are bolded on request: a pro
-          skimming this card should not be able to miss that a lost bid comes
-          back as wallet credit, never a cash refund. The *Rich helpers bold
-          exact substrings of the same canonical sentences ActivityList.tsx
-          and LeadsBoard.tsx render plain, so the wording itself never drifts
-          (see src/lib/guaranteeCopy.ts). */}
-      <p className="text-xs text-stone-500 dark:text-stone-400">
-        Applying charges the <strong>{fee}</strong> lead fee from your
-        wallet.{" "}
-        {ghostProtectionGuaranteeRich()} {firstApplicationGuaranteeRich()}{" "}
-        {creditNotCashLineRich()}
-      </p>
-      {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to
-          the refund policy, shown on the same screen as the "Confirm and
-          pay" button before the fee is actually charged. */}
-      <BillingLegalLine />
-      {/* Said at the moment of the charge, not after it: the price on this
-          card is a one-time thing, and a pro deciding whether to spend it
-          deserves to know what the next one costs. LEAD_TIER_FEES.major is
-          the same constant the board and the DB price from, so this line can
-          never quote a number the wallet would not actually charge. */}
-      {introPrice && (
-        <p className="text-xs font-medium text-bark-700 dark:text-stone-300">
-          This is your one-time first big-ticket price - after this apply,
-          big-ticket leads are ${LEAD_TIER_FEES.major}.
-        </p>
-      )}
+      {/* The price line, the discount chips, the "Pro members pay $X" nudge,
+          the sentence naming the per-lead charge and its ghost-protection
+          credit-back promise, the Cal. B&P 17538
+          pre-purchase disclosure and the one-time big-ticket intro note all
+          stood here. Applying is free (migration 0172), so every one of them
+          described a charge that no longer happens. Nothing replaces them: a
+          free action does not need a price explained. */}
       <div className="flex gap-2">
         <button
           type="button"
@@ -418,7 +303,7 @@ export default function ApplyJobButton({
         >
           Cancel
         </button>
-        <ConfirmPayButton fee={fee} />
+        <SendApplicationButton />
       </div>
     </form>
   );

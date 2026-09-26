@@ -110,23 +110,23 @@ describe("pro lead card phone density (0128)", () => {
     expect(openJobCard.indexOf("Applicant count:")).toBeGreaterThan(openDetailsClose);
   });
 
-  it("does not touch fee math, sorting, or wallet-balance checks", () => {
-    // bestLeadDiscount (migration 0149) replaced the direct agingLeadFee
-    // call: it prices the SAME aging markdown, plus the Pro member discount,
-    // taking whichever is bigger. See src/lib/leadPricing.ts.
-    expect(page).toContain("bestLeadDiscount(");
-    expect(page).toContain("walletQueryPlan(");
-    // The sort itself moved into the board on 2026-08-30 (a tap re-sorts the
-    // rows the browser already has instead of navigating), but the page still
-    // reads which order the URL asked for and both sides share one comparator
-    // module. See src/lib/leadSort.ts and its test.
+  // This pinned the fee math, the wallet-balance check and the price sort.
+  // All three went with migration 0172 (applying is free), so the assertion
+  // inverts: the page must no longer price anything or read a balance, while
+  // the sort plumbing it shares with the board stays wired for the next sort
+  // somebody adds.
+  it("prices nothing and reads no wallet balance", () => {
+    expect(page).not.toContain("bestLeadDiscount(");
+    expect(page).not.toContain("walletQueryPlan(");
+    expect(page).not.toContain("canAfford");
+    expect(page).not.toContain(".from(\"wallets\")");
+    expect(page).not.toContain(".from(\"bonus_grants\")");
+    expect(openJobCard).not.toContain("canAfford");
+    // The sort module is still the one place the order lives, shared by the
+    // server's first paint and the client's re-sort.
     expect(page).toContain("normalizeLeadSort(searchParams?.sort)");
     expect(board).toContain('from "@/lib/leadSort"');
     expect(board).toContain("sortLeads(openJobs, activeSort)");
-    // Still the same comparison, resolved on the server and handed to the
-    // Apply button as a boolean.
-    expect(page).toContain("canAfford: balance >= fee");
-    expect(openJobCard).toContain("canAfford={j.canAfford}");
   });
 
   it("keeps the desktop header (sm and up) rendering the original category/severity/fee row unchanged", () => {
@@ -140,26 +140,22 @@ describe("pro lead card phone density (0128)", () => {
     // "15% off, aging deal", so it reads the same whichever of the two
     // discounts actually won) - agingDealPhrase is that chip.
     expect(openJobCard).toContain("Name matches public record");
-    expect(openJobCard).toContain("agingDealPhrase(j.postedAgoLabel)");
-    expect(directRequestCard).toContain("First big-ticket lead");
+    // The aging-deal chip and the first-big-ticket chip were both price
+    // labels; migration 0172 removed the price they labelled.
+    expect(openJobCard).not.toContain("agingDealPhrase");
+    expect(directRequestCard).not.toContain("First big-ticket lead");
   });
 
-  it("gives the phone glance line a category+fee row and a fallback for a missing/zero fee", () => {
-    // feeGlanceLabel moved to src/lib/proLeadCard.ts when the card became a
-    // component two pages share; the rule it encodes is unchanged.
-    const helpers = src("../../../lib/proLeadCard.ts");
-    expect(helpers).toContain(
-      "export function feeGlanceLabel(fee: number, feeStr: string): string {"
-    );
-    expect(helpers).toContain('return "Free";');
-    expect(helpers).toContain('return "New lead";');
+  // The phone glance line opened with the fee, falling back to "Free" or "New
+  // lead" when a card had none. Applying is free as of migration 0172, so the
+  // fee slot is gone and the line carries timing and city only.
+  it("keeps the phone glance line, now with no fee slot", () => {
     for (const card of [directRequestCard, openJobCard]) {
       expect(card).toContain('<div className="sm:hidden">');
-      expect(card).toMatch(/\{feeGlance\}|\{j\.feeGlance\}/);
       expect(card).toContain("glanceLine2");
+      expect(card).not.toContain("feeGlance");
     }
-    // The glance line itself is still built the same way, now on the server.
-    expect(page).toContain("feeGlance: feeGlanceLabel(fee, feeStr),");
+    expect(page).not.toContain("feeGlanceLabel");
   });
 });
 
@@ -197,8 +193,17 @@ describe("pro leads: heading row", () => {
     // different "this is the deal" pitches on the same board.)
     const sortLib = src("../../../lib/leadSort.ts");
     expect(sortLib).toContain('{ value: "new", label: "Newest" }');
-    expect(sortLib).toContain('{ value: "fee", label: "Cheapest fee" }');
+    // "Cheapest fee" went with the fee itself (migration 0172), leaving one
+    // option - so the board renders the control only while there are two. The
+    // module still explains the removal in prose, so this reads the OPTIONS
+    // array rather than the whole file.
+    const options = sortLib.slice(
+      sortLib.indexOf("LEAD_SORT_OPTIONS"),
+      sortLib.indexOf("normalizeLeadSort")
+    );
+    expect(options).not.toContain("Cheapest fee");
     expect(board).toContain("{LEAD_SORT_OPTIONS.map((o) => (");
+    expect(board).toContain("LEAD_SORT_OPTIONS.length > 1");
   });
 
   it("keeps the sort buttons at a 44px phone target, with a pressed state", () => {
@@ -270,11 +275,12 @@ describe("pro leads: board only, chrome removed", () => {
     }
   });
 
-  it("shrinks the low-funds banner to one compact line instead of a card with a button", () => {
-    expect(board).not.toContain("earn bonus credit");
-    expect(board).not.toContain("<Link href=\"/pro/billing\" className=\"btn-primary shrink-0\">");
-    expect(board).toContain("Low on funds.");
-    expect(board).toContain("to keep applying.");
+  // The low-funds banner is gone entirely: there is no balance to run out of
+  // now that applying is free (migration 0172).
+  it("has no low-funds banner and no route to the retired deposit page", () => {
+    expect(board).not.toContain("Low on funds.");
+    expect(board).not.toContain("lowBalance");
+    expect(board).not.toContain("/pro/billing");
   });
 
   it("keeps every section the board itself needs", () => {
@@ -291,9 +297,10 @@ describe("pro leads: board only, chrome removed", () => {
   it("no longer fetches the applications/transactions rows the results card needed", () => {
     expect(page).not.toContain('.from("lead_applications")');
     expect(page).not.toContain('.from("wallet_transactions")');
-    // The grants read (spendable-bonus cap) is still needed for the Apply
-    // button's canAfford math, so walletQueryPlan itself stays.
-    expect(page).toContain("walletQueryPlan(");
+    // The wallet and bonus-grant reads that fed the balance went too: with
+    // nothing to spend, there is nothing to count.
+    expect(page).not.toContain("walletQueryPlan(");
+    expect(page).not.toContain('.from("wallets")');
   });
 });
 
@@ -358,11 +365,11 @@ describe("pro leads stays one client component with plain-data props", () => {
   });
 
   it("resolves everything clock- or locale-dependent on the server", () => {
-    // bestLeadDiscount, introFeeFor and postedAgo all read Date.now().
-    // Recomputing them during hydration could disagree with what SSR
-    // printed, which is the mismatch class this whole change exists to
-    // remove.
-    for (const helper of ["bestLeadDiscount(", "introFeeFor(", "postedAgo("]) {
+    // postedAgo reads Date.now(); recomputing it during hydration could
+    // disagree with what SSR printed, which is the mismatch class this whole
+    // change exists to remove. bestLeadDiscount and introFeeFor were the other
+    // two until migration 0172 removed every price from this page.
+    for (const helper of ["postedAgo("]) {
       expect(page).toContain(helper);
       expect(board).not.toContain(helper);
     }
