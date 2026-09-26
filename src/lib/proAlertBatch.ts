@@ -84,7 +84,19 @@ export function buildAlertOutbound(
     contactPhoneByUser: ReadonlyMap<string, string>;
   }
 ): AlertOutbound[] {
-  if (!opts.externalChannels) return [];
+  // externalChannels false (migration 0093: the posting home is not
+  // ownership-verified) withholds the two channels that COST something and
+  // can be aimed at somebody - email and SMS. It used to return nothing at
+  // all, which took web PUSH down with them as collateral: sendOutboundChannels
+  // is never called for a recipient this function drops, and push is the one
+  // channel with no per-message cost, no carrier, no address to harvest and
+  // no way to reach anyone who has not already installed OakTend and granted
+  // permission in their own browser. None of the fan-out-cannon reasoning
+  // applies to it. (The rare bulk-insert-failed path in proAlerts.ts already
+  // pushed in this case, so the two paths disagreed.)
+  //
+  // So an unverified posting now reaches a matched pro's bell row and their
+  // lock screen, and still sends them no email and no text.
 
   const out: AlertOutbound[] = [];
   for (const userId of userIds) {
@@ -103,10 +115,12 @@ export function buildAlertOutbound(
     // however the downstream rules change. It also means a pro who turned off
     // email keeps their bell row, because that was written by the bulk insert
     // long before this function ran.
-    const email = emailOn ? row?.email ?? null : null;
-    const phone = smsOn
-      ? opts.contactPhoneByUser.get(userId) ?? row?.phone ?? null
-      : null;
+    const email =
+      opts.externalChannels && emailOn ? row?.email ?? null : null;
+    const phone =
+      opts.externalChannels && smsOn
+        ? opts.contactPhoneByUser.get(userId) ?? row?.phone ?? null
+        : null;
 
     // Dropped only when there is nothing to do on ANY of the three. Push needs
     // neither an address nor a number, so a pro who turned off email and SMS
@@ -116,7 +130,8 @@ export function buildAlertOutbound(
       userId,
       email,
       phone,
-      smsConsent: smsOn && row?.sms_consent === true,
+      smsConsent:
+        opts.externalChannels && smsOn && row?.sms_consent === true,
       emailOptOut: row ? row.notification_prefs?.email_opt_out === true : undefined,
       push: pushOn,
     });
