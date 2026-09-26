@@ -243,7 +243,7 @@ describe("landing page, what OakTend is", () => {
     ).toHaveAttribute("href", "/about");
   });
 
-  it("links to all 12 guides on every width", async () => {
+  it("links to all 20 guides on every width", async () => {
     await renderLanding();
     const section = screen
       .getByRole("heading", { level: 2, name: "Home maintenance guides" })
@@ -252,7 +252,7 @@ describe("landing page, what OakTend is", () => {
     const hrefs = within(section)
       .getAllByRole("link")
       .map((a) => a.getAttribute("href"));
-    expect(GUIDE_LINKS).toHaveLength(12);
+    expect(GUIDE_LINKS).toHaveLength(20);
     for (const guide of GUIDE_LINKS) {
       expect(hrefs).toContain(guide.href);
     }

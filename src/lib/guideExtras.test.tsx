@@ -105,8 +105,8 @@ describe("GUIDE_RELATED", () => {
     expect(
       screen.getByRole("link", { name: "All Orange County cities" })
     ).toHaveAttribute("href", "/oc");
-    // No verified sources for this guide, so no Sources heading at all.
-    expect(screen.queryByRole("heading", { name: "Sources" })).toBeNull();
+    // Every guide has verified sources since 2026-09-21, this one included.
+    expect(screen.getByRole("heading", { name: "Sources" })).toBeInTheDocument();
   });
 });
 
@@ -119,7 +119,52 @@ describe("GUIDE_SOURCES", () => {
     "leginfo.legislature.ca.gov",
     "www.energystar.gov",
     "www.usfa.fema.gov",
+    // Added 2026-09-21, each opened that day (see the guide sources report).
+    "www.irwd.com",
+    "www.ocwd.com",
+    "www.nachi.org",
+    "www.federalregister.gov",
+    "www.energy.ca.gov",
+    "www.fema.gov",
+    "www.cslb.ca.gov",
+    "www.jlconline.com",
+    "forecast.weather.gov",
+    "pda.energydataweb.com",
+    "www.pecanstreet.org",
+    "censusreporter.org",
+    "pwds.oc.gov",
+    "www.epa.gov",
+    "ipm.ucanr.edu",
+    "cityofirvine.gov",
+    "www.fountainvalley.gov",
+    "www.yorbalindaca.gov",
+    "ggcity.org",
+    "santa-ana.gov",
+    "www.newportbeachca.gov",
+    "www.usgs.gov",
+    "www.mesawater.org",
+    "smwd.com",
+    "www.ylwd.com",
+    "etwd.com",
+    "www.tustinca.org",
+    "www.huduser.gov",
+    "www.pestboard.ca.gov",
+    "www.socalgas.com",
+    "ocfa.org",
+    "www.sce.com",
+    "www.earthquakeauthority.com",
+    "www.crmp.org",
+    "octreasurer.gov",
+    "www.ocassessor.gov",
+    // Added 2026-09-25 for the Zone 0 status on the wildfire guide.
+    "www.bbklaw.com",
+    "www.publicceo.com",
+    "oal.ca.gov",
   ];
+
+  it("lists sources for all 12 guides", () => {
+    expect(Object.keys(GUIDE_SOURCES).sort()).toEqual([...GUIDES].sort());
+  });
 
   it("only lists sources for real guides", () => {
     for (const path of Object.keys(GUIDE_SOURCES)) {
@@ -166,13 +211,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 12 guide pages", () => {
+describe("all 20 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(12);
+    expect(dirs).toHaveLength(20);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

@@ -28,9 +28,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Slab leak signs: how to spot one early";
+const TITLE = "Slab leak signs in Orange County homes: spot one early";
 const DESCRIPTION =
-  "The early warning signs of a slab leak, why older Orange County homes are prone to them, repair options, and when it's an emergency.";
+  "Early signs of a slab leak, why 1960s and 1970s Orange County homes are prone to them, a two-hour water meter test, repair options, and when to act.";
 const CANONICAL = `${SITE_URL}/guides/slab-leak-signs`;
 
 export const metadata: Metadata = {
@@ -69,6 +69,10 @@ const FAQS = [
   {
     q: "Is a slab leak an emergency?",
     a: "Treat it as an emergency if you see active water pooling, water is coming up through the flooring, or you can't stop the flow at your main shutoff valve. A slow leak with just a warm spot and a rising water bill is worth addressing quickly, but it usually isn't a same-hour emergency the way active flooding is.",
+  },
+  {
+    q: "How can I check for a slab leak myself?",
+    a: "Use your water meter. The EPA's WaterSense program suggests reading the meter, using no water at all for two hours, and reading it again: if the number changed, you probably have a leak somewhere. It also says that if a family of four uses more than 12,000 gallons in a winter month, there could be a serious leak. The test does not tell you where the leak is, so a plumber still has to locate it.",
   },
 ];
 
@@ -112,20 +116,20 @@ export default function SlabLeakSignsGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Slab leak signs: how to spot one early" },
+          { label: "Slab leak signs in Orange County homes: spot one early" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Slab leak signs: how to spot one early" , href: CANONICAL },
+          { name: "Slab leak signs in Orange County homes: spot one early", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Slab leak signs: how to spot one early
+        Slab leak signs in Orange County homes: spot one early
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
@@ -155,31 +159,89 @@ export default function SlabLeakSignsGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Why older Orange County homes are prone to this
+            In Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
-            Much of Orange County, from Fountain Valley and Huntington Beach
-            to Garden Grove, Anaheim, and Santa Ana, was built out during
-            the 1960s and 1970s, when it was standard practice to run copper
-            water supply lines directly through the concrete slab rather than
-            through walls or an attic. Copper pipe from that era is now well
-            past a typical plumbing system&apos;s working life, and decades of
-            direct contact with concrete and soil, along with the normal
-            expansion and contraction of the pipe, make corrosion and
-            pinhole leaks more likely than in homes with more accessible
-            plumbing. It&apos;s a pattern of the era and construction method, not
-            a reflection of how well any individual home has been cared for.
+            Age is why this guide exists. The Census Bureau&apos;s 2024
+            American Community Survey puts about 12 percent of Orange
+            County&apos;s housing units in the 1950s, 19 percent in the 1960s,
+            and 22 percent in the 1970s, so about half the county&apos;s homes
+            are now roughly 50 to 75 years old. In the tract homes of those
+            decades, from Fountain Valley and Huntington Beach to Garden
+            Grove, Anaheim, and Santa Ana, copper water lines were commonly
+            run under or through the concrete slab rather than through walls
+            or an attic.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            See what OakTend offers homeowners in{" "}
-            <Link href="/fountain-valley" className="text-bark-700 hover:underline dark:text-stone-300">
+          <p className="mt-2 leading-relaxed">
+            InterNACHI&apos;s life expectancy chart gives copper water lines
+            50 to 70 years, so original pipe from the 1960s is now inside that
+            window. Decades of contact with concrete and soil, along with the
+            normal expansion and contraction of a hot water line, make pinhole
+            leaks more likely than in homes with more accessible plumbing.
+            It&apos;s a pattern of the era and the construction method, not a
+            reflection of how well any one home has been cared for.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Our city pages are a starting point:{" "}
+            <Link
+              href="/fountain-valley"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
               Fountain Valley
-            </Link>{" "}
-            or{" "}
-            <Link href="/huntington-beach" className="text-bark-700 hover:underline dark:text-stone-300">
+            </Link>
+            ,{" "}
+            <Link
+              href="/huntington-beach"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
               Huntington Beach
             </Link>
+            ,{" "}
+            <Link
+              href="/oc/garden-grove"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Garden Grove
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/westminster"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Westminster
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/cypress"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Cypress
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
             .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Check your water meter
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            You can test for a hidden leak before calling anyone. The
+            EPA&apos;s WaterSense program suggests reading your water meter,
+            using no water at all for two hours, and reading it again. If the
+            number changed, you probably have a leak somewhere. WaterSense
+            also says that if a family of four uses more than 12,000 gallons
+            in a winter month, there could be a serious leak. The test does
+            not tell you where the leak is, so a plumber still has to locate
+            it, but it tells you whether the warm spot or the high bill is
+            worth chasing.
           </p>
         </section>
 

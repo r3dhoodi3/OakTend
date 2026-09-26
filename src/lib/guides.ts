@@ -58,6 +58,14 @@ export const GUIDE_PATHS = [
   "/guides/is-my-contractor-quote-fair",
   "/guides/contractor-deposit-rules-california",
   "/guides/socal-home-maintenance-calendar",
+  "/guides/permits-orange-county",
+  "/guides/hard-water-orange-county",
+  "/guides/slab-leak-repair-orange-county",
+  "/guides/repipe-orange-county",
+  "/guides/termites-orange-county",
+  "/guides/santa-ana-wind-wildfire-home-prep",
+  "/guides/new-homeowner-first-year-orange-county",
+  "/guides/orange-county-home-maintenance-checklist",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -80,6 +88,16 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/contractor-deposit-rules-california":
     "How much can a contractor ask for up front?",
   "/guides/socal-home-maintenance-calendar": "SoCal home maintenance calendar",
+  "/guides/permits-orange-county": "Building permits in Orange County",
+  "/guides/hard-water-orange-county": "Hard water in Orange County",
+  "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
+  "/guides/repipe-orange-county": "Repiping a house in Orange County",
+  "/guides/termites-orange-county": "Termites in Orange County",
+  "/guides/santa-ana-wind-wildfire-home-prep":
+    "Santa Ana wind and wildfire prep",
+  "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
+  "/guides/orange-county-home-maintenance-checklist":
+    "Orange County home maintenance checklist",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -92,54 +110,86 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-03" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-21" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-08",
+    dateModified: "2026-09-21",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/home-maintenance-schedule": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-21",
   },
   "/guides/socal-home-maintenance-calendar": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-03",
+    dateModified: "2026-09-21",
+  },
+  "/guides/permits-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/hard-water-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/slab-leak-repair-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/repipe-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/termites-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/santa-ana-wind-wildfire-home-prep": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-25",
+  },
+  "/guides/new-homeowner-first-year-orange-county": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
+  },
+  "/guides/orange-county-home-maintenance-checklist": {
+    datePublished: "2026-09-20",
+    dateModified: "2026-09-20",
   },
 };
 
