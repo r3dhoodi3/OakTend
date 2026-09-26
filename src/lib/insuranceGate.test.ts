@@ -22,7 +22,14 @@ import {
 
 const repoFile = (rel: string) =>
   fileURLToPath(new URL(`../../${rel}`, import.meta.url));
-const read = (rel: string) => readFileSync(repoFile(rel), "utf8");
+// Line endings normalised on the way in. The repo is checked out CRLF
+// (core.autocrlf=true), so a multi-line expected string written with a plain
+// newline in this file could never match the file as READ - which is exactly
+// why the SQL pins below had been failing. Normalising at the one door fixes
+// every assertion at once and costs nothing: no test here cares which line
+// ending a source file happens to use.
+const read = (rel: string) =>
+  readFileSync(repoFile(rel), "utf8").split("\r\n").join("\n");
 
 // Dates far enough from today that these tests never flip on a real clock.
 const FUTURE = "2099-01-01";
@@ -133,25 +140,52 @@ describe("migration 0153: the SQL backstop", () => {
   const GATE =
     "if v_category in ('roof', 'structural', 'remodeling')\n     and (v_insurance_expires is null or v_insurance_expires < current_date) then\n    raise exception 'Insurance required for big jobs';";
 
+  // 0153 ADDED this gate; migration 0173 took it out again. Both statements
+  // are true of their own file, so 0153 is still pinned as the historical
+  // record (it is what a reader diffing the two will compare against), and
+  // the LIVE behaviour is pinned against 0173 below.
   for (const fn of ["apply_to_lead", "unlock_direct_request"]) {
-    it(`${fn} carries the gate, after its idempotent return and before the wallet`, () => {
+    it(`${fn} carried the gate when 0153 introduced it`, () => {
       const body = bodyOf(sql, fn);
       expect(body).toContain(GATE);
-      // The raise text is exactly what the actions match on.
       expect(body).toContain(`'${INSURANCE_GATE_SQL_ERROR}'`);
-      // The gate sits AFTER the idempotent already-paid return (a pro who
-      // already holds the lead keeps getting true) and BEFORE the wallet is
-      // even resolved (a refusal moves no money).
-      const idempotent = body.indexOf("return true;");
-      const gate = body.indexOf("raise exception 'Insurance required");
-      const wallet = body.indexOf("get_or_create_wallet");
-      expect(idempotent).toBeGreaterThan(-1);
-      expect(gate).toBeGreaterThan(idempotent);
-      expect(wallet).toBeGreaterThan(gate);
-      // The expiry is read off the caller's own contractors row.
-      expect(body).toContain("insurance_expires");
     });
   }
+
+  // What is actually live. The gate refused roof / structural / remodeling
+  // applications unless insurance_expires was a date today or later - a date
+  // the contractor typed themselves, never checked against a carrier. It
+  // implied a verification OakTend does not do, and was stricter than CSLB,
+  // which does not require the coverage for most licence types. The fact is
+  // disclosed to the homeowner on the applicant card instead.
+  describe("migration 0173: the gate is gone", () => {
+    const latest = read("supabase/migrations/0173_no_insurance_gate.sql");
+
+    for (const fn of ["apply_to_lead", "unlock_direct_request"]) {
+      it(`${fn} no longer refuses a big job over insurance`, () => {
+        const body = bodyOf(latest, fn);
+        expect(body).not.toContain(GATE);
+        expect(body).not.toContain(`raise exception '${INSURANCE_GATE_SQL_ERROR}'`);
+        // The column is not even read any more.
+        expect(body).not.toContain("v_insurance_expires");
+      });
+    }
+
+    // Removing one guard must not quietly remove its neighbours.
+    it("keeps every other guard of apply_to_lead", () => {
+      const body = bodyOf(latest, "apply_to_lead");
+      for (const guard of [
+        "if public.has_open_chargeback(v_contractor) then",
+        "raise exception 'Confirm the cities you serve in your profile before applying to jobs';",
+        "raise exception 'You cannot apply to your own job.';",
+        "using hint = 'internal_account'",
+        "public.blocked_between(auth.uid(), v_owner)",
+        "raise exception 'Already working with this homeowner';",
+      ]) {
+        expect(body, guard).toContain(guard);
+      }
+    });
+  });
 
   it("keeps every pre-existing guard of 0149's apply_to_lead verbatim", () => {
     const body = bodyOf(sql, "apply_to_lead");
@@ -183,26 +217,23 @@ describe("migration 0153: the SQL backstop", () => {
   // applied to the live database and removed from the repo.
 });
 
-describe("the actions carry the same gate (source pin)", () => {
+// Both server actions carried a friendly pre-check that refused a big job
+// before the RPC, mirroring the SQL gate. Both are gone with it (0173). The
+// inverse is what matters now: nothing in the apply or unlock path may refuse
+// over insurance, or the UI would promise something the action still blocks.
+describe("the actions no longer gate on insurance", () => {
   const actions = read("src/app/pro/actions.ts");
 
-  it("applyToJobAction gates before the RPC and translates the SQL backstop", () => {
-    const gate = actions.indexOf(
-      "majorLeadInsuranceGate(\n        ((leadClosedCheck as any)?.category"
-    );
-    const rpc = actions.indexOf('rpc("apply_to_lead"');
-    expect(gate).toBeGreaterThan(-1);
-    expect(rpc).toBeGreaterThan(gate);
-    expect(actions).toContain("isInsuranceGateSqlError(error.message)");
+  it("neither action pre-checks insurance or translates the old SQL raise", () => {
+    expect(actions).not.toContain("majorLeadInsuranceGate(");
+    expect(actions).not.toContain("isInsuranceGateSqlError");
+    expect(actions).not.toContain("INSURANCE_REQUIRED_MESSAGE");
   });
 
-  it("unlockDirectRequestAction gates before its RPC too", () => {
-    const gate = actions.indexOf(
-      "majorLeadInsuranceGate(\n      (leadRow?.category"
-    );
-    const rpc = actions.indexOf('rpc("unlock_direct_request"');
-    expect(gate).toBeGreaterThan(-1);
-    expect(rpc).toBeGreaterThan(gate);
+  // The guards that are NOT about insurance have to survive the removal.
+  it("keeps the self-apply and closed-job refusals", () => {
+    expect(actions).toContain("You cannot apply to your own job.");
+    expect(actions).toContain('rpc("apply_to_lead"');
   });
 });
 
@@ -213,10 +244,22 @@ describe("/pro-terms: the insurance and venue clause (source pin)", () => {
   // {{BRAND}}, not the literal word.
   const terms = fillLegalTokens(read("src/content/legal/pro-terms.md"));
 
+  // The OBLIGATION on the pro stays - carrying insurance is still a term of
+  // using OakTend. What went (migration 0173) is the claim that OakTend
+  // enforces it by withholding big jobs, which stopped being true when the
+  // gate was removed. A terms document that describes a gate the product does
+  // not have is worse than no clause at all.
   it("requires liability insurance covering injury and property damage", () => {
     expect(terms).toContain("carry appropriate liability insurance");
     expect(terms).toContain("bodily injury and property damage");
-    expect(terms).toContain("requires current proof of insurance");
+  });
+
+  it("no longer claims OakTend withholds jobs over insurance", () => {
+    expect(terms).not.toContain("requires current proof of insurance");
+    expect(terms).not.toContain("may withhold access to those jobs");
+    expect(terms).toContain("{{BRAND}} does not enforce it for you".replace("{{BRAND}}", "OakTend"));
+    // And it still says who the question actually sits with.
+    expect(terms).toContain("matters between you and that homeowner");
   });
 
   it("states the venue relationship and sole responsibility", () => {

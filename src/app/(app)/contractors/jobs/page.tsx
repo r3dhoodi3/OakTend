@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { insuranceLine } from "@/lib/insuranceDisclosure";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -389,7 +390,7 @@ export default async function YourJobsPage(
         (supabase as any)
           .from("lead_applications")
           .select(
-            "id, lead_id, contractor_id, message, created_at, status, refunded_at, contractors(name, rating, review_count, service_area, license_number, license_verified_at, logo_url)"
+            "id, lead_id, contractor_id, message, created_at, status, refunded_at, contractors(name, rating, review_count, service_area, license_number, license_verified_at, logo_url, insurance_carrier, insurance_expires)"
           )
           .in("lead_id", leadIds)
           // Newest application first. There is no applicant cap (migration
@@ -1060,6 +1061,46 @@ export default async function YourJobsPage(
                                       alarming - states the fact, not a flag. */}
                                   <span className="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs font-medium text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
                                     No license listed
+                                  </span>
+                                </p>
+                              )}
+                              {/* INSURANCE: DISCLOSED, NOT GATED (migration
+                                  0173). Applying to a big job used to be
+                                  refused without a current insurance date.
+                                  That gate checked a date the contractor
+                                  typed themselves - no carrier was ever
+                                  contacted - so it implied a verification
+                                  OakTend never did, while turning away
+                                  licensed pros over a standard CSLB does not
+                                  set. The fact belongs here instead: with
+                                  the homeowner, at the moment they choose,
+                                  which is the only point where it can change
+                                  anything.
+
+                                  NEVER AN "Insured" BADGE. The sub-line
+                                  saying the pro provided it and OakTend did
+                                  not check it is the whole point - a bare
+                                  green tick would recreate the same implied
+                                  vetting the gate was removed for. The
+                                  absent case is stated out loud rather than
+                                  left silent, because silence reads as "not
+                                  applicable" and it is the line that makes a
+                                  homeowner ask the question. */}
+                              {insuranceLine(a.contractors) ? (
+                                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
+                                  {insuranceLine(a.contractors)}
+                                  <span className="block text-stone-500 dark:text-stone-400">
+                                    Provided by the pro, not verified by
+                                    OakTend. Ask for a certificate before work
+                                    starts.
+                                  </span>
+                                </p>
+                              ) : (
+                                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
+                                  No insurance on file
+                                  <span className="block text-stone-500 dark:text-stone-400">
+                                    Ask this pro for proof of insurance before
+                                    you hire.
                                   </span>
                                 </p>
                               )}

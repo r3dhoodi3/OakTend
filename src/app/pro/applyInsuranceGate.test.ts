@@ -157,83 +157,53 @@ beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
 });
 
-describe("applyToJobAction: big-job insurance gate", () => {
-  it("major tier + no insurance: refused with the specific message, and the charge RPC is never called", async () => {
-    contractor.insurance_expires = null;
-    await applyToJobAction(applyForm());
-    expect(setFlash).toHaveBeenCalledWith(INSURANCE_REQUIRED_MESSAGE, "error");
-    expect(chargeRpcCalls()).toEqual([]);
-  });
+// This file used to prove the gate REFUSED: major tier with no insurance, or
+// an expired date, never reached the RPC. Migration 0173 removed the gate -
+// it read a date the contractor typed themselves, so it implied a check
+// OakTend never made, and it was stricter than CSLB, which does not require
+// the coverage for most licence types. The homeowner is shown what is on file
+// on the applicant card instead and decides for themselves.
+//
+// So the same four cases are pinned inverted: every one of them now reaches
+// the RPC. If a gate is ever reintroduced anywhere in this path, these fail.
+describe("applyToJobAction: insurance never blocks an apply", () => {
+  for (const [label, expires] of [
+    ["nothing on file", null],
+    ["an expired policy", PAST],
+    ["a current policy", FUTURE],
+  ] as const) {
+    it(`a major-tier job goes through with ${label}`, async () => {
+      contractor.insurance_expires = expires;
+      await applyToJobAction(applyForm());
+      expect(chargeRpcCalls()).toEqual(["apply_to_lead"]);
+      expect(setFlash).toHaveBeenCalledWith(
+        expect.stringContaining("Applied."),
+        "success"
+      );
+    });
+  }
 
-  it("major tier + expired insurance: refused the same way", async () => {
-    contractor.insurance_expires = PAST;
-    await applyToJobAction(applyForm());
-    expect(setFlash).toHaveBeenCalledWith(INSURANCE_REQUIRED_MESSAGE, "error");
-    expect(chargeRpcCalls()).toEqual([]);
-  });
-
-  it("major tier + valid insurance: the apply goes through", async () => {
-    contractor.insurance_expires = FUTURE;
-    await applyToJobAction(applyForm());
-    expect(chargeRpcCalls()).toEqual(["apply_to_lead"]);
-    expect(setFlash).not.toHaveBeenCalledWith(
-      INSURANCE_REQUIRED_MESSAGE,
-      "error"
-    );
-    expect(setFlash).toHaveBeenCalledWith(
-      expect.stringContaining("Applied."),
-      "success"
-    );
-  });
-
-  it("light tier + no insurance: stays ungated", async () => {
+  it("a light-tier job is unaffected, as it always was", async () => {
     contractor.insurance_expires = null;
     leadRow = { ...leadRow, category: "cleaning" };
     await applyToJobAction(applyForm());
     expect(chargeRpcCalls()).toEqual(["apply_to_lead"]);
-    expect(setFlash).not.toHaveBeenCalledWith(
-      INSURANCE_REQUIRED_MESSAGE,
-      "error"
-    );
-  });
-
-  it("pre-read failed, SQL backstop fired: the raw raise is translated into the friendly message", async () => {
-    // The advisory pre-check could not read the lead (fail-open, so the RPC
-    // still runs), and the database's own 0153 gate refused. The pro must see
-    // the same friendly copy, never the raw Postgres text.
-    contractor.insurance_expires = null;
-    leadRow = null;
-    leadReadError = { code: "57014", message: "canceling statement" };
-    rpcResult = {
-      data: null,
-      error: { message: "Insurance required for big jobs" },
-    };
-    await applyToJobAction(applyForm());
-    expect(chargeRpcCalls()).toEqual(["apply_to_lead"]);
-    expect(setFlash).toHaveBeenCalledWith(INSURANCE_REQUIRED_MESSAGE, "error");
   });
 });
 
-describe("unlockDirectRequestAction: big-job insurance gate", () => {
-  it("major-tier direct request + no insurance: refused before any charge", async () => {
-    contractor.insurance_expires = null;
-    await unlockDirectRequestAction(applyForm());
-    expect(setFlash).toHaveBeenCalledWith(INSURANCE_REQUIRED_MESSAGE, "error");
-    expect(chargeRpcCalls()).toEqual([]);
-  });
-
-  it("major-tier direct request + valid insurance: the unlock proceeds to the RPC", async () => {
-    contractor.insurance_expires = FUTURE;
-    // A successful unlock ends in redirect() into the chat, which the mock
-    // turns into a throw - that marker IS the proof the action ran past the
-    // gate all the way to its normal end.
-    await expect(unlockDirectRequestAction(applyForm())).rejects.toThrow(
-      /REDIRECT:\/pro\/chats/
-    );
-    expect(chargeRpcCalls()).toEqual(["unlock_direct_request"]);
-    expect(setFlash).not.toHaveBeenCalledWith(
-      INSURANCE_REQUIRED_MESSAGE,
-      "error"
-    );
-  });
+describe("unlockDirectRequestAction: insurance never blocks an unlock", () => {
+  for (const [label, expires] of [
+    ["nothing on file", null],
+    ["a current policy", FUTURE],
+  ] as const) {
+    it(`a major-tier direct request proceeds with ${label}`, async () => {
+      contractor.insurance_expires = expires;
+      // A successful unlock ends in a redirect into the new chat, which the
+      // next/navigation mock throws - so reaching the throw IS the pass.
+      await expect(
+        unlockDirectRequestAction(applyForm())
+      ).rejects.toThrow(/REDIRECT:/);
+      expect(chargeRpcCalls()).toEqual(["unlock_direct_request"]);
+    });
+  }
 });

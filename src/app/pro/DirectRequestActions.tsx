@@ -10,10 +10,6 @@ import {
   declineDirectRequestAction,
 } from "./actions";
 import { GHOST_PROTECTION_DAYS } from "@/lib/constants";
-import {
-  INSURANCE_REQUIRED_MESSAGE,
-  INSURANCE_UPLOAD_HREF,
-} from "@/lib/insuranceGate";
 
 // Submit button for the unlock confirm form. Needs its own component because
 // useFormStatus only reports pending state inside a descendant of the <form>
@@ -57,36 +53,15 @@ function PassButton() {
 // first, same as ApplyJobButton.
 export default function DirectRequestActions({
   leadId,
-  insuranceRequired = false,
 }: {
   leadId: string;
-  // Big-job insurance gate (0153): true when this is a major-tier request
-  // and the pro has no current insurance on file. Swaps the unlock button
-  // for the requirement; the server action and the RPC refuse the same case.
-  insuranceRequired?: boolean;
 }) {
   const [confirming, setConfirming] = useState(false);
 
-  if (insuranceRequired) {
-    return (
-      <div className="space-y-2">
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-          <span>{INSURANCE_REQUIRED_MESSAGE}</span>
-          <Link
-            href={INSURANCE_UPLOAD_HREF}
-            className="font-medium underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
-          >
-            Add insurance
-          </Link>
-        </div>
-        {/* Passing is free and needs no insurance, so it stays available. */}
-        <form action={declineDirectRequestAction}>
-          <input type="hidden" name="id" value={leadId} />
-          <PassButton />
-        </form>
-      </div>
-    );
-  }
+  // An insuranceRequired early return stood here, swapping Accept for a
+  // "proof of insurance required" notice on roof / structural / remodeling
+  // requests. Removed with the gate itself (migration 0173) - the homeowner
+  // sees what is on file and decides.
 
   if (confirming) {
     return (

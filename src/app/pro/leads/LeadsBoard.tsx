@@ -39,10 +39,6 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import AnimatedDetails from "@/components/AnimatedDetails";
 import OpenChatButton from "@/components/OpenChatButton";
-import {
-  INSURANCE_REQUIRED_MESSAGE,
-  INSURANCE_UPLOAD_HREF,
-} from "@/lib/insuranceGate";
 import ApplyJobButton from "../ApplyJobButton";
 import DirectRequestCard from "../DirectRequestCard";
 import JobStatusSelect from "../JobStatusSelect";
@@ -252,7 +248,6 @@ export default function LeadsBoard({
               <DirectRequestCard
                 key={d.id}
                 d={d.row}
-                hasCurrentInsurance={insuranceCurrent}
                 postedAgoLabel={d.postedAgoLabel}
               />
             ))}
@@ -594,31 +589,17 @@ export default function LeadsBoard({
                         label="Message them instead"
                       />
                     </div>
-                  ) : j.insuranceRequired ? (
-                    // Big-job insurance gate (0153): no pay button at all
-                    // when the requirement is not met, so a pro is told
-                    // BEFORE typing a message or confirming a charge. The
-                    // server action and the apply_to_lead RPC both refuse
-                    // this same case, this card just says it first. Same
-                    // card anatomy as the relationship-conflict notice above.
-                    <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-                      <span>{INSURANCE_REQUIRED_MESSAGE}</span>
-                      <Link
-                        href={INSURANCE_UPLOAD_HREF}
-                        className="font-medium underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
-                      >
-                        Add insurance
-                      </Link>
-                    </div>
                   ) : (
                     <>
-                      {/* On a big job the requirement is stated even when it
-                          is met, so the rule is never a surprise the first
-                          time a certificate lapses. */}
+                      {/* The gate that refused this apply without a current
+                          insurance date is gone (migration 0173). What is on
+                          file is shown to the HOMEOWNER on the applicant card
+                          instead, so this says what they will see rather than
+                          standing in the way. */}
                       {j.bigJob && (
                         <p className="text-xs text-stone-500 dark:text-stone-400">
-                          Big job: proof of insurance required. Yours is on
-                          file.
+                          Big job. Homeowners can see whether you have
+                          insurance on file.
                         </p>
                       )}
                       {/* Applying is free (migration 0172), so the fee, the

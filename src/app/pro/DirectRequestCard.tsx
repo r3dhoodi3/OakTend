@@ -42,18 +42,12 @@ import {
 // either got touched. Same markup, same classes, same fee math.
 export default function DirectRequestCard({
   d,
-  hasCurrentInsurance = true,
   postedAgoLabel,
 }: {
   // The row my_direct_requests hands back: masked, contact-free fields plus a
   // live-priced fee. Untyped for the same reason the board is - the RPC's
   // shape is not in the generated types.
   d: any;
-  // Whether this pro has current insurance on file (big-job gate, migration
-  // 0153). Defaults to true so a call site that has not been wired yet shows
-  // the unlock button and the server-side gate still refuses - never the
-  // other way around (a wrongly hidden button on a covered pro).
-  hasCurrentInsurance?: boolean;
   // postedAgo(d.created_at), resolved on the server. Null when there is no
   // usable created_at, exactly as the helper returns.
   postedAgoLabel: string | null;
@@ -219,10 +213,6 @@ export default function DirectRequestCard({
 
       <DirectRequestActions
         leadId={d.id}
-        // Big-job insurance gate (0153): a major-tier request cannot be
-        // unlocked without current insurance on file, so the actions row
-        // swaps the Accept button for the requirement (Pass stays available).
-        insuranceRequired={isMajorCategory(d.category ?? "") && !hasCurrentInsurance}
       />
     </li>
   );

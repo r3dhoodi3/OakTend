@@ -313,7 +313,6 @@ export default function HomeView({
                 <DirectRequestCard
                   key={d.id}
                   d={d.row}
-                  hasCurrentInsurance={insuranceCurrent}
                   // Resolved on the server, not in the card: this line reads
                   // the clock, so it has to be settled there or hydration
                   // could disagree with SSR.

@@ -61,9 +61,6 @@ import {
 import { recordTermsAcceptance } from "@/app/(auth)/recordTermsAcceptance";
 import { LEGAL } from "@/lib/legal";
 import {
-  majorLeadInsuranceGate,
-  isInsuranceGateSqlError,
-  INSURANCE_REQUIRED_MESSAGE,
 } from "@/lib/insuranceGate";
 import { selectLaunchCities } from "./onboarding/launchCities";
 import { trackServerEvent } from "@/lib/trackServer";
@@ -2364,30 +2361,12 @@ export async function applyToJobAction(formData: FormData) {
     // Best-effort: on a read hiccup, fall through to the RPC as before.
   }
 
-  // Big-job insurance gate (migration 0153): a major-tier lead needs current
-  // proof of insurance on file before any fee is spent. Placed AFTER the
-  // replay guard above on purpose, so a pro who already holds this lead still
-  // gets the honest "already applied" instead of an insurance error, and
-  // BEFORE the membership reads and the RPC so a refused apply costs nothing.
-  // Reuses the category the owner_closed_at pre-check already read, so this
-  // costs no extra query. Fails OPEN when that read failed (category
-  // unknown): this pre-check is the friendly early refusal, and the SQL gate
-  // inside apply_to_lead is the enforcement that cannot be skipped - the
-  // isInsuranceGateSqlError branch below translates that backstop.
-  const insuranceGateMessage = leadClosedError
-    ? null
-    : majorLeadInsuranceGate(
-        ((leadClosedCheck as any)?.category as string | null) ?? null,
-        ((contractor as any).insurance_expires as string | null) ?? null
-      );
-  if (insuranceGateMessage) {
-    await setFlash(insuranceGateMessage, "error");
-    revalidatePath("/pro");
-    // Home and the Leads board both read this data now, so both have to be
-    // dropped or one of the two tabs shows a stale count.
-    revalidatePath(PRO_LEADS_HREF);
-    return;
-  }
+  // A big-job insurance pre-check stood here, refusing roof / structural /
+  // remodeling applications unless insurance_expires was current. Removed
+  // with the SQL gate it mirrored (migration 0173): it read a date the
+  // contractor typed themselves, so it implied a verification OakTend never
+  // performed, and it was stricter than CSLB. The homeowner sees what is on
+  // file on the applicant card and decides.
 
   const supabase = (await createClient()) as any;
 
@@ -2444,11 +2423,6 @@ export async function applyToJobAction(formData: FormData) {
       // the pre-check above catches this first; this covers a failed
       // pre-check read or a direct RPC call). Same friendly copy either way.
       await setFlash("You cannot apply to your own job.", "error");
-    } else if (isInsuranceGateSqlError(error.message)) {
-      // The 0153 backstop inside apply_to_lead fired (normally the pre-check
-      // above catches this first; this covers a failed pre-check read or a
-      // direct RPC call). Same friendly copy, never the raw Postgres text.
-      await setFlash(INSURANCE_REQUIRED_MESSAGE, "error");
     } else {
       console.error("applyToJobAction: apply_to_lead failed:", error);
       await setFlash("Couldn't apply just now. Please try again.", "error");
@@ -2577,27 +2551,8 @@ export async function unlockDirectRequestAction(formData: FormData) {
 
   const supabase = (await createClient()) as any;
 
-  // Big-job insurance gate (migration 0153), same rule as applyToJobAction:
-  // unlocking a major-tier direct request is taking a big job, so it needs
-  // current insurance on file too. Skipped on the idempotent repeat unlock
-  // (the pro already paid and holds the lead), and fails OPEN when the
-  // pre-read above hiccuped (leadRow null, category unknown) - the SQL gate
-  // inside unlock_direct_request is the enforcement either way, and the
-  // isInsuranceGateSqlError branch below translates its refusal.
-  if (!alreadyUnlocked) {
-    const insuranceGateMessage = majorLeadInsuranceGate(
-      (leadRow?.category as string | null) ?? null,
-      ((contractor as any).insurance_expires as string | null) ?? null
-    );
-    if (insuranceGateMessage) {
-      await setFlash(insuranceGateMessage, "error");
-      revalidatePath("/pro");
-      // Home and the Leads board both read this data now, so both have to be
-      // dropped or one of the two tabs shows a stale count.
-      revalidatePath(PRO_LEADS_HREF);
-      return;
-    }
-  }
+  // The same big-job insurance pre-check applyToJobAction carried stood
+  // here. Removed with the gate (migration 0173).
 
   // Stale-tab price guard (staleDisplayedFeeError above): if the live price
   // is now HIGHER than the fee this confirm form displayed (typically the
@@ -2627,18 +2582,7 @@ export async function unlockDirectRequestAction(formData: FormData) {
   if (error) {
     // Raw Postgres text names our tables, columns and constraints, so it's
     // logged server-side and the pro sees a plain generic instead. The one
-    // exception is the 0153 insurance backstop, which gets its own friendly
-    // copy (normally the pre-check above catches it first; this covers a
-    // failed pre-read or a direct RPC call).
     console.error("unlockDirectRequestAction: unlock_direct_request failed:", error);
-    if (isInsuranceGateSqlError(error.message)) {
-      await setFlash(INSURANCE_REQUIRED_MESSAGE, "error");
-      revalidatePath("/pro");
-      // Home and the Leads board both read this data now, so both have to be
-      // dropped or one of the two tabs shows a stale count.
-      revalidatePath(PRO_LEADS_HREF);
-      return;
-    }
     await setFlash("Couldn't unlock this request just now. Please try again.", "error");
     revalidatePath("/pro");
   // Home and the Leads board both read this data now, so both have to be
