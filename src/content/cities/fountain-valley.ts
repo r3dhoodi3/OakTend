@@ -25,7 +25,7 @@ export const fountainValley: CityContent = {
   name: "Fountain Valley",
   slug: "fountain-valley",
   intro:
-    "Fountain Valley incorporated in 1957 with about 2,000 residents and then grew more than 1,400 percent in the following decade, which is why so much of the city reads as one continuous stretch of 1960s and 1970s tract housing. Homes of that era are well past the point where original plumbing runs, panels and roofing are still original by design rather than by luck. The city sits a few miles back from the Huntington Beach coastline, so marine air reaches it without a beachfront's constant salt load, and it sits directly over the Orange County groundwater basin on water hard enough to scale a water heater.",
+    "Fountain Valley incorporated in 1957, counted about 2,000 residents in the 1960 Census and then grew more than 1,400 percent by 1970, which is why so much of the city reads as one continuous stretch of 1960s and 1970s tract housing. Homes of that era are well past the point where original plumbing runs, panels and roofing are still original by design rather than by luck. The city sits a few miles back from the Huntington Beach coastline, so marine air reaches it without a beachfront's constant salt load, and it sits directly over the Orange County groundwater basin on water hard enough to scale a water heater.",
   metaDescription:
     "Fountain Valley went from farmland to built out in one decade. What that shared build age means for permits, hard water, and repairs.",
   metaTitle: "Fountain Valley: a city built in a single decade",

@@ -21,6 +21,14 @@ import type { CityContent } from "./types";
 // And "seven wells" was stale: Mesa Water's 2026 Consumer Confidence Report
 // (2025 data) says the groundwater is pumped "via Mesa Water's nine wells",
 // and that report is now the water source link.
+//
+// PERMIT CHECK 2026-09-25. The old permit source (the city's general forms
+// page) now returns "Page Not Found", and two claims rested only on it or on
+// inference: that application data must be typed straight into TESSA, and
+// that an Insta-Permit skips plan review. Both are gone. The permit card and
+// FAQ now cite the city's Insta-Permit page, which lists water heater (tank
+// only, no tankless conversion or re-pipe) and HVAC (single-family, no
+// roof-top equipment) Insta-Permits with contractor and owner-builder tracks.
 
 export const costaMesa: CityContent = {
   name: "Costa Mesa",
@@ -85,9 +93,8 @@ export const costaMesa: CityContent = {
     office: "City of Costa Mesa Building Safety Division",
     portalUrl: "https://permits.costamesaca.gov/energov_prod/selfservice",
     summary:
-      "Costa Mesa runs permits through TESSA, and the city is explicit that all application information has to be entered directly in the portal. The useful part for homeowners: residential water heater and HVAC replacements have an expedited Insta-Permit path, with separate tracks for licensed contractors and owner-builders, so a straightforward like-for-like swap does not go through a full plan review.",
-    sourceUrl:
-      "https://www.costamesaca.gov/government/departments-and-divisions/economic-and-development-services/building-safety/general-information/general-forms-permit-application-etc",
+      "Costa Mesa takes permit applications online through TESSA, its self-service portal. For a few simple jobs the city offers an Insta-Permit: you fill in the city's standard plan in TESSA, pay the fee, and the permit arrives by email. Two of them matter most for homeowners. The water heater Insta-Permit covers changing out an existing tank water heater only, not a switch to tankless or any re-piping. The HVAC Insta-Permit covers replacing equipment in a single-family home, with outdoor units at ground level on the side or rear of the house, not on the roof. Each has separate tracks for licensed contractors and owner-builders.",
+    sourceUrl: "https://www.costamesaca.gov/trending/insta-permit",
   },
 
   hazards: [
@@ -146,7 +153,7 @@ export const costaMesa: CityContent = {
   faq: [
     {
       q: "Do I need a permit to replace a water heater or HVAC system in Costa Mesa?",
-      a: "Yes to both, but the city makes it easy on straightforward jobs. Costa Mesa offers an expedited Insta-Permit for residential water heater and HVAC replacement, with separate application tracks for licensed contractors and owner-builders, submitted through the TESSA portal. A licensed contractor normally pulls it as part of the job.",
+      a: "Yes to both. For a straightforward job the city offers an Insta-Permit through its TESSA portal: fill in the city's standard plan, pay the fee, and the permit arrives by email. The water heater version covers a like-for-like tank water heater change-out only; converting to tankless or re-piping is not covered by it. The HVAC version covers a single-family home with no roof-top equipment. Both have separate tracks for licensed contractors and owner-builders.",
     },
     {
       q: "Who supplies my water in Costa Mesa, and is it hard?",
