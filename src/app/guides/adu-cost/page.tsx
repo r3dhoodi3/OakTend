@@ -5,6 +5,7 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
 // Public SEO guide, aimed at Orange County. The cost figure on this page
 // comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
@@ -13,7 +14,15 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // The Cost vs. Value reuse rules allow narrative excerpts only (no tables),
 // from at most five projects across the whole site, each with the report's
 // name, its URL and the copyright line: keep all three when editing, and do
-// not add a sixth project. Figures are averages, never quotes. The
+// not add a sixth project. Figures are averages, never quotes.
+//
+// The 2026 law section states only what the bill text, the amended statute or
+// the named law-firm summary says (SB 543's fee rules come from the chaptered
+// bill, AB 1154 from Government Code section 66333 as amended, AB 462 from
+// the Burke, Williams & Sorensen summary, SB 9 from HCD's April 2026 fact
+// sheet). The city table with its pre-approved plan column lives in
+// src/lib/ocRemodelCities.ts. The pro side is closed, so nothing here offers
+// to find, match or book a contractor. The
 // signed-in CTA points at /contractors?category=remodeling (ADU work maps to
 // the remodeling service category, see SERVICE_CATEGORIES in
 // src/lib/constants.ts).
@@ -34,9 +43,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "ADU cost in Orange County: what to expect and the rules";
+// Kept to 37 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "ADU cost in Orange County: 2026 rules";
 const DESCRIPTION =
-  "What a detached ADU costs near Orange County, with a sourced 2025 average, why a garage conversion costs less, California ADU rules, and how to save.";
+  "A sourced 2025 ADU cost average near Orange County, the 2026 California ADU law changes, fee waivers, pre-approved plans by city, and how to save.";
 const CANONICAL = `${SITE_URL}/guides/adu-cost`;
 
 export const metadata: Metadata = {
@@ -75,12 +85,27 @@ const FAQS = [
     a: "California ADU approval is ministerial, which means no public hearings. The city reviews your application against the rules and must decide within 60 days. If it misses that deadline, the application is deemed approved. Cities also cannot cap ADU size below 850 square feet for a studio or one-bedroom, or 1,000 square feet for two or more bedrooms. These rules come from California Government Code sections 66310 through 66342.",
   },
   {
-    q: "Do I have to live on the property to rent out an ADU in California?",
-    a: "For standard ADUs, there is no statewide owner-occupancy requirement. That rule was made permanent in 2024 under AB 976, so you generally can build an ADU and rent it without living on site, though local rules and other permit conditions still apply. Check your city for any specifics.",
+    q: "Can I rent out my ADU in Orange County without living there?",
+    a: "For standard ADUs, there is no statewide owner-occupancy requirement. That rule was made permanent in 2024 under AB 976, so you generally can build an ADU and rent it without living on site. For a junior ADU inside the house, AB 1154 limits the owner-occupancy rule, from January 1, 2026, to units that share a bathroom with the main home, and a junior ADU rental has to be for more than 30 days. Local rules and permit conditions still apply, so check your city.",
   },
   {
     q: "Is an ADU a good investment?",
     a: "If you are counting on resale, the numbers are weak. In the Cost vs. Value Report's Los Angeles market for 2025, a detached ADU recouped about 40 percent of its cost at resale. The stronger case is usually rental income over time, or housing family without paying separate rent or a mortgage elsewhere. Check real rents for small units in your own city before you count on a number.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "What is the difference between a garage conversion and an ADU?",
+    a: "A garage conversion can be an ADU, if it becomes a permitted, separate home with its own kitchen and bathroom. Turning a garage into a spare room or office is a different, smaller project that does not create a rentable unit. For an ADU, the garage shell saves the cost of new walls, a roof, and a foundation, but the plumbing, electrical, and finishes still have to meet code for a dwelling. Newport Beach is one Orange County city whose standard plans include garage conversions.",
+  },
+  {
+    q: "Do I pay impact fees on an ADU in California?",
+    a: "Not on a small one. Under SB 543, signed October 10, 2025, a city cannot charge impact fees on an ADU with 750 square feet or less of interior livable space, or on a junior ADU of 500 square feet or less. Above 750 square feet, impact fees have to be charged in proportion to the size of the main house. Units under 500 square feet of interior livable space are also treated as not adding enough space to trigger school fees. Utility connection and permit fees are separate.",
+  },
+  {
+    q: "Can I split my lot under SB 9 instead of building an ADU?",
+    a: "Possibly. SB 9 lets the owner of a qualifying single-family lot in an urbanized area split it into two lots of roughly equal size and build up to two units on each, with ministerial approval. The city must approve or deny a complete application within 60 days. You have to sign an affidavit that you intend to live in one of the units for at least three years, and any rental must be for more than 30 days. Several exceptions apply, such as homes rented to a tenant in the last three years.",
   },
 ];
 
@@ -313,19 +338,128 @@ export default function AduCostGuide() {
             California energy-code (Title 24) compliance. Rules vary by city,
             so check with your local building department.
           </p>
+          <p className="mt-2 leading-relaxed">
+            On a job this size, the deposit rule matters: the{" "}
+            <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less, and the contract has to
+            be in writing (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            In Orange County
+            What changed for ADUs in 2026
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Three state bills signed in fall 2025 change the rules for ADUs.
+            SB 543 and AB 1154 took effect January 1, 2026, with SB 543&apos;s
+            fee limits applying from October 10, 2025.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>SB 543: fees and size.</strong> Size limits are now
+              measured as interior livable space. A city cannot charge impact
+              fees on an ADU of <strong>750 square feet or less</strong> of
+              interior livable space, or on a junior ADU of 500 square feet or
+              less. Above 750 square feet, impact fees have to be in
+              proportion to the size of the main house. Units under 500 square
+              feet are also treated as too small to trigger school fees. The
+              fee limits applied from October 10, 2025.
+            </li>
+            <li>
+              <strong>AB 1154: junior ADUs.</strong> A city can require the
+              owner to live on the property only when the junior ADU shares a
+              bathroom with the main home, and a junior ADU rental must be for
+              more than 30 days.
+            </li>
+            <li>
+              <strong>AB 462: coastal permits.</strong> In the coastal zone,
+              the coastal development permit for an ADU runs alongside the
+              city&apos;s own review, and if the city does not act within 60
+              days the application is deemed approved. It also lets a detached
+              ADU get its certificate of occupancy before the main house, where
+              the main house was destroyed in an area under an emergency
+              proclamation.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            Two older rules still stand. A city has <strong>60 days</strong>{" "}
+            to approve or deny a complete ADU application, and cannot require
+            the owner of a standard ADU to live on site. And under{" "}
+            <strong>SB 9</strong>, per the state housing department&apos;s
+            April 2026 fact sheet, a qualifying single-family lot can be split
+            into two lots with up to two units on each, approved or denied
+            within 60 days, if you sign an affidavit that you intend to live in
+            one of the units for at least three years.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Why it costs more in Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
             Orange County has no line of its own in the Cost vs. Value Report,
             which covers Los Angeles as the nearest market. The Los Angeles
             average for the detached unit runs about 7 percent above the
-            national one.
+            national one. Four local things can push an ADU higher.
           </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Older houses and garages.</strong> About 57 percent of
+              Orange County&apos;s housing units were built before 1980, by the
+              Census Bureau&apos;s 2020 to 2024 American Community Survey, and
+              about 82 percent in Fountain Valley. Converting an old garage, or
+              tying a new unit into an old house, can mean an electrical panel,
+              sewer line, or water line that needs work first. Cal/OSHA
+              presumes sprayed or troweled-on surfacing in a building built in
+              1980 or earlier contains asbestos until tested, and paid work
+              that disturbs paint in a pre-1978 home follows the EPA&apos;s
+              lead-safe rules.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> A new ADU is new
+              construction, and permits applied for on or after January 1,
+              2026 fall under California&apos;s 2025 Energy Code, which
+              expands the use of heat pumps in new homes.
+            </li>
+            <li>
+              <strong>HOA review.</strong> An association can review the
+              design, but under California Civil Code section 4751 rules that
+              effectively prohibit or unreasonably restrict an ADU on a
+              single-family lot are void. Section 4765 requires the association
+              to decide in writing and explain a denial. Budget time for the
+              review anyway.
+            </li>
+            <li>
+              <strong>The coastal zone.</strong> Parts of Huntington Beach and
+              Newport Beach are in the coastal zone. Huntington Beach says
+              development there may require a coastal development permit, and
+              AB 462 now puts a 60-day clock on that permit for ADUs.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits, home age and pre-approved plans by city
+          </h2>
           <p className="mt-2 leading-relaxed">
+            A pre-approved plan has already been through the city&apos;s
+            review, which can cut design fees and plan-check time. Irvine, Santa
+            Ana, Anaheim, Huntington Beach, and Newport Beach all publish them;
+            where we could not confirm a program, the table says so rather
+            than guessing.
+          </p>
+          <OcRemodelCityTable showAduPlans />
+          <p className="mt-3 leading-relaxed">
             State law does most of the work here. Under Government Code
             section 66317 a city has 60 days to approve or deny a complete ADU
             application, with no hearing, and section 66315 bars cities from
@@ -377,6 +511,56 @@ export default function AduCostGuide() {
               all Orange County cities
             </Link>
             .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real bid for your ADU arrives, check it against this list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              The scope is itemized: design and plans, city and utility fees,
+              foundation, utility runs, framing, roof, kitchen, bathroom, and
+              finishes. A line marked &quot;allowance&quot; is a placeholder
+              that can go up.
+            </li>
+            <li>It says who gets the building permits.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>Start and completion dates are written in.</li>
+            <li>
+              It says whether a pre-approved city plan is being used, and how
+              surprises like an undersized panel or a failing sewer line will
+              be priced.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
           </p>
         </section>
 

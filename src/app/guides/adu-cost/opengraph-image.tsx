@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: ADU cost in Orange County: what to expect and the rules";
+export const alt = "OakTend guide: ADU cost in Orange County: 2026 rules";
 
 export default function OgImage() {
   return renderOgCard(
-    "ADU cost in Orange County: what to expect and the rules",
+    "ADU cost in Orange County: 2026 rules",
     "An OakTend home guide"
   );
 }

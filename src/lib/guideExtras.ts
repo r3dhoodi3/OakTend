@@ -329,7 +329,13 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
 // midrange bath, ADU. Using a sixth means dropping one of those first.
 //
 // Every entry below was opened and checked on 2026-09-20 or 2026-09-21,
-// except the three Zone 0 entries on the wildfire guide, opened 2026-09-25.
+// except the three Zone 0 entries on the wildfire guide, opened 2026-09-25,
+// and the ones added to the kitchen, bathroom and ADU guides on
+// 2026-09-25 (older-home rules, energy code, HOA, coastal zone, the 2026 ADU
+// bills, pre-approved plans, ACS 2020-2024 housing age), which were opened
+// that day or were already on this list from 2026-09-21. The city table on
+// those three guides links each city's own page inline; its rules are in
+// src/lib/ocRemodelCities.ts.
 export type GuideSource = {
   href: string;
   /** Link text: who publishes it and what it is. */
@@ -520,11 +526,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "A minor midrange kitchen remodel averaged $29,765 in the Los Angeles market ($28,458 nationally) and recouped 126.9 percent at resale; a major midrange remodel averaged $86,214 ($82,793 nationally) and recouped 56.9 percent. Both describe a 200 square foot kitchen, 2025. The report has no separate Orange County market.",
     },
     {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 2024, table B25034 (year structure built), Orange County",
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
-        "Share of Orange County housing units by decade built: about 12 percent in the 1950s, 19 percent in the 1960s, and 22 percent in the 1970s.",
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
@@ -543,13 +549,90 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
       label: "California Business and Professions Code section 7159",
       supports:
-        "A home improvement contract over $500 must be in writing and signed.",
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
     },
     {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
       label: "California Business and Professions Code section 7159.5",
       supports:
         "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1529.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
+      supports:
+        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label:
+        "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and follow lead-safe work practices.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1532_1.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1532.1 (lead in construction)",
+      supports:
+        "California's lead standard covers alteration, repair and renovation of structures that contain lead, with state certification for some residential lead work.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
+      label:
+        "California Energy Commission: 2025 Building Energy Efficiency Standards",
+      supports:
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
+    },
+    {
+      href: "https://cityofirvine.gov/community-development/permits-not-required",
+      label:
+        "City of Irvine: permits not required",
+      supports:
+        "Irvine tells residents to check their HOA's CC&Rs before work.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
+      label:
+        "City of Huntington Beach: accessory dwelling units",
+      supports:
+        "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
+      label:
+        "City of Newport Beach: Local Coastal Program",
+      supports:
+        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
+    },
+    {
+      href: "https://www.coastal.ca.gov/maps/czb/",
+      label:
+        "California Coastal Commission: coastal zone boundary maps",
+      supports:
+        "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/bathroom-remodel-cost": [
@@ -561,11 +644,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "A midrange remodel of a 5 by 7 foot bathroom averaged $27,143 in the Los Angeles market ($26,138 nationally) and recouped 89.6 percent at resale, 2025. The report has no separate Orange County market.",
     },
     {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 2024, table B25034 (year structure built), Orange County",
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
-        "Share of Orange County housing units by decade built: about 12 percent in the 1950s, 19 percent in the 1960s, and 22 percent in the 1970s.",
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
     {
       href: "https://www.irwd.com/learn/water-quality-report/",
@@ -591,13 +674,83 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
       label: "California Business and Professions Code section 7159",
       supports:
-        "A home improvement contract over $500 must be in writing and signed.",
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
     },
     {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
       label: "California Business and Professions Code section 7159.5",
       supports:
         "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1529.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
+      supports:
+        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label:
+        "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and follow lead-safe work practices.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1532_1.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1532.1 (lead in construction)",
+      supports:
+        "California's lead standard covers alteration, repair and renovation of structures that contain lead, with state certification for some residential lead work.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
+      label:
+        "California Energy Commission: 2025 Building Energy Efficiency Standards",
+      supports:
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
+      label:
+        "City of Huntington Beach: accessory dwelling units",
+      supports:
+        "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
+      label:
+        "City of Newport Beach: Local Coastal Program",
+      supports:
+        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
+    },
+    {
+      href: "https://www.coastal.ca.gov/maps/czb/",
+      label:
+        "California Coastal Commission: coastal zone boundary maps",
+      supports:
+        "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/adu-cost": [
@@ -645,6 +798,153 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Contractors State License Board: what kind of contractor do you need",
       supports:
         "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB543",
+      label:
+        "California Senate Bill 543 (2025-2026), chaptered text (Chapter 520, approved October 10, 2025)",
+      supports:
+        "No impact fee on an ADU with 750 square feet or less of interior livable space or a junior ADU of 500 square feet or less; above 750 square feet, impact fees are proportional to the primary dwelling; units under 500 square feet of interior livable space are treated as not triggering school fees.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66333",
+      label:
+        "California Government Code section 66333 (as amended by AB 1154, effective January 1, 2026)",
+      supports:
+        "Owner-occupancy may be required for a junior ADU only when it shares sanitation facilities with the home, and a junior ADU rental must be for a term longer than 30 days.",
+    },
+    {
+      href: "https://www.bwslaw.com/insights/public-law-update-2025-adu-legislative-update/",
+      label:
+        "Burke, Williams & Sorensen (law firm): 2025 ADU legislative update (December 15, 2025)",
+      supports:
+        "SB 543 takes effect January 1, 2026 with its fee limits in effect from October 10, 2025; under AB 462 an ADU coastal development permit runs concurrently and is deemed approved if not acted on within 60 days, and a detached ADU may get its certificate of occupancy before a primary dwelling destroyed in an emergency proclamation area.",
+    },
+    {
+      href: "https://www.hcd.ca.gov/sites/default/files/docs/planning-and-community/lot-splits-and-duplexes-sb-9.pdf",
+      label:
+        "California Department of Housing and Community Development: Duplexes and Lot Splits (SB 9) fact sheet (April 2026)",
+      supports:
+        "A qualifying single-family lot in an urbanized area can be split into two lots of roughly equal size with up to two units on each, ministerially; a complete application is decided within 60 days; the applicant signs a three-year owner-occupancy affidavit; rentals must be longer than 30 days; exceptions include homes with a tenant in the last three years.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4751",
+      label:
+        "California Civil Code section 4751",
+      supports:
+        "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1529.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
+      supports:
+        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label:
+        "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and follow lead-safe work practices.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
+      label:
+        "California Energy Commission: 2025 Building Energy Efficiency Standards",
+      supports:
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
+      label:
+        "City of Huntington Beach: accessory dwelling units",
+      supports:
+        "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
+      label:
+        "City of Newport Beach: Local Coastal Program",
+      supports:
+        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
+    },
+    {
+      href: "https://www.coastal.ca.gov/maps/czb/",
+      label:
+        "California Coastal Commission: coastal zone boundary maps",
+      supports:
+        "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
+    },
+    {
+      href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",
+      label:
+        "City of Irvine: ADU Standard Plan Program",
+      supports:
+        "Irvine offers pre-approved architectural and structural ADU plans designed by licensed professionals.",
+    },
+    {
+      href: "https://santa-ana.gov/pre-approved-adu-plans/",
+      label:
+        "City of Santa Ana: Pre-Approved ADU Plans",
+      supports:
+        "Santa Ana offers pre-approved studio, one-bedroom and two-bedroom detached ADU plans.",
+    },
+    {
+      href: "https://www.anaheim.net/6351/Pre-Approved-Plan-Catalogue",
+      label:
+        "City of Anaheim: Pre-Approved Plan Catalogue (ADU Express)",
+      supports:
+        "Anaheim offers four free pre-approved ADU plans, from a 224 square foot studio to a 1,199 square foot three-bedroom unit.",
+    },
+    {
+      href: "https://newportbeachadu.org/adu-plans-2",
+      label:
+        "City of Newport Beach: ADU standard plans",
+      supports:
+        "Newport Beach offers five standard ADU plans already reviewed by Building and Planning: three detached plans and two garage conversions.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
+      label:
+        "California Business and Professions Code section 7159.5",
+      supports:
+        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
+      label:
+        "California Business and Professions Code section 7159",
+      supports:
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/slab-leak-signs": [

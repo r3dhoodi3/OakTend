@@ -156,6 +156,15 @@ describe("GUIDE_SOURCES", () => {
     "www.crmp.org",
     "octreasurer.gov",
     "www.ocassessor.gov",
+    // Added 2026-09-25 for the kitchen, bathroom and ADU upgrade, each
+    // opened that day.
+    "www.dir.ca.gov",
+    "www.coastal.ca.gov",
+    "www.huntingtonbeachca.gov",
+    "www.anaheim.net",
+    "newportbeachadu.org",
+    "www.bwslaw.com",
+    "www.hcd.ca.gov",
     // Added 2026-09-25 for the Zone 0 status on the wildfire guide.
     "www.bbklaw.com",
     "www.publicceo.com",
