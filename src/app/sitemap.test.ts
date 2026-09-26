@@ -69,8 +69,17 @@ describe("sitemap lastModified", () => {
   it("stamps no URL with today's date", async () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
     const today = new Date().toISOString().slice(0, 10);
+    // A guide that really was edited today carries today's date in GUIDE_DATES,
+    // typed in by hand. That is a real date, not `new Date()`, and the test
+    // further down pins that the sitemap reads it from that map. Without this
+    // exemption the suite goes red on the very day a guide is honestly updated
+    // and green again the next morning, which teaches people to backdate.
+    const writtenDown = new Map<string, string>(
+      GUIDE_PATHS.map((path) => [`${SITE_URL}${path}`, GUIDE_DATES[path].dateModified])
+    );
     for (const entry of await sitemap()) {
       if (entry.lastModified == null) continue;
+      if (writtenDown.get(entry.url) === entry.lastModified) continue;
       const stamped = new Date(entry.lastModified).toISOString().slice(0, 10);
       expect(stamped, `${entry.url} is stamped with now`).not.toBe(today);
     }

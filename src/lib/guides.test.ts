@@ -83,7 +83,7 @@ describe("GUIDE_DATES", () => {
 describe("the guides section agrees with itself", () => {
   it("dates every guide the index links to", () => {
     const hrefs = hrefsFromIndex();
-    expect(hrefs.length).toBe(12);
+    expect(hrefs.length).toBe(18);
     for (const href of hrefs) {
       expect(GUIDE_DATES[href], `${href} is linked but undated`).toBeDefined();
     }
@@ -100,7 +100,7 @@ describe("the guides section agrees with itself", () => {
 
   // The path each guide hands <GuideArticleJsonLd> is what keys into
   // GUIDE_DATES, so a typo there silently drops that guide's Article node.
-  it("renders an Article node on all 12, each with a path the map knows", () => {
+  it("renders an Article node on all 18, each with a path the map knows", () => {
     const found: string[] = [];
     for (const dir of guideRouteDirs()) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
@@ -109,7 +109,7 @@ describe("the guides section agrees with itself", () => {
       expect(match![1]).toBe(`/guides/${dir}`);
       found.push(match![1]);
     }
-    expect(found).toHaveLength(12);
+    expect(found).toHaveLength(18);
   });
 });
 
@@ -122,7 +122,7 @@ describe("GUIDE_TITLES", () => {
     expect(Object.keys(GUIDE_TITLES).sort()).toEqual(
       GUIDE_PATHS.filter((p) => p !== "/guides").sort()
     );
-    expect(GUIDE_LINKS).toHaveLength(12);
+    expect(GUIDE_LINKS).toHaveLength(18);
   });
 
   it("uses the same title the index card shows", () => {
@@ -134,6 +134,54 @@ describe("GUIDE_TITLES", () => {
       expect(card, `${href} has no index card`).not.toBeNull();
       expect(card![1]).toBe(title);
     }
+  });
+});
+
+// /guides/home-maintenance-schedule and /guides/socal-home-maintenance-calendar
+// were merged into the Orange County checklist on 2026-09-25. The old URLs
+// must answer with a permanent redirect to the hub (outside links and printed
+// QR codes still use them), and nothing on the site may link to them, so a
+// click never pays the redirect hop.
+describe("the merged maintenance guides", () => {
+  const HUB = "/guides/orange-county-home-maintenance-checklist";
+  const OLD = [
+    "/guides/home-maintenance-schedule",
+    "/guides/socal-home-maintenance-calendar",
+  ];
+
+  it("308 to the hub from next.config.mjs", () => {
+    const config = readFileSync(
+      fileURLToPath(new URL("../../next.config.mjs", import.meta.url)),
+      "utf8"
+    );
+    for (const old of OLD) {
+      const entry = new RegExp(
+        `source: "${old}",\\s+destination: "${HUB}",\\s+permanent: true,`
+      );
+      expect(config, old).toMatch(entry);
+      expect(GUIDE_DATES[old], old).toBeUndefined();
+    }
+    expect(GUIDE_DATES[HUB]).toBeDefined();
+  });
+
+  it("are not linked from anywhere under src", () => {
+    const SRC = fileURLToPath(new URL("..", import.meta.url));
+    const offenders: string[] = [];
+    const walk = (dir: string) => {
+      for (const e of readdirSync(dir, { withFileTypes: true })) {
+        const full = `${dir}/${e.name}`;
+        if (e.isDirectory()) {
+          if (e.name !== "__snapshots__") walk(full);
+        } else if (/\.(tsx?|mjs)$/.test(e.name) && !/\.test\./.test(e.name)) {
+          const src = readFileSync(full, "utf8");
+          for (const old of OLD) {
+            if (src.includes(`"${old}"`)) offenders.push(`${full}: ${old}`);
+          }
+        }
+      }
+    };
+    walk(SRC.replace(/[\\/]$/, ""));
+    expect(offenders).toEqual([]);
   });
 });
 

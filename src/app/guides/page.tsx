@@ -13,6 +13,12 @@ import {
   Bath,
   Building2,
   ShieldCheck,
+  FileCheck,
+  Droplets,
+  Hammer,
+  Bug,
+  Flame,
+  KeyRound,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -24,49 +30,49 @@ const GUIDES = [
     icon: Droplet,
     title: "Water heater replacement cost",
     blurb:
-      "Typical national price range, what drives it up or down, and when a repair is the smarter call.",
+      "What changes the price in Orange County, hard water and strapping rules, and when a repair is the smarter call.",
   },
   {
     href: "/guides/hvac-replacement-cost",
     icon: Thermometer,
     title: "HVAC replacement cost",
     blurb:
-      "Typical national price range for a new heating and cooling system, and how to tell if yours can be repaired instead.",
+      "What changes the price of a new system in Orange County, coastal salt air, and how to tell if yours can be repaired instead.",
   },
   {
     href: "/guides/roof-replacement-cost",
     icon: Home,
     title: "Roof replacement cost",
     blurb:
-      "The typical national range plus realistic Orange County numbers for shingle and tile, when a repair beats a replacement, and permits.",
+      "A sourced 2025 figure for an asphalt shingle re-roof near Orange County, shingle vs. tile, when a repair beats a replacement, and permits.",
   },
   {
     href: "/guides/electrical-panel-upgrade-cost",
     icon: Zap,
     title: "Electrical panel upgrade cost",
     blurb:
-      "The typical range, when an upgrade is actually needed, 100 vs 200 amp, and why permits and a licensed electrician matter.",
+      "A sourced California range, when an upgrade is actually needed, 100 vs 200 amp, and why permits and a licensed electrician matter.",
   },
   {
     href: "/guides/kitchen-remodel-cost",
     icon: ChefHat,
     title: "Kitchen remodel cost",
     blurb:
-      "What a kitchen remodel runs in Orange County by tier, cost per square foot, what drives the price, and how to save.",
+      "Sourced 2025 averages for a minor and a major kitchen remodel near Orange County, what drives the price, and how to save.",
   },
   {
     href: "/guides/bathroom-remodel-cost",
     icon: Bath,
     title: "Bathroom remodel cost",
     blurb:
-      "Typical Orange County bathroom remodel ranges by tier, cost per square foot, what affects the price, and where to save.",
+      "A sourced 2025 average for a midrange bathroom remodel near Orange County, what affects the price, and where to save.",
   },
   {
     href: "/guides/adu-cost",
     icon: Building2,
     title: "ADU cost",
     blurb:
-      "What an ADU costs in Orange County by type, garage conversion vs attached vs detached, California ADU rules, and how to save.",
+      "A sourced 2025 average for a detached ADU near Orange County, garage conversion vs attached vs detached, California ADU rules, and how to save.",
   },
   {
     href: "/guides/slab-leak-signs",
@@ -74,13 +80,6 @@ const GUIDES = [
     title: "Slab leak signs",
     blurb:
       "How to spot a slab leak early, why older Orange County homes are prone to them, and what the repair options look like.",
-  },
-  {
-    href: "/guides/home-maintenance-schedule",
-    icon: CalendarDays,
-    title: "Home maintenance schedule",
-    blurb:
-      "How often to actually change filters, flush the water heater, service the AC, and clean the gutters.",
   },
   {
     href: "/guides/is-my-contractor-quote-fair",
@@ -97,11 +96,60 @@ const GUIDES = [
       "California's deposit cap, the written-contract rule, when a license is required, and the red flags that mean you should slow down.",
   },
   {
-    href: "/guides/socal-home-maintenance-calendar",
-    icon: CalendarDays,
-    title: "SoCal home maintenance calendar",
+    href: "/guides/permits-orange-county",
+    icon: FileCheck,
+    title: "Building permits in Orange County",
     blurb:
-      "A month-by-month calendar for coastal Southern California: AC strain, termite swarm season, Santa Ana wind prep, and first-rain checks.",
+      "When a home project needs a permit in Orange County, project by project, with real city examples: water heaters, reroofs, panels, HVAC, fences and patio covers.",
+  },
+  {
+    href: "/guides/hard-water-orange-county",
+    icon: Droplets,
+    title: "Hard water in Orange County",
+    blurb:
+      "How hard the tap water is by Orange County water provider, what it does to water heaters and fixtures, how often to flush a tank, and what to know about softeners.",
+  },
+  {
+    href: "/guides/slab-leak-repair-orange-county",
+    icon: Hammer,
+    title: "Slab leak repair in Orange County",
+    blurb:
+      "Spot repair, reroute or repipe: how each slab leak fix works, what drives the price, when a permit is needed, and what to ask your insurer.",
+  },
+  {
+    href: "/guides/repipe-orange-county",
+    icon: Wrench,
+    title: "Repiping a house in Orange County",
+    blurb:
+      "When a whole-house repipe makes sense, how copper and PEX compare on the job, what the permit and inspection involve, and what a bid is built from.",
+  },
+  {
+    href: "/guides/termites-orange-county",
+    icon: Bug,
+    title: "Termites in Orange County",
+    blurb:
+      "Drywood vs subterranean termites, when tenting beats spot treatment, how to read an inspection report, and what a treatment bid is built from.",
+  },
+  {
+    href: "/guides/santa-ana-wind-wildfire-home-prep",
+    icon: Flame,
+    title: "Santa Ana wind and wildfire prep",
+    blurb:
+      "Getting an Orange County home ready for wind and fire season: defensible space, the first 5 feet, vents, gutters, fences, red flag days and alerts.",
+  },
+  {
+    href: "/guides/new-homeowner-first-year-orange-county",
+    icon: KeyRound,
+    title: "New homeowner checklist",
+    blurb:
+      "Your first week, month and year in an Orange County home: shutoffs, the water heater, alarms, tax bills, Mello-Roos, HOA papers and permit history.",
+  },
+  {
+    href: "/guides/orange-county-home-maintenance-checklist",
+    icon: CalendarDays,
+    title: "Orange County home maintenance checklist",
+    blurb:
+      "The month by month maintenance calendar for Orange County homes, how often to do each job, and links to every system guide: winds, first rains, salt air, hard water and termites.",
   },
 ];
 
@@ -188,7 +236,6 @@ export default function GuidesIndex() {
               </h3>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                 Paste a contractor&apos;s quote and see if the price is fair.
-                Your first check is free.
               </p>
             </div>
           </div>

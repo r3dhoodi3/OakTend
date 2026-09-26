@@ -1001,10 +1001,10 @@ export default async function Home(props: {
               </li>
               <li>
                 <Link
-                  href="/guides/socal-home-maintenance-calendar"
+                  href="/guides/orange-county-home-maintenance-checklist"
                   className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
                 >
-                  SoCal maintenance calendar
+                  Orange County maintenance checklist
                 </Link>
               </li>
             </ul>

@@ -27,9 +27,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Is my contractor's quote fair? How to read it before you sign";
+const TITLE = "Is my contractor's quote fair? An Orange County guide";
 const DESCRIPTION =
-  "How to read a contractor's quote line by line, red flags to watch for, and what a fair bidding process looks like.";
+  "How to read a contractor's quote in Orange County: what California law requires in the contract, the deposit cap, red flags, and fair bidding.";
 const CANONICAL = `${SITE_URL}/guides/is-my-contractor-quote-fair`;
 
 export const metadata: Metadata = {
@@ -68,6 +68,10 @@ const FAQS = [
   {
     q: "Can OakTend tell me if my quote is fair?",
     a: "OakTend's Quote analyzer reads a quote you upload or paste in, compares the total and each line item to typical costs, flags anything that looks padded, vague, or duplicated, and drafts a message you can send back if you want to negotiate.",
+  },
+  {
+    q: "What does California law require in a home improvement contract?",
+    a: "Under Business and Professions Code section 7159, a home improvement contract over $500 has to be in writing and include the contractor's name, business address, and license number, the approximate start and completion dates, and a schedule of progress payments. The same section says it is against the law for a contractor to collect payment for work not yet completed or materials not yet delivered, apart from the down payment, which section 7159.5 caps at $1,000 or 10 percent of the contract price, whichever is less.",
   },
 ];
 
@@ -111,26 +115,27 @@ export default function IsMyContractorQuoteFairGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Is my contractor's quote fair? How to read it before you sign" },
+          { label: "Is my contractor's quote fair? An Orange County guide" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Is my contractor's quote fair? How to read it before you sign" , href: CANONICAL },
+          { name: "Is my contractor's quote fair? An Orange County guide", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Is my contractor&apos;s quote fair? How to read it before you sign
+        Is my contractor&apos;s quote fair? An Orange County guide
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/is-my-contractor-quote-fair" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        General guidance for reading any home repair or improvement quote.
+        How to read any home repair or improvement quote, with the California
+        rules that apply in Orange County.
       </p>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
@@ -185,6 +190,87 @@ export default function IsMyContractorQuoteFairGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            In Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            California law sets a floor under every quote you get in Orange
+            County. Under Business and Professions Code section 7159, a home
+            improvement contract over $500 has to be in writing and include
+            the contractor&apos;s name, business address, and license number,
+            the approximate start and completion dates, and a schedule of
+            progress payments. The same section says it is against the law for
+            a contractor to collect payment for work not yet completed or for
+            materials not yet delivered, apart from the down payment. Section
+            7159.5 caps that down payment at $1,000 or 10 percent of the
+            contract price, whichever is less. A quote that asks for more than
+            that up front has told you something before you read the rest of
+            it (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The Contractors State License Board says anyone who contracts for
+            work valued at $1,000 or more in combined labor and materials, or
+            for any job that needs a building permit, must hold a valid
+            license. Look the number up at cslb.ca.gov before you compare
+            prices, not after.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Permit rules and fees are set by each city, so a quote that says
+            permits are included should say which city&apos;s. Our city pages
+            are a starting point:{" "}
+            <Link
+              href="/oc/anaheim"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Anaheim
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/irvine"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Irvine
+            </Link>
+            ,{" "}
+            <Link
+              href="/huntington-beach"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Huntington Beach
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/orange"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Orange
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/mission-viejo"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Mission Viejo
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Already have a quote in hand?
           </h2>
           <p className="mt-2 leading-relaxed">
@@ -198,7 +284,7 @@ export default function IsMyContractorQuoteFairGuide() {
             reads a quote you upload or paste in, compares the total and each
             line item to typical costs, flags anything that looks padded,
             vague, or duplicated, and drafts a message you can send back if
-            you want to negotiate. Your first check is free.
+            you want to negotiate.
           </p>
         </section>
 

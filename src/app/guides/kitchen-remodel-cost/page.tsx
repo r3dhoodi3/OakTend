@@ -5,10 +5,20 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
-// Public SEO guide. Orange County kitchen remodel cost ranges, aggregated
-// from published contractor pricing and industry cost reports as of July
-// 2026. All figures are typical ranges, never quotes. The signed-in CTA
+// Public SEO guide, aimed at Orange County. Every cost figure on this page
+// comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
+// (the closest market it covers), listed in GUIDE_SOURCES
+// (src/lib/guideExtras.ts). Its reuse rules allow narrative excerpts only (no
+// tables), from at most five projects across the whole site, each with the
+// report's name, its URL and the copyright line: keep all three when editing,
+// and do not add a sixth project. Figures are averages, never quotes. The
+// Orange County section (housing age by city, older-home rules, energy code,
+// HOA, coastal zone) and the city table cite their own sources: the table's
+// rules and data live in src/lib/ocRemodelCities.ts. The pro side is closed,
+// so nothing here offers to find, match or book a contractor. The
+// signed-in CTA
 // points at /contractors?category=remodeling (kitchen work maps to the
 // remodeling service category, see SERVICE_CATEGORIES in src/lib/constants.ts).
 
@@ -28,9 +38,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Kitchen remodel cost in Orange County: typical ranges (2026)";
+// Kept to 37 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "Kitchen remodel cost in Orange County";
 const DESCRIPTION =
-  "What a kitchen remodel typically costs in Orange County and Southern California, broken down by budget, mid-range, and premium tiers, cost per square foot, what drives the price, and how to save. Estimate ranges, not a quote.";
+  "Sourced 2025 kitchen remodel averages near Orange County, why older OC homes cost more, city permit notes, and how to read a contractor's estimate.";
 const CANONICAL = `${SITE_URL}/guides/kitchen-remodel-cost`;
 
 export const metadata: Metadata = {
@@ -56,15 +67,15 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How much does a kitchen remodel cost in Orange County?",
-    a: "In Orange County and Southern California, a kitchen remodel typically runs about $50,000 to $75,000 for a full project. The wider range across SoCal spans roughly $35,000 for a budget refresh up to $170,000 or more for a high-end custom kitchen. California labor and permitting tend to add roughly 10 to 20 percent over comparable national costs.",
+    a: "No published cost survey we could find has its own Orange County line, so the closest sourced numbers are for the Los Angeles market next door. According to the Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com), a minor midrange remodel of a 200 square foot kitchen, which keeps the cabinet boxes and replaces the fronts, counters, range, refrigerator, sink, and flooring, averaged $29,765 there. A major midrange remodel of the same kitchen, with new semi-custom cabinets, an island, and all new appliances, averaged $86,214. An upscale kitchen with custom cabinets, stone, and professional appliances costs far more.",
   },
   {
     q: "What is the cost per square foot for a kitchen remodel?",
-    a: "A kitchen remodel typically runs about $75 to $250 per square foot, depending on the level of finish. Stock cabinets and mid-range appliances sit toward the lower end, while custom cabinetry, stone counters, and professional-grade appliances push toward the top.",
+    a: "Divide the Cost vs. Value averages for the Los Angeles market by the 200 square foot kitchen they describe and you get about $150 per square foot for the minor remodel and about $430 per square foot for the major midrange one. Per-square-foot numbers mislead for kitchens, though, because cabinets, counters, and appliances drive the price far more than floor area does.",
   },
   {
     q: "What is the most expensive part of a kitchen remodel?",
-    a: "Cabinets are usually the single biggest line item. Custom cabinetry can run around $600 per linear foot, and countertops add up quickly too, with high-end stone reaching $550 or more per square foot installed. Together, cabinets and counters often make up the largest share of a kitchen budget.",
+    a: "Cabinets are usually the single biggest line item, and the jump from refacing to semi-custom to full custom is where a budget moves most. Countertops come next, followed by appliances. That is why the two Cost vs. Value projects differ so much: the minor remodel keeps the cabinet boxes, and the major one replaces all 30 linear feet of cabinets.",
   },
   {
     q: "Do I need a permit and a licensed contractor for a kitchen remodel in California?",
@@ -72,7 +83,26 @@ const FAQS = [
   },
   {
     q: "Does a kitchen remodel add value at resale?",
-    a: "Minor and mid-range kitchen remodels tend to recoup a larger share of their cost at resale than upscale ones, though neither usually returns the full amount. Beyond resale, an updated, functional kitchen is one of the rooms buyers and daily users notice most, which is part of why it stays a popular project.",
+    a: "The smaller job does better. In the Cost vs. Value Report's Los Angeles market for 2025, the minor midrange remodel recouped about 127 percent of its cost at resale, while the major midrange remodel recouped about 57 percent. Beyond resale, an updated, functional kitchen is one of the rooms buyers and daily users notice most, which is part of why it stays a popular project.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "What is included in a midrange versus a high-end kitchen remodel?",
+    a: "In the Cost vs. Value Report's terms, a minor midrange remodel keeps the cabinet boxes and replaces the fronts and hardware, the range and refrigerator, laminate counters, the sink and faucet, and the flooring. A major midrange remodel replaces the cabinets with semi-custom ones, adds an island, and puts in a full set of new appliances and lighting. Beyond that, a high-end remodel usually means custom cabinets, stone counters, and built-in or commercial-grade appliances, and costs far more than either.",
+  },
+  {
+    q: "Do I need HOA approval before remodeling my kitchen?",
+    a: "If you live in a homeowners association, check your CC&Rs before work starts. Interior work often needs no association approval, but anything visible from outside, like a new window, door, or exterior vent, usually goes through the association's architectural review as well as the city permit. California Civil Code section 4765 requires the association to decide in writing, in good faith, and to explain any denial.",
+  },
+  {
+    q: "What is Title 24 and does it apply to my kitchen remodel?",
+    a: "Title 24 is California's building code, and Part 6 of it is the Energy Code. Permits applied for on or after January 1, 2026 fall under the 2025 Energy Code. In a permitted kitchen remodel, new lighting, windows, or appliances can bring parts of it into play, while like-for-like repairs generally do not. Your city's permit counter can tell you which parts apply to your plans.",
+  },
+  {
+    q: "How much does a building permit cost in Orange County?",
+    a: "There is no single county-wide fee. Each city sets its own permit fees, often based on the value of the work and on which trades (plumbing, electrical, mechanical) are involved, and unincorporated areas go through the County of Orange. Ask your city's permit counter for its current fee schedule before you budget, and check whether the contractor's bid includes permit fees.",
   },
 ];
 
@@ -135,46 +165,57 @@ export default function KitchenRemodelCostGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/kitchen-remodel-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Typical estimate ranges for OC and SoCal homeowners, not a quote for
-        your home. Prices vary. Data as of July 2026.
+        Sourced planning figures for Orange County homeowners, not a quote for
+        your home. Prices vary.
       </p>
 
       {/* Hero cost callout: OC/SoCal range above the fold. */}
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-6 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
-          Typical Orange County kitchen remodel
+          Average midrange kitchen remodel, Los Angeles market, 2025
         </p>
         <p className="mt-1 text-3xl font-bold text-stone-900 dark:text-stone-100">
-          $50,000 to $75,000
+          $29,765 minor, $86,214 major
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          Across Southern California the full range runs from about $35,000 for
-          a budget refresh to $170,000 or more for a high-end custom kitchen.
-          California labor and permits tend to add roughly 10 to 20 percent
-          over comparable national costs.
+          From the Remodeling 2025 Cost vs. Value Report
+          (www.costvsvalue.com), both for a 200 square foot kitchen. The minor
+          remodel keeps the cabinet boxes. The major one replaces them with
+          semi-custom cabinets and adds an island. The report has no separate
+          Orange County market, so Los Angeles is the closest one.
         </p>
       </div>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Cost by tier
+            Cost by scope
           </h2>
+          <p className="mt-2 leading-relaxed">
+            No published cost survey we could find has its own Orange County
+            line, so the closest sourced numbers are for the Los Angeles
+            market next door. According to the Remodeling 2025 Cost vs. Value
+            Report (www.costvsvalue.com), for a 200 square foot kitchen in
+            2025:
+          </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Budget: about $35,000 to $50,000.</strong> Keeps the
-              existing layout, with refaced or stock cabinets, entry-level
-              stone or laminate counters, and mid-range appliances.
+              <strong>Minor remodel, midrange: $29,765 on average.</strong>{" "}
+              Keeps the cabinet boxes and replaces the fronts and hardware,
+              the range and refrigerator, laminate counters, sink and faucet,
+              and flooring, plus paint. The national average for the same job
+              was $28,458.
             </li>
             <li>
-              <strong>Mid-range: about $50,000 to $75,000.</strong>{" "}
-              Semi-custom cabinets, stone countertops, new appliances, updated
-              lighting, and some layout changes.
+              <strong>Major remodel, midrange: $86,214 on average.</strong>{" "}
+              New semi-custom wood cabinets with an island, laminate counters,
+              a full set of new appliances, custom lighting, new flooring, and
+              paint. The national average was $82,793.
             </li>
             <li>
-              <strong>Premium: about $100,000 to $170,000 and up.</strong>{" "}
-              Custom cabinetry, high-end stone, professional-grade appliances,
-              and structural changes like moving or removing walls.
+              <strong>Upscale:</strong> custom cabinets, stone counters,
+              built-in and commercial-grade appliances. It costs far more than
+              either, and we do not print a number for it here.
             </li>
           </ul>
         </section>
@@ -184,11 +225,16 @@ export default function KitchenRemodelCostGuide() {
             Cost per square foot
           </h2>
           <p className="mt-2 leading-relaxed">
-            A kitchen remodel typically runs about{" "}
-            <strong>$75 to $250 per square foot</strong>. Where you land
-            depends mostly on the finish level: stock cabinets and mid-range
-            appliances sit near the bottom, while custom cabinetry, stone
-            counters, and pro appliances push toward the top.
+            Divide those two averages by the 200 square foot kitchen they
+            describe and you get about{" "}
+            <strong>$150 per square foot</strong>
+            {" "}
+            for the minor remodel and about{" "}
+            <strong>$430 per square foot</strong>
+            {" "}
+            for the major midrange one. Treat per-square-foot numbers with
+            care: cabinets, counters, and appliances drive a kitchen&apos;s
+            price far more than floor area does.
           </p>
         </section>
 
@@ -199,13 +245,12 @@ export default function KitchenRemodelCostGuide() {
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
               <strong>Cabinets.</strong> Usually the biggest line item.
-              Custom cabinetry can run around $600 per linear foot, several
-              times the cost of stock.
+              Refacing sound boxes costs far less than new semi-custom
+              cabinets, and full custom costs more again.
             </li>
             <li>
-              <strong>Countertops.</strong> Quartz and standard granite are
-              mid-range, while high-end stone can reach $550 or more per
-              square foot installed.
+              <strong>Countertops.</strong> Laminate, quartz, and standard
+              granite sit lower. High-end stone sits much higher.
             </li>
             <li>
               <strong>Appliances.</strong> A basic suite versus
@@ -216,8 +261,9 @@ export default function KitchenRemodelCostGuide() {
               electrical, or taking out a wall, adds labor and often a permit.
             </li>
             <li>
-              <strong>California labor and permits.</strong> These tend to add
-              roughly 10 to 20 percent over comparable national costs.
+              <strong>Location.</strong> The Los Angeles market averages above
+              run about 4 to 5 percent over the national averages for the same
+              two projects.
             </li>
           </ul>
         </section>
@@ -250,6 +296,18 @@ export default function KitchenRemodelCostGuide() {
             before signing.
           </p>
           <p className="mt-2 leading-relaxed">
+            A home improvement contract over $500 has to be in writing, and
+            the <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+          <p className="mt-2 leading-relaxed">
             On permits, moving electrical, plumbing, or gas, or removing a
             wall, generally requires one in OC cities. Purely cosmetic updates
             like paint or new cabinet fronts without wiring or plumbing
@@ -257,6 +315,163 @@ export default function KitchenRemodelCostGuide() {
             also trigger California energy-code (Title 24) compliance, while
             like-for-like repairs generally do not. Thresholds vary by city,
             so check with your local building department before work starts.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Why it costs more in Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Orange County has no line of its own in the Cost vs. Value Report,
+            which covers Los Angeles as the nearest market. The Los Angeles
+            averages run about 4 to 5 percent above the national ones for the
+            same two kitchen projects, so expect local prices above national
+            figures you see elsewhere. Beyond labor, five local things tend to
+            add to a kitchen budget.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Older houses.</strong> About 57 percent of Orange
+              County&apos;s housing units were built before 1980, by the Census
+              Bureau&apos;s 2020 to 2024 American Community Survey. In Fountain
+              Valley it is about 82 percent, in Garden Grove 77 percent, and in
+              Santa Ana 74 percent, while Irvine is about 21 percent. Opening a
+              wall in a kitchen that age can turn up wiring or plumbing that
+              has to be brought up to current code, and older tracts can still
+              have galvanized steel supply pipe or cast iron drains that are
+              worth replacing while the walls are open.
+            </li>
+            <li>
+              <strong>Asbestos and lead.</strong> Cal/OSHA presumes that
+              sprayed or troweled-on surfacing, such as an acoustic popcorn
+              ceiling, in a building built in 1980 or earlier contains asbestos
+              unless testing shows it does not. Anyone paid to disturb paint in
+              a home built before 1978 must follow the EPA&apos;s lead-safe
+              work rules, and California adds its own lead rules for
+              construction work. Testing and safe removal are real line items.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> Permits applied for on or
+              after January 1, 2026 fall under California&apos;s 2025 Energy
+              Code. New lighting, windows, or appliances in a permitted remodel
+              can bring parts of it into play.
+            </li>
+            <li>
+              <strong>HOA review.</strong> If your home is in an association,
+              a new window, door, or exterior vent usually needs the
+              association&apos;s approval as well as the city permit, and
+              Irvine&apos;s own permit page tells residents to check their
+              HOA&apos;s CC&amp;Rs. California Civil Code section 4765 requires
+              the association to decide in writing, in good faith, and to
+              explain a denial.
+            </li>
+            <li>
+              <strong>The coastal zone.</strong> Parts of Huntington Beach and
+              Newport Beach are in the California coastal zone, where
+              development can need a coastal development permit on top of the
+              building permit. If your remodel changes the outside of the
+              house, ask the city whether that applies to your lot.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits and home age by city
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            What each city&apos;s own permit page says, with a link to where
+            applications go. Where a city&apos;s page does not list what needs
+            a permit, we say so rather than guess.
+          </p>
+          <OcRemodelCityTable />
+          <p className="mt-3 leading-relaxed">
+            Permit rules and fees differ from city to city. Our city pages are
+            a starting point:{" "}
+            <Link
+              href="/oc/irvine"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Irvine
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/newport-beach"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Newport Beach
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/yorba-linda"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Yorba Linda
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/aliso-viejo"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Aliso Viejo
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real bid for your kitchen arrives, check it against this list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              The scope is itemized: demolition, cabinets, counters,
+              appliances, plumbing, electrical, and finishes. A line marked
+              &quot;allowance&quot; is a placeholder that can go up.
+            </li>
+            <li>It says who gets the building permits.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>Start and completion dates are written in.</li>
+            <li>
+              It says how surprises behind the walls, like old pipe, asbestos,
+              or lead paint, will be priced.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
           </p>
         </section>
 
@@ -292,12 +507,13 @@ export default function KitchenRemodelCostGuide() {
             A note on resale value
           </h2>
           <p className="mt-2 leading-relaxed">
-            Minor and mid-range kitchen remodels tend to recoup a larger share
-            of their cost at resale than upscale ones, though neither usually
-            returns the full amount. Beyond resale, the kitchen is one of the
-            rooms buyers and daily users notice most, which is part of why it
-            stays such a common project even when the numbers do not fully pay
-            back.
+            The smaller job does better at resale. In the Cost vs. Value
+            Report&apos;s Los Angeles market for 2025, the minor midrange
+            remodel recouped about 127 percent of its cost, while the major
+            midrange remodel recouped about 57 percent. Beyond resale, the
+            kitchen is one of the rooms buyers and daily users notice most,
+            which is part of why it stays such a common project even when the
+            numbers do not fully pay back.
           </p>
         </section>
 
@@ -319,10 +535,13 @@ export default function KitchenRemodelCostGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-            Prices vary by home and project. Data as of July 2026, aggregated
-            from published contractor pricing and industry cost reports.
-            OakTend does not set, guarantee, or bid these prices and is not a
-            contractor.
+            Cost and resale figures are from the Remodeling 2025 Cost vs.
+            Value Report (www.costvsvalue.com) for the Los Angeles market, the
+            closest market the report covers. © 2025 Zonda Media, a Delaware
+            Corporation. Complete data from the Remodeling 2025 Cost vs. Value
+            Report can be downloaded free at www.costvsvalue.com. Prices vary
+            by home and project. OakTend does not set, guarantee, or bid these
+            prices and is not a contractor.
           </p>
         </section>
       </div>

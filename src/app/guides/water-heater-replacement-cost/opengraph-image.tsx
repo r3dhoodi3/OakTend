@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Water heater replacement cost: typical range and what changes it";
+export const alt = "OakTend guide: Water heater cost in Orange County";
 
 export default function OgImage() {
   return renderOgCard(
-    "Water heater replacement cost: typical range and what changes it",
+    "Water heater cost in Orange County",
     "An OakTend home guide"
   );
 }

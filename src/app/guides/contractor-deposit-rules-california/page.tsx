@@ -34,9 +34,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "How much can a contractor ask for up front in California?";
+const TITLE = "Contractor deposit limit in California: Orange County guide";
 const DESCRIPTION =
-  "California law caps the down payment a contractor can require on a home improvement job, requires a written contract over $500, and sets when a license is needed. What the rules are, how progress payments should work, and the red flags to watch.";
+  "California caps a contractor's down payment at $1,000 or 10 percent, whichever is less. The rules, red flags, and what applies in Orange County.";
 const CANONICAL = `${SITE_URL}/guides/contractor-deposit-rules-california`;
 
 export const metadata: Metadata = {
@@ -296,6 +296,78 @@ export default function ContractorDepositRulesGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            In Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            These are state rules, so they apply the same way in every Orange
+            County city and in the unincorporated areas: the $1,000 or 10
+            percent down payment cap, the written contract over $500, and the
+            license requirement at $1,000. A contractor based in Anaheim and
+            one based in San Clemente are bound by the same Business and
+            Professions Code.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            What changes locally is the permit, and the permit changes the
+            license rule. The Contractors State License Board says anyone who
+            contracts for a job that requires a building permit must hold a
+            valid license, whatever the price. So the small-job exemption
+            never covers work your city requires a permit for, even when the
+            quote is under $1,000. Each city sets its own permit rules and
+            fees, so ask your building department what your job needs before
+            you sign.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The law also says a contractor may not collect payment for work
+            not yet completed or materials not yet delivered, apart from the
+            down payment. Check any license at cslb.ca.gov. Our city pages are
+            a starting point:{" "}
+            <Link
+              href="/oc/santa-ana"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Santa Ana
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/garden-grove"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Garden Grove
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/fullerton"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Fullerton
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/costa-mesa"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Costa Mesa
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/dana-point"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Dana Point
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Keep your payment and message trail
           </h2>
           <p className="mt-2 leading-relaxed">
@@ -326,7 +398,7 @@ export default function ContractorDepositRulesGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            Data as of July 2026. The down payment cap is stated in California
+            Statutes checked September 2026. The down payment cap is stated in California
             Business and Professions Code section 7159.5; the written-contract
             threshold in section 7159; and the licensing threshold reflects
             Assembly Bill 2622, effective January 1, 2025. Laws change and

@@ -5,10 +5,20 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
-// Public SEO guide. Orange County bathroom remodel cost ranges, aggregated
-// from published contractor pricing and industry cost reports as of July
-// 2026. All figures are typical ranges, never quotes. The signed-in CTA
+// Public SEO guide, aimed at Orange County. The cost figure on this page
+// comes from the Remodeling 2025 Cost vs. Value Report, Los Angeles market
+// (the closest market it covers), listed in GUIDE_SOURCES
+// (src/lib/guideExtras.ts). Its reuse rules allow narrative excerpts only (no
+// tables), from at most five projects across the whole site, each with the
+// report's name, its URL and the copyright line: keep all three when editing,
+// and do not add a sixth project. Figures are averages, never quotes. The
+// Orange County section (housing age by city, older-home rules, energy code,
+// HOA, coastal zone) and the city table cite their own sources: the table's
+// rules and data live in src/lib/ocRemodelCities.ts. The pro side is closed,
+// so nothing here offers to find, match or book a contractor. The
+// signed-in CTA
 // points at /contractors?category=remodeling (bathroom work maps to the
 // remodeling service category, see SERVICE_CATEGORIES in src/lib/constants.ts).
 
@@ -28,9 +38,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Bathroom remodel cost in Orange County: typical ranges (2026)";
+// Kept to 38 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "Bathroom remodel cost in Orange County";
 const DESCRIPTION =
-  "What a bathroom remodel typically costs in Orange County, broken down by budget, mid-range, and premium tiers, cost per square foot, what drives the price, and how to save. Estimate ranges, not a quote.";
+  "A sourced 2025 bathroom remodel average near Orange County, why older OC homes cost more, city permit notes, and how to read a contractor's estimate.";
 const CANONICAL = `${SITE_URL}/guides/bathroom-remodel-cost`;
 
 export const metadata: Metadata = {
@@ -56,11 +67,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How much does a bathroom remodel cost in Orange County?",
-    a: "In Orange County, a full bathroom remodel typically runs about $25,000 to $60,000. A guest or hall bath that keeps its existing layout tends to land lower, while a master bathroom usually falls around $40,000 to $50,000, and a luxury remodel with moved plumbing and custom finishes can run $60,000 and up. That is roughly double the national average of around $12,000, mostly because of California labor, permitting, and material costs.",
+    a: "No published cost survey we could find has its own Orange County line, so the closest sourced number is for the Los Angeles market next door. According to the Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com), a midrange remodel of a 5 by 7 foot bathroom, replacing the tub, tile surround, toilet, vanity, medicine cabinet, and tile floor, averaged $27,143 there and $26,138 nationally. A larger primary bathroom, moved plumbing, or custom tile and fixtures cost considerably more.",
   },
   {
     q: "What is the cost per square foot to remodel a bathroom in OC?",
-    a: "A standard Orange County bathroom remodel typically runs about $150 to $200 per square foot. Premium work with custom tile, higher-end fixtures, and layout changes can push past $300 per square foot. Because bathrooms are small, a high per-square-foot figure still adds up quickly given how much plumbing and tile work fits into a compact space.",
+    a: "Divide the Cost vs. Value average for the Los Angeles market by the 35 square foot bathroom it describes and you get about $775 per square foot. That looks high because a bathroom packs plumbing, waterproofing, tile, and electrical into a very small room, which is also why per-square-foot numbers are a poor way to budget a bathroom. Price the scope instead.",
   },
   {
     q: "Do I need a permit to remodel a bathroom in Orange County?",
@@ -72,7 +83,22 @@ const FAQS = [
   },
   {
     q: "Is a bathroom remodel worth it at resale?",
-    a: "A mid-range bathroom remodel tends to return a larger share of its cost at resale than a high-end one, though neither typically pays for itself dollar for dollar. The stronger case is usually daily use and not deferring a bathroom that is leaking or failing, since those problems only get more expensive the longer they wait.",
+    a: "In the Cost vs. Value Report's Los Angeles market for 2025, the midrange bathroom remodel recouped about 90 percent of its cost at resale, so it comes close but does not fully pay for itself. The stronger case is usually daily use and not deferring a bathroom that is leaking or failing, since those problems only get more expensive the longer they wait.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "How much does it cost to remodel a small bathroom?",
+    a: "The Cost vs. Value Report's midrange bathroom is a small one, 5 by 7 feet, and replacing every fixture in it averaged $27,143 in the Los Angeles market in 2025 (www.costvsvalue.com). A cosmetic refresh that keeps the tub and the layout costs less. Moving the toilet or shower, custom tile, or high-end fixtures cost more.",
+  },
+  {
+    q: "What plumbing problems are common in older Orange County homes?",
+    a: "About 57 percent of Orange County's housing units were built before 1980, according to the Census Bureau's 2020 to 2024 American Community Survey, and about three in four or more in Fountain Valley, Garden Grove, and Santa Ana. Older tracts can still have galvanized steel supply pipe and cast iron drains. A bathroom remodel opens the walls and floor, so it is the cheapest time to replace them.",
+  },
+  {
+    q: "What is Title 24 and does it apply to my bathroom remodel?",
+    a: "Title 24 is California's building code, and Part 6 of it is the Energy Code. Permits applied for on or after January 1, 2026 fall under the 2025 Energy Code. In a permitted bathroom remodel, new lighting or a new exhaust fan can bring parts of it into play, while like-for-like repairs generally do not. Your city's permit counter can tell you which parts apply.",
   },
 ];
 
@@ -135,45 +161,59 @@ export default function BathroomRemodelCostGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/bathroom-remodel-cost" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Typical estimate ranges for OC homeowners, not a quote for your home.
-        Prices vary. Data as of July 2026.
+        Sourced planning figures for Orange County homeowners, not a quote for
+        your home. Prices vary.
       </p>
 
       {/* Hero cost callout: OC range above the fold, before any national number. */}
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-6 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
-          Typical Orange County bathroom remodel
+          Average midrange bathroom remodel, Los Angeles market, 2025
         </p>
         <p className="mt-1 text-3xl font-bold text-stone-900 dark:text-stone-100">
-          $25,000 to $60,000
+          $27,143
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          A master bath usually lands around $40,000 to $50,000. Luxury
-          remodels with moved plumbing and custom finishes run $60,000 and up.
-          That is roughly double the national average of about $12,000.
+          From the Remodeling 2025 Cost vs. Value Report
+          (www.costvsvalue.com), for a full update of a 5 by 7 foot bathroom
+          with all new fixtures and tile. The report has no separate Orange
+          County market, so Los Angeles is the closest one. The national
+          average for the same job is $26,138.
         </p>
       </div>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Cost by tier
+            Cost by scope
           </h2>
+          <p className="mt-2 leading-relaxed">
+            No published cost survey we could find has its own Orange County
+            line, so the closest sourced number is for the Los Angeles market
+            next door. According to the Remodeling 2025 Cost vs. Value Report
+            (www.costvsvalue.com), a midrange remodel of a 5 by 7 foot
+            bathroom averaged{" "}
+            <strong>$27,143</strong>
+            {" "}
+            in the Los Angeles market in 2025 and{" "}
+            <strong>$26,138</strong>
+            {" "}
+            nationally. That job replaces every fixture: a new tub with a
+            ceramic tile surround, shower control, toilet, solid-surface
+            vanity top with sink, medicine cabinet, and ceramic tile floor.
+          </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Budget: about $15,000 to $25,000.</strong> A guest or
-              hall bath that keeps the existing layout, with a new vanity,
-              toilet, fixtures, and standard tile over the same footprint.
+              <strong>Less than that:</strong> a cosmetic refresh that keeps
+              the tub and the layout, with a new vanity, toilet, fixtures, and
+              paint.
             </li>
             <li>
-              <strong>Mid-range: about $25,000 to $45,000.</strong> A full
-              remodel with new tile, a larger vanity, updated lighting, and
-              minor layout tweaks that do not relocate the main plumbing.
-            </li>
-            <li>
-              <strong>Premium: about $50,000 to $60,000 and up.</strong> A
-              master bath or luxury remodel with moved plumbing, custom tile
-              work, a walk-in shower, and higher-end fixtures.
+              <strong>More than that:</strong> a larger primary bathroom, a
+              relocated toilet or shower, a walk-in shower with custom tile
+              and glass, or high-end fixtures. We did not print a number for
+              these because the one published figure we could use covers the
+              midrange job only.
             </li>
           </ul>
         </section>
@@ -183,12 +223,13 @@ export default function BathroomRemodelCostGuide() {
             Cost per square foot
           </h2>
           <p className="mt-2 leading-relaxed">
-            A standard Orange County bathroom remodel typically runs about{" "}
-            <strong>$150 to $200 per square foot</strong>. Premium work with
-            custom tile and layout changes can push past{" "}
-            <strong>$300 per square foot</strong>. Bathrooms are small, so
-            even a modest-looking per-foot figure adds up fast once you fit in
-            the plumbing, waterproofing, and tile that a bathroom needs.
+            Divide that average by the 35 square foot bathroom it describes
+            and you get about{" "}
+            <strong>$775 per square foot</strong>
+            . It looks high because a bathroom packs plumbing, waterproofing,
+            tile, and electrical into a very small room. That is also why
+            per-square-foot numbers are a poor way to budget a bathroom: price
+            the scope instead.
           </p>
         </section>
 
@@ -217,8 +258,9 @@ export default function BathroomRemodelCostGuide() {
               more.
             </li>
             <li>
-              <strong>Labor.</strong> In a California bathroom budget, labor
-              often runs about 40 to 65 percent of the total.
+              <strong>Labor.</strong> A bathroom needs a plumber, a tile
+              setter, and an electrician in a small space, so labor is a large
+              share of the total.
             </li>
           </ul>
         </section>
@@ -252,6 +294,18 @@ export default function BathroomRemodelCostGuide() {
             license before signing.
           </p>
           <p className="mt-2 leading-relaxed">
+            A home improvement contract over $500 has to be in writing, and
+            the <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+          <p className="mt-2 leading-relaxed">
             On permits, purely cosmetic work like paint, flooring, or a
             like-for-like vanity swap generally does not need one. Once you
             change plumbing, electrical, or the layout, most OC cities
@@ -260,6 +314,162 @@ export default function BathroomRemodelCostGuide() {
             simple like-for-like repairs generally do not. Thresholds vary by
             city, so check with your local building department before work
             starts.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Why it costs more in Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Orange County has no line of its own in the Cost vs. Value Report,
+            which covers Los Angeles as the nearest market. The Los Angeles
+            average runs about 4 percent above the national one for the same
+            bathroom, so expect local prices above national figures you see
+            elsewhere. A bathroom is where an older house shows its age
+            first, because it packs the most plumbing into the least space.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Older houses.</strong> About 57 percent of Orange
+              County&apos;s housing units were built before 1980, by the Census
+              Bureau&apos;s 2020 to 2024 American Community Survey: about 82
+              percent in Fountain Valley, 77 percent in Garden Grove, and 74
+              percent in Santa Ana, against about 21 percent in Irvine. Older
+              tracts can still have galvanized steel supply pipe and cast iron
+              drains behind the tile. If the house sits on a concrete slab,
+              moving a toilet or shower drain also means cutting concrete,
+              which is why keeping the layout saves so much.
+            </li>
+            <li>
+              <strong>Asbestos and lead.</strong> Cal/OSHA presumes that
+              sprayed or troweled-on surfacing, such as an acoustic popcorn
+              ceiling, in a building built in 1980 or earlier contains asbestos
+              unless testing shows it does not. Anyone paid to disturb paint in
+              a home built before 1978 must follow the EPA&apos;s lead-safe
+              work rules, and California adds its own lead rules for
+              construction work. Ask whether a bid includes testing.
+            </li>
+            <li>
+              <strong>Hard water.</strong> The Irvine Ranch Water District
+              says the imported water in its system is typically hard and that
+              the minerals leave white spots on glassware. Expect the same on
+              clear shower glass and dark fixtures when you choose finishes.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> Permits applied for on or
+              after January 1, 2026 fall under California&apos;s 2025 Energy
+              Code. New lighting or a new exhaust fan in a permitted remodel
+              can bring parts of it into play.
+            </li>
+            <li>
+              <strong>HOA review and the coastal zone.</strong> Most bathroom
+              work is inside the house, but a new or enlarged window can need
+              your association&apos;s approval as well as the city permit
+              (California Civil Code section 4765 requires the association to
+              decide in writing and explain a denial). In the coastal parts of
+              Huntington Beach and Newport Beach, work that changes the outside
+              of the house can also need a coastal development permit.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits and home age by city
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            What each city&apos;s own permit page says, with a link to where
+            applications go. Where a city&apos;s page does not list what needs
+            a permit, we say so rather than guess.
+          </p>
+          <OcRemodelCityTable />
+          <p className="mt-3 leading-relaxed">
+            Permit rules and fees differ from city to city. Our city pages are
+            a starting point:{" "}
+            <Link
+              href="/oc/mission-viejo"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Mission Viejo
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/tustin"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Tustin
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/brea"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Brea
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/laguna-hills"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Laguna Hills
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real bid for your bathroom arrives, check it against this list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              The scope is itemized: demolition, waterproofing, tile,
+              plumbing, fixtures, electrical, and the fan. A line marked
+              &quot;allowance&quot; is a placeholder that can go up.
+            </li>
+            <li>It says who gets the building permits.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>Start and completion dates are written in.</li>
+            <li>
+              It says how rotted subfloor, old pipe, asbestos, or lead paint
+              found after demolition will be priced.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
           </p>
         </section>
 
@@ -293,12 +503,12 @@ export default function BathroomRemodelCostGuide() {
             A note on resale value
           </h2>
           <p className="mt-2 leading-relaxed">
-            A mid-range bathroom remodel tends to return a larger share of its
-            cost at resale than a high-end one, though neither typically pays
-            for itself dollar for dollar. The stronger reasons are usually
-            daily comfort and not putting off a bathroom that is leaking or
-            failing, since those problems only get more expensive the longer
-            they sit.
+            In the Cost vs. Value Report&apos;s Los Angeles market for 2025,
+            the midrange bathroom remodel recouped about 90 percent of its
+            cost at resale, so it comes close but does not fully pay for
+            itself. The stronger reasons are usually daily comfort and not
+            putting off a bathroom that is leaking or failing, since those
+            problems only get more expensive the longer they sit.
           </p>
         </section>
 
@@ -320,10 +530,13 @@ export default function BathroomRemodelCostGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-            Prices vary by home and project. Data as of July 2026, aggregated
-            from published contractor pricing and industry cost reports.
-            OakTend does not set, guarantee, or bid these prices and is not a
-            contractor.
+            Cost and resale figures are from the Remodeling 2025 Cost vs.
+            Value Report (www.costvsvalue.com) for the Los Angeles market, the
+            closest market the report covers. © 2025 Zonda Media, a Delaware
+            Corporation. Complete data from the Remodeling 2025 Cost vs. Value
+            Report can be downloaded free at www.costvsvalue.com. Prices vary
+            by home and project. OakTend does not set, guarantee, or bid these
+            prices and is not a contractor.
           </p>
         </section>
       </div>

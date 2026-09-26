@@ -80,7 +80,7 @@ const REGION_NOTES: Record<string, string> = {
 // The five guides written most directly for local conditions, in the order a
 // homeowner is likely to want them.
 const LOCAL_GUIDES = [
-  "/guides/socal-home-maintenance-calendar",
+  "/guides/orange-county-home-maintenance-checklist",
   "/guides/slab-leak-signs",
   "/guides/roof-replacement-cost",
   "/guides/adu-cost",
@@ -204,7 +204,7 @@ export default function OrangeCountyHub() {
             gutters, roof flashing and yard drains are best checked before the
             first storm. Our{" "}
             <Link
-              href="/guides/socal-home-maintenance-calendar"
+              href="/guides/orange-county-home-maintenance-checklist"
               className={linkClass}
             >
               month-by-month calendar
