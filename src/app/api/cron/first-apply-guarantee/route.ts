@@ -38,7 +38,11 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const DEAD_LEAD_DAYS = 30;
 
 const GUARANTEE_KIND = "first_apply_guarantee";
-const GUARANTEE_URL = "/pro/billing";
+// /pro/billing is a redirect to /pro/payouts now (the prepaid wallet is
+// retired). Pointed straight at the destination so an old notification does
+// not bounce through a redirect. This whole cron is paused behind
+// RETIRED_PRO_PROGRAMS_PAUSED anyway.
+const GUARANTEE_URL = "/pro/payouts";
 const GUARANTEE_TITLE = "Your first application fee came back as credit";
 const GUARANTEE_BODY =
   "You weren't picked for your first job, so we returned your application fee as credit. It's in your wallet for your next application, for the next 60 days.";

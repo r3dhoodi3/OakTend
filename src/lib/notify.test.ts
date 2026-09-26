@@ -38,7 +38,10 @@ import {
   isEmailOptOutExempt,
   parseFromAddress,
 } from "./notify";
-import { MARKETING_BUDGET_MAX_PER_WINDOW } from "./notifyGating";
+import {
+  EMAIL_PREFS_PATH_BY_KIND,
+  MARKETING_BUDGET_MAX_PER_WINDOW,
+} from "./notifyGating";
 
 beforeEach(() => {
   countResult = { count: 0, error: null };
@@ -247,6 +250,66 @@ describe("email provider selection", () => {
     expect(body.content[0].type).toBe("text/plain");
     expect(body.content[0].value).toContain(note.body);
     expect(body.content[0].value).toContain("Unsubscribe from these emails:");
+  });
+
+  describe("the footer's exit for a kind unsubscribe cannot stop", () => {
+    // A pro's job alerts are on EMAIL_TRANSACTIONAL_KINDS, so email_opt_out
+    // does not touch them: before this, a pro could click the footer's
+    // unsubscribe link forever and keep receiving every alert, with no hint
+    // that the real switch was at /pro/notifications. See
+    // emailPrefsPathForKind in src/lib/notifyGating.ts.
+    const lead = {
+      userId: "pro-1",
+      kind: "new_lead",
+      title: "New plumbing job in Irvine",
+      body: "A homeowner posted a job in one of your trades.",
+      email,
+    };
+
+    beforeEach(() => {
+      vi.stubEnv("SENDGRID_API_KEY", "sg-key");
+      vi.stubEnv("SENDGRID_FROM", "OakTend <hello@oaktend.com>");
+      // The footer builds absolute URLs against this, so pin it rather than
+      // inheriting whatever the surrounding environment happens to set.
+      vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://oaktend.com");
+    });
+
+    it("names the page that actually switches this mail off", async () => {
+      await sendEmail(lead);
+
+      expect(lastRequest().body.content[0].value).toContain(
+        "Choose which of these emails you get: https://oaktend.com/pro/notifications"
+      );
+    });
+
+    it("stops the unsubscribe line claiming to cover this email", async () => {
+      await sendEmail(lead);
+
+      const text = lastRequest().body.content[0].value;
+      // The link is relabelled, never removed: it still works, and it is still
+      // the guaranteed exit from the digests the same pro may be getting.
+      expect(text).toContain("Unsubscribe from marketing email:");
+      expect(text).not.toContain("Unsubscribe from these emails:");
+      expect(text).toContain("/unsubscribe?uid=");
+    });
+
+    it("leaves the footer untouched for every other kind", async () => {
+      await sendEmail(note);
+
+      const text = lastRequest().body.content[0].value;
+      expect(text).toContain("Unsubscribe from these emails:");
+      expect(text).not.toContain("Choose which of these emails you get:");
+    });
+
+    it("only names a prefs page for kinds the opt-out really is exempt from", async () => {
+      // The invariant that makes the relabelled line true. If a kind were
+      // listed whose email the opt-out DOES stop, the footer would be telling
+      // that recipient their unsubscribe covers only marketing when in fact it
+      // would have stopped the very message in their hands.
+      for (const kind of EMAIL_PREFS_PATH_BY_KIND.keys()) {
+        expect(isEmailOptOutExempt(kind)).toBe(true);
+      }
+    });
   });
 
   it("still uses Resend while only its key is set", async () => {

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { setFlash } from "@/lib/flash";
 import { NOTIFICATION_CHANNELS } from "./channels";
+import { carryProAlertPrefs } from "@/lib/proAlertPrefs";
 
 // Save the homeowner's notification toggles onto their own user row. Each
 // checkbox posts "on" when checked, so an absent value means the channel is off.
@@ -40,6 +41,15 @@ export async function saveNotificationPrefsAction(formData: FormData) {
   if (current?.notification_prefs?.push_opt_out === true) {
     prefs.push_opt_out = true;
   }
+  // Same reasoning a third time, for the pro side's job-alert switches
+  // (src/lib/proAlertPrefs.ts, saved from /pro/notifications). A dual-side
+  // account - a founder testing both sides is exactly one - would otherwise
+  // turn every pro alert channel back on just by saving an unrelated homeowner
+  // toggle, because an absent key means ON for those.
+  carryProAlertPrefs(
+    current?.notification_prefs as Record<string, unknown> | null,
+    prefs as Record<string, unknown>
+  );
 
   const { error } = await supabase
     .from("users")

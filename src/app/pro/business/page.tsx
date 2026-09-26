@@ -55,7 +55,8 @@ function timeToApplyText(minutes: number | null): string | null {
 }
 
 // "My Business": one compact cockpit for the numbers a pro actually runs on -
-// win rate, spend, cost per job won - plus the wallet and what's in flight.
+// win rate and what's in flight. (Spend, cost per job won and the wallet
+// balance came out on 2026-09-24: applying is free, so there is no spend.)
 export default async function ProBusinessPage() {
   const contractor = await getCurrentContractor();
   // No company yet: company setup is the only way in, whatever the account's
@@ -67,7 +68,6 @@ export default async function ProBusinessPage() {
   const [
     { data: myApps },
     { data: wonData },
-    { data: wallet },
     { data: reviewRows },
     isPro,
     proSub,
@@ -87,11 +87,6 @@ export default async function ProBusinessPage() {
       .in("status", ["accepted", "closed"])
       .order("created_at", { ascending: false })
       .limit(5),
-    supabase
-      .from("wallets")
-      .select("id, cash_balance_cents, bonus_balance_cents")
-      .eq("contractor_id", contractor.id)
-      .maybeSingle(),
     // Recent reviews worth sharing: same >= 4 star floor as the review-card
     // route (src/app/api/review-card/[reviewId]/route.tsx), so nothing shown
     // here ever links to a card that route would 404 on.
@@ -146,9 +141,6 @@ export default async function ProBusinessPage() {
   const proSlug = (contractor as any).slug as string | null | undefined;
   const profileUrl = `${SITE_URL}/p/${proSlug || contractor.id}`;
 
-  const cash = Number((wallet as any)?.cash_balance_cents ?? 0);
-  const bonus = Number((wallet as any)?.bonus_balance_cents ?? 0);
-
   // Stripe Connect state for the Payouts row below. One extra admin read of
   // seven columns on this pro's own row; readConnectRow() never throws and
   // answers "unavailable" both when the live database has not run migration
@@ -156,29 +148,16 @@ export default async function ProBusinessPage() {
   // all rather than claiming anything about a setting the app cannot see.
   const { status: payoutsStatus } = await readConnectRow(contractor.id);
 
-  // Total spent = every debit on the wallet (apply fees, lead charges). Same
-  // math as the leads board's "Your results" card. Bounded so one wallet with
-  // a huge ledger can't make this page fetch unbounded rows; 1000 transactions
-  // is far beyond a typical pro's history.
-  const { data: txnRows } = (wallet as any)?.id
-    ? await (supabase as any)
-        .from("wallet_transactions")
-        .select("cash_delta_cents, bonus_delta_cents")
-        .eq("wallet_id", (wallet as any).id)
-        .limit(1000)
-    : { data: [] };
-  const spentCents = (txnRows ?? []).reduce((sum: number, t: any) => {
-    const delta =
-      Number(t.cash_delta_cents ?? 0) + Number(t.bonus_delta_cents ?? 0);
-    return delta < 0 ? sum + Math.abs(delta) : sum;
-  }, 0);
+  // The wallet balance and the total-spent ledger read stood here. Applying
+  // is free as of migration 0172, so both described a retired model and could
+  // only ever report frozen history - and dropping them takes two queries off
+  // this page. The rows themselves are untouched in the database.
 
   const appliedCount = apps.length;
   const wonCount = apps.filter((a) => a.status === "chosen").length;
   // Win rate only means something with a few data points behind it.
   const winRate =
     appliedCount >= 3 ? Math.round((wonCount / appliedCount) * 100) : null;
-  const costPerWin = wonCount > 0 ? spentCents / wonCount : null;
 
   // In flight: applications the homeowner hasn't answered yet.
   const pendingApps = apps.filter(
@@ -225,10 +204,6 @@ export default async function ProBusinessPage() {
       winRate={winRate}
       wonCount={wonCount}
       appliedCount={appliedCount}
-      spentCents={spentCents}
-      costPerWin={costPerWin}
-      cashCents={cash}
-      bonusCents={bonus}
       // Just the referral code now: the license number, its CSLB result and
       // the two uploaded documents moved to the Credentials tab of
       // /pro/profile, so this page no longer reads any of those columns.

@@ -69,32 +69,27 @@ describe("ghost protection: never a bare refund, always credit-to-wallet", () =>
     }
   });
 
-  // The other surfaces that state the ghost-protection promise in their own
-  // words rather than rendering the canonical sentence (LeadsBoard's pending-
-  // applications note, BusinessView's, DirectRequestActions' unlock confirm).
-  // Read as source, same convention as src/components/phoneTapTargets.test.ts,
-  // because all three pull in client components with a server-action or
-  // service-role import chain.
-  it("LeadsBoard's pending-applications ghost-protection line pairs refund with credit", () => {
-    const board = src("../app/pro/leads/LeadsBoard.tsx");
-    const p = sliceParagraph(board, "Ghost protection: if the homeowner never responds and no one is");
-    expect(p).toContain("<strong>wallet credit</strong>");
-    assertRefundPairedWithCredit(p);
-  });
+  // Three surfaces used to state the ghost-protection promise in their own
+  // words (LeadsBoard's pending-applications note, BusinessView's, and
+  // DirectRequestActions' unlock confirm). All three are gone with the fee
+  // they promised back - see the sweep test below.
 
-  it("BusinessView's pending-applications ghost-protection line says lead credit, not cash", () => {
-    const view = src("../app/pro/business/BusinessView.tsx");
-    const p = sliceParagraph(view, "Ghost protection: if the homeowner never responds, your fee comes");
-    expect(p).toContain("<strong>lead credit (not cash)</strong>");
-    assertRefundPairedWithCredit(p);
-  });
-
-  it("DirectRequestActions' unlock-confirm line bolds the fee and says lead credit, not cash", () => {
-    const actions = src("../app/pro/DirectRequestActions.tsx");
-    const p = sliceParagraph(actions, "Unlocking accepts this request and charges the");
-    expect(p).toContain("<strong>{fee}</strong>");
-    expect(p).toContain("<strong>lead credit (not cash)</strong>");
-    assertRefundPairedWithCredit(p);
+  // The unlock-confirm line ("Unlocking accepts this request and charges the
+  // $X lead fee... ghost protection puts the fee back as lead credit") is
+  // gone: accepting a direct request is free as of migration 0172. Same for
+  // the ghost-protection line on /pro/business above. What both must not do
+  // is come back.
+  it("the retired per-lead promises are not still being made anywhere", () => {
+    for (const rel of [
+      "../app/pro/DirectRequestActions.tsx",
+      "../app/pro/ApplyJobButton.tsx",
+      "../app/pro/leads/LeadsBoard.tsx",
+    ]) {
+      const text = src(rel);
+      expect(text).not.toContain("lead credit (not cash)");
+      expect(text).not.toContain("Ghost protection");
+      expect(text).not.toContain("ghostProtectionGuaranteeRich");
+    }
   });
 });
 

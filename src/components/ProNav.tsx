@@ -230,7 +230,18 @@ export default function ProNav({
                 // of this menu (the `upgrade` prop above), the pro twin of the
                 // homeowner Plus row - so no duplicate plain "Membership" link
                 // here pointing at the same /pro/plus.
-                { href: "/pro/billing", label: "Billing" },
+                // Was "Billing" -> /pro/billing, the prepaid wallet. That
+                // page is a redirect now (migration 0172 made applying free,
+                // so there is nothing to bill); the money slot in this menu
+                // points at where money actually reaches a pro.
+                { href: "/pro/payouts", label: "Payouts" },
+                // How a new job reaches this pro (email / text / phone
+                // notification). An account setting, so it sits beside Billing
+                // rather than under the business profile. Until it existed the
+                // fan-out in src/lib/proAlerts.ts could not be turned off by
+                // any means at all - not even the CAN-SPAM unsubscribe, which
+                // "new_lead" is exempt from.
+                { href: "/pro/notifications", label: "Job alerts" },
                 { href: "/pro/privacy", label: "Your privacy rights" },
                 { href: "/pro/help", label: "Help" },
                 // The other side of the account, mirroring Nav.tsx: a switch

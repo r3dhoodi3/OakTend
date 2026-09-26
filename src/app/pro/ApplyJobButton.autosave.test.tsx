@@ -24,8 +24,8 @@ beforeEach(() => localStorage.clear());
 // (ProToolsClient.test.tsx) and the CRM note (CrmView.test.tsx).
 describe("ApplyJobButton: apply-message autosave", () => {
   function openConfirm(leadId: string) {
-    render(<ApplyJobButton leadId={leadId} fee="$45" canAfford={true} />);
-    fireEvent.click(screen.getByRole("button", { name: "Apply · $45" }));
+    render(<ApplyJobButton leadId={leadId} />);
+    fireEvent.click(screen.getByRole("button", { name: "Apply" }));
     return screen.getByPlaceholderText("Add a note to the homeowner (optional)");
   }
 
@@ -41,8 +41,8 @@ describe("ApplyJobButton: apply-message autosave", () => {
     );
     cleanup();
 
-    render(<ApplyJobButton leadId="lead-autosave-1" fee="$45" canAfford={true} />);
-    fireEvent.click(screen.getByRole("button", { name: "Apply · $45" }));
+    render(<ApplyJobButton leadId="lead-autosave-1" />);
+    fireEvent.click(screen.getByRole("button", { name: "Apply" }));
     expect(
       screen.getByPlaceholderText("Add a note to the homeowner (optional)")
     ).toHaveValue("Hi, I can take a look Thursday");

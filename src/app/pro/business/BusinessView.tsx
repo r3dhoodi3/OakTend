@@ -122,10 +122,6 @@ export default function BusinessView({
   winRate,
   wonCount,
   appliedCount,
-  spentCents,
-  costPerWin,
-  cashCents,
-  bonusCents,
   account,
   payoutsStatus,
   stats,
@@ -144,10 +140,6 @@ export default function BusinessView({
   winRate: number | null;
   wonCount: number;
   appliedCount: number;
-  spentCents: number;
-  costPerWin: number | null;
-  cashCents: number;
-  bonusCents: number;
   account: AccountPanelProps;
   /**
    * Stripe Connect state, computed on the server (readConnectRow). One word:
@@ -170,7 +162,7 @@ export default function BusinessView({
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">My Business</h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Your numbers, your wallet, and everything in flight.
+          Your numbers and everything in flight.
         </p>
         <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
           Homeowners overwhelmingly pick from the pros who apply first. Fast
@@ -229,44 +221,22 @@ export default function BusinessView({
               : "Shows after 3 applications"}
           </p>
         </div>
-        <div className="card">
-          <p className="stat-label">Spent on applications</p>
-          <p className="stat-number mt-1 text-2xl">
-            {dollars(spentCents)}
-          </p>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-            Refunded automatically when a homeowner never replies (ghost
-            protection)
-          </p>
-        </div>
-        <div className="card">
-          <p className="stat-label">Cost per job won</p>
-          <p className="stat-number mt-1 text-2xl">
-            {costPerWin !== null ? dollars(costPerWin) : "-"}
-          </p>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-            {costPerWin !== null
-              ? "Total spend divided by wins"
-              : "Shows after your first win"}
-          </p>
-        </div>
+        {/* "Spent on applications" and "Cost per job won" stood here. Both
+            were computed from wallet debits, and applying is free as of
+            migration 0172 - so from today they could only ever count history
+            that never grows again, under a pricing model that no longer
+            exists. The honest replacement is what OakTend's 5% actually took
+            out of each paid invoice, which cannot be built until the invoice
+            flow writes those rows; it belongs here when it does. */}
       </section>
 
-      {/* Wallet snapshot - the full ledger lives on Billing. */}
-      <section className="card-hero flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="stat-label">Wallet</p>
-          <p className="stat-number mt-1 text-4xl">
-            {dollars(cashCents + bonusCents)}
-          </p>
-          <p className="text-xs text-stone-500 dark:text-stone-400 [font-variant-numeric:tabular-nums]">
-            {dollars(cashCents)} cash · {dollars(bonusCents)} bonus credit
-          </p>
-        </div>
-        <Link href="/pro/billing" className="btn-secondary shrink-0 text-sm">
-          Add funds
-        </Link>
-      </section>
+      {/* The prepaid wallet balance stood here, with an "Add funds" button
+          beside it. Both are gone: the per-lead charge was retired on
+          2026-09-12 for a 5% cut of a paid invoice, and migration 0172 made
+          applying and unlocking free in the database itself - so there is
+          nothing a balance could pay for and nothing to top up. This page
+          keeps the numbers that still mean something (jobs, wins, response
+          time); money lives on /pro/payouts now. */}
 
       {/* Phone notifications. Top level rather than inside the collapsed
           Account panel below, and here rather than on a notification settings
@@ -361,19 +331,14 @@ export default function BusinessView({
                 </p>
                 <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
                   {stats.wins > 0
-                    ? `out of ${stats.liveApplications} paid applications`
+                    ? `out of ${stats.liveApplications} applications`
                     : "No wins yet"}
                 </p>
               </div>
-              <div className="card">
-                <p className="stat-label">Fees spent</p>
-                <p className="stat-number mt-1 text-2xl">
-                  {dollars(stats.feesSpentCents)}
-                </p>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-                  On leads, net of ghost-protection credits
-                </p>
-              </div>
+              {/* "Fees spent" stood here, net of ghost-protection credits.
+                  Applying costs nothing as of migration 0172, so the number
+                  is frozen history under a retired model - same reasoning as
+                  the two stats removed above. */}
             </div>
 
             <p className="text-xs text-stone-500 dark:text-stone-400">
@@ -586,14 +551,12 @@ export default function BusinessView({
                   <span aria-hidden="true" className="icon-chip">
                     <Lock className="h-5 w-5" />
                   </span>
-                  Win rate and average fee per category
+                  Win rate and win count per category
                 </p>
               </div>
             )}
             <p className="text-sm text-stone-500 dark:text-stone-400">
-              {spentCents > 0
-                ? `You've spent ${dollars(spentCents)} on application fees - Insights shows which categories are earning it back. `
-                : "Insights shows which categories earn your application fees back, and which ones quietly drain them. "}
+              {"Insights shows which categories you actually win, and which ones quietly eat your time. "}
               <Link
                 href="/pro/plus"
                 className="font-medium text-bark-700 hover:underline dark:text-stone-300"
@@ -615,13 +578,9 @@ export default function BusinessView({
             Pending applications{" "}
             <span className="text-stone-500 dark:text-stone-400">({pendingApps.length})</span>
           </h2>
-          {/* "Lead credit (not cash)" bolded on request: this line used to say
-              "wallet credit" alone, which a pro skimming past could still
-              read as money back to a card. */}
-          <p className="text-xs text-stone-500 dark:text-stone-400">
-            Ghost protection: if the homeowner never responds, your fee comes
-            back automatically as <strong>lead credit (not cash)</strong>.
-          </p>
+          {/* The ghost-protection promise ("your fee comes back as lead
+              credit") stood here. Applying is free as of migration 0172, so
+              there is no fee to come back. */}
         </div>
         {pendingApps.length === 0 ? (
           <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
