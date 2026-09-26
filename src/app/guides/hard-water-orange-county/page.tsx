@@ -270,7 +270,7 @@ export default function HardWaterOrangeCountyGuide() {
             water and make the heater less efficient, and it tells customers to
             follow the manufacturer&apos;s owner&apos;s guide. Our own{" "}
             <Link
-              href="/guides/home-maintenance-schedule"
+              href="/guides/orange-county-home-maintenance-checklist"
               className="text-bark-700 underline hover:no-underline dark:text-stone-300"
             >
               maintenance schedule

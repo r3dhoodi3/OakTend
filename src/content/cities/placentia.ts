@@ -182,8 +182,8 @@ export const placentia: CityContent = {
         "What a full system runs, for a city whose own safety element plans around heat waves above 99.8 degrees.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what to do before the September to December Santa Ana wind season.",
     },

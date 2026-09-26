@@ -19,7 +19,6 @@ import {
   Bug,
   Flame,
   KeyRound,
-  ListChecks,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -83,13 +82,6 @@ const GUIDES = [
       "How to spot a slab leak early, why older Orange County homes are prone to them, and what the repair options look like.",
   },
   {
-    href: "/guides/home-maintenance-schedule",
-    icon: CalendarDays,
-    title: "Home maintenance schedule",
-    blurb:
-      "How often to actually change filters, flush the water heater, service the AC, and clean the gutters.",
-  },
-  {
     href: "/guides/is-my-contractor-quote-fair",
     icon: ClipboardList,
     title: "Is my contractor's quote fair?",
@@ -102,13 +94,6 @@ const GUIDES = [
     title: "How much can a contractor ask for up front?",
     blurb:
       "California's deposit cap, the written-contract rule, when a license is required, and the red flags that mean you should slow down.",
-  },
-  {
-    href: "/guides/socal-home-maintenance-calendar",
-    icon: CalendarDays,
-    title: "SoCal home maintenance calendar",
-    blurb:
-      "A month-by-month calendar for coastal Southern California: AC strain, termite swarm season, Santa Ana wind prep, and first-rain checks.",
   },
   {
     href: "/guides/permits-orange-county",
@@ -161,10 +146,10 @@ const GUIDES = [
   },
   {
     href: "/guides/orange-county-home-maintenance-checklist",
-    icon: ListChecks,
+    icon: CalendarDays,
     title: "Orange County home maintenance checklist",
     blurb:
-      "A month by month checklist built around what actually wears on Orange County homes: Santa Ana winds, first rains, the marine layer, hard water, termites and earthquakes.",
+      "The month by month maintenance calendar for Orange County homes, how often to do each job, and links to every system guide: winds, first rains, salt air, hard water and termites.",
   },
 ];
 

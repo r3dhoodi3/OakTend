@@ -201,8 +201,8 @@ export const lagunaHills: CityContent = {
         "What an upgrade runs when the panel is original to a 1980 house, and why the city wants the utility's service order before it issues the permit.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including slope drains before winter and brush and gutters before the August to October wind season.",
     },

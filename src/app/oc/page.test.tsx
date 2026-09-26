@@ -94,7 +94,7 @@ describe("/oc, the Orange County hub", () => {
     render(<OrangeCountyHub />);
     const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
     for (const href of [
-      "/guides/socal-home-maintenance-calendar",
+      "/guides/orange-county-home-maintenance-checklist",
       "/guides/slab-leak-signs",
       "/guides/roof-replacement-cost",
       "/guides/adu-cost",

@@ -153,8 +153,8 @@ export const fullerton: CityContent = {
         "Typical range and when a repair is smarter, on water that averages about 14 grains per gallon.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, built around a wet season that runs December through March and a long dry stretch of sun on roofing and paint.",
     },

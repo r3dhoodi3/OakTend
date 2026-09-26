@@ -179,8 +179,8 @@ export const laHabra: CityContent = {
         "What a full system runs, in a city whose hazard plan ranks extreme heat second and whose permit page lists HVAC replacement as permit work.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including getting the air conditioning serviced before the summer heat the city's hazard plan ranks second.",
     },

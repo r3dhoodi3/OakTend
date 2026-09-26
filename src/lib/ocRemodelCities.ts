@@ -25,6 +25,28 @@ import type { LaunchCityName } from "@/lib/serviceArea";
 //
 // `aduPlans` is null where no pre-approved ADU plan program could be
 // confirmed. That means "not confirmed", not "none": the table says so.
+//
+// TRADE GUIDES. Since 2026-09-25 the same table also sits on the roof, water
+// heater, HVAC and electrical panel cost guides. There the permit column shows
+// `tradeRules[trade]` instead of `permitRule`, because a remodel sentence
+// ("paint, tile, cabinets and counters do not") says nothing about a re-roof.
+// Same rule as above: each entry is what that city's own page said when it
+// was opened on 2026-09-25, trimmed, with a link when it came from a different
+// page than `permitHref`. A trade with no entry shows TRADE_RULE_FALLBACK, so
+// a cell never claims more than the city's page does.
+
+/** The four trade cost guides that reuse the table. */
+export type OcTrade = "roof" | "waterHeater" | "hvac" | "panel";
+
+export type OcTradeRule = {
+  text: string;
+  /** Where the text came from, when it is not the row's permitHref. */
+  href?: string;
+  label?: string;
+};
+
+export const TRADE_RULE_FALLBACK =
+  "The city's page does not name this work. Ask the building department before work starts.";
 
 export type OcRemodelCity = {
   name: LaunchCityName;
@@ -40,6 +62,8 @@ export type OcRemodelCity = {
   pre1980: number;
   /** The city's pre-approved ADU plan program, or null if not confirmed. */
   aduPlans: { href: string; text: string } | null;
+  /** What the city's pages say about each trade, where they say anything. */
+  tradeRules: Partial<Record<OcTrade, OcTradeRule>>;
 };
 
 // Orange County as a whole, same table and vintage as the city rows.
@@ -47,6 +71,14 @@ export const OC_PRE_1980 = 57;
 
 export const CENSUS_B25034_HREF =
   "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770";
+
+// Irvine's permits-not-required page lists no trade work among its
+// exemptions and opens by saying most work regulated by code needs a permit.
+const IRVINE_NOT_EXEMPT: OcTradeRule = {
+  text: "Most work regulated by code needs a permit, and this work is not on the city's list of exemptions.",
+  href: "https://cityofirvine.gov/community-development/permits-not-required",
+  label: "Permits not required list",
+};
 
 // Oldest housing first, so the table reads as a gradient from the 1950s and
 // 1960s tract cities to Irvine.
@@ -60,6 +92,14 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     coastal: false,
     pre1980: 82,
     aduPlans: null,
+    tradeRules: {
+      roof: {
+        text: "The page does not name re-roofing. It says altering or repairing a building needs a permit.",
+      },
+      waterHeater: { text: "Replacing any gas or plumbing system needs a permit." },
+      hvac: { text: "Replacing any mechanical or gas system needs a permit." },
+      panel: { text: "Replacing any electrical system needs a permit." },
+    },
   },
   {
     name: "Garden Grove",
@@ -70,6 +110,14 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     coastal: false,
     pre1980: 77,
     aduPlans: null,
+    tradeRules: {
+      roof: { text: "Re-roofing a home needs a permit." },
+      waterHeater: {
+        text: "Plumbing installations or alterations need a permit. The FAQ does not name water heaters.",
+      },
+      hvac: { text: "Heating or air conditioning installations or alterations need a permit." },
+      panel: { text: "Electrical installations or alterations need a permit." },
+    },
   },
   {
     name: "Santa Ana",
@@ -82,6 +130,18 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     aduPlans: {
       href: "https://santa-ana.gov/pre-approved-adu-plans/",
       text: "Yes: studio, one and two bedroom detached plans",
+    },
+    tradeRules: {
+      roof: { text: "Minor re-roofs can get a same-day permit over the counter." },
+      waterHeater: {
+        text: "Simple water heater change-outs can get a same-day permit over the counter.",
+      },
+      hvac: {
+        text: "Replacing any mechanical system needs a permit. The page does not name furnace or air conditioner swaps.",
+      },
+      panel: {
+        text: "Residential service meter upgrades can get a same-day permit over the counter.",
+      },
     },
   },
   {
@@ -97,6 +157,14 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
       href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
       text: "Yes: one plan, a 490 sq ft one-story detached unit",
     },
+    tradeRules: {
+      roof: { text: "Re-roofs need a permit." },
+      hvac: {
+        text: "Furnace and air conditioner change-outs are express permits, filed with a CF1R energy compliance form.",
+        href: "https://www.huntingtonbeachca.gov/departments/community_development/building___inspection/permit_center/express_permitting.php",
+        label: "Express permitting",
+      },
+    },
   },
   {
     name: "Anaheim",
@@ -109,6 +177,13 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     aduPlans: {
       href: "https://www.anaheim.net/6351/Pre-Approved-Plan-Catalogue",
       text: "Yes: four free plans, 224 to 1,199 sq ft (ADU Express)",
+    },
+    tradeRules: {
+      panel: {
+        text: "Panel upgrades up to 200 amps take an electrical permit you can get online, and Anaheim Public Utilities' meter spot report must be on site at the inspection.",
+        href: "https://www.anaheim.net/3472/Residential-Electrical-Panel-Upgrade",
+        label: "Residential electrical panel upgrade",
+      },
     },
   },
   {
@@ -123,6 +198,10 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
       href: "https://newportbeachadu.org/adu-plans-2",
       text: "Yes: five standard plans, including two garage conversions",
     },
+    tradeRules: {
+      roof: { text: "Replacing your roofing is an express permit you can apply for online." },
+      hvac: { text: "Replacing a furnace is an express permit you can apply for online." },
+    },
   },
   {
     name: "Mission Viejo",
@@ -132,6 +211,7 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     coastal: false,
     pre1980: 52,
     aduPlans: null,
+    tradeRules: {},
   },
   {
     name: "Tustin",
@@ -142,6 +222,17 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     coastal: false,
     pre1980: 47,
     aduPlans: null,
+    tradeRules: {
+      waterHeater: {
+        text: "Plumbing projects go in through the portal. The page does not list exemptions.",
+      },
+      hvac: {
+        text: "Mechanical projects go in through the portal. The page does not list exemptions.",
+      },
+      panel: {
+        text: "Electrical projects go in through the portal. The page does not list exemptions.",
+      },
+    },
   },
   {
     name: "Irvine",
@@ -155,8 +246,31 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
       href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",
       text: "Yes: ADU Standard Plan Program",
     },
+    tradeRules: {
+      roof: IRVINE_NOT_EXEMPT,
+      waterHeater: IRVINE_NOT_EXEMPT,
+      hvac: IRVINE_NOT_EXEMPT,
+      panel: IRVINE_NOT_EXEMPT,
+    },
   },
 ];
 
 // The Coastal Commission's boundary maps, for "am I in the coastal zone".
 export const COASTAL_ZONE_MAP_HREF = "https://www.coastal.ca.gov/maps/czb/";
+
+// The permit note the table shows for one city on one guide: the remodel
+// sentence when no trade is given, else that trade's rule or the fallback.
+export function permitNoteFor(
+  city: OcRemodelCity,
+  trade?: OcTrade
+): { text: string; href: string; label: string } {
+  if (!trade) {
+    return { text: city.permitRule, href: city.permitHref, label: city.permitLabel };
+  }
+  const rule = city.tradeRules[trade];
+  return {
+    text: rule?.text ?? TRADE_RULE_FALLBACK,
+    href: rule?.href ?? city.permitHref,
+    label: rule?.label ?? city.permitLabel,
+  };
+}

@@ -42,8 +42,10 @@ export type GuideDates = {
 };
 
 // Every URL under /guides that the sitemap lists, in the order it lists them.
-// The index first, then the 12 guides in the order GUIDES renders them on
-// src/app/guides/page.tsx.
+// The index first, then the guides in the order GUIDES renders them on
+// src/app/guides/page.tsx. /guides/home-maintenance-schedule and
+// /guides/socal-home-maintenance-calendar are gone on purpose (merged into the
+// Orange County checklist, 308 in next.config.mjs): never list them again.
 export const GUIDE_PATHS = [
   "/guides",
   "/guides/water-heater-replacement-cost",
@@ -54,10 +56,8 @@ export const GUIDE_PATHS = [
   "/guides/bathroom-remodel-cost",
   "/guides/adu-cost",
   "/guides/slab-leak-signs",
-  "/guides/home-maintenance-schedule",
   "/guides/is-my-contractor-quote-fair",
   "/guides/contractor-deposit-rules-california",
-  "/guides/socal-home-maintenance-calendar",
   "/guides/permits-orange-county",
   "/guides/hard-water-orange-county",
   "/guides/slab-leak-repair-orange-county",
@@ -83,11 +83,9 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/bathroom-remodel-cost": "Bathroom remodel cost",
   "/guides/adu-cost": "ADU cost",
   "/guides/slab-leak-signs": "Slab leak signs",
-  "/guides/home-maintenance-schedule": "Home maintenance schedule",
   "/guides/is-my-contractor-quote-fair": "Is my contractor's quote fair?",
   "/guides/contractor-deposit-rules-california":
     "How much can a contractor ask for up front?",
-  "/guides/socal-home-maintenance-calendar": "SoCal home maintenance calendar",
   "/guides/permits-orange-county": "Building permits in Orange County",
   "/guides/hard-water-orange-county": "Hard water in Orange County",
   "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
@@ -110,22 +108,22 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-21" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-25" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
@@ -143,20 +141,12 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
     datePublished: "2026-07-07",
     dateModified: "2026-09-21",
   },
-  "/guides/home-maintenance-schedule": {
-    datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
-  },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-21",
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
-  },
-  "/guides/socal-home-maintenance-calendar": {
-    datePublished: "2026-07-07",
     dateModified: "2026-09-21",
   },
   "/guides/permits-orange-county": {
@@ -189,7 +179,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-25",
   },
 };
 

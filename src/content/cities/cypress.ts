@@ -173,8 +173,8 @@ export const cypress: CityContent = {
         "How to catch one early in a tract house with its original supply plumbing, before the water bill tells you.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including roof and gutter checks before the Santa Ana winds the city's safety element describes.",
     },

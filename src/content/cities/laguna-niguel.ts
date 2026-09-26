@@ -187,8 +187,8 @@ export const lagunaNiguel: CityContent = {
         "What a full system runs for a house built around the 1986 median, and central AC versus a heat pump.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including clearing slope drains before the winter storms the city warns about.",
     },

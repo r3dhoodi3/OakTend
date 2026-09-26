@@ -139,10 +139,15 @@ export const brea: CityContent = {
       sourceLabel: "Orange County Fire Authority, Freeway Complex Fire after action report",
     },
     {
-      text: "Selling a home in a High or Very High zone in Brea means a defensible space inspection. The city's page explains that state law (Assembly Bill 38, Civil Code section 1102.19) requires the seller to give the buyer documentation that the property meets defensible space standards before close of escrow, and that a Brea Fire Prevention Bureau inspector does the inspection, checking vegetation clearance, combustible debris, spacing around woodpiles and outbuildings, and the state's Zone 0 standard. Brea's fire service is its own city department, which says it has 54 fire professionals and four stations covering 12.43 square miles.",
+      text: "Selling a home in a High or Very High zone in Brea means a defensible space inspection. The city's page explains that state law (Assembly Bill 38, Civil Code section 1102.19) requires the seller to give the buyer documentation that the property meets defensible space standards before close of escrow, and that a Brea Fire Prevention Bureau inspector does the inspection, checking vegetation clearance, combustible debris, spacing around woodpiles and outbuildings, and the state's Zone 0 standard.",
       sourceUrl:
         "https://www.cityofbrea.gov/1863/Defensible-Space-Disclosure-Inspections",
       sourceLabel: "City of Brea Fire Department, defensible space disclosure inspections",
+    },
+    {
+      text: "Brea has its own city fire department. Its page says the department is made up of 54 trained fire professionals, and that its four fire stations cover 12.43 square miles of residential, commercial and wildland interface areas.",
+      sourceUrl: "https://www.cityofbrea.gov/297/Our-Department",
+      sourceLabel: "City of Brea Fire Department, our department",
     },
     {
       text: "The city's hazard plan says two known faults traverse Brea. The Whittier Fault cuts across the hills and through the eastern half of the city in a northwesterly direction, is considered active and carries a state Alquist-Priolo special study zone; the Elysian Park Thrust is buried about 6 to 10 miles down. Liquefaction is a smaller, mapped problem: the plan puts just over 12.6 percent of residents and about 1.5 square miles in a liquefaction zone, mainly along Tonner Canyon Creek, Brea Canyon and the area around Carbon Canyon Dam, and rates the rest of the city as minimal.",
@@ -184,8 +189,8 @@ export const brea: CityContent = {
         "What an upgrade runs when the panel is original to a 1970s tract, the largest single decade of Brea's housing.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including slope drains before winter and brush before Santa Ana season.",
     },

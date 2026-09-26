@@ -199,8 +199,8 @@ export const midwayCity: CityContent = {
         "What to watch for in an older house: about a quarter of Midway City's homes date from the 1950s, per the Census survey.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including clearing yard drains before winter in a community FEMA maps almost entirely as shaded Zone X.",
     },

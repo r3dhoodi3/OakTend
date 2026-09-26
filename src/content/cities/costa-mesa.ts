@@ -141,8 +141,8 @@ export const costaMesa: CityContent = {
         "The big-ticket item in a home built before modern loads existed, and how to tell yours is undersized.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what a mile from the water does to exteriors.",
     },

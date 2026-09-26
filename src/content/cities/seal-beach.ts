@@ -203,8 +203,8 @@ export const sealBeach: CityContent = {
         "What an upgrade runs when the panel is original to a 1960s building, the decade that produced about 57 percent of the homes here.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month, including drains and sandbags before the winter storms the city builds its beach berm for.",
     },

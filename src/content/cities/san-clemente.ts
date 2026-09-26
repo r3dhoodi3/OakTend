@@ -192,8 +192,8 @@ export const sanClemente: CityContent = {
         "What an accessory unit runs, useful before you start the city's ADU packet with Planning or look at its pre-approved plans.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including when to clear slope drains and rinse salt off coastal exteriors.",
     },

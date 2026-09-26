@@ -2,10 +2,18 @@ import {
   COASTAL_ZONE_MAP_HREF,
   OC_PRE_1980,
   OC_REMODEL_CITIES,
+  permitNoteFor,
+  type OcTrade,
 } from "@/lib/ocRemodelCities";
 
-// The city table on the kitchen, bathroom and ADU cost guides. Data and the
-// rule for what may go in it live in src/lib/ocRemodelCities.ts.
+// The city table on the kitchen, bathroom and ADU cost guides, and (with a
+// `trade`) on the roof, water heater, HVAC and electrical panel cost guides.
+// Data and the rule for what may go in it live in src/lib/ocRemodelCities.ts.
+//
+// With a trade, the permit column shows what each city says about that work
+// instead of the remodel sentence, and the coastal zone column is left out:
+// it answers "does my exterior remodel need a coastal permit", which none of
+// the four trade guides asks, and no city page read for them said so.
 //
 // Two layouts from one list. Five columns do not fit a 390px phone without
 // sideways scrolling, so below sm each city is a small card with labeled
@@ -20,10 +28,14 @@ const linkClass =
 
 export default function OcRemodelCityTable({
   showAduPlans = false,
+  trade,
 }: {
   /** The ADU guide adds a pre-approved plans column. */
   showAduPlans?: boolean;
+  /** One of the four trade guides: trade permit notes, no coastal column. */
+  trade?: OcTrade;
 }) {
+  const showCoastal = !trade;
   return (
     <div className="mt-3">
       {/* Phone: one card per city. */}
@@ -37,11 +49,13 @@ export default function OcRemodelCityTable({
               {city.name}
             </p>
             <p className="mt-1 text-stone-600 dark:text-stone-400">
-              Built before 1980: {city.pre1980}%. Coastal zone:{" "}
-              {city.coastal ? "yes, in part" : "no"}.
+              Built before 1980: {city.pre1980}%.
+              {showCoastal && (
+                <> Coastal zone: {city.coastal ? "yes, in part" : "no"}.</>
+              )}
             </p>
             <p className="mt-1 text-stone-600 dark:text-stone-400">
-              {city.permitRule}
+              {permitNoteFor(city, trade).text}
             </p>
             {showAduPlans && (
               <p className="mt-1 text-stone-600 dark:text-stone-400">
@@ -56,8 +70,8 @@ export default function OcRemodelCityTable({
               </p>
             )}
             <p className="mt-1">
-              <a href={city.permitHref} rel="noopener" className={linkClass}>
-                {city.permitLabel}
+              <a href={permitNoteFor(city, trade).href} rel="noopener" className={linkClass}>
+                {permitNoteFor(city, trade).label}
               </a>
             </p>
           </li>
@@ -75,11 +89,13 @@ export default function OcRemodelCityTable({
               <th className="px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300">
                 Built before 1980
               </th>
+              {showCoastal && (
+                <th className="px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300">
+                  Coastal zone
+                </th>
+              )}
               <th className="px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300">
-                Coastal zone
-              </th>
-              <th className="px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300">
-                What the city says needs a permit
+                {trade ? "What the city says about this work" : "What the city says needs a permit"}
               </th>
               {showAduPlans && (
                 <th className="px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300">
@@ -97,13 +113,15 @@ export default function OcRemodelCityTable({
                 <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
                   {city.pre1980}%
                 </td>
+                {showCoastal && (
+                  <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
+                    {city.coastal ? "Yes, in part" : "No"}
+                  </td>
+                )}
                 <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
-                  {city.coastal ? "Yes, in part" : "No"}
-                </td>
-                <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
-                  {city.permitRule}{" "}
-                  <a href={city.permitHref} rel="noopener" className={linkClass}>
-                    {city.permitLabel}
+                  {permitNoteFor(city, trade).text}{" "}
+                  <a href={permitNoteFor(city, trade).href} rel="noopener" className={linkClass}>
+                    {permitNoteFor(city, trade).label}
                   </a>
                 </td>
                 {showAduPlans && (
@@ -127,12 +145,19 @@ export default function OcRemodelCityTable({
         Built before 1980: our sum of the 1979-and-earlier rows of Census table
         B25034, American Community Survey 5-year estimates for 2020 to 2024,
         rounded (Orange County overall: {OC_PRE_1980}%). Estimates, not exact
-        counts. Coastal zone lines follow the{" "}
-        <a href={COASTAL_ZONE_MAP_HREF} rel="noopener" className={linkClass}>
-          Coastal Commission boundary maps
-        </a>
-        ; ask your city whether a specific lot is inside. Permit notes are what
-        each city&apos;s own page said when we read it in September 2026.
+        counts.
+        {showCoastal && (
+          <>
+            {" "}Coastal zone lines follow the{" "}
+            <a href={COASTAL_ZONE_MAP_HREF} rel="noopener" className={linkClass}>
+              Coastal Commission boundary maps
+            </a>
+            ; ask your city whether a specific lot is inside.
+          </>
+        )}{" "}
+        Permit notes are what each city&apos;s own page said when we read it in
+        September 2026.
+        {trade && " Where a page does not name the work, we say so rather than guess."}{" "}
         Costa Mesa is left out because we could not open its site to check.
       </p>
     </div>

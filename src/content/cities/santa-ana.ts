@@ -155,8 +155,8 @@ export const santaAna: CityContent = {
         "Typical price range and when a repair still makes sense, on water around 250 ppm.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including the attic ventilation and roof checks that inland heat makes worth doing.",
     },

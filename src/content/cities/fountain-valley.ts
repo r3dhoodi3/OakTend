@@ -139,8 +139,8 @@ export const fountainValley: CityContent = {
         "Price range, and when a repair still makes sense, on hard basin water that scales a tank early.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month for this climate, including what marine air a few miles inland actually does.",
     },

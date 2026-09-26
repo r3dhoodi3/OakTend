@@ -6,6 +6,9 @@ import {
   CENSUS_B25034_HREF,
   OC_PRE_1980,
   OC_REMODEL_CITIES,
+  TRADE_RULE_FALLBACK,
+  permitNoteFor,
+  type OcTrade,
 } from "./ocRemodelCities";
 import { LAUNCH_CITY_NAMES } from "./serviceArea";
 
@@ -105,6 +108,98 @@ describe("the three remodel guides", () => {
 
   it("use no em dash or en dash in their copy", () => {
     for (const slug of REMODEL_GUIDES) {
+      expect(pageSource(slug), slug).not.toMatch(/[–—]/);
+    }
+  });
+});
+
+// The same table on the four trade guides (added 2026-09-25), keyed by the
+// trade each one passes to <OcRemodelCityTable trade=...>.
+const TRADE_GUIDES: Record<string, OcTrade> = {
+  "roof-replacement-cost": "roof",
+  "water-heater-replacement-cost": "waterHeater",
+  "hvac-replacement-cost": "hvac",
+  "electrical-panel-upgrade-cost": "panel",
+};
+
+describe("trade permit notes", () => {
+  it("keep the remodel sentence when no trade is given", () => {
+    for (const city of OC_REMODEL_CITIES) {
+      expect(permitNoteFor(city)).toEqual({
+        text: city.permitRule,
+        href: city.permitHref,
+        label: city.permitLabel,
+      });
+    }
+  });
+
+  it("fall back to a plain 'does not say' rather than a guess", () => {
+    const mv = OC_REMODEL_CITIES.find((c) => c.name === "Mission Viejo")!;
+    expect(permitNoteFor(mv, "roof").text).toBe(TRADE_RULE_FALLBACK);
+    expect(permitNoteFor(mv, "roof").href).toBe(mv.permitHref);
+  });
+
+  it("give every trade rule real text and an https link", () => {
+    for (const city of OC_REMODEL_CITIES) {
+      for (const [trade, rule] of Object.entries(city.tradeRules)) {
+        expect(rule.text.length, `${city.name} ${trade}`).toBeGreaterThan(20);
+        expect(rule.text, `${city.name} ${trade}`).not.toMatch(/[–—]/);
+        const note = permitNoteFor(city, trade as OcTrade);
+        expect(new URL(note.href).protocol, `${city.name} ${trade}`).toBe("https:");
+        if (rule.href) expect(rule.label, `${city.name} ${trade}`).toBeTruthy();
+      }
+    }
+  });
+});
+
+describe("the four trade guides", () => {
+  it("render the city table with their own trade", () => {
+    for (const [slug, trade] of Object.entries(TRADE_GUIDES)) {
+      expect(pageSource(slug), slug).toContain(`<OcRemodelCityTable trade="${trade}" />`);
+    }
+  });
+
+  it("cite the Census table and quote the shares the table shows", () => {
+    const pct = (name: string) => OC_REMODEL_CITIES.find((c) => c.name === name)!.pre1980;
+    for (const slug of Object.keys(TRADE_GUIDES)) {
+      const hrefs = GUIDE_SOURCES[`/guides/${slug}`].map((s) => s.href);
+      expect(hrefs, slug).toContain(CENSUS_B25034_HREF);
+      const src = pageSource(slug).replace(/\s+/g, " ");
+      expect(src, slug).toContain(`About ${OC_PRE_1980} percent`);
+      expect(src, slug).toContain(`${pct("Fountain Valley")} percent`);
+      expect(src, slug).toContain("Why it costs more in Orange County");
+    }
+  });
+
+  it("keep the title under 50 with the site suffix, and the share card in step", () => {
+    for (const slug of Object.keys(TRADE_GUIDES)) {
+      const match = /const TITLE = "([^"]+)";/.exec(pageSource(slug));
+      expect(match, slug).not.toBeNull();
+      expect(`${match![1]} | OakTend`.length, slug).toBeLessThanOrEqual(50);
+      const og = readFileSync(`${GUIDES_DIR}/${slug}/opengraph-image.tsx`, "utf8");
+      expect(og, slug).toContain(`"${match![1]}"`);
+    }
+  });
+
+  it("carry the estimate checklist and the down payment rule", () => {
+    for (const slug of Object.keys(TRADE_GUIDES)) {
+      const src = pageSource(slug).replace(/\s+/g, " ");
+      expect(src, slug).toContain("How to read the estimate");
+      expect(src, slug).toContain("estimate ranges, not a quote");
+      expect(src, slug).toMatch(/down payment (cannot exceed|is no more than) \$1,000 or 10 percent/);
+    }
+  });
+
+  it("date every rebate and never call heat pump rebates open", () => {
+    for (const slug of ["water-heater-replacement-cost", "hvac-replacement-cost"]) {
+      const src = pageSource(slug).replace(/\s+/g, " ");
+      expect(src, slug).toContain("Rebates, as of September 25, 2026");
+      expect(src, slug).toContain("reserved statewide since November 14, 2025");
+    }
+  });
+
+  it("use no em dash or en dash in their copy", () => {
+    for (const slug of Object.keys(TRADE_GUIDES)) {
       expect(pageSource(slug), slug).not.toMatch(/[–—]/);
     }
   });

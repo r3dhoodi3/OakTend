@@ -149,4 +149,4 @@ Server round trips per page, top 8 signed-in pages (P2): fill in per page.
 | /signin | 179 kB |
 | /plus | 120 kB |
 | /pricing | 106 kB |
-| /guides/home-maintenance-schedule | 107 kB |
+| /guides/orange-county-home-maintenance-checklist | 107 kB |

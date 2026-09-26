@@ -190,8 +190,8 @@ export const alisoViejo: CityContent = {
         "What a new system runs, for the original 1990s furnaces and condensers now at the end of their service life.",
     },
     {
-      href: "/guides/socal-home-maintenance-calendar",
-      title: "SoCal home maintenance calendar",
+      href: "/guides/orange-county-home-maintenance-checklist",
+      title: "Orange County home maintenance checklist",
       blurb:
         "Month by month, including the slope drain checks and brush clearance a lot near the canyons needs before fall winds and winter rain.",
     },
