@@ -127,7 +127,7 @@ const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] =
       "Check hose bibs and the irrigation valve box for drips",
       "Touch up exterior paint and sealant where bare wood shows",
     ],
-    why: "FEMA says salt spray corrodes metal fastest within 300 to 3,000 feet of the shoreline.",
+    why: "FEMA says salt spray is heaviest near the surf and drops off over the first 300 to 3,000 feet inland.",
   },
   {
     month: "June",
@@ -435,8 +435,9 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
             means surfaces that stay damp until midday and, close to the
             beach, salt in that dampness. A FEMA technical bulletin says salt
             spray carried by onshore winds significantly speeds up the
-            corrosion of metal, most of all within 300 to 3,000 feet of the
-            shoreline, and has been measured as far as 5 to 10 miles inland.
+            corrosion of metal. It is heaviest near the surf, drops off over
+            the first 300 to 3,000 feet from the shoreline, and has been
+            measured as far as 5 to 10 miles inland.
             Paint, window tracks, door hardware, light fixtures, garage door
             springs and the outdoor half of the air conditioner all show it
             first.
