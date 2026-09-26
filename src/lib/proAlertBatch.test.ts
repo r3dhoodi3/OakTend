@@ -34,7 +34,11 @@ function rows(
 }
 
 describe("buildAlertOutbound", () => {
-  it("returns nothing when externalChannels is off, whatever contacts exist", () => {
+  // This used to return an empty list, which silently took web push down with
+  // email and SMS - see the "unverified posting" block at the foot of this
+  // file. The recipients are kept now, with every contact detail blanked, so
+  // the two costly channels remain impossible and the free one still works.
+  it("withholds every contact detail when externalChannels is off", () => {
     const out = buildAlertOutbound(["u1", "u2"], {
       externalChannels: false,
       rowByUser: rows([
@@ -43,7 +47,12 @@ describe("buildAlertOutbound", () => {
       ]),
       contactPhoneByUser: new Map([["u1", "+15559998888"]]),
     });
-    expect(out).toEqual([]);
+    expect(out.map((r) => r.userId)).toEqual(["u1", "u2"]);
+    for (const r of out) {
+      expect(r.email).toBeNull();
+      expect(r.phone).toBeNull();
+      expect(r.smsConsent).toBe(false);
+    }
   });
 
   it("prefers the contractor contact_phone over users.phone", () => {
@@ -313,5 +322,45 @@ describe("planAlertFanout", () => {
       new Map([["u1", "2 new jobs in your trades"]])
     );
     expect(plan.collapsedUpdates[0].title).toBe("3 new jobs in your trades");
+  });
+});
+
+// The ownership gate (migration 0093) withholds the channels that cost money
+// and can be aimed at somebody. It used to take web push down with them, which
+// was collateral rather than intent: push has no per-message cost, no carrier,
+// and can only reach someone who already installed OakTend and granted
+// permission in their own browser.
+describe("an unverified posting still reaches push, never email or SMS", () => {
+  const full = {
+    email: "pro@example.com",
+    phone: "+15551112222",
+    sms_consent: true,
+  };
+
+  it("keeps the recipient, with both contact fields blanked", () => {
+    const out = buildAlertOutbound(["p"], {
+      externalChannels: false,
+      rowByUser: rows([["p", full]]),
+      contactPhoneByUser: new Map([["p", "+15553334444"]]),
+    });
+    expect(out).toHaveLength(1);
+    expect(out[0].email).toBeNull();
+    expect(out[0].phone).toBeNull();
+    // Consent is reported false too, so nothing downstream can reconstruct a
+    // send from a fallback number.
+    expect(out[0].smsConsent).toBe(false);
+    expect(out[0].push).toBe(true);
+  });
+
+  it("still honors a pro who switched push off", () => {
+    const out = buildAlertOutbound(["p"], {
+      externalChannels: false,
+      rowByUser: rows([
+        ["p", { ...full, notification_prefs: { pro_alert_push: false } }],
+      ]),
+      contactPhoneByUser: new Map(),
+    });
+    // Nothing left on any channel, so there is nothing to send at all.
+    expect(out).toHaveLength(0);
   });
 });

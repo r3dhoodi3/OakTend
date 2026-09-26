@@ -827,10 +827,21 @@ export async function postJobAction(formData: FormData) {
     property_zip: property.zip ?? null,
     // Fan-out-cannon gate (migration 0093): an unverified property must not
     // be able to trigger up to 200 real emails/texts to pros on someone
-    // else's say-so. In-app notifications still go out either way - only
-    // the external channels are held back until the assessor-record match
-    // says this poster is plausibly who they claim to be.
-    externalChannels: ownershipStatus === "verified",
+    // else's say-so. In-app notifications and web push still go out either
+    // way (see buildAlertOutbound) - only email and SMS are held back until
+    // the assessor-record match says this poster is plausibly who they claim
+    // to be.
+    //
+    // INTERNAL ACCOUNTS ARE EXEMPT (2026-09-25). A flagged team account can
+    // only ever reach OTHER flagged accounts - the internal/internal pairing
+    // rule in alertProsForNewLead drops every real pro from an internal
+    // poster's fan-out, and preview mode drops them again - so there is no
+    // cannon to fire: the blast radius is the founders' own inboxes. Without
+    // this, the whole alert path could not be exercised end to end without
+    // hand-writing an ownership row, because a test home almost never matches
+    // a county assessor record.
+    externalChannels:
+      ownershipStatus === "verified" || (await isInternalUser(user.id)),
     // SEC-1: a dual-side account must never be alerted about its own job.
     posterUserId: user.id,
   });
