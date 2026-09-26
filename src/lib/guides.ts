@@ -66,6 +66,9 @@ export const GUIDE_PATHS = [
   "/guides/santa-ana-wind-wildfire-home-prep",
   "/guides/new-homeowner-first-year-orange-county",
   "/guides/orange-county-home-maintenance-checklist",
+  // New pages B, 2026-09-26 (SEO plan section 2): home age data, rebates.
+  "/guides/orange-county-home-age",
+  "/guides/orange-county-home-rebates-2026",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -96,6 +99,9 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
   "/guides/orange-county-home-maintenance-checklist":
     "Orange County home maintenance checklist",
+  // New pages B, 2026-09-26.
+  "/guides/orange-county-home-age": "How old are Orange County homes?",
+  "/guides/orange-county-home-rebates-2026": "Orange County home rebates in 2026",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -108,14 +114,14 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-25" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-26" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
@@ -175,11 +181,20 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/new-homeowner-first-year-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
     dateModified: "2026-09-25",
+  },
+  // New pages B, 2026-09-26.
+  "/guides/orange-county-home-age": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/orange-county-home-rebates-2026": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
 };
 

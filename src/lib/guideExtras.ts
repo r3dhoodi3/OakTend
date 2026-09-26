@@ -275,6 +275,36 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Midway City",
     ],
   },
+  // New pages B, 2026-09-26 (SEO plan section 2).
+  "/guides/orange-county-home-age": {
+    guides: [
+      "/guides/electrical-panel-upgrade-cost",
+      "/guides/repipe-orange-county",
+      "/guides/new-homeowner-first-year-orange-county",
+    ],
+    cities: [
+      "Laguna Woods",
+      "Seal Beach",
+      "Garden Grove",
+      "Buena Park",
+      "La Palma",
+      "Irvine",
+    ],
+  },
+  "/guides/orange-county-home-rebates-2026": {
+    guides: [
+      "/guides/water-heater-replacement-cost",
+      "/guides/hvac-replacement-cost",
+      "/guides/orange-county-home-maintenance-checklist",
+    ],
+    cities: [
+      "Irvine",
+      "Anaheim",
+      "Costa Mesa",
+      "Rancho Santa Margarita",
+      "Mission Viejo",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -2075,6 +2105,149 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
       supports:
         "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation, in the high hazard ZIP codes the program lists; the retrofit bolts the house to its foundation.",
+    },
+  ],
+  // New pages B, 2026-09-26. Every entry below was opened on 2026-09-26.
+  "/guides/orange-county-home-age": [
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,160%7C05000US06059",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and every place in it",
+      supports:
+        "Housing units by decade built, with margins of error, for the county and all 34 cities. The pre-1980 and 2000-or-later shares on the page are our sums of these rows: Orange County 56.8 percent built before 1980, Laguna Woods 89.7, Fountain Valley 82.3, Garden Grove 77.4, Huntington Beach 69.2, Newport Beach 54.9, Irvine 20.7, Rancho Santa Margarita 4.3.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25035&geo_ids=05000US06059,160%7C05000US06059",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25035 (median year structure built)",
+      supports:
+        "Median year built as published: Orange County 1977, Garden Grove and Buena Park 1965, Irvine 2002.",
+    },
+    {
+      href: "https://www.census.gov/programs-surveys/acs/guidance/comparing-acs-data.html",
+      label: "U.S. Census Bureau: comparing ACS data",
+      supports:
+        "All ACS data are estimates because they come from a sample, a margin of error is published for every estimate, and overlapping 5-year periods should not be compared.",
+    },
+    {
+      href: "https://www.census.gov/content/dam/Census/library/publications/2018/acs/acs_general_handbook_2018_ch07.pdf",
+      label:
+        "U.S. Census Bureau: Understanding and Using ACS Data, chapter 7 (understanding error)",
+      supports:
+        "The margins of error for published ACS estimates are provided at a 90 percent confidence level.",
+    },
+    {
+      href: "https://www.cpsc.gov/s3fs-public/516.pdf",
+      label:
+        "U.S. Consumer Product Safety Commission: Repairing Aluminum Wiring, Publication 516 (June 2011)",
+      supports:
+        "Homes built before 1965 are unlikely to have aluminum branch circuit wiring; wiring installed between 1965 and the mid 1970s may be aluminum; homes built before 1972 and wired with aluminum were 55 times more likely than copper-wired homes to have an outlet connection reach fire hazard conditions; failing connections seldom give easily detected warning signs.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1529.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
+      supports:
+        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos unless rebutted.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to do work that disturbs painted surfaces in homes built before 1978 must be certified and their employees trained.",
+    },
+    {
+      href: "https://www.nachi.org/life-expectancy.htm",
+      label: "InterNACHI: standard estimated life expectancy chart for homes",
+      supports:
+        "Cast iron waste pipe about 60 years above ground and 50 to 60 years below ground, as a general guideline and not a guarantee.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label:
+        "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
+      supports:
+        "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; the retrofit bolts the house to its foundation, braces cripple walls with plywood and requires a strapped water heater.",
+    },
+  ],
+  "/guides/orange-county-home-rebates-2026": [
+    {
+      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      label: "SoCalGas: rebates and incentives",
+      supports:
+        "Checked 2026-09-26: storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less); tankless $80 to $1,500 when replacing a tank-type unit in a single-family detached home; furnaces $1.40 to $25 per kBTUh (AFUE 92 percent or more, licensed contractor, proof of permit closure, one per household); first come, first served until December 31, 2026 or until funds run out.",
+    },
+    {
+      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
+      label: "Southern California Edison: rebates and SCE Marketplace",
+      supports:
+        "Checked 2026-09-26: Golden State Rebates instant coupons for air conditioners, smart thermostats, heat pump water heaters and gas water heaters with no amounts listed; a $75 smart thermostat bill credit on select rate plans; Home Performance Plus for disadvantaged communities; Comfortably CA offers no direct customer rebates.",
+    },
+    {
+      href: "https://www.anaheim.net/5241/Appliance-Fixtures",
+      label: "Anaheim Public Utilities: appliance and fixture rebates",
+      supports:
+        "Checked 2026-09-26: $400 for an ENERGY STAR certified heat pump water heater and $200 for an ENERGY STAR certified heat pump dryer.",
+    },
+    {
+      href: "https://socalwatersmart.com/en/residential/rebates/available-rebates/turf-replacement-program/",
+      label: "SoCal Water$mart (Metropolitan Water District): turf replacement program",
+      supports:
+        "Checked 2026-09-26: $2.00 per square foot up to 5,000 square feet a year; approval before the project starts and 180 days to finish; 3 plants per 100 square feet, a stormwater retention feature and irrigation changes; no synthetic turf; amounts subject to change.",
+    },
+    {
+      href: "https://socalwatersmart.com/en/residential/",
+      label: "SoCal Water$mart: residential rebates",
+      supports:
+        "Checked 2026-09-26: premium high-efficiency toilets $40, rotating nozzles $2 each with at least 30, clothes washers from $85; rebates vary by water agency and depend on funding.",
+    },
+    {
+      href: "https://www.irwd.com/get-help/residential-rebates/",
+      label: "Irvine Ranch Water District: residential rebates",
+      supports:
+        "Checked 2026-09-26: turf $2 per square foot, drip $0.25 per square foot, nozzles $4, rain barrels $35 (two), cisterns $250 to $350, soil moisture sensors up to $80 under an acre, hose bib controllers $35 (two), flow monitors $100 base, toilets $40 (up to nine), washers from $85, 50 percent of sprinkler repairs; confirm amounts before buying.",
+    },
+    {
+      href: "https://www.mesawater.org/Rebates",
+      label: "Mesa Water District: residential rebates",
+      supports:
+        "Checked 2026-09-26: turf from $3 per square foot, drip from $1 per square foot, controllers from $80 under an acre, soil moisture sensors up to $80, nozzles $2 (at least 15), rain barrels $35, cisterns $250 to $350, pool covers $50, flow monitors from $100, toilets from $40, washers from $85.",
+    },
+    {
+      href: "https://smwd.com/rebates",
+      label: "Santa Margarita Water District: rebates",
+      supports:
+        "Checked 2026-09-26: residential turf $2 per square foot plus $1,000 for design plans, smart timers $100, soil moisture sensors $200, flow monitors $100, rain barrels and cisterns $35 to $350, nozzles $5, hose bib controllers $35, washers $85, toilets $40, H2OC RainSmart up to $1,500.",
+    },
+    {
+      href: "https://techcleanca.com/incentives/single-family-incentives/",
+      label: "TECH Clean California: single-family incentives",
+      supports:
+        "Checked 2026-09-26: single-family heat pump water heater and heat pump HVAC incentives reserved statewide since November 14, 2025; HEEHRA fully reserved in Central and Southern California January 7, 2026 and statewide February 24, 2026; waitlisted projects qualify only if installed after approval.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/inflation-reduction-act-residential-energy-rebate-programs",
+      label: "California Energy Commission: Inflation Reduction Act residential energy rebate programs",
+      supports:
+        "Checked 2026-09-26: HEEHRA single-family rebates fully reserved statewide as of February 24, 2026; up to $8,000 under 80 percent of area median income and up to $4,000 from 80 to 150 percent; HOMES rebates are not yet available; $291 million award approved January 2025.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label: "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
+      supports:
+        "Checked 2026-09-26: up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; up to $7,000 more for households earning $94,480 or less, which may pay up to 100 percent of the cost; registration open a limited time each year; no 2026 dates posted.",
+    },
+    {
+      href: "https://www.crmp.org/press-room/press-releases",
+      label: "California Residential Mitigation Program: press releases",
+      supports:
+        "The 2025 Earthquake Brace + Bolt registration deadline was extended to October 17, 2025; no 2026 registration release as of 2026-09-26.",
+    },
+    {
+      href: "https://www.crmp.org/sites/crmp/files/documents/2024/ebb-soca-zips_2025_12-16-24.pdf",
+      label: "California Residential Mitigation Program: 2025 EBB ZIP codes in Southern California",
+      supports:
+        "The 2025 list includes ZIP codes for Anaheim, Huntington Beach, Irvine and Santa Ana, among other Orange County cities.",
     },
   ],
 };
