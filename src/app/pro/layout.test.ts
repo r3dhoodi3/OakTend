@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 // Source-shape guards for the pro shell.
@@ -117,10 +117,6 @@ describe("pro shell back-office href", () => {
 // reasoning as the rest of this file: a real render needs a Supabase-backed
 // contractor.
 describe("pro shell mounts the trial takeover exactly once", () => {
-  const billingViewSource = readFileSync(
-    join(process.cwd(), "src/app/pro/billing/BillingView.tsx"),
-    "utf8"
-  );
 
   it("imports and mounts it here, with a real account id and the same eligibility rule billing used", () => {
     expect(layoutCode).toContain(
@@ -140,7 +136,19 @@ describe("pro shell mounts the trial takeover exactly once", () => {
     );
   });
 
-  it("is not also mounted on the billing page any more", () => {
-    expect(billingViewSource).not.toContain("ProTrialNudge");
+  // It used to be mounted on /pro/billing as well. That page is now a
+  // permanent redirect to /pro/payouts (the prepaid wallet is retired - see
+  // migration 0172), so there is no second mount left to guard against: the
+  // component it lived in does not exist.
+  it("has no billing page left to mount it twice", () => {
+    const billingPage = readFileSync(
+      join(process.cwd(), "src/app/pro/billing/page.tsx"),
+      "utf8"
+    );
+    expect(billingPage).toContain('permanentRedirect("/pro/payouts")');
+    expect(billingPage).not.toContain("ProTrialNudge");
+    expect(existsSync(join(process.cwd(), "src/app/pro/billing/BillingView.tsx"))).toBe(
+      false
+    );
   });
 });

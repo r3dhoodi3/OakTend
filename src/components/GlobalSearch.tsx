@@ -158,22 +158,16 @@ export default function GlobalSearch({
     side === "pro"
       ? `/pro/ask?q=${encodeURIComponent(trimmed)}`
       : `/chats?lead=ask-oaktend&q=${encodeURIComponent(trimmed)}`;
-  // The two shells keep their own accents: bark on the homeowner side, OakTend
-  // ember on the pro side, matching each header's palette.
-  const focusBorder =
-    side === "pro"
-      ? "focus:border-oaktend-500 dark:focus:border-oaktend-500"
-      : "focus:border-bark-500 dark:focus:border-bark-500";
-  const rowHover = side === "pro" ? "hover:bg-oaktend-50" : "hover:bg-bark-50";
-  const rowActive = side === "pro" ? "bg-oaktend-50" : "bg-bark-50";
+  // Both shells share the bark accent now (the pro side dropped the ember
+  // red), so the homeowner and pro headers read as one product.
+  const focusBorder = "focus:border-bark-500 dark:focus:border-bark-500";
+  const rowHover = "hover:bg-bark-50";
+  const rowActive = "bg-bark-50";
   // Collapsed icon button hover accent, matching the sibling header icon
-  // buttons (bell / back-office): bark on the homeowner side, oaktend on the pro
-  // side. One shade above the header (-100, not -50) because the headers are
-  // themselves bark-50 / oaktend-50 and a -50 hover was invisible in light mode.
-  const iconHover =
-    side === "pro"
-      ? "hover:bg-oaktend-100 hover:text-oaktend-700"
-      : "hover:bg-bark-100 hover:text-bark-700";
+  // buttons (bell / back-office). One shade above the header (-100, not -50)
+  // because both headers are themselves bark-50 and a -50 hover was invisible
+  // in light mode.
+  const iconHover = "hover:bg-bark-100 hover:text-bark-700";
 
   function close() {
     setFocused(false);

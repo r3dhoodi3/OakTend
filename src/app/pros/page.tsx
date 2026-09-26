@@ -20,6 +20,7 @@ import Logo from "@/components/Logo";
 import BillingLegalLine from "@/components/BillingLegalLine";
 import ThemeToggle from "@/components/ThemeToggle";
 import ProDemoPlayerLazy from "@/components/ProDemoPlayerLazy";
+import Band from "@/components/Band";
 import {
   Tag,
   MousePointerClick,
@@ -259,10 +260,10 @@ export default async function ProsLanding(props: {
 
   return (
     <main id="main" className="pb-16">
-      {/* Warm band wraps header and hero: a single flat fill, oaktend-50 in
+      {/* Warm band wraps header and hero: a single flat fill, bark-50 in
           light and stone-900 in dark (matching the body), no gradient. */}
-      <div className="bg-bark-50 dark:bg-stone-900">
-        <div className="mx-auto max-w-3xl px-6 pt-6">
+      <div className="bg-oaktend-50 dark:bg-stone-900">
+        <div className="mx-auto max-w-3xl px-6 pb-16 pt-6 sm:pb-20">
           <header className="flex items-center justify-between">
             <Link
               href="/"
@@ -284,20 +285,33 @@ export default async function ProsLanding(props: {
                 <span className="sm:hidden">Homeowners</span>
                 <span className="hidden sm:inline">For Homeowners</span>
               </Link>
+              {/* Sign in, rightmost. Solid bark, the same button the
+                  homeowner landing puts here (2026-09-22), so a returning pro
+                  finds the door in the same place on either front page. */}
+              <Link
+                href="/signin"
+                className="whitespace-nowrap rounded-lg bg-bark-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-bark-700 dark:bg-bark-500 dark:hover:bg-bark-600"
+              >
+                Sign in
+              </Link>
             </div>
           </header>
 
           {/* Hero */}
+          {/* HERO ENTRANCE: the same staggered rise as the homeowner landing
+              (hero-rise in tailwind.config.ts, held until the web font lands
+              by heroFontsInit in layout.tsx), so the two front doors read as
+              one system. */}
           <div className="mt-14 flex flex-col items-center pb-4 text-center">
-            <h1 className="max-w-2xl text-5xl font-semibold tracking-tight text-stone-900 sm:text-6xl dark:text-stone-100">
+            <h1 className="hero-rise max-w-2xl text-5xl font-semibold tracking-tight text-stone-900 motion-safe:animate-hero-rise sm:text-6xl dark:text-stone-100">
               Real local leads, honest pricing
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-stone-600 dark:text-stone-400">
+            <p className="hero-rise mt-5 max-w-xl text-lg text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-400">
               Other sites charge you for leads you didn&apos;t ask for and that
               other pros already have. On OakTend applying is always free,
               and you only ever pay if you win the job.
             </p>
-            <p className="mt-2 max-w-xl text-sm text-stone-500 dark:text-stone-400">
+            <p className="hero-rise mt-2 max-w-xl text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-400">
               Free to apply and quote. You pay a {SUCCESS_FEE_PCT}% success
               fee, with a ${SUCCESS_FEE_MIN} minimum and a $
               {SUCCESS_FEE_CAP} cap, only when a homeowner hires you through
@@ -305,20 +319,19 @@ export default async function ProsLanding(props: {
             </p>
             <Link
               href={signupHref}
-              className="btn-primary mt-8 px-6 py-3 text-base shadow-md"
+              className="btn-primary hero-rise mt-8 px-6 py-3 text-base shadow-md motion-safe:animate-hero-rise motion-safe:[animation-delay:270ms]"
             >
               Create your pro account
             </Link>
-            <Link
-              href="/signin"
-              className="mt-3 text-sm text-bark-700 hover:underline dark:text-stone-300"
-            >
-              Already have an account? Sign in
-            </Link>
-            <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+            {/* No "Already have an account? Sign in" here anymore: the
+                header "Sign in" button (top-right) is the single, more
+                discoverable door for returning users - the same move the
+                homeowner landing made. */}
+            {/* The two small lines share one delay: they read as a pair. */}
+            <p className="hero-rise mt-4 text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
               Serving {LAUNCH_AREA_LABEL}
             </p>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="hero-rise mt-1 text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
               Cover the whole county or just the cities you work in.
             </p>
           </div>
@@ -330,20 +343,47 @@ export default async function ProsLanding(props: {
           landing page mounts its player: through a lazy wrapper, so the
           ~2,800-line component loads as its own chunk after hydration
           instead of riding along in this page's first-load JS. */}
-      <section className="mx-auto mt-16 flex max-w-3xl flex-col items-center px-6 sm:mt-20">
-        <div className="w-full max-w-xl">
-          <ProDemoPlayerLazy />
-        </div>
-      </section>
+      <Band tone="dark">
+        <section>
+          {/* Title and one honest line beside the player, mirroring the
+              homeowner landing: what the demo is, and that it is a
+              walkthrough of the real screens rather than a recording of a
+              real job. Light text: this section always sits on a dark band. */}
+          {/* The demo carries the hero entrance too, picking up where the
+              pitch above leaves off (its last piece is at 450ms). This band
+              is on screen while the page loads on a desktop - the pro hero is
+              shorter than the homeowner one - so without it the words rose in
+              and the video beside them just sat there. */}
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
+            <div className="hero-rise text-center motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] lg:-mt-10 lg:text-left">
+              <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
+                Product demo
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
+                See the pro side in 30 seconds
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
+                A walkthrough of the real app: see the jobs near you, apply
+                for free, message the homeowner, and get hired. Built from the
+                actual screens, with a sample job.
+              </p>
+            </div>
+            <div className="hero-rise mx-auto w-full max-w-xl motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms] lg:mx-0">
+              <ProDemoPlayerLazy />
+            </div>
+          </div>
+        </section>
+      </Band>
 
-      <div className="mx-auto max-w-3xl px-6">
+      <Band tone="white">
       {/* How you pay: the whole money model, top billing, side by side. This
           used to be the ghost-protection / credit-back guarantee grid; that
           model (and its wallet-credit mechanics) was retired 2026-09-10 for
           the flat success fee below. See src/app/api/pro-ask/route.ts's
           system prompt and src/app/pro/help/HelpView.tsx for the same facts
           stated the same way. */}
-      <h2 className="mt-14 text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+      <section>
+      <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
         How you pay
       </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -375,24 +415,29 @@ export default async function ProsLanding(props: {
         the success fee costs.
       </p>
 
+      </section>
+      </Band>
+
+      <Band tone="warm">
       {/* Trust band: a real reachable team is the trust signal a national
-          lead platform can never offer. */}
-      <section className="mt-6 rounded-2xl bg-stone-900 px-6 py-8 text-center dark:bg-stone-950 dark:border dark:border-white/10">
-        <h2 className="text-xl font-semibold text-white">
+          lead platform can never offer. Light background since 2026-09-22 -
+          the dark rounded card it used to be is now the band system's job. */}
+      <section className="text-center">
+        <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
           Real people, real answers
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-stone-300">
+        <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
           Message us and a real person on our team will answer.
         </p>
         {FOUNDER.name && FOUNDER.cellPhone && (
-          <p className="mt-1 text-sm text-stone-300">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
             Cell: {FOUNDER.cellPhone}
           </p>
         )}
         {/* Business line (LEGAL.businessPhone, src/lib/legal.ts), not the
             founder's personal cell above: always shown, since it's the
             number OakTend gives out publicly. */}
-        <p className="mt-1 text-sm text-stone-300">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
           Phone:{" "}
           <a
             href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
@@ -409,14 +454,17 @@ export default async function ProsLanding(props: {
             owner-fillable and still drops out entirely when blank. */}
         <Link
           href="/contact"
-          className="mt-4 inline-block text-sm text-bark-500 hover:underline"
+          className="mt-4 inline-block text-sm text-bark-700 hover:underline dark:text-stone-300"
         >
           Questions? Contact us →
         </Link>
       </section>
 
+      </Band>
+
+      <Band tone="white">
       {/* The promises */}
-      <section className="mt-6 grid gap-4 sm:grid-cols-2">
+      <section className="grid gap-4 sm:grid-cols-2">
         {PROMISES.map((p) => (
           <div key={p.title} className="card">
             <div className="icon-chip" aria-hidden>
@@ -600,7 +648,35 @@ export default async function ProsLanding(props: {
         job when a homeowner hires you, $15 minimum, $1,000 cap.
       </p>
 
-      <footer className="mt-16 border-t border-stone-200 pt-6 text-center dark:border-white/10">
+      </Band>
+
+      {/* Closing ask, in the second dark band - the homeowner landing has one
+          and this page had none, so the only door was the hero at the very
+          top (added 2026-09-22). Same signupHref as that hero button, so a
+          ?ref= partner code threads through either door. */}
+      <Band tone="dark">
+        <section className="text-center">
+          <h2 className="mx-auto max-w-xl text-2xl font-semibold text-white [text-wrap:balance]">
+            Real local leads, honest pricing
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-300">
+            Free to apply and quote. You only pay a {SUCCESS_FEE_PCT}% success
+            fee when a homeowner hires you through OakTend.
+          </p>
+          <Link
+            href={signupHref}
+            className="btn-primary mt-6 px-6 py-3 text-base shadow-lift"
+          >
+            Create your pro account
+          </Link>
+          <p className="mt-3 text-sm text-stone-300">
+            Serving {LAUNCH_AREA_LABEL}
+          </p>
+        </section>
+      </Band>
+
+      <Band tone="white">
+      <footer className="border-t border-stone-200 pt-6 text-center dark:border-white/10">
         <Link href="/" className="text-sm text-stone-500 hover:text-bark-700 dark:text-stone-400 dark:hover:text-stone-300">
           Looking after your own home instead? OakTend for Homeowners →
         </Link>
@@ -617,7 +693,7 @@ export default async function ProsLanding(props: {
           ))}
         </p>
       </footer>
-      </div>
+      </Band>
     </main>
   );
 }

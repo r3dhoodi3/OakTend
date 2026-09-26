@@ -62,6 +62,7 @@ import {
   PREVIEW_JOB_POSTED_COPY,
   PREVIEW_POST_JOB_INTRO,
 } from "@/lib/previewMode";
+import { JOB_UPDATE_KIND, leadIdFromJobUrl } from "@/lib/jobUpdates";
 
 // Must match the markers LeadChat posts when either side closes a thread.
 //
@@ -161,8 +162,13 @@ export default async function ContractorsPage(
   // These three queries only need property.id / user.id (both already in
   // hand) and are independent of each other, so they run as one parallel
   // wave instead of three stacked round trips.
-  const [existingIssuePhotos, { data: profile }, leadsData, { data: chipSystems }] =
-    await Promise.all([
+  const [
+    existingIssuePhotos,
+    { data: profile },
+    leadsData,
+    { data: chipSystems },
+    { data: teamUpdates },
+  ] = await Promise.all([
       // If this job is about an issue that already has photos on file (the
       // "Connect me with a local pro" link from the Issues page carries
       // ?issue=<id>), fetch them so the form can show what will ride along
@@ -234,8 +240,36 @@ export default async function ContractorsPage(
         .from("home_systems")
         .select("system_type, install_year, material_or_model, capacity")
         .eq("property_id", property.id),
+      // What the OakTend team has written back on this owner's jobs. While the
+      // pro network is closed a job is matched by hand, and this is the only
+      // thing that ever lands on the card between posting it and a pro
+      // existing - see src/lib/jobUpdates.ts for why an update is a
+      // notification row rather than a table of its own. Own rows only: the
+      // read is the session client under the "notifications owner read" policy
+      // (migration 0026), with the user filter restated rather than trusted to
+      // it.
+      supabase
+        .from("notifications")
+        .select("url, body, created_at")
+        .eq("user_id", user?.id ?? "")
+        .eq("kind", JOB_UPDATE_KIND)
+        .order("created_at", { ascending: false })
+        .limit(50),
     ]);
   const leads = (leadsData ?? []) as any[];
+
+  // Newest update per job. The rows arrive newest-first, so the first hit for
+  // a lead id is the latest one and every older one is skipped.
+  const jobUpdates = new Map<string, { body: string | null; at: string }>();
+  for (const row of (teamUpdates ?? []) as {
+    url: string | null;
+    body: string | null;
+    created_at: string;
+  }[]) {
+    const updatedLead = leadIdFromJobUrl(row.url);
+    if (!updatedLead || jobUpdates.has(updatedLead)) continue;
+    jobUpdates.set(updatedLead, { body: row.body, at: row.created_at });
+  }
 
   // Direct requests (migration 0104) live in the same contractor_leads table.
   // A PENDING one (aimed at a pro via direct_to, not yet unlocked so
@@ -934,6 +968,9 @@ export default async function ContractorsPage(
               // status/contractor_id are untouched by this, so `chosen` still
               // reads correctly even for a job closed this way.
               const closedByOwner = !chosen && Boolean(l.owner_closed_at);
+              // The latest thing the OakTend team wrote back on this job
+              // (/backoffice/jobs). Null for every job nobody has answered.
+              const teamUpdate = jobUpdates.get(l.id) ?? null;
               return (
                 <li key={l.id} className="card space-y-3">
                   <div className="flex items-center justify-between gap-2">
@@ -947,14 +984,57 @@ export default async function ContractorsPage(
                         </p>
                       )}
                     </div>
-                    <span className="chip-muted shrink-0">
+                    {/* "0 applicants" was the single most dishonest string on
+                        this page during the preview: no pro can apply at all,
+                        so the count was counting something that cannot happen
+                        and the card read as a job nobody wanted. An open
+                        preview job is waiting on US, and once somebody on the
+                        team has written back it says so. Deliberately NOT "
+                        finding you a pro": the promise everywhere else on this
+                        page is that we MAY look by hand, with no guarantee,
+                        and a chip is not the place to quietly upgrade it. */}
+                    <span
+                      className={`shrink-0 ${
+                        !chosen && !closedByOwner && teamUpdate && apps.length === 0
+                          ? "chip-warn"
+                          : "chip-muted"
+                      }`}
+                    >
                       {chosen
                         ? "Pro selected"
                         : closedByOwner
                         ? "Closed"
-                        : `${apps.length} applicant${apps.length === 1 ? "" : "s"}`}
+                        : // Once pros have actually applied, the count is the
+                          // truth and it outranks anything we wrote: the owner
+                          // has people waiting on a decision.
+                          apps.length > 0
+                          ? `${apps.length} applicant${apps.length === 1 ? "" : "s"}`
+                          : teamUpdate
+                            ? "Update from us"
+                            : isPreview
+                              ? "Waiting on us"
+                              : "0 applicants"}
                     </span>
                   </div>
+
+                  {/* What the team actually said. Sits above the status copy
+                      below, because a real answer from a person beats a
+                      generic "your job is live" line every time. */}
+                  {teamUpdate && (
+                    <div className="rounded-lg border border-oaktend-200 bg-oaktend-50 p-3 text-sm dark:border-white/10 dark:bg-white/5">
+                      <p className="font-medium text-stone-900 dark:text-stone-100">
+                        Update from OakTend
+                      </p>
+                      {teamUpdate.body && (
+                        <p className="mt-0.5 text-stone-600 dark:text-stone-300">
+                          {teamUpdate.body}
+                        </p>
+                      )}
+                      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                        {new Date(teamUpdate.at).toLocaleDateString()}
+                      </p>
+                    </div>
+                  )}
 
                   {!chosen && !closedByOwner && <EditJobForm job={l} />}
 

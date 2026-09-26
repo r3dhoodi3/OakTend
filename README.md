@@ -54,7 +54,7 @@ For the current state of the project, decisions, and what is next, read
 - `src/app/api/` route handlers for AI, Stripe webhooks, Twilio, Checkr,
   document extraction, and 16 cron jobs under `src/app/api/cron/` (schedules
   in `vercel.json`, protected by `CRON_SECRET`)
-- Email via Resend, SMS via Twilio. Proactive email/SMS alerts are Plus-only,
+- Email via Twilio SendGrid, SMS via Twilio. Proactive email/SMS alerts are Plus-only,
   enforced in `src/lib/notifyGating.ts`; billing notices are never gated.
 
 ## Stack
@@ -66,7 +66,7 @@ For the current state of the project, decisions, and what is next, read
   reason, so every call site awaits it.
 - **Supabase**: Postgres, Auth (email + password with confirmation, Google,
   Apple), Storage (private photo and document buckets)
-- **Stripe** subscriptions (off during the preview), **Resend**, **Twilio**,
+- **Stripe** subscriptions (off during the preview), **Twilio** (SendGrid + SMS),
   **Checkr**, **RentCast**, **Anthropic** (Claude, the only AI provider)
 - **Vitest** + Testing Library for unit tests
 - Deployed on **Vercel**
@@ -125,8 +125,9 @@ Optional, each turns on one feature and is skipped when missing:
 - `ANTHROPIC_API_KEY`: Ask OakTend, quote analysis, document extraction, and
   every other AI feature. All of them run on Claude.
 - `RENTCAST_API_KEY`: county-record prefill in onboarding and home value.
-- `RESEND_API_KEY`/`RESEND_FROM`, `TWILIO_*`: email and SMS; senders no-op
-  without them.
+- `SENDGRID_API_KEY`/`SENDGRID_FROM`, `TWILIO_*`: email and SMS; senders no-op
+  without them. `RESEND_API_KEY`/`RESEND_FROM` are the retired fallback pair,
+  used only when the SendGrid pair is absent.
 - `CHECKR_API_KEY`: background checks; the card hides without it.
 - `CRON_SECRET`: cron routes reject every call until it is set.
 
@@ -179,7 +180,7 @@ Some newer columns are not in `database.types.ts` yet; read sites cast to
 
 Supabase's built-in mailer only delivers confirmation emails to addresses that
 are members of the Supabase project team, and caps at roughly two emails an
-hour. Until custom SMTP (Resend) is configured in Supabase Auth settings
+hour. Until custom SMTP (SendGrid) is configured in Supabase Auth settings
 (`docs/GO-LIVE-WIRING.md`), a signup from any other address fails with
 `email_address_invalid`, which the UI shows as "That didn't go through". To let
 a tester in before then, invite their email on the Supabase org's Team tab.

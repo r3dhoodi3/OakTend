@@ -102,6 +102,7 @@ export default function HuntingtonBeachPage() {
           CityLandingPage. */}
       <CityLandingPage
         city="Huntington Beach"
+        path="/huntington-beach"
         housingParagraph={HOUSING_PARAGRAPH}
         content={CONTENT}
       />

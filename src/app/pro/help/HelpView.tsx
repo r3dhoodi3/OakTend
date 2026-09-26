@@ -127,13 +127,13 @@ export default function HelpView({
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
           <Link
             href="/contact?topic=abuse"
-            className="text-sm font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+            className="text-sm font-medium text-bark-700 hover:underline dark:text-stone-300"
           >
             Report abuse or a safety concern
           </Link>
           <Link
             href="/pro/blocks"
-            className="text-sm font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+            className="text-sm font-medium text-bark-700 hover:underline dark:text-stone-300"
           >
             Blocked accounts
           </Link>

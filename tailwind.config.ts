@@ -48,6 +48,12 @@ const config: Config = {
           "60%": { transform: "scale(1.15)" },
           "100%": { transform: "scale(1)" },
         },
+        // Landing hero entrance: each piece rises 14px and fades in, staggered
+        // with [animation-delay:...]. Transform + opacity only.
+        "hero-rise": {
+          from: { opacity: "0", transform: "translateY(14px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "fade-slide-up": "fade-slide-up 150ms ease-out",
@@ -57,6 +63,11 @@ const config: Config = {
         "fade-scale": "fade-scale 150ms ease-out",
         "fade-scale-out": "fade-scale-out 120ms ease-in",
         "check-pop": "check-pop 220ms ease-out",
+        // `both`: holds the from-state during the stagger delay, so a later
+        // piece is invisible until its turn instead of flashing in and out.
+        // Kept short: the h1 is the page's largest paint, and it is not
+        // counted as painted while it is transparent.
+        "hero-rise": "hero-rise 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both",
       },
       // Warm brand-tinted shadows (rgb from oaktend-800 #5e3c28), three tiers.
       boxShadow: {
@@ -110,6 +121,13 @@ const config: Config = {
           500: "#a67c49",
           600: "#8a6a3c",
           700: "#6f5636",
+        },
+        // Sprout green: the leaf inside the house mark (components/Logo.tsx).
+        // 600 on light surfaces, 300 on dark ones. Scoped to the mark only;
+        // buttons and links stay on the browns above.
+        sprout: {
+          300: "#b5d69a",
+          600: "#4f7d3a",
         },
       },
     },

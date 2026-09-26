@@ -54,7 +54,7 @@ describe("CityLandingPage without content", () => {
   it("renders the pre-content-module markup", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
     const { container } = render(
-      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+      <CityLandingPage city="Fountain Valley" path="/fountain-valley" housingParagraph={PARAGRAPH} />
     );
     expect(container.innerHTML).toMatchSnapshot();
   });
@@ -62,7 +62,7 @@ describe("CityLandingPage without content", () => {
   it("renders the same template with homeowner preview mode on", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     const { container } = render(
-      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+      <CityLandingPage city="Fountain Valley" path="/fountain-valley" housingParagraph={PARAGRAPH} />
     );
     expect(container.innerHTML).toMatchSnapshot();
   });
@@ -70,7 +70,7 @@ describe("CityLandingPage without content", () => {
   it("shows the shared housing paragraph and the fixed four guides", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
     render(
-      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+      <CityLandingPage city="Fountain Valley" path="/fountain-valley" housingParagraph={PARAGRAPH} />
     );
     expect(screen.getByText(PARAGRAPH)).toBeInTheDocument();
     expect(screen.getByText("Slab leak signs")).toBeInTheDocument();
@@ -89,6 +89,7 @@ describe("CityLandingPage with content", () => {
     return render(
       <CityLandingPage
         city={huntingtonBeach.name}
+        path="/huntington-beach"
         housingParagraph={PARAGRAPH}
         content={huntingtonBeach}
       />
@@ -246,24 +247,24 @@ describe("the pros card follows preview mode", () => {
   it("promises the pro network when preview mode is off", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
     render(
-      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+      <CityLandingPage city="Fountain Valley" path="/fountain-valley" housingParagraph={PARAGRAPH} />
     );
     expect(screen.getByText(OPEN_TITLE)).toBeInTheDocument();
     expect(screen.queryByText(PREVIEW_TITLE)).not.toBeInTheDocument();
     expect(
-      screen.getByText(/every pro who applies shows up in one place/)
+      screen.getByText(/every pro who applies shows up in one place/i)
     ).toBeInTheDocument();
   });
 
   it("promises nothing it cannot deliver while preview mode is on", () => {
     vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
     render(
-      <CityLandingPage city="Fountain Valley" housingParagraph={PARAGRAPH} />
+      <CityLandingPage city="Fountain Valley" path="/fountain-valley" housingParagraph={PARAGRAPH} />
     );
     expect(screen.getByText(PREVIEW_TITLE)).toBeInTheDocument();
     expect(screen.queryByText(OPEN_TITLE)).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/every pro who applies shows up in one place/)
+      screen.queryByText(/every pro who applies shows up in one place/i)
     ).not.toBeInTheDocument();
     expect(screen.getByText(PREVIEW_CITY_PROS_CARD_BODY)).toBeInTheDocument();
   });
@@ -273,6 +274,7 @@ describe("the pros card follows preview mode", () => {
     render(
       <CityLandingPage
         city={huntingtonBeach.name}
+        path="/huntington-beach"
         housingParagraph={PARAGRAPH}
         content={huntingtonBeach}
       />
@@ -285,6 +287,7 @@ describe("the pros card follows preview mode", () => {
     const { container } = render(
       <CityLandingPage
         city={huntingtonBeach.name}
+        path="/huntington-beach"
         housingParagraph={PARAGRAPH}
         content={huntingtonBeach}
       />

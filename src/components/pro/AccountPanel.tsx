@@ -1,5 +1,7 @@
 "use client";
 
+import AnimatedDetails from "@/components/AnimatedDetails";
+
 import ReferralCard from "@/components/pro/ReferralCard";
 
 // Account: the pro's referral card, in one collapsed-by-default panel so
@@ -17,17 +19,20 @@ export default function AccountPanel({
   referralCode: string;
 }) {
   return (
-    <details id="account" className="group space-y-4">
-      <summary className="flex w-fit cursor-pointer list-none items-center gap-2 text-lg font-semibold text-stone-900 marker:text-stone-500 [&::-webkit-details-marker]:hidden dark:text-stone-100 dark:marker:text-stone-400">
-        <span className="inline-block transition-transform group-open:rotate-90">
-          ▸
-        </span>
-        Account
-      </summary>
-
-      <div className="space-y-4">
-        <ReferralCard code={referralCode} />
-      </div>
-    </details>
+    <AnimatedDetails
+      id="account"
+      summaryClassName="flex w-fit cursor-pointer list-none items-center gap-2 text-lg font-semibold text-stone-900 marker:text-stone-500 [&::-webkit-details-marker]:hidden dark:text-stone-100 dark:marker:text-stone-400"
+      summary={
+        <>
+          <span className="inline-block transition-transform duration-300 group-data-[shown=true]:rotate-90">
+            ▸
+          </span>
+          Account
+        </>
+      }
+      contentClassName="space-y-4 pt-4"
+    >
+      <ReferralCard code={referralCode} />
+    </AnimatedDetails>
   );
 }

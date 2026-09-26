@@ -205,7 +205,7 @@ describe("pro Messages: applications waiting on the homeowner", () => {
       />
     );
     expect(screen.queryByText("New")).toBeNull();
-    expect(container.innerHTML).not.toContain("bg-oaktend-600");
+    expect(container.innerHTML).not.toContain("bg-bark-600");
   });
 });
 

@@ -32,7 +32,8 @@ const QUERY_CHUNK = 200; // keep .in() lists bounded
 const REFERRAL_HOLD_DAYS = 21; // keep in sync with 0088's v_hold
 
 const REWARD_KIND = "referral_reward";
-const REWARD_URL = "/pro/billing";
+// See the note in first-apply-guarantee: /pro/billing only redirects now.
+const REWARD_URL = "/pro/payouts";
 
 function isAuthorized(req: NextRequest): boolean {
   const expected = process.env.CRON_SECRET;

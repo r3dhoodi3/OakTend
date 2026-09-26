@@ -9,12 +9,12 @@ import { APP_GUIDE_EVENT } from "@/lib/appGuide";
 // is closed), so this reopens it in place with no navigation, no refetch, and
 // no route that only exists to be a switch. It also works after the account
 // has been stamped as seen, which a server-decided prop could not do.
-// The two shells accent their links differently (bark on the homeowner side,
-// OakTend on the pro side), so the colour is the caller's to pass rather than
-// something this button decides and gets wrong on one of them.
+// Both shells use the same bark link colour now (the pro side dropped the
+// ember red); the tone stays the caller's to pass so the two can differ again
+// without this button having to guess.
 const TONE = {
   homeowner: "text-bark-700 dark:text-stone-300",
-  pro: "text-oaktend-700 dark:text-oaktend-300",
+  pro: "text-bark-700 dark:text-stone-300",
 } as const;
 
 export default function ShowAppGuideButton({

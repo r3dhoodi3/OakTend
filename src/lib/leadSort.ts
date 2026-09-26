@@ -1,5 +1,5 @@
 // The leads-board sort: one pure module so the server's first paint and the
-// client's instant re-sort can never disagree about what "Cheapest fee" means.
+// client's instant re-sort can never disagree about the order.
 //
 // WHY IT MOVED HERE (2026-08-30). The three buttons used to be links to
 // /pro/leads?sort=..., so every tap was a full server navigation: the whole
@@ -12,7 +12,12 @@
 // on the server, so a shared or reloaded /pro/leads?sort=fee link paints
 // sorted, with no flash of the wrong order.
 
-export type LeadSort = "new" | "fee";
+// "fee" (Cheapest fee) came out on 2026-09-24: applying is free as of
+// migration 0172, so every lead costs the same nothing and the sort had no
+// axis left. The type stays a union of one rather than collapsing to a bare
+// string so the next sort somebody adds slots in here and every call site
+// keeps type-checking.
+export type LeadSort = "new";
 
 // Newest is the default, and the order the RPC already returns.
 //
@@ -25,25 +30,23 @@ export type LeadSort = "new" | "fee";
 // kept: it is the discount-source-agnostic bottom line, so a Pro member's
 // discounted price already sorts to the top under it without a second,
 // competing button.
+// One option means there is no choice to offer, so the board renders no sort
+// control at all while this list has a single entry (see LeadsBoard.tsx).
 export const LEAD_SORT_OPTIONS: { value: LeadSort; label: string }[] = [
   { value: "new", label: "Newest" },
-  { value: "fee", label: "Cheapest fee" },
 ];
 
-/** Anything unknown (or missing) is the default order, never an error. */
-export function normalizeLeadSort(value: string | undefined | null): LeadSort {
-  return value === "fee" ? value : "new";
+/** Anything unknown (or missing) is the default order, never an error - which
+ *  is now every value, including an old ?sort=fee link somebody bookmarked. */
+export function normalizeLeadSort(_value: string | undefined | null): LeadSort {
+  return "new";
 }
 
-// The only two numbers a sort reads. Both are already resolved on the server
-// (the aging markdown and the one-time intro price both read the clock), so
-// the client re-sorts finished values rather than recomputing prices.
-export type SortableLead = {
-  /** Effective apply fee in cents: what this pro would actually be charged. */
-  feeCents: number;
-  /** Aging-deal percent off, 0 when the listing is still fresh. */
-  off: number;
-};
+// Nothing is read off a lead to sort it any more: the only non-default order
+// was by price. Kept as an empty shape rather than deleted so sortLeads keeps
+// its generic contract and the next sort has somewhere to declare what it
+// needs.
+export type SortableLead = Record<string, unknown>;
 
 /**
  * A new array in the asked-for order. Never mutates the input: the "Newest"
@@ -54,11 +57,8 @@ export function sortLeads<T extends SortableLead>(
   rows: readonly T[],
   sort: LeadSort
 ): T[] {
-  const out = rows.slice();
-  // Cheapest first, by the fee actually charged - which is the number printed
-  // on the card, including the first-big-ticket intro price. The server used
-  // to sort by the pre-intro fee, so a discounted card could sit below a
-  // dearer one under "Cheapest fee".
-  if (sort === "fee") out.sort((a, b) => a.feeCents - b.feeCents);
-  return out;
+  // Only "new" exists today, which is the order the caller passed in, so this
+  // is a defensive copy and nothing else.
+  void sort;
+  return rows.slice();
 }

@@ -136,6 +136,7 @@ export default async function DynamicCityPage(props: {
           with the visible trail, both inside CityLandingPage. */}
       <CityLandingPage
         city={city}
+        path={`/oc/${slug}`}
         housingParagraph={HOUSING_PARAGRAPH}
         content={content}
       />

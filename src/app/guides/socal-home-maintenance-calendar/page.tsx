@@ -333,7 +333,7 @@ export default function SocalHomeMaintenanceCalendarGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Coastal Southern California home maintenance calendar" },
+          { name: "Coastal Southern California home maintenance calendar" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

@@ -137,13 +137,28 @@ describe("pro home: the blocks below", () => {
     expect(src("./leads/LeadsBoard.tsx")).toContain("<DirectRequestCard");
   });
 
-  it("shows wallet, open jobs, active jobs, and win rate, each linked", () => {
-    expect(view).toContain(">Wallet</p>");
+  // The first square was the prepaid WALLET balance until 2026-09-24. That
+  // model is retired (OakTend takes 5% of a paid invoice instead, and migration
+  // 0172 made applying free), so a balance could only ever read $0.00. The
+  // money slot now answers the one money question with an action behind it:
+  // can this pro actually be paid.
+  it("shows payouts, open jobs, active jobs, and win rate, each linked", () => {
+    expect(view).toContain(">Payouts</p>");
+    expect(view).not.toContain(">Wallet</p>");
     expect(view).toContain(">Open jobs</p>");
     expect(view).toContain(">Active jobs</p>");
     expect(view).toContain('"Win rate" : "Applications"');
     // Win rate needs a real sample before it means anything.
     expect(view).toContain("appliedCount >= 3");
+  });
+
+  it("points the payouts square at /pro/payouts, not the retired billing page", () => {
+    const block = view.slice(
+      view.indexOf(">Payouts</p>") - 300,
+      view.indexOf(">Payouts</p>")
+    );
+    expect(block).toContain('href="/pro/payouts"');
+    expect(block).not.toContain("/pro/billing");
   });
 
   // MED-2: "Active jobs" used to link to /pro/crm, a separate opt-in client

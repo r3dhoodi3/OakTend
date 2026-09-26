@@ -58,7 +58,7 @@ export default async function ProAskPage(props: {
           href="/pro/chats"
           // Already sm:hidden, so these sizes are phone-only: 44px tall
           // and 16px, matching the homeowner /ask back link.
-          className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline sm:hidden dark:text-oaktend-300"
+          className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline sm:hidden dark:text-stone-300"
         >
           <span aria-hidden="true">&lt;</span> All conversations
         </Link>
@@ -81,7 +81,7 @@ export default async function ProAskPage(props: {
               <p className="flex flex-wrap gap-4">
                 <Link
                   href="/pro/profile"
-                  className="font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+                  className="font-medium text-bark-700 hover:underline dark:text-stone-300"
                 >
                   Add your license
                 </Link>
@@ -89,7 +89,7 @@ export default async function ProAskPage(props: {
                   // ?reason=ask so /pro/plus opens on the Ask pitch rather
                   // than the general page: the pro tapped THIS door.
                   href="/pro/plus?reason=ask"
-                  className="font-medium text-oaktend-700 hover:underline dark:text-oaktend-300"
+                  className="font-medium text-bark-700 hover:underline dark:text-stone-300"
                 >
                   See OakTend Pro
                 </Link>

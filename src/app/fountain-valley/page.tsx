@@ -102,6 +102,7 @@ export default function FountainValleyPage() {
           CityLandingPage. */}
       <CityLandingPage
         city="Fountain Valley"
+        path="/fountain-valley"
         housingParagraph={HOUSING_PARAGRAPH}
         content={CONTENT}
       />

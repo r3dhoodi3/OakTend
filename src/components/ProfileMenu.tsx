@@ -110,7 +110,8 @@ export default function ProfileMenu({
   linksLabel?: string;
   // The membership upsell/confirmation row pinned at the TOP of the panel.
   // Homeowner: /plus + "OakTend Plus" (bark accent). Pro: /pro/plus +
-  // "OakTend Pro" (oaktend accent). Omitted on a nav with no tier to show.
+  // "OakTend Pro" (bark accent too, so both sides match; the ember "oaktend"
+  // accent has no caller now). Omitted on a nav with no tier to show.
   // `active` = already on the paid tier: the row stays accent-highlighted but
   // reads "X ✓" instead of "Upgrade to X".
   upgrade?: {

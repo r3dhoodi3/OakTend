@@ -124,7 +124,7 @@ describe("breadcrumbListJsonLd", () => {
       [
         { name: "Home", href: "/" },
         { name: "Guides", href: "/guides" },
-        { name: "ADU cost in Orange County" },
+        { name: "ADU cost in Orange County", href: "/guides/adu-cost" },
       ],
       "https://example.com"
     );
@@ -133,7 +133,14 @@ describe("breadcrumbListJsonLd", () => {
     expect(json.itemListElement).toEqual([
       { "@type": "ListItem", position: 1, name: "Home", item: "https://example.com/" },
       { "@type": "ListItem", position: 2, name: "Guides", item: "https://example.com/guides" },
-      { "@type": "ListItem", position: 3, name: "ADU cost in Orange County" },
+      // The current page carries its own URL too: Search Console (2026-09-22)
+      // treats a last item without one as a critical "Missing field item".
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "ADU cost in Orange County",
+        item: "https://example.com/guides/adu-cost",
+      },
     ]);
   });
 
@@ -150,7 +157,7 @@ describe("BreadcrumbJsonLd", () => {
   it("renders a script tag with the matching ld+json payload", () => {
     const { container } = render(
       <BreadcrumbJsonLd
-        items={[{ name: "Home", href: "/" }, { name: "Guides" }]}
+        items={[{ name: "Home", href: "/" }, { name: "Guides", href: "/guides" }]}
         siteUrl="https://example.com"
       />
     );
@@ -159,6 +166,11 @@ describe("BreadcrumbJsonLd", () => {
     const parsed = JSON.parse(script!.innerHTML);
     expect(parsed["@type"]).toBe("BreadcrumbList");
     expect(parsed.itemListElement).toHaveLength(2);
-    expect(parsed.itemListElement[1]).toEqual({ "@type": "ListItem", position: 2, name: "Guides" });
+    expect(parsed.itemListElement[1]).toEqual({
+      "@type": "ListItem",
+      position: 2,
+      name: "Guides",
+      item: "https://example.com/guides",
+    });
   });
 });

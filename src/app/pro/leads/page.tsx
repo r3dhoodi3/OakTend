@@ -32,7 +32,6 @@ import LeadsBoard, {
 // had to stop being inline JSX in this file. See src/lib/proLeadCard.ts.
 import {
   money,
-  feeGlanceLabel,
   postedAgo,
   qualityChips,
   scopeChips,
@@ -84,7 +83,6 @@ export default async function ProDashboard(
     { data: myApps },
     { data: assignedData },
     { data: directData },
-    { data: wallet },
   ] = await Promise.all([
     // The same per-request cached helper the pro shell uses for the copilot's
     // opening line, so open_jobs_for_me runs once per page view instead of
@@ -121,11 +119,6 @@ export default async function ProDashboard(
     // Direct requests a homeowner aimed at this pro (0104). Masked, contact-free
     // fields plus the live-priced fee; the ONLY read path to a pending request.
     (supabase as any).rpc("my_direct_requests"),
-    (supabase as any)
-      .from("wallets")
-      .select("id, cash_balance_cents, bonus_balance_cents")
-      .eq("contractor_id", contractor.id)
-      .maybeSingle(),
   ]);
 
   let open = openJobs as any[];
@@ -165,15 +158,13 @@ export default async function ProDashboard(
   const assignedIssueIds = assigned
     .map((l) => l.issue_id)
     .filter((v): v is string => Boolean(v));
-  const rawBonusCents = Number(wallet?.bonus_balance_cents ?? 0);
-  const walletReads = walletQueryPlan(wallet, rawBonusCents);
 
   // SECOND ROUND TRIP: everything that needed a result from the first batch.
   // None of these four depend on each other, so they all go out together.
   // (The applications/transactions reads behind the old "Your results" card
   // moved out with it on 2026-08-30 - that card lived on Home now anyway, so
   // this page no longer pays for the query.)
-  const [closedRows, relationshipConflicts, photoRows, grants] =
+  const [closedRows, relationshipConflicts, photoRows] =
     await Promise.all([
       // Advisory signal only (see migration 0092's RESIDUAL note): apply_to_lead
       // has no awareness of owner_closed_at, so open_jobs_for_me - a DB function,
@@ -220,18 +211,6 @@ export default async function ProDashboard(
             return (data ?? []) as any[];
           })()
         : Promise.resolve([] as any[]),
-      // Live, unexpired bonus grants, which cap the spendable bonus below.
-      walletReads.grants
-        ? (async () => {
-            const { data } = await (supabase as any)
-              .from("bonus_grants")
-              .select("remaining_cents")
-              .eq("wallet_id", wallet.id)
-              .gt("remaining_cents", 0)
-              .gt("expires_at", new Date().toISOString());
-            return (data ?? []) as any[];
-          })()
-        : Promise.resolve([] as any[]),
     ]);
 
   const closedIds = closedLeadIdSet(closedRows);
@@ -271,19 +250,10 @@ export default async function ProDashboard(
   const declinedApps = apps.filter((a) => a.status === "declined");
 
   // Spendable bonus is what apply_to_lead (migration 0058) actually honors:
-  // only bonus backed by live, unexpired grants. The raw wallet counter can
-  // overstate that for up to a day, because an expired grant lingers in the
-  // counter until the daily expire-bonus sweep reconciles it. Cap at the live
-  // grant sum so canAfford and the ?need= deposit amount below match what the
-  // apply RPC will accept, instead of offering an Apply that gets refused or
-  // under-asking on the add-funds prompt.
-  const bonusAvailCents = walletReads.grants
-    ? bonusAvailableCents(rawBonusCents, grants)
-    : rawBonusCents;
-  const balanceCents =
-    Number(wallet?.cash_balance_cents ?? 0) + bonusAvailCents;
-  const balance = balanceCents / 100;
-  const lowBalance = balanceCents < 5000;
+  // The spendable-balance math (cash + live bonus grants, and the "low on
+  // funds" threshold) stood here, along with the two wallet queries that fed
+  // it. Applying is free as of migration 0172, so there is no balance to
+  // check and three fewer reads on this page.
 
   // Read once per request, not once per lead: this pro's Pro membership
   // status. Used to be skipped whenever the board had jobs (only the
@@ -326,37 +296,12 @@ export default async function ProDashboard(
   }));
 
   const openJobVms: OpenJobVM[] = open.map((j) => {
-    const payoutDollars = Number(j.payout_amount ?? 0);
-    // Best SINGLE discount: this pro's own OakTend Pro membership (10% off) or
-    // the aging markdown, never both (migration 0149; owner's words: "it does
-    // NOT stack with the 15-30%"). bestLeadDiscount is the one place this
-    // comparison lives, mirrored byte-for-byte by pro_lead_fee_cents() in the
-    // DB, so the price on this card is the price apply_to_lead will actually
-    // charge.
-    const best = bestLeadDiscount(payoutDollars, j.created_at, proDiscountEligible);
-    // First big-ticket lead: the fixed intro price replaces the discounted
-    // fee above when it's lower, matching what apply_to_lead will actually
-    // charge (migration 0113/0149) - a fixed floor, never discounted further
-    // by membership or aging.
-    const introFee = introFeeFor(j.category, best.fee, hasPaidMajor);
-    const fee = introFee ?? best.fee;
-    const feeStr = money(fee);
-    const discountKind = introFee !== null ? "intro" : best.kind;
-    // The honest "Pro members pay $X" quiet line (never a silent adjustment -
-    // see research-money-R3.md on marketplace trust): shown ONLY when this
-    // non-member would actually pay less as a member on THIS SAME lead. A
-    // member's own discount never beats aging once aging is winning (the
-    // 15/30% tiers both already beat the flat 10%), and it never changes the
-    // fixed intro price, so the line disappears exactly when membership would
-    // not have helped - never a number that reads as a saving but isn't one.
-    const memberWouldPay =
-      !isProMember && introFee === null
-        ? bestLeadDiscount(payoutDollars, j.created_at, true)
-        : null;
-    const memberQuoteStr =
-      memberWouldPay && memberWouldPay.fee < best.fee
-        ? money(memberWouldPay.fee)
-        : null;
+    // Every line that priced this card stood here: the best single discount
+    // (membership vs the aging markdown), the one-time big-ticket intro
+    // price, the formatted fee, and the honest "Pro members pay $X" quiet
+    // line for a non-member it would actually have helped. Applying is free
+    // as of migration 0172, so there is no price to compute, no discount to
+    // compare and no saving to quote.
     const applicants = Number(j.application_count ?? 0);
     const conflict = relationshipConflicts.get(j.id);
     // Homeowner's rough budget band (0047): a pricing signal, not a quote.
@@ -376,19 +321,12 @@ export default async function ProDashboard(
       city: j.city ?? null,
       severity: j.issue_severity ?? null,
       ownershipVerified: Boolean(j.ownership_verified),
-      feeGlance: feeGlanceLabel(fee, feeStr),
       // First name + last initial only (C4, migration 0155): open_jobs_for_me
       // truncates it server-side, so this is never the homeowner's full name.
       homeownerDisplay: j.homeowner_display ?? null,
       glanceLine2: [j.homeowner_display, timingLabel, j.city ? `in ${j.city}` : null]
         .filter(Boolean)
         .join(" · "),
-      feeStr,
-      baseStr: money(introFee !== null ? best.fee : j.payout_amount),
-      off: introFee !== null ? 0 : best.off,
-      introPrice: introFee !== null,
-      discountKind,
-      memberQuoteStr,
       description: j.issue_description ?? null,
       photoUrls: Array.isArray(j.photo_urls) ? (j.photo_urls as string[]) : [],
       budgetLabel,
@@ -407,11 +345,6 @@ export default async function ProDashboard(
         : null,
       bigJob,
       insuranceRequired: bigJob && !insuranceCurrent,
-      feeCents: Math.round(fee * 100),
-      canAfford: balance >= fee,
-      billingHref: `/pro/billing?need=${Math.max(0, fee - balance).toFixed(
-        2
-      )}&category=${encodeURIComponent(j.category ?? "")}`,
     };
   });
 
@@ -471,10 +404,7 @@ export default async function ProDashboard(
           carrying plain data instead of a long tail of card elements. Nothing
           below this point is newly interactive. See LeadsBoard.tsx. */}
       <LeadsBoard
-        lowBalance={lowBalance}
         directRequests={directItems}
-        balance={balance}
-        hasPaidMajor={hasPaidMajor}
         insuranceCurrent={insuranceCurrent}
         openJobs={openJobVms}
         sort={sort}

@@ -72,6 +72,24 @@ export type LatestRow = { id: string; title: string; href: string };
 /** A license/insurance renewal chip. */
 export type ExpiryChip = { label: string; href: string; overdue: boolean };
 
+/**
+ * The one word the Payouts square shows per Connect state. Words, not an
+ * amount: the square sits in a row of numbers, but a number here would have to
+ * be a balance, and the pro's balance lives in Stripe, not in this database.
+ *
+ * "unavailable" means migration 0164 has not reached this database, so nothing
+ * is known either way - it reads the same as not started rather than claiming
+ * a status, because telling a pro they are set up when we cannot tell is the
+ * one wrong answer here.
+ */
+const PAYOUT_TILE: Record<ConnectStatus, string> = {
+  unavailable: "Set up",
+  not_started: "Set up",
+  in_progress: "Finish",
+  restricted: "Action",
+  ready: "Ready",
+};
+
 export default function HomeView({
   contractorId,
   userId,
@@ -82,8 +100,6 @@ export default function HomeView({
   directRequests,
   directRequestCount,
   showSeeAll,
-  balance,
-  hasPaidMajor,
   insuranceCurrent,
   openCount,
   activeCount,
@@ -110,8 +126,6 @@ export default function HomeView({
   directRequestCount: number;
   /** True when there are more requests than the preview shows. */
   showSeeAll: boolean;
-  balance: number;
-  hasPaidMajor: boolean;
   /** Whether this pro has current insurance on file (0153), for the big-job gate on direct-request cards. */
   insuranceCurrent: boolean;
   openCount: number;
@@ -286,7 +300,7 @@ export default function HomeView({
               {showSeeAll && (
                 <Link
                   href={PRO_LEADS_HREF}
-                  className="text-sm font-medium text-oaktend-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                  className="text-sm font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
                 >
                   See all
                 </Link>
@@ -299,8 +313,6 @@ export default function HomeView({
                 <DirectRequestCard
                   key={d.id}
                   d={d.row}
-                  balance={balance}
-                  hasPaidMajor={hasPaidMajor}
                   hasCurrentInsurance={insuranceCurrent}
                   // Resolved on the server, not in the card: this line reads
                   // the clock, so it has to be settled there or hydration
@@ -318,18 +330,27 @@ export default function HomeView({
             Today
           </h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Link
-              href="/pro/billing"
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
-            >
-              <p className="stat-label">Wallet</p>
+            {/* This square was the prepaid WALLET balance, from the retired
+                per-lead model: a pro topped it up and every application drew
+                it down. Since 2026-09-12 OakTend takes 5% of a paid invoice
+                instead and a pro pays nothing up front, so the balance was a
+                number that could only ever read $0.00 next to a question
+                nobody could answer.
+
+                It is not left empty, because the money slot is where a pro
+                looks for money. It now answers the one money question that
+                still has an action behind it - can you actually BE paid -
+                which is also what the invoice flow will gate on
+                (canSendInvoices). */}
+            <Link href="/pro/payouts" className="card-link">
+              <p className="stat-label">Payouts</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
-                ${balance.toFixed(2)}
+                {PAYOUT_TILE[payoutsStatus]}
               </p>
             </Link>
             <Link
               href={PRO_LEADS_HREF}
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">Open jobs</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
@@ -344,7 +365,7 @@ export default function HomeView({
                 leads board instead, the list this stat actually counts. */}
             <Link
               href={`${PRO_LEADS_HREF}#your-jobs`}
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">Active jobs</p>
               <p className="stat-number mt-1 text-2xl text-stone-900 dark:text-stone-100">
@@ -357,7 +378,7 @@ export default function HomeView({
                 leads board's results hero uses. */}
             <Link
               href="/pro/business"
-              className="card-link hover:border-oaktend-400 dark:hover:border-oaktend-400"
+              className="card-link"
             >
               <p className="stat-label">
                 {appliedCount >= 3 ? "Win rate" : "Applications"}
@@ -392,7 +413,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/business"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 See the breakdown
               </Link>
@@ -405,7 +426,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/plus?reason=leads"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 See OakTend Pro
               </Link>
@@ -426,7 +447,7 @@ export default function HomeView({
               </p>
               <Link
                 href="/pro/feedback"
-                className="inline-flex text-sm font-medium text-oaktend-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-oaktend-300"
+                className="inline-flex text-sm font-medium text-bark-700 hover:underline max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
               >
                 Report another bug
               </Link>

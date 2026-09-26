@@ -144,9 +144,9 @@ export default function ChatsView({
         href={`/pro/chats?lead=${row.id}`}
         className={`block border-l-4 px-4 py-3 transition ${
           row.active
-            ? "border-oaktend-500 bg-oaktend-50 dark:border-oaktend-400 dark:bg-oaktend-900/40"
+            ? "border-bark-600 bg-bark-50 dark:bg-bark-700/40"
             : row.unread
-              ? "border-oaktend-400 bg-oaktend-50/60 hover:bg-oaktend-50 dark:border-oaktend-500 dark:bg-oaktend-900/20 dark:hover:bg-oaktend-900/30"
+              ? "border-bark-500 bg-bark-50/60 hover:bg-bark-50 dark:bg-bark-700/30 dark:hover:bg-bark-700/40"
               : "border-transparent hover:bg-stone-50 dark:hover:bg-stone-700"
         }`}
       >
@@ -164,7 +164,7 @@ export default function ChatsView({
             // 10px reads fine at a desk but is under the readable
             // floor on a phone; max-sm:text-sm brings it to 14px
             // there, same convention as the license badges.
-            <span className="shrink-0 rounded-full bg-oaktend-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white max-sm:text-sm">
+            <span className="shrink-0 rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white max-sm:text-sm">
               New
             </span>
           ) : (
@@ -208,7 +208,7 @@ export default function ChatsView({
               storageKeyBase="oaktend_pro_ask_chat"
               retentionKeyBase="oaktend_pro_ask_retention"
               userId={askUserId}
-              accent="oaktend"
+              accent="bark"
             />
 
             {/* Pinned second: the way OUT of an empty inbox. A pro with no
@@ -222,7 +222,7 @@ export default function ChatsView({
                 href={PRO_LEADS_HREF}
                 className="flex min-h-11 items-center gap-3 border-l-4 border-transparent px-4 py-3 transition hover:bg-stone-50 dark:hover:bg-stone-700"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-oaktend-100 text-oaktend-700 dark:bg-oaktend-900/50 dark:text-oaktend-300">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bark-100 text-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
                   <Briefcase className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -267,7 +267,7 @@ export default function ChatsView({
                       href={`/pro/chats?application=${row.id}`}
                       className={`block border-l-4 px-4 py-3 transition ${
                         row.active
-                          ? "border-oaktend-500 bg-oaktend-50 dark:border-oaktend-400 dark:bg-oaktend-900/40"
+                          ? "border-bark-600 bg-bark-50 dark:bg-bark-700/40"
                           : "border-transparent hover:bg-stone-50 dark:hover:bg-stone-700"
                       }`}
                     >
@@ -308,7 +308,7 @@ export default function ChatsView({
             // Already md:hidden, so these sizes are phone-only: this
             // is the pro twin of the homeowner /chats back link, 44px tall
             // and 16px, with the negative margin keeping the text in line.
-            className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
+            className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline dark:text-stone-300 md:hidden"
           >
             <span aria-hidden="true">&lt;</span> All conversations
           </Link>
@@ -344,7 +344,7 @@ export default function ChatsView({
           <Link
             href="/pro/chats"
             // Same 44px, 16px phone-only back link as the thread pane above.
-            className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
+            className="mb-2 -ml-2 inline-flex min-h-11 w-fit shrink-0 items-center gap-1 px-2 text-base font-medium text-bark-700 hover:underline dark:text-stone-300 md:hidden"
           >
             <span aria-hidden="true">&lt;</span> All conversations
           </Link>
@@ -392,7 +392,7 @@ export default function ChatsView({
             href="/pro/chats"
             // Same treatment as the back link above, and as the
             // homeowner empty-state link.
-            className="-ml-2 inline-flex min-h-11 items-center px-2 text-base font-medium text-oaktend-700 hover:underline dark:text-oaktend-300 md:hidden"
+            className="-ml-2 inline-flex min-h-11 items-center px-2 text-base font-medium text-bark-700 hover:underline dark:text-stone-300 md:hidden"
           >
             <span aria-hidden="true">&lt;</span> All conversations
           </Link>

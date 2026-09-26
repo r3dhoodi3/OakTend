@@ -127,7 +127,7 @@ export default function AduCostGuide() {
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "ADU cost in Orange County" },
+          { name: "ADU cost in Orange County" , href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />

@@ -20,6 +20,7 @@ import PhoneLanding from "@/components/PhoneLanding";
 import ThemeToggle from "@/components/ThemeToggle";
 import StructuredData from "@/components/StructuredData";
 import CityList from "@/components/CityList";
+import Band from "@/components/Band";
 import { TrendingUp, Bell, MessageSquare, Wrench } from "lucide-react";
 
 const SITE_URL =
@@ -434,7 +435,7 @@ export default async function Home(props: {
           flat fill, oaktend-50 in light and stone-900 in dark (matching the
           body), no gradient. */}
       <div className="bg-oaktend-50 dark:bg-stone-900">
-        <div className="mx-auto max-w-5xl px-6 pt-6">
+        <div className="mx-auto max-w-5xl px-6 pb-16 pt-6 sm:pb-20">
           {/* PHONE ONLY (sm:hidden, see PhoneLanding.tsx). Below `sm` this
               block IS the landing page: wordmark, one line, a hero photo, two
               role doors (homeowner/contractor), a quiet sign-in, three benefit
@@ -495,7 +496,12 @@ export default async function Home(props: {
               centered read. */}
           <div className="mt-14 grid items-center gap-10 max-sm:hidden sm:mt-20 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-              <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
+              {/* HERO ENTRANCE (trial, 2026-09-21): each piece rises and
+                  fades in on load, headline first, then every ~90ms down the
+                  column; the photo fades in alongside. animate-hero-rise is
+                  transform + opacity only, runs once, and is motion-safe: so
+                  reduce-motion visitors see the page at rest. */}
+              <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-stone-900 hero-rise motion-safe:animate-hero-rise dark:text-stone-100 sm:text-6xl sm:tracking-[-0.03em] [text-wrap:balance]">
                 Know what your home needs before it costs you
               </h1>
               {/* The category line. The h1 is the brand promise and names no
@@ -503,10 +509,10 @@ export default async function Home(props: {
                   fold that says, in plain words, what OakTend IS and where
                   (src/lib/siteMetadata.ts, shared with the About page).
                   PhoneLanding carries the same sentence for phone widths. */}
-              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 dark:text-stone-200">
+              <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-200">
                 {CATEGORY_SENTENCE}
               </p>
-              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-400">
                 {/* PREVIEW MODE (addendum 4 H). The first sentence is true
                     either way and is unchanged. The second one promises pro
                     matching - "post the job once and the quotes come to you" -
@@ -538,7 +544,7 @@ export default async function Home(props: {
                 // is "how many visitors took it", not which of the two
                 // identical buttons they happened to be next to.
                 data-track="landing_get_started"
-                className="btn-primary mt-8 px-6 py-3 text-base shadow-lift"
+                className="btn-primary mt-8 px-6 py-3 text-base shadow-lift hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:270ms]"
               >
                 Get started free
               </Link>
@@ -548,15 +554,16 @@ export default async function Home(props: {
                   Green is the success tone everywhere else in the app (.chip-ok),
                   so it reads as "all clear" here too. This exact trio is the
                   founder's pick. */}
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-2 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:360ms] lg:justify-start">
                 {["About 30 seconds", "No card needed", isHomeownerPreview() ? "Free in preview" : "Cancel anytime"].map((label) => (
                   <CheckPill key={label} label={label} />
                 ))}
               </div>
-              <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+              {/* The two small lines share one delay: they read as a pair. */}
+              <p className="mt-4 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
                 Serving {LAUNCH_AREA_LABEL}
               </p>
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
                 Outside the county? Join the waitlist and we&apos;ll tell you when we expand.
               </p>
               {/* No "Already have an account? Sign in" here anymore: the header
@@ -568,32 +575,23 @@ export default async function Home(props: {
                 aspect-[3/2] box reserves the space so it never shifts layout,
                 and the first frame loads with priority since it's above the
                 fold. */}
-            <div className="overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
+            {/* The photo comes in with the second line of copy, a touch later
+                than the headline so the eye lands on the words first. */}
+            <div className="overflow-hidden rounded-xl border border-stone-200 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:border-white/10">
               <HeroPhotoCycler photos={HERO_PHOTOS} />
             </div>
           </div>
 
-          {/* The demo replaces what used to be a static Health Score mockup:
-              same content, but now it actually plays. Click to play, inline,
-              never a takeover, see HeroDemoPlayer.tsx. Loaded through
-              HeroDemoPlayerLazy so the player's chunk stays out of this
-              page's first-load JS; the poster paints at the same size either
-              way, so there is no shift when it arrives. */}
-          <section className="mt-16 flex flex-col items-center max-sm:hidden sm:mt-20">
-            <div className="w-full max-w-xl">
-              <HeroDemoPlayerLazy />
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-3xl px-6">
       {/* Service scent: the common jobs, as flat clickable chips. Each drops
           into homeowner signup with the category preset in ?next= so the
           post-a-job form on /contractors lands pre-filled (it reads
           ?category=). Chips reuse the header link's neutral outline shape,
           rounded full, and stay plain text labels - no trade pictograms. */}
-      <section className="mt-12 max-sm:hidden sm:mt-16">
+      {/* These two sections sit inside the hero band, so on a tall desktop
+          they are on screen while the page loads. They carry the entrance
+          too, picking up where the hero copy leaves off (450ms), or the top
+          half of the first screen animated and the bottom half sat still. */}
+      <section className="hero-rise mt-12 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] sm:mt-16">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
@@ -604,7 +602,7 @@ export default async function Home(props: {
                 href={`/homeowner-signup?next=${encodeURIComponent(
                   `/contractors?category=${s.value}`
                 )}`}
-                className="inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
+                className="pill-grow inline-flex min-h-[44px] items-center rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 sm:px-3.5 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
               >
                 {s.label}
               </Link>
@@ -616,7 +614,7 @@ export default async function Home(props: {
       {/* Trust strip: three already-true signals in the green "all clear"
           pill, the same tone as the hero reassurance row. No invented
           numbers - only what OakTend actually does today. */}
-      <section className="mt-8 max-sm:hidden">
+      <section className="hero-rise mt-8 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms]">
         <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
           What we check
         </h2>
@@ -627,6 +625,56 @@ export default async function Home(props: {
         </div>
       </section>
 
+        </div>
+      </div>
+
+      {/* The demo gets the page's first dark band: a theatre for the video,
+          which also lifts its warm tones off the background. */}
+      <Band tone="dark" className="max-sm:hidden">
+        {/* The demo replaces what used to be a static Health Score mockup:
+            same content, but now it actually plays. Click to play, inline,
+            never a takeover, see HeroDemoPlayer.tsx. Loaded through
+            HeroDemoPlayerLazy so the player's chunk stays out of this
+            page's first-load JS; the poster paints at the same size either
+            way, so there is no shift when it arrives. */}
+        <section className="mt-16 max-sm:hidden sm:mt-20">
+          {/* Title and one honest line beside the player (founder, 2026-09-21:
+              "for transparency"). The demo is a scripted, rendered walkthrough
+              of the real screens, not a recording of a customer's home, and
+              in preview the pro-quote ending shows what the product does once
+              the pro network opens, so both of those are said plainly here
+              rather than left for the viewer to assume. Light text: this
+              section always sits on the dark band.
+
+              Split layout, mirroring the hero above (copy left, picture
+              right) but staggered: the text column sits a little higher than
+              the player's centre line, so the two do not read as one flat
+              row. Below lg it stacks, text first. */}
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
+            <div className="text-center lg:-mt-10 lg:text-left">
+              <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
+                Product demo
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
+                See OakTend in 30 seconds
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
+                A walkthrough of the real app: claim your address, get your
+                home score, post a job, and hear back from a pro. Built from
+                the actual screens, with a sample home.
+                {isHomeownerPreview()
+                  ? " The pro side is not open yet during our preview, so the last part shows what happens once it is."
+                  : ""}
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-xl lg:mx-0">
+              <HeroDemoPlayerLazy />
+            </div>
+          </div>
+        </section>
+      </Band>
+
+      <Band tone="white">
       {/* How it works: steps on the left, a flat photo of real work on the
           right. Collapses to one column below lg (steps, then photo). */}
       <section className="mt-16 max-sm:hidden sm:mt-24">
@@ -681,17 +729,20 @@ export default async function Home(props: {
         </div>
       </section>
 
+      </Band>
+
+      <Band tone="warm">
       {/* Trust band, same as the /pros version. Shown on phone too (founder
           request, 2026-09-16). */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
-        <h2 className="text-2xl font-semibold text-white [text-wrap:balance]">
+      <section className="mt-16 text-center sm:mt-24">
+        <h2 className="text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Real people, real answers
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-300">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
           Message us and a real person on our team will answer. Pros see only
           what you choose to share.
         </p>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-300">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
           OakTend started close to home and now serves homeowners across{" "}
           {LAUNCH_AREA_LABEL}, California, from Seal Beach to San Clemente.
         </p>
@@ -702,20 +753,23 @@ export default async function Home(props: {
             still drops out entirely when blank. */}
         <Link
           href="/contact"
-          className="mt-4 inline-block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+          className="mt-4 inline-block text-sm text-bark-700 hover:underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
         >
           Questions? Contact us →
         </Link>
         {FOUNDER.cellPhone && (
           <a
             href={`tel:${FOUNDER.cellPhone.replace(/[^\d+]/g, "")}`}
-            className="mt-1 block text-sm text-bark-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+            className="mt-1 block text-sm text-bark-700 hover:underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
           >
             Or call or text {FOUNDER.cellPhone} →
           </a>
         )}
       </section>
 
+      </Band>
+
+      <Band tone="white">
       {/* What is OakTend? One plain definition, word for word the fixed
           entity description (src/lib/siteMetadata.ts), because this is the
           paragraph a search engine or an AI answer tool quotes when someone
@@ -771,12 +825,16 @@ export default async function Home(props: {
         </div>
       </section>
 
+      </Band>
+
+      {/* The second dark band: the closing ask and the pro door, together. */}
+      <Band tone="dark">
       {/* Closing CTA: one more clear door in before the pro band switches
           audience. The only other filled primary button is the hero's.
           Shown on phone too (founder request, 2026-09-16); .btn-primary
           already enforces the 44px tap minimum. */}
       <section className="mt-16 text-center sm:mt-24">
-        <h2 className="mx-auto max-w-xl text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
+        <h2 className="mx-auto max-w-xl text-2xl font-semibold text-white [text-wrap:balance]">
           Know what your home needs before it costs you
         </h2>
         <Link
@@ -788,7 +846,7 @@ export default async function Home(props: {
         >
           Get started free
         </Link>
-        <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-sm text-stone-300">
           {isHomeownerPreview() ? "Free during our preview." : "Free for your first home."}{" "}
           About 30 seconds to sign up. No card needed.
         </p>
@@ -798,7 +856,7 @@ export default async function Home(props: {
           link. Outline button on purpose: the filled primary on this page is
           reserved for the homeowner CTAs. Shown on phone too (founder
           request, 2026-09-16). */}
-      <section className="mt-16 rounded-2xl bg-stone-900 px-6 py-8 dark:bg-stone-950 text-center sm:mt-24">
+      <section className="mt-16 text-center sm:mt-24">
         {/* stone-400 in BOTH modes: this band's fill is always dark (stone-900
             / stone-950), so the light-mode stone-500 the other eyebrows use
             would sit too dark against it. */}
@@ -856,6 +914,9 @@ export default async function Home(props: {
           toggle state lives in CityList.tsx (src/components/CityList.tsx), a
           client component. Desktop (sm and up) renders the same chip markup
           this section always used. */}
+      </Band>
+
+      <Band tone="white">
       <section className="mt-16 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           OakTend serves homeowners across {LAUNCH_AREA_LABEL}
@@ -1045,7 +1106,7 @@ export default async function Home(props: {
           </Link>
         ))}
       </footer>
-      </div>
+      </Band>
     </main>
   );
 }

@@ -239,10 +239,14 @@ const SECTION_HEADING =
 
 export default function CityLandingPage({
   city,
+  path,
   housingParagraph,
   content,
 }: {
   city: string;
+  // The page's own route ("/fountain-valley", "/oc/irvine"): the breadcrumb
+  // list's last item needs the page's URL.
+  path: string;
   housingParagraph: string;
   // Absent for the cities that have no researched content yet: this
   // component then renders exactly what it rendered before the content module
@@ -303,7 +307,7 @@ export default function CityLandingPage({
           items={[
             { name: "OakTend", href: "/" },
             { name: "Orange County", href: "/oc" },
-            { name: city },
+            { name: city, href: path },
           ]}
           siteUrl={SITE_URL}
         />
@@ -573,7 +577,7 @@ export default function CityLandingPage({
 
       <footer className="mx-auto max-w-2xl border-t border-stone-200 px-6 py-6 text-center dark:border-white/10">
         <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
-          <Logo className="h-4 w-4 text-bark-700 dark:text-stone-400" /> OakTend · Your home, looked after
+          <Logo className="h-4 w-4 text-bark-700 dark:text-stone-400" /> OakTend · Your home looked after
         </p>
         <p className="mt-2 text-xs">
           <Link
