@@ -197,14 +197,20 @@ describe("dashboard stat grid", () => {
   // renders the full four-card grid - so this asserts the class, not the
   // hiding: jsdom does not evaluate media queries, and the visual result is a
   // viewport concern outside this test's reach.
-  it("hides the Open jobs and Home value cards on phone only", async () => {
+  // Open jobs is on the phone again as of 2026-09-25. It was hidden because
+  // the only destination was the foot of the posting form - a long scroll to
+  // somewhere easy to lose - which also meant a homeowner on a phone had no
+  // home-screen signal that pros had applied. "Your jobs" is its own page now,
+  // so the count leads straight to the applicants. Home value stays
+  // desktop-only: it is a home-state number with nothing to act on.
+  it("shows Open jobs at every width and keeps Home value desktop-only", async () => {
     const { container } = await renderDashboard();
     const anchors = Array.from(container.querySelectorAll("a"));
     const openJobs = anchors.find((a) => a.textContent?.includes("Open jobs"));
     const homeValue = anchors.find((a) => a.textContent?.includes("Home value"));
     expect(openJobs).toBeTruthy();
     expect(homeValue).toBeTruthy();
-    expect(openJobs!.classList.contains("max-sm:hidden")).toBe(true);
+    expect(openJobs!.classList.contains("max-sm:hidden")).toBe(false);
     expect(openJobs!.classList.contains("card-link")).toBe(true);
     expect(homeValue!.classList.contains("max-sm:hidden")).toBe(true);
     expect(homeValue!.classList.contains("card-link")).toBe(true);

@@ -35,11 +35,16 @@ export const JOB_POSTED_TEAM_KIND = "job_posted_team";
 export const JOB_UPDATE_KIND = "job_update";
 
 // Where a job_update points, and how the homeowner's job card finds the update
-// again. The lead id rides in the query string rather than only in the hash so
-// it survives a server read of the notification row (a hash never reaches the
-// server), and the hash still scrolls to the right section on arrival.
+// again. The lead id rides in the query string, not a hash: a hash never
+// reaches the server, and these rows are read back server-side to put the
+// latest update on the right card.
+//
+// /contractors/jobs, not /contractors: the jobs and their applicants moved to
+// their own page on 2026-09-25 (they were missable at the foot of the posting
+// form). An older row still pointing at the form is harmless - it lands on a
+// real page with a link straight here.
 export function jobUpdateUrl(leadId: string): string {
-  return `/contractors?job=${leadId}#your-jobs`;
+  return `/contractors/jobs?job=${leadId}`;
 }
 
 // The inverse, for reading a stored notification row back into a lead id. Any

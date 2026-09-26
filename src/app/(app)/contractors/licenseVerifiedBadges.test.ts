@@ -10,7 +10,9 @@ function src(rel: string): string {
   return readFileSync(fileURLToPath(new URL(rel, import.meta.url)), "utf8");
 }
 
-const applicantPage = src("./page.tsx");
+// The applicant cards moved to their own page on 2026-09-25: "Your jobs" was
+// missable at the foot of the posting form, so it is /contractors/jobs now.
+const applicantPage = src("./jobs/page.tsx");
 // C8 (2026-09-07): the browse card's markup (and the licenseVerifiedOnLine
 // import) moved out of page.tsx into a client component, BrowseProsBoard.tsx,
 // so filter taps could filter the already-fetched list in the browser
