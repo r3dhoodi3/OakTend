@@ -927,7 +927,7 @@ export async function postJobAction(formData: FormData) {
       // Points at this specific job, so a team update later lands the owner on
       // the same card. Falls back to the section when the insert didn't return
       // an id (it always does, but the type allows null).
-      url: inserted?.id ? jobUpdateUrl(inserted.id) : "/contractors#your-jobs",
+      url: inserted?.id ? jobUpdateUrl(inserted.id) : "/contractors/jobs",
       // The contact address on the posting itself, which is what the owner
       // just confirmed on the form; the account address is the fallback.
       email: homeownerEmail ?? user.email ?? null,

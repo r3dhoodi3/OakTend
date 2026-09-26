@@ -28,11 +28,16 @@ describe("jobUpdates: the url carries the lead id", () => {
     expect(leadIdFromJobUrl(jobUpdateUrl(LEAD))).toBe(LEAD);
   });
 
-  // The hash is what scrolls the owner to their jobs; the query string is the
-  // half a server read can actually see, which is why the id lives there.
+  // A query string, never a hash: a hash never reaches the server, and these
+  // rows are read back server-side to put the latest update on the right card.
   it("keeps the id where the server can read it", () => {
     expect(jobUpdateUrl(LEAD)).toContain(`?job=${LEAD}`);
-    expect(jobUpdateUrl(LEAD).endsWith("#your-jobs")).toBe(true);
+    expect(jobUpdateUrl(LEAD)).not.toContain("#");
+  });
+
+  // The jobs and their applicants moved off the posting form on 2026-09-25.
+  it("points at the jobs page, not the posting form", () => {
+    expect(jobUpdateUrl(LEAD).startsWith("/contractors/jobs")).toBe(true);
   });
 
   // These rows live in the same table as every other notification, some of

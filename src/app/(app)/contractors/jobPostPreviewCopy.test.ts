@@ -12,6 +12,10 @@ function src(rel: string): string {
 }
 
 const page = src("./page.tsx");
+// The job cards and their awaiting-applicants copy moved to their own page on
+// 2026-09-25 ("Your jobs" was missable at the foot of the posting form). The
+// posting-side copy still lives on ./page.tsx above.
+const jobsPage = src("./jobs/page.tsx");
 
 // 2026-09-16: while the contractor side is closed (isHomeownerPreview(),
 // src/lib/previewMode.ts), "Pros can see it now" and "Pros usually apply
@@ -47,9 +51,9 @@ describe("job-post confirmation is honest while pros are closed", () => {
   });
 
   it("the per-job awaiting-applicants card branches on isPreview", () => {
-    const start = page.indexOf("An asap job shouldn't be told");
-    const end = page.indexOf("Photos ride on the lead's issue", start);
-    const explainer = page.slice(start, end);
+    const start = jobsPage.indexOf("An asap job shouldn't be told");
+    const end = jobsPage.indexOf("Photos ride on the lead's issue", start);
+    const explainer = jobsPage.slice(start, end);
 
     expect(explainer).toContain("isPreview ? (");
     expect(explainer).toContain("<p>{PREVIEW_JOB_POSTED_COPY}</p>");

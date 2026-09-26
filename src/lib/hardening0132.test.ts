@@ -265,14 +265,15 @@ describe("migration 0132: review integrity", () => {
   it("has UI that agrees with it, on both surfaces that offer a review", () => {
     // Neither surface may gate on lead status, for the reason above. The chats
     // page offers a review on any assigned thread; the jobs list waits for the
-    // chat close marker, which EITHER side can post.
+    // chat close marker, which EITHER side can post. The jobs list moved to
+    // /contractors/jobs on 2026-09-25.
     expect(read("src/app/(app)/chats/page.tsx")).not.toContain(
       'selected.status === "closed"'
     );
-    expect(read("src/app/(app)/contractors/page.tsx")).not.toContain(
+    expect(read("src/app/(app)/contractors/jobs/page.tsx")).not.toContain(
       'l.status === "closed"'
     );
-    expect(read("src/app/(app)/contractors/page.tsx")).toContain(
+    expect(read("src/app/(app)/contractors/jobs/page.tsx")).toContain(
       "closedIds.has(l.id)"
     );
   });

@@ -811,14 +811,15 @@ export default async function HomePage(
             )}
           </AnimatedDetails>
         </div>
-        {/* Phone: hidden. "Open jobs" is a jobs concept, not a home-state one,
-            and the home page was too long to scroll. The count now lives at the
-            top of /contractors (the "Post" tab, one tap away on the bottom nav),
-            which is also where this card already pointed. Desktop keeps the
-            four-card grid exactly as it was. */}
+        {/* Visible on phone again (2026-09-25). It was hidden because the only
+            destination was the foot of the posting form, so the count led
+            somewhere long and easy to lose - which also meant a homeowner on a
+            phone had NO home-screen signal that pros had applied. "Your jobs"
+            is its own page now, so the count leads straight to the applicants,
+            which is the one thing worth putting on the home screen. */}
         <Link
-          href={openJobsCount > 0 ? "/contractors#your-jobs" : "/contractors"}
-          className="card-link max-sm:hidden"
+          href={openJobsCount > 0 ? "/contractors/jobs" : "/contractors"}
+          className="card-link"
         >
           <p className="stat-label text-sm">Open jobs</p>
           {openJobsCount > 0 ? (
