@@ -335,7 +335,12 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
 // bills, pre-approved plans, ACS 2020-2024 housing age), which were opened
 // that day or were already on this list from 2026-09-21. The city table on
 // those three guides links each city's own page inline; its rules are in
-// src/lib/ocRemodelCities.ts.
+// src/lib/ocRemodelCities.ts. The same goes for the entries added to the
+// roof, water heater, HVAC and electrical panel guides on 2026-09-25 (housing
+// age, the Energy Commission's 2025 compliance manual and climate zone list,
+// city permit pages, CSLB classes, the CPSC on aluminum wiring, and rebates
+// from SoCalGas, SCE and TECH Clean California, each marked with the day it
+// was checked because those programs change).
 export type GuideSource = {
   href: string;
   /** Link text: who publishes it and what it is. */
@@ -398,6 +403,97 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
     },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+    },
+    {
+      href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
+      label:
+        "California Energy Commission: 2025 Single-Family Residential Compliance Manual, chapter 9 (additions, alterations and repairs)",
+      supports:
+        "Replacing the existing water heater is an alteration covered by the Energy Code; heat pump water heaters have new mandatory requirements in 2025, including ventilation when one is installed.",
+    },
+    {
+      href: "https://santa-ana.gov/permit-faqs/",
+      label:
+        "City of Santa Ana: permit FAQs",
+      supports:
+        "Simple water heater change-outs can be issued same day, over the counter; replacing any gas or plumbing system requires a permit.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/",
+      label:
+        "Contractors State License Board: licensing classifications",
+      supports:
+        "C-36 is the Plumbing Contractor classification.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
+      label:
+        "Contractors State License Board: what kind of contractor do you need",
+      supports:
+        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
+      label:
+        "California Assembly Bill 2622 (2023-2024)",
+      supports:
+        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
+      label:
+        "California Business and Professions Code section 7159",
+      supports:
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
+      label:
+        "California Business and Professions Code section 7159.5",
+      supports:
+        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+    },
+    {
+      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      label:
+        "SoCalGas: rebates and incentives",
+      supports:
+        "Checked 2026-09-25: high-efficiency storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less, not bought from a statewide participating retailer); tankless water heaters $80 to $1,500, only when replacing a tank-type unit in a single-family detached home; funds first come, first served until December 31, 2026 or until they run out.",
+    },
+    {
+      href: "https://techcleanca.com/incentives/single-family-incentives/",
+      label:
+        "TECH Clean California: single-family incentives",
+      supports:
+        "As of November 14, 2025, single-family heat pump water heater and heat pump HVAC incentives are reserved statewide; HEEHRA reservations in Central and Southern California submitted after January 7, 2026 go on a waitlist. Checked 2026-09-25.",
+    },
+    {
+      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
+      label:
+        "Southern California Edison: rebates and SCE Marketplace",
+      supports:
+        "Checked 2026-09-25: SCE's rebate page points customers to SCE Marketplace and to Golden State Rebates for coupons on heat pump water heaters, and lists no dollar amounts itself.",
+    },
   ],
   "/guides/hvac-replacement-cost": [
     {
@@ -440,6 +536,104 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
     },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+    },
+    {
+      href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
+      label:
+        "California Energy Commission: 2025 Single-Family Residential Compliance Manual, chapter 9 (additions, alterations and repairs)",
+      supports:
+        "Replacing an existing furnace, heat pump or central air conditioner, or extending or replacing a duct system, is an alteration covered by the Energy Code; refrigerant charge verification is required for heat pumps in all climate zones and for air conditioners in climate zones 2 and 8 to 15.",
+    },
+    {
+      href: "https://www.energy.ca.gov/media/3560",
+      label:
+        "California Energy Commission: building climate zones by zip code",
+      supports:
+        "Coastal Orange County zip codes such as Huntington Beach (92646 to 92649), Newport Beach (92660 to 92663), Costa Mesa (92626, 92627) and Fountain Valley (92708) are in climate zone 6; inland ones such as Irvine (92618, 92620), Santa Ana (92701 to 92707), Anaheim (92801 to 92808), Tustin (92780, 92782) and Mission Viejo (92691, 92692) are in climate zone 8. Checked 2026-09-25.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/building___inspection/permit_center/express_permitting.php",
+      label:
+        "City of Huntington Beach: express permitting",
+      supports:
+        "Express permits are simple single-family permits with no plan review; furnace and air conditioning units, new or change-outs, are submitted with the CF1R form.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/building-division/online-permitting-ipermit",
+      label:
+        "City of Newport Beach: online permitting (iPermit)",
+      supports:
+        "Replacing a furnace is a single-scope express permit you can apply for online.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/",
+      label:
+        "Contractors State License Board: licensing classifications",
+      supports:
+        "C-20 is the Warm-Air Heating, Ventilating and Air-Conditioning Contractor classification.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
+      label:
+        "California Assembly Bill 2622 (2023-2024)",
+      supports:
+        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
+      label:
+        "California Business and Professions Code section 7159",
+      supports:
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
+      label:
+        "California Business and Professions Code section 7159.5",
+      supports:
+        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+    },
+    {
+      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      label:
+        "SoCalGas: rebates and incentives",
+      supports:
+        "Checked 2026-09-25: an ENERGY STAR certified furnace with AFUE of 92 percent or more earns $1.40 to $25 per kBTUh, must be installed by a licensed contractor with proof of permit closure, one per household; funds first come, first served until December 31, 2026 or until they run out.",
+    },
+    {
+      href: "https://techcleanca.com/incentives/single-family-incentives/",
+      label:
+        "TECH Clean California: single-family incentives",
+      supports:
+        "As of November 14, 2025, single-family heat pump water heater and heat pump HVAC incentives are reserved statewide; HEEHRA reservations in Central and Southern California submitted after January 7, 2026 go on a waitlist. Checked 2026-09-25.",
+    },
+    {
+      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
+      label:
+        "Southern California Edison: rebates and SCE Marketplace",
+      supports:
+        "Checked 2026-09-25: SCE's rebate page points customers to SCE Marketplace, to Golden State Rebates for coupons on air conditioners, and to Comfortably CA for HVAC equipment, and lists no dollar amounts itself.",
+    },
   ],
   "/guides/roof-replacement-cost": [
     {
@@ -481,6 +675,97 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
     },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+    },
+    {
+      href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
+      label:
+        "California Energy Commission: 2025 Single-Family Residential Compliance Manual, chapter 9 (additions, alterations and repairs)",
+      supports:
+        "Reroofing is an alteration under the Energy Code, not a repair; cool roof requirements are triggered when 50 percent or more of the roof area is replaced, with steep-slope (2:12 or steeper) cool roof criteria in climate zones 4 and 8 to 15, low-slope criteria in zones 4 and 6 to 15, and exceptions such as R-38 ceiling insulation or an attic radiant barrier.",
+    },
+    {
+      href: "https://www.energy.ca.gov/media/3560",
+      label:
+        "California Energy Commission: building climate zones by zip code",
+      supports:
+        "Coastal Orange County zip codes such as Huntington Beach (92646 to 92649), Newport Beach (92660 to 92663), Costa Mesa (92626, 92627) and Fountain Valley (92708) are in climate zone 6; inland ones such as Irvine (92618, 92620), Santa Ana (92701 to 92707), Anaheim (92801 to 92808), Tustin (92780, 92782) and Mission Viejo (92691, 92692) are in climate zone 8. Checked 2026-09-25.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
+      label:
+        "California Assembly Bill 2622 (2023-2024)",
+      supports:
+        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
+      label:
+        "California Business and Professions Code section 7159",
+      supports:
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/",
+      label:
+        "Contractors State License Board: licensing classifications",
+      supports:
+        "C-39 is the Roofing Contractor classification.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
+    },
+    {
+      href: "https://cityofirvine.gov/community-development/permits-not-required",
+      label:
+        "City of Irvine: permits not required",
+      supports:
+        "Irvine tells residents to check their HOA's CC&Rs before work, and says a permit is required for most construction or repair activities regulated by code.",
+    },
+    {
+      href: "https://ggcity.org/building-and-safety/obtaining-building-permit-faqs",
+      label:
+        "City of Garden Grove: obtaining a building permit FAQs",
+      supports:
+        "A permit is needed to re-roof a home.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/building_inspection/index.php",
+      label:
+        "City of Huntington Beach: Building and Safety",
+      supports:
+        "Permits are required for re-roofs, among other work.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/building-division/online-permitting-ipermit",
+      label:
+        "City of Newport Beach: online permitting (iPermit)",
+      supports:
+        "Replacing your roofing is a single-scope express permit you can apply for online.",
+    },
   ],
   "/guides/electrical-panel-upgrade-cost": [
     {
@@ -515,6 +800,69 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Contractors State License Board: what kind of contractor do you need",
       supports:
         "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+    },
+    {
+      href: "https://www.cpsc.gov/s3fs-public/516.pdf",
+      label:
+        "U.S. Consumer Product Safety Commission: Repairing Aluminum Wiring, Publication 516 (June 2011)",
+      supports:
+        "Homes built before 1965 are unlikely to have aluminum branch circuit wiring; wiring installed between 1965 and the mid 1970s may be aluminum; a survey for CPSC found homes built before 1972 and wired with aluminum were 55 times more likely than copper-wired homes to have a connection at an outlet reach fire hazard conditions; failing connections seldom give warning signs.",
+    },
+    {
+      href: "https://www.anaheim.net/3472/Residential-Electrical-Panel-Upgrade",
+      label:
+        "City of Anaheim: residential electrical panel upgrade",
+      supports:
+        "A residential panel upgrade up to 200 amps takes an electrical permit that can be obtained online, and Anaheim Public Utilities' meter spot report must be on site at the Building Division inspection.",
+    },
+    {
+      href: "https://santa-ana.gov/permit-faqs/",
+      label:
+        "City of Santa Ana: permit FAQs",
+      supports:
+        "Residential service meter upgrades can be issued same day, over the counter.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
+      label:
+        "California Assembly Bill 2622 (2023-2024)",
+      supports:
+        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
+      label:
+        "California Business and Professions Code section 7159",
+      supports:
+        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
+      label:
+        "California Business and Professions Code section 7159.5",
+      supports:
+        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      label:
+        "Contractors State License Board: contracts and binding agreements",
+      supports:
+        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      label:
+        "Contractors State License Board: finding the right contractor",
+      supports:
+        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/kitchen-remodel-cost": [

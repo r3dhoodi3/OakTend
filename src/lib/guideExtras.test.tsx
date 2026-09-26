@@ -165,6 +165,10 @@ describe("GUIDE_SOURCES", () => {
     "newportbeachadu.org",
     "www.bwslaw.com",
     "www.hcd.ca.gov",
+    // Added 2026-09-25 for the roof, water heater, HVAC and panel upgrade,
+    // each opened that day.
+    "www.cpsc.gov",
+    "techcleanca.com",
     // Added 2026-09-25 for the Zone 0 status on the wildfire guide.
     "www.bbklaw.com",
     "www.publicceo.com",

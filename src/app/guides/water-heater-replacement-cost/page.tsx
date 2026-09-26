@@ -5,6 +5,7 @@ import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
+import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 
 // Public SEO guide, aimed at Orange County. Every figure on this page comes
 // from a published source listed in GUIDE_SOURCES (src/lib/guideExtras.ts):
@@ -12,7 +13,11 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // pump water heater prices from ENERGY STAR, hard water from the Irvine Ranch
 // and Orange County water districts. It no longer repeats the app's own
 // planning figures (REPLACEMENT_INFO / DEFAULT_LIFESPANS in src/lib/health.ts),
-// because those have no published source to cite.
+// because those have no published source to cite. The Orange County section
+// (housing age, strapping, permits, the 2025 Energy Code), the city table
+// (rules in src/lib/ocRemodelCities.ts) and the rebates, each dated "as of"
+// the day someone opened the program's page, cite their own sources. The pro
+// side is closed, so nothing here offers to find, match or book a plumber.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -30,9 +35,10 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Water heater replacement cost in Orange County";
+// Kept to 34 characters so the full "<title> | OakTend" stays under 50.
+const TITLE = "Water heater cost in Orange County";
 const DESCRIPTION =
-  "What changes the price of a new water heater in Orange County: tank, tankless or heat pump, hard water, earthquake straps, and when to repair instead.";
+  "What changes the price of a new water heater in Orange County: tank, tankless or heat pump, straps and permits by city, rebates, and reading a bid.";
 const CANONICAL = `${SITE_URL}/guides/water-heater-replacement-cost`;
 
 export const metadata: Metadata = {
@@ -58,7 +64,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "How much does it cost to replace a water heater in Orange County?",
-    a: "No government or utility source publishes a typical installed price for Orange County, so this guide does not print one for a standard tank. A like-for-like tank swap in the same spot is the least expensive version of the job. For heat pump water heaters, ENERGY STAR puts the unit at $1,500 to $3,000 and installation labor and materials at $1,000 to $3,000 on top of that. Those are national figures. For a real local number, ask two or three licensed plumbers for written, itemized prices.",
+    a: "No government or utility source publishes a typical installed price for Orange County, so this guide does not print one for a standard tank. A like-for-like tank swap in the same spot is the least expensive version of the job. For heat pump water heaters, ENERGY STAR puts the unit at $1,500 to $3,000 and installation labor and materials at $1,000 to $3,000 on top of that. Those are national figures. For a real local number, ask at least three licensed plumbers for written, itemized prices.",
   },
   {
     q: "Is a tankless water heater worth the extra cost?",
@@ -75,6 +81,29 @@ const FAQS = [
   {
     q: "Do water heaters have to be strapped in California?",
     a: "Yes. California Health and Safety Code section 19211 requires all new and replacement water heaters, and all existing residential water heaters, to be braced, anchored, or strapped to resist falling or moving sideways in an earthquake. A seller also has to certify in writing to the buyer that the water heater complies.",
+  },
+  // Added 2026-09-25 from the "People also ask" questions in the SEO
+  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
+  // repeats what the page body already says and sources.
+  {
+    q: "How long do water heaters last?",
+    a: "Published figures vary. InterNACHI's life expectancy chart lists 6 to 12 years for a conventional water heater, while the U.S. Department of Energy estimates an average life of around 15 years for storage water heaters. ENERGY STAR's practical advice is to start considering a replacement once a water heater is more than 10 years old, before it fails.",
+  },
+  {
+    q: "How do I know if my water heater needs replacing?",
+    a: "ENERGY STAR lists the signs: leaks, rust in the water, running short of hot water, and rumbling noises from the tank, along with age past about 10 years. A leaking tank is the clearest one, because tanks do not get patched. A younger unit with one failed part, like a thermostat or heating element, is usually a repair instead.",
+  },
+  {
+    q: "Do I need a permit to replace a water heater in Orange County?",
+    a: "Plan on one. Santa Ana issues permits for simple water heater change-outs the same day, over the counter, and Fountain Valley's page says replacing any gas or plumbing system needs a permit. Irvine does not list water heaters among its exemptions. Each city sets its own rules and fees, so check yours before work starts, and make sure the new heater is strapped, which state law requires.",
+  },
+  {
+    q: "Are there rebates for a new water heater in Orange County?",
+    a: "Some, and they change. As of September 25, 2026, SoCalGas lists $300 to $575 for a qualifying high-efficiency storage water heater and $80 to $1,500 for a tankless unit that replaces a tank in a single-family detached home, first come, first served through December 31, 2026 or until funds run out. TECH Clean California's single-family heat pump water heater incentives have been reserved statewide since November 14, 2025. Check each program's page before you count on the money.",
+  },
+  {
+    q: "What is Title 24 and does it apply to a water heater replacement?",
+    a: "Title 24 is California's building code, and Part 6 of it is the Energy Code. Permits applied for on or after January 1, 2026 fall under the 2025 Energy Code, and the Energy Commission's compliance manual lists replacing an existing water heater as an alteration the code covers. For heat pump water heaters, the 2025 code adds requirements such as ventilation where the unit is installed.",
   },
 ];
 
@@ -118,20 +147,20 @@ export default function WaterHeaterReplacementCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Water heater replacement cost in Orange County" },
+          { label: "Water heater cost in Orange County" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Water heater replacement cost in Orange County", href: CANONICAL },
+          { name: "Water heater cost in Orange County", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Water heater replacement cost in Orange County
+        Water heater cost in Orange County
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
@@ -165,7 +194,7 @@ export default function WaterHeaterReplacementCostGuide() {
             {" "}
             on top of that. Those are national figures, not Orange County
             ones, and they are a few years old. For a real local number, ask
-            two or three licensed plumbers for written, itemized prices.
+            at least three licensed plumbers for written, itemized prices.
           </p>
         </section>
 
@@ -242,40 +271,90 @@ export default function WaterHeaterReplacementCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            In Orange County
+            Why it costs more in Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
-            Hard water is the local factor. The Irvine Ranch Water District
-            says water with 10 grains of hardness or more is generally
-            considered hard, that the water it imports from the Colorado River
-            and Northern California is typically hard, and that its own well
-            water is moderately hard. The Orange County Water District says
-            the groundwater basin it manages provides about 85 percent of the
-            water supply for 2.5 million people in north and central Orange
-            County. InterNACHI notes that the mineral content of water can
-            shorten a water heater&apos;s life, and the Irvine Ranch district
-            recommends flushing the tank once a year so sediment does not
-            build up (see our{" "}
-            <Link
-              href="/guides/home-maintenance-schedule"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              home maintenance schedule
-            </Link>
-            ).
+            No published survey we found gives an Orange County price for a
+            water heater, so this section explains the local things that add
+            to one rather than printing a number.
           </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Hard water.</strong> The Irvine Ranch Water District says
+              water with 10 grains of hardness or more is generally considered
+              hard, that the water it imports from the Colorado River and
+              Northern California is typically hard, and that its own well
+              water is moderately hard. The Orange County Water District says
+              the groundwater basin it manages provides about 85 percent of the
+              water supply for 2.5 million people in north and central Orange
+              County. InterNACHI notes that the mineral content of water can
+              shorten a water heater&apos;s life, and the Irvine Ranch district
+              recommends flushing the tank once a year so sediment does not
+              build up (see our{" "}
+              <Link
+                href="/guides/home-maintenance-schedule"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                home maintenance schedule
+              </Link>
+              ).
+            </li>
+            <li>
+              <strong>Older houses.</strong> About 57 percent of Orange
+              County&apos;s housing units were built before 1980, by the Census
+              Bureau&apos;s 2020 to 2024 American Community Survey. In Fountain
+              Valley it is about 82 percent, in Garden Grove 77 percent, and in
+              Santa Ana 74 percent, while Irvine is about 21 percent. Switching
+              an older house to a heat pump water heater can mean electrical
+              work: ENERGY STAR says the unit needs a 240-volt supply where it
+              goes, that you may need more capacity at the breaker box, and
+              that it needs about 450 cubic feet of air around it (see our{" "}
+              <Link
+                href="/guides/electrical-panel-upgrade-cost"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                panel upgrade guide
+              </Link>
+              ).
+            </li>
+            <li>
+              <strong>Earthquake straps.</strong> California Health and Safety
+              Code section 19211 requires every new and replacement water
+              heater, and every existing residential one, to be braced,
+              anchored, or strapped against earthquake movement. A seller also
+              has to certify it in writing to the buyer.
+            </li>
+            <li>
+              <strong>A permit.</strong> Replacing a water heater is permitted
+              work. Santa Ana, for one, issues permits for simple water heater
+              change-outs the same day, over the counter. The city table below
+              shows what each city&apos;s own page says.
+            </li>
+            <li>
+              <strong>The 2025 Energy Code.</strong> Permits applied for on or
+              after January 1, 2026 fall under California&apos;s 2025 Energy
+              Code, which expands the use of heat pumps in newly built homes.
+              For an existing home, the Energy Commission&apos;s compliance
+              manual lists replacing the water heater as an alteration the code
+              covers, and the 2025 code adds requirements for heat pump water
+              heaters, such as ventilation where the unit is installed.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits and home age by city
+          </h2>
           <p className="mt-2 leading-relaxed">
-            California adds two rules to any replacement. Health and Safety
-            Code section 19211 requires every new and replacement water heater
-            to be braced, anchored, or strapped against earthquake movement.
-            And the state&apos;s 2025 Energy Code, which applies to permits
-            applied for on or after January 1, 2026, expands the use of heat
-            pumps in newly built homes.
+            What each city&apos;s own pages say about water heater and plumbing
+            work, with a link to where applications go. Where a city&apos;s page
+            does not name the work, we say so rather than guess.
           </p>
-          <p className="mt-2 leading-relaxed">
-            Permit rules and fees differ from city to city, so ask your
-            city&apos;s building department before work starts. Our city pages
-            are a starting point:{" "}
+          <OcRemodelCityTable trade="waterHeater" />
+          <p className="mt-3 leading-relaxed">
+            Permit rules and fees differ from city to city. Our city pages are
+            a starting point:{" "}
             <Link
               href="/oc/irvine"
               className="text-bark-700 hover:underline dark:text-stone-300"
@@ -305,6 +384,112 @@ export default function WaterHeaterReplacementCostGuide() {
             </Link>
             .
           </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Hiring in California: what to check
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The Contractors State License Board says anyone who contracts for a
+            job that needs a building permit, or for work valued at{" "}
+            <strong>$1,000 or more</strong> in combined labor and materials,
+            must hold a valid license. A water heater replacement needs a
+            permit, so the small-job exception does not apply to it at any
+            price. The plumbing license class is C-36, and you can check any
+            license at cslb.ca.gov.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            A home improvement contract over $500 has to be in writing, and
+            the <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
+            of the contract price, whichever is less (see our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              deposit rules guide
+            </Link>
+            ).
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How to read the estimate
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The figures on this page are estimate ranges, not a quote. When a
+            real price for your water heater arrives, check it against this
+            list.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The contractor&apos;s name, business address, and CSLB license
+              number are on it, and the license checks out on the CSLB site.
+            </li>
+            <li>
+              It names the new unit: type (tank, tankless, or heat pump), fuel,
+              capacity, and model.
+            </li>
+            <li>
+              Venting, gas line, or electrical changes are listed as their own
+              lines, not folded into one price.
+            </li>
+            <li>It says who gets the permit.</li>
+            <li>Earthquake straps are included.</li>
+            <li>
+              The down payment is no more than $1,000 or 10 percent of the
+              price, whichever is less.
+            </li>
+            <li>
+              Payments follow finished work. A contractor may not collect for
+              work not yet done or materials not yet delivered.
+            </li>
+            <li>
+              You have at least three written bids on the same scope. The
+              lowest is not automatically the best.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            More on this in{" "}
+            <Link
+              href="/guides/is-my-contractor-quote-fair"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              is my contractor&apos;s quote fair?
+            </Link>
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Rebates, as of September 25, 2026
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Rebate programs open, change, and run out of money, so treat these
+            as a snapshot from the day we checked each program&apos;s page.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>SoCalGas.</strong> $300 to $575 for a qualifying
+              high-efficiency storage water heater (55 gallons or less), and $80
+              to $1,500 for a tankless unit that replaces a tank-type heater in a
+              single-family detached home. Funds are first come, first served
+              through December 31, 2026 or until they run out.
+            </li>
+            <li>
+              <strong>TECH Clean California.</strong> The state program&apos;s
+              single-family heat pump water heater incentives have been
+              reserved statewide since November 14, 2025, and new HEEHRA
+              rebate reservations in Central and Southern California go on a
+              waitlist.
+            </li>
+            <li>
+              <strong>Southern California Edison.</strong> SCE&apos;s rebate
+              page points to SCE Marketplace and to Golden State Rebates for
+              heat pump water heater coupons, without listing amounts itself.
+            </li>
+          </ul>
         </section>
 
         <section>

@@ -113,19 +113,19 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-21" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-25",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
