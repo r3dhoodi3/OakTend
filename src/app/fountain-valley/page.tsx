@@ -3,6 +3,7 @@ import CityLandingPage, {
   buildCityServiceJsonLd,
   cityPageCopy,
 } from "@/components/CityLandingPage";
+import { cityMetaTitle, getCityContent } from "@/content/cities";
 
 // Top-level city landing page for local SEO ("home maintenance Fountain
 // Valley" type queries) and as the link target for Nextdoor/chamber
@@ -34,10 +35,26 @@ export const revalidate = 3600;
 const COPY = cityPageCopy("Fountain Valley");
 const CANONICAL = `${SITE_URL}/fountain-valley`;
 
+// Real, sourced local content for this city when it exists
+// (src/content/cities). Undefined is a supported state, not a bug: the
+// page then renders the hand-written paragraph below exactly as it did
+// before the content module existed.
+const CONTENT = getCityContent("fountain-valley");
+
+// A researched city describes itself in its own words; those descriptions
+// are local facts only and say nothing about pros, so they are safe with the
+// preview flag on or off. One constant so the search snippet and both share
+// cards cannot drift apart.
+const DESCRIPTION = CONTENT?.metaDescription ?? COPY.description;
+
+// Same rule for the title: the city's own metaTitle when it has one, otherwise
+// the shared COPY.title. Used for the tab and both share cards.
+const TITLE = cityMetaTitle("fountain-valley", COPY.title);
+
 export const metadata: Metadata = {
   // The root layout's title template appends "| OakTend"; don't repeat it here.
-  title: COPY.title,
-  description: COPY.description,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: CANONICAL,
   },
@@ -46,8 +63,8 @@ export const metadata: Metadata = {
   // layout's generic site-wide card - the same preview for all 36 city pages.
   // Same shape /pricing and the guides use.
   openGraph: {
-    title: COPY.title,
-    description: COPY.description,
+    title: TITLE,
+    description: DESCRIPTION,
     url: CANONICAL,
     siteName: "OakTend",
     type: "website",
@@ -61,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: COPY.title,
-    description: COPY.description,
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 
@@ -80,10 +97,14 @@ export default function FountainValleyPage() {
           ).replace(/</g, "\\u003c"),
         }}
       />
+      {/* The FAQPage markup lives next to the FAQ itself, and the
+          BreadcrumbList next to the visible trail, both inside
+          CityLandingPage. */}
       <CityLandingPage
         city="Fountain Valley"
         path="/fountain-valley"
         housingParagraph={HOUSING_PARAGRAPH}
+        content={CONTENT}
       />
     </>
   );

@@ -3,7 +3,8 @@ import GuideCta from "@/components/GuideCta";
 import Logo from "@/components/Logo";
 import SessionCta from "@/components/SessionCta";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
-import { LAUNCH_AREA_LABEL } from "@/lib/serviceArea";
+import type { CityContent, CityExposure } from "@/content/cities/types";
+import { LAUNCH_AREA_LABEL, LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { cityPageCopy } from "@/lib/cityCopy";
 import {
   isHomeownerPreview,
@@ -133,16 +134,125 @@ export function buildCityServiceJsonLd(city: string, siteUrl: string, path: stri
   };
 }
 
+// FAQPage for the per-city FAQ block. Rendered by this component rather than
+// by the page files, next to the visible questions it describes: the markup
+// and the words on the page have to say the same thing, and keeping them in
+// one file is how they stay that way. Only emitted when a city actually has
+// content, so the template cities (the ones with no researched entry yet)
+// carry no FAQ markup for an FAQ they do not show.
+export function buildCityFaqJsonLd(content: CityContent) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: content.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+// BreadcrumbList is NOT built here. Every city page, researched or not, already
+// gets one from the <BreadcrumbJsonLd> beside the visible "OakTend / Orange
+// County / City" trail in the component below, and a second list from the page
+// files would hand a crawler two competing trails for one URL.
+
+// One sentence about what the city's position on the map means for a house
+// there. Not sourced because it is a geographic classification, not a
+// statistic - and deliberately free of invented precision (no corrosion
+// percentages, no wind speeds), which is the line section 2 of the research
+// brief draws.
+const EXPOSURE_SENTENCE: Record<CityExposure, (city: string) => string> = {
+  coastal: (city) =>
+    `${city} sits directly on the coast, so salt air is part of the maintenance picture: paint, metal fixtures, roof flashing, and outdoor HVAC equipment wear faster here than the same parts do a few miles inland.`,
+  "near-coastal": (city) =>
+    `${city} sits close enough to the water to get marine air most mornings, so exterior finishes and outdoor metal age faster than they would inland, though not as fast as they do right on the sand.`,
+  inland: (city) =>
+    `${city} is inland with no direct salt-air exposure, which means hotter summer afternoons and more Santa Ana wind than the coastal cities get, and none of the coastal corrosion problems.`,
+  foothill: (city) =>
+    `${city} runs up into the foothills, so parts of the city take more heat, more wind funneled through the canyons, and more wildfire exposure than the flat parts of the county.`,
+};
+
+// Fountain Valley and Huntington Beach have their own top-level routes
+// (src/app/fountain-valley, src/app/huntington-beach); everyone else lives
+// under /oc/<slug>. Same split src/app/sitemap.ts makes, for the same reason.
+const TOP_LEVEL_CITY_SLUGS = new Set(["fountain-valley", "huntington-beach"]);
+
+function cityHref(slug: string): string {
+  return TOP_LEVEL_CITY_SLUGS.has(slug) ? `/${slug}` : `/oc/${slug}`;
+}
+
+// Display name for a neighbor slug, read back out of LAUNCH_CITY_NAMES rather
+// than title-cased from the slug, so "La Habra" and "Rancho Santa Margarita"
+// come out the way the rest of the product writes them. An unknown slug falls
+// back to the slug itself, and cities.test.ts makes sure that never happens.
+function cityNameForSlug(slug: string): string {
+  return (
+    LAUNCH_CITY_NAMES.find(
+      (name) => name.toLowerCase().replace(/\s+/g, "-") === slug
+    ) ?? slug
+  );
+}
+
+// A small, honest citation link. nofollow because these are references, not
+// endorsements, and OakTend should not be passing ranking signal to a city
+// portal or a data aggregator just for citing it.
+function SourceLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="nofollow noopener"
+      className="underline decoration-stone-300 underline-offset-2 hover:text-bark-700 dark:decoration-white/20 dark:hover:text-stone-300"
+    >
+      {label}
+    </a>
+  );
+}
+
+// One fact with its source under it. Used for both homes.facts and hazards,
+// which are the same shape and deserve the same treatment.
+function FactCard({
+  text,
+  sourceUrl,
+  sourceLabel,
+}: {
+  text: string;
+  sourceUrl: string;
+  sourceLabel: string;
+}) {
+  return (
+    <li className="card">
+      <p className="text-sm text-stone-600 dark:text-stone-300">{text}</p>
+      <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+        Source: <SourceLink href={sourceUrl} label={sourceLabel} />
+      </p>
+    </li>
+  );
+}
+
+const SECTION_HEADING =
+  "text-center text-xl font-semibold text-stone-900 dark:text-stone-100";
+
 export default function CityLandingPage({
   city,
   path,
   housingParagraph,
+  content,
 }: {
   city: string;
   // The page's own route ("/fountain-valley", "/oc/irvine"): the breadcrumb
   // list's last item needs the page's URL.
   path: string;
   housingParagraph: string;
+  // Absent for the cities that have no researched content yet: this
+  // component then renders exactly what it rendered before the content module
+  // existed, which src/components/CityLandingPage.test.tsx pins to a snapshot
+  // taken before that change.
+  content?: CityContent;
 }) {
   const copy = cityPageCopy(city);
   const VALUE = valueCards();
@@ -207,7 +317,7 @@ export default function CityLandingPage({
             {copy.headline}
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-stone-600 dark:text-stone-300">
-            {housingParagraph}
+            {content?.intro ?? housingParagraph}
           </p>
           {/* This is a per-city page, so say out loud that the city is not the
               whole service area. OakTend serves the entire county, and a reader
@@ -241,12 +351,160 @@ export default function CityLandingPage({
           </div>
         </section>
 
+        {/* Everything from here to the guides list exists only for a city with
+            real, sourced content. A city without an entry renders nothing at
+            all here, which is what keeps every non-researched page
+            byte-identical to what it shipped before this module existed. */}
+        {content && (
+          <>
+            <section className="mt-14">
+              <h2 className={SECTION_HEADING}>
+                {city}&apos;s homes, at a glance
+              </h2>
+              <div className="card mt-6">
+                <p className="text-sm text-stone-600 dark:text-stone-300">
+                  <span className="font-semibold text-stone-900 dark:text-stone-100">
+                    Population:
+                  </span>{" "}
+                  {content.population.value} ({content.population.asOf}).{" "}
+                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                    Source:{" "}
+                    <SourceLink
+                      href={content.population.sourceUrl}
+                      label={
+                        content.population.sourceLabel ?? "U.S. Census Bureau"
+                      }
+                    />
+                  </span>
+                </p>
+                {content.homes.medianYearBuilt && (
+                  <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
+                    <span className="font-semibold text-stone-900 dark:text-stone-100">
+                      Median year built:
+                    </span>{" "}
+                    {content.homes.medianYearBuilt}
+                    {content.homes.medianYearBuiltSource && (
+                      <>
+                        .{" "}
+                        <span className="text-xs text-stone-500 dark:text-stone-400">
+                          Source:{" "}
+                          <SourceLink
+                            href={content.homes.medianYearBuiltSource.sourceUrl}
+                            label={
+                              content.homes.medianYearBuiltSource.sourceLabel
+                            }
+                          />
+                        </span>
+                      </>
+                    )}
+                  </p>
+                )}
+                <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
+                  {EXPOSURE_SENTENCE[content.homes.exposure](city)}
+                </p>
+              </div>
+              <ul className="mt-4 space-y-3">
+                {content.homes.facts.map((fact) => (
+                  <FactCard
+                    key={fact.text}
+                    text={fact.text}
+                    sourceUrl={fact.sourceUrl}
+                    sourceLabel={fact.sourceLabel}
+                  />
+                ))}
+              </ul>
+            </section>
+
+            <section className="mt-14">
+              <h2 className={SECTION_HEADING}>Real neighborhoods in {city}</h2>
+              <div className="card mt-6">
+                <ul className="flex flex-wrap gap-2">
+                  {content.neighborhoods.names.map((name) => (
+                    <li
+                      key={name}
+                      className="rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 dark:border-white/10 dark:text-stone-300"
+                    >
+                      {name}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
+                  {content.neighborhoods.note}
+                </p>
+                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                  Source:{" "}
+                  <SourceLink
+                    href={content.neighborhoods.sourceUrl}
+                    label="Neighborhood reference"
+                  />
+                </p>
+              </div>
+            </section>
+
+            <section className="mt-14">
+              <h2 className={SECTION_HEADING}>
+                Water, permits, and local rules in {city}
+              </h2>
+              <div className="card mt-6">
+                <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                  Water
+                </h3>
+                <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+                  {content.water.summary}
+                </p>
+                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                  <SourceLink
+                    href={content.water.utilityUrl}
+                    label={content.water.utility}
+                  />
+                  {" · Source: "}
+                  <SourceLink
+                    href={content.water.sourceUrl}
+                    label={content.water.sourceLabel ?? "Water quality report"}
+                  />
+                </p>
+              </div>
+              <div className="card mt-3">
+                <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                  Permits
+                </h3>
+                <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+                  {content.permits.summary}
+                </p>
+                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                  <SourceLink
+                    href={content.permits.portalUrl}
+                    label={`${content.permits.office} permit portal`}
+                  />
+                  {" · Source: "}
+                  <SourceLink
+                    href={content.permits.sourceUrl}
+                    label="City building division"
+                  />
+                </p>
+              </div>
+              {content.hazards.length > 0 && (
+                <ul className="mt-3 space-y-3">
+                  {content.hazards.map((hazard) => (
+                    <FactCard
+                      key={hazard.text}
+                      text={hazard.text}
+                      sourceUrl={hazard.sourceUrl}
+                      sourceLabel={hazard.sourceLabel}
+                    />
+                  ))}
+                </ul>
+              )}
+            </section>
+          </>
+        )}
+
         <section className="mt-14">
           <h2 className="text-center text-xl font-semibold text-stone-900 dark:text-stone-100">
             Guides for {city} homeowners
           </h2>
           <ul className="mt-6 space-y-3">
-            {GUIDE_LINKS.map((g) => (
+            {(content?.guides ?? GUIDE_LINKS).map((g) => (
               <li key={g.href}>
                 <Link
                   href={g.href}
@@ -259,6 +517,60 @@ export default function CityLandingPage({
             ))}
           </ul>
         </section>
+
+        {content && (
+          <>
+            <section className="mt-14">
+              <h2 className={SECTION_HEADING}>Nearby cities</h2>
+              <ul className="mt-6 flex flex-wrap justify-center gap-2">
+                {content.neighbors.map((slug) => (
+                  <li key={slug}>
+                    <Link
+                      href={cityHref(slug)}
+                      className="inline-block rounded-full border border-stone-200 px-4 py-2 text-sm text-stone-600 transition hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-300"
+                    >
+                      {cityNameForSlug(slug)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mt-14">
+              <h2 className={SECTION_HEADING}>
+                Questions from {city} homeowners
+              </h2>
+              {/* Plain, expanded text rather than an accordion: an answer a
+                  reader has to click to see is an answer a crawler reads as
+                  hidden, and these are short enough that hiding them buys
+                  nothing. */}
+              <div className="mt-6 space-y-3">
+                {content.faq.map((item) => (
+                  <div key={item.q} className="card">
+                    <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                      {item.q}
+                    </h3>
+                    <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
+                      {item.a}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-center text-xs text-stone-500 dark:text-stone-400">
+                Local facts on this page last checked {content.updated}.
+              </p>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify(buildCityFaqJsonLd(content)).replace(
+                    /</g,
+                    "\\u003c"
+                  ),
+                }}
+              />
+            </section>
+          </>
+        )}
 
         <GuideCta />
       </main>
