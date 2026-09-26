@@ -259,6 +259,23 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Orange",
     ],
   },
+  // Added 2026-09-26 (seo/new-pages-c).
+  "/guides/earthquake-retrofit-orange-county": {
+    guides: [
+      "/guides/new-homeowner-first-year-orange-county",
+      "/guides/permits-orange-county",
+      "/guides/water-heater-replacement-cost",
+    ],
+    cities: ["Anaheim", "Santa Ana", "Irvine", "Huntington Beach", "San Clemente"],
+  },
+  "/guides/sewer-line-orange-county": {
+    guides: [
+      "/guides/repipe-orange-county",
+      "/guides/permits-orange-county",
+      "/guides/is-my-contractor-quote-fair",
+    ],
+    cities: ["Anaheim", "Costa Mesa", "Huntington Beach", "Irvine", "Tustin"],
+  },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     guides: [
       "/guides/orange-county-home-maintenance-checklist",
@@ -2055,6 +2072,101 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "SoCalGas: how to prepare for fumigation",
       supports:
         "SoCalGas closes and restores gas service for a fumigation at no cost, needs two business days of notice, and only it or its certified contractors may operate the service shut-off valve.",
+    },
+  ],
+  // Added 2026-09-26 (seo/new-pages-c). Every entry opened that day.
+  "/guides/earthquake-retrofit-orange-county": [
+    {
+      href: "https://www.earthquakeauthority.com/strengthen-your-house",
+      label: "California Earthquake Authority: strengthen your house",
+      supports:
+        "Older houses with steps up to the first floor can shift off their foundations in an earthquake; the fix is bracing crawl space walls and bolting the house to its foundation.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label: "California Residential Mitigation Program: the Earthquake Brace + Bolt retrofit",
+      supports:
+        "Checked 2026-09-26: bolting uses anchor bolts or foundation plates; bracing attaches plywood or OSB sheathing along cripple walls; a frame sitting directly on the foundation gets bolting only; supplemental grant of up to $7,000; registration is open for a limited time each year.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/see-if-you-qualify",
+      label: "California Residential Mitigation Program: see if you qualify for Earthquake Brace + Bolt",
+      supports:
+        "Checked 2026-09-26: grants of up to $3,000, and a supplemental grant for households with annual income of $94,480 or less, as funding permits.",
+    },
+    {
+      href: "https://www.crmp.org/resources/program-zip-codes",
+      label: "California Residential Mitigation Program: program ZIP codes",
+      supports:
+        "Checked 2026-09-26: the ZIP lookup listed many Orange County ZIP codes, including ones in Anaheim, Santa Ana, Irvine, Huntington Beach and San Clemente, with Brace + Bolt registration closed.",
+    },
+    {
+      href: "https://www.crmp.org/sites/crmp/files/documents/2026/ebb-rules-regs_1-29-26_final-with-accessibility.pdf",
+      label: "Earthquake Brace + Bolt Program: Rules for Participation (effective February 1, 2026)",
+      supports:
+        "Qualifying houses (pre-1980, one to four units, raised perimeter foundation, level or low slope, no mobile homes), Chapter A3, standard plans up to 4-foot cripple walls and engineered plans beyond, a typical retrofit cost of $3,000 to $7,000, permit issued after acceptance and solely for the retrofit, no work before approval, Class A or B license or the homeowner, one grant per parcel.",
+    },
+    {
+      href: "https://www.earthquakeauthority.com/california-earthquake-insurance-policies/earthquake-insurance-policy-premium-discounts",
+      label: "California Earthquake Authority: earthquake insurance premium discounts",
+      supports:
+        "Checked 2026-09-26: up to a 25% discount for a retrofitted pre-1980, wood-framed, one-to-four unit house on a raised foundation with a secured water heater, verified by the Dwelling Retrofit Verification form or a Brace + Bolt verification number.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
+      label: "California Health and Safety Code section 19211",
+      supports:
+        "Residential water heaters must be braced, anchored or strapped against earthquake motion.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/emergency-information/shut-off-natural-gas",
+      label: "SoCalGas: how to shut off your natural gas",
+      supports:
+        "Do not turn off the meter unless you smell gas, hear it escaping or see other signs of a leak, and do not turn it back on yourself.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=74.5",
+      label: "California Revenue and Taxation Code section 74.5",
+      supports:
+        "Seismic retrofitting is not new construction for reassessment; notify the assessor before or within 30 days of completion and file documents within six months.",
+    },
+  ],
+  "/guides/sewer-line-orange-county": [
+    {
+      href: "https://ocsan.gov/sanitation-district-clearance/",
+      label: "Orange County Sanitation District (OC San): sanitation district clearance and local providers",
+      supports:
+        "OC San is only a regional sewer provider; the city is the local provider except Yorba Linda, Irvine, Tustin and unincorporated areas, which have their own districts.",
+    },
+    {
+      href: "https://www.anaheim.net/DocumentCenter/View/49629",
+      label: "City of Anaheim: Sewer Laterals, Property Owners Guide",
+      supports:
+        "The whole lateral is private property, including under the street; slow drains, a gurgling toilet and wet areas by the washer signal a blockage; most laterals are vitrified clay with a 30 to 50 year average service life; roots enter through existing defects; laterals are 4 to 6 inches; root killers are short term; get permits and more than one quote.",
+    },
+    {
+      href: "https://www.cmsdca.gov/sewer/sewer_faqs.php",
+      label: "Costa Mesa Sanitary District: sewer FAQs",
+      supports:
+        "Owners maintain the lateral until past the connection with the district's main; roots can break a pipe and collapse it; rodding is temporary, rod every year if roots are involved.",
+    },
+    {
+      href: "https://www.cmsdca.gov/sewer/rebates/sewer_inspection_rebate_program.php",
+      label: "Costa Mesa Sanitary District: Sewer Inspection Rebate Program",
+      supports:
+        "Checked 2026-09-26: up to $200 (camera from a ground clean-out), $250 (from a roof vent or toilet flange) or $500 (new clean-out, permit required); approval first; once every five years; video must show date, address, footage and the whole lateral; no permit for a camera inspection; digging needs a district inspection.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/public_works/water_and_sewer/sewer_lateral_program.php",
+      label: "City of Huntington Beach: sewer lateral program",
+      supports:
+        "The city is responsible from its main to the property line, including the public right-of-way; the owner hires a contractor to clean and video the line and the city reviews it; slip lining is named as a repair.",
+    },
+    {
+      href: "https://www.irwd.com/services/sewer",
+      label: "Irvine Ranch Water District: wastewater collection and treatment",
+      supports:
+        "Property owners are responsible for pipes within the building and the upper lateral to the edge of the property line.",
     },
   ],
   "/guides/santa-ana-wind-wildfire-home-prep": [

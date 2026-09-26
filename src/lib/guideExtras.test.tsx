@@ -185,6 +185,10 @@ describe("GUIDE_SOURCES", () => {
     // New pages B, 2026-09-26 (home age data, rebates), each opened that day.
     "www.census.gov",
     "socalwatersmart.com",
+    // Added 2026-09-26 for the earthquake retrofit and sewer line guides,
+    // each opened that day.
+    "ocsan.gov",
+    "www.cmsdca.gov",
   ];
 
   it("lists sources for all 12 guides", () => {
@@ -236,13 +240,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 22 guide pages", () => {
+describe("all 24 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(22);
+    expect(dirs).toHaveLength(24);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

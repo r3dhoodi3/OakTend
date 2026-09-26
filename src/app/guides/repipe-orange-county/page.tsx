@@ -135,7 +135,11 @@ export default function RepipeOrangeCountyGuide() {
             A repipe replaces the hot and cold water supply lines from where
             the water enters the house to every fixture. It does not touch
             drains or the sewer line, which are a separate system and a
-            separate job. It starts to make sense when repairs stop being
+            separate job (see our{" "}
+            <Link href="/guides/sewer-line-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              sewer line guide
+            </Link>
+            ). It starts to make sense when repairs stop being
             one-offs:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">

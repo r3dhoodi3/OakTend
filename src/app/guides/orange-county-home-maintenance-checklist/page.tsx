@@ -243,11 +243,13 @@ const SYSTEM_GUIDES: { href: string; note: string }[] = [
   { href: "/guides/slab-leak-signs", note: "how to spot a leak under the floor early" },
   { href: "/guides/slab-leak-repair-orange-county", note: "spot repair, reroute or repipe" },
   { href: "/guides/repipe-orange-county", note: "when a whole-house repipe makes sense" },
+  { href: "/guides/sewer-line-orange-county", note: "who owns the pipe to the street, and repairs" },
   { href: "/guides/hvac-replacement-cost", note: "repair or replace, and what it costs" },
   { href: "/guides/roof-replacement-cost", note: "lifespan by material and replacement cost" },
   { href: "/guides/electrical-panel-upgrade-cost", note: "older panels and what an upgrade involves" },
   { href: "/guides/termites-orange-county", note: "drywood vs subterranean, and treatment" },
   { href: "/guides/santa-ana-wind-wildfire-home-prep", note: "defensible space, vents and red flag days" },
+  { href: "/guides/earthquake-retrofit-orange-county", note: "bolting and bracing older raised-foundation houses" },
   { href: "/guides/permits-orange-county", note: "which jobs need a permit" },
   { href: "/guides/new-homeowner-first-year-orange-county", note: "your first week, month and year" },
 ];
@@ -532,8 +534,11 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
                 Earthquake Brace + Bolt program
               </a>{" "}
               offers grants of up to $3,000 toward a retrofit that bolts the
-              house to its foundation, in ZIP codes the program lists as high hazard. Check
-              its site for your ZIP code and the next application window.
+              house to its foundation, in ZIP codes the program lists as high hazard. Our{" "}
+              <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
+                earthquake retrofit guide
+              </Link>{" "}
+              covers who qualifies and the next steps.
             </li>
           </ul>
         </section>
