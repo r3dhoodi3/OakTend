@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import GuideCta from "@/components/GuideCta";
 import GuideMeta from "@/components/GuideMeta";
 import GuideRelated from "@/components/GuideRelated";
@@ -31,9 +32,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Home maintenance schedule: how often to do everything";
+const TITLE = "Home maintenance schedule for Orange County homes";
 const DESCRIPTION =
-  "How often to change HVAC filters, flush the water heater, service the AC, clean gutters, and handle the rest of a home's regular upkeep.";
+  "How often to change HVAC filters, flush the water heater, service the AC, clean gutters and test smoke alarms, with notes for Orange County homes.";
 const CANONICAL = `${SITE_URL}/guides/home-maintenance-schedule`;
 
 export const metadata: Metadata = {
@@ -63,7 +64,7 @@ const SCHEDULE = [
   },
   {
     task: "HVAC air filter",
-    cadence: "Check monthly. Replace every 1 to 3 months depending on the filter type and how much the system runs.",
+    cadence: "Check monthly. Replace it when it looks dirty, and at least every 3 months.",
   },
   {
     task: "HVAC tune-up",
@@ -71,7 +72,7 @@ const SCHEDULE = [
   },
   {
     task: "Water heater flush",
-    cadence: "Once a year, to clear out mineral and sediment buildup.",
+    cadence: "Once a year, to clear out mineral and sediment buildup. Hard water makes this one matter more in Orange County.",
   },
   {
     task: "Gutters and downspouts",
@@ -110,11 +111,11 @@ const SCHEDULE = [
 const FAQS = [
   {
     q: "How often should I change my HVAC filter?",
-    a: "Check it monthly and replace it every 1 to 3 months depending on the filter type and how much the system runs. Homes with pets or allergy concerns usually land at the shorter end of that range.",
+    a: "ENERGY STAR's advice is to check it every month, especially in heavy-use months, change it if it looks dirty, and change it at least every 3 months. Homes with pets or allergy concerns usually end up changing it more often.",
   },
   {
     q: "How often should I flush my water heater?",
-    a: "Once a year is the standard recommendation. It clears out mineral and sediment buildup that otherwise makes the unit work harder and can shorten its life.",
+    a: "Once a year. The Irvine Ranch Water District recommends a yearly flush to keep sediment from building up and to prolong the life and efficiency of the water heater. It matters here because, according to the district, the water imported from the Colorado River and Northern California is typically hard.",
   },
   {
     q: "How often should I get my AC serviced?",
@@ -166,20 +167,20 @@ export default function HomeMaintenanceScheduleGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Home maintenance schedule: how often to do everything" },
+          { label: "Home maintenance schedule for Orange County homes" },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Home maintenance schedule: how often to do everything" , href: CANONICAL },
+          { name: "Home maintenance schedule for Orange County homes", href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Home maintenance schedule: how often to do everything
+        Home maintenance schedule for Orange County homes
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
@@ -237,7 +238,7 @@ export default function HomeMaintenanceScheduleGuide() {
           <p className="mt-2 leading-relaxed">
             <strong>HVAC filters</strong> are the easiest task to skip and one
             of the cheapest ways to protect an expensive system: check monthly,
-            replace every 1 to 3 months depending on the filter and household.{" "}
+            replace when dirty, and at least every 3 months.{" "}
             <strong>Water heater flushes</strong>, once a year, clear out the
             sediment that otherwise makes the unit work harder and wear out
             sooner.{" "}
@@ -248,6 +249,75 @@ export default function HomeMaintenanceScheduleGuide() {
             <strong>Gutter cleaning</strong>, twice a year, keeps water moving
             away from the roofline and foundation instead of backing up and
             causing damage somewhere it&apos;s expensive to fix.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            In Orange County
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Three things make an Orange County schedule different from a
+            national one. Water: the Irvine Ranch Water District says the
+            water it imports from the Colorado River and Northern California
+            is typically hard and its well water is moderately hard, and it
+            recommends flushing the water heater once a year so sediment does
+            not build up. Termites: the University of California&apos;s pest
+            program says drywood termite swarmers fly during the day in summer
+            and fall, so that is when to look for discarded wings on
+            windowsills and around eaves. Wind: the National Weather Service
+            describes Santa Ana winds as strong, hot, dust-bearing winds that
+            descend to the coast from the inland deserts, which is the reason
+            to check for loose roof tiles and trim dead limbs before wind
+            season.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            For the same tasks laid out month by month, see our{" "}
+            <Link
+              href="/guides/socal-home-maintenance-calendar"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Orange County home maintenance calendar
+            </Link>
+            .
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Our city pages add local detail:{" "}
+            <Link
+              href="/oc/lake-forest"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Lake Forest
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/rancho-santa-margarita"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Rancho Santa Margarita
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/ladera-ranch"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Ladera Ranch
+            </Link>
+            ,{" "}
+            <Link
+              href="/oc/laguna-woods"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Laguna Woods
+            </Link>
+            , or{" "}
+            <Link
+              href="/oc"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              all Orange County cities
+            </Link>
+            .
           </p>
         </section>
 

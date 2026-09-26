@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Coastal Southern California home maintenance calendar, month by month";
+export const alt = "OakTend guide: Orange County home maintenance calendar, month by month";
 
 export default function OgImage() {
   return renderOgCard(
-    "Coastal Southern California home maintenance calendar, month by month",
+    "Orange County home maintenance calendar, month by month",
     "An OakTend home guide"
   );
 }
