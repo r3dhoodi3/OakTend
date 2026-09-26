@@ -149,7 +149,7 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
     permitLabel: "IrvineReady! portal (interior remodels)",
     permitRule:
       "Interior remodels are submitted online. The city says to expect about five business days for the first plan check.",
-    coastal: false,
+    coastal: true,
     pre1980: 21,
     aduPlans: {
       href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",

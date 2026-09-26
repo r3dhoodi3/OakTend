@@ -90,7 +90,7 @@ const FAQS = [
   // repeats what the page body already says and sources.
   {
     q: "What is included in a midrange versus a high-end kitchen remodel?",
-    a: "In the Cost vs. Value Report's terms, a minor midrange remodel keeps the cabinet boxes and replaces the fronts and hardware, the range and refrigerator, laminate counters, the sink and faucet, and the flooring. A major midrange remodel replaces the cabinets with semi-custom ones, adds an island, and puts in a full set of new appliances and lighting. An upscale remodel moves to custom cabinets, stone counters, and built-in or commercial-grade appliances, and costs far more than either.",
+    a: "In the Cost vs. Value Report's terms, a minor midrange remodel keeps the cabinet boxes and replaces the fronts and hardware, the range and refrigerator, laminate counters, the sink and faucet, and the flooring. A major midrange remodel replaces the cabinets with semi-custom ones, adds an island, and puts in a full set of new appliances and lighting. Beyond that, a high-end remodel usually means custom cabinets, stone counters, and built-in or commercial-grade appliances, and costs far more than either.",
   },
   {
     q: "Do I need HOA approval before remodeling my kitchen?",
