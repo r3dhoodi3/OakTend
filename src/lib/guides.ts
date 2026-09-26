@@ -76,6 +76,9 @@ export const GUIDE_PATHS = [
   // New pages B, 2026-09-26 (SEO plan section 2): home age data, rebates.
   "/guides/orange-county-home-age",
   "/guides/orange-county-home-rebates-2026",
+  // Added 2026-09-26 (seo/new-pages-d): windows and solar.
+  "/guides/window-replacement-cost-orange-county",
+  "/guides/solar-battery-orange-county",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -116,6 +119,10 @@ export const GUIDE_TITLES: Record<string, string> = {
   // New pages B, 2026-09-26.
   "/guides/orange-county-home-age": "How old are Orange County homes?",
   "/guides/orange-county-home-rebates-2026": "Orange County home rebates in 2026",
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county":
+    "Window replacement cost in Orange County",
+  "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -143,7 +150,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
@@ -224,6 +231,15 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
     dateModified: "2026-09-26",
   },
   "/guides/orange-county-home-rebates-2026": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/solar-battery-orange-county": {
     datePublished: "2026-09-26",
     dateModified: "2026-09-26",
   },

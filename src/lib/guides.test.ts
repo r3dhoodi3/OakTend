@@ -83,7 +83,7 @@ describe("GUIDE_DATES", () => {
 describe("the guides section agrees with itself", () => {
   it("dates every guide the index links to", () => {
     const hrefs = hrefsFromIndex();
-    expect(hrefs.length).toBe(24);
+    expect(hrefs.length).toBe(26);
     for (const href of hrefs) {
       expect(GUIDE_DATES[href], `${href} is linked but undated`).toBeDefined();
     }
@@ -109,7 +109,7 @@ describe("the guides section agrees with itself", () => {
       expect(match![1]).toBe(`/guides/${dir}`);
       found.push(match![1]);
     }
-    expect(found).toHaveLength(24);
+    expect(found).toHaveLength(26);
   });
 });
 
@@ -122,7 +122,7 @@ describe("GUIDE_TITLES", () => {
     expect(Object.keys(GUIDE_TITLES).sort()).toEqual(
       GUIDE_PATHS.filter((p) => p !== "/guides").sort()
     );
-    expect(GUIDE_LINKS).toHaveLength(24);
+    expect(GUIDE_LINKS).toHaveLength(26);
   });
 
   it("uses the same title the index card shows", () => {

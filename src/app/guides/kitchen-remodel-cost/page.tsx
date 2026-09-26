@@ -315,6 +315,11 @@ export default function KitchenRemodelCostGuide() {
             also trigger California energy-code (Title 24) compliance, while
             like-for-like repairs generally do not. Thresholds vary by city,
             so check with your local building department before work starts.
+            Our{" "}
+            <Link href="/guides/window-replacement-cost-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              window replacement guide
+            </Link>{" "}
+            lists the Energy Code numbers a new window has to meet.
           </p>
         </section>
 

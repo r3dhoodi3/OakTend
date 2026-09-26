@@ -354,6 +354,37 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Mission Viejo",
     ],
   },
+  // Added 2026-09-26 (seo/new-pages-d): windows and solar.
+  "/guides/window-replacement-cost-orange-county": {
+    guides: [
+      "/guides/permits-orange-county",
+      "/guides/santa-ana-wind-wildfire-home-prep",
+      "/guides/is-my-contractor-quote-fair",
+    ],
+    cities: [
+      "Garden Grove",
+      "Santa Ana",
+      "Fountain Valley",
+      "Huntington Beach",
+      "Newport Beach",
+      "Laguna Beach",
+    ],
+  },
+  "/guides/solar-battery-orange-county": {
+    guides: [
+      "/guides/electrical-panel-upgrade-cost",
+      "/guides/roof-replacement-cost",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Anaheim",
+      "Irvine",
+      "Huntington Beach",
+      "Fountain Valley",
+      "San Clemente",
+      "Mission Viejo",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -2680,6 +2711,153 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Residential Mitigation Program: 2025 EBB ZIP codes in Southern California",
       supports:
         "The 2025 list includes ZIP codes for Anaheim, Huntington Beach, Irvine and Santa Ana, among other Orange County cities.",
+    },
+  ],
+  // Added 2026-09-26 (seo/new-pages-d). Every page below was opened that day,
+  // except the climate zone list and FEMA TB 8, reused from the entries
+  // checked 2026-09-25. HomeAdvisor is a contractor lead service: its figure
+  // is labeled on the guide as national and survey-based, never as an Orange
+  // County price.
+  "/guides/window-replacement-cost-orange-county": [
+    {
+      href: "https://www.homeadvisor.com/cost/doors-and-windows/window-replacement/",
+      label:
+        "HomeAdvisor: window replacement cost guide (national figures from its customer surveys, updated June 17, 2026)",
+      supports:
+        "Replacing a window ranges from $300 to $2,100, with an average of $850; labor is $100 to $300 per window for a retrofit and $150 to $800 for full-frame; retrofit keeps the trim but only suits a sound frame, while full-frame needs trim work and lets the installer repair water damage. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
+      label:
+        "California Energy Commission: 2025 Single-Family Residential Compliance Manual, chapter 9 (additions, alterations and repairs)",
+      supports:
+        "Replacing windows is an alteration; prescriptive replacement windows need a maximum U-factor of 0.30 in climate zones 6 to 10 and 15 and a maximum SHGC of 0.23 in zones 2, 4 and 6 to 15; up to 75 square feet may instead meet 0.40 U-factor and 0.35 SHGC; windows must be caulked and sealed per Section 110.7; the performance approach is an alternative; windows in Fire Hazard Severity Zones fall under the wildland-urban interface code. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
+      label:
+        "California Energy Commission: 2025 Building Energy Efficiency Standards",
+      supports:
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026.",
+    },
+    {
+      href: "https://www.energy.ca.gov/media/3560",
+      label:
+        "California Energy Commission: building climate zones by zip code",
+      supports:
+        "Coastal ZIP codes such as Huntington Beach and Newport Beach are in climate zone 6; inland ones such as Irvine, Santa Ana and Anaheim are in climate zone 8. Checked 2026-09-25.",
+    },
+    {
+      href: "https://ggcity.org/building-and-safety/obtaining-building-permit-faqs",
+      label: "City of Garden Grove: obtaining a building permit FAQ",
+      supports:
+        "Installing or replacing windows or skylights needs a permit. Checked 2026-09-26.",
+    },
+    {
+      href: "https://santa-ana.gov/pbx-express-permit/",
+      label: "City of Santa Ana: PBx Same Day Express Permit Program",
+      supports:
+        "Windows retrofit is on Santa Ana's same-day express permit list for residential replacements. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports:
+        "Window and door replacement is an expedited permit, submitted with the Window Replacement Worksheet and a floor plan. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.7",
+      label: "California Health and Safety Code section 13113.7",
+      supports:
+        "A permit for work over $1,000 cannot be signed off until the home has approved smoke alarms.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and trained in lead-safe work practices.",
+    },
+    {
+      href: "https://www.fema.gov/sites/default/files/2020-07/fema_tb8_corrosion_protection_metal_connectors_coastal_areas.pdf",
+      label:
+        "FEMA: NFIP Technical Bulletin 8, corrosion protection for metal connectors and fasteners in coastal areas (June 2019)",
+      supports:
+        "Salt spray significantly accelerates the corrosion of metal and is greatest within 300 to 3,000 feet of the shoreline.",
+    },
+  ],
+  "/guides/solar-battery-orange-county": [
+    {
+      href: "https://www.cpuc.ca.gov/industries-and-topics/electrical-energy/demand-side-management/customer-generation/net-energy-metering-and-net-billing",
+      label:
+        "California Public Utilities Commission: Net Energy Metering and Net Billing",
+      supports:
+        "Since April 15, 2023, new PG&E, SCE and SDG&E customer-generators take service on the net billing tariff; exports are credited at their value to the grid, usually below retail but sometimes above it on late summer evenings; a specific electrification TOU rate (TOU-D-PRIME at SCE) is required; the original customer keeps the tariff for nine years; PG&E and SCE customers who apply before the end of 2027 get a nine-year export adder, SDG&E customers do not; bills are due monthly with credits rolling to the true-up; batteries maximize bill savings; NEM 2.0 customers may stay on it for 20 years from interconnection. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.sce.com/clean-energy-efficiency/solar-generating-your-own-power/billing-incentives/solar-billing-plan",
+      label: "Southern California Edison: how Solar Billing Plans work",
+      supports:
+        "SCE calls the tariff the Solar Billing Plan, its customers are on TOU-D-PRIME, and prices are highest on summer weekdays from 4 to 9 p.m. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.sdge.com/more-information/our-company/about-us",
+      label: "San Diego Gas & Electric: about us",
+      supports:
+        "SDG&E serves San Diego and southern Orange counties. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.anaheim.net/636/Solar-Energy-and-Net-Metering",
+      label: "Anaheim Public Utilities: Solar Energy and Net Metering",
+      supports:
+        "Anaheim is not going to NEM 3.0; its NEM 2.0 program is wholesale-based; grandfathered NEM 1.0 customers who expand move the whole system to NEM 2.0; permits under 10 kW are issued without review; the system can operate after the city signs off the permit, and the utility does not issue permission to operate. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.anaheim.net/5587/NEM-20",
+      label: "Anaheim Public Utilities: Net Energy Metering 2.0",
+      supports:
+        "Anaheim now offers wholesale-based rates for exported energy under NEM 2.0. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65850.52",
+      label: "California Government Code section 65850.52 (SB 379)",
+      supports:
+        "Cities must offer an online automated permitting platform such as SolarAPP+ for residential solar up to 38.4 kW and paired storage, issued in real time to a licensed contractor; cities under 5,000 are exempt; cities of 50,000 or fewer by September 30, 2024 and larger ones by September 30, 2023; systems SolarAPP+ cannot process are not required to go through it. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/building___inspection/solar_app.php",
+      label: "City of Huntington Beach: SolarAPP+",
+      supports:
+        "Huntington Beach uses SolarAPP+ for residential PV permits, and the work is verified through city inspection. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/1449/SolarAPP",
+      label: "City of Fountain Valley: SolarAPP+",
+      supports:
+        "Fountain Valley accepts SolarAPP+ approvals through its Permit Center, with inspections requested after the permit. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/988/Solar-Permit-Process",
+      label: "City of Fountain Valley: solar PV permit process",
+      supports:
+        "Solar plans show code-compliant roof access pathways and the type and number of existing roof coverings. Checked 2026-09-26.",
+    },
+    {
+      href: "https://cityofirvine.gov/building-permits-and-inspections/adding-rooftop-solar-energy-system",
+      label: "City of Irvine: adding a rooftop solar energy system",
+      supports:
+        "Irvine issues residential solar and battery permits the same day, automatically, for rooftop systems up to 38.4 kW with no more than one battery. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714",
+      label: "California Civil Code section 714",
+      supports:
+        "HOA rules that effectively prohibit solar are void; reasonable restrictions on a PV system may not add more than $1,000 or cut efficiency more than 10 percent; decisions must be in writing and an application not denied within 45 days is deemed approved unless delayed by a reasonable request for information. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.irs.gov/credits-deductions/residential-clean-energy-credit",
+      label: "IRS: Residential Clean Energy Credit (page reviewed July 4, 2026)",
+      supports:
+        "The credit was 30 percent of qualified costs, including batteries of at least 3 kWh, for property installed from 2022 through December 31, 2025, and is not available for property placed in service after December 31, 2025. Checked 2026-09-26.",
     },
   ],
 };

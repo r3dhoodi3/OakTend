@@ -189,9 +189,14 @@ describe("GUIDE_SOURCES", () => {
     // each opened that day.
     "ocsan.gov",
     "www.cmsdca.gov",
+    // Added 2026-09-26 for the window and solar guides, each opened that day.
+    "www.homeadvisor.com",
+    "www.cpuc.ca.gov",
+    "www.sdge.com",
+    "www.irs.gov",
   ];
 
-  it("lists sources for all 12 guides", () => {
+  it("lists sources for every guide", () => {
     expect(Object.keys(GUIDE_SOURCES).sort()).toEqual([...GUIDES].sort());
   });
 
@@ -240,13 +245,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 24 guide pages", () => {
+describe("all 26 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(24);
+    expect(dirs).toHaveLength(26);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);
