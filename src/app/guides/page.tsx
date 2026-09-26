@@ -19,6 +19,8 @@ import {
   Bug,
   Flame,
   KeyRound,
+  AppWindow,
+  Sun,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -150,6 +152,21 @@ const GUIDES = [
     title: "Orange County home maintenance checklist",
     blurb:
       "The month by month maintenance calendar for Orange County homes, how often to do each job, and links to every system guide: winds, first rains, salt air, hard water and termites.",
+  },
+  // Added 2026-09-26 (seo/new-pages-d).
+  {
+    href: "/guides/window-replacement-cost-orange-county",
+    icon: AppWindow,
+    title: "Window replacement cost in Orange County",
+    blurb:
+      "Retrofit vs full-frame, the Energy Code numbers a new window has to meet, permits, HOA review and salt air.",
+  },
+  {
+    href: "/guides/solar-battery-orange-county",
+    icon: Sun,
+    title: "Solar and batteries in Orange County",
+    blurb:
+      "The net billing tariff, why batteries matter more now, Anaheim's own rules, automated permits, HOA limits and the 2026 federal credit.",
   },
 ];
 

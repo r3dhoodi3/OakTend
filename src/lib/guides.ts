@@ -66,6 +66,9 @@ export const GUIDE_PATHS = [
   "/guides/santa-ana-wind-wildfire-home-prep",
   "/guides/new-homeowner-first-year-orange-county",
   "/guides/orange-county-home-maintenance-checklist",
+  // Added 2026-09-26 (seo/new-pages-d): windows and solar.
+  "/guides/window-replacement-cost-orange-county",
+  "/guides/solar-battery-orange-county",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -96,6 +99,10 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
   "/guides/orange-county-home-maintenance-checklist":
     "Orange County home maintenance checklist",
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county":
+    "Window replacement cost in Orange County",
+  "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -108,7 +115,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-25" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-26" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-25",
@@ -123,11 +130,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
@@ -180,6 +187,15 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
     dateModified: "2026-09-25",
+  },
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/solar-battery-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
 };
 
