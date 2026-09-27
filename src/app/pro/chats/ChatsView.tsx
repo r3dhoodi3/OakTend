@@ -116,6 +116,9 @@ export default function ChatsView({
   withdrawQuoteAction,
   createInvoiceAction,
   voidInvoiceAction,
+  resendInvoiceAction,
+  invoiceFeeRateBps,
+  invoiceGateFacts,
 }: {
   rows: ChatRow[];
   /** "closed" when the thread the URL opens with is a finished one. */
@@ -130,6 +133,9 @@ export default function ChatsView({
   withdrawQuoteAction?: (formData: FormData) => Promise<void>;
   createInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
   voidInvoiceAction?: (formData: FormData) => Promise<void>;
+  resendInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
+  invoiceFeeRateBps?: number;
+  invoiceGateFacts?: { connectReady: boolean; licenceVerified: boolean };
 }) {
   // The Active / Closed split for the list tabs. `terminal` was classified on
   // the server from the shared closed/lost set; both halves keep the recency
@@ -328,6 +334,9 @@ export default function ChatsView({
               withdrawQuoteAction={withdrawQuoteAction}
               createInvoiceAction={createInvoiceAction}
               voidInvoiceAction={voidInvoiceAction}
+              resendInvoiceAction={resendInvoiceAction}
+              invoiceFeeRateBps={invoiceFeeRateBps}
+              invoiceGateFacts={invoiceGateFacts}
             />
           </div>
         </PhoneChatFrame>

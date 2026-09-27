@@ -26,7 +26,7 @@ let insertError: { code?: string; message: string } | null = null;
 
 // Everything written through the admin client, in order.
 const adminWrites: Array<{ table: string; op: string; payload: unknown }> = [];
-const sendNotification = vi.fn(async () => true);
+const sendNotification = vi.fn(async (..._args: unknown[]) => true);
 const createHostedInvoice = vi.fn();
 const rateLimitHit = vi.fn(async () => ({ data: true, error: null }));
 

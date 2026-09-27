@@ -4,6 +4,10 @@ import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { readLegacyCookie } from "@/lib/legacyCookies";
 import { getCurrentContractor } from "@/lib/contractor";
+import { hasActivePaidProPlan } from "@/lib/subscription";
+import { readConnectRow } from "@/lib/stripeConnect";
+import { canSendInvoices } from "@/lib/connectStatus";
+import { feeRateBpsFor } from "@/lib/platformFee";
 import { labelFor, JOB_CATEGORIES } from "@/lib/constants";
 import {
   chatSeenCookieOptions,
@@ -28,6 +32,7 @@ import {
   withdrawQuoteAction,
   createInvoiceAction,
   voidInvoiceAction,
+  resendInvoiceAction,
 } from "./actions";
 
 // Seen-state cookie shared with the layout's unread badge.
@@ -63,6 +68,20 @@ export default async function ProChatsPage(props: {
   const searchParams = await props.searchParams;
   const contractor = await getCurrentContractor();
   if (!contractor) redirect("/pro/onboarding");
+
+  // What the invoice composer needs to know up front: the pro's rate today
+  // (the server freezes the real one on send) and the two send gates, so a
+  // blocked invoice is explained before it is typed. Both reads degrade to
+  // the safe answer - standard rate, not ready - rather than failing the page.
+  const [paidMember, connect] = await Promise.all([
+    hasActivePaidProPlan().catch(() => false),
+    readConnectRow(contractor.id),
+  ]);
+  const invoiceFeeRateBps = feeRateBpsFor(paidMember);
+  const invoiceGateFacts = {
+    connectReady: canSendInvoices(connect.row),
+    licenceVerified: contractor.license_verified_status === "verified",
+  };
 
   const supabase = await createClient();
   // Exactly the five columns this page renders, not select("*"). A pro's inbox
@@ -338,6 +357,9 @@ export default async function ProChatsPage(props: {
         withdrawQuoteAction={withdrawQuoteAction}
         createInvoiceAction={createInvoiceAction}
         voidInvoiceAction={voidInvoiceAction}
+        resendInvoiceAction={resendInvoiceAction}
+        invoiceFeeRateBps={invoiceFeeRateBps}
+        invoiceGateFacts={invoiceGateFacts}
       />
     </div>
   );

@@ -118,7 +118,10 @@ export default async function ProPayoutsPage(props: {
             Payouts are on. You&apos;re ready to send invoices.
           </h2>
           <p className="text-sm text-emerald-800 dark:text-emerald-300">
-            Sending invoices arrives next.
+            Send one from any hired job&apos;s chat. Stripe emails it to the
+            homeowner in your name, they pay by card or bank, and the money
+            lands here about two business days later (the first payout on a
+            new account can take 7 to 14 days while Stripe verifies it).
           </p>
           {/* A form, not a button with an onClick: this works with JavaScript
               off, and it is the escape hatch for the one case the webhook
