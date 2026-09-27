@@ -375,8 +375,13 @@ export default function HomeView({
                 three it says how many are in flight instead of printing a
                 percentage off one or two rolls of the dice. Same floor the
                 leads board's results hero uses. */}
+            {/* Deep-links to the Pending applications section rather than the
+                top of /pro/business: this tile IS about applications in both
+                its states, so landing a pro at the top to scroll for them is a
+                step they should not have to take. The Business tool tile above
+                still opens the page at the top. */}
             <Link
-              href="/pro/business"
+              href="/pro/business#applications"
               className="card-link"
             >
               <p className="stat-label">

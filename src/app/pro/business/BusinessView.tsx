@@ -571,8 +571,15 @@ export default function BusinessView({
         )}
       </section>
 
-      {/* In flight: applications waiting on a homeowner, with the credit clock. */}
-      <section className="space-y-3">
+      {/* In flight: applications waiting on a homeowner, with the credit clock.
+
+          id="applications": the Applications / Win rate tile on the pro home
+          links straight here rather than dropping a pro at the top of a long
+          page to scroll for it. scroll-mt-20 clears the sticky header, the
+          same offset HelpView uses for its own deep links. The "My Business"
+          tool tile still lands at the top, which is right - it is about the
+          whole page. */}
+      <section id="applications" className="scroll-mt-20 space-y-3">
         <div>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Pending applications{" "}
