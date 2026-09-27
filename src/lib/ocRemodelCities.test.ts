@@ -13,8 +13,9 @@ import {
 import { LAUNCH_CITY_NAMES } from "./serviceArea";
 
 // Holds the city table on the kitchen, bathroom and ADU guides to the rules
-// written at the top of src/lib/ocRemodelCities.ts, and keeps the numbers the
-// guides quote in their own words in step with the table.
+// written at the top of src/lib/ocRemodelCities.ts, and checks that the guides
+// link to the guides that own the housing-age numbers, the estimate checklist
+// and the deposit rule instead of repeating them.
 
 const GUIDES_DIR = fileURLToPath(new URL("../app/guides", import.meta.url));
 const REMODEL_GUIDES = ["kitchen-remodel-cost", "bathroom-remodel-cost", "adu-cost"];
@@ -79,13 +80,13 @@ describe("the three remodel guides", () => {
     }
   });
 
-  it("quote the county and city shares the table shows", () => {
-    const pct = (name: string) => OC_REMODEL_CITIES.find((c) => c.name === name)!.pre1980;
+  // Since 2026-09-26 the county and city shares live in the table and on the
+  // home-age guide; the prose links there instead of repeating the numbers.
+  it("render the table and point to the home-age guide for the numbers", () => {
     for (const slug of REMODEL_GUIDES) {
-      const src = pageSource(slug).replace(/\s+/g, " ");
-      expect(src, slug).toContain(`About ${OC_PRE_1980} percent`);
-      expect(src, slug).toContain(`${pct("Fountain Valley")} percent`);
+      const src = pageSource(slug);
       expect(src, slug).toContain("<OcRemodelCityTable");
+      expect(src, slug).toContain('href="/guides/orange-county-home-age"');
     }
   });
 
@@ -97,12 +98,13 @@ describe("the three remodel guides", () => {
     }
   });
 
-  it("carry the estimate checklist and the down payment rule", () => {
+  // The estimate checklist and the down payment rule each have one owner
+  // guide since 2026-09-26; these pages link there rather than restate them.
+  it("link to the quote and deposit guides instead of repeating them", () => {
     for (const slug of REMODEL_GUIDES) {
       const src = pageSource(slug).replace(/\s+/g, " ");
-      expect(src, slug).toContain("How to read the estimate");
-      expect(src, slug).toContain("estimate ranges, not a quote");
-      expect(src, slug).toMatch(/down payment (cannot exceed|is no more than) \$1,000 or 10 percent/);
+      expect(src, slug).toContain('href="/guides/is-my-contractor-quote-fair"');
+      expect(src, slug).toContain('href="/guides/contractor-deposit-rules-california"');
     }
   });
 
@@ -159,15 +161,11 @@ describe("the four trade guides", () => {
     }
   });
 
-  it("cite the Census table and quote the shares the table shows", () => {
-    const pct = (name: string) => OC_REMODEL_CITIES.find((c) => c.name === name)!.pre1980;
+  it("cite the Census table the city table shows and point to the home-age guide", () => {
     for (const slug of Object.keys(TRADE_GUIDES)) {
       const hrefs = GUIDE_SOURCES[`/guides/${slug}`].map((s) => s.href);
       expect(hrefs, slug).toContain(CENSUS_B25034_HREF);
-      const src = pageSource(slug).replace(/\s+/g, " ");
-      expect(src, slug).toContain(`About ${OC_PRE_1980} percent`);
-      expect(src, slug).toContain(`${pct("Fountain Valley")} percent`);
-      expect(src, slug).toContain("Why it costs more in Orange County");
+      expect(pageSource(slug), slug).toContain('href="/guides/orange-county-home-age"');
     }
   });
 
@@ -181,20 +179,21 @@ describe("the four trade guides", () => {
     }
   });
 
-  it("carry the estimate checklist and the down payment rule", () => {
+  it("link to the quote and deposit guides instead of repeating them", () => {
     for (const slug of Object.keys(TRADE_GUIDES)) {
       const src = pageSource(slug).replace(/\s+/g, " ");
-      expect(src, slug).toContain("How to read the estimate");
-      expect(src, slug).toContain("estimate ranges, not a quote");
-      expect(src, slug).toMatch(/down payment (cannot exceed|is no more than) \$1,000 or 10 percent/);
+      expect(src, slug).toContain('href="/guides/is-my-contractor-quote-fair"');
+      expect(src, slug).toContain('href="/guides/contractor-deposit-rules-california"');
     }
   });
 
-  it("date every rebate and never call heat pump rebates open", () => {
+  // Rebate amounts and program status live on the rebates guide only since
+  // 2026-09-26, so these pages carry no dated rebate claim that can go stale.
+  it("leave rebate amounts to the rebates guide", () => {
     for (const slug of ["water-heater-replacement-cost", "hvac-replacement-cost"]) {
       const src = pageSource(slug).replace(/\s+/g, " ");
-      expect(src, slug).toContain("Rebates, as of September 25, 2026");
-      expect(src, slug).toContain("reserved statewide since November 14, 2025");
+      expect(src, slug).toContain('href="/guides/orange-county-home-rebates-2026"');
+      expect(src, slug).not.toMatch(/per kBTUh|rebates? (are|is) open/);
     }
   });
 

@@ -443,12 +443,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Water with 10 grains of hardness or more is generally considered hard; imported Colorado River and Northern California water is typically hard and the district's well water is moderately hard; flush the water heater once a year.",
     },
     {
-      href: "https://www.ocwd.com/about/",
-      label: "Orange County Water District: about the district",
-      supports:
-        "The groundwater basin provides about 85 percent of the water supply for 2.5 million people in north and central Orange County.",
-    },
-    {
       href: "https://www.nachi.org/life-expectancy.htm",
       label: "InterNACHI: standard estimated life expectancy chart for homes",
       supports:
@@ -485,14 +479,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "California Energy Commission: 2025 Building Energy Efficiency Standards",
       supports:
-        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
-    },
-    {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
-      label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
-      supports:
-        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026.",
     },
     {
       href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
@@ -520,35 +507,14 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "Contractors State License Board: what kind of contractor do you need",
       supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
-      label:
-        "California Assembly Bill 2622 (2023-2024)",
-      supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label:
-        "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label:
-        "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+        "Anyone who contracts for a job that requires a building permit must hold a valid contractor license.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
       label:
         "Contractors State License Board: contracts and binding agreements",
       supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+        "A contract should say who gets the permits.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
@@ -558,25 +524,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
     {
-      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
-        "SoCalGas: rebates and incentives",
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
-        "Checked 2026-09-25: high-efficiency storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less, not bought from a statewide participating retailer); tankless water heaters $80 to $1,500, only when replacing a tank-type unit in a single-family detached home; funds first come, first served until December 31, 2026 or until they run out.",
-    },
-    {
-      href: "https://techcleanca.com/incentives/single-family-incentives/",
-      label:
-        "TECH Clean California: single-family incentives",
-      supports:
-        "As of November 14, 2025, single-family heat pump water heater and heat pump HVAC incentives are reserved statewide; HEEHRA reservations in Central and Southern California submitted after January 7, 2026 go on a waitlist. Checked 2026-09-25.",
-    },
-    {
-      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
-      label:
-        "Southern California Edison: rebates and SCE Marketplace",
-      supports:
-        "Checked 2026-09-25: SCE's rebate page points customers to SCE Marketplace and to Golden State Rebates for coupons on heat pump water heaters, and lists no dollar amounts itself.",
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
   ],
   "/guides/hvac-replacement-cost": [
@@ -611,21 +563,14 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "California Energy Commission: 2025 Building Energy Efficiency Standards",
       supports:
-        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
       label:
         "Contractors State License Board: what kind of contractor do you need",
       supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
-      label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
-      supports:
-        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+        "Anyone who contracts for a job that requires a building permit must hold a valid contractor license.",
     },
     {
       href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
@@ -663,32 +608,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "C-20 is the Warm-Air Heating, Ventilating and Air-Conditioning Contractor classification.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
-      label:
-        "California Assembly Bill 2622 (2023-2024)",
-      supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label:
-        "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label:
-        "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
-    },
-    {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
       label:
         "Contractors State License Board: contracts and binding agreements",
       supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+        "A contract should say who gets the permits.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
@@ -698,25 +622,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
     {
-      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
-        "SoCalGas: rebates and incentives",
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
-        "Checked 2026-09-25: an ENERGY STAR certified furnace with AFUE of 92 percent or more earns $1.40 to $25 per kBTUh, must be installed by a licensed contractor with proof of permit closure, one per household; funds first come, first served until December 31, 2026 or until they run out.",
-    },
-    {
-      href: "https://techcleanca.com/incentives/single-family-incentives/",
-      label:
-        "TECH Clean California: single-family incentives",
-      supports:
-        "As of November 14, 2025, single-family heat pump water heater and heat pump HVAC incentives are reserved statewide; HEEHRA reservations in Central and Southern California submitted after January 7, 2026 go on a waitlist. Checked 2026-09-25.",
-    },
-    {
-      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
-      label:
-        "Southern California Edison: rebates and SCE Marketplace",
-      supports:
-        "Checked 2026-09-25: SCE's rebate page points customers to SCE Marketplace, to Golden State Rebates for coupons on air conditioners, and to Comfortably CA for HVAC equipment, and lists no dollar amounts itself.",
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
   ],
   "/guides/roof-replacement-cost": [
@@ -751,20 +661,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "Contractors State License Board: what kind of contractor do you need",
       supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label: "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
-    },
-    {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
-      label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
-      supports:
-        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+        "Anyone who contracts for a job that requires a building permit must hold a valid contractor license.",
     },
     {
       href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
@@ -781,32 +678,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Coastal Orange County zip codes such as Huntington Beach (92646 to 92649), Newport Beach (92660 to 92663), Costa Mesa (92626, 92627) and Fountain Valley (92708) are in climate zone 6; inland ones such as Irvine (92618, 92620), Santa Ana (92701 to 92707), Anaheim (92801 to 92808), Tustin (92780, 92782) and Mission Viejo (92691, 92692) are in climate zone 8. Checked 2026-09-25.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
-      label:
-        "California Assembly Bill 2622 (2023-2024)",
-      supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label:
-        "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
       label:
         "Contractors State License Board: contracts and binding agreements",
       supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
-      label:
-        "Contractors State License Board: finding the right contractor",
-      supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+        "A contract should say who gets the permits.",
     },
     {
       href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/",
@@ -814,20 +690,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Contractors State License Board: licensing classifications",
       supports:
         "C-39 is the Roofing Contractor classification.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
-      label:
-        "California Civil Code section 4765",
-      supports:
-        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
-    },
-    {
-      href: "https://cityofirvine.gov/community-development/permits-not-required",
-      label:
-        "City of Irvine: permits not required",
-      supports:
-        "Irvine tells residents to check their HOA's CC&Rs before work, and says a permit is required for most construction or repair activities regulated by code.",
     },
     {
       href: "https://ggcity.org/building-and-safety/obtaining-building-permit-faqs",
@@ -849,6 +711,13 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "City of Newport Beach: online permitting (iPermit)",
       supports:
         "Replacing your roofing is a single-scope express permit you can apply for online.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
+      supports:
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
   ],
   "/guides/electrical-panel-upgrade-cost": [
@@ -883,14 +752,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "Contractors State License Board: what kind of contractor do you need",
       supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
-      label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
-      supports:
-        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
+        "Anyone who contracts for a job that requires a building permit must hold a valid contractor license.",
     },
     {
       href: "https://www.cpsc.gov/s3fs-public/516.pdf",
@@ -918,35 +780,21 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "California Assembly Bill 2622 (2023-2024)",
       supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label:
-        "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label:
-        "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
+        "The small-job license exemption does not apply to work that needs a building permit.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
       label:
         "Contractors State License Board: contracts and binding agreements",
       supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
+        "A contract should say who gets the permits.",
     },
     {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
-        "Contractors State License Board: finding the right contractor",
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
+        "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
     },
   ],
   "/guides/kitchen-remodel-cost": [
@@ -963,31 +811,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
         "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
-      label:
-        "Contractors State License Board: what kind of contractor do you need",
-      supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
-      label: "California Assembly Bill 2622 (2023-2024)",
-      supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label: "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label: "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
     },
     {
       href: "https://www.dir.ca.gov/title8/1529.html",
@@ -1018,53 +841,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
-      label:
-        "California Civil Code section 4765",
-      supports:
-        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
-    },
-    {
-      href: "https://cityofirvine.gov/community-development/permits-not-required",
-      label:
-        "City of Irvine: permits not required",
-      supports:
-        "Irvine tells residents to check their HOA's CC&Rs before work.",
-    },
-    {
-      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
-      label:
-        "City of Huntington Beach: accessory dwelling units",
-      supports:
-        "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
-    },
-    {
-      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
-      label:
-        "City of Newport Beach: Local Coastal Program",
-      supports:
-        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
-    },
-    {
       href: "https://www.coastal.ca.gov/maps/czb/",
       label:
         "California Coastal Commission: coastal zone boundary maps",
       supports:
         "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
-      label:
-        "Contractors State License Board: contracts and binding agreements",
-      supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
-      label:
-        "Contractors State License Board: finding the right contractor",
-      supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/bathroom-remodel-cost": [
@@ -1090,31 +871,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Imported water is typically hard, and the higher mineral content leaves white spots on glassware.",
     },
     {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
-      label:
-        "Contractors State License Board: what kind of contractor do you need",
-      supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2622",
-      label: "California Assembly Bill 2622 (2023-2024)",
-      supports:
-        "The license exemption rose from under $500 to under $1,000, and does not apply to work that needs a building permit or to anyone who employs helpers.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label: "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159.5",
-      label: "California Business and Professions Code section 7159.5",
-      supports:
-        "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
-    },
-    {
       href: "https://www.dir.ca.gov/title8/1529.html",
       label:
         "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
@@ -1143,46 +899,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "The 2025 Energy Code applies to permits applied for on or after January 1, 2026, and expands the use of heat pumps in newly built homes.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
-      label:
-        "California Civil Code section 4765",
-      supports:
-        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
-    },
-    {
-      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
-      label:
-        "City of Huntington Beach: accessory dwelling units",
-      supports:
-        "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
-    },
-    {
-      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
-      label:
-        "City of Newport Beach: Local Coastal Program",
-      supports:
-        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
-    },
-    {
       href: "https://www.coastal.ca.gov/maps/czb/",
       label:
         "California Coastal Commission: coastal zone boundary maps",
       supports:
         "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
-      label:
-        "Contractors State License Board: contracts and binding agreements",
-      supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
-      label:
-        "Contractors State License Board: finding the right contractor",
-      supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   "/guides/adu-cost": [
@@ -1267,32 +988,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
-      label:
-        "California Civil Code section 4765",
-      supports:
-        "An association's decision on a proposed change must be made in good faith, in writing, and a denial must explain why and how to ask for reconsideration.",
-    },
-    {
       href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
         "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and nine cities",
       supports:
         "Share of housing units built before 1980 (our sum of the 1979-and-earlier rows, rounded): Orange County about 57 percent, Fountain Valley 82, Garden Grove 77, Santa Ana 74, Huntington Beach 69, Anaheim 65, Newport Beach 55, Mission Viejo 52, Tustin 47, Irvine 21.",
-    },
-    {
-      href: "https://www.dir.ca.gov/title8/1529.html",
-      label:
-        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
-      supports:
-        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos.",
-    },
-    {
-      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
-      label:
-        "U.S. EPA: Lead Renovation, Repair and Painting Program",
-      supports:
-        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and follow lead-safe work practices.",
     },
     {
       href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
@@ -1307,13 +1007,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "City of Huntington Beach: accessory dwelling units",
       supports:
         "Development in Huntington Beach's coastal zone may require a coastal development permit; the city's pre-approved ADU plan is a one-story, detached 490 square foot unit.",
-    },
-    {
-      href: "https://www.newportbeachca.gov/government/departments/community-development/planning-division/general-plan-codes-and-regulations/local-coastal-program",
-      label:
-        "City of Newport Beach: Local Coastal Program",
-      supports:
-        "Newport Beach has a Local Coastal Program, the plan that governs the part of the city inside the coastal zone.",
     },
     {
       href: "https://www.coastal.ca.gov/maps/czb/",
@@ -1356,27 +1049,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "California Business and Professions Code section 7159.5",
       supports:
         "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=7159",
-      label:
-        "California Business and Professions Code section 7159",
-      supports:
-        "A home improvement contract over $500 must be in writing and include the contractor's name, business address and license number, approximate start and completion dates, and a schedule of progress payments; a contractor may not collect payment for work not yet completed or materials not yet delivered.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
-      label:
-        "Contractors State License Board: contracts and binding agreements",
-      supports:
-        "A contract should detail the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
-      label:
-        "Contractors State License Board: finding the right contractor",
-      supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
   // Added 2026-09-26 (SEO plan section 2, new pages A). Every entry was
@@ -1511,13 +1183,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
   ],
   "/guides/slab-leak-signs": [
     {
-      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
-      label:
-        "Census Reporter: U.S. Census Bureau American Community Survey 2024, table B25034 (year structure built), Orange County",
-      supports:
-        "Share of Orange County housing units by decade built: about 12 percent in the 1950s, 19 percent in the 1960s, and 22 percent in the 1970s.",
-    },
-    {
       href: "https://www.nachi.org/life-expectancy.htm",
       label: "InterNACHI: standard estimated life expectancy chart for homes",
       supports: "Life expectancy of 50 to 70 years for copper water lines.",
@@ -1527,6 +1192,13 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "U.S. EPA WaterSense: Fix a Leak Week",
       supports:
         "The two-hour water meter test, and the 12,000 gallons a month winter threshold for a family of four.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 2024, table B25034 (year structure built), Orange County",
+      supports:
+        "Share of Orange County housing units by decade built: about 12 percent in the 1950s, 19 percent in the 1960s, and 22 percent in the 1970s.",
     },
   ],
   "/guides/is-my-contractor-quote-fair": [
@@ -1541,13 +1213,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Business and Professions Code section 7159.5",
       supports:
         "The down payment cap: $1,000 or 10 percent of the contract amount, whichever is less.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/What_Kind_Of_Contractor.aspx",
-      label:
-        "Contractors State License Board: what kind of contractor do you need",
-      supports:
-        "Anyone who contracts for a job that requires a building permit, or for work valued at $1,000 or more in combined labor and materials, must hold a valid contractor license.",
     },
   ],
   "/guides/contractor-deposit-rules-california": [
@@ -1673,12 +1338,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Energy Commission: Home Energy Rating System program",
       supports:
         "Energy code testing may be mandatory depending on the work, properly permitted work triggers it, and a homeowner may hire a rater who is independent of the contractor.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
-      label: "California Health and Safety Code section 19211",
-      supports:
-        "All new, replacement and existing residential water heaters must be braced, anchored or strapped against earthquake motion.",
     },
     {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.7",
@@ -1919,12 +1578,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
   ],
   "/guides/slab-leak-repair-orange-county": [
     {
-      href: "https://www.epa.gov/watersense/fix-leak-week",
-      label: "U.S. EPA WaterSense: Fix a Leak Week",
-      supports:
-        "The meter test: check the water meter before and after a two-hour period with no water use, and if it changes you probably have a leak.",
-    },
-    {
       href: "https://www.irwd.com/get-help/meters-and-leaks/water-leaks/",
       label: "Irvine Ranch Water District: water leaks",
       supports:
@@ -1935,30 +1588,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "City of Yorba Linda: plumbing project exemptions",
       supports:
         "Stopping or repairing a leak needs no permit, but removing a defective concealed pipe and replacing it with new material is new work that needs a permit and inspection.",
-    },
-    {
-      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
-      label: "City of Fountain Valley: Plan Check Center, expedited permits",
-      supports:
-        "Fountain Valley lists a residential repipe among its expedited permits.",
-    },
-    {
-      href: "https://santa-ana.gov/pbx-express-permit/",
-      label: "City of Santa Ana: PBx Same Day Express Permit Program",
-      supports:
-        "Santa Ana issues residential repipe and water piping permits through its same-day express program.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
-      label: "Contractors State License Board: finding the right contractor",
-      supports:
-        "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
-    },
-    {
-      href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
-      label: "Contractors State License Board: contracts and binding agreements",
-      supports:
-        "A contract should say who gets the necessary building permits.",
     },
     {
       href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C36",
@@ -1981,36 +1610,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "PEX bends around obstructions with fewer fittings, uses mechanical fittings instead of solder, does not pit or corrode, and must be protected from sunlight within each manufacturer's exposure limit.",
     },
     {
-      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
-      label: "City of Fountain Valley: Plan Check Center, expedited permits",
-      supports:
-        "Fountain Valley lists a residential repipe among its expedited permits.",
-    },
-    {
-      href: "https://santa-ana.gov/pbx-express-permit/",
-      label: "City of Santa Ana: PBx Same Day Express Permit Program",
-      supports:
-        "Santa Ana lists residential repipes on its same-day express permit list.",
-    },
-    {
-      href: "https://www.yorbalindaca.gov/DocumentCenter/View/5807",
-      label: "City of Yorba Linda: plumbing project exemptions",
-      supports:
-        "Repairing a leak is exempt, but replacing a concealed pipe with new material is new work that needs a permit and an inspection.",
-    },
-    {
-      href: "https://ggcity.org/index.php/building-and-safety/obtaining-building-permit-faqs",
-      label: "City of Garden Grove: obtaining a building permit FAQ",
-      supports:
-        "Having the contractor obtain the permit keeps the contractor responsible for calling for and passing inspections.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.7",
-      label: "California Health and Safety Code section 13113.7",
-      supports:
-        "A permit for work over $1,000 cannot be signed off until the home has approved smoke alarms.",
-    },
-    {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Finding_The_Right_Contractor.aspx",
       label: "Contractors State License Board: finding the right contractor",
       supports:
@@ -2023,22 +1622,16 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "What a contract should detail: the work, price, payment timing, who gets the permits, the finish date, and the contractor's address and license number.",
     },
     {
-      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C36",
-      label: "Contractors State License Board: C-36 Plumbing Contractor classification",
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
       supports:
-        "Plumbing work falls under the C-36 Plumbing Contractor classification.",
+        "Fountain Valley lists a residential repipe among its expedited permits.",
     },
     {
-      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
-      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      href: "https://santa-ana.gov/pbx-express-permit/",
+      label: "City of Santa Ana: PBx Same Day Express Permit Program",
       supports:
-        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and trained in lead-safe work practices.",
-    },
-    {
-      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
-      label: "U.S. Geological Survey: Hardness of Water",
-      supports:
-        "Heated hard water leaves calcium carbonate scale that can clog pipes.",
+        "Santa Ana lists residential repipes on its same-day express permit list.",
     },
   ],
   "/guides/termites-orange-county": [
@@ -2271,7 +1864,10 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "100 feet of defensible space in locally designated very high fire hazard severity zones, a roof kept free of leaves and needles, and tree limbs kept 10 feet from a chimney outlet.",
     },
-    // The three Zone 0 entries below were opened on 2026-09-25.
+    // The three Zone 0 entries below were opened on 2026-09-25. OAL's
+    // "emergency regulations under review" page was re-opened on 2026-09-26
+    // and listed no Board of Forestry filing, which is what the guide's "as of
+    // September 26" line rests on.
     {
       href: "https://www.bbklaw.com/resources/la090926-california-board-of-forestry-adopts-emergency-zone-0-regulations-under-ab-3074",
       label: "Best Best & Krieger: Board of Forestry adopts emergency Zone 0 regulations (September 9, 2026)",
@@ -2317,12 +1913,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "A carbon monoxide device is required in a home with a fossil fuel appliance, a fireplace or an attached garage.",
     },
     {
-      href: "https://ocfa.org/safety-programs/smoke-alarm-home-escape-plan/",
-      label: "Orange County Fire Authority: smoke alarms and home escape plan",
-      supports:
-        "Test smoke alarms once a month and replace the whole alarm every 10 years.",
-    },
-    {
       href: "https://www.irwd.com/get-help/meters-and-leaks/water-leaks/",
       label: "Irvine Ranch Water District: water leaks",
       supports:
@@ -2351,12 +1941,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Earthquake Authority: homeowners policies",
       supports:
         "In most cases earthquake damage is not covered by a homeowners policy, and a separate policy is needed.",
-    },
-    {
-      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
-      label: "California Residential Mitigation Program: Earthquake Brace + Bolt",
-      supports:
-        "The retrofit is only done on wood-framed homes built before 1980 with a raised foundation, with grants in eligible ZIP codes.",
     },
     {
       href: "https://octreasurer.gov/property-tax/informationfaqs/important-dates",
@@ -2401,12 +1985,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Who maintains, repairs and replaces the common area, a separate interest and exclusive use common area, unless the declaration says otherwise.",
     },
     {
-      href: "https://www.newportbeachca.gov/government/departments/community-development/building-division/permit-history-by-address-modifications",
-      label: "City of Newport Beach: permit history by address",
-      supports:
-        "Newport Beach offers permit history by address on its website.",
-    },
-    {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=4216.2",
       label: "California Government Code section 4216.2",
       supports:
@@ -2433,18 +2011,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "A marine push replaces the air mass with ocean air that is much cooler and much more humid.",
     },
     {
-      href: "https://ocfa.org/ready-set-go/home-hardening/",
-      label: "Orange County Fire Authority: home hardening",
-      supports:
-        "Flying embers destroy homes miles from wildland areas, leaves in rain gutters can ignite, and OCFA's vent guidance: most homes have 1/4-inch screens and 1/8-inch metal mesh is recommended.",
-    },
-    {
-      href: "https://ocfa.org/document/red-flag-warning-2/",
-      label: "Orange County Fire Authority: Red Flag Warning flyer",
-      supports:
-        "On a Red Flag Warning day, do yard work that needs a motor before 10 a.m. and never when the wind is blowing.",
-    },
-    {
       href: "https://ocfa.org/residents/sandbags/",
       label: "Orange County Fire Authority: sandbags",
       supports:
@@ -2455,18 +2021,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "City of Tustin: free sandbags",
       supports:
         "Tustin offers residents free fill-your-own sandbags at its maintenance facility and at self-serve sites.",
-    },
-    {
-      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
-      label: "U.S. Geological Survey: Hardness of Water",
-      supports:
-        "Heated hard water forms calcium carbonate scale that can shorten equipment life, raise heating costs and clog pipes.",
-    },
-    {
-      href: "https://www.tustinca.org/223/Flushing-Out-Your-Water-Heater",
-      label: "City of Tustin: flushing out your water heater",
-      supports:
-        "Periodic flushing removes water heater sediment, following the manufacturer's owner's guide.",
     },
     {
       href: "https://www.irwd.com/learn/save-water-money/watering-guide/",
@@ -2497,12 +2051,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "UC IPM Pest Notes: Subterranean and Other Termites",
       supports:
         "The common subterranean species swarms in the afternoon in spring or fall on clear days after a soaking rain.",
-    },
-    {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
-      label: "California Health and Safety Code section 19211",
-      supports:
-        "Residential water heaters must be braced, anchored or strapped against earthquake motion.",
     },
     {
       href: "https://www.ocassessor.gov/tax-saving-programs/homeowners-exemptions",
@@ -2547,13 +2095,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Irvine Ranch Water District: water quality questions and answers",
       supports:
         "Water imported from the Colorado River and Northern California is typically hard, and the district recommends flushing the water heater once a year.",
-    },
-    {
-      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
-      label:
-        "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
-      supports:
-        "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation, in the high hazard ZIP codes the program lists; the retrofit bolts the house to its foundation.",
     },
   ],
   // New pages B, 2026-09-26. Every entry below was opened on 2026-09-26.

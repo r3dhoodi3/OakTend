@@ -42,7 +42,7 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Termites in Orange County: tenting vs local treatment";
+const TITLE = "Termite tenting in Orange County";
 const DESCRIPTION =
   "Drywood vs subterranean termites in Orange County, when tenting beats spot treatment, how to read an inspection report, and what drives the price.";
 const CANONICAL = `${SITE_URL}/guides/termites-orange-county`;
@@ -105,10 +105,8 @@ export default function TermitesOrangeCountyGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/termites-orange-county" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Written for Orange County homeowners. Treatment facts come from the
-        University of California&apos;s pest program and the state Structural Pest
-        Control Board. No prices are quoted here on purpose. General
-        information, not pest control advice for your house.
+        Treatment facts come from the University of California&apos;s pest
+        program (UC IPM) and the state Structural Pest Control Board.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
@@ -133,9 +131,8 @@ export default function TermitesOrangeCountyGuide() {
             Drywood or subterranean: how do I tell them apart?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Orange County homes get both. The University of California&apos;s
-            pest program (UC IPM) says drywood termites are most prevalent in
-            Southern California, and subterranean termites are common
+            Orange County homes get both. UC IPM says drywood termites are
+            most prevalent in Southern California, and subterranean termites are common
             throughout the state.
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
@@ -195,7 +192,7 @@ export default function TermitesOrangeCountyGuide() {
           <p className="mt-2 leading-relaxed">
             Neither one protects the house afterward. UC IPM says fumigants
             and heat have no residual effect, so a new colony can start
-            later. That is how these treatments work, not a failed job.
+            later.
           </p>
           <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Local or spot treatment</h3>
           <p className="mt-2 leading-relaxed">
@@ -263,7 +260,11 @@ export default function TermitesOrangeCountyGuide() {
             The Structural Pest Control Board&apos;s online search shows whether a
             property has been inspected within the last two years, and you
             can request copies of those reports. That is worth doing before
-            you buy a house.
+            you buy a house; our{" "}
+            <Link href="/guides/new-homeowner-first-year-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              new homeowner checklist
+            </Link>{" "}
+            covers the rest of the first year.
           </p>
         </section>
 
@@ -272,8 +273,8 @@ export default function TermitesOrangeCountyGuide() {
             What affects the cost of termite treatment?
           </h2>
           <p className="mt-2 leading-relaxed">
-            We do not print a price range, because neither the university nor
-            the state board publishes one. Bids are built from:
+            We print no price range: neither the university nor the state
+            board publishes one. Bids are built from:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -376,9 +377,9 @@ export default function TermitesOrangeCountyGuide() {
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
             As of September 2026. The UC IPM drywood termite note was last
             updated in 2014 and the pest board brochure in 2019, so products
-            and practices may have moved on. Treatment decisions belong with
-            a licensed inspector who has seen your house. This is general
-            information, not pest control, legal or safety advice.
+            and practices may have moved on. General information, not pest
+            control, legal or safety advice: treatment decisions belong with
+            a licensed inspector who has seen your house.
           </p>
         </section>
       </div>

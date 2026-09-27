@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Hard water in Orange County: a homeowner guide";
+export const alt = "OakTend guide: Hard water in Orange County";
 
 export default function OgImage() {
   return renderOgCard(
-    "Hard water in Orange County: a homeowner guide",
+    "Hard water in Orange County",
     "An OakTend home guide"
   );
 }

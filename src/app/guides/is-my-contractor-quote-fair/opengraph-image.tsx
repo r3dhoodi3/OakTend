@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Is my contractor's quote fair? An Orange County guide";
+export const alt = "OakTend guide: Is my contractor's quote fair?";
 
 export default function OgImage() {
   return renderOgCard(
-    "Is my contractor's quote fair? An Orange County guide",
+    "Is my contractor's quote fair?",
     "An OakTend home guide"
   );
 }

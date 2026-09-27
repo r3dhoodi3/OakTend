@@ -146,7 +146,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
@@ -158,7 +158,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
@@ -170,15 +170,15 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-26",
   },
   "/guides/is-my-contractor-quote-fair": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-26",
   },
   "/guides/contractor-deposit-rules-california": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-21",
+    dateModified: "2026-09-26",
   },
   "/guides/permits-orange-county": {
     datePublished: "2026-09-20",
@@ -190,11 +190,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   "/guides/slab-leak-repair-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   "/guides/repipe-orange-county": {
     datePublished: "2026-09-20",
@@ -202,7 +202,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/termites-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   // Added 2026-09-26 (seo/new-pages-c).
   "/guides/earthquake-retrofit-orange-county": {
@@ -215,7 +215,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/new-homeowner-first-year-orange-county": {
     datePublished: "2026-09-20",
