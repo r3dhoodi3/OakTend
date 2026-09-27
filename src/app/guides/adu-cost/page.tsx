@@ -249,6 +249,17 @@ export default function AduCostGuide() {
             sewer, and panel converts more cheaply than one that needs long
             new utility runs.
           </p>
+          <p className="mt-2 leading-relaxed">
+            Garage room, garage ADU, or junior ADU? The parking, setback, and
+            permit rules differ for each; see{" "}
+            <Link
+              href="/guides/garage-conversion-vs-adu-orange-county"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              garage conversion vs ADU in Orange County
+            </Link>
+            .
+          </p>
         </section>
 
         <section>
@@ -442,7 +453,15 @@ export default function AduCostGuide() {
               <strong>The coastal zone.</strong> Parts of Huntington Beach and
               Newport Beach are in the coastal zone. Huntington Beach says
               development there may require a coastal development permit, and
-              AB 462 now puts a 60-day clock on that permit for ADUs.
+              AB 462 now puts a 60-day clock on that permit for ADUs. Both
+              reviews are explained in our{" "}
+              <Link
+                href="/guides/hoa-coastal-commission-remodel-orange-county"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                HOA and coastal approvals guide
+              </Link>
+              .
             </li>
           </ul>
         </section>

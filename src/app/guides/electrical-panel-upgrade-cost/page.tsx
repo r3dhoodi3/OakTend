@@ -226,7 +226,11 @@ export default function ElectricalPanelUpgradeCostGuide() {
             </li>
             <li>
               <strong>Going solar.</strong> Some solar and battery installs
-              require a 200-amp panel or a specific bus rating.
+              require a 200-amp panel or a specific bus rating. Our{" "}
+              <Link href="/guides/solar-battery-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+                solar and battery guide
+              </Link>{" "}
+              covers the rest.
             </li>
             <li>
               <strong>An aging or overloaded panel.</strong> Older 100-amp

@@ -315,6 +315,11 @@ export default function KitchenRemodelCostGuide() {
             also trigger California energy-code (Title 24) compliance, while
             like-for-like repairs generally do not. Thresholds vary by city,
             so check with your local building department before work starts.
+            Our{" "}
+            <Link href="/guides/window-replacement-cost-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              window replacement guide
+            </Link>{" "}
+            lists the Energy Code numbers a new window has to meet.
           </p>
         </section>
 
@@ -371,7 +376,15 @@ export default function KitchenRemodelCostGuide() {
               Newport Beach are in the California coastal zone, where
               development can need a coastal development permit on top of the
               building permit. If your remodel changes the outside of the
-              house, ask the city whether that applies to your lot.
+              house, ask the city whether that applies to your lot. More in
+              our{" "}
+              <Link
+                href="/guides/hoa-coastal-commission-remodel-orange-county"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                HOA and coastal approvals guide
+              </Link>
+              .
             </li>
           </ul>
         </section>

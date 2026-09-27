@@ -121,6 +121,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
     ],
     cities: ["Anaheim", "Costa Mesa", "Garden Grove", "San Juan Capistrano", "Santa Ana"],
   },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/garage-conversion-vs-adu-orange-county": {
+    guides: [
+      "/guides/adu-cost",
+      "/guides/permits-orange-county",
+      "/guides/hoa-coastal-commission-remodel-orange-county",
+    ],
+    cities: [
+      "Newport Beach",
+      "Anaheim",
+      "Santa Ana",
+      "Irvine",
+      "Huntington Beach",
+      "Garden Grove",
+    ],
+  },
   "/guides/slab-leak-signs": {
     guides: [
       "/guides/water-heater-replacement-cost",
@@ -165,6 +181,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Garden Grove",
       "Santa Ana",
       "Newport Beach",
+    ],
+  },
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/hoa-coastal-commission-remodel-orange-county": {
+    guides: [
+      "/guides/garage-conversion-vs-adu-orange-county",
+      "/guides/kitchen-remodel-cost",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Seal Beach",
+      "Laguna Beach",
+      "Dana Point",
+      "San Clemente",
+      "Newport Beach",
+      "Laguna Niguel",
     ],
   },
   "/guides/hard-water-orange-county": {
@@ -227,6 +259,23 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Orange",
     ],
   },
+  // Added 2026-09-26 (seo/new-pages-c).
+  "/guides/earthquake-retrofit-orange-county": {
+    guides: [
+      "/guides/new-homeowner-first-year-orange-county",
+      "/guides/permits-orange-county",
+      "/guides/water-heater-replacement-cost",
+    ],
+    cities: ["Anaheim", "Santa Ana", "Irvine", "Huntington Beach", "San Clemente"],
+  },
+  "/guides/sewer-line-orange-county": {
+    guides: [
+      "/guides/repipe-orange-county",
+      "/guides/permits-orange-county",
+      "/guides/is-my-contractor-quote-fair",
+    ],
+    cities: ["Anaheim", "Costa Mesa", "Huntington Beach", "Irvine", "Tustin"],
+  },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     guides: [
       "/guides/orange-county-home-maintenance-checklist",
@@ -273,6 +322,67 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Laguna Woods",
       "Villa Park",
       "Midway City",
+    ],
+  },
+  // New pages B, 2026-09-26 (SEO plan section 2).
+  "/guides/orange-county-home-age": {
+    guides: [
+      "/guides/electrical-panel-upgrade-cost",
+      "/guides/repipe-orange-county",
+      "/guides/new-homeowner-first-year-orange-county",
+    ],
+    cities: [
+      "Laguna Woods",
+      "Seal Beach",
+      "Garden Grove",
+      "Buena Park",
+      "La Palma",
+      "Irvine",
+    ],
+  },
+  "/guides/orange-county-home-rebates-2026": {
+    guides: [
+      "/guides/water-heater-replacement-cost",
+      "/guides/hvac-replacement-cost",
+      "/guides/orange-county-home-maintenance-checklist",
+    ],
+    cities: [
+      "Irvine",
+      "Anaheim",
+      "Costa Mesa",
+      "Rancho Santa Margarita",
+      "Mission Viejo",
+    ],
+  },
+  // Added 2026-09-26 (seo/new-pages-d): windows and solar.
+  "/guides/window-replacement-cost-orange-county": {
+    guides: [
+      "/guides/permits-orange-county",
+      "/guides/santa-ana-wind-wildfire-home-prep",
+      "/guides/is-my-contractor-quote-fair",
+    ],
+    cities: [
+      "Garden Grove",
+      "Santa Ana",
+      "Fountain Valley",
+      "Huntington Beach",
+      "Newport Beach",
+      "Laguna Beach",
+    ],
+  },
+  "/guides/solar-battery-orange-county": {
+    guides: [
+      "/guides/electrical-panel-upgrade-cost",
+      "/guides/roof-replacement-cost",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Anaheim",
+      "Irvine",
+      "Huntington Beach",
+      "Fountain Valley",
+      "San Clemente",
+      "Mission Viejo",
     ],
   },
 };
@@ -1269,6 +1379,136 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "Get at least three written bids based on identical scope, and do not automatically accept the lowest bid.",
     },
   ],
+  // Added 2026-09-26 (SEO plan section 2, new pages A). Every entry was
+  // opened and checked that day.
+  "/guides/garage-conversion-vs-adu-orange-county": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66313",
+      label:
+        "California Government Code section 66313",
+      supports:
+        "An ADU provides complete independent living facilities on a lot with a primary residence; a junior ADU is no more than 500 square feet of interior livable space and contained entirely within a single-family residence.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66314",
+      label:
+        "California Government Code section 66314",
+      supports:
+        "An ADU may be within or attached to the home, including an attached garage, or detached, including a detached garage (d)(3); no setback for an existing structure converted to an ADU, and no more than 4 feet side and rear for a new one (d)(7); no replacement of parking when a garage, carport or parking space is converted to or demolished for an ADU (d)(11); no fire sprinklers if the primary residence is not required to have them (d)(12).",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66317",
+      label:
+        "California Government Code section 66317 (as amended by SB 543, effective January 1, 2026)",
+      supports:
+        "ADU approval is ministerial with no hearing; the permitting agency has 15 business days to give written notice whether an application is complete; it must approve or deny within 60 days of a complete application when a dwelling exists, or the application is deemed approved; a denial comes with written comments; there is a written appeal process.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66321",
+      label:
+        "California Government Code section 66321",
+      supports:
+        "A city cannot cap ADU size below 850 square feet, or 1,000 square feet with more than one bedroom.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66322",
+      label:
+        "California Government Code section 66322",
+      supports:
+        "No parking standards for an ADU within one-half mile walking distance of public transit, or one that is part of the proposed or existing primary residence or an accessory structure, among other cases.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66323",
+      label:
+        "California Government Code section 66323",
+      supports:
+        "A city must ministerially approve any combination of one ADU and one junior ADU within the existing space of a single-family dwelling or accessory structure (up to 150 square feet of expansion of an accessory structure, limited to ingress and egress; exterior access; setbacks sufficient for fire and safety) and one detached new ADU with 4-foot side and rear setbacks, which a city may limit to no less than 800 square feet.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=66333",
+      label:
+        "California Government Code section 66333 (as amended by AB 1154, effective January 1, 2026)",
+      supports:
+        "A junior ADU needs a separate entrance and an efficiency kitchen; enclosed uses within the residence, such as attached garages, are part of the residence; owner-occupancy may be required only when the junior ADU shares sanitation facilities; a junior ADU rental must be for more than 30 days.",
+    },
+    {
+      href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
+      label:
+        "California Department of Housing and Community Development: Accessory Dwelling Unit Handbook (March 2026)",
+      supports:
+        "No parking may be required for a junior ADU, even when converted from an attached garage; junior ADUs are not allowed in detached accessory structures and only one is allowed per lot; ADU conversions are subject to all applicable building, health and safety, and fire standards for dwellings; the 150 square foot expansion example is a stairwell; ADU parking may not exceed one space per unit or bedroom; a demolition permit for a detached garage replaced by an ADU is issued at the same time as the ADU permit.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB543",
+      label:
+        "California Senate Bill 543 (2025-2026), chaptered text (Chapter 520, approved October 10, 2025)",
+      supports:
+        "No impact fee on an ADU with 750 square feet or less of interior livable space or a junior ADU of 500 square feet or less; above 750 square feet, impact fees are proportional to the primary dwelling; units under 500 square feet of interior livable space are treated as not triggering school fees.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65852.27",
+      label:
+        "California Government Code section 65852.27",
+      supports:
+        "Every city and county had to set up a program for pre-approved ADU plans by January 1, 2025.",
+    },
+    {
+      href: "https://newportbeachadu.org/adu-plans-2",
+      label:
+        "City of Newport Beach: ADU standard plans",
+      supports:
+        "Newport Beach offers five pre-reviewed standard ADU plans: three detached units and two garage conversions (Plan 4, one-car garage; Plan 5, two-car garage); supplemental items such as a site plan and Title 24 energy analysis are still required.",
+    },
+    {
+      href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",
+      label:
+        "City of Irvine: ADU Standard Plan Program",
+      supports:
+        "Irvine offers pre-approved architectural and structural ADU plans designed by licensed professionals.",
+    },
+    {
+      href: "https://santa-ana.gov/pre-approved-adu-plans/",
+      label:
+        "City of Santa Ana: Pre-Approved ADU Plans",
+      supports:
+        "Santa Ana offers pre-approved studio, one-bedroom and two-bedroom detached ADU plans.",
+    },
+    {
+      href: "https://www.anaheim.net/6351/Pre-Approved-Plan-Catalogue",
+      label:
+        "City of Anaheim: Pre-Approved Plan Catalogue (ADU Express)",
+      supports:
+        "Anaheim offers four free pre-approved ADU plans.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
+      label:
+        "City of Huntington Beach: accessory dwelling units",
+      supports:
+        "Huntington Beach has a pre-approved ADU plan, and development in its coastal zone may require a coastal development permit.",
+    },
+    {
+      href: "https://pwds.oc.gov/service-areas/oc-development-services/planning-development/accessory-dwelling-units",
+      label:
+        "County of Orange, OC Development Services: accessory dwelling units",
+      supports:
+        "The county publishes pre-approved ADU plans for unincorporated Orange County.",
+    },
+    {
+      href: "https://www.jlconline.com/cost-vs-value/2025/pacific/los-angeles-ca/",
+      label:
+        "Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com): Los Angeles, California",
+      supports:
+        "A new 660 square foot, one-story detached ADU averaged $178,536 in the Los Angeles market in 2025. The report has no separate Orange County market.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4751",
+      label:
+        "California Civil Code section 4751",
+      supports:
+        "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable; reasonable restrictions are allowed.",
+    },
+  ],
   "/guides/slab-leak-signs": [
     {
       href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059",
@@ -1457,6 +1697,150 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Contractors State License Board: owner-builder risks",
       supports:
         "The board's warning to be wary of consultants or unlicensed individuals who talk homeowners into becoming an owner-builder.",
+    },
+  ],
+  // Added 2026-09-26 (SEO plan section 2, new pages A). Every entry was
+  // opened and checked that day.
+  "/guides/hoa-coastal-commission-remodel-orange-county": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4000",
+      label:
+        "California Civil Code section 4000",
+      supports:
+        "The Civil Code part governing associations is the Davis-Stirling Common Interest Development Act.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4760",
+      label:
+        "California Civil Code section 4760",
+      supports:
+        "Any change in the exterior appearance of a separate interest must follow the governing documents and applicable law.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4765",
+      label:
+        "California Civil Code section 4765",
+      supports:
+        "Where governing documents require approval of a physical change: a fair, reasonable and expeditious written procedure with prompt deadlines and a maximum response time; decisions in good faith, not unreasonable, arbitrary or capricious, and not violating law or the building code; decisions in writing, with a denial explaining why and how to seek reconsideration; reconsideration by the board at an open meeting; an annual notice to members of what needs approval and the procedure.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4751",
+      label:
+        "California Civil Code section 4751",
+      supports:
+        "HOA rules that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void and unenforceable; reasonable restrictions are allowed.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714.3",
+      label:
+        "California Civil Code section 714.3",
+      supports:
+        "Restrictions that effectively prohibit or unreasonably restrict an ADU or junior ADU on a single-family lot are void; reasonable restrictions shall not include any fees or other financial requirements.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714",
+      label:
+        "California Civil Code section 714",
+      supports:
+        "A restriction that effectively prohibits or restricts a solar energy system is void; an association must decide in writing, and an application not denied in writing within 45 days is deemed approved unless the delay is a reasonable request for more information.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4745",
+      label:
+        "California Civil Code section 4745",
+      supports:
+        "An association cannot effectively prohibit or unreasonably restrict an EV charging station in an owner's unit or designated parking space; an application not denied in writing within 60 days is deemed approved unless the delay is a reasonable request for more information.",
+    },
+    {
+      href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
+      label:
+        "California Department of Housing and Community Development: Accessory Dwelling Unit Handbook (March 2026)",
+      supports:
+        "Examples of an HOA effectively prohibiting an ADU include any delay in review beyond the timeframes required of local agencies (60 days).",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30600",
+      label:
+        "California Public Resources Code section 30600 (Coastal Act)",
+      supports:
+        "Anyone performing development in the coastal zone must obtain a coastal development permit, in addition to any other permit required by law.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30106",
+      label:
+        "California Public Resources Code section 30106 (Coastal Act)",
+      supports:
+        "Development includes placing or erecting any structure, grading, and construction, reconstruction, demolition, or alteration of the size of any structure.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30519",
+      label:
+        "California Public Resources Code section 30519 (Coastal Act)",
+      supports:
+        "Once a local coastal program is certified, permit authority over new development is delegated to the local government, except for appeals and for tidelands, submerged lands and public trust lands.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30603",
+      label:
+        "California Public Resources Code section 30603 (Coastal Act)",
+      supports:
+        "After certification, a local coastal permit decision can be appealed to the Commission for development between the sea and the first public road, within 300 feet of a beach, within 100 feet of a wetland or stream, or within 300 feet of the top of a coastal bluff, among others.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PRC&sectionNum=30610",
+      label:
+        "California Public Resources Code section 30610 (Coastal Act)",
+      supports:
+        "No coastal development permit is needed for improvements to existing single-family residences, except classes the Commission specifies by regulation, or for repair and maintenance that does not enlarge or expand the structure.",
+    },
+    {
+      href: "https://www.law.cornell.edu/regulations/california/14-CCR-13250",
+      label:
+        "California Code of Regulations, title 14, section 13250 (Cornell Legal Information Institute)",
+      supports:
+        "Garages, pools, fences and sheds are part of a single-family residence for the exemption, but guest houses and self-contained residential units are not; improvements still need a permit on a beach, in a wetland, seaward of mean high tide, in an environmentally sensitive habitat area, in a highly scenic area, or within 50 feet of a bluff edge; between the sea and the first public road or within 300 feet of a beach, a 10 percent or larger floor area increase, a height increase over 10 percent, or a significant non-attached structure such as a garage, fence or shoreline protective works; or where the original permit said future improvements need one.",
+    },
+    {
+      href: "https://documents.coastal.ca.gov/assets/rflg/LCPStatusSummaryChart.pdf",
+      label:
+        "California Coastal Commission: Summary of LCP Program Activity and LCP Status Chart, FY 2023-24 (October 9, 2024)",
+      supports:
+        "Year effectively certified: Huntington Beach 1985, Newport Beach 2017, Irvine 1982, Laguna Beach 1993, Laguna Niguel 1990, Dana Point 1989; Seal Beach and San Clemente listed with no certified LCP; uncertified areas include Huntington Beach's Sunset Beach annexation, Newport Banning Ranch and the Newport Coast annexation, and Laguna Beach's Hobo Canyon, Three Arch Bay, Blue Lagoon and Irvine Cove; the Commission keeps permit authority in uncertified areas.",
+    },
+    {
+      href: "https://documents.coastal.ca.gov/reports/2026/5/w8c/w8c-5-2026-report.pdf",
+      label:
+        "California Coastal Commission: staff report, application 5-25-0754, Seal Beach (hearing May 13, 2026)",
+      supports:
+        "A Seal Beach single-family remodel with first and second floor additions went to the Commission because the City of Seal Beach does not have a certified Local Coastal Program.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development-/planning-division/local-coastal-program-launch-page/faq",
+      label:
+        "City of Newport Beach: Local Coastal Program FAQ",
+      supports:
+        "Newport Beach's LCP was certified effective January 30, 2017 and the city issues most coastal permits; the categorical exclusion removes single-unit and two-unit projects from the permit requirement except the first row of shoreline lots and the Bay Shores community; approvals in appeal areas can be appealed to the Commission.",
+    },
+    {
+      href: "https://www.sanclemente.gov/295/Coastal-Planning",
+      label:
+        "City of San Clemente: Coastal Planning",
+      supports:
+        "The Commission certified San Clemente's LCP Land Use Plan update on August 10, 2018; the Implementation Plan is still being drafted, so the city does not yet have a fully certified LCP.",
+    },
+    {
+      href: "https://www.coastal.ca.gov/maps/czb/",
+      label:
+        "California Coastal Commission: coastal zone boundary maps",
+      supports:
+        "Where to check whether a lot is near or inside the coastal zone, with the Commission's warning that the digital maps may not replace a formal boundary determination.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB462",
+      label:
+        "California Assembly Bill 462 (2025-2026), chaptered text (Chapter 491, approved October 10, 2025, urgency statute)",
+      supports:
+        "Takes effect immediately; amends Government Code section 66329: the local government approves or denies an ADU coastal development permit within 60 days of a complete application, concurrently with the ADU review and without public hearings, and that decision is not appealable under section 30603; without a certified LCP, the Commission has 60 days or the application is deemed approved, unless the ADU is filed with a new dwelling.",
     },
   ],
   "/guides/hard-water-orange-county": [
@@ -1705,6 +2089,101 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "SoCalGas: how to prepare for fumigation",
       supports:
         "SoCalGas closes and restores gas service for a fumigation at no cost, needs two business days of notice, and only it or its certified contractors may operate the service shut-off valve.",
+    },
+  ],
+  // Added 2026-09-26 (seo/new-pages-c). Every entry opened that day.
+  "/guides/earthquake-retrofit-orange-county": [
+    {
+      href: "https://www.earthquakeauthority.com/strengthen-your-house",
+      label: "California Earthquake Authority: strengthen your house",
+      supports:
+        "Older houses with steps up to the first floor can shift off their foundations in an earthquake; the fix is bracing crawl space walls and bolting the house to its foundation.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label: "California Residential Mitigation Program: the Earthquake Brace + Bolt retrofit",
+      supports:
+        "Checked 2026-09-26: bolting uses anchor bolts or foundation plates; bracing attaches plywood or OSB sheathing along cripple walls; a frame sitting directly on the foundation gets bolting only; supplemental grant of up to $7,000; registration is open for a limited time each year.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/see-if-you-qualify",
+      label: "California Residential Mitigation Program: see if you qualify for Earthquake Brace + Bolt",
+      supports:
+        "Checked 2026-09-26: grants of up to $3,000, and a supplemental grant for households with annual income of $94,480 or less, as funding permits.",
+    },
+    {
+      href: "https://www.crmp.org/resources/program-zip-codes",
+      label: "California Residential Mitigation Program: program ZIP codes",
+      supports:
+        "Checked 2026-09-26: the ZIP lookup listed many Orange County ZIP codes, including ones in Anaheim, Santa Ana, Irvine, Huntington Beach and San Clemente, with Brace + Bolt registration closed.",
+    },
+    {
+      href: "https://www.crmp.org/sites/crmp/files/documents/2026/ebb-rules-regs_1-29-26_final-with-accessibility.pdf",
+      label: "Earthquake Brace + Bolt Program: Rules for Participation (effective February 1, 2026)",
+      supports:
+        "Qualifying houses (pre-1980, one to four units, raised perimeter foundation, level or low slope, no mobile homes), Chapter A3, standard plans up to 4-foot cripple walls and engineered plans beyond, a typical retrofit cost of $3,000 to $7,000, permit issued after acceptance and solely for the retrofit, no work before approval, Class A or B license or the homeowner, one grant per parcel.",
+    },
+    {
+      href: "https://www.earthquakeauthority.com/california-earthquake-insurance-policies/earthquake-insurance-policy-premium-discounts",
+      label: "California Earthquake Authority: earthquake insurance premium discounts",
+      supports:
+        "Checked 2026-09-26: up to a 25% discount for a retrofitted pre-1980, wood-framed, one-to-four unit house on a raised foundation with a secured water heater, verified by the Dwelling Retrofit Verification form or a Brace + Bolt verification number.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19211",
+      label: "California Health and Safety Code section 19211",
+      supports:
+        "Residential water heaters must be braced, anchored or strapped against earthquake motion.",
+    },
+    {
+      href: "https://www.socalgas.com/safety/emergency-information/shut-off-natural-gas",
+      label: "SoCalGas: how to shut off your natural gas",
+      supports:
+        "Do not turn off the meter unless you smell gas, hear it escaping or see other signs of a leak, and do not turn it back on yourself.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=RTC&sectionNum=74.5",
+      label: "California Revenue and Taxation Code section 74.5",
+      supports:
+        "Seismic retrofitting is not new construction for reassessment; notify the assessor before or within 30 days of completion and file documents within six months.",
+    },
+  ],
+  "/guides/sewer-line-orange-county": [
+    {
+      href: "https://ocsan.gov/sanitation-district-clearance/",
+      label: "Orange County Sanitation District (OC San): sanitation district clearance and local providers",
+      supports:
+        "OC San is only a regional sewer provider; the city is the local provider except Yorba Linda, Irvine, Tustin and unincorporated areas, which have their own districts.",
+    },
+    {
+      href: "https://www.anaheim.net/DocumentCenter/View/49629",
+      label: "City of Anaheim: Sewer Laterals, Property Owners Guide",
+      supports:
+        "The whole lateral is private property, including under the street; slow drains, a gurgling toilet and wet areas by the washer signal a blockage; most laterals are vitrified clay with a 30 to 50 year average service life; roots enter through existing defects; laterals are 4 to 6 inches; root killers are short term; get permits and more than one quote.",
+    },
+    {
+      href: "https://www.cmsdca.gov/sewer/sewer_faqs.php",
+      label: "Costa Mesa Sanitary District: sewer FAQs",
+      supports:
+        "Owners maintain the lateral until past the connection with the district's main; roots can break a pipe and collapse it; rodding is temporary, rod every year if roots are involved.",
+    },
+    {
+      href: "https://www.cmsdca.gov/sewer/rebates/sewer_inspection_rebate_program.php",
+      label: "Costa Mesa Sanitary District: Sewer Inspection Rebate Program",
+      supports:
+        "Checked 2026-09-26: up to $200 (camera from a ground clean-out), $250 (from a roof vent or toilet flange) or $500 (new clean-out, permit required); approval first; once every five years; video must show date, address, footage and the whole lateral; no permit for a camera inspection; digging needs a district inspection.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/public_works/water_and_sewer/sewer_lateral_program.php",
+      label: "City of Huntington Beach: sewer lateral program",
+      supports:
+        "The city is responsible from its main to the property line, including the public right-of-way; the owner hires a contractor to clean and video the line and the city reviews it; slip lining is named as a repair.",
+    },
+    {
+      href: "https://www.irwd.com/services/sewer",
+      label: "Irvine Ranch Water District: wastewater collection and treatment",
+      supports:
+        "Property owners are responsible for pipes within the building and the upper lateral to the edge of the property line.",
     },
   ],
   "/guides/santa-ana-wind-wildfire-home-prep": [
@@ -2075,6 +2554,284 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
       supports:
         "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation, in the high hazard ZIP codes the program lists; the retrofit bolts the house to its foundation.",
+    },
+  ],
+  // New pages B, 2026-09-26. Every entry below was opened on 2026-09-26.
+  "/guides/orange-county-home-age": [
+    {
+      href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,160%7C05000US06059",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25034 (year structure built), Orange County and every place in it",
+      supports:
+        "Housing units by decade built, with margins of error, for the county and all 34 cities. The pre-1980 and 2000-or-later shares on the page are our sums of these rows: Orange County 56.8 percent built before 1980, Laguna Woods 89.7, Fountain Valley 82.3, Garden Grove 77.4, Huntington Beach 69.2, Newport Beach 54.9, Irvine 20.7, Rancho Santa Margarita 4.3.",
+    },
+    {
+      href: "https://censusreporter.org/data/table/?table=B25035&geo_ids=05000US06059,160%7C05000US06059",
+      label:
+        "Census Reporter: U.S. Census Bureau American Community Survey 5-year estimates 2020-2024, table B25035 (median year structure built)",
+      supports:
+        "Median year built as published: Orange County 1977, Garden Grove and Buena Park 1965, Irvine 2002.",
+    },
+    {
+      href: "https://www.census.gov/programs-surveys/acs/guidance/comparing-acs-data.html",
+      label: "U.S. Census Bureau: comparing ACS data",
+      supports:
+        "All ACS data are estimates because they come from a sample, a margin of error is published for every estimate, and overlapping 5-year periods should not be compared.",
+    },
+    {
+      href: "https://www.census.gov/content/dam/Census/library/publications/2018/acs/acs_general_handbook_2018_ch07.pdf",
+      label:
+        "U.S. Census Bureau: Understanding and Using ACS Data, chapter 7 (understanding error)",
+      supports:
+        "The margins of error for published ACS estimates are provided at a 90 percent confidence level.",
+    },
+    {
+      href: "https://www.cpsc.gov/s3fs-public/516.pdf",
+      label:
+        "U.S. Consumer Product Safety Commission: Repairing Aluminum Wiring, Publication 516 (June 2011)",
+      supports:
+        "Homes built before 1965 are unlikely to have aluminum branch circuit wiring; wiring installed between 1965 and the mid 1970s may be aluminum; homes built before 1972 and wired with aluminum were 55 times more likely than copper-wired homes to have an outlet connection reach fire hazard conditions; failing connections seldom give easily detected warning signs.",
+    },
+    {
+      href: "https://www.dir.ca.gov/title8/1529.html",
+      label:
+        "Cal/OSHA: California Code of Regulations, Title 8, section 1529 (asbestos in construction)",
+      supports:
+        "Thermal system insulation and surfacing material, such as acoustical plaster on ceilings, in buildings constructed no later than 1980 is presumed to contain asbestos unless rebutted.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to do work that disturbs painted surfaces in homes built before 1978 must be certified and their employees trained.",
+    },
+    {
+      href: "https://www.nachi.org/life-expectancy.htm",
+      label: "InterNACHI: standard estimated life expectancy chart for homes",
+      supports:
+        "Cast iron waste pipe about 60 years above ground and 50 to 60 years below ground, as a general guideline and not a guarantee.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label:
+        "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
+      supports:
+        "Grants of up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; the retrofit bolts the house to its foundation, braces cripple walls with plywood and requires a strapped water heater.",
+    },
+  ],
+  "/guides/orange-county-home-rebates-2026": [
+    {
+      href: "https://www.socalgas.com/savings/rebates-and-incentives",
+      label: "SoCalGas: rebates and incentives",
+      supports:
+        "Checked 2026-09-26: storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less); tankless $80 to $1,500 when replacing a tank-type unit in a single-family detached home; furnaces $1.40 to $25 per kBTUh (AFUE 92 percent or more, licensed contractor, proof of permit closure, one per household); first come, first served until December 31, 2026 or until funds run out.",
+    },
+    {
+      href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
+      label: "Southern California Edison: rebates and SCE Marketplace",
+      supports:
+        "Checked 2026-09-26: Golden State Rebates instant coupons for air conditioners, smart thermostats, heat pump water heaters and gas water heaters with no amounts listed; a $75 smart thermostat bill credit on select rate plans; Home Performance Plus for disadvantaged communities; Comfortably CA offers no direct customer rebates.",
+    },
+    {
+      href: "https://www.anaheim.net/5241/Appliance-Fixtures",
+      label: "Anaheim Public Utilities: appliance and fixture rebates",
+      supports:
+        "Checked 2026-09-26: $400 for an ENERGY STAR certified heat pump water heater and $200 for an ENERGY STAR certified heat pump dryer.",
+    },
+    {
+      href: "https://socalwatersmart.com/en/residential/rebates/available-rebates/turf-replacement-program/",
+      label: "SoCal Water$mart (Metropolitan Water District): turf replacement program",
+      supports:
+        "Checked 2026-09-26: $2.00 per square foot up to 5,000 square feet a year; approval before the project starts and 180 days to finish; 3 plants per 100 square feet, a stormwater retention feature and irrigation changes; no synthetic turf; amounts subject to change.",
+    },
+    {
+      href: "https://socalwatersmart.com/en/residential/",
+      label: "SoCal Water$mart: residential rebates",
+      supports:
+        "Checked 2026-09-26: premium high-efficiency toilets $40, rotating nozzles $2 each with at least 30, clothes washers from $85; rebates vary by water agency and depend on funding.",
+    },
+    {
+      href: "https://www.irwd.com/get-help/residential-rebates/",
+      label: "Irvine Ranch Water District: residential rebates",
+      supports:
+        "Checked 2026-09-26: turf $2 per square foot, drip $0.25 per square foot, nozzles $4, rain barrels $35 (two), cisterns $250 to $350, soil moisture sensors up to $80 under an acre, hose bib controllers $35 (two), flow monitors $100 base, toilets $40 (up to nine), washers from $85, 50 percent of sprinkler repairs; confirm amounts before buying.",
+    },
+    {
+      href: "https://www.mesawater.org/Rebates",
+      label: "Mesa Water District: residential rebates",
+      supports:
+        "Checked 2026-09-26: turf from $3 per square foot, drip from $1 per square foot, controllers from $80 under an acre, soil moisture sensors up to $80, nozzles $2 (at least 15), rain barrels $35, cisterns $250 to $350, pool covers $50, flow monitors from $100, toilets from $40, washers from $85.",
+    },
+    {
+      href: "https://smwd.com/rebates",
+      label: "Santa Margarita Water District: rebates",
+      supports:
+        "Checked 2026-09-26: residential turf $2 per square foot plus $1,000 for design plans, smart timers $100, soil moisture sensors $200, flow monitors $100, rain barrels and cisterns $35 to $350, nozzles $5, hose bib controllers $35, washers $85, toilets $40, H2OC RainSmart up to $1,500.",
+    },
+    {
+      href: "https://techcleanca.com/incentives/single-family-incentives/",
+      label: "TECH Clean California: single-family incentives",
+      supports:
+        "Checked 2026-09-26: single-family heat pump water heater and heat pump HVAC incentives reserved statewide since November 14, 2025; HEEHRA fully reserved in Central and Southern California January 7, 2026 and statewide February 24, 2026; waitlisted projects qualify only if installed after approval.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/inflation-reduction-act-residential-energy-rebate-programs",
+      label: "California Energy Commission: Inflation Reduction Act residential energy rebate programs",
+      supports:
+        "Checked 2026-09-26: HEEHRA single-family rebates fully reserved statewide as of February 24, 2026; up to $8,000 under 80 percent of area median income and up to $4,000 from 80 to 150 percent; HOMES rebates are not yet available; $291 million award approved January 2025.",
+    },
+    {
+      href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
+      label: "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
+      supports:
+        "Checked 2026-09-26: up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; up to $7,000 more for households earning $94,480 or less, which may pay up to 100 percent of the cost; registration open a limited time each year; no 2026 dates posted.",
+    },
+  ],
+  // Added 2026-09-26 (seo/new-pages-d). Every page below was opened that day,
+  // except the climate zone list and FEMA TB 8, reused from the entries
+  // checked 2026-09-25. HomeAdvisor is a contractor lead service: its figure
+  // is labeled on the guide as national and survey-based, never as an Orange
+  // County price.
+  "/guides/window-replacement-cost-orange-county": [
+    {
+      href: "https://www.homeadvisor.com/cost/doors-and-windows/window-replacement/",
+      label:
+        "HomeAdvisor: window replacement cost guide (national figures from its customer surveys, updated June 17, 2026)",
+      supports:
+        "Replacing a window ranges from $300 to $2,100, with an average of $850; labor is $100 to $300 per window for a retrofit and $150 to $800 for full-frame; retrofit keeps the trim but only suits a sound frame, while full-frame needs trim work and lets the installer repair water damage. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.energy.ca.gov/filebrowser/download/8641?fid=8641",
+      label:
+        "California Energy Commission: 2025 Single-Family Residential Compliance Manual, chapter 9 (additions, alterations and repairs)",
+      supports:
+        "Replacing windows is an alteration; prescriptive replacement windows need a maximum U-factor of 0.30 in climate zones 6 to 10 and 15 and a maximum SHGC of 0.23 in zones 2, 4 and 6 to 15; up to 75 square feet may instead meet 0.40 U-factor and 0.35 SHGC; windows must be caulked and sealed per Section 110.7; the performance approach is an alternative; windows in Fire Hazard Severity Zones fall under the wildland-urban interface code. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.energy.ca.gov/programs-and-topics/programs/building-energy-efficiency-standards/2025-building-energy-efficiency",
+      label:
+        "California Energy Commission: 2025 Building Energy Efficiency Standards",
+      supports:
+        "The 2025 Energy Code applies to permits applied for on or after January 1, 2026.",
+    },
+    {
+      href: "https://www.energy.ca.gov/media/3560",
+      label:
+        "California Energy Commission: building climate zones by zip code",
+      supports:
+        "Coastal ZIP codes such as Huntington Beach and Newport Beach are in climate zone 6; inland ones such as Irvine, Santa Ana and Anaheim are in climate zone 8. Checked 2026-09-25.",
+    },
+    {
+      href: "https://ggcity.org/building-and-safety/obtaining-building-permit-faqs",
+      label: "City of Garden Grove: obtaining a building permit FAQ",
+      supports:
+        "Installing or replacing windows or skylights needs a permit. Checked 2026-09-26.",
+    },
+    {
+      href: "https://santa-ana.gov/pbx-express-permit/",
+      label: "City of Santa Ana: PBx Same Day Express Permit Program",
+      supports:
+        "Windows retrofit is on Santa Ana's same-day express permit list for residential replacements. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports:
+        "Window and door replacement is an expedited permit, submitted with the Window Replacement Worksheet and a floor plan. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13113.7",
+      label: "California Health and Safety Code section 13113.7",
+      supports:
+        "A permit for work over $1,000 cannot be signed off until the home has approved smoke alarms.",
+    },
+    {
+      href: "https://www.epa.gov/lead/lead-renovation-repair-and-painting-program",
+      label: "U.S. EPA: Lead Renovation, Repair and Painting Program",
+      supports:
+        "Anyone paid to disturb painted surfaces in homes built before 1978 must be certified and trained in lead-safe work practices.",
+    },
+    {
+      href: "https://www.fema.gov/sites/default/files/2020-07/fema_tb8_corrosion_protection_metal_connectors_coastal_areas.pdf",
+      label:
+        "FEMA: NFIP Technical Bulletin 8, corrosion protection for metal connectors and fasteners in coastal areas (June 2019)",
+      supports:
+        "Salt spray significantly accelerates the corrosion of metal and is greatest within 300 to 3,000 feet of the shoreline.",
+    },
+  ],
+  "/guides/solar-battery-orange-county": [
+    {
+      href: "https://www.cpuc.ca.gov/industries-and-topics/electrical-energy/demand-side-management/customer-generation/net-energy-metering-and-net-billing",
+      label:
+        "California Public Utilities Commission: Net Energy Metering and Net Billing",
+      supports:
+        "Since April 15, 2023, new PG&E, SCE and SDG&E customer-generators take service on the net billing tariff; exports are credited at their value to the grid, usually below retail but sometimes above it on late summer evenings; a specific electrification TOU rate (TOU-D-PRIME at SCE) is required; the original customer keeps the tariff for nine years; PG&E and SCE customers who apply before the end of 2027 get a nine-year export adder, SDG&E customers do not; bills are due monthly with credits rolling to the true-up; batteries maximize bill savings; NEM 2.0 customers may stay on it for 20 years from interconnection. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.sce.com/clean-energy-efficiency/solar-generating-your-own-power/billing-incentives/solar-billing-plan",
+      label: "Southern California Edison: how Solar Billing Plans work",
+      supports:
+        "SCE calls the tariff the Solar Billing Plan, its customers are on TOU-D-PRIME, and prices are highest on summer weekdays from 4 to 9 p.m. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.sdge.com/more-information/our-company/about-us",
+      label: "San Diego Gas & Electric: about us",
+      supports:
+        "SDG&E serves San Diego and southern Orange counties. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.anaheim.net/636/Solar-Energy-and-Net-Metering",
+      label: "Anaheim Public Utilities: Solar Energy and Net Metering",
+      supports:
+        "Anaheim is not going to NEM 3.0; its NEM 2.0 program is wholesale-based; grandfathered NEM 1.0 customers who expand move the whole system to NEM 2.0; permits under 10 kW are issued without review; the system can operate after the city signs off the permit, and the utility does not issue permission to operate. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.anaheim.net/5587/NEM-20",
+      label: "Anaheim Public Utilities: Net Energy Metering 2.0",
+      supports:
+        "Anaheim now offers wholesale-based rates for exported energy under NEM 2.0. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65850.52",
+      label: "California Government Code section 65850.52 (SB 379)",
+      supports:
+        "Cities must offer an online automated permitting platform such as SolarAPP+ for residential solar up to 38.4 kW and paired storage, issued in real time to a licensed contractor; cities under 5,000 are exempt; cities of 50,000 or fewer by September 30, 2024 and larger ones by September 30, 2023; systems SolarAPP+ cannot process are not required to go through it. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/building___inspection/solar_app.php",
+      label: "City of Huntington Beach: SolarAPP+",
+      supports:
+        "Huntington Beach uses SolarAPP+ for residential PV permits, and the work is verified through city inspection. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/1449/SolarAPP",
+      label: "City of Fountain Valley: SolarAPP+",
+      supports:
+        "Fountain Valley accepts SolarAPP+ approvals through its Permit Center, with inspections requested after the permit. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/988/Solar-Permit-Process",
+      label: "City of Fountain Valley: solar PV permit process",
+      supports:
+        "Solar plans show code-compliant roof access pathways and the type and number of existing roof coverings. Checked 2026-09-26.",
+    },
+    {
+      href: "https://cityofirvine.gov/building-permits-and-inspections/adding-rooftop-solar-energy-system",
+      label: "City of Irvine: adding a rooftop solar energy system",
+      supports:
+        "Irvine issues residential solar and battery permits the same day, automatically, for rooftop systems up to 38.4 kW with no more than one battery. Checked 2026-09-26.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=714",
+      label: "California Civil Code section 714",
+      supports:
+        "HOA rules that effectively prohibit solar are void; reasonable restrictions on a PV system may not add more than $1,000 or cut efficiency more than 10 percent; decisions must be in writing and an application not denied within 45 days is deemed approved unless delayed by a reasonable request for information. Checked 2026-09-26.",
+    },
+    {
+      href: "https://www.irs.gov/credits-deductions/residential-clean-energy-credit",
+      label: "IRS: Residential Clean Energy Credit (page reviewed July 4, 2026)",
+      supports:
+        "The credit was 30 percent of qualified costs for solar installed from 2022 through December 31, 2025, and for batteries of at least 3 kWh from 2023; it is not available for property placed in service after December 31, 2025. Checked 2026-09-26.",
     },
   ],
 };

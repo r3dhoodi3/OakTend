@@ -55,17 +55,30 @@ export const GUIDE_PATHS = [
   "/guides/kitchen-remodel-cost",
   "/guides/bathroom-remodel-cost",
   "/guides/adu-cost",
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/garage-conversion-vs-adu-orange-county",
   "/guides/slab-leak-signs",
   "/guides/is-my-contractor-quote-fair",
   "/guides/contractor-deposit-rules-california",
   "/guides/permits-orange-county",
+  // Added 2026-09-26 (SEO plan section 2, new pages A).
+  "/guides/hoa-coastal-commission-remodel-orange-county",
   "/guides/hard-water-orange-county",
   "/guides/slab-leak-repair-orange-county",
   "/guides/repipe-orange-county",
   "/guides/termites-orange-county",
+  // Added 2026-09-26 (seo/new-pages-c).
+  "/guides/earthquake-retrofit-orange-county",
+  "/guides/sewer-line-orange-county",
   "/guides/santa-ana-wind-wildfire-home-prep",
   "/guides/new-homeowner-first-year-orange-county",
   "/guides/orange-county-home-maintenance-checklist",
+  // New pages B, 2026-09-26 (SEO plan section 2): home age data, rebates.
+  "/guides/orange-county-home-age",
+  "/guides/orange-county-home-rebates-2026",
+  // Added 2026-09-26 (seo/new-pages-d): windows and solar.
+  "/guides/window-replacement-cost-orange-county",
+  "/guides/solar-battery-orange-county",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -82,20 +95,34 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/kitchen-remodel-cost": "Kitchen remodel cost",
   "/guides/bathroom-remodel-cost": "Bathroom remodel cost",
   "/guides/adu-cost": "ADU cost",
+  "/guides/garage-conversion-vs-adu-orange-county": "Garage conversion vs ADU",
   "/guides/slab-leak-signs": "Slab leak signs",
   "/guides/is-my-contractor-quote-fair": "Is my contractor's quote fair?",
   "/guides/contractor-deposit-rules-california":
     "How much can a contractor ask for up front?",
   "/guides/permits-orange-county": "Building permits in Orange County",
+  "/guides/hoa-coastal-commission-remodel-orange-county":
+    "HOA and coastal approvals",
   "/guides/hard-water-orange-county": "Hard water in Orange County",
   "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
   "/guides/repipe-orange-county": "Repiping a house in Orange County",
   "/guides/termites-orange-county": "Termites in Orange County",
+  // Added 2026-09-26 (seo/new-pages-c).
+  "/guides/earthquake-retrofit-orange-county":
+    "Earthquake retrofit in Orange County",
+  "/guides/sewer-line-orange-county": "Sewer line problems in Orange County",
   "/guides/santa-ana-wind-wildfire-home-prep":
     "Santa Ana wind and wildfire prep",
   "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
   "/guides/orange-county-home-maintenance-checklist":
     "Orange County home maintenance checklist",
+  // New pages B, 2026-09-26.
+  "/guides/orange-county-home-age": "How old are Orange County homes?",
+  "/guides/orange-county-home-rebates-2026": "Orange County home rebates in 2026",
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county":
+    "Window replacement cost in Orange County",
+  "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -108,14 +135,14 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-25" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-26" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/hvac-replacement-cost": {
     datePublished: "2026-07-07",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
@@ -123,11 +150,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
   },
   "/guides/bathroom-remodel-cost": {
     datePublished: "2026-07-25",
@@ -135,7 +162,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/adu-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
+  },
+  "/guides/garage-conversion-vs-adu-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
@@ -151,7 +182,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/permits-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
+  },
+  "/guides/hoa-coastal-commission-remodel-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",
@@ -163,11 +198,20 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/repipe-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   "/guides/termites-orange-county": {
     datePublished: "2026-09-20",
     dateModified: "2026-09-20",
+  },
+  // Added 2026-09-26 (seo/new-pages-c).
+  "/guides/earthquake-retrofit-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/sewer-line-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     datePublished: "2026-09-20",
@@ -175,11 +219,29 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/new-homeowner-first-year-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-20",
+    dateModified: "2026-09-26",
   },
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-25",
+    dateModified: "2026-09-26",
+  },
+  // New pages B, 2026-09-26.
+  "/guides/orange-county-home-age": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/orange-county-home-rebates-2026": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  // Added 2026-09-26 (seo/new-pages-d).
+  "/guides/window-replacement-cost-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
+  },
+  "/guides/solar-battery-orange-county": {
+    datePublished: "2026-09-26",
+    dateModified: "2026-09-26",
   },
 };
 

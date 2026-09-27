@@ -341,7 +341,16 @@ export default function PermitsOrangeCountyGuide() {
             permit page tells
             residents to check whether a project is allowed under their
             association&apos;s CC&amp;Rs, and Fountain Valley&apos;s HVAC handout says
-            association approval is required in an HOA tract.
+            association approval is required in an HOA tract. What the
+            association has to do when it reviews your plans, and when a
+            coastal permit comes on top, is in our{" "}
+            <Link
+              href="/guides/hoa-coastal-commission-remodel-orange-county"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              HOA and coastal approvals guide
+            </Link>
+            .
           </p>
         </section>
 

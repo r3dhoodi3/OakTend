@@ -490,6 +490,17 @@ export default function WaterHeaterReplacementCostGuide() {
               heat pump water heater coupons, without listing amounts itself.
             </li>
           </ul>
+          <p className="mt-2 leading-relaxed">
+            Water, utility and state programs for every part of the house are
+            on our{" "}
+            <Link
+              href="/guides/orange-county-home-rebates-2026"
+              className="text-bark-700 hover:underline dark:text-stone-300"
+            >
+              Orange County home rebates page
+            </Link>
+            , reviewed every quarter.
+          </p>
         </section>
 
         <section>
