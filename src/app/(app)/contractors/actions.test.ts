@@ -764,35 +764,24 @@ describe("chooseApplicantAction's retired apply_credit_back notice", () => {
     };
   }
 
-  it("still picks the applicant but sends no credit-back notice while paused (default)", async () => {
-    installChoosePickFixtures();
+  // The credit-back notice is GONE, not paused (removed 2026-09-26): applying
+  // is free as of migration 0172, so there is no fee to return and no wallet
+  // to return it to. These two tests used to pin both sides of the
+  // RETIRED_PRO_PROGRAMS_PAUSED flag; what matters now is that picking a pro
+  // still works and tells nobody about money, whatever that flag says.
+  for (const paused of [true, false]) {
+    it(`picks the applicant and sends no money notice (paused=${paused})`, async () => {
+      retiredProProgramsPaused = paused;
+      installChoosePickFixtures();
 
-    await chooseApplicantAction(fd({ application_id: "app-1" }));
+      await chooseApplicantAction(fd({ application_id: "app-1" }));
 
-    expect(setFlash).toHaveBeenCalledWith(
-      "Pro selected. They now have your contact and can message you.",
-      "success"
-    );
-    expect(sendNotification).not.toHaveBeenCalled();
-  });
-
-  it("sends the credit-back notice once RETIRED_PRO_PROGRAMS_PAUSED is false", async () => {
-    retiredProProgramsPaused = false;
-    installChoosePickFixtures();
-
-    await chooseApplicantAction(fd({ application_id: "app-1" }));
-
-    expect(setFlash).toHaveBeenCalledWith(
-      "Pro selected. They now have your contact and can message you.",
-      "success"
-    );
-    expect(sendNotification).toHaveBeenCalledTimes(1);
-    const [, input] = vi.mocked(sendNotification).mock.calls[0];
-    expect(input).toMatchObject({
-      userId: "user-2",
-      kind: "apply_credit_back",
-      email: "pro@example.com",
+      expect(setFlash).toHaveBeenCalledWith(
+        "Pro selected. They now have your contact and can message you.",
+        "success"
+      );
+      // No apply_credit_back, and nothing else about a refund either.
+      expect(sendNotification).not.toHaveBeenCalled();
     });
-    expect(input.body).toContain("$50");
-  });
+  }
 });

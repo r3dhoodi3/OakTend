@@ -26,8 +26,6 @@
 
 import { Percent, Gift, DollarSign, Bot, Globe, BarChart3, Zap } from "lucide-react";
 import {
-  PRO_LEAD_DISCOUNT_PCT,
-  PRO_DEPOSIT_BOOST_PTS,
   COLD_START_FREE_ALERTS,
 } from "@/lib/constants";
 
@@ -60,36 +58,18 @@ export type Perk = { title: string; body: string; icon?: PerkIcon };
 // single element landing in the page's Flight row. Nothing here reads the
 // clock, a request, or the locale.
 export const PERKS: Perk[] = [
-  {
-    icon: "percent",
-    // "apply fee", not "every lead fee": the discount applies to board
-    // applications only (apply_to_lead, 0149). Direct-request unlocks carry
-    // no member discount (0104), and a free trial does not qualify
-    // (is_pro_member is active-only since 0151), so the old unqualified
-    // "every lead fee" headline overstated on both counts. The 2026-08-30
-    // monetization audit flagged it; stated honestly now.
-    title: `${PRO_LEAD_DISCOUNT_PCT}% off apply fees`,
-    // Owner's words: "it does NOT stack with the 15-30%. More incentive to
-    // buy." Stated here exactly that plainly, first in the list: it is the
-    // most direct incentive to subscribe, priced against the same fee a
-    // non-member pays on the leads board. Mirrors apply_to_lead's
-    // pro_lead_fee_cents (migration 0149) and bestLeadDiscount in
-    // src/lib/leadPricing.ts.
-    body: `Every board application's fee drops ${PRO_LEAD_DISCOUNT_PCT}% while your membership is active (the free trial does not count yet, and direct-request unlocks are not discounted). It never stacks with a listing's own aging markdown (15-30% off unclaimed jobs) - you always get whichever discount is bigger, never both added together.`,
-  },
-  {
-    icon: "gift",
-    title: "$10 lead credit every month",
-    // Mirrors grant_membership_credit in the Stripe webhook: monthly grants
-    // are $10 with a 60-day expiry, yearly is $120 up front with a 400-day
-    // expiry (it outlives the year). Keep this copy in sync with those terms.
-    body: "Each monthly billing cycle drops $10 of bonus lead credit into your wallet, good for 60 days from the day it lands. On the yearly plan the whole $120 lands up front and stays spendable for your entire year.",
-  },
-  {
-    icon: "dollar",
-    title: `+${PRO_DEPOSIT_BOOST_PTS}% on every deposit`,
-    body: `Every wallet deposit earns an extra ${PRO_DEPOSIT_BOOST_PTS} percentage points of bonus credit, on top of the regular tier bonus.`,
-  },
+  // THREE PERKS STOOD HERE AND ALL THREE ARE NOW FALSE (removed 2026-09-26):
+  //   - "N% off apply fees": applying is free (migration 0172), so there is
+  //     no fee left to discount.
+  //   - "$10 lead credit every month": there is no wallet to drop it into
+  //     and no lead fee for it to pay.
+  //   - "+N% on every deposit": deposits are gone with the deposit form.
+  //
+  // Selling a discount on a fee nobody pays is worse than a shorter list.
+  // NOTE FOR WHOEVER PRICES THIS: the membership is down to four perks, and
+  // while COLD_START_FREE_ALERTS is on, "Instant job alerts" is free for
+  // everyone too - so it is really three. That is a pricing question, not a
+  // copy one.
   {
     icon: "bot",
     title: "AI back office",

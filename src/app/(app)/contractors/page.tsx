@@ -63,6 +63,10 @@ import {
   PREVIEW_POST_JOB_INTRO,
 } from "@/lib/previewMode";
 import { JOB_UPDATE_KIND, leadIdFromJobUrl } from "@/lib/jobUpdates";
+import {
+  openJobsSummary,
+  liveApplicantsByLead,
+} from "@/lib/openJobsSummary";
 
 // Must match the markers LeadChat posts when either side closes a thread.
 //
@@ -358,6 +362,11 @@ export default async function ContractorsPage(
   // Applications on the owner's jobs, with each applying pro's public info.
   // lead_applications isn't in the generated types yet, so query via any.
   const appsByLead = new Map<string, any[]>();
+  // Defaults to the count-only wording, so a failed applications read degrades
+  // to exactly what this strip said before rather than to silence.
+  let jobsSummary = openJobsSummary(
+    leads as { id: string; contractor_id?: string | null }[]
+  );
   // The issue behind each job, if any (a lead posted straight from Issues
   // carries issue_id; one typed with no issue link has none). Feeds
   // firstPhotoByLead below - RB wave, CR4#2. ReviewButton currently accepts
@@ -418,6 +427,16 @@ export default async function ContractorsPage(
       list.push(a);
       appsByLead.set(a.lead_id, list);
     }
+
+    // The strip at the top of this page says how many pros are waiting, using
+    // the same helper the dashboard card uses so the two can never disagree
+    // (src/lib/openJobsSummary.ts). Computed here rather than beside
+    // openJobsCount above because the applications only arrive in this second
+    // wave - and read off the rows already fetched, so it costs no query.
+    jobsSummary = openJobsSummary(
+      leads as { id: string; contractor_id?: string | null }[],
+      liveApplicantsByLead((apps ?? []) as any[])
+    );
 
     // First photo per issue, then mapped onto every lead that issue backs -
     // this page's own photo grid (ExistingJobPhotos) already treats "first
@@ -535,8 +554,11 @@ export default async function ContractorsPage(
             href="/contractors/jobs"
             className="focus-ring mb-4 flex min-h-11 items-center justify-between gap-3 rounded-xl border border-stone-200 bg-white px-3 py-2 shadow-sm dark:border-white/10 dark:bg-stone-800"
           >
+            {/* "3 pros applied" whenever anyone has, else "1 open job".
+                The applicant count is the half that changes between visits,
+                and the only one worth interrupting the posting form for. */}
             <span className="text-sm font-medium text-stone-900 dark:text-stone-100">
-              {openJobsCount} open job{openJobsCount === 1 ? "" : "s"}
+              {jobsSummary.label}
             </span>
             <span className="flex shrink-0 items-center gap-0.5 text-sm font-medium text-bark-700 dark:text-stone-300">
               View

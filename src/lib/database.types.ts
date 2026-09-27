@@ -1045,6 +1045,9 @@ export interface Database {
           line_items: QuoteLineItem[];
           note: string | null;
           status: string;
+          // Migration 0174: stamped by trigger when status first becomes
+          // 'accepted'. The agreement moment an invoice pre-fills from.
+          accepted_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -1056,6 +1059,7 @@ export interface Database {
           line_items?: QuoteLineItem[];
           note?: string | null;
           status?: string;
+          accepted_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -1077,6 +1081,24 @@ export interface Database {
           signature_method: string | null;
           created_at: string;
           updated_at: string;
+          // Migration 0174: what was sent, the fee frozen at send, Stripe
+          // delivery, settlement and refunds. All nullable or defaulted.
+          quote_id: string | null;
+          kind: string;
+          memo: string | null;
+          due_at: string | null;
+          fee_rate_bps: number | null;
+          fee_cents: number | null;
+          livemode: boolean | null;
+          stripe_customer_id: string | null;
+          stripe_invoice_id: string | null;
+          hosted_invoice_url: string | null;
+          stripe_payment_intent_id: string | null;
+          stripe_application_fee_id: string | null;
+          amount_paid_cents: number | null;
+          paid_at: string | null;
+          refunded_cents: number;
+          fee_refunded_cents: number;
         };
         Insert: {
           id?: string;
@@ -1092,6 +1114,22 @@ export interface Database {
           signature_method?: string | null;
           created_at?: string;
           updated_at?: string;
+          quote_id?: string | null;
+          kind?: string;
+          memo?: string | null;
+          due_at?: string | null;
+          fee_rate_bps?: number | null;
+          fee_cents?: number | null;
+          livemode?: boolean | null;
+          stripe_customer_id?: string | null;
+          stripe_invoice_id?: string | null;
+          hosted_invoice_url?: string | null;
+          stripe_payment_intent_id?: string | null;
+          stripe_application_fee_id?: string | null;
+          amount_paid_cents?: number | null;
+          paid_at?: string | null;
+          refunded_cents?: number;
+          fee_refunded_cents?: number;
         };
         Update: Partial<Database["public"]["Tables"]["invoices"]["Insert"]>;
         Relationships: [];

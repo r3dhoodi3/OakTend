@@ -25,8 +25,7 @@ export default async function ProFeedbackPage() {
           {FEEDBACK_CARD_TITLE}
         </h1>
         <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-          {FEEDBACK_WHAT_COUNTS} Credit is bonus credit: it pays lead fees, it
-          is not cash and it does not pay for a membership.
+          {FEEDBACK_WHAT_COUNTS}
         </p>
       </div>
 

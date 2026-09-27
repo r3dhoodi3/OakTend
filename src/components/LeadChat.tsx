@@ -1,6 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  INVOICE_BLOCK_COPY,
+  INVOICE_DUE_DAYS,
+  INVOICE_DUE_DAYS_DEFAULT,
+  INVOICE_KINDS,
+  INVOICE_KIND_LABEL,
+  INVOICE_MEMO_MAX,
+  invoiceSendBlock,
+  type InvoiceKind,
+  type InvoiceSendBlock,
+  type InvoiceSendOutcome,
+} from "@/lib/invoiceGate";
+import { feeRateLabel, platformFeeCents, proReceivesEstimate } from "@/lib/platformFee";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Image as ImageIcon } from "lucide-react";
@@ -46,11 +59,22 @@ type Invoice = {
   line_items: InvoiceLineItem[];
   subtotal_cents: number;
   total_cents: number;
-  status: "sent" | "signed" | "void";
+  status: "sent" | "signed" | "void" | "paid" | "refunded" | "disputed";
   signed_at: string | null;
   signed_by: string | null;
   signature_method: "in_app" | "in_person" | null;
   created_at: string;
+  // Migration 0174. All optional so a database that has not run it (the
+  // fallback select in load()) still renders every card exactly as before.
+  kind?: string | null;
+  memo?: string | null;
+  due_at?: string | null;
+  fee_rate_bps?: number | null;
+  fee_cents?: number | null;
+  stripe_invoice_id?: string | null;
+  hosted_invoice_url?: string | null;
+  paid_at?: string | null;
+  amount_paid_cents?: number | null;
 };
 
 // A quote, an invoice, or a message, merged into one feed and shown in
@@ -68,6 +92,31 @@ const isQuoteCompanionBody = (body: string) => body.startsWith("Sent a quote:");
 // Same idea as isQuoteCompanionBody, for the companion message a sent
 // invoice posts alongside itself (see createInvoiceAction).
 const isInvoiceCompanionBody = (body: string) => body.startsWith("Sent an invoice:");
+
+// The 0064 invoice columns, the list every database has.
+const INVOICE_COLUMNS_0064 =
+  "id, contractor_id, line_items, subtotal_cents, total_cents, status, signed_at, signed_by, signature_method, created_at";
+
+// What the composer says when the send action refuses. The two gates reuse
+// their own titles so the pro reads the same words here and on the card.
+const INVOICE_SEND_FAIL_COPY: Record<
+  Extract<InvoiceSendOutcome, { ok: false }>["reason"],
+  string
+> = {
+  payouts: `${INVOICE_BLOCK_COPY.payouts.title}.`,
+  licence: `${INVOICE_BLOCK_COPY.licence.title}.`,
+  preview: "Invoices are switched off in preview mode.",
+  invalid: "That invoice couldn't be read. Check the line items and try again.",
+  limit: "You've sent a lot of quotes and invoices this hour. Try again a little later.",
+  failed: "The invoice could not be sent. Please try again.",
+};
+
+const INVOICE_DUE_LABEL: Record<number, string> = {
+  3: "In 3 days",
+  7: "In a week",
+  14: "In 2 weeks",
+  30: "In 30 days",
+};
 
 // One-tap status texts for a pro mid-job (CR5#2): the most common thing a
 // contractor types into an active job thread, ready to send with one more
@@ -156,6 +205,9 @@ export default function LeadChat({
   createInvoiceAction,
   voidInvoiceAction,
   signInvoiceAction,
+  resendInvoiceAction,
+  invoiceFeeRateBps,
+  invoiceGateFacts,
 }: {
   leadId: string;
   role: "homeowner" | "contractor";
@@ -172,9 +224,16 @@ export default function LeadChat({
   withdrawQuoteAction?: (formData: FormData) => Promise<void>;
   acceptQuoteAction?: (formData: FormData) => Promise<void>;
   declineQuoteAction?: (formData: FormData) => Promise<void>;
-  createInvoiceAction?: (formData: FormData) => Promise<void>;
+  createInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
   voidInvoiceAction?: (formData: FormData) => Promise<void>;
   signInvoiceAction?: (formData: FormData) => Promise<void>;
+  resendInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
+  // The pro's rate right now (300 or 500 bps), for the composer's preview.
+  // The server freezes the real one on send; this only predicts it.
+  invoiceFeeRateBps?: number;
+  // What the send action will check, so the composer can say so before the
+  // pro types up an invoice that cannot go out.
+  invoiceGateFacts?: { connectReady: boolean; licenceVerified: boolean };
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(embedded);
@@ -197,6 +256,11 @@ export default function LeadChat({
     { description: string; amount: string }[]
   >([{ description: "", amount: "" }]);
   const [invoiceBusy, setInvoiceBusy] = useState(false);
+  const [invoiceKind, setInvoiceKind] = useState<InvoiceKind>("full");
+  const [invoiceDueDays, setInvoiceDueDays] = useState<number>(INVOICE_DUE_DAYS_DEFAULT);
+  const [invoiceMemo, setInvoiceMemo] = useState("");
+  const [resendingId, setResendingId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const [confirmVoidId, setConfirmVoidId] = useState<string | null>(null);
   const [filtered, setFiltered] = useState(false);
   const [tooLong, setTooLong] = useState(false);
@@ -286,16 +350,25 @@ export default function LeadChat({
       .order("created_at", { ascending: true });
     if (!quoteErr) setQuotes((quoteData ?? []) as unknown as Quote[]);
 
-    // Invoices sent in this thread. Same "keep optimistic state if the table
-    // isn't set up yet" behavior as the quotes fetch above.
-    const { data: invoiceData, error: invoiceErr } = await supabase
+    // Invoices sent in this thread. The 0174 columns first; on a database
+    // that has not run 0174 the WHOLE select fails (42703), so fall back to
+    // the 0064 list rather than leaving the thread without its invoices. A
+    // second failure keeps optimistic state, same as the quotes fetch above.
+    const wide = await supabase
       .from("invoices")
       .select(
-        "id, contractor_id, line_items, subtotal_cents, total_cents, status, signed_at, signed_by, signature_method, created_at"
+        `${INVOICE_COLUMNS_0064}, kind, memo, due_at, fee_rate_bps, fee_cents, stripe_invoice_id, hosted_invoice_url, paid_at, amount_paid_cents`
       )
       .eq("lead_id", leadId)
       .order("created_at", { ascending: true });
-    if (!invoiceErr) setInvoices((invoiceData ?? []) as unknown as Invoice[]);
+    const invoiceRes = wide.error
+      ? await supabase
+          .from("invoices")
+          .select(INVOICE_COLUMNS_0064)
+          .eq("lead_id", leadId)
+          .order("created_at", { ascending: true })
+      : wide;
+    if (!invoiceRes.error) setInvoices((invoiceRes.data ?? []) as unknown as Invoice[]);
 
     // Reactions. If the table isn't set up yet, keep whatever's on screen
     // (optimistic) instead of wiping it.
@@ -527,6 +600,13 @@ export default function LeadChat({
     );
     return items;
   }, [messages, quotes, invoices]);
+
+  // The accepted quote, if any: the agreement the invoice pre-fills from and
+  // is linked to on send (invoices.quote_id).
+  const acceptedQuoteId = useMemo(() => {
+    const accepted = quotes.filter((q) => q.status === "accepted");
+    return accepted.length ? accepted[accepted.length - 1].id : null;
+  }, [quotes]);
 
   // A price the conversation has already agreed on, used to prefill the
   // invoice composer so the pro isn't retyping something already settled.
@@ -1160,6 +1240,23 @@ export default function LeadChat({
     (r) => r.description.trim() === "" && (dollarsToCents(r.amount) ?? 0) > 0
   );
 
+  // The composer's gate and preview. The server decides both for real on
+  // send (src/app/pro/chats/actions.ts); these only tell the pro what it
+  // will say, so a blocked invoice is not typed up first.
+  const invoiceBlock: InvoiceSendBlock | null = invoiceGateFacts
+    ? invoiceSendBlock({ ...invoiceGateFacts, totalCents: invoicePreviewCents })
+    : null;
+  const invoiceRateBps = invoiceFeeRateBps ?? 500;
+  const invoiceFeePreviewCents = platformFeeCents(invoicePreviewCents, invoiceRateBps);
+  const invoiceFeeAtMinimum =
+    invoicePreviewCents > 0 &&
+    (invoicePreviewCents * invoiceRateBps) / 10_000 < invoiceFeePreviewCents;
+  const invoiceReceives = proReceivesEstimate(
+    invoicePreviewCents,
+    invoiceFeePreviewCents,
+    "card"
+  );
+
   async function submitInvoice(e: React.FormEvent) {
     e.preventDefault();
     if (!createInvoiceAction) return;
@@ -1172,14 +1269,28 @@ export default function LeadChat({
       fd.append("description", r.description.trim());
       fd.append("amount", r.amount);
     }
-    // createInvoiceAction returns void on success AND on every failure path,
-    // so confirm the send by looking for an invoice row we did not already
-    // know about, same trick submitQuote uses above.
+    fd.set("kind", invoiceKind);
+    fd.set("due_days", String(invoiceDueDays));
+    if (invoiceMemo.trim()) fd.set("memo", invoiceMemo.trim());
+    // The accepted quote this was pre-filled from, while the total still
+    // matches it: the server links the two as a record, nothing more.
+    if (acceptedQuoteId && detectedInvoiceAmountCents === invoicePreviewCents) {
+      fd.set("quote_id", acceptedQuoteId);
+    }
+    // The action reports its outcome, so a refusal can say why. An older
+    // build returned void; that is still confirmed the old way, by looking
+    // for an invoice row we did not already know about.
     const knownIds = new Set(invoices.map((i) => i.id));
+    let outcome: InvoiceSendOutcome | null = null;
     let sent = false;
     try {
-      await createInvoiceAction(fd);
-      sent = await verifyNewRow("invoices", knownIds);
+      const r = await createInvoiceAction(fd);
+      if (r && typeof r === "object" && "ok" in r) {
+        outcome = r;
+        sent = r.ok;
+      } else {
+        sent = await verifyNewRow("invoices", knownIds);
+      }
     } catch {
       sent = false;
     } finally {
@@ -1188,11 +1299,73 @@ export default function LeadChat({
     if (sent) {
       setShowInvoiceForm(false);
       setInvoiceRows([{ description: "", amount: "" }]);
+      setInvoiceKind("full");
+      setInvoiceDueDays(INVOICE_DUE_DAYS_DEFAULT);
+      setInvoiceMemo("");
+      if (outcome && outcome.ok && !outcome.delivered) {
+        setNotice(
+          "Invoice saved to the chat, but the pay link couldn't be created yet. Tap Retry delivery on the invoice."
+        );
+        setTimeout(() => setNotice(null), 8000);
+      }
     } else {
-      setNotice("The invoice could not be sent. Please try again.");
-      setTimeout(() => setNotice(null), 5000);
+      setNotice(
+        outcome && !outcome.ok
+          ? INVOICE_SEND_FAIL_COPY[outcome.reason]
+          : "The invoice could not be sent. Please try again."
+      );
+      setTimeout(() => setNotice(null), 6000);
     }
     load();
+  }
+
+  // "Resend email" on a delivered invoice, "Retry delivery" on one whose pay
+  // link never got made. Same action either way; the server tells them apart.
+  async function resendInvoice(invoiceId: string) {
+    if (!resendInvoiceAction) return;
+    setResendingId(invoiceId);
+    const fd = new FormData();
+    fd.set("invoice_id", invoiceId);
+    let ok = false;
+    try {
+      const r = await resendInvoiceAction(fd);
+      ok = !!(r && typeof r === "object" && "ok" in r && r.ok);
+    } catch {
+      ok = false;
+    } finally {
+      setResendingId(null);
+    }
+    setNotice(ok ? "Sent." : "Couldn't send it just now. Please try again.");
+    setTimeout(() => setNotice(null), 4000);
+    load();
+  }
+
+  async function copyInvoiceLink(invoice: Invoice) {
+    if (!invoice.hosted_invoice_url) return;
+    try {
+      await navigator.clipboard.writeText(invoice.hosted_invoice_url);
+      setCopiedId(invoice.id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      setNotice("Couldn't copy. Long-press the Pay link to copy it.");
+      setTimeout(() => setNotice(null), 4000);
+    }
+  }
+
+  // On a phone this opens the share sheet (Messages, WhatsApp, Mail...), so
+  // "text them the invoice" is one tap. Elsewhere it copies the link.
+  async function shareInvoiceLink(invoice: Invoice) {
+    if (!invoice.hosted_invoice_url) return;
+    const text = `Invoice from ${contractorName || "your pro"}: ${formatUSDCents(invoice.total_cents)}`;
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title: text, text, url: invoice.hosted_invoice_url });
+        return;
+      } catch {
+        // Cancelled, or the payload was refused: fall through to copy.
+      }
+    }
+    await copyInvoiceLink(invoice);
   }
 
   async function voidInvoice(invoiceId: string) {
@@ -1387,6 +1560,13 @@ export default function LeadChat({
                   onAskVoid={() => setConfirmVoidId(item.data.id)}
                   onCancelVoid={() => setConfirmVoidId(null)}
                   onVoid={() => voidInvoice(item.data.id)}
+                  onResend={
+                    resendInvoiceAction ? () => resendInvoice(item.data.id) : undefined
+                  }
+                  resending={resendingId === item.data.id}
+                  onCopyLink={() => copyInvoiceLink(item.data)}
+                  onShareLink={() => shareInvoiceLink(item.data)}
+                  copied={copiedId === item.data.id}
                   onSignInApp={
                     signInvoiceAction
                       ? (name) => signInvoice(item.data.id, "in_app", name)
@@ -1783,17 +1963,105 @@ export default function LeadChat({
               >
                 + Add line item
               </button>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <label className="block text-xs text-stone-500 dark:text-stone-400">
+                  This invoice is for
+                  <select
+                    className="input mt-1 w-full"
+                    value={invoiceKind}
+                    onChange={(e) => setInvoiceKind(e.target.value as InvoiceKind)}
+                  >
+                    {INVOICE_KINDS.map((k) => (
+                      <option key={k} value={k}>
+                        {INVOICE_KIND_LABEL[k]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="block text-xs text-stone-500 dark:text-stone-400">
+                  Due
+                  <select
+                    className="input mt-1 w-full"
+                    value={invoiceDueDays}
+                    onChange={(e) => setInvoiceDueDays(Number(e.target.value))}
+                  >
+                    {INVOICE_DUE_DAYS.map((d) => (
+                      <option key={d} value={d}>
+                        {INVOICE_DUE_LABEL[d] ?? `In ${d} days`}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <input
+                className="input w-full"
+                placeholder="A note on the invoice (optional)"
+                maxLength={INVOICE_MEMO_MAX}
+                value={invoiceMemo}
+                onChange={(e) => setInvoiceMemo(e.target.value)}
+              />
               {hasUnlabeledInvoiceAmount && (
                 <p className="text-xs text-amber-600 dark:text-amber-400">
                   Every line item with an amount needs a description, or it
                   will not be part of the invoice.
                 </p>
               )}
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-semibold text-stone-900 dark:text-stone-100">
-                  Total: {formatUSDCents(invoicePreviewCents)}
-                </span>
-                <div className="flex gap-2">
+              {/* What the pro actually receives. OakTend's cut at their rate,
+                  then Stripe's processing (the pro pays it on a direct
+                  charge), so the first payout matches what they were told.
+                  The homeowner never sees any of this - they pay the total. */}
+              {invoicePreviewCents > 0 && (
+                <div className="space-y-1 rounded-md bg-white px-3 py-2 text-xs text-stone-600 dark:bg-stone-900/40 dark:text-stone-300">
+                  <div className="flex justify-between gap-2">
+                    <span>Invoice total</span>
+                    <span className="font-semibold text-stone-900 dark:text-stone-100">
+                      {formatUSDCents(invoicePreviewCents)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between gap-2">
+                    <span>
+                      OakTend {feeRateLabel(invoiceRateBps)}
+                      {invoiceRateBps === 300 ? " (member rate)" : ""}
+                      {invoiceFeeAtMinimum ? " · $15 minimum" : ""}
+                    </span>
+                    <span>− {formatUSDCents(invoiceFeePreviewCents)}</span>
+                  </div>
+                  <div className="flex justify-between gap-2">
+                    <span>Stripe processing (est., paid by card)</span>
+                    <span>
+                      − {formatUSDCents(
+                        invoiceReceives.stripeProcessingCents + invoiceReceives.stripeInvoicingCents
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between gap-2 border-t border-stone-100 pt-1 font-semibold text-stone-900 dark:border-white/10 dark:text-stone-100">
+                    <span>You receive about</span>
+                    <span>{formatUSDCents(invoiceReceives.receivesCents)}</span>
+                  </div>
+                  <p className="text-[11px] text-stone-500 dark:text-stone-400">
+                    Paid by bank debit, Stripe&apos;s cut is smaller. The homeowner sees the total only.
+                  </p>
+                </div>
+              )}
+              {invoiceBlock ? (
+                <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+                  <p className="font-semibold">{INVOICE_BLOCK_COPY[invoiceBlock].title}</p>
+                  <p className="mt-1">{INVOICE_BLOCK_COPY[invoiceBlock].body}</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Link href={INVOICE_BLOCK_COPY[invoiceBlock].href} className="btn-primary text-sm">
+                      {INVOICE_BLOCK_COPY[invoiceBlock].cta}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setShowInvoiceForm(false)}
+                      className="btn-secondary text-sm"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setShowInvoiceForm(false)}
@@ -1810,10 +2078,10 @@ export default function LeadChat({
                     }
                     className="btn-primary text-sm disabled:opacity-50"
                   >
-                    Send invoice
+                    {invoiceBusy ? "Sending…" : "Send invoice"}
                   </button>
                 </div>
-              </div>
+              )}
             </form>
           ) : (
             <div className="flex flex-wrap gap-3">
@@ -1834,7 +2102,7 @@ export default function LeadChat({
                   // Phone only: same ~20px problem as "Send a quote".
                   className="text-sm font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
                 >
-                  Create invoice from this chat
+                  Send an invoice
                 </button>
               )}
             </div>
@@ -2217,13 +2485,22 @@ const INVOICE_STATUS_LABEL: Record<Invoice["status"], string> = {
   sent: "Sent",
   signed: "Signed",
   void: "Void",
+  paid: "Paid",
+  refunded: "Refunded",
+  disputed: "Disputed",
 };
 
 const INVOICE_STATUS_PILL_CLASS: Record<Invoice["status"], string> = {
   sent: "bg-bark-50 text-bark-700 dark:bg-bark-700/40 dark:text-stone-300",
   signed: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200",
   void: "bg-stone-200 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
+  paid: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200",
+  refunded: "bg-stone-200 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
+  disputed: "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-200",
 };
+
+// An invoice the homeowner can still pay: sent, or signed but not yet paid.
+const isPayable = (status: Invoice["status"]) => status === "sent" || status === "signed";
 
 // An invoice, rendered inline in the thread wherever it falls by created_at.
 // Homeowner gets "Sign invoice" on a 'sent' invoice (in-app typed acceptance
@@ -2239,6 +2516,11 @@ function InvoiceCard({
   onAskVoid,
   onCancelVoid,
   onVoid,
+  onResend,
+  resending,
+  onCopyLink,
+  onShareLink,
+  copied,
   onSignInApp,
   onSignInPerson,
 }: {
@@ -2250,6 +2532,11 @@ function InvoiceCard({
   onAskVoid: () => void;
   onCancelVoid: () => void;
   onVoid: () => void;
+  onResend?: () => void;
+  resending?: boolean;
+  onCopyLink?: () => void;
+  onShareLink?: () => void;
+  copied?: boolean;
   onSignInApp?: (typedName: string) => void;
   onSignInPerson?: () => void;
 }) {
@@ -2294,6 +2581,117 @@ function InvoiceCard({
             {formatUSDCents(invoice.total_cents)}
           </span>
         </div>
+
+        {/* What kind of invoice, when it is due, the pro's note. Only the
+            0174 rows carry these; older cards stay exactly as they were. */}
+        {(invoice.kind && invoice.kind !== "full") || invoice.due_at || invoice.memo ? (
+          <div className="mt-2 space-y-0.5 text-xs text-stone-500 dark:text-stone-400">
+            {invoice.kind && invoice.kind !== "full" && (
+              <p>{INVOICE_KIND_LABEL[invoice.kind as InvoiceKind] ?? invoice.kind}</p>
+            )}
+            {invoice.due_at && isPayable(invoice.status) && (
+              <p>Due {new Date(invoice.due_at).toLocaleDateString()}</p>
+            )}
+            {invoice.memo && <p className="italic">&ldquo;{invoice.memo}&rdquo;</p>}
+          </div>
+        ) : null}
+
+        {/* The pro's side of the money: OakTend's frozen cut and roughly what
+            lands after Stripe. Never shown to the homeowner. */}
+        {mine && invoice.fee_cents != null && invoice.status !== "void" && (
+          <p className="mt-2 text-[11px] text-stone-500 dark:text-stone-400">
+            OakTend fee {formatUSDCents(invoice.fee_cents)}
+            {invoice.fee_rate_bps ? ` (${feeRateLabel(invoice.fee_rate_bps)})` : ""} · after Stripe you
+            receive about{" "}
+            {formatUSDCents(
+              proReceivesEstimate(invoice.total_cents, invoice.fee_cents, "card").receivesCents
+            )}
+          </p>
+        )}
+
+        {/* Homeowner: pay on Stripe's hosted page, in the pro's name. */}
+        {role === "homeowner" && isPayable(invoice.status) && invoice.hosted_invoice_url && (
+          <div className="mt-3">
+            <a
+              href={invoice.hosted_invoice_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary block w-full text-center text-sm"
+            >
+              Pay {formatUSDCents(invoice.total_cents)}
+            </a>
+            <p className="mt-1 text-center text-[11px] text-stone-500 dark:text-stone-400">
+              Card, Apple Pay, Google Pay or bank. Handled by Stripe.
+            </p>
+          </div>
+        )}
+
+        {/* Pro: hand the homeowner the same link any way they like, or make
+            the link if the send never reached Stripe. */}
+        {mine && isPayable(invoice.status) && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+            {invoice.hosted_invoice_url ? (
+              <>
+                <button
+                  type="button"
+                  onClick={onCopyLink}
+                  className="text-xs font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm"
+                >
+                  {copied ? "Copied" : "Copy pay link"}
+                </button>
+                <button
+                  type="button"
+                  onClick={onShareLink}
+                  className="text-xs font-medium text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm"
+                >
+                  Share
+                </button>
+                {onResend && (
+                  <button
+                    type="button"
+                    onClick={onResend}
+                    disabled={resending}
+                    className="text-xs font-medium text-bark-700 hover:underline disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm"
+                  >
+                    {resending ? "Sending…" : "Resend email"}
+                  </button>
+                )}
+              </>
+            ) : invoice.fee_cents != null && onResend ? (
+              <>
+                <span className="text-xs text-amber-700 dark:text-amber-300">
+                  Pay link not created yet.
+                </span>
+                <button
+                  type="button"
+                  onClick={onResend}
+                  disabled={resending}
+                  className="text-xs font-semibold text-bark-700 hover:underline disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm"
+                >
+                  {resending ? "Working…" : "Retry delivery"}
+                </button>
+              </>
+            ) : null}
+          </div>
+        )}
+
+        {invoice.status === "paid" && (
+          <p className="mt-3 rounded-md bg-green-50 px-2 py-1.5 text-xs text-green-700 dark:bg-green-950/40 dark:text-green-200">
+            Paid
+            {invoice.paid_at && ` on ${new Date(invoice.paid_at).toLocaleDateString()}`} through
+            OakTend.
+          </p>
+        )}
+        {invoice.status === "refunded" && (
+          <p className="mt-3 rounded-md bg-stone-100 px-2 py-1.5 text-xs text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+            This invoice was refunded.
+          </p>
+        )}
+        {invoice.status === "disputed" && (
+          <p className="mt-3 rounded-md bg-red-50 px-2 py-1.5 text-xs text-red-700 dark:bg-red-950/40 dark:text-red-200">
+            The payment on this invoice is being disputed.
+          </p>
+        )}
 
         {role === "homeowner" &&
           invoice.status === "sent" &&
