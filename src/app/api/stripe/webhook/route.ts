@@ -619,8 +619,12 @@ async function handleDepositReversal(
 }
 
 // Resolve a payment_intent id back to the Pro membership invoice it paid
-// (if any) and the contractor whose per-cycle wallet credit that invoice
-// earned (grant_membership_credit, migration 0034). The Charge object no
+// (if any) and the contractor it belongs to. This fed the refund clawback of
+// the per-cycle wallet credit (grant_membership_credit, 0034). Grants stopped
+// on 2026-09-26 - applying is free and the wallet UI is gone - so the
+// clawback below now finds nothing to reverse for any new cycle; it is left
+// in place because a refund of a cycle paid BEFORE that date can still carry
+// credit, and reversing zero is harmless. The Charge object no
 // longer carries an `invoice` field in this Stripe API version (Charges and
 // Invoices decoupled behind the newer Invoice Payments API), so the invoice
 // is looked up the supported way: list InvoicePayments by payment_intent and
@@ -1512,54 +1516,15 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "subscription upsert failed" }, { status: 500 });
       }
 
-      // First-cycle wallet credit. This event and the first
-      // invoice.payment_succeeded race each other, and the invoice branch
-      // below can only map an invoice to a user through the subscriptions row
-      // upserted above. Granting here too, keyed on the SAME invoice id, means
-      // the credit lands whichever event arrives first: the RPC's idempotency
-      // guard makes the loser a no-op.
-      //
-      // NOT during a free trial. A trial start still finalizes an invoice, for
-      // $0, and latest_invoice points at it - so granting off it would hand
-      // every trialer $10 of spendable lead credit before a cent had been
-      // charged, farmable by starting a trial and cancelling on day two. The
-      // credit is a perk of a PAID cycle: it lands when the trial converts and
-      // the first real invoice is paid (the invoice.payment_succeeded branch
-      // below, which now requires money to have actually moved).
-      try {
-        const plan = meta.plan ?? (interval ? `pro_${interval}` : null);
-        const latest = (subscription as any).latest_invoice;
-        const invoiceId = typeof latest === "string" ? latest : latest?.id ?? null;
-        // Positive check, not `!== "trialing"`: a negative gate lets through
-        // every OTHER not-yet-paid status too (incomplete, past_due), and only
-        // "active" actually means money moved. Nothing is lost by being strict
-        // here, because the invoice.payment_succeeded branch below grants the
-        // same credit off the same invoice id once the payment really lands.
-        if (
-          typeof plan === "string" &&
-          plan.startsWith("pro_") &&
-          invoiceId &&
-          subscription.status === "active"
-        ) {
-          const yearly = plan === "pro_yearly";
-          // Keyed off the plan, never the amount paid: the $9.99 intro first
-          // month still earns the full $10 on purpose.
-          const { error } = await (admin as any).rpc("grant_membership_credit", {
-            p_user: meta.user_id,
-            p_amount_cents: yearly ? 12000 : 1000,
-            p_period_key: invoiceId,
-            p_expiry_days: yearly ? 400 : 60,
-          });
-          // Graceful degradation: if migration 0034 isn't on the live DB yet,
-          // the RPC doesn't exist. The perk can wait; the membership can't.
-          if (error) {
-            console.error("grant_membership_credit failed:", error.message ?? error);
-          }
-        }
-      } catch (err) {
-        // The credit is a perk, the subscription is not: log and continue.
-        console.error("grant_membership_credit failed:", err);
-      }
+      // The first-cycle WALLET CREDIT grant stood here ($10 monthly / $120
+      // yearly, keyed on the invoice id so this event and the first
+      // invoice.payment_succeeded could race without double-granting).
+      // Removed 2026-09-26: applying is free (migration 0172) and the wallet
+      // UI is gone, so the credit would land in a table no page shows and
+      // nothing can spend - a subscriber paying for a perk that silently
+      // vanishes. The perks page no longer promises it either. The
+      // grant_membership_credit RPC (0034) still exists in the database and
+      // is simply no longer called.
 
       // Card fingerprint, for the trial-abuse score. This is the first moment
       // OakTend ever learns which physical card is behind an account, so it is
@@ -2245,7 +2210,7 @@ export async function POST(req: NextRequest) {
           console.error(
             "invoice.payment_succeeded: no subscriptions row for",
             subscriptionId,
-            "- skipping membership credit"
+            "- skipping card fingerprint"
           );
         }
 
@@ -2260,41 +2225,12 @@ export async function POST(req: NextRequest) {
             "invoice_paid"
           );
         }
-        if (subRow?.user_id && subRow?.plan?.startsWith("pro_")) {
-          // The amount comes from the interval on the PAID INVOICE's own
-          // lines, never the stored plan: on a portal plan switch the
-          // subscriptions row is only flipped by customer.subscription.updated,
-          // Stripe does not guarantee event ordering (see the race notes in
-          // the checkout branch), and the invoice-id idempotency key would
-          // lock a wrong stale-plan amount in forever. The stored plan stays
-          // as the gate above (Pro vs homeowner Plus) and as the fallback
-          // when no line carries a readable interval.
-          const lineInterval = invoiceLineInterval(invoice);
-          const yearly = lineInterval
-            ? lineInterval === "year"
-            : subRow.plan === "pro_yearly";
-          // Credit is keyed off the BILLING INTERVAL, never the amount paid:
-          // the $9.99 intro first month earns the full $10 on purpose, and
-          // the yearly price change didn't touch the $120. The invoice id is
-          // the idempotency key: Stripe retries and duplicate deliveries
-          // reuse it, while every new cycle mints a fresh one. A period-start
-          // YYYY-MM key would wrongly collapse two legitimate grants landing
-          // in the same month (e.g. a monthly-to-yearly switch) and depends
-          // on our own clock rendering; the invoice id does neither.
-          const { error } = await (admin as any).rpc("grant_membership_credit", {
-            p_user: subRow.user_id,
-            p_amount_cents: yearly ? 12000 : 1000,
-            p_period_key: invoice.id,
-            p_expiry_days: yearly ? 400 : 60,
-          });
-          // Graceful degradation: if migration 0034 isn't on the live DB yet,
-          // the RPC doesn't exist. Log and move on; never 500 over this.
-          if (error) {
-            console.error("grant_membership_credit failed:", error.message ?? error);
-          }
-        }
+        // The per-cycle wallet credit grant stood here too, keyed off the paid
+        // invoice's own billing interval. Gone for the same reason as the
+        // checkout-branch grant above (2026-09-26). The subscriptions read and
+        // the card fingerprint above are still needed and unchanged.
       } catch (err) {
-        console.error("grant_membership_credit failed:", err);
+        console.error("invoice.payment_succeeded: card fingerprint failed:", err);
       }
     }
   }
