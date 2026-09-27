@@ -174,13 +174,13 @@ export const brea: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city that requires Class A roofing on every reroof and caps a roof at two layers.",
+        "A sourced re-roof cost, shingle vs tile, in a city that requires Class A roofing on every reroof and caps a roof at two layers.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on blended water that tests at 13 to 14 grains per gallon.",
+        "What changes the price and when a repair is smarter, on blended water that tests at 13 to 14 grains per gallon.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",

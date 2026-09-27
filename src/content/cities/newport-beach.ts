@@ -146,19 +146,19 @@ export const newportBeach: CityContent = {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs, and why coil corrosion shortens equipment life this close to salt water.",
+        "What drives the price of a new system, and why coil corrosion shortens equipment life this close to salt water.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for roofs taking sun, salt and harbor humidity together.",
+        "A sourced re-roof cost, shingle vs tile, for roofs taking sun, salt and harbor humidity together.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on water around 13 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on water around 13 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

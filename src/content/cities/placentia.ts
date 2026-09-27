@@ -167,7 +167,7 @@ export const placentia: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on water that averages about 11 or about 20 grains per gallon depending on your supplier.",
+        "What changes the price and when a repair still makes sense, on water that averages about 11 or about 20 grains per gallon depending on your supplier.",
     },
     {
       href: "/guides/slab-leak-signs",
@@ -179,7 +179,7 @@ export const placentia: CityContent = {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs, for a city whose own safety element plans around heat waves above 99.8 degrees.",
+        "What drives the price of a full system, for a city whose own safety element plans around heat waves above 99.8 degrees.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

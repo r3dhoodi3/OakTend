@@ -175,19 +175,19 @@ export const alisoViejo: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for a city where half the roofs went on in the 1990s and the city's checklist allows no wood shake or shingles.",
+        "A sourced re-roof cost, shingle vs tile, for a city where half the roofs went on in the 1990s and the city's checklist allows no wood shake or shingles.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on imported water the district measures at 15.45 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on imported water the district measures at 15.45 grains per gallon.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a new system runs, for the original 1990s furnaces and condensers now at the end of their service life.",
+        "What drives the price of a new system, for the original 1990s furnaces and condensers now at the end of their service life.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

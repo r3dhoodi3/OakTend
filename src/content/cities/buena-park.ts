@@ -188,7 +188,7 @@ export const buenaPark: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on city water that averages 12 to 14 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on city water that averages 12 to 14 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

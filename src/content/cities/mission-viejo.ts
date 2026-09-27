@@ -128,13 +128,13 @@ export const missionViejo: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for tile roofs that reach the end of their run street by street.",
+        "A sourced re-roof cost, shingle vs tile, for tile roofs that reach the end of their run street by street.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical price range and when a repair still makes sense on hard South County water.",
+        "What changes the price and when a repair still makes sense on hard South County water.",
     },
     {
       href: "/guides/slab-leak-signs",

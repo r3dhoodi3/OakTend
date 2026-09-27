@@ -188,13 +188,13 @@ export const sealBeach: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city where the median home dates from 1966 and the city lists re-roofing as permit work.",
+        "A sourced re-roof cost, shingle vs tile, in a city where the median home dates from 1966 and the city lists re-roofing as permit work.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair makes sense, on a blend of 4 grain well water and 14 grain imported water.",
+        "What changes the price and when a repair makes sense, on a blend of 4 grain well water and 14 grain imported water.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",

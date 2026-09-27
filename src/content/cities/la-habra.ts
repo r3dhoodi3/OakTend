@@ -170,13 +170,13 @@ export const laHabra: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on supplies the city reports at about 13 to 16 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on supplies the city reports at about 13 to 16 grains per gallon.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs, in a city whose hazard plan ranks extreme heat second and whose permit page lists HVAC replacement as permit work.",
+        "What drives the price of a full system, in a city whose hazard plan ranks extreme heat second and whose permit page lists HVAC replacement as permit work.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

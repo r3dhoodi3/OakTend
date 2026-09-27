@@ -190,7 +190,7 @@ export const midwayCity: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on well water that tests from about 9 to nearly 15 grains per gallon depending on your supplier.",
+        "What changes the price and when a repair is smarter, on well water that tests from about 9 to nearly 15 grains per gallon depending on your supplier.",
     },
     {
       href: "/guides/slab-leak-signs",

@@ -129,19 +129,19 @@ export const tustin: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on city groundwater that averages about 22 grains per gallon.",
+        "What changes the price and when a repair is smarter, on city groundwater that averages about 22 grains per gallon.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for a city where the roof class depends on which district you are in.",
+        "A sourced re-roof cost, shingle vs tile, for a city where the roof class depends on which district you are in.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs, for Tustin Ranch homes reaching their second system and Legacy homes reaching their first.",
+        "What drives the price of a full system, for Tustin Ranch homes reaching their second system and Legacy homes reaching their first.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

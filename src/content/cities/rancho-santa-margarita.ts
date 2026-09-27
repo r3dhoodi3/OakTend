@@ -198,19 +198,19 @@ export const ranchoSantaMargarita: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city where most roofs are 30 to 40 years old and the municipal code requires Class A on every reroof.",
+        "A sourced re-roof cost, shingle vs tile, in a city where most roofs are 30 to 40 years old and the municipal code requires Class A on every reroof.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a new furnace and air conditioner run when the house dates from the 1980s or 1990s, as about 86 percent of homes here do.",
+        "What drives the price of a new furnace and air conditioner when the house dates from the 1980s or 1990s, as about 86 percent of homes here do.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on water that both local districts report at 14 to 17 grains per gallon.",
+        "What changes the price and when a repair is smarter, on water that both local districts report at 14 to 17 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

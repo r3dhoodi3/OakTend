@@ -172,19 +172,19 @@ export const lagunaNiguel: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, and why the underlayment under a 1980s tile roof matters in a city where embers got in under the tile.",
+        "A sourced re-roof cost, shingle vs tile, and why the underlayment under a 1980s tile roof matters in a city where embers got in under the tile.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on imported water the district measures at about 14 to 17 grains per gallon.",
+        "What changes the price and when a repair is smarter, on imported water the district measures at about 14 to 17 grains per gallon.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs for a house built around the 1986 median, and central AC versus a heat pump.",
+        "What drives the price of a full system for a house built around the 1986 median, and central AC versus a heat pump.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

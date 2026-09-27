@@ -201,13 +201,13 @@ export const lagunaBeach: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a town with a 1964 median build year where the fire department says most of the land is in a Very High fire zone.",
+        "A sourced re-roof cost, shingle vs tile, in a town with a 1964 median build year where the fire department says most of the land is in a Very High fire zone.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on water both districts report at roughly 12 to 17 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on water both districts report at roughly 12 to 17 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

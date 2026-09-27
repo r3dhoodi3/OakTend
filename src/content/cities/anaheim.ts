@@ -158,7 +158,7 @@ export const anaheim: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, and why the material question is a code question in the hills.",
+        "A sourced re-roof cost, shingle vs tile, and why the material question is a code question in the hills.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",
@@ -170,7 +170,7 @@ export const anaheim: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on some of the hardest water in the county.",
+        "What changes the price and when a repair is smarter, on some of the hardest water in the county.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

@@ -150,19 +150,19 @@ export const irvine: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "The most common first big replacement in a 2000s-built Irvine home, with the typical price range and when repair is still the smarter call.",
+        "The most common first big replacement in a 2000s-built Irvine home, with what changes the price and when repair is still the smarter call.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs, and central AC versus a heat pump, for homes reaching their first HVAC replacement.",
+        "What drives the price of a full system, and central AC versus a heat pump, for homes reaching their first HVAC replacement.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, useful when a whole village's original roofs come due within a few years of each other.",
+        "A sourced re-roof cost, shingle vs tile, useful when a whole village's original roofs come due within a few years of each other.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

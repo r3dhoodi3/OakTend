@@ -140,19 +140,19 @@ export const huntingtonBeach: CityContent = {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs, and why coil corrosion shortens equipment life closer to the water than it does inland.",
+        "What drives the price of a new system, and why coil corrosion shortens equipment life closer to the water than it does inland.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for roofs that take both sun and salt air on a 50-year-old tract home.",
+        "A sourced re-roof cost, shingle vs tile, for roofs that take both sun and salt air on a 50-year-old tract home.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical price range and when a repair still makes sense, on water hard enough to scale a tank early.",
+        "What changes the price and when a repair still makes sense, on water hard enough to scale a tank early.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
