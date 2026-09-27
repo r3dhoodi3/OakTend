@@ -33,6 +33,7 @@
 // used to be rendered on the server and is now rendered from plain props.
 
 import Link from "next/link";
+import type { InvoiceSendOutcome } from "@/lib/invoiceGate";
 import { Briefcase, ChevronRight } from "lucide-react";
 import AskOakTendRow from "@/components/AskOakTendRow";
 import ChatListTabs, { type ChatListTab } from "@/components/ChatListTabs";
@@ -127,7 +128,7 @@ export default function ChatsView({
   contractorName?: string;
   sendQuoteAction?: (formData: FormData) => Promise<void>;
   withdrawQuoteAction?: (formData: FormData) => Promise<void>;
-  createInvoiceAction?: (formData: FormData) => Promise<void>;
+  createInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
   voidInvoiceAction?: (formData: FormData) => Promise<void>;
 }) {
   // The Active / Closed split for the list tabs. `terminal` was classified on

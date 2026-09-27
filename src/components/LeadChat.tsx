@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { InvoiceSendOutcome } from "@/lib/invoiceGate";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Image as ImageIcon } from "lucide-react";
@@ -172,7 +173,7 @@ export default function LeadChat({
   withdrawQuoteAction?: (formData: FormData) => Promise<void>;
   acceptQuoteAction?: (formData: FormData) => Promise<void>;
   declineQuoteAction?: (formData: FormData) => Promise<void>;
-  createInvoiceAction?: (formData: FormData) => Promise<void>;
+  createInvoiceAction?: (formData: FormData) => Promise<InvoiceSendOutcome | void>;
   voidInvoiceAction?: (formData: FormData) => Promise<void>;
   signInvoiceAction?: (formData: FormData) => Promise<void>;
 }) {
