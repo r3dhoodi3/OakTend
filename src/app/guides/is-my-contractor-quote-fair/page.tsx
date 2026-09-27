@@ -10,6 +10,12 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // quote; no invented prices. Links to /quote-check (OakTend's AI Quote
 // Analyzer, gated behind sign-in / OakTend Plus, see src/app/(app)/quote-check)
 // as the natural next step once someone has an actual quote in hand.
+//
+// This page OWNS reading an estimate, including what section 7159 says the
+// contract must list. License and down payment rules belong to
+// /guides/contractor-deposit-rules-california: one clause and a link here.
+// No FAQPage JSON-LD since 2026-09-26: every old FAQ answer repeated a
+// section, so the section headings are the questions now.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -27,9 +33,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Is my contractor's quote fair? An Orange County guide";
+const TITLE = "Is my contractor's quote fair?";
 const DESCRIPTION =
-  "How to read a contractor's quote in Orange County: what California law requires in the contract, the deposit cap, red flags, and fair bidding.";
+  "How to read a contractor's quote in Orange County: what an itemized bid should show, red flags, the California contract rules, and how to compare bids.";
 const CANONICAL = `${SITE_URL}/guides/is-my-contractor-quote-fair`;
 
 export const metadata: Metadata = {
@@ -52,55 +58,14 @@ export const metadata: Metadata = {
   },
 };
 
-const FAQS = [
-  {
-    q: "What should a fair contractor quote include?",
-    a: "A fair quote itemizes materials separately from labor, specifies whether permits are included, describes the scope of work in specific terms rather than a single vague line, states a start and completion timeframe, and lays out a payment schedule tied to completed work rather than one lump sum upfront.",
-  },
-  {
-    q: "What are red flags in a contractor quote?",
-    a: "Watch for pressure to sign the same day, a demand for full payment before work starts, no license number you can verify, no business address or proof of insurance, vague line items like a single 'materials and labor' total, and a price far below every other bid with no explanation for the difference.",
-  },
-  {
-    q: "What does a fair bidding process look like?",
-    a: "Getting more than one quote for anything beyond a small repair, comparing itemized breakdowns rather than just the bottom line, confirming license and insurance independently, and having a written contract with a payment schedule tied to milestones, not just a handshake and a deposit.",
-  },
-  {
-    q: "Can OakTend tell me if my quote is fair?",
-    a: "OakTend's Quote analyzer reads a quote you upload or paste in, compares the total and each line item to typical costs, flags anything that looks padded, vague, or duplicated, and drafts a message you can send back if you want to negotiate.",
-  },
-  {
-    q: "What does California law require in a home improvement contract?",
-    a: "Under Business and Professions Code section 7159, a home improvement contract over $500 has to be in writing and include the contractor's name, business address, and license number, the approximate start and completion dates, and a schedule of progress payments. The same section says it is against the law for a contractor to collect payment for work not yet completed or materials not yet delivered, apart from the down payment, which section 7159.5 caps at $1,000 or 10 percent of the contract price, whichever is less.",
-  },
-];
-
-function buildFaqJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: f.a,
-      },
-    })),
-  };
-}
+const linkClass =
+  "text-bark-700 underline hover:no-underline dark:text-stone-300";
 
 export default function IsMyContractorQuoteFairGuide() {
   return (
     <main className="mx-auto max-w-2xl px-6 pb-16 pt-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildFaqJsonLd()).replace(/</g, "\\u003c"),
-        }}
-      />
-      {/* Article node beside the FAQ one. Dates come from src/lib/guides.ts,
-          the same map the sitemap reads <lastmod> from. */}
+      {/* Article node. Dates come from src/lib/guides.ts, the same map the
+          sitemap reads <lastmod> from. */}
       <GuideArticleJsonLd
         path="/guides/is-my-contractor-quote-fair"
         headline={TITLE}
@@ -133,97 +98,86 @@ export default function IsMyContractorQuoteFairGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/is-my-contractor-quote-fair" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        How to read any home repair or improvement quote, with the California
-        rules that apply in Orange County.
-      </p>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How to read a quote
+            What should a fair quote include?
           </h2>
           <p className="mt-2 leading-relaxed">
             Start with whether it&apos;s itemized. A fair quote breaks out
-            materials from labor rather than handing you a single total, so
-            you can see what you&apos;re actually paying for each. It should say
-            plainly whether permits are included in the price or billed
-            separately, and if the job requires one, whether the contractor
-            is pulling it. Look for a specific description of the work, not a
-            generic line like &quot;repair as needed,&quot; along with a realistic
-            start date and estimated completion window, and a payment
-            schedule that ties payments to stages of completed work instead
-            of asking for everything upfront.
+            materials from labor rather than handing you one total. It says
+            whether permits are in the price and, if the job needs one,
+            whether the contractor is pulling it. It describes the work in
+            specific terms, not &quot;repair as needed,&quot; gives a start date
+            and a completion window, and ties payments to stages of finished
+            work.
           </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">Red flags</h2>
           <p className="mt-2 leading-relaxed">
-            Be cautious of pressure to sign the same day the quote is given,
-            or a demand for full payment before any work begins. A
-            contractor who can&apos;t or won&apos;t give you a license number, business
-            address, or proof of insurance is a red flag on its own. So are
-            vague line items that lump everything into one number, and a
-            price that comes in far below every other bid with no clear
-            reason, since it often means something gets cut later, whether
-            that&apos;s materials, permits, or the scope itself.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            What a fair process looks like
-          </h2>
-          <p className="mt-2 leading-relaxed">
-            For anything beyond a small repair, it&apos;s worth getting more than
-            one quote so you have something to compare against. Look at the
-            itemized breakdown, not just the bottom line, confirm the
-            license and insurance independently rather than taking the
-            contractor&apos;s word for it, and get everything in writing,
-            including a payment schedule tied to milestones rather than a
-            single deposit. None of this guarantees a low price, but it
-            gives you a much clearer picture of what you&apos;re actually paying
-            for.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            In Orange County
-          </h2>
-          <p className="mt-2 leading-relaxed">
-            California law sets a floor under every quote you get in Orange
-            County. Under Business and Professions Code section 7159, a home
-            improvement contract over $500 has to be in writing and include
-            the contractor&apos;s name, business address, and license number,
-            the approximate start and completion dates, and a schedule of
-            progress payments. The same section says it is against the law for
-            a contractor to collect payment for work not yet completed or for
-            materials not yet delivered, apart from the down payment. Section
-            7159.5 caps that down payment at $1,000 or 10 percent of the
-            contract price, whichever is less. A quote that asks for more than
-            that up front has told you something before you read the rest of
-            it (see our{" "}
-            <Link
-              href="/guides/contractor-deposit-rules-california"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              deposit rules guide
+            Some jobs have their own lines to check: a window quote should
+            list each window&apos;s U-factor and SHGC (see our{" "}
+            <Link href="/guides/window-replacement-cost-orange-county" className={linkClass}>
+              window replacement guide
+            </Link>
+            ), and a sewer repair bid should point to where on the camera
+            video the work is needed (see our{" "}
+            <Link href="/guides/sewer-line-orange-county" className={linkClass}>
+              sewer line guide
             </Link>
             ).
           </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            What does California law require in the contract?
+          </h2>
           <p className="mt-2 leading-relaxed">
-            The Contractors State License Board says anyone who contracts for
-            work valued at $1,000 or more in combined labor and materials, or
-            for any job that needs a building permit, must hold a valid
-            license. Look the number up at cslb.ca.gov before you compare
-            prices, not after.
+            Under Business and Professions Code section 7159, a home
+            improvement contract over $500 has to be in writing and include
+            the contractor&apos;s name, business address and license number,
+            the approximate start and completion dates, and a schedule of
+            progress payments. Apart from a down payment, which section
+            7159.5 caps at $1,000 or 10 percent of the price, whichever is
+            less, a contractor may not collect payment for work not yet done
+            or materials not yet delivered. These are state rules, so they
+            apply in every Orange County city. When a license is required and
+            how the cap works are in our{" "}
+            <Link href="/guides/contractor-deposit-rules-california" className={linkClass}>
+              deposit rules guide
+            </Link>
+            .
           </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            What are the red flags?
+          </h2>
           <p className="mt-2 leading-relaxed">
-            Permit rules and fees are set by each city, so a quote that says
-            permits are included should say which city&apos;s. Our city pages
-            are a starting point:{" "}
+            Watch for pressure to sign the same day, a demand for full payment
+            before work begins, and no license number, business address or
+            proof of insurance. Also watch for line items that lump everything into one
+            number, and a price far below every other bid with no clear reason,
+            which often means materials, permits or scope get cut later.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            How should I compare bids?
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            For anything beyond a small repair, get more than one quote.
+            Compare the itemized lines, not just the totals, and check the
+            license at cslb.ca.gov and the insurance yourself before you
+            compare prices. Permit rules and fees are set by each city, so a
+            quote that says permits are included should say which city&apos;s;
+            our{" "}
+            <Link href="/guides/permits-orange-county" className={linkClass}>
+              Orange County permit guide
+            </Link>{" "}
+            explains how they differ. City pages:{" "}
             <Link
               href="/oc/anaheim"
               className="text-bark-700 hover:underline dark:text-stone-300"
@@ -271,7 +225,7 @@ export default function IsMyContractorQuoteFairGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Already have a quote in hand?
+            Can OakTend tell me if my quote is fair?
           </h2>
           <p className="mt-2 leading-relaxed">
             OakTend&apos;s{" "}
@@ -286,22 +240,6 @@ export default function IsMyContractorQuoteFairGuide() {
             vague, or duplicated, and drafts a message you can send back if
             you want to negotiate.
           </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Frequently asked questions
-          </h2>
-          <div className="mt-2 space-y-4">
-            {FAQS.map((f) => (
-              <div key={f.q}>
-                <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-                  {f.a}
-                </p>
-              </div>
-            ))}
-          </div>
         </section>
       </div>
 

@@ -14,9 +14,12 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // 503 on every attempt on 2026-09-21, so no coverage rule is stated as fact
 // and the reader is sent to their own policy and insurer.
 // Sourced facts (opened 2026-09-21, links in GUIDE_SOURCES,
-// src/lib/guideExtras.ts): EPA WaterSense meter test, Irvine Ranch Water
-// District leak adjustment, Yorba Linda plumbing permit exemptions, Fountain
-// Valley and Santa Ana repipe permits, CSLB C-36 and bid advice, EPA RRP rule.
+// src/lib/guideExtras.ts): Irvine Ranch Water District leak sources and
+// adjustment, Yorba Linda plumbing permit exemptions, CSLB C-36, EPA RRP
+// rule. This page owns the repair-vs-new-work permit line and who to hire for
+// slab and repipe work; the meter test lives on /guides/slab-leak-signs, and
+// the three-bids advice and how fast cities issue repipe permits on
+// /guides/repipe-orange-county.
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -37,9 +40,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Slab leak repair in Orange County: options and permits";
+const TITLE = "Slab leak repair in Orange County";
 const DESCRIPTION =
-  "Spot repair, reroute or repipe: how slab leak repair works in Orange County, what drives the price, when a permit is needed, and what to ask your insurer.";
+  "Slab leak repair in Orange County: spot repair vs reroute vs repipe, what drives the price, when a city permit is needed and what to ask your insurer.";
 const CANONICAL = `${SITE_URL}/guides/slab-leak-repair-orange-county`;
 
 export const metadata: Metadata = {
@@ -99,11 +102,6 @@ export default function SlabLeakRepairOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/slab-leak-repair-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Written for Orange County homeowners who have, or think they have, a
-        leak under the slab. No prices are quoted here on purpose. General
-        information, not plumbing, legal or insurance advice.
-      </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
@@ -126,26 +124,17 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             How do I confirm it is a slab leak?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Start with the meter, because it costs nothing. The EPA&apos;s
-            WaterSense program describes the test: check your water meter
-            before and after a two-hour period when no water is being used,
-            and if the meter changes at all, you probably have a leak. Turn
-            off the ice maker and irrigation timer first so they do not fool
-            you.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            A moving meter tells you there is a leak, not where. Irvine Ranch
-            Water District lists toilets, faucets and sprinklers as the
-            common sources of undetected leaks, so rule those out. If the
-            meter still moves with the toilets shut off
-            at the wall and the irrigation valve closed, and you have a warm
-            spot on the floor or the sound of running water, the slab is the
-            likely place. Our{" "}
+            Start with the free two-hour meter test in our{" "}
             <Link href="/guides/slab-leak-signs" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               slab leak signs guide
-            </Link>{" "}
-            covers the symptoms and why 1960s and 1970s Orange County tract
-            homes get them. A plumber or leak detection company then
+            </Link>
+            , which also covers the symptoms. A moving meter tells you there
+            is a leak, not where. Irvine Ranch Water District lists toilets,
+            faucets and sprinklers as the common sources of undetected leaks,
+            so rule those out. If the meter still moves with the toilets shut
+            off at the wall and the irrigation valve closed, and you have a
+            warm spot on the floor or the sound of running water, the slab is
+            the likely place. A plumber or leak detection company then
             pinpoints the spot with listening equipment and pressure tests
             before anyone cuts concrete.
           </p>
@@ -200,9 +189,8 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             What affects the cost of slab leak repair?
           </h2>
           <p className="mt-2 leading-relaxed">
-            We do not print a price range, because we could not find a
-            reliable published figure for Orange County and a made-up one
-            would not help you. What moves the number is knowable:
+            We found no reliable published price for Orange County, so here
+            is what moves the number:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -237,10 +225,11 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            The Contractors State License Board&apos;s advice fits this job
-            exactly: get at least three written bids, make sure they are
-            based on the same scope of work, and do not automatically accept
-            the lowest one.
+            Our guide on{" "}
+            <Link href="/guides/is-my-contractor-quote-fair" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              reading a contractor&apos;s quote
+            </Link>{" "}
+            shows how to compare bids line by line.
           </p>
         </section>
 
@@ -259,13 +248,13 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             definition.
           </p>
           <p className="mt-2 leading-relaxed">
-            The permit itself is usually quick. Fountain Valley lists a
-            residential repipe among its expedited permits, and Santa Ana
-            issues residential repipe and water piping permits through its
-            same-day express program. Rules are set city by city, so check
-            with your own building division. A good bid names who pulls the
-            permit, and the Contractors State License Board says a contract
-            should spell that out. See our{" "}
+            How quickly some cities issue a repipe permit is in our{" "}
+            <Link href="/guides/repipe-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              repipe guide
+            </Link>
+            . Rules are set city by city, so check with your own building
+            division, and make sure the bid names who pulls the permit. See
+            our{" "}
             <Link href="/guides/permits-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               Orange County permit guide
             </Link>{" "}
@@ -278,11 +267,9 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             Will homeowners insurance cover a slab leak?
           </h2>
           <p className="mt-2 leading-relaxed">
-            It depends on the wording of your policy, and we are not going to
-            guess at yours. Read the water damage section and call your agent
-            before work starts, not after. These are the questions that
-            decide most slab leak claims, so ask each one and ask for the
-            answer in writing:
+            It depends on the wording of your policy. Read the water damage
+            section and call your agent before work starts, not after. Ask
+            these questions and get the answers in writing:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -362,10 +349,9 @@ export default function SlabLeakRepairOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            As of September 2026. Permit rules differ by city and insurance
-            coverage differs by policy, so confirm with your building
-            division and your insurer. This is general information, not
-            plumbing, legal or insurance advice.
+            As of September 2026. Permit rules differ by city and coverage
+            differs by policy. General information, not plumbing, legal or
+            insurance advice.
           </p>
         </section>
       </div>

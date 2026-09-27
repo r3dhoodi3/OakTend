@@ -177,13 +177,13 @@ export const sanClemente: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a town whose original deeds required red clay tile and where salt air works on the flashing.",
+        "A sourced re-roof cost, shingle vs tile, in a town whose original deeds required red clay tile and where salt air works on the flashing.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on city water that tested at 14 to 17 grains per gallon in 2025.",
+        "What changes the price and when a repair still makes sense, on city water that tested at 14 to 17 grains per gallon in 2025.",
     },
     {
       href: "/guides/adu-cost",

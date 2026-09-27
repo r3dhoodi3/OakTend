@@ -142,19 +142,19 @@ export const lakeForest: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for foothill homes reaching their first reroof in a mapped fire zone.",
+        "A sourced re-roof cost, shingle vs tile, for foothill homes reaching their first reroof in a mapped fire zone.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs, and central AC versus a heat pump, for 1980s and 1990s houses.",
+        "What drives the price of a full system, and central AC versus a heat pump, for 1980s and 1990s houses.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on mostly imported water that stays hard all year.",
+        "What changes the price and when a repair is smarter, on mostly imported water that stays hard all year.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

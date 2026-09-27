@@ -136,7 +136,7 @@ export const fountainValley: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range, and when a repair still makes sense, on hard basin water that scales a tank early.",
+        "What changes the price and when a repair still makes sense, on hard basin water that scales a tank early.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

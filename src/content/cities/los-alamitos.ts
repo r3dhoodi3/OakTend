@@ -187,7 +187,7 @@ export const losAlamitos: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on water the 2025 report puts at 13.8 grains per gallon, plus what the city's strapping handout expects.",
+        "What changes the price and when a repair is smarter, on water the 2025 report puts at 13.8 grains per gallon, plus what the city's strapping handout expects.",
     },
     {
       href: "/guides/adu-cost",

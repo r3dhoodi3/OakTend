@@ -152,7 +152,7 @@ export const santaAna: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical price range and when a repair still makes sense, on water around 250 ppm.",
+        "What changes the price and when a repair still makes sense, on water around 250 ppm.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

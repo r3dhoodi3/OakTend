@@ -185,13 +185,13 @@ export const stanton: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on water that averaged 13.8 grains per gallon in 2025 and with a $236 city permit line.",
+        "What changes the price and when a repair is smarter, on water that averaged 13.8 grains per gallon in 2025 and with a $236 city permit line.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city whose reroofing guide calls for a Class A assembly and does not allow wood roofing.",
+        "A sourced re-roof cost, shingle vs tile, in a city whose reroofing guide calls for a Class A assembly and does not allow wood roofing.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

@@ -148,7 +148,7 @@ export const westminster: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on all-groundwater supply that averages about 14 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on all-groundwater supply that averages about 14 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

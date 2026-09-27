@@ -191,13 +191,13 @@ export const laPalma: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on city well water that tested at 8.6 grains per gallon and imported water at 14.",
+        "What changes the price and when a repair is smarter, on city well water that tested at 8.6 grains per gallon and imported water at 14.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city whose code requires a fire-retardant covering, Class B at minimum, on any reroof.",
+        "A sourced re-roof cost, shingle vs tile, in a city whose code requires a fire-retardant covering, Class B at minimum, on any reroof.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

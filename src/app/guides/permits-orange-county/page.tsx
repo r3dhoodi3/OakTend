@@ -16,6 +16,9 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // GUIDE_SOURCES (src/lib/guideExtras.ts). No permit fees are quoted: they
 // change every fiscal year and differ by city.
 //
+// This page OWNS permits in general. The water heater strapping statute (HSC
+// 19211) lives on the water heater guide since 2026-09-26; link, don't repeat.
+//
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
 
@@ -35,9 +38,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Building permits in Orange County: a guide by project";
+const TITLE = "Building permits in Orange County";
 const DESCRIPTION =
-  "When a home project needs a permit in Orange County: water heaters, reroofs, panels, HVAC, fences and patio covers, with real city examples.";
+  "When a home project needs a building permit in Orange County: water heaters, reroofs, panels, HVAC, repipes, fences and patio covers, with city examples.";
 const CANONICAL = `${SITE_URL}/guides/permits-orange-county`;
 
 export const metadata: Metadata = {
@@ -97,11 +100,6 @@ export default function PermitsOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/permits-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Written for Orange County homeowners. City examples were read from each
-        city&apos;s own building pages in September 2026. General information, not
-        legal advice: your building department has the final word.
-      </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
@@ -179,14 +177,11 @@ export default function PermitsOrangeCountyGuide() {
             homeowner handout shows earthquake straps in the top and bottom
             third of the tank, a temperature and pressure relief valve piped
             to the outside, and a burner at least 18 inches above a garage
-            floor. State law backs the strapping: Health and Safety Code
-            section 19211 requires all new, replacement and existing
-            residential water heaters to be braced, anchored or strapped
-            against earthquake motion. Our{" "}
+            floor. Our{" "}
             <Link href="/guides/water-heater-replacement-cost" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               water heater replacement guide
             </Link>{" "}
-            covers the rest of that job.
+            covers the state strapping rule and the rest of that job.
           </p>
           <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Reroof</h3>
           <p className="mt-2 leading-relaxed">
@@ -210,12 +205,10 @@ export default function PermitsOrangeCountyGuide() {
             Permit required. Fountain Valley&apos;s handout opens with it: a
             mechanical system shall not be installed, altered, repaired,
             replaced or remodeled unless a permit has first been obtained,
-            and outdoor equipment needs a site plan. A permitted HVAC
-            change-out can also trigger energy code testing. The California Energy Commission
-            says that, depending on the work, this testing may be mandatory,
-            that properly permitted work will trigger any testing that is
-            needed, and that a homeowner has the right to hire a rater who
-            is independent of the contractor.
+            and outdoor equipment needs a site plan. The California Energy
+            Commission says permitted work will trigger any energy code
+            testing the job needs, and that you may hire a rater who is
+            independent of the contractor.
           </p>
           <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">Patio covers</h3>
           <p className="mt-2 leading-relaxed">
@@ -235,6 +228,25 @@ export default function PermitsOrangeCountyGuide() {
             pipes are rearranged. But once a concealed pipe is defective and
             has to be replaced with new material, that is new work and a
             permit and inspection are required.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Bigger projects have their own guides:{" "}
+            <Link href="/guides/earthquake-retrofit-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              earthquake retrofits
+            </Link>
+            ,{" "}
+            <Link href="/guides/sewer-line-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              sewer line repairs
+            </Link>
+            ,{" "}
+            <Link href="/guides/window-replacement-cost-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              window replacement
+            </Link>{" "}
+            and{" "}
+            <Link href="/guides/garage-conversion-vs-adu-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              garage conversions and ADUs
+            </Link>{" "}
+            each cover their permit rules.
           </p>
         </section>
 
@@ -288,11 +300,10 @@ export default function PermitsOrangeCountyGuide() {
             Who should pull the permit, me or the contractor?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Either can. Garden Grove&apos;s advice is the practical answer: the
-            owner or an authorized agent may obtain permits, but if you are
-            contracting the work out it is always wise to have the contractor
-            obtain them, so the contractor keeps the responsibility to call
-            for and pass every inspection. The Contractors State License
+            Either can. Garden Grove says the owner or an authorized agent
+            may obtain permits, but if you hire the work out it is wise to
+            have the contractor obtain them, so the contractor keeps the
+            responsibility to call for and pass every inspection. The Contractors State License
             Board warns homeowners to be wary of consultants or unlicensed
             individuals who try to talk them into becoming an owner-builder
             to save money.
@@ -301,14 +312,13 @@ export default function PermitsOrangeCountyGuide() {
             Be careful with a bid that gets cheaper without a permit.
             Fountain Valley&apos;s building division answers that offer directly:
             the responsibility for compliance lies with the property owner.
-            For a licensed
-            contractor, willful disregard of building laws is cause for
-            discipline under Business and Professions Code section 7110. Our
-            guide to{" "}
+            For a licensed contractor, willful disregard of building laws is
+            cause for discipline under Business and Professions Code section
+            7110. Our{" "}
             <Link href="/guides/contractor-deposit-rules-california" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-              California contractor deposit rules
+              contractor deposit and license guide
             </Link>{" "}
-            covers the contract side.
+            covers when a license is required.
           </p>
         </section>
 
@@ -338,8 +348,7 @@ export default function PermitsOrangeCountyGuide() {
           <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">HOA approval is separate</h3>
           <p className="mt-2 leading-relaxed">
             If you live in an association, plan on two approvals. Irvine&apos;s
-            permit page tells
-            residents to check whether a project is allowed under their
+            permit page tells residents to check whether a project is allowed under their
             association&apos;s CC&amp;Rs, and Fountain Valley&apos;s HVAC handout says
             association approval is required in an HOA tract. What the
             association has to do when it reviews your plans, and when a
@@ -379,11 +388,10 @@ export default function PermitsOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            City examples as of September 2026. Cities amend their codes and
-            fee schedules regularly, and this page covers only a few of the
-            county&apos;s building departments, so confirm the current rule with
-            your own city before you start. This is general information, not
-            legal advice.
+            City examples read from each city&apos;s own building pages in
+            September 2026. Cities amend their codes regularly, so confirm the
+            rule with your building department before you start. General
+            information, not legal advice.
           </p>
         </section>
       </div>

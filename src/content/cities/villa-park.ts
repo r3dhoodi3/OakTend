@@ -192,13 +192,13 @@ export const villaPark: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on Serrano water at about 20 grains per gallon, in a city that permits every change-out.",
+        "What changes the price and when a repair is smarter, on Serrano water at about 20 grains per gallon, in a city that permits every change-out.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, where reroofs need a permit, the Safety Element calls for Class A roofing and half the houses date from the 1970s.",
+        "A sourced re-roof cost, shingle vs tile, where reroofs need a permit, the Safety Element calls for Class A roofing and half the houses date from the 1970s.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",

@@ -172,19 +172,19 @@ export const danaPoint: CityContent = {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs, and why outdoor coils and cabinets age faster this close to the harbor and the surf.",
+        "What drives the price of a new system, and why outdoor coils and cabinets age faster this close to the harbor and the surf.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on imported water that runs 14 to 17 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on imported water that runs 14 to 17 grains per gallon.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for a city where most roofs sit on 1970s and 1980s houses and are on their second life.",
+        "A sourced re-roof cost, shingle vs tile, for a city where most roofs sit on 1970s and 1980s houses and are on their second life.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

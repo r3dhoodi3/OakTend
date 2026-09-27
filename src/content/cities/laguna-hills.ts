@@ -186,13 +186,13 @@ export const lagunaHills: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city where about 74 percent of the homes are 1970s and 1980s builds and only roof work under 10 percent skips the permit.",
+        "A sourced re-roof cost, shingle vs tile, in a city where about 74 percent of the homes are 1970s and 1980s builds and only roof work under 10 percent skips the permit.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on water both districts report at roughly 14 to 17 grains per gallon.",
+        "What changes the price and when a repair is smarter, on water both districts report at roughly 14 to 17 grains per gallon.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",

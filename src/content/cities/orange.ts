@@ -150,13 +150,13 @@ export const orange: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, useful before a design review conversation in Old Towne or an Eichler tract.",
+        "A sourced re-roof cost, shingle vs tile, useful before a design review conversation in Old Towne or an Eichler tract.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on water that averages about 18 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on water that averages about 18 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

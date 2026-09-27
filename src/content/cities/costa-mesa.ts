@@ -126,13 +126,13 @@ export const costaMesa: CityContent = {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs, and central AC versus a heat pump, with the Insta-Permit path in mind.",
+        "What drives the price of a new system, and central AC versus a heat pump, with the Insta-Permit path in mind.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical price range and when a repair is still the smarter call on an older tank.",
+        "What changes the price and when a repair is still the smarter call on an older tank.",
     },
     {
       href: "/guides/electrical-panel-upgrade-cost",

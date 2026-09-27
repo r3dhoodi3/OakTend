@@ -144,13 +144,13 @@ export const fullerton: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, and why material choice is a code question near the Coyote Hills.",
+        "A sourced re-roof cost, shingle vs tile, and why material choice is a code question near the Coyote Hills.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on water that averages about 14 grains per gallon.",
+        "What changes the price and when a repair is smarter, on water that averages about 14 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

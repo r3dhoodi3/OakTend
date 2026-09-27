@@ -20,11 +20,13 @@ import { GUIDE_TITLES } from "@/lib/guides";
 // src/lib/guideExtras.ts): NOAA NCEI 1991-2020 monthly normals for John Wayne
 // Airport (rain by month, fetched 2026-09-25), NWS climate bulletin (Santa Ana
 // events most common October to March), NWS glossary (Santa Ana wind, marine
-// push), OCFA (embers, vents, red flag days, sandbags, alarms), FEMA TB 8
-// (salt spray), ENERGY STAR (filters, check-ups), IRWD (hard water, yearly
-// flush, watering guide), USGS (scale), City of Tustin (flushing, sandbags),
-// UC IPM (swarm timing), Health and Safety Code 19211, CRMP (Earthquake Brace
-// + Bolt), OC Assessor (Homeowners' Exemption).
+// push), OCFA (sandbags, alarms), FEMA TB 8 (salt spray), ENERGY STAR
+// (filters, check-ups), IRWD (hard water, yearly flush, watering guide), City
+// of Tustin (sandbags), UC IPM (swarm timing), OC Assessor (Homeowners'
+// Exemption).
+// Trimmed 2026-09-26 so each fact lives on one page: embers, vent screens and
+// Red Flag Warning rules are on the wildfire guide, scale on the hard water
+// guide, Brace + Bolt on the earthquake retrofit guide. Link, don't restate.
 // The marine layer section is plain description with no figures beyond the
 // NWS definition.
 //
@@ -50,7 +52,7 @@ export const revalidate = 3600;
 // 40 characters, so with the layout's " | OakTend" it is 50.
 const TITLE = "Orange County home maintenance checklist";
 const DESCRIPTION =
-  "Home maintenance for Orange County, month by month: rain and Santa Ana wind timing, how often to do each job, and a guide for every system in the house.";
+  "Orange County home maintenance checklist, month by month: when rain and Santa Ana winds arrive, how often to do each job, and salt air and hard water care.";
 const CANONICAL = `${SITE_URL}/guides/orange-county-home-maintenance-checklist`;
 
 export const metadata: Metadata = {
@@ -117,7 +119,7 @@ const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] =
       "Clean the dryer vent",
       "Soak faucet aerators and shower heads in vinegar to clear scale",
     ],
-    why: "ENERGY STAR suggests the cooling check-up in spring, before the busy season.",
+    why: "The first hot days come after April, so a system checked now is ready for them.",
   },
   {
     month: "May",
@@ -127,7 +129,7 @@ const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] =
       "Check hose bibs and the irrigation valve box for drips",
       "Touch up exterior paint and sealant where bare wood shows",
     ],
-    why: "FEMA says salt spray is heaviest near the surf and drops off over the first 300 to 3,000 feet inland.",
+    why: "Damp mornings near the beach carry salt, and salt speeds up corrosion of outdoor metal.",
   },
   {
     month: "June",
@@ -167,7 +169,7 @@ const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] =
       "Clear the first 5 feet around the house of dead plants and stored wood",
       "Fix loose tiles, fence sections and gate latches, and plan where patio furniture goes on windy days",
     ],
-    why: "Santa Ana wind events are most common from October through March, so September is the month to get ahead.",
+    why: "Santa Ana winds are most common from October on, so September is the month to get ahead.",
   },
   {
     month: "October",
@@ -197,7 +199,7 @@ const MONTHS: { month: string; focus: string; tasks: string[]; why: string }[] =
       "Check the water heater's earthquake straps",
       "Update your home inventory with photos, and file the year's receipts",
     ],
-    why: "A good month to check whether an older raised-foundation home qualifies for an Earthquake Brace + Bolt grant.",
+    why: "In an older house on a raised foundation, also see the earthquake retrofit note below.",
   },
 ];
 
@@ -219,7 +221,7 @@ const CADENCE: { task: string; when: string }[] = [
   },
   {
     task: "Tank water heater",
-    when: "Flush once a year, following the owner's guide. Check the earthquake straps at the same time.",
+    when: "Flush once a year, following the owner's guide.",
   },
   {
     task: "Tankless water heater",
@@ -292,10 +294,10 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/orange-county-home-maintenance-checklist" />
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Written for Orange County homeowners, coast and inland. There is no
-        snow to plan around here, so the year is built on four local things
-        instead: Santa Ana winds, the first rains, the marine layer and hard
-        water. General information, not professional advice for your home.
+        There is no snow to plan around here, so the year is built on four
+        local things: Santa Ana winds, the first rains, the marine layer and
+        hard water. General information, not professional advice for your
+        home.
       </p>
 
       <section className="mt-8 text-stone-700 dark:text-stone-300">
@@ -305,14 +307,12 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
         <p className="mt-2 leading-relaxed">
           On NOAA&apos;s 1991 to 2020 normals, John Wayne Airport gets about
           11.2 inches of rain a year, and close to 9 of those inches fall from
-          December through March. June, July and August together average less
-          than a tenth of an inch. Santa Ana wind events, the dry offshore
+          December through March. Santa Ana wind events, the dry offshore
           winds that drive fire season, are most common from October through
           March, according to a National Weather Service climate bulletin, and
           raise the wildfire risk most when they come during or soon after
-          the summer dry season. So the
-          outside work goes in the dry months, wind prep in September, and rain
-          prep in October and November.
+          the summer dry season. So outside work goes in the dry months, wind
+          prep in September, and rain prep in October and November.
         </p>
       </section>
 
@@ -343,8 +343,10 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
             How often should each job happen?
           </h2>
           <p className="mt-2 leading-relaxed">
-            The calendar says when. This says how often, for the jobs where a
-            published source gives an interval.
+            The calendar says when; this says how often. The filter and
+            check-up intervals are ENERGY STAR&apos;s, the alarm schedule is the
+            Orange County Fire Authority&apos;s, and the yearly flush is what
+            the Irvine Ranch Water District recommends for hard water.
           </p>
           <div className="mt-3 overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
             <table className="w-full border-collapse text-sm">
@@ -381,25 +383,14 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
           <p className="mt-2 leading-relaxed">
             The National Weather Service describes a Santa Ana wind as strong,
             hot, dust-bearing wind that descends to the coast from the inland
-            deserts. September is the month to get ahead of it. The Orange
-            County Fire Authority (OCFA) warns that flying embers destroy
-            homes miles from wildland areas, and its advice starts small:
-            clean leaves and needles out of rain gutters, clear dead plants
-            and debris from the first 5 feet around the house, and look at
-            your attic and foundation vents. OCFA says most homes have
-            1/4-inch vent screens, which let embers through, and recommends
-            1/8-inch metal mesh.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            The rest is ordinary wind sense: fix loose tiles and fence
-            sections, take dead limbs out of trees, and put away patio
-            umbrellas and light furniture before a wind event. On a Red Flag
-            Warning day, OCFA says to do any yard work that needs a motor
-            before 10 a.m. and never when the wind is blowing. Our{" "}
+            deserts. The August and September tasks above are the start: gutters, the
+            first 5 feet around the house, loose tiles and fences, and dead
+            limbs. Our{" "}
             <Link href="/guides/santa-ana-wind-wildfire-home-prep" className={linkClass}>
               Santa Ana wind and wildfire prep guide
             </Link>{" "}
-            goes through defensible space and the rest of the house.
+            covers embers, vent screens, defensible space and what to do on a
+            Red Flag Warning day.
           </p>
         </section>
 
@@ -461,24 +452,23 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
             It adds three jobs. The Irvine Ranch Water District says the water
             it imports from the Colorado River and Northern California is
             typically hard, and recommends flushing the water heater once a
-            year. The U.S. Geological Survey explains why: when hard water is
-            heated, calcium carbonate scale forms, and that scale can shorten
-            equipment life, raise heating costs and clog pipes. So flush a
-            tank water heater once a year, following the owner&apos;s guide,
-            which is also what the City of Tustin&apos;s water division tells its
-            customers. Descale a tankless heater on the maker&apos;s schedule.
-            And soak aerators and shower heads in vinegar when the flow drops.
-            How hard your water is depends on your provider, and our{" "}
+            year. Descale a tankless heater on the maker&apos;s schedule, and
+            soak aerators and shower heads in vinegar when the flow drops. Our{" "}
             <Link href="/guides/hard-water-orange-county" className={linkClass}>
               hard water guide
             </Link>{" "}
-            lists the figures by district.
+            explains what scale does and lists hardness by provider.
           </p>
           <p className="mt-2 leading-relaxed">
             Outdoors, water cost is the driver. Irvine Ranch Water District
             publishes a month by month watering guide, and the pattern
             holds countywide: run times come down in fall, stay low through
-            the wet months, and come back up in spring.
+            the wet months, and come back up in spring. Water rebates are in
+            our{" "}
+            <Link href="/guides/orange-county-home-rebates-2026" className={linkClass}>
+              Orange County home rebates guide
+            </Link>
+            .
           </p>
         </section>
 
@@ -495,50 +485,29 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            What about air filters, alarms, termites and earthquakes?
+            What about termites and earthquakes?
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>HVAC.</strong> ENERGY STAR says to check the air filter
-              once a month, change it when it looks dirty and at least every
-              3 months, and to have the cooling system checked in spring and
-              the heating system in fall, before contractors get busy.
-            </li>
-            <li>
-              <strong>Alarms.</strong> OCFA says to test smoke alarms once a
-              month, replace the battery every six months, and replace the
-              whole alarm every 10 years.
-            </li>
-            <li>
-              <strong>Termites.</strong> The University of California&apos;s pest
-              program says drywood termite swarmers fly during the day in
-              summer and fall, and the common subterranean species swarms on
-              clear afternoons after a soaking rain in spring or fall. Those
-              are the weeks to look. Our{" "}
+              <strong>Termites.</strong> The swarm months are in the calendar
+              above. Our{" "}
               <Link href="/guides/termites-orange-county" className={linkClass}>
                 Orange County termite guide
               </Link>{" "}
               covers what to do if you find them.
             </li>
             <li>
-              <strong>Earthquakes.</strong> California Health and Safety Code
-              section 19211 requires residential water heaters to be braced,
-              anchored or strapped. Straps loosen and get removed during
-              repairs, so look once a year. If your home was built before
-              1980 on a raised foundation, the state&apos;s{" "}
-              <a
-                href="https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit"
-                rel="noopener"
-                className={linkClass}
-              >
-                Earthquake Brace + Bolt program
-              </a>{" "}
-              offers grants of up to $3,000 toward a retrofit that bolts the
-              house to its foundation, in ZIP codes the program lists as high hazard. Our{" "}
+              <strong>Earthquakes.</strong> Water heater straps loosen and get
+              removed during repairs, so look once a year. If the house is
+              older and sits on a raised foundation, our{" "}
               <Link href="/guides/earthquake-retrofit-orange-county" className={linkClass}>
                 earthquake retrofit guide
               </Link>{" "}
-              covers who qualifies and the next steps.
+              covers the Brace + Bolt grant and the work, and{" "}
+              <Link href="/guides/orange-county-home-age" className={linkClass}>
+                how old Orange County homes are
+              </Link>{" "}
+              shows the housing age in your city.
             </li>
           </ul>
         </section>
@@ -577,13 +546,10 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
-            As of September 2026. Months are a guide, not a rule: the first
-            rain and the first wind event move around from year to year. Roof,
-            ladder, electrical and hot-water jobs carry real risk, so do what
-            you can from the ground and leave the rest to someone trained for
-            it. This is general information, not professional, legal or safety
-            advice. Follow your appliance manuals and your local fire
-            department&apos;s instructions.
+            As of September 2026. The first rain and the first wind event move
+            from year to year. Roof, ladder, electrical and hot-water jobs
+            carry real risk: do what you can from the ground, and follow your
+            appliance manuals and your fire department&apos;s instructions.
           </p>
         </section>
       </div>

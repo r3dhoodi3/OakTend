@@ -133,19 +133,19 @@ export const yorbaLinda: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, and why the assembly rating matters as much as the price in a fire zone.",
+        "A sourced re-roof cost, shingle vs tile, and why the assembly rating matters as much as the price in a fire zone.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on groundwater that averages about 20 grains per gallon.",
+        "What changes the price and when a repair is smarter, on groundwater that averages about 20 grains per gallon.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a full system runs for a 1980s house, and central AC versus a heat pump.",
+        "What drives the price of a full system for a 1980s house, and central AC versus a heat pump.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

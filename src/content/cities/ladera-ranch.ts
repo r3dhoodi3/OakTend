@@ -174,19 +174,19 @@ export const laderaRanch: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on district water that averaged 15 grains per gallon in 2025.",
+        "What changes the price and when a repair still makes sense, on district water that averaged 15 grains per gallon in 2025.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs when the original equipment dates from 2000 to 2009, as about 83 percent of the homes here do.",
+        "What drives the price of a new system when the original equipment dates from 2000 to 2009, as about 83 percent of the homes here do.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, where the county requires a permit to re-roof and the association reviews what shows.",
+        "A sourced re-roof cost, shingle vs tile, where the county requires a permit to re-roof and the association reviews what shows.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",

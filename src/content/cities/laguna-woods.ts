@@ -177,13 +177,13 @@ export const lagunaWoods: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on imported water that tests at 14 to 17 grains per gallon and in a city where a swap needs a permit.",
+        "What changes the price and when a repair is smarter, on imported water that tests at 14 to 17 grains per gallon and in a city where a swap needs a permit.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs, where original manors may still heat with radiant ceilings and a central system needs a mutual consent and a city permit.",
+        "What drives the price, where original manors may still heat with radiant ceilings and a central system needs a mutual consent and a city permit.",
     },
     {
       href: "/guides/bathroom-remodel-cost",

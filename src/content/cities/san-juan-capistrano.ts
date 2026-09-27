@@ -188,13 +188,13 @@ export const sanJuanCapistrano: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, in a city whose re-roof handout requires a Class A covering once half or more of a roof is redone within a year.",
+        "A sourced re-roof cost, shingle vs tile, in a city whose re-roof handout requires a Class A covering once half or more of a roof is redone within a year.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on water the district measured at an average of 12 grains per gallon in 2025.",
+        "What changes the price and when a repair still makes sense, on water the district measured at an average of 12 grains per gallon in 2025.",
     },
     {
       href: "/guides/slab-leak-signs",

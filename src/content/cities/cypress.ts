@@ -164,7 +164,7 @@ export const cypress: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on water that averages about 13.8 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on water that averages about 13.8 grains per gallon.",
     },
     {
       href: "/guides/slab-leak-signs",

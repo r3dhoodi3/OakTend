@@ -146,7 +146,7 @@ export const gardenGrove: CityContent = {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Price range and when a repair still makes sense, on well water that averages about 18 grains per gallon.",
+        "What changes the price and when a repair still makes sense, on well water that averages about 18 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
