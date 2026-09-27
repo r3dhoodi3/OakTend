@@ -1353,76 +1353,16 @@ export async function chooseApplicantAction(formData: FormData) {
     // an extra application -> lead join just for this), so no props.
     await trackServerEvent(user?.id ?? null, "choose_applicant");
 
-    // Tell every non-chosen applicant their fee came back as wallet credit
-    // (the DB already granted it inside choose_applicant). Same
-    // contractor -> user -> contact resolution and sendNotification path as
-    // closeJobAction, so the email/SMS channels fire once configured, gated by
-    // the recipient's own consent inside sendNotification. Best-effort: a
-    // notification hiccup must never undo a pick that already committed.
+    // Every non-chosen applicant used to be told their fee came back as
+    // wallet credit, to spend on the next lead. Removed 2026-09-26: applying
+    // is free (migration 0172), so there is no fee to return and no wallet
+    // to return it to. The notice had been a no-op behind
+    // RETIRED_PRO_PROGRAMS_PAUSED since 2026-09-15; this deletes the copy and
+    // the fan-out rather than leaving a paused money promise in the tree for
+    // somebody to switch back on.
     //
-    // Paused 2026-09-15: the wallet-credit-back mechanic this notice
-    // describes is retired (OakTend moved to a 5% success fee on hire), so
-    // while RETIRED_PRO_PROGRAMS_PAUSED is true this is a no-op. The pick
-    // itself (above) always still runs.
-    if (credited.length && RETIRED_PRO_PROGRAMS_PAUSED) {
-      console.log(
-        "[retired-pro-programs] apply_credit_back notification skipped: program paused"
-      );
-    } else if (credited.length) {
-      try {
-        const admin = createAdminClient();
-        const contractorIds = Array.from(
-          new Set(credited.map((c) => c.contractor_id))
-        );
-        const { data: contractors } = await admin
-          .from("contractors")
-          .select("id, user_id")
-          .in("id", contractorIds);
-        // contractor_id -> user_id, for the ones with a real user to notify.
-        const userByContractor = new Map<string, string>(
-          (contractors ?? [])
-            .filter((c): c is { id: string; user_id: string } =>
-              Boolean(c.user_id)
-            )
-            .map((c) => [c.id, c.user_id])
-        );
-        const userIds = Array.from(new Set(userByContractor.values()));
-        const { data: users } = userIds.length
-          ? await admin
-              .from("users")
-              .select("id, email, phone, sms_consent")
-              .in("id", userIds)
-          : {
-              data: [] as {
-                id: string;
-                email: string | null;
-                phone: string | null;
-                sms_consent: boolean | null;
-              }[],
-            };
-        const userById = new Map((users ?? []).map((u) => [u.id, u]));
-        await Promise.all(
-          credited.map((c) => {
-            const userId = userByContractor.get(c.contractor_id);
-            if (!userId) return Promise.resolve(false);
-            const contact = userById.get(userId);
-            const feeLabel = formatFeeCents(c.fee_cents);
-            return sendNotification(admin, {
-              userId,
-              kind: "apply_credit_back",
-              title: "Your fee came back as credit",
-              body: `The homeowner picked another pro. Your ${feeLabel} fee is back in your wallet as credit, not cash: spend it on your next lead within ${BONUS_EXPIRY_DAYS} days.`,
-              url: PRO_LEADS_HREF,
-              email: contact?.email ?? null,
-              phone: contact?.phone ?? null,
-              smsConsent: contact?.sms_consent === true,
-            });
-          })
-        );
-      } catch {
-        // Notifications are a nice-to-have here, not part of the pick.
-      }
-    }
+    // Losing pros are still told they lost - closeJobAction notifies them and
+    // the board shows the job as taken. Only the money sentence is gone.
   }
   revalidatePath("/contractors");
 }
