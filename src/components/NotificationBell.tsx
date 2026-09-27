@@ -484,10 +484,17 @@ export default function NotificationBell() {
               // never be there when a thumb arrives. Unread rows get the
               // filled dot (still "mark as read"), already-read rows get a
               // plain x (dismiss).
+              //
+              // The hover tint lives on the <li>, not on the Link, so the
+              // whole row lights up as one piece. The control is absolutely
+              // positioned over the row's right edge (the Link reserves that
+              // strip with pr-11) rather than laid out as a second flex
+              // column: a sibling column takes no hover from the Link, so it
+              // read as a sectioned-off strip with a seam down the row.
               return (
                 <li
                   key={n.id}
-                  className="flex items-stretch border-b border-stone-50 last:border-b-0 dark:border-white/5"
+                  className="relative border-b border-stone-50 last:border-b-0 hover:bg-bark-50 dark:border-white/5 dark:hover:bg-stone-600"
                 >
                   {n.url ? (
                     <Link
@@ -495,12 +502,12 @@ export default function NotificationBell() {
                       onClick={() => setOpen(false)}
                       // max-sm:min-h-11: a row is the tap target, so it stays
                       // at least 44px tall even for a one-line notification.
-                      className="block min-w-0 flex-1 px-4 py-3 hover:bg-bark-50 max-sm:flex max-sm:min-h-11 max-sm:flex-col max-sm:justify-center dark:hover:bg-stone-600"
+                      className="block min-w-0 py-3 pl-4 pr-11 max-sm:flex max-sm:min-h-11 max-sm:flex-col max-sm:justify-center"
                     >
                       {content}
                     </Link>
                   ) : (
-                    <div className="min-w-0 flex-1 px-4 py-3 max-sm:flex max-sm:min-h-11 max-sm:flex-col max-sm:justify-center">
+                    <div className="min-w-0 py-3 pl-4 pr-11 max-sm:flex max-sm:min-h-11 max-sm:flex-col max-sm:justify-center">
                       {content}
                     </div>
                   )}
@@ -510,7 +517,7 @@ export default function NotificationBell() {
                     aria-label={
                       n.read_at ? "Dismiss notification" : "Mark as read"
                     }
-                    className="flex w-11 shrink-0 items-center justify-center text-stone-400 hover:text-bark-700 active:opacity-70 dark:text-stone-500 dark:hover:text-stone-300"
+                    className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-stone-400 hover:text-bark-700 active:opacity-70 dark:text-stone-500 dark:hover:text-stone-300"
                   >
                     {n.read_at ? (
                       <svg
