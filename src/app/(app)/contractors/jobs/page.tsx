@@ -756,7 +756,7 @@ export default async function YourJobsPage(
                         <p className="font-medium text-stone-900 dark:text-stone-100">
                           {l.contractors?.name ?? "Your pro"}
                           {l.contractors?.review_count > 0 ? (
-                            <span className="ml-2 text-xs text-amber-600 dark:text-amber-400">
+                            <span className="ml-2 text-xs text-amber-700 dark:text-amber-400">
                               ★ {l.contractors.rating}
                               <span className="text-stone-600 dark:text-stone-300">
                                 {" "}
@@ -959,7 +959,7 @@ export default async function YourJobsPage(
                                   </span>
                                 )}
                                 {a.contractors?.review_count > 0 ? (
-                                  <span className="text-xs text-amber-600 dark:text-amber-400">
+                                  <span className="text-xs text-amber-700 dark:text-amber-400">
                                     ★ {a.contractors.rating}
                                     <span className="text-stone-600 dark:text-stone-300">
                                       {" "}

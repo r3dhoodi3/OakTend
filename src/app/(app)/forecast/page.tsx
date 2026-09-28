@@ -479,13 +479,13 @@ export default async function ForecastPage() {
             <p className="stat-number text-4xl text-bark-700 dark:text-stone-300">
               Set aside about {money(forecast.monthlySetAside)}/month
             </p>
-            <p className="text-xs text-bark-600 dark:text-stone-400">
+            <p className="text-xs text-bark-600 dark:text-stone-300">
               Ballpark from{" "}
               {region ? `${region} prices` : "statewide prices"}, adjusted
               for inflation.
             </p>
             {forecast.estimatedTimingCount > 0 && (
-              <p className="text-xs text-bark-600 dark:text-stone-400">
+              <p className="text-xs text-bark-600 dark:text-stone-300">
                 {forecast.estimatedTimingCount === 1
                   ? "1 system has no install year, so its timing is a rough guess."
                   : `${forecast.estimatedTimingCount} systems have no install year, so their timing is a rough guess.`}{" "}

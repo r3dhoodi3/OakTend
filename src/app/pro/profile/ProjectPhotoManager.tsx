@@ -120,7 +120,7 @@ export default function ProjectPhotoManager({
           Uploading…
         </p>
       )}
-      {err && <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">{err}</p>}
+      {err && <p className="mt-1 text-xs text-amber-700 dark:text-amber-400">{err}</p>}
 
       {photos.length > 0 && (
         <ul className="mt-2 flex flex-wrap gap-3">

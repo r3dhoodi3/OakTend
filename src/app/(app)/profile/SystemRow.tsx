@@ -529,9 +529,9 @@ export default function SystemRow({
           <p
             className={`mt-1 text-xs font-medium ${
               issueSeverity === "urgent"
-                ? "text-red-600"
+                ? "text-red-700 dark:text-red-300"
                 : issueSeverity === "medium"
-                  ? "text-amber-600"
+                  ? "text-amber-700 dark:text-amber-300"
                   : "text-stone-600 dark:text-stone-300"
             }`}
           >

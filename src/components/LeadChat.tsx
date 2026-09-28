@@ -1706,7 +1706,7 @@ export default function LeadChat({
                 className="input w-full"
               />
               {hasUnlabeledAmount && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
+                <p className="text-xs text-amber-700 dark:text-amber-400">
                   Every line item with an amount needs a label, or it will
                   not be part of the quote.
                 </p>
@@ -1784,7 +1784,7 @@ export default function LeadChat({
                 + Add line item
               </button>
               {hasUnlabeledInvoiceAmount && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
+                <p className="text-xs text-amber-700 dark:text-amber-400">
                   Every line item with an amount needs a description, or it
                   will not be part of the invoice.
                 </p>
@@ -1963,12 +1963,12 @@ export default function LeadChat({
             </button>
           </form>
           {filtered && (
-            <p className="text-xs text-amber-600 dark:text-amber-400">
+            <p className="text-xs text-amber-700 dark:text-amber-400">
               Your message was filtered to keep the chat respectful.
             </p>
           )}
           {tooLong && (
-            <p className="text-xs text-amber-600 dark:text-amber-400">
+            <p className="text-xs text-amber-700 dark:text-amber-400">
               That message is too long (max {MAX_MESSAGE_LENGTH.toLocaleString()} characters). Please shorten it.
             </p>
           )}

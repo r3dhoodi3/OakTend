@@ -275,7 +275,7 @@ export default function AvatarUpload({
         // Absolute + top-full so it sits just below the control without being
         // part of its measured size. whitespace-nowrap keeps it on ONE line
         // (never wraps), and being out of flow it still can't widen the box.
-        <p className="absolute left-0 top-full z-20 mt-1 whitespace-nowrap text-xs text-amber-600 dark:text-amber-400">
+        <p className="absolute left-0 top-full z-20 mt-1 whitespace-nowrap text-xs text-amber-700 dark:text-amber-400">
           {err}
         </p>
       )}

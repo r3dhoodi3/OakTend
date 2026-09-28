@@ -129,7 +129,7 @@ export default function PhotoUpload({
           keep adding" cue. */}
       <TakePhotoButton onPick={onPick} disabled={busy} className="mt-2" />
       {busy && <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Uploading…</p>}
-      {err && <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">{err}</p>}
+      {err && <p className="mt-1 text-xs text-amber-700 dark:text-amber-400">{err}</p>}
       <FilePreviewGrid files={pending} />
       <div className="mt-2 flex flex-wrap gap-2">
         {urls.map((u) => (

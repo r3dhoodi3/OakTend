@@ -448,7 +448,7 @@ export default async function HomePage(
   };
   const URGENCY_TONE: Record<Urgency, string> = {
     overdue: "text-red-600 dark:text-red-400",
-    soon: "text-amber-600 dark:text-amber-400",
+    soon: "text-amber-700 dark:text-amber-400",
     // stone-600, not stone-400: stone-400 on the card's white background is
     // only ~2.5:1 contrast, below the 4.5:1 minimum for this small text. These
     // labels are also tappable disclosure headers, so the darker weight helps

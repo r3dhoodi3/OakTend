@@ -766,7 +766,7 @@ export default async function ContractorsPage(
                   <p className="font-medium text-stone-900 dark:text-stone-100">
                     {p.name}
                     {p.rating != null && (
-                      <span className="ml-2 text-xs text-amber-600 dark:text-amber-400">
+                      <span className="ml-2 text-xs text-amber-700 dark:text-amber-400">
                         ★ {p.rating}
                         <span className="text-stone-600 dark:text-stone-300">
                           {" "}

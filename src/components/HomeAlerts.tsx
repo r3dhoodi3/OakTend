@@ -12,8 +12,8 @@ const ICON: Record<Alert["kind"], LucideIcon> = {
 };
 
 const ICON_STYLE: Record<Alert["kind"], string> = {
-  freeze: "text-amber-600 dark:text-amber-400",
-  heat: "text-amber-600 dark:text-amber-400",
+  freeze: "text-amber-700 dark:text-amber-400",
+  heat: "text-amber-700 dark:text-amber-400",
   recall: "text-red-600 dark:text-red-400",
 };
 

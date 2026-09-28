@@ -328,7 +328,7 @@ function ProCard({ pro }: { pro: BrowsePro }) {
               {pro.name}
             </Link>
             {hasRating ? (
-              <span className="text-xs text-amber-600 dark:text-amber-400">
+              <span className="text-xs text-amber-700 dark:text-amber-400">
                 ★ {pro.rating}
                 <span className="text-stone-600 dark:text-stone-300">
                   {" "}
