@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DownloadPdfLink from "@/components/DownloadPdfLink";
 import { CATEGORIES, THIRD_PARTIES } from "@/lib/privacy";
 import EmailExportLinkButton from "@/components/EmailExportLinkButton";
 
@@ -97,13 +98,10 @@ export default function PrivacyRightsPanel({
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-            <a
+            <DownloadPdfLink
               href="/api/privacy/export?format=pdf"
-              download
               className="btn-primary whitespace-nowrap"
-            >
-              Download PDF
-            </a>
+            />
             <EmailExportLinkButton side={side} />
           </div>
         </div>

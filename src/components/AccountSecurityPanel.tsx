@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DownloadPdfLink from "@/components/DownloadPdfLink";
 import { useEffect, useRef, useState } from "react";
 import PasswordInput from "@/components/PasswordInput";
 import SubmitButton from "@/components/SubmitButton";
@@ -477,13 +478,10 @@ export default function AccountSecurityPanel({
               explains what&apos;s in it.
             </p>
           </div>
-          <a
+          <DownloadPdfLink
             href="/api/privacy/export?format=pdf"
-            download
             className="btn-secondary whitespace-nowrap"
-          >
-            Download PDF
-          </a>
+          />
         </div>
       </div>
 

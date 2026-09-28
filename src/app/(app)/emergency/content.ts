@@ -3,10 +3,10 @@ import type { PanicFlow, PrepKey } from "./PanicCard";
 
 // The one life-safety line shown above the flows on both /emergency and the
 // public /emergency-help page. Gas, downed lines and standing water are covered
-// inside their own cards, so they are not repeated here. The last three
-// sentences are the 2026-09-20 legal wording pass (ff4e9e1), word for word.
+// inside their own cards. The whole line is the 2026-09-20 legal wording
+// pass (ff4e9e1) word for word, gas warning included, so it stays at the top.
 export const EMERGENCY_SAFETY_LINE =
-  "If someone is hurt, trapped, or in danger, or a carbon monoxide alarm sounds, get everyone outside and call 911. These are general safety steps, not an emergency service. OakTend is software, not a contractor or a utility. If you are not sure a step is safe, skip it, get out, and call 911.";
+  "If someone is hurt, trapped, or in danger, call 911 now. If you smell gas or a carbon monoxide alarm sounds, get everyone outside first and call from there. These are general safety steps, not an emergency service. OakTend is software, not a contractor or a utility. If you are not sure a step is safe, skip it, get out, and call 911.";
 
 // Six panic flows for the /emergency page. Short sentences, imperative, most
 // important action first. Each maps to an existing SERVICE_CATEGORIES value so

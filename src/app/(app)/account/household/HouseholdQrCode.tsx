@@ -168,7 +168,7 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
               type="button"
               onClick={() => mint(token)}
               disabled={pending}
-              className="inline-flex items-center gap-1 font-medium text-bark-700 underline dark:text-stone-200"
+              className="inline-flex items-center gap-1 font-medium text-bark-700 underline max-sm:min-h-11 dark:text-stone-200"
             >
               {pending && <InlineSpinner size={12} />}
               {pending ? "Making a code..." : "New code"}
