@@ -237,7 +237,7 @@ export default function WeatherStrip({
     // fetch settled) gets one quiet word instead of silently looking broken.
     if (hasLocation) {
       return (
-        <div className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-500 shadow-card dark:border-white/10 dark:bg-stone-800 dark:text-stone-400">
+        <div className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-600 shadow-card dark:border-white/10 dark:bg-stone-800 dark:text-stone-300">
           Weather unavailable
         </div>
       );
@@ -286,7 +286,7 @@ export default function WeatherStrip({
       <span className="shrink-0 whitespace-nowrap font-medium text-stone-900 max-sm:min-w-0 max-sm:shrink max-sm:truncate dark:text-stone-100">
         {convertTemp(weather.tempF, unit)}&deg; {word}
       </span>
-      <span className="shrink-0 whitespace-nowrap text-stone-500 dark:text-stone-400">
+      <span className="shrink-0 whitespace-nowrap text-stone-600 dark:text-stone-300">
         H {convertTemp(weather.highF, unit)}&deg; L{" "}
         {convertTemp(weather.lowF, unit)}&deg;
       </span>
@@ -305,7 +305,7 @@ export default function WeatherStrip({
         // separator dot or the space before the meridiem, so it reserves less
         // room. Same purpose at both widths - the reserved width never
         // depends on whether `now` has landed yet.
-        className="inline-block min-w-[4.5rem] shrink-0 whitespace-nowrap tabular-nums text-stone-500 max-sm:min-w-[3.5rem] dark:text-stone-400"
+        className="inline-block min-w-[4.5rem] shrink-0 whitespace-nowrap tabular-nums text-stone-600 max-sm:min-w-[3.5rem] dark:text-stone-300"
       >
         {clockFull ? (
           <>
@@ -327,7 +327,7 @@ export default function WeatherStrip({
           redundant part. sm and up are untouched - full city, ml-auto, same
           truncation as before. */}
       {weather.city && (
-        <span className="ml-auto hidden min-w-0 truncate text-stone-500 sm:block dark:text-stone-400">
+        <span className="ml-auto hidden min-w-0 truncate text-stone-600 sm:block dark:text-stone-300">
           {weather.city}
         </span>
       )}
@@ -373,7 +373,7 @@ export default function WeatherStrip({
           className={`flex h-10 min-w-[2.5rem] items-center justify-center px-2 text-xs font-medium max-sm:h-11 max-sm:min-w-11 max-sm:text-sm ${
             unit === u
               ? "bg-bark-700 text-white dark:bg-bark-600"
-              : "text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+              : "text-stone-600 hover:text-stone-900 dark:text-stone-300 dark:hover:text-stone-100"
           }`}
         >
           &deg;{u}
@@ -423,7 +423,7 @@ export default function WeatherStrip({
             the only cost of getting it off a 342px row that could not hold
             it and the clock at the same time. */}
         <div className="flex items-center justify-between gap-3 border-t border-stone-200 px-4 py-2 sm:hidden dark:border-white/10">
-          <span className="text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             Units
           </span>
           {unitToggle("")}
@@ -438,7 +438,7 @@ export default function WeatherStrip({
             const DayIcon = c ? ICONS[c.key] : null;
             return (
               <li key={`${d.date}-${i}`} className="flex items-center gap-2 py-2">
-                <span className="w-16 shrink-0 text-stone-500 dark:text-stone-400">
+                <span className="w-16 shrink-0 text-stone-600 dark:text-stone-300">
                   {dayLabel(d.date, weather.today)}
                 </span>
                 {DayIcon ? (
@@ -453,14 +453,14 @@ export default function WeatherStrip({
                   {c ? c.word : "--"}
                 </span>
                 {d.rainPct !== null && d.rainPct >= RAIN_FLOOR && (
-                  <span className="flex shrink-0 items-center gap-1 text-stone-500 dark:text-stone-400">
+                  <span className="flex shrink-0 items-center gap-1 text-stone-600 dark:text-stone-300">
                     <Droplets className="h-3.5 w-3.5" aria-hidden="true" />
                     {d.rainPct}%
                   </span>
                 )}
                 <span className="shrink-0 tabular-nums text-stone-900 dark:text-stone-100">
                   {formatTemp(d.highF, unit)}{" "}
-                  <span className="text-stone-500 dark:text-stone-400">
+                  <span className="text-stone-600 dark:text-stone-300">
                     {formatTemp(d.lowF, unit)}
                   </span>
                 </span>

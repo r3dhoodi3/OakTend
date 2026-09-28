@@ -61,7 +61,7 @@ export default function RequestQuoteForm({
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               Ask {contractorName} for a quote
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Only this pro can see your request. If they pass, you can post it
               to all local pros.
             </p>
@@ -133,7 +133,7 @@ export default function RequestQuoteForm({
                   required
                   placeholder="What needs doing? At least 20 characters so they can give a real quote."
                 />
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   Your name and contact stay private until this pro accepts.
                 </p>
               </div>

@@ -356,8 +356,11 @@ html[data-fonts-pending] .hero-rise {
        subtext        .subtext        14px, stone-600 / stone-300
        caption        .caption        12px, stone-600 / stone-300
      Nothing below 12px (text-xs) for words a person has to read; the old
-     text-[9px] / [10px] / [11px] map to text-xs and text-[13px] maps to
-     text-sm. Marketing heroes keep the larger ramp below.
+     9, 10 and 11px arbitrary sizes were mapped to text-xs and 13px to
+     text-sm on 2026-09-27. Left on purpose: count badges and glyphs inside a
+     fixed 16-20px circle or box, chart tick labels in fixed-width columns,
+     the phone plan-comparison table (13px so three columns fit 360px), and
+     the landing demo mocks. Marketing heroes keep the larger ramp below.
      Subtext color, measured (WCAG 2.x): light stone-600 on the white card
      7.63:1 and on the warm-paper page (oaktend-50) 7.00:1, where the older
      stone-500 was only 4.40:1 on the page; dark stone-300 on the stone-800

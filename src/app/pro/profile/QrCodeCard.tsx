@@ -68,7 +68,7 @@ export default function QrCodeCard({
       />
       <div className="min-w-0">
         <p className="text-sm font-medium text-stone-900 dark:text-stone-100">Your QR code</p>
-        <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
           Put it on your truck, invoices, and business cards. Scanning it opens
           your page.
         </p>

@@ -149,7 +149,7 @@ export default async function SearchPage(
             own input too. GET form, no JS required. */}
         <form action="/search" method="GET" role="search" className="flex items-center gap-2">
           <span className="relative flex-1">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 dark:text-stone-400">
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-600 dark:text-stone-300">
               <Search className="h-4 w-4" aria-hidden="true" />
             </span>
             <input
@@ -168,7 +168,7 @@ export default async function SearchPage(
         </form>
 
         {q && (
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             {total > 0
               ? `Found ${total} match${total === 1 ? "" : "es"} in your home and pages.`
               : "Nothing on the site matched."}
@@ -185,21 +185,21 @@ export default async function SearchPage(
           already reads (see initialQuestion there). */}
       {q && total === 0 && (
         <section className="space-y-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
             Ask OakTend
           </h2>
           <Link
             href={`/chats?lead=ask-oaktend&q=${encodeURIComponent(q)}`}
             className="flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 hover:bg-bark-50 max-sm:min-h-11 dark:border-white/10 dark:bg-stone-800 dark:hover:bg-stone-700"
           >
-            <span className="text-stone-500 dark:text-stone-400">
+            <span className="text-stone-600 dark:text-stone-300">
               <Sparkles className="h-5 w-5" aria-hidden="true" />
             </span>
             <span className="min-w-0">
               <span className="block truncate text-sm font-medium text-stone-900 dark:text-stone-100">
                 Ask OakTend in Messages
               </span>
-              <span className="block truncate text-xs text-stone-500 dark:text-stone-400">
+              <span className="block truncate text-xs text-stone-600 dark:text-stone-300">
                 &ldquo;{q}&rdquo;
               </span>
             </span>
@@ -209,7 +209,7 @@ export default async function SearchPage(
 
       {groups.map((g) => (
         <section key={g.title} className="space-y-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
             {g.title}
           </h2>
           <ul className="divide-y divide-stone-100 overflow-hidden rounded-xl border border-stone-200 bg-white dark:divide-white/10 dark:border-white/10 dark:bg-stone-800">
@@ -220,7 +220,7 @@ export default async function SearchPage(
                   className="flex items-center gap-3 px-4 py-3 hover:bg-bark-50 dark:hover:bg-stone-700"
                 >
                   {r.icon && (
-                    <span className="text-stone-500 dark:text-stone-400">
+                    <span className="text-stone-600 dark:text-stone-300">
                       <r.icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                   )}
@@ -229,7 +229,7 @@ export default async function SearchPage(
                       {r.label}
                     </span>
                     {r.sub && (
-                      <span className="block truncate text-xs text-stone-500 dark:text-stone-400">
+                      <span className="block truncate text-xs text-stone-600 dark:text-stone-300">
                         {r.sub}
                       </span>
                     )}

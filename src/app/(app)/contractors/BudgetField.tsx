@@ -54,7 +54,7 @@ export default function BudgetField({
             : [{ value: "", label: "Prefer not to say" }, ...BUDGET_RANGES]
         }
       />
-      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
         {isMajor
           ? "Pros need a budget range to bid seriously on projects this size."
           : "Helps pros give realistic quotes. Not a commitment."}

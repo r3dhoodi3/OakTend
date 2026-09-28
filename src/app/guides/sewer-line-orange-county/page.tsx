@@ -116,7 +116,7 @@ export default function SewerLineOrangeCountyGuide() {
         Sewer line problems in Orange County
       </h1>
       <GuideMeta path="/guides/sewer-line-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         About the sewer lateral, the pipe from your house to the public sewer
         main. No repair prices here: we found no reliable published figure.
         General information, not plumbing or legal advice.
@@ -255,7 +255,7 @@ export default function SewerLineOrangeCountyGuide() {
         </div>
 
         <section>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             City pages:{" "}
             <Link href="/oc/anaheim" className="text-bark-700 hover:underline dark:text-stone-300">Anaheim</Link>,{" "}
             <Link href="/oc/costa-mesa" className="text-bark-700 hover:underline dark:text-stone-300">Costa Mesa</Link>,{" "}
@@ -264,7 +264,7 @@ export default function SewerLineOrangeCountyGuide() {
             <Link href="/oc/tustin" className="text-bark-700 hover:underline dark:text-stone-300">Tustin</Link>, or every city on
             the <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>.
           </p>
-          <p className="mt-4 text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="mt-4 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Your city or sewer district sets the rules
             for its lateral, permits and rebates, and can change them.
           </p>

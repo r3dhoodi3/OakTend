@@ -10,6 +10,9 @@ import Lightbox from "@/components/Lightbox";
 import ProgressBar, { useStagedProgress } from "@/components/ProgressBar";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 import { FREE_TASTE_PAYWALL, tasteMeterLabel } from "@/lib/freeAiTaste";
+// Shared severity tones (low neutral, medium amber, urgent red), the same
+// strings the issue rows and pro lead cards use.
+import { SEVERITY_STYLE } from "@/lib/proLeadCard";
 
 type Mode = "photo" | "pdf" | "text";
 
@@ -85,12 +88,6 @@ const SEVERITY_LABEL: Record<string, string> = {
   low: "Low",
   medium: "Medium",
   urgent: "Urgent",
-};
-
-const SEVERITY_STYLE: Record<string, string> = {
-  low: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
-  medium: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
-  urgent: "border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200",
 };
 
 // Downscale a report page to a JPEG that keeps text legible but stays small
@@ -440,19 +437,19 @@ export default function InspectionUpload({
                     <p className="text-sm font-medium text-stone-800 dark:text-stone-200">
                       {labelFor(SYSTEM_TYPES, s.system_type)}
                       {s.condition_rating ? (
-                        <span className="ml-2 text-xs font-normal text-stone-500 dark:text-stone-400">
+                        <span className="ml-2 text-xs font-normal text-stone-600 dark:text-stone-300">
                           {CONDITION_LABEL[s.condition_rating] ?? ""} (
                           {s.condition_rating}/5)
                         </span>
                       ) : null}
                       {s.install_year ? (
-                        <span className="ml-2 text-xs font-normal text-stone-500 dark:text-stone-400">
+                        <span className="ml-2 text-xs font-normal text-stone-600 dark:text-stone-300">
                           Installed {s.install_year}
                         </span>
                       ) : null}
                     </p>
                     {s.notes && (
-                      <p className="text-xs text-stone-500 dark:text-stone-400">{s.notes}</p>
+                      <p className="text-xs text-stone-600 dark:text-stone-300">{s.notes}</p>
                     )}
                   </div>
                 </li>
@@ -496,7 +493,7 @@ export default function InspectionUpload({
                       </span>
                     </p>
                     {iss.description && (
-                      <p className="text-xs text-stone-500 dark:text-stone-400">{iss.description}</p>
+                      <p className="text-xs text-stone-600 dark:text-stone-300">{iss.description}</p>
                     )}
                   </div>
                 </li>
@@ -506,7 +503,7 @@ export default function InspectionUpload({
         )}
 
         {result.systems.length === 0 && result.issues.length === 0 && (
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             OakTend couldn&apos;t find any specific systems or issues in that
             report.
           </p>
@@ -568,7 +565,7 @@ export default function InspectionUpload({
             <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
               {previews.length ? "Add more pages" : "Upload photos of the inspection report"}
             </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               You can add every page as its own photo
             </span>
             <input
@@ -624,7 +621,7 @@ export default function InspectionUpload({
             <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
               {pdfName ? "Choose a different PDF" : "Upload the inspection report PDF"}
             </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               The whole report as one PDF, up to 20MB
             </span>
             <input
@@ -671,7 +668,7 @@ export default function InspectionUpload({
           the report goes to Anthropic's API to be read, and Anthropic's paid
           API terms mean it isn't training data. Same fact as the privacy page,
           compressed to one sentence. */}
-      <p className="text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-xs text-stone-600 dark:text-stone-300">
         Your report is sent to our AI provider, Anthropic, to be read. Under its
         paid API terms it is not used to train their models.{" "}
         <Link
@@ -703,7 +700,7 @@ export default function InspectionUpload({
           {/* THE METER, stated before the tap rather than after the wall.
               Plus and trialing members get null and see nothing here. */}
           {readsLeft !== null && readsLeft > 0 && (
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {tasteMeterLabel("inspection", readsLeft)}. Plus reads every
               report you add.
             </p>
@@ -729,7 +726,7 @@ export default function InspectionUpload({
           <button
             type="button"
             onClick={cancelIngest}
-            className="block w-full text-center text-sm text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
+            className="block w-full text-center text-sm text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-100"
           >
             Cancel
           </button>

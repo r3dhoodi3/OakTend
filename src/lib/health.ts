@@ -1,5 +1,5 @@
 import type { HomeSystem, Issue } from "@/lib/database.types";
-import { STATUS_TONE } from "@/lib/statusTone";
+import { STATUS_CARD_TONE } from "@/lib/statusTone";
 import {
   labelFor,
   SYSTEM_TYPES,
@@ -495,11 +495,13 @@ export function scoreBreakdown(
 // in light and dark alike (green = good, red = bad or needs attention). The
 // "Generally healthy" band used to be brand brown in light and plain stone in
 // dark, and "Needs attention" was amber, so the same meaning changed color.
+// The tone is always painted across a whole card, so it uses the softer card
+// fill (STATUS_CARD_TONE), not the chip fill.
 export function scoreBand(score: number): { label: string; tone: string } {
-  if (score >= 85) return { label: "Great shape", tone: STATUS_TONE.ok };
-  if (score >= 65) return { label: "Generally healthy", tone: STATUS_TONE.ok };
-  if (score >= 45) return { label: "Needs attention", tone: STATUS_TONE.danger };
-  return { label: "Several items overdue", tone: STATUS_TONE.danger };
+  if (score >= 85) return { label: "Great shape", tone: STATUS_CARD_TONE.ok };
+  if (score >= 65) return { label: "Generally healthy", tone: STATUS_CARD_TONE.ok };
+  if (score >= 45) return { label: "Needs attention", tone: STATUS_CARD_TONE.danger };
+  return { label: "Several items overdue", tone: STATUS_CARD_TONE.danger };
 }
 
 // Derive upcoming maintenance prompts from system ages (read-only, computed -

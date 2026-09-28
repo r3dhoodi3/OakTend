@@ -192,7 +192,7 @@ export default function HoaCoastalRemodelGuide() {
         HOA and Coastal Commission approval for Orange County remodels
       </h1>
       <GuideMeta path="/guides/hoa-coastal-commission-remodel-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         General information, not legal advice. Read your own HOA documents and
         ask your city before you rely on any of this for your project.
       </p>
@@ -495,7 +495,7 @@ export default function HoaCoastalRemodelGuide() {
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">
                   {f.q}
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -504,7 +504,7 @@ export default function HoaCoastalRemodelGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             City coastal program status is from the
             Coastal Commission&apos;s chart dated October 9, 2024, checked
             against city pages on September 26, 2026. OakTend is not a law

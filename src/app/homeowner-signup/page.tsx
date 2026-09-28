@@ -214,7 +214,7 @@ export default function HomeownerSignUpPage(props: {
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             Create your account
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Start tracking your home with OakTend.
           </p>
         </div>
@@ -260,7 +260,7 @@ export default function HomeownerSignUpPage(props: {
           {/* Phone only: 12px consent copy and a 20px box were the smallest
               gate in signup, so the label reads at 14px and the whole row is
               a 44px target. */}
-          <label className="flex items-start gap-2 text-xs text-stone-500 max-sm:min-h-11 max-sm:py-1 max-sm:text-sm dark:text-stone-400">
+          <label className="flex items-start gap-2 text-xs text-stone-600 max-sm:min-h-11 max-sm:py-1 max-sm:text-sm dark:text-stone-300">
             <input
               type="checkbox"
               // 20px on a phone: the default box is ~13px, which is a miss
@@ -309,7 +309,7 @@ export default function HomeownerSignUpPage(props: {
           </button>
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-stone-200 dark:bg-white/10" />
-            <span className="text-xs text-stone-500 dark:text-stone-400">or</span>
+            <span className="text-xs text-stone-600 dark:text-stone-300">or</span>
             <div className="h-px flex-1 bg-stone-200 dark:bg-white/10" />
           </div>
           <div className="space-y-3">
@@ -323,7 +323,7 @@ export default function HomeownerSignUpPage(props: {
               a button that isn't on screen would read as a mistake. */}
           {/* Phone only: for OAuth signups this paragraph IS the agreement,
               so it reads at 14px and its links carry a 44px touch area. */}
-          <p className="text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             By continuing with Google{APPLE_SIGNIN_ENABLED ? " or Apple" : ""}{" "}
             you confirm you are 18 or older and agree to the{" "}
             <Link href="/terms" className="text-bark-700 hover:underline max-sm:py-3 dark:text-stone-300">
@@ -355,7 +355,7 @@ export default function HomeownerSignUpPage(props: {
         )}
 
         <div className="mt-6 border-t border-stone-100 pt-4 text-center dark:border-white/10">
-          <p className="text-sm text-stone-500 dark:text-stone-400">Already have an account?</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">Already have an account?</p>
           <Link
             href={`/signin${nextQuery}`}
             className="btn-secondary mt-2 flex w-full"

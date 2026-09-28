@@ -108,7 +108,7 @@ export default function PublicPageCard({
       <section className="card space-y-3">
         <div>
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">Share your page</h2>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Anyone can open it, no account needed. It shows your business name,
             services, and your real OakTend reviews.
           </p>
@@ -167,7 +167,7 @@ export default function PublicPageCard({
                 Pro member
               </span>
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Ready-made pieces for social posts and your own website. They
               always show your real OakTend numbers.
             </p>
@@ -178,7 +178,7 @@ export default function PublicPageCard({
               <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                 Share card image
               </p>
-              <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                 A 1200x630 image of your page, sized for social posts. Pair it
                 with the caption.
               </p>
@@ -206,7 +206,7 @@ export default function PublicPageCard({
             <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
               Rating widget for your website
             </p>
-            <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
               Paste this into your site. It shows your full OakTend rating and
               review count, exactly as they appear here.
             </p>
@@ -235,7 +235,7 @@ export default function PublicPageCard({
                 Pro member
               </span>
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Your about section appears on your public page.
             </p>
           </div>
@@ -250,7 +250,7 @@ export default function PublicPageCard({
               placeholder="What you do, how long you've been at it, and what customers can expect."
               className="input h-auto"
             />
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Up to 1,000 characters.
             </p>
           </div>
@@ -264,7 +264,7 @@ export default function PublicPageCard({
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">
             Make it yours with OakTend Pro
           </h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             Your basic page is live for every pro, shareable link and QR code
             included. Members can dress it up:
           </p>
@@ -285,7 +285,7 @@ export default function PublicPageCard({
               </span>
             </li>
           </ul>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Membership never changes your rating or reviews: those are real
             for everyone.
           </p>

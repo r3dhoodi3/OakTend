@@ -170,7 +170,7 @@ function IncentiveLines({ incentives }: { incentives: ForecastIncentive[] }) {
               {inc.programs.map((p) => (
                 <li
                   key={p.name}
-                  className="text-xs leading-relaxed text-stone-500 dark:text-stone-400"
+                  className="text-xs leading-relaxed text-stone-600 dark:text-stone-300"
                 >
                   <a
                     href={p.url}
@@ -189,7 +189,7 @@ function IncentiveLines({ incentives }: { incentives: ForecastIncentive[] }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-1.5 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+            <p className="mt-1.5 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
               {INCENTIVE_CAVEAT} Table last checked {INCENTIVES_AS_OF}.
             </p>
           </details>
@@ -230,7 +230,7 @@ function ReserveProgress({
         <p className="text-xs font-semibold tabular-nums text-stone-900 dark:text-stone-100">
           {amountText}
           {showPct && (
-            <span className="ml-1.5 font-normal text-stone-500 dark:text-stone-400">
+            <span className="ml-1.5 font-normal text-stone-600 dark:text-stone-300">
               {pct}%
             </span>
           )}
@@ -445,7 +445,7 @@ export default async function ForecastPage() {
           Cost forecast
         </h1>
       </header>
-      <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mb-5 text-sm text-stone-600 dark:text-stone-300">
         What your home&apos;s systems will likely need over the next{" "}
         {forecast?.horizonYears ?? 10} years, what to set aside each month and
         how to push big bills further out.
@@ -520,7 +520,7 @@ export default async function ForecastPage() {
                   already says so, so this summary only renders when there is
                   a real figure to give. */}
               {reserve.nextBig && (
-                <p className="text-sm text-stone-500 dark:text-stone-400">
+                <p className="text-sm text-stone-600 dark:text-stone-300">
                   Next {RESERVE_HORIZON_YEARS} years: about{" "}
                   {money(reserve.nextFiveYearTotal)}, or{" "}
                   {money(reserve.monthlySetAside)} a month.
@@ -584,7 +584,7 @@ export default async function ForecastPage() {
                   Save
                 </SubmitButton>
               </form>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Only you and your household see this. Leave it blank to clear it.
               </p>
             </div>
@@ -601,10 +601,10 @@ export default async function ForecastPage() {
                     key={item.system.id}
                     className={`flex items-start justify-between gap-3 rounded-lg border p-3 ${
                       item.yearsLeft <= 1
-                        ? // Due within a year: still flagged, but a soft rose
+                        ? // Due within a year: still flagged, but a soft red
                           // tint in dark mode instead of a near-solid red slab,
                           // so the white text on it stays easy to read.
-                          "border-red-200 bg-red-50 dark:border-rose-400/25 dark:bg-rose-500/10"
+                          "border-red-200 bg-red-50 dark:border-red-400/25 dark:bg-red-500/10"
                         : "border-stone-200 bg-stone-50 dark:border-white/10 dark:bg-stone-700"
                     }`}
                   >
@@ -613,7 +613,7 @@ export default async function ForecastPage() {
                         <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                           {labelFor(SYSTEM_TYPES, item.system_type)}
                         </p>
-                        <p className="text-xs text-stone-500 dark:text-stone-400">{reason}</p>
+                        <p className="text-xs text-stone-600 dark:text-stone-300">{reason}</p>
                       </div>
                     </div>
                     <Link
@@ -636,7 +636,7 @@ export default async function ForecastPage() {
               <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Line up quotes early
               </h2>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 {EMERGENCY_PREMIUM_COPY} Get two or three quotes now while
                 nothing is broken.
               </p>
@@ -649,7 +649,7 @@ export default async function ForecastPage() {
                     <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                       {labelFor(SYSTEM_TYPES, item.system_type)}
                     </p>
-                    <p className="text-xs text-stone-500 dark:text-stone-400">
+                    <p className="text-xs text-stone-600 dark:text-stone-300">
                       {riskReason(item)}
                     </p>
                     <QuoteEarlyLink
@@ -681,7 +681,7 @@ export default async function ForecastPage() {
                       title={`${y.year}: ${money(y.amount)}`}
                       className="flex min-w-[2.5rem] flex-col items-center justify-end gap-1 transition hover:opacity-90"
                     >
-                      <span className="text-[10px] font-medium tabular-nums text-stone-500 dark:text-stone-400">
+                      <span className="text-[10px] font-medium tabular-nums text-stone-600 dark:text-stone-300">
                         {y.amount > 0 ? moneyShort(y.amount) : ""}
                       </span>
                       <div
@@ -702,7 +702,7 @@ export default async function ForecastPage() {
                 {forecast.yearlySpend.map((y) => (
                   <span
                     key={y.year}
-                    className="min-w-[2.5rem] text-center text-[10px] text-stone-500 dark:text-stone-400"
+                    className="min-w-[2.5rem] text-center text-[10px] text-stone-600 dark:text-stone-300"
                   >
                     {y.year}
                   </span>
@@ -716,7 +716,7 @@ export default async function ForecastPage() {
               <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Running costs
               </h2>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 {energySeason === "winter"
                   ? "Heating this winter"
                   : "Cooling this summer"}{" "}
@@ -746,7 +746,7 @@ export default async function ForecastPage() {
                   </Link>
                 </div>
               )}
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Ballpark from typical energy prices and 30-year weather
                 averages for your state, give or take 30%.
               </p>
@@ -776,7 +776,7 @@ export default async function ForecastPage() {
                       <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                         {labelFor(SYSTEM_TYPES, item.system_type)}
                       </p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">
+                      <p className="text-xs text-stone-600 dark:text-stone-300">
                         {item.timingEstimated ? (
                           "Timing unknown: no install year"
                         ) : (
@@ -803,7 +803,7 @@ export default async function ForecastPage() {
                     </p>
                     {!item.timingEstimated &&
                       item.replacementYear - currentYear > 1 && (
-                        <p className="text-xs text-stone-500 dark:text-stone-400">
+                        <p className="text-xs text-stone-600 dark:text-stone-300">
                           closer to ~{money(item.futureCost)} by{" "}
                           {item.replacementYear}
                         </p>
@@ -820,7 +820,7 @@ export default async function ForecastPage() {
                       </p>
                       {/* The why sits right under the step, ahead of the
                           numbers and buttons, so the reason comes first. */}
-                      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                         {action.why}
                       </p>
                       <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
@@ -880,7 +880,7 @@ export default async function ForecastPage() {
                 );
               })}
             </div>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               Steps and years gained are typical figures, last reviewed{" "}
               {ACTIONS_AS_OF}.
             </p>
@@ -915,7 +915,7 @@ export default async function ForecastPage() {
                     </h2>
                     {reserve.nextBig ? (
                       <>
-                        <p className="text-sm text-stone-500 dark:text-stone-400">
+                        <p className="text-sm text-stone-600 dark:text-stone-300">
                           Next {RESERVE_HORIZON_YEARS} years: about{" "}
                           {moneyBand(reserve.nextFiveYearTotal)}, or{" "}
                           {moneyBand(reserve.monthlySetAside)} a month.
@@ -933,7 +933,7 @@ export default async function ForecastPage() {
                         />
                       </>
                     ) : (
-                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                      <p className="text-sm text-stone-600 dark:text-stone-300">
                         Nothing big lands in the next {RESERVE_HORIZON_YEARS}{" "}
                         years.
                       </p>
@@ -943,7 +943,7 @@ export default async function ForecastPage() {
                     <div className="flex flex-wrap items-end gap-2">
                       <div className="min-w-[9rem] flex-1">
                         <p className="label">What you have saved so far</p>
-                        <div className="input text-stone-400 dark:text-stone-500">
+                        <div className="input text-stone-600 dark:text-stone-300">
                           4500
                         </div>
                       </div>
@@ -967,7 +967,7 @@ export default async function ForecastPage() {
                             <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                               {labelFor(SYSTEM_TYPES, item.system_type)}
                             </p>
-                            <p className="text-xs text-stone-500 dark:text-stone-400">
+                            <p className="text-xs text-stone-600 dark:text-stone-300">
                               {reason}
                             </p>
                           </div>
@@ -985,7 +985,7 @@ export default async function ForecastPage() {
                     <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
                       Line up quotes early
                     </h2>
-                    <p className="text-sm text-stone-500 dark:text-stone-400">
+                    <p className="text-sm text-stone-600 dark:text-stone-300">
                       {EMERGENCY_PREMIUM_COPY} Get two or three quotes now
                       while nothing is broken.
                     </p>
@@ -998,7 +998,7 @@ export default async function ForecastPage() {
                           <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                             {labelFor(SYSTEM_TYPES, item.system_type)}
                           </p>
-                          <p className="text-xs text-stone-500 dark:text-stone-400">
+                          <p className="text-xs text-stone-600 dark:text-stone-300">
                             {riskReason(item)}
                           </p>
                         </div>
@@ -1028,7 +1028,7 @@ export default async function ForecastPage() {
                             key={y.year}
                             className="flex min-w-[2.5rem] flex-col items-center justify-end gap-1"
                           >
-                            <span className="text-[10px] font-medium tabular-nums text-stone-500 dark:text-stone-400">
+                            <span className="text-[10px] font-medium tabular-nums text-stone-600 dark:text-stone-300">
                               {banded > 0 ? moneyShort(banded) : ""}
                             </span>
                             <div
@@ -1049,7 +1049,7 @@ export default async function ForecastPage() {
                       {forecast.yearlySpend.map((y) => (
                         <span
                           key={y.year}
-                          className="min-w-[2.5rem] text-center text-[10px] text-stone-500 dark:text-stone-400"
+                          className="min-w-[2.5rem] text-center text-[10px] text-stone-600 dark:text-stone-300"
                         >
                           {y.year}
                         </span>
@@ -1072,7 +1072,7 @@ export default async function ForecastPage() {
                               <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                                 {labelFor(SYSTEM_TYPES, item.system_type)}
                               </p>
-                              <p className="text-xs text-stone-500 dark:text-stone-400">
+                              <p className="text-xs text-stone-600 dark:text-stone-300">
                                 {item.timingEstimated
                                   ? "Timing unknown: no install year"
                                   : `likely around ${yearBand(item.replacementYear)}`}
@@ -1096,7 +1096,7 @@ export default async function ForecastPage() {
                       );
                     })}
                   </div>
-                  <p className="text-xs text-stone-500 dark:text-stone-400">
+                  <p className="text-xs text-stone-600 dark:text-stone-300">
                     Steps and years gained are typical figures, last
                     reviewed {ACTIONS_AS_OF}.
                   </p>
@@ -1117,7 +1117,7 @@ export default async function ForecastPage() {
                   >
                     Get OakTend Plus
                   </Link>
-                  <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
                     {paywallVariant === "soft"
                       ? "Start weekly with a 3-day free trial, or go monthly at $4.99."
                       : "Go weekly at $1.99 or monthly at $4.99. Cancel anytime."}

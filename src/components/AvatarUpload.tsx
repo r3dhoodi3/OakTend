@@ -182,12 +182,12 @@ export default function AvatarUpload({
             ? `group relative flex h-32 w-full cursor-pointer items-center justify-center overflow-hidden sm:h-40 ${
                 url
                   ? ""
-                  : "border border-dashed border-stone-300 bg-stone-100 text-stone-500 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-400"
+                  : "border border-dashed border-stone-300 bg-stone-100 text-stone-600 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300"
               }`
             : `group relative flex cursor-pointer items-center justify-center overflow-hidden border shadow-sm ${rounded} ${
                 url
                   ? "border-stone-200 dark:border-white/10"
-                  : "border-dashed border-stone-300 bg-stone-50 text-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400"
+                  : "border-dashed border-stone-300 bg-stone-50 text-stone-600 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300"
               }`
         }
         style={isBanner ? undefined : { height: size, width: size }}
@@ -245,7 +245,7 @@ export default function AvatarUpload({
         {/* The whole control is tappable; this overlay says so on hover/focus,
             and shows the spinner while an upload is in flight. */}
         <span
-          className={`pointer-events-none absolute inset-0 flex items-end justify-center pb-1 text-[10px] font-medium text-white opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100 ${
+          className={`pointer-events-none absolute inset-0 flex items-end justify-center pb-1 text-xs font-medium text-white opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100 ${
             busy ? "!bg-black/40 !opacity-100" : ""
           }`}
         >

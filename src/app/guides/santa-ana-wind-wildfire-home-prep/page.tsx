@@ -116,7 +116,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/santa-ana-wind-wildfire-home-prep" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Written for Orange County homeowners, especially near canyons,
         hillsides and open space. Instructions here come from the Orange
         County Fire Authority and state law. General information, not safety
@@ -124,7 +124,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -372,7 +372,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             recognizes and what proof it wants, and keep dated photos and
             receipts of the work.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             City pages for some of the county&apos;s foothill, canyon and coastal
             hillside communities:{" "}
             <Link href="/oc/yorba-linda" className="text-bark-700 hover:underline dark:text-stone-300">Yorba Linda</Link>,{" "}
@@ -388,7 +388,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 25, 2026. Wildfire rules are changing, and OCFA
             itself notes that new state requirements may be enacted at any
             time. The state Zone 0 regulation was withdrawn from review on

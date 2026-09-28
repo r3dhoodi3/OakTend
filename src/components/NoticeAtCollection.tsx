@@ -33,7 +33,7 @@ export default function NoticeAtCollection({
   // in-page rather than only on /privacy keeps it "at or before" collection.
   return (
     <AnimatedDetails
-      className="group text-xs leading-relaxed text-stone-600 dark:text-stone-400"
+      className="group text-xs leading-relaxed text-stone-600 dark:text-stone-300"
       // The hover underline sits on the words only. On the summary itself it
       // also ran under the arrow, and flipped to the top of it when the arrow
       // rotated open.

@@ -143,7 +143,7 @@ export default function AskOakTendRow({
             <span className="truncate font-medium text-stone-900 dark:text-stone-100">
               Ask OakTend
             </span>
-            <span className="shrink-0 text-xs text-stone-500 dark:text-stone-400">
+            <span className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
               Assistant
             </span>
           </span>
@@ -151,7 +151,7 @@ export default function AskOakTendRow({
               standing description of what this assistant is until then -
               exactly how the real conversation rows below fall back to their
               job category before anyone has said anything. */}
-          <span className="block truncate text-xs text-stone-500 dark:text-stone-400">
+          <span className="block truncate text-xs text-stone-600 dark:text-stone-300">
             {preview ?? subtitle}
           </span>
         </span>

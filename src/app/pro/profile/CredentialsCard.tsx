@@ -161,7 +161,7 @@ export default function CredentialsCard({
             <h2 className="font-semibold text-stone-900 dark:text-stone-100">
               State license
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Your CSLB license number. OakTend checks it against
               California&apos;s public license board; a confirmed license earns
               the verified badge on your public page.
@@ -185,7 +185,7 @@ export default function CredentialsCard({
                   phone it steps up to 14px (max-sm:text-sm) instead of
                   the old 12px; desktop is unchanged. */}
               {hasLicense && verifyStatus === "verified" && (
-                <span className="inline-flex items-center gap-1 rounded bg-green-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-green-700 max-sm:text-sm dark:bg-green-950/40 dark:text-green-200">
+                <span className="inline-flex items-center gap-1 rounded bg-green-100 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-green-700 max-sm:text-sm dark:bg-green-950/40 dark:text-green-200">
                   <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
@@ -193,13 +193,13 @@ export default function CredentialsCard({
                 </span>
               )}
               {hasLicense && verifyStatus === "failed" && (
-                <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-red-700 max-sm:text-sm dark:bg-red-950/40 dark:text-red-200">
+                <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-red-700 max-sm:text-sm dark:bg-red-950/40 dark:text-red-200">
                   Not confirmed
                 </span>
               )}
               {hasLicense &&
                 (verifyStatus === "pending" || verifyStatus === "unverified") && (
-                  <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 max-sm:text-sm dark:bg-amber-500/15 dark:text-amber-300">
+                  <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-amber-700 max-sm:text-sm dark:bg-amber-500/15 dark:text-amber-300">
                     Verification pending
                   </span>
                 )}
@@ -210,11 +210,11 @@ export default function CredentialsCard({
                   <FieldIcon>
                     <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M9 13h6M9 17h6" />
                   </FieldIcon>
-                  <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+                  <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                     {contractor.license_number}
                   </div>
                 </div>
-                <p className="mt-1 text-xs text-green-600 dark:text-green-400">
+                <p className="mt-1 text-xs text-green-700 dark:text-green-400">
                   Checked against the CSLB public database
                   {verifiedAt ? ` on ${formatVerifiedDate(verifiedAt)}` : ""}.
                 </p>
@@ -239,13 +239,13 @@ export default function CredentialsCard({
                   />
                 </div>
                 {!hasLicense && (
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     Your CSLB (California&apos;s contractor license board)
                     license number, digits only.
                   </p>
                 )}
                 {hasLicense && (
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     Locked once verified. Typo? You can correct it until
                     then.
                   </p>
@@ -310,7 +310,7 @@ export default function CredentialsCard({
                     verifyStatus === "unverified") &&
                   (cslbEligible ? (
                     <>
-                      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                         {serviceState === "CA"
                           ? "We're checking your license against the CSLB public database. You can keep applying to jobs meanwhile."
                           : "Have a California (CSLB) license? Verify it below against the CSLB public database. Licenses from other states stay on file. You can keep applying to jobs meanwhile."}
@@ -318,7 +318,7 @@ export default function CredentialsCard({
                       <VerifyLicenseButton label="Verify now" />
                     </>
                   ) : (
-                    <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                    <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                       Automatic license checks only cover California (CSLB)
                       right now, so yours stays on file as-is. State You
                       Serve is already set to California, if it&apos;s a
@@ -370,7 +370,7 @@ export default function CredentialsCard({
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">
             Insurance carrier
           </h2>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Optional, and never shown publicly. It is here so you and OakTend
             support both know who to call when a homeowner asks for a
             certificate.

@@ -310,7 +310,7 @@ function NotReadyCard() {
           <h1 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
             This page is not ready yet
           </h1>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             The pro&apos;s public page is still being set up. Please check back
             soon.
           </p>
@@ -465,7 +465,7 @@ export default async function PublicProPage(
               wizard started asking, and an "Owner: " label with nothing after
               it would look broken. */}
           {profile.owner_name && (
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Owner: {profile.owner_name}
             </p>
           )}
@@ -475,14 +475,14 @@ export default async function PublicProPage(
               <span className="font-medium text-stone-700 dark:text-stone-300">
                 <Stars rating={profile.rating!} />{" "}
                 <span className="tabular-nums">{profile.rating}</span>
-                <span className="font-normal text-stone-500 dark:text-stone-400">
+                <span className="font-normal text-stone-600 dark:text-stone-300">
                   {" "}
                   · {profile.review_count} review
                   {profile.review_count === 1 ? "" : "s"}
                 </span>
               </span>
             ) : (
-              <span className="text-stone-500 dark:text-stone-400">No reviews yet</span>
+              <span className="text-stone-600 dark:text-stone-300">No reviews yet</span>
             )}
           </div>
 
@@ -505,7 +505,7 @@ export default async function PublicProPage(
                 </svg>
                 {badgeLabel}
               </span>
-              <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 {badgeCaption}
               </p>
             </div>
@@ -529,7 +529,7 @@ export default async function PublicProPage(
                     </svg>
                     License verified
                   </span>
-                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     Checked against the CSLB public database on {licenseVerifiedLabel}.
                   </p>
                 </div>
@@ -550,7 +550,7 @@ export default async function PublicProPage(
                     </svg>
                     Background checked
                   </span>
-                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     Background check run by Checkr on {backgroundCheckedLabel}.
                   </p>
                 </div>
@@ -563,7 +563,7 @@ export default async function PublicProPage(
               the fact so the absence reads as neutral, not as a red flag. */}
           {!licenseVerifiedLabel && !profile.has_license && (
             <div className="mt-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300">
                 No license listed
               </span>
             </div>
@@ -607,7 +607,7 @@ export default async function PublicProPage(
           {about && (
             <section className="mt-5 border-t border-stone-100 pt-4 dark:border-white/10">
               <h2 className="text-sm font-semibold text-stone-900 dark:text-stone-100">About</h2>
-              <p className="mt-1 whitespace-pre-line text-sm text-stone-600 dark:text-stone-400">
+              <p className="mt-1 whitespace-pre-line text-sm text-stone-600 dark:text-stone-300">
                 {about}
               </p>
             </section>
@@ -620,7 +620,7 @@ export default async function PublicProPage(
               <h2 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Projects
               </h2>
-              <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-400">
+              <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                 Photos provided by the business.
               </p>
               <ul className="mt-2 space-y-4">
@@ -665,7 +665,7 @@ export default async function PublicProPage(
                         {p.title}
                       </p>
                       {(p.category || p.months) && (
-                        <p className="mt-0.5 flex flex-wrap items-center gap-1 text-xs text-stone-500 dark:text-stone-400">
+                        <p className="mt-0.5 flex flex-wrap items-center gap-1 text-xs text-stone-600 dark:text-stone-300">
                           {p.category && (
                             <span>{labelFor(JOB_CATEGORIES, p.category)}</span>
                           )}
@@ -674,7 +674,7 @@ export default async function PublicProPage(
                         </p>
                       )}
                       {p.description && (
-                        <p className="mt-1 whitespace-pre-line text-sm text-stone-600 dark:text-stone-400">
+                        <p className="mt-1 whitespace-pre-line text-sm text-stone-600 dark:text-stone-300">
                           {p.description}
                         </p>
                       )}
@@ -689,13 +689,13 @@ export default async function PublicProPage(
             <h2 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Reviews
               {profile.review_count > 0 && (
-                <span className="ml-1 font-normal text-stone-500 dark:text-stone-400">
+                <span className="ml-1 font-normal text-stone-600 dark:text-stone-300">
                   ({profile.review_count})
                 </span>
               )}
             </h2>
             {profile.reviews.length === 0 ? (
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                 No reviews yet. Reviews come from real OakTend jobs only.
               </p>
             ) : (
@@ -706,12 +706,12 @@ export default async function PublicProPage(
                       <span className="text-xs">
                         <Stars rating={r.rating} />
                       </span>
-                      <span className="text-xs text-stone-500 dark:text-stone-400">
+                      <span className="text-xs text-stone-600 dark:text-stone-300">
                         {r.created_at.slice(0, 10)}
                       </span>
                     </div>
                     {r.comment && (
-                      <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{r.comment}</p>
+                      <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{r.comment}</p>
                     )}
                     {/* Signed-in only: reportContentAction needs an account to
                         record as the reporter, so offering the control to a
@@ -763,7 +763,7 @@ export default async function PublicProPage(
             ) : (
               <Link
                 href="/contact?topic=abuse"
-                className="text-xs text-stone-500 hover:text-red-600 dark:text-stone-400 dark:hover:text-red-400"
+                className="text-xs text-stone-600 hover:text-red-600 dark:text-stone-300 dark:hover:text-red-400"
               >
                 Report abuse or a safety concern
               </Link>
@@ -772,7 +772,7 @@ export default async function PublicProPage(
         </div>
       </div>
 
-      <p className="mt-6 text-center text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-6 text-center text-sm text-stone-600 dark:text-stone-300">
         <Link
           href="/pros"
           className="inline-flex items-center gap-1.5 hover:text-bark-700 hover:underline dark:hover:text-stone-300"

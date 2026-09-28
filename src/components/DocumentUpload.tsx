@@ -354,7 +354,7 @@ export default function DocumentUpload({
             <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
               Add a warranty, manual, receipt, or a photo of a model label
             </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               OakTend reads it and fills in your home details for you
             </span>
             <input
@@ -369,7 +369,7 @@ export default function DocumentUpload({
               exact number left, next to the action it applies to. Plus and
               trialing members get null and see nothing here. */}
           {readsLeft !== null && readsLeft > 0 && (
-            <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
               {tasteMeterLabel("document", readsLeft)}. Plus reads every
               document you add.
             </p>
@@ -386,7 +386,7 @@ export default function DocumentUpload({
               type="button"
               onClick={cancelReading}
               // Phone only: 16px tall, and it is the way out of a stuck read.
-              className="mt-2 text-xs text-stone-500 underline-offset-2 hover:text-stone-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+              className="mt-2 text-xs text-stone-600 underline-offset-2 hover:text-stone-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
             >
               Cancel and pick a different file
             </button>
@@ -401,7 +401,7 @@ export default function DocumentUpload({
               ? "text-red-600 dark:text-red-400"
               : note.tone === "ok"
                 ? "text-green-700 dark:text-green-300"
-                : "text-stone-500 dark:text-stone-400"
+                : "text-stone-600 dark:text-stone-300"
           }`}
         >
           {note.text}
@@ -524,7 +524,7 @@ export default function DocumentUpload({
                 defaultValue={val(fields.warranty_expires)}
                 className="input"
               />
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 This date is what makes it show up on your dashboard&apos;s warranty countdown.
               </p>
             </div>
@@ -549,7 +549,7 @@ export default function DocumentUpload({
               type="button"
               onClick={cancel}
               // Phone only: ~20px tall beside a full-size save button.
-              className="text-sm text-stone-500 hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-300"
+              className="text-sm text-stone-600 hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
             >
               Cancel
             </button>

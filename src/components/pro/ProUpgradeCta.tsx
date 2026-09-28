@@ -40,7 +40,7 @@ export function proTrialSubline(): string {
 export default function ProUpgradeCta({
   trialEligible,
   className = "btn-primary",
-  sublineClassName = "mt-2 text-xs text-stone-500 dark:text-stone-400",
+  sublineClassName = "mt-2 text-xs text-stone-600 dark:text-stone-300",
 }: {
   trialEligible: boolean;
   className?: string;

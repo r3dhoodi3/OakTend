@@ -26,7 +26,7 @@ export default function ReferralCard({ code }: { code: string }) {
     <section className="card space-y-3">
       <div>
         <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">Refer a pro</h2>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Know a good contractor? When a pro you refer wins their first job on
           OakTend, you both get $25 of application credit, up to 10 referrals a
           year.
@@ -37,7 +37,7 @@ export default function ReferralCard({ code }: { code: string }) {
           {code}
         </span>
         <span
-          className="min-w-0 truncate text-xs text-stone-500 dark:text-stone-400"
+          className="min-w-0 truncate text-xs text-stone-600 dark:text-stone-300"
           title={path}
         >
           {path}

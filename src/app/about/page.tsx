@@ -124,7 +124,7 @@ export default function AboutPage() {
       <p className="text-sm">
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -136,7 +136,7 @@ export default function AboutPage() {
       {/* The fixed entity description, word for word
           (src/lib/siteMetadata.ts): the same definition the landing page and
           the Organization node carry. */}
-      <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
+      <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-300">
         {ENTITY_DESCRIPTION}
       </p>
 
@@ -162,7 +162,7 @@ export default function AboutPage() {
                   <p className="font-semibold text-stone-900 dark:text-stone-100">
                     {f.name}
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-stone-600 dark:text-stone-300">
                     {f.role}
                   </p>
                   <p className="mt-2 text-sm leading-relaxed">{f.bio}</p>

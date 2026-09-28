@@ -111,7 +111,7 @@ export default async function ProOnboardingPage(
           Sign out is repeated from the bare shell's header on purpose: this is
           where someone looks when they are stuck, and the header bar is off
           screen by the time they have scrolled to the end of the wizard. */}
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm text-stone-500 dark:text-stone-400">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm text-stone-600 dark:text-stone-300">
         {sides.hasHome ? (
           <Link href="/dashboard" className={ESCAPE_LINK}>
             Back to your home

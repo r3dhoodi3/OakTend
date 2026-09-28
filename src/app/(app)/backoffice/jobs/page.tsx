@@ -141,7 +141,7 @@ export default async function BackofficeJobsPage() {
       <p className="text-sm">
         <Link
           href="/dashboard"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; Home
         </Link>
@@ -151,14 +151,14 @@ export default async function BackofficeJobsPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Posted jobs
         </h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           The last {MAX_JOBS} jobs homeowners posted, and the updates we sent
           back. OakTend team only.
         </p>
       </header>
 
       {leads.length === 0 && (
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           No jobs posted yet.
         </p>
       )}
@@ -172,7 +172,7 @@ export default async function BackofficeJobsPage() {
           <section key={section.key} className="space-y-3">
             <h2 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               {section.title}{" "}
-              <span className="font-normal text-stone-500 dark:text-stone-400">
+              <span className="font-normal text-stone-600 dark:text-stone-300">
                 {section.rows.length}
               </span>
             </h2>
@@ -187,7 +187,7 @@ export default async function BackofficeJobsPage() {
                         <p className="font-medium text-stone-900 dark:text-stone-100">
                           {labelFor(JOB_CATEGORIES, l.category)}
                           {l.timing && (
-                            <span className="text-stone-500 dark:text-stone-400">
+                            <span className="text-stone-600 dark:text-stone-300">
                               {" · "}
                               {labelFor(TIMING_OPTIONS, l.timing)}
                             </span>
@@ -198,14 +198,14 @@ export default async function BackofficeJobsPage() {
                             {l.issue_description}
                           </p>
                         )}
-                        <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+                        <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                           Posted {formatWhen(l.created_at)}
                           {" · "}
                           {applicants} applicant{applicants === 1 ? "" : "s"}
                         </p>
                       </div>
                       {l.timing === "asap" && !l.contractor_id && (
-                        <span className="chip-warn shrink-0">Urgent</span>
+                        <span className="chip-danger shrink-0">Urgent</span>
                       )}
                     </div>
 
@@ -215,11 +215,11 @@ export default async function BackofficeJobsPage() {
                     <div className="rounded-lg border border-dashed border-stone-300 p-3 text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
                       <p>{l.homeowner_name ?? "No name on the posting"}</p>
                       {l.property_address && (
-                        <p className="text-stone-500 dark:text-stone-400">
+                        <p className="text-stone-600 dark:text-stone-300">
                           {l.property_address}
                         </p>
                       )}
-                      <p className="text-stone-500 dark:text-stone-400">
+                      <p className="text-stone-600 dark:text-stone-300">
                         {[l.homeowner_email, l.homeowner_phone]
                           .filter(Boolean)
                           .join(" · ") || "No contact details on the posting"}
@@ -227,7 +227,7 @@ export default async function BackofficeJobsPage() {
                     </div>
 
                     {update && (
-                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                      <p className="text-sm text-stone-600 dark:text-stone-300">
                         Last update {formatWhen(update.at)}:{" "}
                         <span className="text-stone-600 dark:text-stone-300">
                           {update.body}

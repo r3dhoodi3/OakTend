@@ -144,7 +144,7 @@ export default function BrowseProsBoard({
       </div>
 
       {pros.length === 0 ? (
-        <div className="card text-sm text-stone-500 dark:text-stone-400">
+        <div className="card text-sm text-stone-600 dark:text-stone-300">
           {minRating > 0 && allPros.length > 0 ? (
             <p>
               No pros at {minRating}★ & up{category ? ` for ${labelFor(JOB_CATEGORIES, category)}` : ""} yet.
@@ -330,19 +330,19 @@ function ProCard({ pro }: { pro: BrowsePro }) {
             {hasRating ? (
               <span className="text-xs text-amber-600 dark:text-amber-400">
                 ★ {pro.rating}
-                <span className="text-stone-500 dark:text-stone-400">
+                <span className="text-stone-600 dark:text-stone-300">
                   {" "}
                   · {pro.review_count} review
                   {pro.review_count === 1 ? "" : "s"}
                 </span>
               </span>
             ) : (
-              <span className="text-xs text-stone-500 dark:text-stone-400">New</span>
+              <span className="text-xs text-stone-600 dark:text-stone-300">New</span>
             )}
           </div>
 
           {pro.service_area && (
-            <p className="mt-0.5 truncate text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 truncate text-xs text-stone-600 dark:text-stone-300">
               {pro.service_area}
             </p>
           )}
@@ -350,7 +350,7 @@ function ProCard({ pro }: { pro: BrowsePro }) {
           {/* Latest review snippet (0111): one quiet truncated line, reviewer
               kept anonymous. Only renders when a non-empty comment exists. */}
           {reviewSnippet && (
-            <p className="mt-1 truncate text-xs italic text-stone-500 dark:text-stone-400">
+            <p className="mt-1 truncate text-xs italic text-stone-600 dark:text-stone-300">
               &ldquo;{reviewSnippet}&rdquo;
             </p>
           )}
@@ -397,7 +397,7 @@ function ProCard({ pro }: { pro: BrowsePro }) {
                   License on file
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs font-medium text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
+                <span className="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs font-medium text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300">
                   No license listed
                 </span>
               )}
@@ -427,7 +427,7 @@ function ProCard({ pro }: { pro: BrowsePro }) {
               "License verified" chip is never just a claim with nothing
               behind it. */}
           {pro.license_verified_at && (
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               {licenseVerifiedOnLine(
                 new Date(pro.license_verified_at).toLocaleDateString("en-US", {
                   month: "long",
@@ -470,14 +470,14 @@ function ProCard({ pro }: { pro: BrowsePro }) {
           )}
 
           {pro.project_count > 0 && (
-            <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
               {pro.project_count} project
               {pro.project_count === 1 ? "" : "s"} on file
             </p>
           )}
 
           {memberSince && (
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-500">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               On OakTend since {memberSince}
             </p>
           )}

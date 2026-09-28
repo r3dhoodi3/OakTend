@@ -316,14 +316,14 @@ function WaitlistedPanel({ userId }: { userId: string }) {
         OakTend is matching pros in {LAUNCH_AREA_LABEL} right now. We added you
         to the waitlist and will reach out when OakTend opens in your area.
       </p>
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         There&apos;s nothing else to set up here yet since OakTend covers{" "}
         {LAUNCH_AREA_LABEL} right now. We&apos;ll reach out when that changes.
       </p>
       <form action="/auth/signout" method="post">
         <button
           type="submit"
-          className="text-sm text-stone-500 hover:underline dark:text-stone-400"
+          className="text-sm text-stone-600 hover:underline dark:text-stone-300"
         >
           Sign out
         </button>
@@ -613,11 +613,11 @@ function OnboardingCompanyFormInner({
       className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm sm:p-6 dark:border-white/10 dark:bg-stone-800"
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
+        <span className="inline-flex items-center gap-2 text-xs font-medium text-stone-600 dark:text-stone-300">
           <Hammer className="h-4 w-4 text-bark-700 dark:text-bark-400" aria-hidden="true" />
           Set up your company
         </span>
-        <span className="text-xs text-stone-500 dark:text-stone-400">
+        <span className="text-xs text-stone-600 dark:text-stone-300">
           Step {step + 1} of {PRO_ONBOARDING_STEP_COUNT}
         </span>
       </div>
@@ -644,7 +644,7 @@ function OnboardingCompanyFormInner({
       >
         {current.title}
       </h1>
-      <p className="mb-5 mt-1 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mb-5 mt-1 text-sm text-stone-600 dark:text-stone-300">
         {current.blurb}
       </p>
 
@@ -653,7 +653,7 @@ function OnboardingCompanyFormInner({
         <div>
           <label className="label" htmlFor="company-name">
             Company name{" "}
-            <span className="font-normal text-stone-500 dark:text-stone-400">
+            <span className="font-normal text-stone-600 dark:text-stone-300">
               (as it appears on your license)
             </span>
           </label>
@@ -702,7 +702,7 @@ function OnboardingCompanyFormInner({
               required={step === 0}
             />
           </div>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             The person homeowners will be talking to. Shown on your public profile.
           </p>
         </div>
@@ -724,7 +724,7 @@ function OnboardingCompanyFormInner({
               required={step === 0}
             />
           </div>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             Homeowners call this number after they pick you.
           </p>
         </div>
@@ -756,7 +756,7 @@ function OnboardingCompanyFormInner({
               defaultValue={draft?.email || defaultEmail}
             />
           </div>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             Where homeowners and OakTend reach you. Prefilled from your sign-in,
             change it if you want a different one.
           </p>
@@ -785,7 +785,7 @@ function OnboardingCompanyFormInner({
               requireOne={step === 1}
             />
           </fieldset>
-          <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
             OakTend matches pros across all of Orange County. Keep the whole
             county, or narrow it to the cities you actually drive to. You can
             change this from your profile any time.
@@ -801,12 +801,12 @@ function OnboardingCompanyFormInner({
             {/* Locked to California while OakTend serves CA only. The hidden
                 input still posts service_state=CA, the two-letter code
                 saveCompanyAction and the CSLB check expect. */}
-            <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+            <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
               California (CA)
             </div>
             <input type="hidden" name="service_state" value="CA" />
           </div>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             OakTend serves California only right now, so this is set for you.
           </p>
         </div>
@@ -821,7 +821,7 @@ function OnboardingCompanyFormInner({
               defaultSelected={draft ? [...draft.categories] : []}
             />
           </div>
-          <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
             Pick every area your company handles. Not listed? Describe it
             under Other.
           </p>
@@ -854,7 +854,7 @@ function OnboardingCompanyFormInner({
               defaultValue={draft?.license ?? ""}
             />
           </div>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             Optional. Your CSLB (California&apos;s contractor license board)
             license number, digits only. We check it against the CSLB for a
             verified badge.
@@ -884,7 +884,7 @@ function OnboardingCompanyFormInner({
                 placeholder="From the pro who invited you"
               />
             </div>
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Invite another contractor and we will credit your first success
               fee up to $25.
             </p>
@@ -915,7 +915,7 @@ function OnboardingCompanyFormInner({
             wave RC, 2026-08-30). One quiet mention in onboarding, tied to why
             the texts below are worth turning on, does the job without the
             drumbeat. */}
-        <p className="text-sm text-stone-600 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           Homeowners often reply to the first pro who answers, so turning on
           texts helps you get to new jobs quickly.
         </p>
@@ -926,14 +926,14 @@ function OnboardingCompanyFormInner({
             name="sms_consent"
             className="mt-1 h-6 w-6 shrink-0 rounded border-stone-300 text-bark-600 focus:ring-bark-600 dark:border-white/20"
           />
-          <span className="text-sm text-stone-600 dark:text-stone-400">
+          <span className="text-sm text-stone-600 dark:text-stone-300">
             Text me when a job matches or a homeowner replies. Message and data
             rates may apply. Message frequency varies. Reply STOP to opt out,
             HELP for help. This number is never used for marketing from other
             companies.
           </span>
         </label>
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Consent isn&apos;t required to use {LEGAL.brand} or to buy anything.
           See our{" "}
           <Link href="/sms-terms" className="underline hover:text-stone-700 dark:hover:text-stone-300">
@@ -951,7 +951,7 @@ function OnboardingCompanyFormInner({
             not here. TODO(legal): have counsel review this acknowledgment
             copy before launch. */}
         <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 dark:border-white/10 dark:bg-stone-800/60">
-          <p className="text-sm text-stone-600 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             {LEGAL.brand} charges a 5% success fee (minimum $15, capped at
             $1,000) only when a homeowner hires you for a job. Applying,
             quoting, and messaging are free. See{" "}
@@ -985,7 +985,7 @@ function OnboardingCompanyFormInner({
               , and I confirm the statements below.
             </span>
           </label>
-          <ul className="mt-2 list-disc space-y-1 pl-9 text-xs text-stone-500 dark:text-stone-400">
+          <ul className="mt-2 list-disc space-y-1 pl-9 text-xs text-stone-600 dark:text-stone-300">
             <li>
               I am operating as an independent business, not as an employee of{" "}
               {LEGAL.brand}.

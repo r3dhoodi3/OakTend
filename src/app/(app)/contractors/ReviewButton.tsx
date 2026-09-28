@@ -170,7 +170,7 @@ export default function ReviewButton({
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               How was {contractorName}?
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Your rating helps other homeowners pick the right pro.
             </p>
 
@@ -238,7 +238,7 @@ export default function ReviewButton({
                 </p>
               )}
 
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Reviews are never paid for and never removed for being
                 negative. Only post about your own experience on this job.
               </p>
@@ -297,7 +297,7 @@ export default function ReviewButton({
             >
               Know a neighbor who could use a hand with their place?
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Share your invite link.
             </p>
             <div className="mt-4 flex gap-2">
@@ -319,7 +319,7 @@ export default function ReviewButton({
               </button>
             </div>
             {inviteShareState === "show-link" && (
-              <p className="mt-2 select-all break-all text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-2 select-all break-all text-xs text-stone-600 dark:text-stone-300">
                 {inviteUrl()}
               </p>
             )}

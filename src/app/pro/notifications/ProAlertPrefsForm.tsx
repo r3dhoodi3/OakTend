@@ -29,7 +29,7 @@ export default function ProAlertPrefsForm({
               <span className="block text-sm font-medium text-stone-900 dark:text-stone-100">
                 {c.label}
               </span>
-              <span className="block text-sm text-stone-500 dark:text-stone-400">
+              <span className="block text-sm text-stone-600 dark:text-stone-300">
                 {c.desc}
               </span>
             </span>

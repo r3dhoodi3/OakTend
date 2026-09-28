@@ -165,7 +165,7 @@ export default function PhoneLanding({
             line is simply always there. Phone-only for free: this whole
             component is sm:hidden, so the desktop landing is untouched. */}
         {isHomeownerPreview() && (
-          <p className="text-center text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-center text-sm text-stone-600 dark:text-stone-300">
             You don&rsquo;t pay until you get hired.
           </p>
         )}
@@ -179,7 +179,7 @@ export default function PhoneLanding({
         {benefits.map(({ label, icon }) => (
           <li
             key={label}
-            className="flex items-center gap-3 text-sm text-stone-600 dark:text-stone-400"
+            className="flex items-center gap-3 text-sm text-stone-600 dark:text-stone-300"
           >
             <svg
               viewBox="0 0 24 24"
@@ -203,7 +203,7 @@ export default function PhoneLanding({
           with the doors, but the link still clears a 44px tap target.
           Privacy lives in the phone footer only (src/app/page.tsx); it used
           to repeat here too, a few hundred pixels above its own footer. */}
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-stone-500 dark:text-stone-400">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-stone-600 dark:text-stone-300">
         <Link
           href="/emergency-help"
           className="inline-flex min-h-11 items-center py-1 hover:text-bark-700 dark:hover:text-stone-300"

@@ -41,7 +41,7 @@ export default function BackgroundCheckCard({
     <section className="card space-y-3">
       <div>
         <h2 className="font-semibold text-stone-900 dark:text-stone-100">Background check</h2>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Run by Checkr, a background check provider. OakTend covers the cost:
           it&apos;s free for you, and it unlocks after{" "}
           {BACKGROUND_CHECK_MIN_PAID_LEADS} paid leads. Consent and the check
@@ -67,7 +67,7 @@ export default function BackgroundCheckCard({
             </svg>
             Background checked
           </span>
-          <p className="mt-1 text-xs text-green-600 dark:text-green-400">
+          <p className="mt-1 text-xs text-green-700 dark:text-green-400">
             Cleared{checkedAt ? ` on ${formatCheckedDate(checkedAt)}` : ""}.
             This appears on your public page.
           </p>
@@ -84,12 +84,12 @@ export default function BackgroundCheckCard({
           </p>
         </div>
       ) : status === "pending" ? (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Your background check is in progress. We&apos;ll update this as
           soon as Checkr reports back.
         </p>
       ) : status === "invited" ? (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Check your email for Checkr&apos;s invitation to complete your
           background check.
         </p>
@@ -108,7 +108,7 @@ export default function BackgroundCheckCard({
               }}
             />
           </div>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Included after {BACKGROUND_CHECK_MIN_PAID_LEADS} paid leads -
             you&apos;re at {paidLeadsKnown} of{" "}
             {BACKGROUND_CHECK_MIN_PAID_LEADS}.
@@ -134,7 +134,7 @@ export default function BackgroundCheckCard({
               className="input max-w-[180px] text-base sm:text-xs"
             />
           </div>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Your legal name goes to Checkr to run the check. OakTend doesn&apos;t
             store it.
           </p>
@@ -150,7 +150,7 @@ export default function BackgroundCheckCard({
           </SubmitButton>
         </form>
       ) : (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Add an email address above first, then come back to start your
           background check.
         </p>

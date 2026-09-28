@@ -83,7 +83,7 @@ export default function LearnGuide({
         </span>
       </button>
 
-      <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">{summary}</p>
+      <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{summary}</p>
 
       <div
         id={panelId}
@@ -94,7 +94,7 @@ export default function LearnGuide({
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Typical lifespan: {lifespan} years
             {age != null ? ` · yours is about ${age} yrs old` : ""}
           </p>
@@ -120,7 +120,7 @@ export default function LearnGuide({
                   <span
                     className={
                       checked[i]
-                        ? "text-stone-500 line-through dark:text-stone-500"
+                        ? "text-stone-600 line-through dark:text-stone-300"
                         : "text-stone-600 dark:text-stone-300"
                     }
                   >

@@ -17,7 +17,7 @@ export default async function ProPlaybookPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Playbook</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Short guides on winning more work.
         </p>
       </div>

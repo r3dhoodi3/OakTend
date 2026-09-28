@@ -50,7 +50,7 @@ export default function Error({
       <main className="flex min-h-screen items-center justify-center px-6">
         <div className="card w-full max-w-md text-center">
           <Logo className="mx-auto h-10 w-10 text-bark-600 dark:text-stone-400" />
-          <p className="mt-4 text-sm text-stone-600 dark:text-stone-400">
+          <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
             {STALE_RELOAD_MESSAGE}
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function Error({
         <h1 className="mt-4 text-xl font-semibold text-stone-900 dark:text-stone-100">
           Something went sideways
         </h1>
-        <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
           Something on our end didn&apos;t load. Trying again usually clears it
           up; if it keeps happening, give it a minute and come back. If you
           were saving something, check that it went through.

@@ -30,10 +30,10 @@ export default async function EmergencyPage() {
     <div className="space-y-8 pb-28">
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Home emergency</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Pick what&apos;s happening and follow the steps in order.
         </p>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
           {EMERGENCY_SAFETY_LINE}
         </p>
       </div>
@@ -52,7 +52,7 @@ export default async function EmergencyPage() {
       <section className="card space-y-4">
         <div>
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">Be ready before it happens</h2>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Photograph each shutoff now and it shows up in the steps next time.
             The gas shutoff photo is for your gas company or plumber.
           </p>

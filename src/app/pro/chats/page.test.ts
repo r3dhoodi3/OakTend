@@ -116,15 +116,13 @@ describe("pro Messages: applications waiting on the homeowner", () => {
 
 describe("pro Messages: unread pill on a phone", () => {
   // CEO pass D3: the "New" pill carries meaning (unread), so on a phone it
-  // steps up to 14px instead of the old 12px. Desktop (base text-[10px]) is
-  // unchanged.
-  it("is 14px on a phone, 10px above sm", () => {
+  // steps up to 14px instead of the old 12px. Desktop is text-xs (12px),
+  // the readable floor since the 2026-09-27 type-scale pass (was 10px).
+  it("is 14px on a phone, 12px above sm", () => {
     expect(view).toContain(
-      'text-[10px] font-semibold uppercase tracking-wide text-white max-sm:text-sm'
+      'text-xs font-semibold uppercase tracking-wide text-white max-sm:text-sm'
     );
-    expect(view).not.toContain(
-      'text-[10px] font-semibold uppercase tracking-wide text-white max-sm:text-xs'
-    );
+    expect(view).not.toContain("text-[10px]");
   });
 });
 

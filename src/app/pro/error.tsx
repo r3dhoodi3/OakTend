@@ -45,7 +45,7 @@ export default function Error({
   if (reloading) {
     return (
       <div className="card mx-auto max-w-md text-center">
-        <p className="text-sm text-stone-600 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           {STALE_RELOAD_MESSAGE}
         </p>
       </div>
@@ -57,7 +57,7 @@ export default function Error({
       <h1 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
         Something went sideways
       </h1>
-      <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
+      <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
         Something on our end didn&apos;t load. Trying again usually clears it
         up. If you were saving something, check that it went through.
       </p>

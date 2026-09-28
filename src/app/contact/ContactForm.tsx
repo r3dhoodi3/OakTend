@@ -84,7 +84,7 @@ export default function ContactForm({
     >
       {topic && (
         <>
-          <p className="mb-4 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mb-4 text-sm text-stone-600 dark:text-stone-300">
             Regarding:{" "}
             <span className="font-medium text-stone-700 dark:text-stone-300">
               {topic}
@@ -140,7 +140,7 @@ export default function ContactForm({
           maxLength={40}
         />
       </div>
-      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
         Add an email or a phone number so we know how to reply.
       </p>
 

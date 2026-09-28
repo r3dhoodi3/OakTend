@@ -345,7 +345,7 @@ export default function SystemCaptureCard({
     <li className="card space-y-3">
       <p className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
         {name}
-        <span className="chip bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+        <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
           Estimated
         </span>
       </p>
@@ -370,7 +370,7 @@ export default function SystemCaptureCard({
               Add a photo of the label
               <span className="max-sm:hidden"> or drop one here</span>
             </span>
-            <span className="text-sm text-stone-500 dark:text-stone-400">
+            <span className="text-sm text-stone-600 dark:text-stone-300">
               {PHOTO_TIPS}
             </span>
             <input
@@ -410,7 +410,7 @@ export default function SystemCaptureCard({
       )}
 
       {note && (
-        <p role="status" className="text-sm text-stone-500 dark:text-stone-400">
+        <p role="status" className="text-sm text-stone-600 dark:text-stone-300">
           {note}
         </p>
       )}

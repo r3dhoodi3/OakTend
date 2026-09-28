@@ -109,7 +109,7 @@ export default async function HouseholdPage() {
               <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
                 You&apos;re invited to join a home.
               </p>
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 Invited on {new Date(invite.created_at).toLocaleDateString()}.
               </p>
               <div className="mt-3 flex items-center gap-2">
@@ -143,7 +143,7 @@ export default async function HouseholdPage() {
             <h2 className="break-words text-base font-semibold text-stone-900 dark:text-stone-100">
               {formatAddressLine(home)}
             </h2>
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Up to {MAX_MEMBERS_PER_HOME} members per home.
             </p>
 
@@ -156,7 +156,7 @@ export default async function HouseholdPage() {
                   >
                     <div className="min-w-0">
                       <p className="break-words text-sm text-stone-900 dark:text-stone-100">{m.invited_email}</p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">Member</p>
+                      <p className="text-xs text-stone-600 dark:text-stone-300">Member</p>
                     </div>
                     <form action={removeMemberAction}>
                       <input type="hidden" name="id" value={m.id} />
@@ -176,7 +176,7 @@ export default async function HouseholdPage() {
                   >
                     <div className="min-w-0">
                       <p className="break-words text-sm text-stone-900 dark:text-stone-100">{m.invited_email}</p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">
+                      <p className="text-xs text-stone-600 dark:text-stone-300">
                         Invite sent. Waiting for them to join.
                       </p>
                     </div>
@@ -195,7 +195,7 @@ export default async function HouseholdPage() {
             )}
 
             {atCap ? (
-              <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
                 You&apos;re at your member limit. Remove someone to invite
                 another person.
               </p>
@@ -240,7 +240,7 @@ export default async function HouseholdPage() {
                 <h2 className="break-words text-base font-semibold text-stone-900 dark:text-stone-100">
                   {formatAddressLine(home)}
                 </h2>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">Shared with you.</p>
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Shared with you.</p>
               </div>
               {membership && (
                 <form action={leaveHomeAction}>

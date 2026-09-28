@@ -166,7 +166,7 @@ export default function HomeView({
         </h1>
         {/* Never a slogan: this sentence is built from counts, and says
             "Nothing waiting on you right now." when there are none. */}
-        <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           {subtitle}
         </p>
         {expiring.length > 0 && (
@@ -271,7 +271,7 @@ export default function HomeView({
                 <ProChip tone="free" label="Free to try" />
               </p>
             )}
-            <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
               {t.line}
             </p>
           </Link>
@@ -288,11 +288,11 @@ export default function HomeView({
               <div>
                 <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
                   Asked for you{" "}
-                  <span className="text-stone-500 dark:text-stone-400">
+                  <span className="text-stone-600 dark:text-stone-300">
                     ({directRequestCount})
                   </span>
                 </h2>
-                <p className="text-sm text-stone-500 dark:text-stone-400">
+                <p className="text-sm text-stone-600 dark:text-stone-300">
                   A homeowner reached out to you directly. Only you can see
                   these.
                 </p>

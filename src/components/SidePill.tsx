@@ -27,7 +27,7 @@ export default function SidePill({
       ? "bg-bark-100 text-bark-700 dark:bg-bark-700 dark:text-stone-300"
       : "bg-oaktend-100 text-oaktend-700 dark:bg-oaktend-700 dark:text-stone-300";
   const sizing =
-    size === "sm" ? "px-1.5 py-0 text-[11px]" : "px-2 py-0.5 text-[13px]";
+    size === "sm" ? "px-1.5 py-0 text-xs" : "px-2 py-0.5 text-sm";
   return (
     <span
       className={`shrink-0 rounded-full font-medium ${sizing} ${tone} ${className}`}

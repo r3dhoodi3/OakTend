@@ -20,8 +20,8 @@ import { APP_GUIDE_EVENT } from "@/lib/appGuide";
 // -50 hover was the header's own colour and read as dead.
 const ACCENT = {
   homeowner:
-    "text-stone-500 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
-  pro: "text-stone-500 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-300",
+    "text-stone-600 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-stone-100",
+  pro: "text-stone-600 hover:bg-bark-100 hover:text-bark-700 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-stone-100",
 } as const;
 
 export default function TourButton({

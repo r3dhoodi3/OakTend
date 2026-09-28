@@ -54,7 +54,7 @@ export default function GuidesLayout({
       {children}
 
       <footer className="mx-auto mt-16 max-w-2xl border-t border-stone-200 px-6 py-6 text-center dark:border-white/10">
-        <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
+        <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-600 dark:text-stone-300">
           <Logo className="h-4 w-4 text-bark-700 dark:text-stone-400" /> OakTend · Your home looked after
         </p>
         {/* "All guides" plus the legal set (LEGAL_LINKS, src/lib/legal.ts).
@@ -62,7 +62,7 @@ export default function GuidesLayout({
         <p className="mt-2 text-xs">
           <Link
             href="/guides"
-            className="text-stone-500 hover:text-bark-700 hover:underline dark:text-stone-400 dark:hover:text-stone-300"
+            className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
           >
             All guides
           </Link>
@@ -72,7 +72,7 @@ export default function GuidesLayout({
               ·{" "}
               <Link
                 href={link.href}
-                className="text-stone-500 hover:text-bark-700 hover:underline dark:text-stone-400 dark:hover:text-stone-300"
+                className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
               >
                 {link.label}
               </Link>

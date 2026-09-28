@@ -14,14 +14,14 @@ function notice(): HTMLElement {
 }
 
 describe("AiNotice sizes", () => {
-  it("bumps the 11px variant to 14px on phones and leaves desktop at 11px", () => {
+  it("bumps the xxs variant to 14px on phones and keeps desktop at 12px", () => {
     // The live check found this line rendering at 11px grey under the Ask
     // OakTend composer, on one of the two screens the phone push is built
     // around. jsdom applies no media queries, so the class is what gets
     // asserted: max-sm: means phones only, desktop unchanged.
     render(<AiNotice size="xxs" />);
     const el = notice();
-    expect(el).toHaveClass("text-[11px]");
+    expect(el).toHaveClass("text-xs");
     expect(el).toHaveClass("max-sm:text-sm");
   });
 

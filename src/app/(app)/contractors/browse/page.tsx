@@ -143,7 +143,7 @@ export default async function BrowseProsPage(
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Browse pros
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Ask a local pro for a quote, or{" "}
           <Link href="/contractors" className="text-bark-700 hover:underline dark:text-stone-300">
             post a job

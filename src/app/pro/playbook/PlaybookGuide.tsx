@@ -65,7 +65,7 @@ export default function PlaybookGuide({ guide }: { guide: PlaybookGuideData }) {
         </span>
       </button>
 
-      <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">{guide.summary}</p>
+      <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{guide.summary}</p>
 
       <div
         id={panelId}
@@ -88,7 +88,7 @@ export default function PlaybookGuide({ guide }: { guide: PlaybookGuideData }) {
                     aria-expanded={active}
                     // Each section row is a tap target, so on a phone it gets
                     // the full 44px. py-2 (a ~36px row) stays on sm and up.
-                    className="flex w-full items-center justify-between gap-2 py-2 text-left text-sm font-medium text-stone-700 hover:text-bark-700 max-sm:min-h-11 dark:text-stone-300 dark:hover:text-stone-300"
+                    className="flex w-full items-center justify-between gap-2 py-2 text-left text-sm font-medium text-stone-700 hover:text-bark-700 max-sm:min-h-11 dark:text-stone-300 dark:hover:text-stone-100"
                   >
                     {s.title}
                     <span

@@ -56,7 +56,7 @@ export default function PanicCard({
       >
         <span className="flex-1">
           <span className="block font-semibold text-stone-900 dark:text-stone-100">{flow.title}</span>
-          <span className="block text-sm text-stone-500 dark:text-stone-400">{flow.subtitle}</span>
+          <span className="block text-sm text-stone-600 dark:text-stone-300">{flow.subtitle}</span>
         </span>
         <span className="text-sm font-medium text-bark-700 dark:text-stone-300">
           {open ? "Hide steps" : "See steps"}
@@ -99,7 +99,7 @@ export default function PanicCard({
                         onClose={() => setLightboxOpen(false)}
                       />
                       {prepNote && (
-                        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">{prepNote}</p>
+                        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">{prepNote}</p>
                       )}
                     </div>
                   )}
@@ -108,7 +108,7 @@ export default function PanicCard({
             ))}
           </ol>
           {isHomeownerPreview() && (
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               Our pro network is not open yet. For repairs, call a local
               licensed company now.
             </p>

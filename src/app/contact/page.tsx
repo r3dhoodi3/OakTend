@@ -82,7 +82,7 @@ export default async function ContactPage(
             max-sm:. Same treatment on every public page that carries this
             link (terms, privacy, dmca, pricing, ai-disclosure, pro-terms,
             emergency-help). */}
-        <Link href="/" className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300">
+        <Link href="/" className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100">
           &lt; OakTend
         </Link>
       </p>
@@ -90,7 +90,7 @@ export default async function ContactPage(
       <h1 className="mt-4 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Contact us
       </h1>
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Send us a message below. No account needed. We read every message and
         will reach out by phone call or email.
       </p>

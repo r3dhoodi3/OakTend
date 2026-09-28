@@ -141,7 +141,7 @@ export default async function DocumentsPage() {
       <header className="mb-1 mt-6">
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Documents</h1>
       </header>
-      <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mb-5 text-sm text-stone-600 dark:text-stone-300">
         Warranties, manuals, and receipts in one place. OakTend reads each one
         for you.
       </p>
@@ -184,7 +184,7 @@ export default async function DocumentsPage() {
                 <FileText className="h-5 w-5" aria-hidden="true" />
               </span>
             </div>
-            <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
               No documents yet. Add your first one above.
             </p>
           </div>
@@ -223,7 +223,7 @@ export default async function DocumentsPage() {
                   >
                     {d.title || "Home document"}
                   </a>
-                  <span className="chip bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+                  <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                     {DOC_TYPE_LABEL[d.doc_type ?? "other"] ?? "Document"}
                   </span>
                   {d.system_type && (
@@ -237,12 +237,12 @@ export default async function DocumentsPage() {
                   <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{d.summary}</p>
                 )}
                 {facts.length > 0 && (
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     {facts.join(" · ")}
                   </p>
                 )}
                 {!d.warranty_expires && (
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     Covered by a warranty? Add its expiration date and it will
                     show up on your dashboard&apos;s warranty countdown.
                   </p>
@@ -261,7 +261,7 @@ export default async function DocumentsPage() {
                     </form>
                   )}
                   {d.applied_at && (
-                    <span className="text-xs font-medium text-green-600">
+                    <span className="text-xs font-medium text-green-700 dark:text-green-400">
                       ✓ Added to your home
                     </span>
                   )}
@@ -286,7 +286,7 @@ export default async function DocumentsPage() {
         <h2 className="mb-1 flex items-center text-lg font-semibold text-stone-900 dark:text-stone-100">
           Home insurance
         </h2>
-        <p className="mb-4 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mb-4 text-sm text-stone-600 dark:text-stone-300">
           Add your renewal date and premium, and OakTend nudges you about 45
           days before renewal, while there&apos;s still time to shop around.
         </p>

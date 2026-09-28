@@ -121,7 +121,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
         // hover:bg-bark-50 here was the header's own colour, so light mode
         // showed no hover at all. (The rows inside the panel sit on white and
         // keep their -50 hover.)
-        className="flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:bg-bark-100 hover:text-stone-900 max-sm:min-h-11 sm:px-3 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+        className="flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:bg-bark-100 hover:text-stone-900 max-sm:min-h-11 sm:px-3 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-stone-100"
       >
         Tools
         <svg
@@ -170,7 +170,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
               </Link>
             </div>
             <div className="border-b border-stone-100 py-1 dark:border-white/10">
-              <p className="px-4 pb-0.5 pt-1 text-[11px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="px-4 pb-0.5 pt-1 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Your home
               </p>
               {homeLinks.filter((l) => !l.sheetOnly).map((l) => (
@@ -186,7 +186,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
               ))}
             </div>
             <div className="py-1">
-              <p className="px-4 pb-0.5 pt-1 text-[11px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="px-4 pb-0.5 pt-1 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Plus tools
               </p>
               {plusTools.map((l) => (
@@ -198,14 +198,14 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                   className={`mx-1 flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm hover:bg-bark-50 dark:hover:bg-stone-600 ${
                     hasPlus
                       ? "text-stone-700 dark:text-stone-300"
-                      : "text-stone-500 dark:text-stone-400"
+                      : "text-stone-600 dark:text-stone-300"
                   }`}
                 >
                   <span>{l.label}</span>
                   {!hasPlus && (
                     <>
                       {/* Matches the dashboard's Plus chip. */}
-                      <span className="rounded bg-bark-100 px-1.5 text-[11px] font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300">
+                      <span className="rounded bg-bark-100 px-1.5 text-xs font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300">
                         Plus
                       </span>
                       <span className="sr-only">(requires OakTend Plus)</span>
@@ -284,7 +284,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                   the z-index ordering above is ever undone. */}
               <div className="space-y-5 p-4 pb-[calc(3.5rem+env(safe-area-inset-bottom)+1rem)]">
                 <div>
-                  <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
+                  <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                     Urgent
                   </p>
                   <div className="grid grid-cols-3 gap-2">
@@ -302,7 +302,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                 </div>
 
                 <div>
-                  <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
+                  <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                     Your home
                   </p>
                   <div className="grid grid-cols-3 gap-2">
@@ -321,7 +321,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                 </div>
 
                 <div>
-                  <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
+                  <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                     Plus tools
                   </p>
                   <div className="grid grid-cols-3 gap-2">
@@ -334,14 +334,14 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
                         className={`flex min-h-[64px] flex-col items-center justify-center gap-1 rounded-xl border px-2 py-3 text-center text-xs font-medium max-sm:text-[13px] ${
                           hasPlus
                             ? "border-stone-200 bg-stone-50 text-stone-700 hover:border-bark-300 hover:bg-bark-50 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300"
-                            : "border-stone-200 bg-stone-50 text-stone-500 hover:border-bark-300 hover:bg-bark-50 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400"
+                            : "border-stone-200 bg-stone-50 text-stone-600 hover:border-bark-300 hover:bg-bark-50 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300"
                         }`}
                       >
                         <span>{l.label}</span>
                         {!hasPlus && (
                           <>
                             {/* Matches the dashboard's Plus chip. */}
-                            <span className="rounded bg-bark-100 px-1.5 text-[11px] font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300">
+                            <span className="rounded bg-bark-100 px-1.5 text-xs font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300">
                               Plus
                             </span>
                             <span className="sr-only">(requires OakTend Plus)</span>

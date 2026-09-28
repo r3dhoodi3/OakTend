@@ -37,7 +37,7 @@ export default function EmergencyHelpPage() {
             added classes are max-sm:, so sm and up is unchanged. */}
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -46,7 +46,7 @@ export default function EmergencyHelpPage() {
       <h1 className="mt-4 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Emergency help
       </h1>
-      <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-400">
+      <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
         Pick what&apos;s happening and follow the steps in order. No account
         needed.
       </p>
@@ -79,14 +79,14 @@ export default function EmergencyHelpPage() {
         <h2 className="font-semibold text-stone-900 dark:text-stone-100">
           Once you are safe
         </h2>
-        <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+        <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           For repairs, call a local licensed company now. With a free account
           you can save what happened, with photos, to your home&apos;s record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
           Save it to my home&apos;s record
         </Link>
-        <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+        <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
           Have an account?{" "}
           <Link href="/emergency" className="text-bark-700 hover:underline dark:text-stone-300">
             Home emergency

@@ -16,14 +16,14 @@ export default async function HomeDetailsPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Home details
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           {formatAddressLine(property)}
           {cityState ? `, ${cityState}` : ""}
           {property.zip ? ` ${property.zip}` : ""}
         </p>
       </header>
 
-      <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mb-5 text-sm text-stone-600 dark:text-stone-300">
         Fix anything wrong or fill in what&apos;s missing. Blank boxes stay as
         they are.
       </p>

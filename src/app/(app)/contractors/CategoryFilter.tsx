@@ -344,7 +344,7 @@ export default function CategoryFilter({
                     className={
                       row.kind === "heading"
                         ? "px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-stone-500"
-                        : "px-3 py-2 text-sm text-stone-500 dark:text-stone-400"
+                        : "px-3 py-2 text-sm text-stone-600 dark:text-stone-300"
                     }
                   >
                     {row.label}
@@ -410,7 +410,7 @@ export default function CategoryFilter({
             maxLength={80}
             required
           />
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             We add this to the details pros see so we can match you to one who
             offers it.
           </p>

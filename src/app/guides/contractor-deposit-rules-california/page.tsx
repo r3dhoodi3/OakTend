@@ -140,13 +140,13 @@ export default function ContractorDepositRulesGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/contractor-deposit-rules-california" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         A plain-language guide to California&apos;s deposit and contract rules
         for homeowners. It is general information, not legal advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-2xl font-bold text-stone-900 dark:text-stone-100">
@@ -388,7 +388,7 @@ export default function ContractorDepositRulesGuide() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -397,7 +397,7 @@ export default function ContractorDepositRulesGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Statutes checked September 2026. The down payment cap is stated in California
             Business and Professions Code section 7159.5; the written-contract
             threshold in section 7159; and the licensing threshold reflects

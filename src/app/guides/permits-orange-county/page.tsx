@@ -97,14 +97,14 @@ export default function PermitsOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/permits-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Written for Orange County homeowners. City examples were read from each
         city&apos;s own building pages in September 2026. General information, not
         legal advice: your building department has the final word.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -365,7 +365,7 @@ export default function PermitsOrangeCountyGuide() {
             you search permit history by address. If the page does not answer
             your question, call the counter.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             Find your city on the{" "}
             <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>, or go straight to{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
@@ -378,7 +378,7 @@ export default function PermitsOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             City examples as of September 2026. Cities amend their codes and
             fee schedules regularly, and this page covers only a few of the
             county&apos;s building departments, so confirm the current rule with

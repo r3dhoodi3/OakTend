@@ -30,7 +30,7 @@ export default function FeedbackForm({ defaultEmail }: { defaultEmail: string })
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Report a bug
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Something broken, or an idea to share? A real person reads every
           report.
         </p>

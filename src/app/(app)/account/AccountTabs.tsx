@@ -39,7 +39,7 @@ export default function AccountTabs({
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">{meta.title}</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">{meta.subtitle}</p>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{meta.subtitle}</p>
       </div>
 
       {/* Segmented tab switcher */}
@@ -56,7 +56,7 @@ export default function AccountTabs({
             className={`inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-1.5 text-sm font-medium transition-colors sm:inline-block sm:min-h-0 ${
               active === t.key
                 ? "bg-white text-stone-900 shadow-sm dark:bg-stone-700 dark:text-stone-100"
-                : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+                : "text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
             }`}
           >
             {t.label}

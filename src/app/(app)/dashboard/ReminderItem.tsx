@@ -42,7 +42,7 @@ function dueChip(
   if (days === null || Number.isNaN(days)) {
     return {
       label: formatDue(due),
-      className: "border-stone-200 bg-stone-50 text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400",
+      className: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
     };
   }
   if (days < 0) {
@@ -65,7 +65,7 @@ function dueChip(
   }
   return {
     label: formatDue(due),
-    className: "border-stone-200 bg-stone-50 text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400",
+    className: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
   };
 }
 
@@ -210,7 +210,7 @@ export default function ReminderItem({
               horizontal overflow. */}
           <span
             className={`min-w-0 break-words text-sm ${
-              done ? "text-stone-500 line-through dark:text-stone-400" : "text-stone-800 dark:text-stone-200"
+              done ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-800 dark:text-stone-200"
             }`}
           >
             {title}
@@ -230,7 +230,7 @@ export default function ReminderItem({
             type="button"
             onClick={remove}
             disabled={busy}
-            className="flex min-h-[44px] items-center gap-1.5 px-1 text-xs text-stone-500 hover:text-red-600 dark:text-stone-400 dark:hover:text-red-400"
+            className="flex min-h-[44px] items-center gap-1.5 px-1 text-xs text-stone-600 hover:text-red-600 dark:text-stone-300 dark:hover:text-red-400"
           >
             {busy && <InlineSpinner size={12} />}
             Delete

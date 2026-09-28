@@ -15,3 +15,13 @@ export const STATUS_TONE = {
 } as const;
 
 export type StatusTone = keyof typeof STATUS_TONE;
+
+// The same two tones for a whole card (the Home Health Score on the dashboard
+// and the walkthrough). A full -100 fill across a card that size is loud, so a
+// card gets the -50 fill and -200 border, same hue and same ink. Contrast:
+// green-800 on green-50 6.81:1, red-700 on red-50 5.91:1; dark ink on the
+// /10 tint over the stone-700 hero card stays above 5:1.
+export const STATUS_CARD_TONE = {
+  ok: "border-green-200 bg-green-50 text-green-800 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-300",
+  danger: "border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300",
+} as const;

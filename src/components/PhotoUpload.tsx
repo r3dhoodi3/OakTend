@@ -112,7 +112,7 @@ export default function PhotoUpload({
       <label className="label" htmlFor={id}>
         Photos (optional)
       </label>
-      <p className="mb-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mb-1 text-xs text-stone-600 dark:text-stone-300">
         Only upload photos of property you own or have permission to share.
       </p>
       <input
@@ -128,7 +128,7 @@ export default function PhotoUpload({
           photo per tap, so the running previews below double as the "you can
           keep adding" cue. */}
       <TakePhotoButton onPick={onPick} disabled={busy} className="mt-2" />
-      {busy && <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">Uploading…</p>}
+      {busy && <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Uploading…</p>}
       {err && <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">{err}</p>}
       <FilePreviewGrid files={pending} />
       <div className="mt-2 flex flex-wrap gap-2">

@@ -65,10 +65,10 @@ import { STATUS_LABEL } from "../leadStatusLabel";
 
 const STATUS_STYLE: Record<string, string> = {
   new: "border-bark-200 bg-bark-50 text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300",
-  accepted: "border-green-200 bg-green-50 text-green-700 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300",
+  accepted: "border-green-300 bg-green-100 text-green-800 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300",
   // Done-and-dusted reads muted so it can't be confused with the active green.
   closed: "border-stone-200 bg-stone-100 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
-  lost: "border-stone-200 bg-stone-100 text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400",
+  lost: "border-stone-200 bg-stone-100 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
 };
 
 // Friendly labels for the pipeline statuses a pro sets on their own jobs.
@@ -231,11 +231,11 @@ export default function LeadsBoard({
           <div>
             <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
               Asked for you{" "}
-              <span className="text-stone-500 dark:text-stone-400">
+              <span className="text-stone-600 dark:text-stone-300">
                 ({directRequests.length})
               </span>
             </h2>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               A homeowner reached out to you directly. Unlock to accept, see their
               contact, and open the chat. Only you can see these.
             </p>
@@ -265,9 +265,9 @@ export default function LeadsBoard({
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
             <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
-              Open jobs <span className="text-stone-500 dark:text-stone-400">({openJobs.length})</span>
+              Open jobs <span className="text-stone-600 dark:text-stone-300">({openJobs.length})</span>
             </h2>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               Jobs homeowners posted in your categories. Apply to one and the
               homeowner reviews you. If they pick you, you get their contact.
             </p>
@@ -277,7 +277,7 @@ export default function LeadsBoard({
                 Applying is free as of migration 0172, so the price is gone and
                 with it every promise about getting it back. What is worth
                 saying instead is the one thing that decides a job now. */}
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Applying is free. Send a note with your application - homeowners
               read them, and the pros who write one win more work.
             </p>
@@ -302,7 +302,7 @@ export default function LeadsBoard({
                   className={`inline-flex min-h-[44px] touch-manipulation items-center rounded-full border px-3 py-1.5 text-xs transition-colors active:bg-stone-100 sm:inline-block sm:min-h-0 dark:active:bg-white/10 ${
                     activeSort === o.value
                       ? "border-bark-500 bg-bark-50 font-medium text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300"
-                      : "border-stone-200 text-stone-500 hover:border-stone-300 dark:border-white/10 dark:text-stone-400 dark:hover:border-stone-600"
+                      : "border-stone-200 text-stone-600 hover:border-stone-300 dark:border-white/10 dark:text-stone-300 dark:hover:border-stone-600"
                   }`}
                 >
                   {o.label}
@@ -320,12 +320,12 @@ export default function LeadsBoard({
             <p className="font-medium text-stone-900 dark:text-stone-100">
               No open jobs in your trades right now.
             </p>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               OakTend is growing; new jobs land here the moment homeowners post
               them.
             </p>
             <ul className="mx-auto mt-4 max-w-md space-y-2 text-left text-sm">
-              <li className="flex items-start gap-2 text-stone-600 dark:text-stone-400">
+              <li className="flex items-start gap-2 text-stone-600 dark:text-stone-300">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-bark-600 dark:text-stone-400" aria-hidden="true" />
                 <span>
                   Make your page worth picking:{" "}
@@ -340,7 +340,7 @@ export default function LeadsBoard({
                 </span>
               </li>
               {!hasApplied && (
-                <li className="flex items-start gap-2 text-stone-600 dark:text-stone-400">
+                <li className="flex items-start gap-2 text-stone-600 dark:text-stone-300">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-bark-600 dark:text-stone-400" aria-hidden="true" />
                   <span>
                     Applying is free. Send a note with your application - the
@@ -353,7 +353,7 @@ export default function LeadsBoard({
                   gets instant alerts, so the honest line is a plain statement.
                   The membership upsell version returns when the flag flips. */}
               {COLD_START_FREE_ALERTS ? (
-                <li className="flex items-start gap-2 text-stone-600 dark:text-stone-400">
+                <li className="flex items-start gap-2 text-stone-600 dark:text-stone-300">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-bark-600 dark:text-stone-400" aria-hidden="true" />
                   <span>
                     You&apos;ll be alerted the moment a job posts in your
@@ -362,7 +362,7 @@ export default function LeadsBoard({
                 </li>
               ) : (
                 !isProMember && (
-                  <li className="flex items-start gap-2 text-stone-600 dark:text-stone-400">
+                  <li className="flex items-start gap-2 text-stone-600 dark:text-stone-300">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-bark-600 dark:text-stone-400" aria-hidden="true" />
                     <span>
                       <Link
@@ -393,11 +393,11 @@ export default function LeadsBoard({
               const detailsContent = (
                 <>
                   {j.description ? (
-                    <p className="text-sm text-stone-600 dark:text-stone-400">
+                    <p className="text-sm text-stone-600 dark:text-stone-300">
                       {j.description}
                     </p>
                   ) : (
-                    <p className="text-sm italic text-stone-500 dark:text-stone-400">
+                    <p className="text-sm italic text-stone-600 dark:text-stone-300">
                       No details provided yet
                     </p>
                   )}
@@ -407,14 +407,14 @@ export default function LeadsBoard({
                   {(j.chips.length > 0 || j.budgetLabel) && (
                     <div className="flex flex-wrap gap-1">
                       {j.budgetLabel && (
-                        <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400">
+                        <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                           Budget: {j.budgetLabel}
                         </span>
                       )}
                       {j.chips.map((c) => (
                         <span
                           key={c}
-                          className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400"
+                          className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300"
                         >
                           {c}
                         </span>
@@ -428,7 +428,7 @@ export default function LeadsBoard({
                       {j.scope.map((c) => (
                         <span
                           key={c}
-                          className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400"
+                          className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300"
                         >
                           {c}
                         </span>
@@ -439,9 +439,9 @@ export default function LeadsBoard({
                     </div>
                   )}
                   {(j.postedAgoLabel || j.timingLabel) && (
-                    <div className="flex flex-wrap gap-4 text-xs text-stone-500 dark:text-stone-400">
+                    <div className="flex flex-wrap gap-4 text-xs text-stone-600 dark:text-stone-300">
                       {j.postedAgoLabel && (
-                        <span className="text-xs text-stone-500 dark:text-stone-400">
+                        <span className="text-xs text-stone-600 dark:text-stone-300">
                           {j.postedAgoLabel}
                         </span>
                       )}
@@ -482,7 +482,7 @@ export default function LeadsBoard({
                         // reads at 14px, the minimum for phone body text.
                         // Already sm:hidden-scoped, so desktop (which never
                         // rendered this block) is untouched.
-                        <p className="mt-0.5 truncate text-sm text-stone-500 dark:text-stone-400">
+                        <p className="mt-0.5 truncate text-sm text-stone-600 dark:text-stone-300">
                           {j.glanceLine2}
                         </p>
                       )}
@@ -493,14 +493,14 @@ export default function LeadsBoard({
                         {/* Locality: open_jobs_for_me (0074) returns the
                             property city. Pros price a lead by where it is. */}
                         {j.city ? (
-                          <span className="font-normal text-stone-500 dark:text-stone-400">
+                          <span className="font-normal text-stone-600 dark:text-stone-300">
                             in {j.city}
                           </span>
                         ) : null}
                         {/* First name + last initial only (C4): who a pro
                             would be applying to, before they pay to apply. */}
                         {j.homeownerDisplay ? (
-                          <span className="font-normal text-stone-500 dark:text-stone-400">
+                          <span className="font-normal text-stone-600 dark:text-stone-300">
                             · {j.homeownerDisplay}
                           </span>
                         ) : null}
@@ -567,7 +567,7 @@ export default function LeadsBoard({
                       countdown - there is no applicant cap (founder decision
                       2026-09-16), so no job ever closes to new applications
                       and the homeowner compares everyone who applied. */}
-                  <p className="text-xs font-semibold text-stone-500 dark:text-stone-400">
+                  <p className="text-xs font-semibold text-stone-600 dark:text-stone-300">
                     {j.applicants === 1
                       ? "1 pro has applied"
                       : `${j.applicants} pros have applied`}
@@ -597,7 +597,7 @@ export default function LeadsBoard({
                           instead, so this says what they will see rather than
                           standing in the way. */}
                       {j.bigJob && (
-                        <p className="text-xs text-stone-500 dark:text-stone-400">
+                        <p className="text-xs text-stone-600 dark:text-stone-300">
                           Big job. Homeowners can see whether you have
                           insurance on file.
                         </p>
@@ -627,16 +627,16 @@ export default function LeadsBoard({
       <section id="your-jobs" className="space-y-3">
         <div>
           <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
-            Your jobs <span className="text-stone-500 dark:text-stone-400">({assigned.length})</span>
+            Your jobs <span className="text-stone-600 dark:text-stone-300">({assigned.length})</span>
           </h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             Jobs a homeowner chose you for. Their contact is unlocked and you can
             message them.
           </p>
         </div>
 
         {assigned.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             No jobs yet. Apply to an open job above and a homeowner can pick you.
           </p>
         ) : (
@@ -654,7 +654,7 @@ export default function LeadsBoard({
           <div>
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               Pending applications{" "}
-              <span className="text-stone-500 dark:text-stone-400">({pendingApps.length})</span>
+              <span className="text-stone-600 dark:text-stone-300">({pendingApps.length})</span>
             </h2>
             {/* The ghost-protection line ("your fee comes back as wallet
                 credit after 7 days") stood here. Applying is free as of
@@ -671,7 +671,7 @@ export default function LeadsBoard({
                     {a.categoryLabel}
                   </span>
                   {a.description && (
-                    <p className="text-sm text-stone-500 dark:text-stone-400">
+                    <p className="text-sm text-stone-600 dark:text-stone-300">
                       {a.description}
                     </p>
                   )}
@@ -695,7 +695,7 @@ export default function LeadsBoard({
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Not selected{" "}
-            <span className="text-stone-500 dark:text-stone-400">({declinedApps.length})</span>
+            <span className="text-stone-600 dark:text-stone-300">({declinedApps.length})</span>
           </h2>
           {/* The credit-back promise stood here, where the loss lands.
               Applying costs nothing as of migration 0172, so losing costs
@@ -709,7 +709,7 @@ export default function LeadsBoard({
                 <span className="flex items-center gap-2 font-medium text-stone-700 dark:text-stone-300">
                   {a.categoryLabel}
                 </span>
-                <span className="chip shrink-0 border border-stone-200 bg-stone-100 text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
+                <span className="chip shrink-0 border border-stone-200 bg-stone-100 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300">
                   Homeowner chose another pro
                 </span>
               </li>
@@ -742,9 +742,9 @@ function AssignedJobCard({ l }: { l: AssignedJobVM }) {
       </div>
 
       {l.description ? (
-        <p className="text-sm text-stone-600 dark:text-stone-400">{l.description}</p>
+        <p className="text-sm text-stone-600 dark:text-stone-300">{l.description}</p>
       ) : (
-        <p className="text-sm italic text-stone-500 dark:text-stone-400">No details provided yet</p>
+        <p className="text-sm italic text-stone-600 dark:text-stone-300">No details provided yet</p>
       )}
 
       {/* Major-tier project scope (0114): sq ft / materials as the same muted
@@ -755,7 +755,7 @@ function AssignedJobCard({ l }: { l: AssignedJobVM }) {
           {l.scope.map((c) => (
             <span
               key={c}
-              className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400"
+              className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300"
             >
               {c}
             </span>
@@ -770,17 +770,17 @@ function AssignedJobCard({ l }: { l: AssignedJobVM }) {
         <JobPhotoStrip leadId={l.id} urls={l.photoUrls} full />
       )}
 
-      <div className="rounded-lg bg-stone-50 p-3 text-sm text-stone-600 dark:bg-stone-900 dark:text-stone-400">
+      <div className="rounded-lg bg-stone-50 p-3 text-sm text-stone-600 dark:bg-stone-900 dark:text-stone-300">
         <p>
-          <span className="text-stone-500 dark:text-stone-400">Homeowner:</span>{" "}
+          <span className="text-stone-600 dark:text-stone-300">Homeowner:</span>{" "}
           {l.homeownerName}
         </p>
         <p>
-          <span className="text-stone-500 dark:text-stone-400">Address:</span>{" "}
+          <span className="text-stone-600 dark:text-stone-300">Address:</span>{" "}
           {l.propertyAddress}
         </p>
         <p className="break-words">
-          <span className="text-stone-500 dark:text-stone-400">Contact:</span>{" "}
+          <span className="text-stone-600 dark:text-stone-300">Contact:</span>{" "}
           {l.contactLine}
         </p>
       </div>

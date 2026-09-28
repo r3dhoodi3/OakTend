@@ -34,7 +34,7 @@ const STAGE_STYLE: Record<string, string> = {
   healthy: "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/40 dark:text-green-200 dark:border-green-900",
   aging: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
   due: "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-200 dark:border-red-900",
-  unknown: "bg-stone-50 text-stone-500 border-stone-200 dark:bg-stone-700 dark:text-stone-400 dark:border-white/10",
+  unknown: "bg-stone-50 text-stone-600 border-stone-200 dark:bg-stone-700 dark:text-stone-300 dark:border-white/10",
 };
 
 // Stored dates are YYYY-MM-DD; show them as MM/YYYY in the simple text field.
@@ -135,7 +135,7 @@ export default function SystemRow({
                 <button
                   type="button"
                   onClick={() => setConfirmRemove(false)}
-                  className="inline-flex min-h-11 items-center text-xs text-stone-500 hover:text-stone-700 sm:inline-block sm:min-h-0 dark:text-stone-400 dark:hover:text-stone-200"
+                  className="inline-flex min-h-11 items-center text-xs text-stone-600 hover:text-stone-700 sm:inline-block sm:min-h-0 dark:text-stone-300 dark:hover:text-stone-200"
                 >
                   Cancel
                 </button>
@@ -150,7 +150,7 @@ export default function SystemRow({
               <button
                 type="button"
                 onClick={() => setConfirmRemove(true)}
-                className="inline-flex min-h-11 items-center text-xs text-stone-500 hover:text-red-600 sm:inline-block sm:min-h-0 dark:text-stone-400"
+                className="inline-flex min-h-11 items-center text-xs text-stone-600 hover:text-red-600 sm:inline-block sm:min-h-0 dark:text-stone-300"
               >
                 Remove
               </button>
@@ -401,7 +401,7 @@ export default function SystemRow({
         </div>
       </div>
         {photos.length > 0 && !expanded && (
-          <span className="ml-2 text-xs text-stone-500 dark:text-stone-400">
+          <span className="ml-2 text-xs text-stone-600 dark:text-stone-300">
             {photos.length} photo{photos.length === 1 ? "" : "s"} · tap to view
           </span>
         )}
@@ -416,34 +416,34 @@ export default function SystemRow({
           >
             <div className="col-span-1 sm:col-span-2 mb-2 border-b border-stone-200 pb-3 dark:border-white/10">
               <dt className="font-medium text-stone-800 dark:text-stone-200">Why this status</dt>
-              <dd className="mt-1 text-stone-500 dark:text-stone-400">{status.why}</dd>
+              <dd className="mt-1 text-stone-600 dark:text-stone-300">{status.why}</dd>
             </div>
             <div>
               <dt className="font-medium text-stone-800 dark:text-stone-200">How old it is</dt>
-              <dd className="text-stone-500 dark:text-stone-400">{ageText}</dd>
+              <dd className="text-stone-600 dark:text-stone-300">{ageText}</dd>
             </div>
             <div>
               <dt className="font-medium text-stone-800 dark:text-stone-200">Typical replacement</dt>
-              <dd className="text-stone-500 dark:text-stone-400">
+              <dd className="text-stone-600 dark:text-stone-300">
                 every {h.lifespan} years
               </dd>
             </div>
             <div>
               <dt className="font-medium text-stone-800 dark:text-stone-200">Life left</dt>
-              <dd className="text-stone-500 dark:text-stone-400">{lifeLeft}</dd>
+              <dd className="text-stone-600 dark:text-stone-300">{lifeLeft}</dd>
             </div>
             <div>
               <dt className="font-medium text-stone-800 dark:text-stone-200">Last serviced</dt>
-              <dd className="text-stone-500 dark:text-stone-400">{lastServicedText}</dd>
+              <dd className="text-stone-600 dark:text-stone-300">{lastServicedText}</dd>
             </div>
             <div>
               <dt className="font-medium text-stone-800 dark:text-stone-200">Condition</dt>
-              <dd className="text-stone-500 dark:text-stone-400">{conditionText}</dd>
+              <dd className="text-stone-600 dark:text-stone-300">{conditionText}</dd>
             </div>
             {s.material_or_model && (
               <div className="col-span-1 sm:col-span-2">
                 <dt className="font-medium text-stone-800 dark:text-stone-200">{materialLabel(s.system_type)}</dt>
-                <dd className="text-stone-500 dark:text-stone-400">
+                <dd className="text-stone-600 dark:text-stone-300">
                   {s.material_or_model}
                 </dd>
               </div>
@@ -451,7 +451,7 @@ export default function SystemRow({
             {s.model_number && (
               <div>
                 <dt className="font-medium text-stone-800 dark:text-stone-200">Model number</dt>
-                <dd className="text-stone-500 dark:text-stone-400">
+                <dd className="text-stone-600 dark:text-stone-300">
                   {s.model_number}
                 </dd>
               </div>
@@ -459,7 +459,7 @@ export default function SystemRow({
             {s.capacity && (
               <div>
                 <dt className="font-medium text-stone-800 dark:text-stone-200">Capacity / size</dt>
-                <dd className="text-stone-500 dark:text-stone-400">
+                <dd className="text-stone-600 dark:text-stone-300">
                   {s.capacity}
                 </dd>
               </div>
@@ -467,12 +467,12 @@ export default function SystemRow({
             {s.notes && s.notes !== STARTER_SYSTEM_NOTE && (
               <div className="col-span-1 sm:col-span-2">
                 <dt className="font-medium text-stone-800 dark:text-stone-200">Notes</dt>
-                <dd className="text-stone-500 dark:text-stone-400">{s.notes}</dd>
+                <dd className="text-stone-600 dark:text-stone-300">{s.notes}</dd>
               </div>
             )}
             <div className="col-span-1 sm:col-span-2">
               <dt className="font-medium text-stone-800 dark:text-stone-200">Maintenance tip</dt>
-              <dd className="text-stone-500 dark:text-stone-400">{tipForSystem(s.system_type)}</dd>
+              <dd className="text-stone-600 dark:text-stone-300">{tipForSystem(s.system_type)}</dd>
             </div>
             {photos.length > 0 && (
               <div className="col-span-1 sm:col-span-2">
@@ -495,7 +495,7 @@ export default function SystemRow({
                 <dt className="font-medium text-stone-800 dark:text-stone-200">
                   Estimated replacement cost
                 </dt>
-                <dd className="text-stone-500 dark:text-stone-400">
+                <dd className="text-stone-600 dark:text-stone-300">
                   {money(cost.low)} to {money(cost.high)}
                   {yearsAway === 0
                     ? " · due now"
@@ -504,7 +504,7 @@ export default function SystemRow({
                           yearsAway === 1 ? "" : "s"
                         }`
                       : ""}
-                  <span className="block text-[10px] text-stone-500 dark:text-stone-400">
+                  <span className="block text-xs text-stone-600 dark:text-stone-300">
                     Based on this system&apos;s age and condition
                   </span>
                 </dd>
@@ -532,7 +532,7 @@ export default function SystemRow({
                 ? "text-red-600"
                 : issueSeverity === "medium"
                   ? "text-amber-600"
-                  : "text-stone-500 dark:text-stone-400"
+                  : "text-stone-600 dark:text-stone-300"
             }`}
           >
             You reported a{" "}

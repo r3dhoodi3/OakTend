@@ -82,7 +82,7 @@ function WonReviewAsk({
 
   return (
     <li className="card space-y-2 border-dashed">
-      <p className="text-xs font-medium text-stone-500 dark:text-stone-400">
+      <p className="text-xs font-medium text-stone-600 dark:text-stone-300">
         Ask {clientName} for a review
       </p>
       <p className="text-sm text-stone-600 dark:text-stone-300">{message}</p>
@@ -227,7 +227,7 @@ export default function CrmView({
     <>
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Clients</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Everyone you work with, by stage.
         </p>
       </div>
@@ -239,7 +239,7 @@ export default function CrmView({
             <p className="stat-number mt-1 text-2xl">
               {s.count}
             </p>
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               {s.totalLabel} estimated
             </p>
           </div>
@@ -268,7 +268,7 @@ export default function CrmView({
         <section className="card-hero space-y-3">
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Follow up today{" "}
-            <span className="text-stone-500 dark:text-stone-400">({dueForFollowUp.length})</span>
+            <span className="text-stone-600 dark:text-stone-300">({dueForFollowUp.length})</span>
           </h2>
           <ul className="space-y-2">
             {dueForFollowUp.map((c) => (
@@ -291,7 +291,7 @@ export default function CrmView({
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               Track from your jobs
             </h2>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               Jobs a homeowner already chose you for. One tap adds them to
               your client list.
             </p>
@@ -306,7 +306,7 @@ export default function CrmView({
                   <span className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
                     {l.name}
                   </span>
-                  <p className="text-xs text-stone-500 dark:text-stone-400">
+                  <p className="text-xs text-stone-600 dark:text-stone-300">
                     {l.metaLine}
                   </p>
                 </div>
@@ -423,10 +423,10 @@ export default function CrmView({
       <section className="space-y-6">
         <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
           Your clients{" "}
-          <span className="text-stone-500 dark:text-stone-400">({displayCount})</span>
+          <span className="text-stone-600 dark:text-stone-300">({displayCount})</span>
         </h2>
         {displayCount === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             {q
               ? "No clients match that search."
               : "No clients tracked yet. Add one above, or track a job you were already chosen for."}
@@ -434,7 +434,7 @@ export default function CrmView({
         ) : (
           groups.map((g) => (
             <div key={g.value} className="space-y-2">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 {g.label}{" "}
                 <span className="normal-case text-stone-300 dark:text-stone-600">
                   ({g.items.length})
@@ -480,7 +480,7 @@ export default function CrmView({
                 Pro
               </span>
             </h2>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {member
                 ? "Included with your membership."
                 : "Tap to see how Pro unlocks it."}
@@ -531,7 +531,7 @@ export default function CrmView({
           <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
             What&apos;s coming
           </h3>
-          <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
             On our roadmap for the CRM. These are planned, not in the app yet,
             so we won&apos;t charge you for them or pretend they work today.
           </p>

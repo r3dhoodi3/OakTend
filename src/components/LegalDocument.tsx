@@ -58,7 +58,7 @@ export default function LegalDocument({
             added classes are max-sm:, so sm and up is unchanged. */}
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -68,7 +68,7 @@ export default function LegalDocument({
         {doc.title}
       </h1>
       {doc.lastUpdated && (
-        <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
           Last updated {formatLegalDate(doc.lastUpdated)}.
         </p>
       )}

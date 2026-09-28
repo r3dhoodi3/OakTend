@@ -113,7 +113,7 @@ export default function WalkthroughList({
             ))}
           </ul>
         ) : (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             Every system is confirmed. Nice work.
           </p>
         )}
@@ -135,7 +135,7 @@ export default function WalkthroughList({
                     {labelFor(SYSTEM_TYPES, s.system_type)}
                   </span>
                   {(s.material_or_model || s.install_year) && (
-                    <span className="text-stone-500 dark:text-stone-400">
+                    <span className="text-stone-600 dark:text-stone-300">
                       {[
                         s.material_or_model,
                         s.install_year ? `installed ${s.install_year}` : null,

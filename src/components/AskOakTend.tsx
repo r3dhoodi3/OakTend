@@ -247,7 +247,7 @@ function ActionButton({
   const [failed, setFailed] = useState(false);
   if (done)
     return (
-      <span className="inline-block text-xs font-medium text-green-600 dark:text-green-400">
+      <span className="inline-block text-xs font-medium text-green-700 dark:text-green-400">
         {doneLabel}
       </span>
     );
@@ -336,7 +336,7 @@ function MessageActions({
               <span className="text-sm font-semibold">
                 Save this as a job
               </span>
-              <span className="text-[11px] font-normal text-bark-100">
+              <span className="text-xs font-normal text-bark-100">
                 {isHomeownerPreview()
                   ? "Our pro network isn't open yet"
                   : "Local pros can apply once it's posted"}
@@ -398,12 +398,12 @@ function WaitingPill() {
           on the wrapper so the three-second relabel doesn't interrupt. */}
       <span
         aria-live="polite"
-        className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400"
+        className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300"
       >
         {WAIT_STEPS[step]}
       </span>
       {slow && (
-        <span className="px-1 text-xs text-stone-500 dark:text-stone-400">
+        <span className="px-1 text-xs text-stone-600 dark:text-stone-300">
           This can take up to a minute.
         </span>
       )}
@@ -663,7 +663,7 @@ const DEFAULT_DISCLAIMER =
 // renders this same AskOakTend component, just with its own headingSubtitle.
 function AiChatDisclosure() {
   return (
-    <p className="text-[11px] text-stone-500 max-sm:text-xs dark:text-stone-400">
+    <p className="text-xs text-stone-600 dark:text-stone-300">
       You&apos;re chatting with an AI assistant, not a person.{" "}
       <Link
         href="/ai-disclosure"
@@ -1733,7 +1733,7 @@ export default function AskOakTend({
             whole answer. No button: asking again is just typing the next
             question, same as any other follow-up. */}
         {m.role === "assistant" && m.partial && (
-          <span className="text-xs text-stone-500 dark:text-stone-400">
+          <span className="text-xs text-stone-600 dark:text-stone-300">
             This answer was cut off. Ask again for the full one.
           </span>
         )}
@@ -1742,7 +1742,7 @@ export default function AskOakTend({
             they'd want: ask it again, or get rid of it. */}
         {m.role === "user" && isLast && unanswered && (
           <div className="mt-1 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               That took too long. Try asking again.
             </span>
             <button
@@ -1756,7 +1756,7 @@ export default function AskOakTend({
             <button
               type="button"
               onClick={deleteLastQuestion}
-              className="px-1 py-1 text-xs text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-3 dark:text-stone-400 dark:hover:text-red-400"
+              className="px-1 py-1 text-xs text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-3 dark:text-stone-300 dark:hover:text-red-400"
             >
               Delete
             </button>
@@ -1812,7 +1812,7 @@ export default function AskOakTend({
             <button
               type="button"
               onClick={focusComposer}
-              className="rounded-full border border-stone-200 bg-white px-3 py-2 text-xs font-medium text-stone-500 hover:bg-stone-50 max-sm:min-h-11 max-sm:text-sm dark:border-white/10 dark:bg-stone-700 dark:text-stone-400 dark:hover:bg-stone-600"
+              className="rounded-full border border-stone-200 bg-white px-3 py-2 text-xs font-medium text-stone-600 hover:bg-stone-50 max-sm:min-h-11 max-sm:text-sm dark:border-white/10 dark:bg-stone-700 dark:text-stone-300 dark:hover:bg-stone-600"
             >
               Other (type)
             </button>
@@ -1826,7 +1826,7 @@ export default function AskOakTend({
   // depends on `fill` (see below) - kept as one element so the two views
   // can't drift on wording or options.
   const retentionControl = (
-    <p className="text-xs text-stone-500 dark:text-stone-400">
+    <p className="text-xs text-stone-600 dark:text-stone-300">
       {retention === "never" ? "Chats clear: " : "Chats clear after "}
       <select
         value={retention}
@@ -1841,7 +1841,7 @@ export default function AskOakTend({
         // min-h-11 + wider padding gives this a real 44px tap target on a
         // phone, where it was 59x28 and sat right next to Clear. Both are
         // reset at sm so the desktop row renders exactly as it did before.
-        className="min-h-11 cursor-pointer appearance-none rounded border-0 bg-transparent px-2 py-1.5 text-xs text-stone-500 underline decoration-dotted hover:text-stone-600 focus:outline-none disabled:cursor-default disabled:opacity-50 dark:text-stone-400 dark:hover:text-stone-300 sm:min-h-0 sm:px-1"
+        className="min-h-11 cursor-pointer appearance-none rounded border-0 bg-transparent px-2 py-1.5 text-xs text-stone-600 underline decoration-dotted hover:text-stone-800 focus:outline-none disabled:cursor-default disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-100 sm:min-h-0 sm:px-1"
       >
         <option value="24h">24 hours</option>
         <option value="2w">2 weeks</option>
@@ -1885,7 +1885,7 @@ export default function AskOakTend({
             type="button"
             onClick={() => setPendingImage(null)}
             // Phone only: 16px tall before.
-            className="text-xs text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+            className="text-xs text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
           >
             Remove
           </button>
@@ -1902,7 +1902,7 @@ export default function AskOakTend({
           any upload) or by the server's own locked reply (unknown plan,
           after one). */}
       {photoLocked && !atFreeLimit && (
-        <p className="mb-2 text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+        <p className="mb-2 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
           {/* The pro copilot gates photos on OakTend PRO, not Plus (see
               src/app/api/pro-ask/route.ts), and it shares this component. The
               link itself already comes from the server's own locked reply, so
@@ -1996,7 +1996,7 @@ export default function AskOakTend({
               aria-label="Attach a photo, requires OakTend Plus"
               title="Attach a photo (OakTend Plus)"
               onClick={() => setPhotoLocked(true)}
-              className="flex items-center gap-1 rounded-lg border border-stone-200 px-2 text-stone-500 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 dark:border-white/10 dark:text-stone-400 dark:hover:text-stone-300"
+              className="flex items-center gap-1 rounded-lg border border-stone-200 px-2 text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-100"
             >
               {photoIcon}
               {/* Matches the dashboard's Plus chip (see ToolsMenu.tsx). The
@@ -2004,7 +2004,7 @@ export default function AskOakTend({
                   this is aria-hidden rather than repeating it for a reader. */}
               <span
                 aria-hidden="true"
-                className="rounded bg-bark-100 px-1.5 text-[11px] font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300"
+                className="rounded bg-bark-100 px-1.5 text-xs font-medium text-bark-700 dark:bg-bark-700 dark:text-stone-300"
               >
                 Plus
               </span>
@@ -2012,7 +2012,7 @@ export default function AskOakTend({
           ) : (
             <label
               title="Attach a photo"
-              className="flex cursor-pointer items-center rounded-lg border border-stone-200 px-2 text-stone-500 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 dark:border-white/10 dark:text-stone-400 dark:hover:text-stone-300"
+              className="flex cursor-pointer items-center rounded-lg border border-stone-200 px-2 text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-100"
             >
               {photoIcon}
               <span className="sr-only">Attach a photo</span>
@@ -2089,7 +2089,7 @@ export default function AskOakTend({
           of them counts, so it shows from the first reply on; at zero the
           locked bar above says it instead. */}
       {shouldShowMeter(freeLeft, freeLimit) && (
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
           {knownPlan === "trial"
             ? // Trial-aware copy: same numbers as meterLabel, but naming the
               // trial rather than reading as a permanent free allowance.
@@ -2107,7 +2107,7 @@ export default function AskOakTend({
           the allowance by running into it is a bad way to learn it. One quiet
           line, then it hands over to the meter for good. */}
       {showFreeHint && (
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
           {FREE_ASK_PER_DAY} free question{(FREE_ASK_PER_DAY as number) === 1 ? "" : "s"} a day. Plus gives you more, plus photo answers.
         </p>
       )}
@@ -2178,7 +2178,7 @@ export default function AskOakTend({
               // right but reads as a bug if it happens by accident.
               disabled={loading}
               // Phone only: ~20px tall before.
-              className="text-sm font-medium text-stone-500 hover:text-red-600 disabled:opacity-50 disabled:hover:text-stone-500 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-red-400"
+              className="text-sm font-medium text-stone-600 hover:text-red-600 disabled:opacity-50 disabled:hover:text-stone-500 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-red-400"
             >
               Clear conversation
             </button>
@@ -2211,7 +2211,7 @@ export default function AskOakTend({
             // is too easy to hit by accident and too hard to hit on purpose.
             // A button centers its own label, so min-h alone does it. Reset at
             // sm so the desktop dock header is unchanged.
-            className="min-h-11 px-2 text-xs text-stone-500 hover:text-stone-700 disabled:opacity-50 disabled:hover:text-stone-500 max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300 sm:min-h-0 sm:px-0"
+            className="min-h-11 px-2 text-xs text-stone-600 hover:text-stone-700 disabled:opacity-50 disabled:hover:text-stone-500 max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100 sm:min-h-0 sm:px-0"
           >
             Clear
           </button>

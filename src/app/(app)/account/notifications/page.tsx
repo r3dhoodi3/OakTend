@@ -19,7 +19,7 @@ export default async function NotificationsPage() {
       />
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Notifications</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Choose what OakTend notifies you about.
         </p>
       </div>

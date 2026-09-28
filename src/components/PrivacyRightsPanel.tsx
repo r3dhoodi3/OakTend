@@ -51,7 +51,7 @@ export default function PrivacyRightsPanel({
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Your privacy rights
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           What OakTend collects, who we send it to, and how to get it, fix it, or
           delete it. For the full policy, see our{" "}
           <Link
@@ -193,7 +193,7 @@ export default function PrivacyRightsPanel({
             What we collect and why
           </h2>
         </div>
-        <p className="mt-4 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
           We keep each of these for as long as your account is open. Deleting
           your account removes it, aside from a narrow set of records we&apos;re
           required to keep, such as invoices and payment records.
@@ -207,14 +207,14 @@ export default function PrivacyRightsPanel({
                 </p>
                 {c.sensitive && <span className="chip chip-warn">Sensitive</span>}
               </div>
-              <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                 {c.examples}
               </p>
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 <span className="font-medium">Where it comes from:</span>{" "}
                 {c.source}
               </p>
-              <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                 <span className="font-medium">Why we use it:</span> {c.purpose}
               </p>
             </div>
@@ -229,7 +229,7 @@ export default function PrivacyRightsPanel({
             Who else sees your information
           </h2>
         </div>
-        <p className="mt-4 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
           These companies process data on OakTend&apos;s behalf so the product can
           work. Each is limited by contract to doing only what we ask. None of
           them buys your data, and none of them is an advertising network.
@@ -239,17 +239,17 @@ export default function PrivacyRightsPanel({
             <div key={t.name}>
               <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                 {t.name}{" "}
-                <span className="font-normal text-stone-500 dark:text-stone-400">
+                <span className="font-normal text-stone-600 dark:text-stone-300">
                   &middot; {t.role}
                 </span>
               </p>
-              <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                 {t.receives}
               </p>
             </div>
           ))}
         </div>
-        <p className="mt-5 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-5 text-sm text-stone-600 dark:text-stone-300">
           If you post a job, the pros you talk to see your name, contact
           details, address, and what you wrote.
         </p>
@@ -265,11 +265,11 @@ export default function PrivacyRightsPanel({
               <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Blocked accounts
               </p>
-              <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                 Someone you block cannot message you, and you will not be shown
                 to each other for new work. You can undo it any time.
               </p>
-              <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
                 To report content or behaviour instead,{" "}
                 <Link
                   href="/contact?topic=abuse"
@@ -295,7 +295,7 @@ export default function PrivacyRightsPanel({
               <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Something else?
               </p>
-              <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                 Email us for anything the controls above don&apos;t cover,
                 including a request made on your behalf by someone you&apos;ve
                 authorized. We&apos;ll confirm we got it within 10 business
@@ -327,7 +327,7 @@ function Right({
       <dt className="text-sm font-semibold text-stone-900 dark:text-stone-100">
         {term}
       </dt>
-      <dd className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+      <dd className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
         {detail}
       </dd>
     </div>

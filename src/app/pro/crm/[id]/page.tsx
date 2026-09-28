@@ -222,7 +222,7 @@ export default async function ClientDetailPage(
           </SubmitButton>
         </form>
         {notes.length === 0 ? (
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             No notes yet. Add one in the box above.
           </p>
         ) : (
@@ -236,7 +236,7 @@ export default async function ClientDetailPage(
                   <p className="whitespace-pre-wrap text-sm text-stone-700 dark:text-stone-300">
                     {n.body}
                   </p>
-                  <p className="text-xs text-stone-500 dark:text-stone-400">
+                  <p className="text-xs text-stone-600 dark:text-stone-300">
                     {new Date(n.created_at).toLocaleString()}
                   </p>
                 </div>
@@ -260,7 +260,7 @@ export default async function ClientDetailPage(
         <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
           Danger zone
         </h2>
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           Removing a client also removes its notes. This can&apos;t be undone.
         </p>
         <form action={deleteClientAction}>

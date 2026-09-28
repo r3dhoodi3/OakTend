@@ -57,7 +57,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
                 // guides" links this replaces); sm and up is untouched.
                 <Link
                   href={item.href as string}
-                  className="max-w-[8rem] truncate text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center sm:max-w-none dark:text-stone-400 dark:hover:text-stone-300"
+                  className="max-w-[8rem] truncate text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center sm:max-w-none dark:text-stone-300 dark:hover:text-stone-100"
                 >
                   {item.label}
                 </Link>

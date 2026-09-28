@@ -100,7 +100,7 @@ const TONE: Record<
     border: "border-stone-200 dark:border-white/10",
     text: "text-stone-700 dark:text-stone-200",
     tint: "bg-stone-100 dark:bg-stone-700",
-    icon: "text-stone-500 dark:text-stone-400",
+    icon: "text-stone-600 dark:text-stone-300",
   },
   warning: {
     border: "border-amber-300 dark:border-amber-500/30",

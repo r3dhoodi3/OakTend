@@ -99,14 +99,14 @@ export default function SlabLeakRepairOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/slab-leak-repair-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Written for Orange County homeowners who have, or think they have, a
         leak under the slab. No prices are quoted here on purpose. General
         information, not plumbing, legal or insurance advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -349,7 +349,7 @@ export default function SlabLeakRepairOrangeCountyGuide() {
             If water is actively coming up through the floor, shut off the
             house valve first and make calls second.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             City pages for some of the county&apos;s older tract neighborhoods:{" "}
             <Link href="/fountain-valley" className="text-bark-700 hover:underline dark:text-stone-300">Fountain Valley</Link>,{" "}
             <Link href="/huntington-beach" className="text-bark-700 hover:underline dark:text-stone-300">Huntington Beach</Link>,{" "}
@@ -361,7 +361,7 @@ export default function SlabLeakRepairOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Permit rules differ by city and insurance
             coverage differs by policy, so confirm with your building
             division and your insurer. This is general information, not

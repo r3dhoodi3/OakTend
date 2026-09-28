@@ -28,7 +28,7 @@ export default function PrivacyChoicesPage() {
       <p className="text-sm">
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -37,10 +37,10 @@ export default function PrivacyChoicesPage() {
       <h1 className="mt-4 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Your Privacy Choices
       </h1>
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Last updated {formatLegalDate(LEGAL.effectiveDate)}.
       </p>
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         The short answer. See the{" "}
         <Link href="/privacy" className="text-bark-700 hover:underline dark:text-stone-300">
           full Privacy Policy

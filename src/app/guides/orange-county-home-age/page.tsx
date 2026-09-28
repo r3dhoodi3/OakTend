@@ -108,7 +108,7 @@ export default function OrangeCountyHomeAgeGuide() {
         How old are Orange County homes?
       </h1>
       <GuideMeta path="/guides/orange-county-home-age" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Census Bureau estimates for the county and all 34 of its cities, plus
         what the age of a house tends to mean for the work it needs.
       </p>
@@ -144,7 +144,7 @@ export default function OrangeCountyHomeAgeGuide() {
             housing units, owned and rented, houses and apartments.
           </p>
           <OcHomeAgeTable />
-          <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Source: the Census tables above, through Census Reporter.
             Incorporated cities only; unincorporated communities such as
             Ladera Ranch are left out. You are welcome to cite this table;
@@ -374,7 +374,7 @@ export default function OrangeCountyHomeAgeGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             The pre-1980 share, the 2000-or-later share and their margins are
             our own sums of the published Census rows. This is general
             information, not an inspection, legal or safety advice for your

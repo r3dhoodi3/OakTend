@@ -14,7 +14,7 @@ export default function ProNotFound() {
           <h1 className="mt-3 text-xl font-semibold text-stone-900 dark:text-stone-100">
             This pro page has moved or expired
           </h1>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             The link may be out of date, or the pro may no longer be on
             OakTend.
           </p>

@@ -43,14 +43,14 @@ function FileCard({
     <div
       className={`flex min-w-0 items-center gap-1.5 overflow-hidden px-2 text-center ${className}`}
     >
-      <span className="shrink-0 rounded bg-stone-200 px-1 py-0.5 text-[9px] font-semibold text-stone-600 dark:bg-stone-600 dark:text-stone-200">
+      <span className="shrink-0 rounded bg-stone-200 px-1 py-0.5 text-xs font-semibold text-stone-600 dark:bg-stone-600 dark:text-stone-200">
         {extLabel(file.name)}
       </span>
-      <span className="min-w-0 flex-1 truncate text-left text-[11px] text-stone-600 dark:text-stone-300">
+      <span className="min-w-0 flex-1 truncate text-left text-xs text-stone-600 dark:text-stone-300">
         {file.name}
       </span>
       {file.size != null && (
-        <span className="shrink-0 text-[10px] text-stone-500 dark:text-stone-500">
+        <span className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
           {bytesLabel(file.size)}
         </span>
       )}

@@ -37,7 +37,7 @@ export default function AutoRenewalTerms({
 
   return (
     <div className="rounded-xl border border-stone-200 bg-stone-50 p-3 text-left dark:border-white/10 dark:bg-stone-900">
-      <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 max-sm:text-sm dark:text-stone-400">
+      <p className="text-xs font-semibold uppercase tracking-wide text-stone-600 max-sm:text-sm dark:text-stone-300">
         {acknowledgment
           ? `Your ${terms.product} renewal terms`
           : "This subscription renews automatically"}

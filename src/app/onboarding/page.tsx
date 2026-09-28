@@ -182,14 +182,14 @@ export default async function OnboardingPage(
           </div>
           <Link
             href="/dashboard"
-            className="mt-4 text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+            className="mt-4 text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
           >
             Back to dashboard
           </Link>
           {hasPro && (
             <Link
               href="/pro"
-              className="mt-2 text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+              className="mt-2 text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
             >
               Go to OakTend Pro
             </Link>
@@ -206,7 +206,7 @@ export default async function OnboardingPage(
           {isFirst ? "Let's set up your home" : "Add another home"}
         </h1>
         {!isFirst && (
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Switch between your homes anytime from the top bar.
           </p>
         )}
@@ -223,7 +223,7 @@ export default async function OnboardingPage(
       {!isFirst && (
         <Link
           href="/dashboard"
-          className="mt-4 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+          className="mt-4 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
         >
           Cancel
         </Link>
@@ -232,7 +232,7 @@ export default async function OnboardingPage(
       {/* Escape hatch: nobody should be trapped on this page. Signed-in
           users with no home land here from every app URL, so this is the
           only place they can change course. */}
-      <div className="mt-8 text-center text-sm text-stone-500 dark:text-stone-400">
+      <div className="mt-8 text-center text-sm text-stone-600 dark:text-stone-300">
         {hasPro && (
           <p>
             Here for the pro side?{" "}

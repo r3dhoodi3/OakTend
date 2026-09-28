@@ -11,7 +11,7 @@ import { LEGAL } from "@/lib/legal";
 
 function FieldIcon({ children }: { children: React.ReactNode }) {
   return (
-    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 dark:text-stone-400">
+    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-600 dark:text-stone-300">
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         {children}
       </svg>
@@ -78,7 +78,7 @@ export default function ProfileInfoForm({
           <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
             Profile photo
           </p>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Tap the circle to {avatarUrl ? "change" : "add"} your photo.
           </p>
         </div>
@@ -127,7 +127,7 @@ export default function ProfileInfoForm({
             defaultChecked={smsConsent}
             className="mt-1 h-4 w-4 shrink-0 rounded border-stone-300 text-bark-600 focus:ring-bark-600 dark:border-white/20"
           />
-          <span className="text-xs text-stone-500 dark:text-stone-400">
+          <span className="text-xs text-stone-600 dark:text-stone-300">
             Text me at this number for account and job-related messages (like
             a reminder to review a pro after a job). Message and data rates
             may apply. Message frequency varies. Reply STOP to opt out, HELP
@@ -135,7 +135,7 @@ export default function ProfileInfoForm({
             companies.
           </span>
         </label>
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Consent isn&apos;t required to use {LEGAL.brand} or to buy anything.
           See our{" "}
           <Link href="/sms-terms" className="underline hover:text-stone-700 dark:hover:text-stone-300">
@@ -150,7 +150,7 @@ export default function ProfileInfoForm({
       <div className="mt-8 flex items-center justify-end gap-3 border-t border-stone-100 pt-5 dark:border-white/10">
         <Link
           href="/dashboard"
-          className="rounded-lg px-4 py-2 text-sm font-medium text-stone-500 hover:text-stone-700 max-sm:flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-200"
+          className="rounded-lg px-4 py-2 text-sm font-medium text-stone-600 hover:text-stone-700 max-sm:flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
         >
           Cancel
         </Link>

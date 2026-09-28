@@ -175,7 +175,7 @@ export default function AddToHomeScreenNudge() {
             <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Add OakTend to your Home Screen
             </p>
-            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-400">
+            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
               Tap Share, then Add to Home Screen. It opens like an app, full
               screen.
             </p>

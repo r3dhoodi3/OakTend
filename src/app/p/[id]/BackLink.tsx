@@ -24,7 +24,7 @@ export default function BackLink() {
     return (
       <a
         href="/pros"
-        className="focus-ring mb-4 inline-block text-sm font-medium text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+        className="focus-ring mb-4 inline-block text-sm font-medium text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
       >
         Browse all pros
       </a>
@@ -35,7 +35,7 @@ export default function BackLink() {
     <button
       type="button"
       onClick={() => router.back()}
-      className="focus-ring mb-4 inline-block text-sm font-medium text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+      className="focus-ring mb-4 inline-block text-sm font-medium text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
     >
       Back
     </button>

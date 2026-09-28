@@ -277,7 +277,7 @@ export default async function ProsLanding(props: {
               <ThemeToggle />
               <Link
                 href="/"
-                className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 dark:border-white/10 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-300"
+                className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 sm:min-h-0 dark:border-white/10 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
               >
                 {/* Mirrors the landing header's "For Pros" / "OakTend for
                     Pros" pair: short label on a phone, full wording from sm
@@ -306,12 +306,12 @@ export default async function ProsLanding(props: {
             <h1 className="hero-rise max-w-2xl text-5xl font-semibold tracking-tight text-stone-900 motion-safe:animate-hero-rise sm:text-6xl dark:text-stone-100">
               Real local leads, honest pricing
             </h1>
-            <p className="hero-rise mt-5 max-w-xl text-lg text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-400">
+            <p className="hero-rise mt-5 max-w-xl text-lg text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-300">
               Other sites charge you for leads you didn&apos;t ask for and that
               other pros already have. On OakTend applying is always free,
               and you only ever pay if you win the job.
             </p>
-            <p className="hero-rise mt-2 max-w-xl text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-400">
+            <p className="hero-rise mt-2 max-w-xl text-sm text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-300">
               Free to apply and quote. You pay a {SUCCESS_FEE_PCT}% success
               fee, with a ${SUCCESS_FEE_MIN} minimum and a $
               {SUCCESS_FEE_CAP} cap, only when a homeowner hires you through
@@ -328,10 +328,10 @@ export default async function ProsLanding(props: {
                 discoverable door for returning users - the same move the
                 homeowner landing made. */}
             {/* The two small lines share one delay: they read as a pair. */}
-            <p className="hero-rise mt-4 text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
+            <p className="hero-rise mt-4 text-sm text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-300">
               Serving {LAUNCH_AREA_LABEL}
             </p>
-            <p className="hero-rise mt-1 text-sm text-stone-500 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
+            <p className="hero-rise mt-1 text-sm text-stone-600 motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-300">
               Cover the whole county or just the cities you work in.
             </p>
           </div>
@@ -383,7 +383,7 @@ export default async function ProsLanding(props: {
           system prompt and src/app/pro/help/HelpView.tsx for the same facts
           stated the same way. */}
       <section>
-      <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+      <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
         How you pay
       </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -391,7 +391,7 @@ export default async function ProsLanding(props: {
           <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
             Free to apply and quote
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
+          <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-300">
             Applying, quoting, and messaging a homeowner never cost anything.
             No subscription required to start.
           </p>
@@ -400,7 +400,7 @@ export default async function ProsLanding(props: {
           <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
             Pay only when you&apos;re hired
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
+          <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-300">
             The only charge is a {SUCCESS_FEE_PCT}% success fee, with a $
             {SUCCESS_FEE_MIN} minimum and a ${SUCCESS_FEE_CAP} cap. It&apos;s
             only charged once a homeowner hires you through OakTend, never
@@ -408,7 +408,7 @@ export default async function ProsLanding(props: {
           </p>
         </section>
       </div>
-      <p className="mx-auto mt-4 max-w-xl text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="mx-auto mt-4 max-w-xl text-center text-xs text-stone-600 dark:text-stone-300">
         Pro membership is optional: ${PRO_PLAN.monthly.toFixed(2)} a month or
         ${PRO_PLAN.yearly.toFixed(2)} a year, with a {PRO_PLAN.trialDays}-day
         free trial. It never changes whether you can apply to a job or what
@@ -426,18 +426,18 @@ export default async function ProsLanding(props: {
         <h2 className="text-xl font-semibold text-stone-900 dark:text-stone-100">
           Real people, real answers
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-400">
+        <p className="mx-auto mt-2 max-w-md text-sm text-stone-600 dark:text-stone-300">
           Message us and a real person on our team will answer.
         </p>
         {FOUNDER.name && FOUNDER.cellPhone && (
-          <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Cell: {FOUNDER.cellPhone}
           </p>
         )}
         {/* Business line (LEGAL.businessPhone, src/lib/legal.ts), not the
             founder's personal cell above: always shown, since it's the
             number OakTend gives out publicly. */}
-        <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Phone:{" "}
           <a
             href={`tel:${LEGAL.businessPhone.replace(/[^\d+]/g, "")}`}
@@ -471,7 +471,7 @@ export default async function ProsLanding(props: {
               {p.icon}
             </div>
             <h2 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">{p.title}</h2>
-            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{p.body}</p>
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{p.body}</p>
           </div>
         ))}
       </section>
@@ -505,7 +505,7 @@ export default async function ProsLanding(props: {
             <h3 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">
               A free public profile page
             </h3>
-            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Your own shareable page with your services and real OakTend
               reviews, built to rank on Google. Every pro gets one, free, no
               membership required.
@@ -518,7 +518,7 @@ export default async function ProsLanding(props: {
             <h3 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">
               A free CSLB-verified badge
             </h3>
-            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               We check your license number against the state database and
               show a verified badge on your public profile page. Free, not a
               membership perk.
@@ -531,7 +531,7 @@ export default async function ProsLanding(props: {
             <h3 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">
               A compliance calendar
             </h3>
-            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Upload your license and insurance once and get a heads-up
               before either one expires. Free for every pro.
             </p>
@@ -543,13 +543,13 @@ export default async function ProsLanding(props: {
             <h3 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">
               A simple CRM
             </h3>
-            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Track every lead through quoted, won, and lost, with notes and
               a follow-up date. Free for every pro.
             </p>
           </div>
         </div>
-        <p className="mx-auto mt-6 max-w-md text-center text-sm text-stone-500 dark:text-stone-400">
+        <p className="mx-auto mt-6 max-w-md text-center text-sm text-stone-600 dark:text-stone-300">
           A Pro membership adds an AI back office on top: draft estimates,
           invoices, follow-up messages, review replies, and overdue-invoice
           reminders in seconds. New pros try Pro free for {PRO_PLAN.trialDays}{" "}
@@ -562,7 +562,7 @@ export default async function ProsLanding(props: {
         </p>
         {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to
             the refund policy, shown before purchase. */}
-        <BillingLegalLine className="mx-auto mt-2 max-w-md text-center text-sm text-stone-500 dark:text-stone-400" />
+        <BillingLegalLine className="mx-auto mt-2 max-w-md text-center text-sm text-stone-600 dark:text-stone-300" />
       </section>
 
       {/* Flat trade photo break before the steps, mirroring how the landing
@@ -589,7 +589,7 @@ export default async function ProsLanding(props: {
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bark-600 text-sm font-semibold text-white">
                 {s.n}
               </span>
-              <p className="pt-0.5 text-stone-600 dark:text-stone-400">{s.text}</p>
+              <p className="pt-0.5 text-stone-600 dark:text-stone-300">{s.text}</p>
             </li>
           ))}
         </ol>
@@ -598,10 +598,10 @@ export default async function ProsLanding(props: {
             a cancel-any-time membership). Restyled from claims elsewhere on
             this page; add nothing here that isn't true in code. */}
         <div className="mx-auto mt-8 max-w-md rounded-2xl border border-stone-200 bg-stone-50 p-5 dark:border-white/10 dark:bg-stone-800">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
             The honest deal
           </h3>
-          <ul className="mt-3 space-y-2 text-sm text-stone-600 dark:text-stone-400">
+          <ul className="mt-3 space-y-2 text-sm text-stone-600 dark:text-stone-300">
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700 dark:text-green-400" />
               <span>
@@ -643,7 +643,7 @@ export default async function ProsLanding(props: {
 
       {/* Honesty line. The old deposit-bonus paragraph was removed with the
           retired wallet model (legal review H-09). */}
-      <p className="mx-auto mt-12 max-w-md text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="mx-auto mt-12 max-w-md text-center text-xs text-stone-600 dark:text-stone-300">
         Applying, quoting, and messaging are free. The only fee is 5% of the
         job when a homeowner hires you, $15 minimum, $1,000 cap.
       </p>
@@ -677,12 +677,12 @@ export default async function ProsLanding(props: {
 
       <Band tone="white">
       <footer className="border-t border-stone-200 pt-6 text-center dark:border-white/10">
-        <Link href="/" className="text-sm text-stone-500 hover:text-bark-700 dark:text-stone-400 dark:hover:text-stone-300">
+        <Link href="/" className="text-sm text-stone-600 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-100">
           Looking after your own home instead? OakTend for Homeowners →
         </Link>
         {/* Source of truth: LEGAL_LINKS in src/lib/legal.ts. Plain inline
             text wraps on its own on a phone; no layout change needed. */}
-        <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
           {LEGAL_LINKS.map((link, i) => (
             <span key={link.href}>
               {i > 0 && " · "}

@@ -221,7 +221,7 @@ export default async function ValuePage() {
           Home value &amp; equity
         </h1>
       </header>
-      <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mb-5 text-sm text-stone-600 dark:text-stone-300">
         What your home is worth and how much you own, based on{" "}
         {usingMarketValue
           ? "recent sales data near you"
@@ -348,7 +348,7 @@ export default async function ValuePage() {
             >
               {equity != null ? money(equity) : "-"}
             </p>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {equity != null && equity < 0
                 ? "Your mortgage balance is higher than your estimated value right now. This can happen with a recent purchase or a slow local market, and it usually corrects as you pay down the loan and prices rise."
                 : mortgageBalance
@@ -386,7 +386,7 @@ export default async function ValuePage() {
                         title={`${p.year}: ${money(p.value)}`}
                         className="flex min-w-[2.75rem] flex-col items-center justify-end gap-1 transition hover:opacity-90"
                       >
-                        <span className="text-[10px] font-medium tabular-nums text-stone-500 dark:text-stone-400">
+                        <span className="text-[10px] font-medium tabular-nums text-stone-600 dark:text-stone-300">
                           {timeline.length > 10 && i % 2 !== 0
                             ? ""
                             : moneyShort(p.value)}
@@ -407,7 +407,7 @@ export default async function ValuePage() {
                   {timeline.map((p) => (
                     <span
                       key={p.year}
-                      className="min-w-[2.75rem] text-center text-[10px] text-stone-500 dark:text-stone-400"
+                      className="min-w-[2.75rem] text-center text-[10px] text-stone-600 dark:text-stone-300"
                     >
                       {p.year}
                     </span>
@@ -450,7 +450,7 @@ export default async function ValuePage() {
                           {money(p.value)}
                         </p>
                       ) : (
-                        <div className="flex items-center gap-1.5 whitespace-nowrap text-sm text-stone-500 dark:text-stone-500">
+                        <div className="flex items-center gap-1.5 whitespace-nowrap text-sm text-stone-600 dark:text-stone-300">
                           <Lock className="h-3.5 w-3.5" aria-hidden="true" />
                           <span className="tabular-nums">{MASKED_AMOUNT}</span>
                         </div>
@@ -459,7 +459,7 @@ export default async function ValuePage() {
                   ))}
               </div>
               {timeline.length > MASKED_TREND_ROWS && (
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   Plus goes back to {timeline[0].year}, the year you bought it.
                 </p>
               )}
@@ -490,7 +490,7 @@ export default async function ValuePage() {
             />
           </div>
 
-          <p className="mt-6 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-6 text-xs text-stone-600 dark:text-stone-300">
             {usingMarketValue
               ? "This is an automated estimate based on recent comparable sales, not an appraisal. Your home's real value depends on its condition, upgrades, and what is actually selling nearby right now. For a number you can rely on to sell, refinance, or dispute taxes, talk to a local real estate agent or licensed appraiser."
               : "This is an estimate based on statewide average price trends, not an appraisal. Your home's real value depends on its condition, upgrades, and what is actually selling nearby right now. For a number you can rely on to sell, refinance, or dispute taxes, talk to a local real estate agent or licensed appraiser."}

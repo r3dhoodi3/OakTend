@@ -70,7 +70,7 @@ function StatusPill({ status }: { status: ComplianceStatus }) {
       </span>
     );
   }
-  return <span className="chip bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400">Nothing on file</span>;
+  return <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">Nothing on file</span>;
 }
 
 // The documents half of the Credentials tab on /pro/profile
@@ -98,7 +98,7 @@ export default function ComplianceCard({
         <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
           Your documents
         </h2>
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
           Upload a copy of your license and your certificate of insurance.
           OakTend stores them privately and reminds you before they expire.
           Uploading one doesn&apos;t verify it, your license number is checked
@@ -131,7 +131,7 @@ export default function ComplianceCard({
         {/* Said plainly, because the old "Your page shows the on file badge"
             copy promised the opposite: insurance is private now. The public
             /p/<id> page shows a license badge and nothing about insurance. */}
-        <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
           Never shown on your public page. Homeowners can ask you for a copy.
           Big jobs need current insurance on file before you can apply.
         </p>
@@ -177,7 +177,7 @@ function LicenseVerificationBlock({ v }: { v: LicenseVerification }) {
       : {
           text: "Not checked",
           className:
-            "chip bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
+            "chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300",
         };
 
   const checkedOn = v.verifiedAt ? formatChecked(v.verifiedAt) : "";
@@ -210,7 +210,7 @@ function LicenseVerificationBlock({ v }: { v: LicenseVerification }) {
         className={`mt-1 text-xs ${
           v.status === "failed"
             ? "text-red-600 dark:text-red-400"
-            : "text-stone-500 dark:text-stone-400"
+            : "text-stone-600 dark:text-stone-300"
         }`}
       >
         {detail}
@@ -337,7 +337,7 @@ function ComplianceRow({
       <div className="flex flex-wrap items-center justify-between gap-2">
         {/* Wording says "document" on purpose: this row is the uploaded copy
             and its expiry date, not the license number above it. */}
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           {state.expires
             ? `Document on file, expires ${fmt(state.expires)}`
             : "No document on file yet"}
@@ -367,7 +367,7 @@ function ComplianceRow({
 
       {showDateField && (
         <div className="flex flex-wrap items-center gap-2">
-          <label className="text-xs text-stone-500 dark:text-stone-400">
+          <label className="text-xs text-stone-600 dark:text-stone-300">
             {needsManual
               ? (manualReason ??
                 "OakTend couldn't read a date off that document. Enter it:")
@@ -398,7 +398,7 @@ function ComplianceRow({
         <AiNotice detail="The expiration date was read off your document by a model. Check it against the document and correct it above if it's wrong." />
       )}
 
-      {busy && <p className="text-xs text-stone-500 dark:text-stone-400">Uploading, one moment.</p>}
+      {busy && <p className="text-xs text-stone-600 dark:text-stone-300">Uploading, one moment.</p>}
       {err && <p className="text-xs text-red-600 dark:text-red-400">{err}</p>}
     </div>
   );

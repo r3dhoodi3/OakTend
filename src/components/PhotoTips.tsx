@@ -70,7 +70,7 @@ export default function PhotoTips() {
           <p className="text-xs font-medium text-stone-600 dark:text-stone-300">
             Good shots to include
           </p>
-          <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-stone-500 dark:text-stone-400">
+          <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-stone-600 dark:text-stone-300">
             {tips.map((t) => (
               <li key={t}>{t}</li>
             ))}

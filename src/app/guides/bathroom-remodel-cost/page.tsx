@@ -160,7 +160,7 @@ export default function BathroomRemodelCostGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/bathroom-remodel-cost" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Sourced planning figures for Orange County homeowners, not a quote for
         your home. Prices vary.
       </p>
@@ -520,7 +520,7 @@ export default function BathroomRemodelCostGuide() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -529,7 +529,7 @@ export default function BathroomRemodelCostGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Cost and resale figures are from the Remodeling 2025 Cost vs.
             Value Report (www.costvsvalue.com) for the Los Angeles market, the
             closest market the report covers. © 2025 Zonda Media, a Delaware

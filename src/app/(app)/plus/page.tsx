@@ -153,7 +153,7 @@ export default async function PlusPage(
 
         <PlusPerks />
 
-        <p className="text-center text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-center text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
           Questions?{" "}
           <Link
             href="/account/help"
@@ -247,7 +247,7 @@ export default async function PlusPage(
           <p className="text-lg font-medium text-bark-700 dark:text-stone-300">
             You&apos;re on OakTend Plus
           </p>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             {sub?.plan === "yearly"
               ? "Yearly"
               : sub?.plan === "weekly"
@@ -278,7 +278,7 @@ export default async function PlusPage(
           )}
           {sub?.stripe_subscription_id && !cancelsAt && (
             <div className="space-y-2 border-t border-stone-100 pt-4 dark:border-white/10">
-              <p className="text-xs max-sm:text-sm font-medium uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="text-xs max-sm:text-sm font-medium uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Change plan
               </p>
               {isWeekly && (
@@ -307,7 +307,7 @@ export default async function PlusPage(
                       yesLabel="Yes, switch to yearly"
                     />
                   </form>
-                  <p className="text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
                     {inTrial
                       ? "Starts today. Your free days end when the yearly plan begins."
                       : "Starts today. Your unused time is credited toward the yearly charge."}
@@ -323,7 +323,7 @@ export default async function PlusPage(
                   // the spot - the opposite of what this button promises. The
                   // server action refuses the same case with the same sentence
                   // (see TRIAL_PLAN_SWITCH_MESSAGE).
-                  <p className="text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
                     {TRIAL_PLAN_SWITCH_MESSAGE} Nothing is charged before then.
                   </p>
                 ) : (
@@ -335,7 +335,7 @@ export default async function PlusPage(
                         yesLabel="Yes, switch at renewal"
                       />
                     </form>
-                    <p className="text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+                    <p className="text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
                       You keep every Plus benefit through {renewsOn}. Monthly
                       billing starts after that, so you lose nothing you paid
                       for.
@@ -439,7 +439,7 @@ export default async function PlusPage(
             </form>
           </div>
         </div>
-        <p className="text-center text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-center text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
           Questions?{" "}
           <Link
             href="/account/help"
@@ -717,7 +717,7 @@ export default async function PlusPage(
         {/* Desktop only: on a phone this paragraph is the thing standing
             between the reader and the plan cards, and the cards say the
             same thing in fewer words. */}
-        <p className="mt-2 hidden text-sm text-stone-500 sm:block dark:text-stone-400">
+        <p className="mt-2 hidden text-sm text-stone-600 sm:block dark:text-stone-300">
           {COLD_START_FREE_POSTING
             ? // COLD START: posting is uncapped for everyone right now, so the
               // pitch leans on the perks that stay exclusive.
@@ -754,7 +754,7 @@ export default async function PlusPage(
               a horizontal scroll on a phone. */}
           <table className="w-full text-[13px] sm:text-sm">
             <thead>
-              <tr className="border-b border-stone-200 text-left text-stone-500 dark:border-stone-700 dark:text-stone-400">
+              <tr className="border-b border-stone-200 text-left text-stone-600 dark:border-stone-700 dark:text-stone-300">
                 <th className="px-1.5 py-3 font-medium sm:px-4"> </th>
                 <th className="px-1.5 py-3 font-medium sm:px-4">Free</th>
                 <th className="px-1.5 py-3 font-medium text-bark-700 sm:px-4 dark:text-stone-300">
@@ -766,7 +766,7 @@ export default async function PlusPage(
               {COMPARISON.map((row) => (
                 <tr key={row.label} className="border-b border-stone-100 last:border-0 dark:border-white/10">
                   <td className="px-1.5 py-3 text-stone-700 sm:px-4 dark:text-stone-300">{row.label}</td>
-                  <td className="px-1.5 py-3 text-stone-500 sm:px-4 dark:text-stone-400">{row.free}</td>
+                  <td className="px-1.5 py-3 text-stone-600 sm:px-4 dark:text-stone-300">{row.free}</td>
                   <td className="px-1.5 py-3 font-medium text-bark-700 sm:px-4 dark:text-stone-300">
                     {row.plus}
                   </td>
@@ -777,7 +777,7 @@ export default async function PlusPage(
         </div>
       </details>
 
-      <p className="text-center text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-center text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
         Questions?{" "}
         <Link
           href="/account/help"

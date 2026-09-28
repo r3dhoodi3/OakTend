@@ -28,7 +28,7 @@ export default function OpenPage() {
       </div>
       {/* animate-pulse doubles as the spinner: a quiet fade loop reads as
           "working" without shipping a keyframe or an extra element. */}
-      <p className="animate-pulse text-sm text-stone-500 dark:text-stone-400">
+      <p className="animate-pulse text-sm text-stone-600 dark:text-stone-300">
         Opening OakTend...
       </p>
       <OpenRedirect />

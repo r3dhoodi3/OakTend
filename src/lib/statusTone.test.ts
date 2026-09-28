@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect } from "vitest";
-import { STATUS_TONE } from "@/lib/statusTone";
+import { STATUS_CARD_TONE, STATUS_TONE } from "@/lib/statusTone";
 import { scoreBand } from "@/lib/health";
 import { SEVERITY_STYLE } from "@/lib/proLeadCard";
 
@@ -39,13 +39,15 @@ describe("status tones: green = good, red = bad, light and dark", () => {
   it("good tones are green and bad tones are red in both themes", () => {
     for (const u of STATUS_TONE.ok.split(" ")) expect(u).toMatch(/green/);
     for (const u of STATUS_TONE.danger.split(" ")) expect(u).toMatch(/red/);
+    for (const u of STATUS_CARD_TONE.ok.split(" ")) expect(u).toMatch(/green/);
+    for (const u of STATUS_CARD_TONE.danger.split(" ")) expect(u).toMatch(/red/);
   });
 
   it("scoreBand is green for the healthy bands and red for the rest", () => {
-    expect(scoreBand(95).tone).toBe(STATUS_TONE.ok);
-    expect(scoreBand(70).tone).toBe(STATUS_TONE.ok);
-    expect(scoreBand(50).tone).toBe(STATUS_TONE.danger);
-    expect(scoreBand(10).tone).toBe(STATUS_TONE.danger);
+    expect(scoreBand(95).tone).toBe(STATUS_CARD_TONE.ok);
+    expect(scoreBand(70).tone).toBe(STATUS_CARD_TONE.ok);
+    expect(scoreBand(50).tone).toBe(STATUS_CARD_TONE.danger);
+    expect(scoreBand(10).tone).toBe(STATUS_CARD_TONE.danger);
     for (const s of [95, 70, 50, 10]) {
       expect(scoreBand(s).tone).not.toMatch(/bark|amber/);
     }

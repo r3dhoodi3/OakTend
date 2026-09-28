@@ -129,14 +129,14 @@ export default function HardWaterOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/hard-water-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Written for Orange County homeowners. Figures come from each water
         provider&apos;s own report, linked under Sources. General information,
         not plumbing or health advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -351,7 +351,7 @@ export default function HardWaterOrangeCountyGuide() {
             water heater, your fixtures and your patience with spotted
             glasses.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             City pages with local water notes:{" "}
             <Link href="/fountain-valley" className="text-bark-700 hover:underline dark:text-stone-300">
               Fountain Valley
@@ -377,7 +377,7 @@ export default function HardWaterOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Figures as of September 2026, from each provider&apos;s 2026 water
             quality report or its own FAQ page. Reports are reissued every
             year and hardness varies by season and address, so treat these as

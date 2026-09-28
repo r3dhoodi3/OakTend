@@ -46,7 +46,7 @@ export default async function ProNotificationsPage() {
       <p className="text-sm">
         <Link
           href="/pro"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; Dashboard
         </Link>
@@ -56,7 +56,7 @@ export default async function ProNotificationsPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Job alerts
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Choose how we tell you about new jobs in your trades.
         </p>
       </div>
@@ -73,7 +73,7 @@ export default async function ProNotificationsPage() {
         }
       />
 
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         Turning everything off here does not stop new jobs appearing on your
         leads board, and you will still see them in your notifications when you
         open OakTend.

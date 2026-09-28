@@ -142,10 +142,10 @@ describe("CredentialsCard license lock", () => {
 
 // Moved from PublicProfileForm.test.tsx (CEO pass D3): the license status badges
 // carry meaning (verified / not confirmed / pending), so on a phone they step up
-// to 14px instead of the old 12px. Desktop (base text-[10px], no max-sm prefix
-// reaches it) is unchanged.
+// to 14px instead of the old 12px. Desktop is the base text-xs (12px, was 10px
+// before the 2026-09-27 type-scale pass), which no max-sm prefix reaches.
 describe("CredentialsCard license status badges on a phone", () => {
-  it("License verified: 14px on a phone, 10px above sm", () => {
+  it("License verified: 14px on a phone, 12px above sm", () => {
     render(
       <CredentialsCard
         contractor={{
@@ -156,12 +156,12 @@ describe("CredentialsCard license status badges on a phone", () => {
       />
     );
     const badge = screen.getByText("License verified").closest("span");
-    expect(badge?.className).toContain("text-[10px]");
+    expect(badge?.className).toContain("text-xs");
     expect(badge?.className).toContain("max-sm:text-sm");
     expect(badge?.className).not.toContain("max-sm:text-xs");
   });
 
-  it("Not confirmed: 14px on a phone, 10px above sm", () => {
+  it("Not confirmed: 14px on a phone, 12px above sm", () => {
     render(
       <CredentialsCard
         contractor={{
@@ -172,11 +172,11 @@ describe("CredentialsCard license status badges on a phone", () => {
       />
     );
     const badge = screen.getByText("Not confirmed");
-    expect(badge.className).toContain("text-[10px]");
+    expect(badge.className).toContain("text-xs");
     expect(badge.className).toContain("max-sm:text-sm");
   });
 
-  it("Verification pending: 14px on a phone, 10px above sm", () => {
+  it("Verification pending: 14px on a phone, 12px above sm", () => {
     render(
       <CredentialsCard
         contractor={{
@@ -187,7 +187,7 @@ describe("CredentialsCard license status badges on a phone", () => {
       />
     );
     const badge = screen.getByText("Verification pending");
-    expect(badge.className).toContain("text-[10px]");
+    expect(badge.className).toContain("text-xs");
     expect(badge.className).toContain("max-sm:text-sm");
   });
 });

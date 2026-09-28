@@ -144,7 +144,7 @@ export default function PublicProfileForm({
               <div>
                 <label className="label">
                   Company Name{" "}
-                  <span className="font-normal text-stone-500 dark:text-stone-400">
+                  <span className="font-normal text-stone-600 dark:text-stone-300">
                     (as it appears on your license)
                   </span>
                 </label>
@@ -183,7 +183,7 @@ export default function PublicProfileForm({
                     placeholder="e.g. Alex Rivera"
                   />
                 </div>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   The person homeowners will be talking to. Shown on your public profile.
                 </p>
               </div>
@@ -225,7 +225,7 @@ export default function PublicProfileForm({
                     pattern="\(\d{3}\) \d{3}-\d{4}"
                   />
                 </div>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   Homeowners call this number after they pick you.
                 </p>
               </div>
@@ -247,14 +247,14 @@ export default function PublicProfileForm({
                   defaultChecked={smsConsent}
                   className="mt-1 h-6 w-6 shrink-0 rounded border-stone-300 text-bark-600 focus:ring-bark-600 dark:border-white/20"
                 />
-                <span className="text-sm text-stone-600 dark:text-stone-400">
+                <span className="text-sm text-stone-600 dark:text-stone-300">
                   Text me when a job matches or a homeowner replies. Message
                   and data rates may apply. Message frequency varies. Reply
                   STOP to opt out, HELP for help. This number is never used
                   for marketing from other companies.
                 </span>
               </label>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Consent isn&apos;t required to use {LEGAL.brand} or to buy
                 anything. See our{" "}
                 <Link href="/sms-terms" className="underline hover:text-stone-700 dark:hover:text-stone-300">
@@ -280,7 +280,7 @@ export default function PublicProfileForm({
                       .launch_cities ?? []) as string[]
                   }
                 />
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   OakTend serves all of Orange County. You only see, and only
                   pay for, jobs in the cities you keep checked here.
                 </p>
@@ -295,12 +295,12 @@ export default function PublicProfileForm({
                   {/* Locked to California while OakTend serves CA only. The
                       hidden input still posts service_state=CA, the two-letter
                       code saveCompanyAction and the CSLB check expect. */}
-                  <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+                  <div className="input cursor-not-allowed select-none bg-stone-100 pl-9 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                     California (CA)
                   </div>
                   <input type="hidden" name="service_state" value="CA" />
                 </div>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   OakTend serves California only right now, so this is set for
                   you.
                 </p>
@@ -326,7 +326,7 @@ export default function PublicProfileForm({
             <h2 className="mb-1 text-base font-semibold text-stone-900 dark:text-stone-100">
               Service Categories
             </h2>
-            <p className="mb-4 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mb-4 text-sm text-stone-600 dark:text-stone-300">
               Select the main areas of work your company handles. This helps
               homeowners find you.
             </p>
@@ -339,7 +339,7 @@ export default function PublicProfileForm({
         <div className="mt-8 flex items-center justify-end gap-3 border-t border-stone-100 pt-5 dark:border-white/10">
           <Link
             href="/pro"
-            className="rounded-lg px-4 py-2 text-sm font-medium text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
           >
             Cancel
           </Link>

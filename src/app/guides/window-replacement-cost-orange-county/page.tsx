@@ -91,7 +91,7 @@ export default function WindowReplacementCostGuide() {
       <GuideMeta path="/guides/window-replacement-cost-orange-county" />
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           National figure, not an Orange County price
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -237,7 +237,7 @@ export default function WindowReplacementCostGuide() {
         </div>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Your building division decides what your
             permit needs. This is general information, not construction or
             legal advice.

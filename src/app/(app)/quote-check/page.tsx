@@ -53,7 +53,7 @@ export default async function QuoteCheckPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Quote analyzer
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Upload or paste a quote. OakTend flags padded or vague lines and
           drafts a reply.
         </p>

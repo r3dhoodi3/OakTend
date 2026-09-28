@@ -137,7 +137,7 @@ export default function ProNav({
                     in the bottom tab bar below lg), so the top row has the room,
                     and the wordmark's whitespace-nowrap keeps "OakTend for Pros"
                     on one line at phone widths. */}
-                <span className="font-normal text-stone-500 dark:text-stone-400">
+                <span className="font-normal text-stone-600 dark:text-stone-300">
                   for Pros
                 </span>
               </span>

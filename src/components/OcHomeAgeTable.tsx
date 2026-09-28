@@ -24,7 +24,7 @@ const linkClass =
   "font-medium text-bark-700 underline hover:no-underline dark:text-stone-300";
 const thClass =
   "px-3 py-2.5 font-semibold text-stone-700 dark:text-stone-300";
-const tdClass = "px-3 py-2.5 align-top text-stone-600 dark:text-stone-400";
+const tdClass = "px-3 py-2.5 align-top text-stone-600 dark:text-stone-300";
 
 export default function OcHomeAgeTable() {
   const county = OC_HOME_AGE_COUNTY;
@@ -56,12 +56,12 @@ export default function OcHomeAgeTable() {
                 {city.name}
               </Link>
             </p>
-            <p className="mt-1 text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-stone-600 dark:text-stone-300">
               Built before 1980: {formatShare(city.pre1980)}% (plus or minus{" "}
               {formatShare(city.pre1980Moe)}). Built 2000 or later:{" "}
               {formatShare(city.since2000)}%.
             </p>
-            <p className="mt-1 text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-stone-600 dark:text-stone-300">
               Median year built: {city.medianYear}. Housing units:{" "}
               {formatUnits(city.units)}.
             </p>

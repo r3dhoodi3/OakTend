@@ -73,7 +73,7 @@ export default function DirectRequestActions({
         {/* The charge sentence and its ghost-protection credit-back promise
             stood here. Accepting is free as of migration 0172, so what is
             left to say is what actually happens. */}
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Accepting this request opens the chat and gives you the
           homeowner&apos;s contact details. It is free.
         </p>

@@ -378,7 +378,7 @@ export default function ProTrialNudge({
 
         <div className="mt-2 flex flex-col items-center text-center">
           <Logo className="h-9 w-9 text-bark-700 dark:text-stone-400" />
-          <p className="mt-2 text-sm font-medium text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm font-medium text-stone-600 dark:text-stone-300">
             OakTend Pro
           </p>
           <h1
@@ -417,7 +417,7 @@ export default function ProTrialNudge({
             ].join(" ")}
           >
             {YEARLY_SAVE_PCT > 0 && (
-              <span className="absolute -top-2.5 left-3 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-medium text-white">
+              <span className="absolute -top-2.5 left-3 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-xs font-medium text-white">
                 Save {YEARLY_SAVE_PCT}%
               </span>
             )}
@@ -426,11 +426,11 @@ export default function ProTrialNudge({
             </span>
             <span className="mt-1 block text-xl font-semibold text-stone-900 dark:text-stone-100">
               {YEARLY_PRICE}
-              <span className="text-xs font-normal text-stone-500 dark:text-stone-400">
+              <span className="text-xs font-normal text-stone-600 dark:text-stone-300">
                 /yr
               </span>
             </span>
-            <span className="mt-0.5 block text-xs text-stone-500 dark:text-stone-400">
+            <span className="mt-0.5 block text-xs text-stone-600 dark:text-stone-300">
               {YEARLY_PER_MONTH}/mo
             </span>
           </button>
@@ -453,11 +453,11 @@ export default function ProTrialNudge({
             </span>
             <span className="mt-1 block text-xl font-semibold text-stone-900 dark:text-stone-100">
               {MONTHLY_PRICE}
-              <span className="text-xs font-normal text-stone-500 dark:text-stone-400">
+              <span className="text-xs font-normal text-stone-600 dark:text-stone-300">
                 /mo
               </span>
             </span>
-            <span className="mt-0.5 block text-xs text-stone-500 dark:text-stone-400">
+            <span className="mt-0.5 block text-xs text-stone-600 dark:text-stone-300">
               = {YEARLY_RUN_RATE}/yr
             </span>
           </button>
@@ -484,7 +484,7 @@ export default function ProTrialNudge({
               disabled={!consent}
             />
           </form>
-          <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-center text-xs text-stone-600 dark:text-stone-300">
             Automatically renews until cancelled.{" "}
             <Link href="/privacy" className="underline hover:text-stone-700 dark:hover:text-stone-300">
               Privacy Policy
@@ -497,7 +497,7 @@ export default function ProTrialNudge({
           {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to
               the refund policy, on the same screen as the checkout button
               above before any charge happens. */}
-          <BillingLegalLine className="text-center text-xs text-stone-500 dark:text-stone-400" />
+          <BillingLegalLine className="text-center text-xs text-stone-600 dark:text-stone-300" />
         </div>
       </div>
     </div>

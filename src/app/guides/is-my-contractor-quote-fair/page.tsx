@@ -133,7 +133,7 @@ export default function IsMyContractorQuoteFairGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/is-my-contractor-quote-fair" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         How to read any home repair or improvement quote, with the California
         rules that apply in Orange County.
       </p>
@@ -296,7 +296,7 @@ export default function IsMyContractorQuoteFairGuide() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>

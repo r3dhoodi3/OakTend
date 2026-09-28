@@ -101,14 +101,14 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/new-homeowner-first-year-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Written for people who just bought a home in Orange County. Rules and
         dates were read from state law, County of Orange and utility pages in
         September 2026. General information, not legal, tax or safety advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -356,7 +356,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
               heat wave, and flush a tank water heater once a year.
             </li>
           </ul>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             See what is typical for homes in{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
             <Link href="/oc/mission-viejo" className="text-bark-700 hover:underline dark:text-stone-300">Mission Viejo</Link>,{" "}
@@ -369,7 +369,7 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Dates, amounts and code sections as of September 2026. Tax rules,
             deadlines and local requirements change, and your home and HOA
             may differ, so confirm with the Orange County Treasurer-Tax

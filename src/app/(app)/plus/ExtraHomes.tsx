@@ -105,7 +105,7 @@ export default function ExtraHomes({
       </div>
 
       {/* Honest bulk-price breakdown. */}
-      <ul className="space-y-1 text-xs text-stone-500 dark:text-stone-400">
+      <ul className="space-y-1 text-xs text-stone-600 dark:text-stone-300">
         {tierHints.map((h) => (
           <li key={h}>{h}</li>
         ))}

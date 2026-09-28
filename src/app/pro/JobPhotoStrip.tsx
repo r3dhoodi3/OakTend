@@ -69,7 +69,7 @@ export default function JobPhotoStrip({
         })}
       </div>
       {!full && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Preview, full photos unlock when you apply.
         </p>
       )}

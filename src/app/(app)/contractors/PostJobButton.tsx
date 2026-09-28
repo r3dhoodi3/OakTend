@@ -141,7 +141,7 @@ export default function PostJobButton({
           {shownError}
         </p>
       )}
-      <p className="text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-xs text-stone-600 dark:text-stone-300">
         {isHomeownerPreview()
           ? "During our preview no pro sees your name, address, email or phone unless you tell us to pass them on."
           : "Pros see the job details, your city and your photos when they apply. Only the pro you choose gets your name, address, email and phone."}
@@ -165,7 +165,7 @@ export default function PostJobButton({
           window), so nobody later feels a cap appeared out of nowhere. The
           line disappears with the flag. */}
       {COLD_START_FREE_POSTING && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Posting a job is free.
         </p>
       )}

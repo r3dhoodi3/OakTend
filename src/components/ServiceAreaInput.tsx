@@ -253,7 +253,7 @@ export default function ServiceAreaInput({
             onMouseEnter={() => setActive(0)}
             className={`flex w-full items-center justify-between border-b border-stone-100 px-3 py-2 text-left text-sm font-medium max-sm:min-h-11 dark:border-white/10 ${
               allOcListed
-                ? "text-stone-500 dark:text-stone-500"
+                ? "text-stone-600 dark:text-stone-300"
                 : "text-stone-700 dark:text-stone-200"
             } ${active === 0 ? "bg-stone-100 dark:bg-stone-700" : ""}`}
           >
@@ -276,7 +276,7 @@ export default function ServiceAreaInput({
                   onMouseEnter={() => setActive(idx)}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-sm max-sm:min-h-11 ${
                     listed
-                      ? "text-stone-500 dark:text-stone-500"
+                      ? "text-stone-600 dark:text-stone-300"
                       : "text-stone-700 dark:text-stone-200"
                   } ${active === idx ? "bg-stone-100 dark:bg-stone-700" : ""}`}
                 >

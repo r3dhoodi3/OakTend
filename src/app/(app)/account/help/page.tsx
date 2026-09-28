@@ -77,7 +77,7 @@ export default async function HelpPage(props: {
       />
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Help</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Common questions and how to reach us.
         </p>
       </div>
@@ -176,7 +176,7 @@ export default async function HelpPage(props: {
         </div>
       </div>
 
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         You can also ask OakTend from the Ask OakTend row at the top of Messages.
       </p>
     </div>

@@ -387,7 +387,7 @@ export default async function HomeReportPage() {
           <PrintButton />
         ) : (
           <>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               This report is ready - printing and sharing it is a Plus thing.
             </p>
             <Link href="/plus?reason=report" className="btn-primary w-full sm:w-auto">
@@ -411,7 +411,7 @@ export default async function HomeReportPage() {
           {addressLine ? `, ${addressLine}` : ""}
           {property.zip ? ` ${property.zip}` : ""}
         </p>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Built {property.year_built ?? "year unknown"} · Report generated{" "}
           {reportDate}
         </p>
@@ -419,7 +419,7 @@ export default async function HomeReportPage() {
             minute. Each one is omitted rather than guessed when it is not on
             file - a blank is honest, an invented number is not. */}
         {propertyFacts.length > 0 && (
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             {propertyFacts.join(" · ")}
           </p>
         )}
@@ -516,7 +516,7 @@ export default async function HomeReportPage() {
             so an edit made here shows up on the home page and vice versa. */}
         <div className="print:hidden">
           {sys.length === 0 ? (
-            <p className="text-sm text-stone-500 dark:text-stone-400">None recorded yet.</p>
+            <p className="text-sm text-stone-600 dark:text-stone-300">None recorded yet.</p>
           ) : (
             <ul className="space-y-3">
               {sys.map((s) => (
@@ -541,18 +541,18 @@ export default async function HomeReportPage() {
           Documents on file{docs.length > 0 ? ` (${docs.length})` : ""}
         </h2>
         {docs.length === 0 ? (
-          <p className="text-sm text-stone-500 dark:text-stone-400">None recorded yet.</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">None recorded yet.</p>
         ) : (
           <ul className="divide-y divide-stone-100 dark:divide-white/10">
             {docs.map((d) => (
               <li key={d.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2 text-sm">
                 <span className="text-stone-800 dark:text-stone-200">
                   {d.title || "Home document"}
-                  <span className="ml-2 text-xs text-stone-500 dark:text-stone-400">
+                  <span className="ml-2 text-xs text-stone-600 dark:text-stone-300">
                     {DOC_TYPE_LABEL[d.doc_type ?? "other"] ?? "Document"}
                   </span>
                 </span>
-                <span className="text-xs text-stone-500 dark:text-stone-400">
+                <span className="text-xs text-stone-600 dark:text-stone-300">
                   {d.warranty_expires
                     ? `Warranty to ${fmtDate(d.warranty_expires)} · `
                     : ""}
@@ -570,13 +570,13 @@ export default async function HomeReportPage() {
           Maintenance history
         </h2>
 
-        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
           Completed{completedTasks.length > 0 ? ` (${completedTasks.length})` : ""}
         </h3>
         {/* Every row below is a real maintenance_tasks row the owner logged or
             checked off - this section never fabricates or infers entries. */}
         {completedTasks.length === 0 ? (
-          <p className="mb-4 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mb-4 text-sm text-stone-600 dark:text-stone-300">
             No maintenance recorded yet.{" "}
             <Link href="/dashboard" className="underline underline-offset-2">
               Log an upkeep task from your dashboard
@@ -600,12 +600,12 @@ export default async function HomeReportPage() {
                   <span className="text-stone-800 dark:text-stone-200">
                     {t.title}
                     {meta.length > 0 && (
-                      <span className="ml-2 text-xs text-stone-500 dark:text-stone-400">
+                      <span className="ml-2 text-xs text-stone-600 dark:text-stone-300">
                         {meta.join(" · ")}
                       </span>
                     )}
                   </span>
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-600 dark:text-stone-300">
                     {fmtTimestamp(t.completed_at ?? t.created_at)}
                   </span>
                 </li>
@@ -617,17 +617,17 @@ export default async function HomeReportPage() {
           <MaintenanceHistoryForm />
         </div>
 
-        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
           Upcoming{upcomingTasks.length > 0 ? ` (${upcomingTasks.length})` : ""}
         </h3>
         {upcomingTasks.length === 0 ? (
-          <p className="text-sm text-stone-500 dark:text-stone-400">None recorded yet.</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">None recorded yet.</p>
         ) : (
           <ul className="divide-y divide-stone-100 dark:divide-white/10">
             {upcomingTasks.map((t) => (
               <li key={t.id} className="flex justify-between gap-2 py-2 text-sm">
                 <span className="text-stone-800 dark:text-stone-200">{t.title}</span>
-                <span className="text-xs text-stone-500 dark:text-stone-400">
+                <span className="text-xs text-stone-600 dark:text-stone-300">
                   {t.due_date ? fmtDate(t.due_date) : "No due date"}
                 </span>
               </li>
@@ -642,7 +642,7 @@ export default async function HomeReportPage() {
           Repairs &amp; issue log
         </h2>
         {issueLog.length === 0 ? (
-          <p className="text-sm text-stone-500 dark:text-stone-400">None recorded yet.</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">None recorded yet.</p>
         ) : (
           <ul className="divide-y divide-stone-100 dark:divide-white/10">
             {issueLog.map((i) => (
@@ -662,11 +662,11 @@ export default async function HomeReportPage() {
                         <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500 print:border print:border-stone-300 print:bg-white dark:bg-stone-700 dark:text-stone-300">
                           {SEVERITY_LABEL[i.severity] ?? i.severity}
                         </span>
-                        <span className="ml-2 text-xs text-stone-500 dark:text-stone-400">Open</span>
+                        <span className="ml-2 text-xs text-stone-600 dark:text-stone-300">Open</span>
                       </>
                     )}
                   </span>
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-600 dark:text-stone-300">
                     {fmtTimestamp(i.created_at)}
                   </span>
                 </div>
@@ -679,7 +679,7 @@ export default async function HomeReportPage() {
         )}
       </section>
 
-      <footer className="mt-10 border-t border-stone-200 pt-4 text-xs text-stone-500 print:border-black dark:border-stone-700 dark:text-stone-400">
+      <footer className="mt-10 border-t border-stone-200 pt-4 text-xs text-stone-600 print:border-black dark:border-stone-700 dark:text-stone-300">
         {plus
           ? "Generated by OakTend. Share with buyers or your insurer."
           : "Generated by OakTend. OakTend Plus removes the preview watermark so you can hand this to a buyer or an insurer."}

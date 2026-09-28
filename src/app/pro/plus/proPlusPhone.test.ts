@@ -64,21 +64,19 @@ describe("pro plus: the phone disclosure, matching the homeowner page", () => {
 });
 
 describe("pro plus: phone text sizes", () => {
-  it("lifts every 10px and 11px line above the readable floor on phones", () => {
-    // Every text-[10px] / text-[11px] in this file must carry a max-sm:
-    // override. Desktop keeps the original class, so sm and up is unchanged.
-    const smalls = [...toggle.matchAll(/className="[^"]*text-\[1[01]px\][^"]*"/g)];
-    expect(smalls.length).toBeGreaterThan(0);
-    for (const m of smalls) {
-      expect(m[0], m[0]).toMatch(/max-sm:text-(xs|sm)/);
-    }
+  it("has nothing below the 12px readable floor at any width", () => {
+    // The 2026-09-27 type-scale pass mapped the old text-[10px] / text-[11px]
+    // lines to text-xs; the phone max-sm:text-sm lifts on them stay.
+    expect(toggle).not.toMatch(/text-\[(9|10|11)px\]/);
   });
 
   it("lifts the 12px card lines to 14px on phones only", () => {
     const xs = [...toggle.matchAll(/className="[^"]*\btext-xs\b[^"]*"/g)];
     for (const m of xs) {
       // A text-xs that is already inside a max-sm: override is fine; a bare
-      // one on a card line is not.
+      // one on a card line is not. A pill badge (rounded-full) is not a card
+      // line: 12px is its size at every width.
+      if (/\brounded-full\b/.test(m[0])) continue;
       expect(m[0], m[0]).toMatch(/max-sm:text-sm|max-sm:text-xs/);
     }
   });

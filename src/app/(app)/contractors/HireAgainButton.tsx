@@ -51,7 +51,7 @@ export default function HireAgainButton({
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               Hire {contractorName} again
             </h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               You&apos;ve already worked together. Tell them what you need and
               we&apos;ll open a chat.
             </p>

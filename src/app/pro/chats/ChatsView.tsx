@@ -164,11 +164,11 @@ export default function ChatsView({
             // 10px reads fine at a desk but is under the readable
             // floor on a phone; max-sm:text-sm brings it to 14px
             // there, same convention as the license badges.
-            <span className="shrink-0 rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white max-sm:text-sm">
+            <span className="shrink-0 rounded-full bg-bark-600 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-white max-sm:text-sm">
               New
             </span>
           ) : (
-            <span className="shrink-0 text-xs text-stone-500 dark:text-stone-400">
+            <span className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
               {row.categoryLabel}
             </span>
           )}
@@ -177,7 +177,7 @@ export default function ChatsView({
           className={`truncate text-xs ${
             row.unread
               ? "font-medium text-stone-800 dark:text-stone-200"
-              : "text-stone-500 dark:text-stone-400"
+              : "text-stone-600 dark:text-stone-300"
           }`}
         >
           {row.preview}
@@ -229,7 +229,7 @@ export default function ChatsView({
                   <span className="block truncate font-medium text-stone-900 dark:text-stone-100">
                     Find clients
                   </span>
-                  <span className="block truncate text-xs text-stone-500 dark:text-stone-400">
+                  <span className="block truncate text-xs text-stone-600 dark:text-stone-300">
                     Open jobs near you, ready to apply
                   </span>
                 </span>
@@ -258,7 +258,7 @@ export default function ChatsView({
                 read, it is the pro's own outgoing note. */}
             {applicationRows.length > 0 && (
               <>
-                <li className="bg-stone-50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-500 dark:bg-stone-700/40 dark:text-stone-400">
+                <li className="bg-stone-50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:bg-stone-700/40 dark:text-stone-300">
                   Waiting on the homeowner
                 </li>
                 {applicationRows.map((row) => (
@@ -275,11 +275,11 @@ export default function ChatsView({
                         <span className="truncate font-medium text-stone-900 dark:text-stone-100">
                           {row.title}
                         </span>
-                        <span className="shrink-0 text-xs text-stone-500 dark:text-stone-400">
+                        <span className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
                           {row.dateLabel}
                         </span>
                       </div>
-                      <p className="truncate text-xs text-stone-500 dark:text-stone-400">
+                      <p className="truncate text-xs text-stone-600 dark:text-stone-300">
                         {row.preview}
                       </p>
                     </Link>
@@ -353,7 +353,7 @@ export default function ChatsView({
             <p className="font-semibold text-stone-900 dark:text-stone-100">
               {selectedApplication.title}
             </p>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {selectedApplication.subtitle}
             </p>
           </div>
@@ -366,17 +366,17 @@ export default function ChatsView({
                 {selectedApplication.message}
               </span>
             </div>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {selectedApplication.statusLine}
             </p>
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {selectedApplication.noteLine}
             </p>
           </div>
 
           {/* Where the composer would be. Plain words instead of a disabled
               input: the rule is not a bug to work around. */}
-          <p className="shrink-0 rounded-lg bg-stone-50 px-3 py-2 text-xs text-stone-500 dark:bg-stone-700/40 dark:text-stone-400">
+          <p className="shrink-0 rounded-lg bg-stone-50 px-3 py-2 text-xs text-stone-600 dark:bg-stone-700/40 dark:text-stone-300">
             You cannot message this homeowner yet. Messaging opens if they pick
             you for the job.
           </p>

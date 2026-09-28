@@ -157,12 +157,12 @@ export default function InviteNeighbor({
           <button
             type="button"
             onClick={dismissMoment}
-            className="shrink-0 text-xs text-stone-500 underline decoration-stone-300 underline-offset-2 hover:text-stone-700 dark:text-stone-400 dark:decoration-stone-600 dark:hover:text-stone-200"
+            className="shrink-0 text-xs text-stone-600 underline decoration-stone-300 underline-offset-2 hover:text-stone-700 dark:text-stone-300 dark:decoration-stone-600 dark:hover:text-stone-200"
           >
             Not now
           </button>
         </div>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           {MOMENT_COPY[moment]}
         </p>
 
@@ -188,7 +188,7 @@ export default function InviteNeighbor({
         </div>
 
         {shareState === "show-link" && (
-          <p className="mt-2 select-all break-all text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-2 select-all break-all text-xs text-stone-600 dark:text-stone-300">
             {inviteUrl()}
           </p>
         )}
@@ -235,7 +235,7 @@ export default function InviteNeighbor({
       </div>
 
       {shareState === "show-link" && (
-        <p className="mt-2 select-all break-all text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-2 select-all break-all text-xs text-stone-600 dark:text-stone-300">
           {inviteUrl()}
         </p>
       )}

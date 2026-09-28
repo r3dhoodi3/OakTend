@@ -93,7 +93,7 @@ export default function SeasonalChecklist({
               <span
                 className={
                   done[i]
-                    ? "text-stone-500 line-through dark:text-stone-400"
+                    ? "text-stone-600 line-through dark:text-stone-300"
                     : "text-stone-800 dark:text-stone-200"
                 }
               >
@@ -104,7 +104,7 @@ export default function SeasonalChecklist({
               <button
                 type="button"
                 onClick={() => remove(i)}
-                className="flex min-h-[44px] items-center px-1 text-xs text-stone-500 hover:text-red-600 dark:text-stone-400 dark:hover:text-red-400"
+                className="flex min-h-[44px] items-center px-1 text-xs text-stone-600 hover:text-red-600 dark:text-stone-300 dark:hover:text-red-400"
               >
                 Delete
               </button>

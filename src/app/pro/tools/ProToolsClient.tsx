@@ -617,7 +617,7 @@ export default function ProToolsClient({
               <h3 className="text-sm font-medium text-stone-900 dark:text-stone-100">
                 Your past jobs
               </h3>
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 We read the line items off your old invoices and quotes to
                 help ballpark future jobs like them. Customer names and
                 contact details are never saved. Nothing is sent to anyone
@@ -625,7 +625,7 @@ export default function ProToolsClient({
               </p>
 
               {pastJobs.length < 3 && (
-                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
                   {pastJobs.length === 0
                     ? "With none on file yet, this tool prices only from what you type above."
                     : "Upload more jobs of a given type and its suggestions get better for that type."}
@@ -675,7 +675,7 @@ export default function ProToolsClient({
                             {parts.join(" · ")}
                           </p>
                           {job.job_summary && (
-                            <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+                            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                               {job.job_summary}
                             </p>
                           )}
@@ -685,7 +685,7 @@ export default function ProToolsClient({
                           onClick={() => removePastJob(job.id)}
                           disabled={pjRemovingId === job.id}
                           // Phone only: 16px tall, and it deletes a past job.
-                          className="shrink-0 text-xs font-medium text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+                          className="shrink-0 text-xs font-medium text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
                         >
                           {pjRemovingId === job.id ? "Removing…" : "Remove"}
                         </button>
@@ -899,7 +899,7 @@ export default function ProToolsClient({
             {/* The meter goes in FRONT of the button, never after the fact:
                 a non-member should know what a tap costs before making it. */}
             {draftsLeft !== null && (
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 {proDraftMeterLabel(draftsLeft)}
               </p>
             )}
@@ -963,7 +963,7 @@ export default function ProToolsClient({
           {sendPickerOpen && (
             <div className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-800">
               {leads.length === 0 ? (
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   No active leads yet. Once a homeowner picks you for a job,
                   you&apos;ll be able to send drafts straight into that chat.
                 </p>

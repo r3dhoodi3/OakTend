@@ -39,11 +39,11 @@ export default function ExistingJobPhotos({
           }
         />
       ) : (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           None will be sent with this post.
         </p>
       )}
-      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
         These are sent with your post automatically. Remove any you don&apos;t
         want the pro to see.
       </p>

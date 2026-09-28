@@ -11,7 +11,7 @@ const STAGE_STYLE: Record<string, string> = {
   lead: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
   quoted: "border-bark-200 bg-bark-50 text-bark-700 dark:border-bark-700/40 dark:bg-bark-700/30 dark:text-stone-300",
   won: "border-green-200 bg-green-50 text-green-700 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300",
-  lost: "border-stone-200 bg-stone-100 text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400",
+  lost: "border-stone-200 bg-stone-100 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
 };
 
 export type ProClientRow = {
@@ -74,7 +74,7 @@ export default function ClientRow({
             </span>
           )}
         </div>
-        {preview && <p className="text-sm text-stone-500 dark:text-stone-400">{preview}</p>}
+        {preview && <p className="text-sm text-stone-600 dark:text-stone-300">{preview}</p>}
         <div className="flex flex-wrap items-center gap-3 text-xs">
           {client.phone && (
             <a
@@ -99,7 +99,7 @@ export default function ClientRow({
                   ? "font-medium text-red-600 dark:text-red-400"
                   : dueToday
                     ? "font-medium text-amber-700 dark:text-amber-400"
-                    : "text-stone-500 dark:text-stone-400"
+                    : "text-stone-600 dark:text-stone-300"
               }
             >
               Follow up {client.follow_up_on}

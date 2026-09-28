@@ -114,7 +114,7 @@ export default function PostJobDoneReferralAsk({
         {shareState === "copied" ? "Link copied" : "Share"}
       </button>
       {shareState === "show-link" && (
-        <p className="w-full select-all break-all text-xs text-stone-500 dark:text-stone-400">
+        <p className="w-full select-all break-all text-xs text-stone-600 dark:text-stone-300">
           {inviteUrl()}
         </p>
       )}
