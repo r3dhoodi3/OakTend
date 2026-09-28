@@ -7,6 +7,10 @@ import { reasonToClientPayload } from "@/lib/aiReason";
 import { readJsonBounded } from "@/lib/boundedBody";
 import { labelFor, SYSTEM_TYPES } from "@/lib/constants";
 import {
+  buildPlateReadInstruction,
+  PLATE_READ_USER_PROMPT,
+} from "@/lib/plateReadPrompt";
+import {
   generateJson,
   hasClaudeKey,
   isRateLimitError,
@@ -167,13 +171,10 @@ export async function POST(req: NextRequest) {
   }
 
   const sysLabel = labelFor(SYSTEM_TYPES, system.system_type) || "home system";
-  const instruction =
-    `You are reading the data plate / model-and-serial label on a homeowner's ${sysLabel}. ` +
-    "First, judge whether you can actually read the label. If the photo is too blurry, dark, cropped, glare covered, or low resolution to read, or it is clearly not a data plate or model-and-serial label (for example a selfie or an unrelated photo), do not guess: leave every field empty. If only part of the label is legible, read the fields you can and leave the rest empty rather than guessing at them. " +
-    "Extract ONLY what is actually printed on the label - never guess or invent a value. Leave a field empty if it isn't shown. " +
-    "Read brand and model exactly as printed. " +
-    "For serial, read the serial number exactly as printed. " +
-    "For install_year, use a manufacture date or install sticker if present (4-digit year only); if the label only shows a manufacture date code, decode it to a year if you're confident, otherwise leave it empty.";
+  // The prompt lives in src/lib/plateReadPrompt.ts so it can be unit
+  // tested: it keeps the model on this one label read and treats any text in
+  // the photo as label text, never as a request.
+  const instruction = buildPlateReadInstruction(sysLabel);
 
   try {
     // Reading a data plate is mechanical transcription, not a judgement call,
@@ -181,7 +182,7 @@ export async function POST(req: NextRequest) {
     // the rest.
     const { data: parsed } = await generateJson<PlateFields>({
       system: instruction,
-      prompt: "Read the fields off this data plate.",
+      prompt: PLATE_READ_USER_PROMPT,
       images: [{ data: image, mime }],
       schema: RESPONSE_SCHEMA,
       // Model, ceiling and effort come from ROUTES in src/lib/claude.ts, so
