@@ -44,7 +44,7 @@ export const stanton: CityContent = {
   name: "Stanton",
   slug: "stanton",
   intro:
-    "Stanton has been a city twice: the city's own history says ranchers incorporated 16 square miles here in May 1911, with help from former Assembly Speaker Philip Stanton, to block a sewage farm that Anaheim proposed, then voted in 1924 to disincorporate so the state could build roads, and did not incorporate again until June 4, 1956. What stands today is 3.1 square miles of flat, built-out housing from the boom that followed, with a median build year of 1975 and the 1970s and the 1950s as the two biggest decades. It is not the usual tract-house picture either: only about 27 percent of the homes are detached houses, about 14 percent are mobile homes, and the rest are attached homes, fourplexes and apartments.",
+    "Stanton has been a city twice: ranchers incorporated 16 square miles here in May 1911 to block a sewage farm Anaheim proposed, voted in 1924 to disincorporate so the state could build roads, and incorporated again on June 4, 1956. Only about 27 percent of today's homes are detached houses and about 14 percent are mobile homes, on 3.1 flat, built-out square miles.",
   metaDescription:
     "Stanton incorporated twice, in 1911 and 1956. What 1950s and 1970s housing, mobile home parks, hard water and citywide liquefaction mean for upkeep.",
   metaTitle: "Stanton, CA homes: a city incorporated twice",
@@ -67,42 +67,36 @@ export const stanton: CityContent = {
     },
     facts: [
       {
-        text: "Stanton's median year built is 1975. Of about 13,269 housing units, roughly 28.6 percent went up in the 1970s, 19.7 percent in the 1950s, 14.3 percent in the 1980s and 12.9 percent in the 1960s, while only about 4 percent predate 1950 and about 12.6 percent date from 2000 or later. About 61 percent of the homes were built between 1950 and 1979. At that age the second or third roof, original drain lines, the electrical panel and single-pane windows tend to come due close together.",
+        text: "Of about 13,269 housing units, roughly 28.6 percent went up in the 1970s, 19.7 percent in the 1950s, 14.3 percent in the 1980s and 12.9 percent in the 1960s. Only about 4 percent predate 1950 and about 12.6 percent date from 2000 or later, so about 61 percent were built between 1950 and 1979.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0673962",
         sourceLabel: "Census Reporter, ACS 2024 5-year tables B25034 and B25035",
       },
       {
-        text: "The city's history page explains why a place settled this early has so little early housing. The Pacific Electric Railway began running through the area in 1906, the community was known as Benedict before 1911, and the 16 square miles that Anaheim wanted for a sewage farm were incorporated in May 1911. Voters disincorporated on July 22, 1924 to allow the state to construct roads, and the city was officially incorporated again on June 4, 1956. The city's Housing Element adds that Stanton had a housing boom from the 1950s through the 1970s, mainly low density single-family homes and medium density triplexes and fourplexes.",
+        text: "The Pacific Electric Railway reached the area in 1906, and the community was known as Benedict before 1911. Voters disincorporated on July 22, 1924, which is why so little early housing survives. The Housing Element says the boom came from the 1950s through the 1970s, mostly single-family homes plus triplexes and fourplexes.",
         sourceUrl: "https://www.stantonca.gov/community/history.php",
-        sourceLabel: "City of Stanton, city history",
+        sourceLabel: "City of Stanton, city history, with the Housing Element",
       },
       {
-        text: "Detached houses are the minority here. The census file counts about 26.8 percent of Stanton's housing units as detached single-family homes, 14.1 percent as attached homes, 13.5 percent in buildings of two to four units, 31.3 percent in buildings of five or more units, and 14.2 percent, about 1,886 units, as mobile homes. Many owners here share a roof, a wall or a park with someone else, so check what the association or the park owner maintains before you price a repair.",
+        text: "The census file counts about 26.8 percent of units as detached houses, 14.1 percent attached, 13.5 percent in buildings of two to four units, 31.3 percent in buildings of five or more, and 14.2 percent, about 1,886 units, as mobile homes. Many owners share a roof, a wall or a park, so check what the association or park owner maintains before pricing a repair.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25024&geo_ids=16000US0673962",
         sourceLabel: "Census Reporter, ACS 2024 5-year table B25024",
       },
       {
-        text: "The city's 2021-2029 Housing Element, citing the state housing department's 2019 park listings, names nine mobile home parks in Stanton with a total of 1,301 permitted spaces, concentrated in the south part of the city, and calls the mobile home share high relative to the county's 3 percent. The state Department of Housing and Community Development says a permit is required before altering a mobilehome, and that it is the enforcement agency for mobilehome parks unless a city or county has assumed that job. Stanton's Building Division pages do not mention mobile homes, so look your park up in the state's park search to see which agency issues your permit.",
+        text: "The 2021-2029 Housing Element, citing the state's 2019 park listings, names nine mobile home parks with 1,301 permitted spaces, mostly in the south part of the city, against a county mobile home share of 3 percent. In the city's 2020-21 survey, 18.0 percent of respondents said their home needed a modest repair such as a roof and 17.1 percent a major one such as foundation, plumbing or electrical. The city's rehabilitation program for those repairs currently has no identified funding source.",
         sourceUrl:
           "https://www.stantonca.gov/City%20of%20Stanton%20Housing%20Element_Revised%20Adopted_6.27.pdf",
         sourceLabel: "City of Stanton, 2021-2029 Housing Element",
       },
       {
-        text: "The same Housing Element is frank about condition. In the city's own survey, run from November 2020 through January 2021, 18.0 percent of respondents said their home needed a modest repair such as a new roof and 17.1 percent said it needed a major repair such as a new foundation, plumbing or electrical. The element describes a Homeowner Rehabilitation Program for roofing, windows, plumbing and electrical repairs, but states that the city no longer has an identified funding source for it. The city's housing page says to check back there for available loans or grants.",
-        sourceUrl:
-          "https://www.stantonca.gov/City%20of%20Stanton%20Housing%20Element_Revised%20Adopted_6.27.pdf",
-        sourceLabel: "City of Stanton, 2021-2029 Housing Element",
-      },
-      {
-        text: "The Building Division's posted reroofing guide says new roofing may not be applied without first obtaining a building permit, one permit per building, that a Class A roofing assembly is required and that wood roofing materials are not allowed regardless of class. It calls for a pre-roofing inspection and a final inspection, and says removed roofing must go to CR&R for recycling, with the receipt left with the job card or the permit will not be finaled. The guide is stamped as revised in January 2005, and the city's Ordinance No. 1164, which adopted the 2025 codes, sets the minimum at Class B, so confirm the current rule with the Building Division before you sign a roofing contract.",
+        text: "The Building Division's reroofing guide requires a permit per building, a Class A assembly, no wood roofing of any class, a pre-roofing and a final inspection, and a CR&R recycling receipt left with the job card before the permit is finaled. The guide dates from January 2005, and Ordinance No. 1164, which adopted the 2025 codes, sets the minimum at Class B, so ask the division which rule applies.",
         sourceUrl:
           "https://www.stantonca.gov/Document_center/Department/Community%20Development/Building%20Regulations/Informational%20Handouts%20and%20Forms/ReroofingInfo.pdf",
         sourceLabel: "City of Stanton Building Division, reroofing guide",
       },
       {
-        text: "The city's water heater handout shows what the inspector looks for: seismic straps within the upper third and the lower third of the tank, with the lower strap at least 4 inches above the controls, a relief valve line piped to the outside and ending between 6 and 24 inches above the ground, and a gas burner at least 18 inches above a garage floor unless the heater is listed as flammable vapor ignition resistant. It also calls for an expansion tank on a closed system and a drain pan where a leak could do damage, such as an attic or upper floor. The handout quotes the 2019 plumbing code and the division's FAQ says the city now uses the 2025 codes, so treat it as a checklist, not the last word.",
+        text: "The city's water heater handout lists what the inspector checks: straps in the upper and lower thirds of the tank with the lower one at least 4 inches above the controls, a relief line piped outside ending 6 to 24 inches above the ground, a burner at least 18 inches above a garage floor unless the unit is vapor ignition resistant, an expansion tank on a closed system, and a drain pan where a leak could do damage. It quotes the 2019 plumbing code; the city now uses the 2025 codes.",
         sourceUrl:
           "https://www.stantonca.gov/Document_center/Department/Community%20Development/Building%20Regulations/Informational%20Handouts%20and%20Forms/Water-Heater-Handout.pdf",
         sourceLabel: "City of Stanton Building Division, water heater handout",
@@ -118,7 +112,7 @@ export const stanton: CityContent = {
       "Santa Barbara",
       "Town Center",
     ],
-    note: "Stanton is small and mostly unnamed tracts, so this list sticks to names the city's own planning documents use. The 2021-2029 Housing Element describes the Tina-Pacific neighborhood as 40 fourplex properties where the former redevelopment agency began a project in 2009 that the Stanton Housing Authority took over. It names the Little Mansions and Clover Park neighborhood, north of Chapman Avenue and west of Beach Boulevard, as a code enforcement target area, and lists Crow Village and the Santa Barbara neighborhood among areas with housing in need of major repair or substantial rehabilitation. Town Center is the general plan's mixed-use district close to the civic center, which now has its own Stanton Town Center Specific Plan. We did not find other neighborhood names in a city document, so none are listed.",
+    note: "These are the names the city's planning documents use. Tina-Pacific is 40 fourplex properties where the former redevelopment agency began a project in 2009 that the Stanton Housing Authority took over. Little Mansions and Clover Park, north of Chapman Avenue and west of Beach Boulevard, is a code enforcement target area, and Crow Village and Santa Barbara are listed among areas with housing in need of major repair. Town Center is the mixed-use district near the civic center, with its own specific plan.",
     sourceUrl:
       "https://www.stantonca.gov/City%20of%20Stanton%20Housing%20Element_Revised%20Adopted_6.27.pdf",
   },
@@ -127,7 +121,7 @@ export const stanton: CityContent = {
     utility: "Golden State Water Company, West Orange County system",
     utilityUrl: "https://www.gswater.com/los-alamitos",
     summary:
-      "Stanton does not run its own water system. The city's new resident page lists Golden State Water for water service, and the company's own report describes it as a wholly owned subsidiary of American States Water Company, a publicly traded company, so this is not a city department. The company says it has served Los Alamitos and surrounding communities since 1929 and that it serves approximately 30,100 customers in Cypress, Los Alamitos, Stanton and portions of Garden Grove, La Palma, Rossmoor and Seal Beach. Its current report describes the water in the West Orange County system as a blend of treated groundwater pumped from the Orange County Groundwater Basin and imported Colorado River and State Water Project water delivered by the Metropolitan Water District. In 2025 sampling, hardness across the system averaged 237 ppm, or 13.8 grains per gallon, with a range of 62.9 to 369 ppm, or 3.67 to 21.6 grains per gallon. That average is very hard water, and the range is wide, so what reaches a given tap depends on which sources are feeding that part of the system. The report gives one system-wide row, and it also says the system has no lead or galvanized service lines that require replacement.",
+      "Water comes from Golden State Water Company, a subsidiary of the publicly traded American States Water Company, not a city department. Its West Orange County system serves about 30,100 customers in Cypress, Los Alamitos, Stanton and parts of nearby cities with a blend of local groundwater and imported Colorado River and State Water Project water. In 2025 sampling, hardness averaged 237 ppm, or 13.8 grains per gallon, with a range of 3.67 to 21.6 grains, reported as one system-wide figure. The report says the system has no lead or galvanized service lines that need replacing.",
     sourceUrl:
       "https://www.gswater.com/sites/main/files/file-attachments/water-quality-west-orange-county.pdf",
   },
@@ -136,38 +130,38 @@ export const stanton: CityContent = {
     office: "City of Stanton Building Division",
     portalUrl: "https://stanton.cts.city/",
     summary:
-      "The Building Division is part of Community and Economic Development at City Hall, 7800 Katella Avenue. Applications that need plan check go through the city's online Plan Check Center as PDF uploads, and the division's FAQ gives a 10 business day turnaround for most first reviews and 5 business days for a second review, counting Monday through Thursday. The counter is open Monday through Thursday, 7 a.m. to 6 p.m., closed for lunch from noon to 1 p.m., and City Hall is closed every Friday. Appointments are required when you need three or more permits issued, through the permit technician at 714-890-4286. Inspections run Monday through Thursday, 9 a.m. to 4 p.m., and must be scheduled at least 48 hours ahead at 714-890-4252. The division's page currently says online payments are temporarily not accepted and that a 2.6 percent fee applies to card payments. The fee schedule effective July 1, 2026 lists $236 for a water heater and $323 for a reroof of up to 1,500 square feet, before issuance and other add-on fees.",
+      "Plan check goes through the online Plan Check Center as PDF uploads, with about 10 business days for a first review and 5 for a second, counting Monday through Thursday. The counter at City Hall, 7800 Katella Avenue, is open Monday to Thursday, 7 a.m. to 6 p.m., closed noon to 1; City Hall is closed Fridays. Three or more permits at once need an appointment at 714-890-4286. Inspections run Monday to Thursday, 9 a.m. to 4 p.m., booked 48 hours ahead at 714-890-4252. Online payment is temporarily off, and cards carry a 2.6 percent fee. The fee schedule effective July 1, 2026 lists $236 for a water heater and $323 for a reroof up to 1,500 square feet, before add-on fees.",
     sourceUrl:
       "https://www.stantonca.gov/departments/community_development/building_regulations/index.php",
   },
 
   hazards: [
     {
-      text: "The city's Community Health and Safety Element says the entire city of Stanton is located in a liquefaction hazard zone, citing the state's seismic hazard maps for the Los Alamitos, Anaheim and Newport Beach quadrangles. The ground is alluvium laid down by an ancestral Santa Ana River. The same element says there are no Alquist-Priolo Earthquake Fault Zones and no identified faults inside the city, so surface rupture is unlikely, but it lists the Newport-Inglewood, Whittier, Norwalk and Elysian Park faults nearby. For an older house, a strapped water heater, a bolted foundation and flexible gas connectors are the usual first steps.",
+      text: "The safety element puts the entire city in a state liquefaction hazard zone, on alluvium laid down by an ancestral Santa Ana River. It finds no Alquist-Priolo fault zones or identified faults inside the city, but lists the Newport-Inglewood, Whittier, Norwalk and Elysian Park faults nearby.",
       sourceUrl:
         "https://www.stantonca.gov/Attach%20C%20Health%20Safety%20Element.pdf",
       sourceLabel: "City of Stanton General Plan, Community Health and Safety Element",
     },
     {
-      text: "According to the safety element, Stanton contains no natural, permanent water features, and FEMA places the entire city in flood zone X, which covers areas of 500-year flood, areas of 100-year flood with average depths under one foot, and areas protected by levees. The element's climate appendix adds that as a built-out, urbanized area Stanton is especially vulnerable to flooding because asphalt and concrete block rainwater from soaking in, and the findings in the city's Ordinance No. 1164 call Stanton flatlands where development needs special drainage precautions to prevent ponding. Keep yard drains, side-yard swales and gutters clear before the winter storms.",
+      text: "Stanton has no natural, permanent water features, and FEMA places the entire city in flood zone X. The safety element calls the built-out city especially vulnerable to flooding because pavement keeps rain from soaking in, and Ordinance No. 1164 calls Stanton flatlands where development needs special drainage precautions to prevent ponding.",
       sourceUrl:
         "https://www.stantonca.gov/Attach%20C%20Health%20Safety%20Element.pdf",
       sourceLabel: "City of Stanton General Plan, Community Health and Safety Element",
     },
     {
-      text: "Stanton sits inside the dam inundation areas of both Prado Dam and Carbon Canyon Dam, according to the safety element. It says Prado Dam is about 23 miles northeast of the city on the Santa Ana River, and that Army Corps of Engineers inundation maps show a flood wave from a failure reaching Stanton in approximately 6.5 hours at approximately four feet deep. For Carbon Canyon Dam, about 12.5 miles to the northeast, the figures are approximately 7.5 hours and approximately one foot deep. This is a low-probability event, but it is a reason to register for Alert OC, the mass notification system the city's emergency preparedness page points residents to.",
+      text: "Stanton sits inside the inundation areas of Prado Dam, about 23 miles northeast, and Carbon Canyon Dam, about 12.5 miles northeast. Army Corps maps show a Prado failure reaching the city in about 6.5 hours at about four feet deep, and a Carbon Canyon failure in about 7.5 hours at about one foot. The city points residents to Alert OC for warnings.",
       sourceUrl:
         "https://www.stantonca.gov/Attach%20C%20Health%20Safety%20Element.pdf",
       sourceLabel: "City of Stanton General Plan, Community Health and Safety Element",
     },
     {
-      text: "The climate vulnerability assessment attached to the safety element, dated November 2021, uses Cal-Adapt data to define an extreme heat day in Stanton as one above 97.2 degrees. It says the modeled 1961 to 1990 baseline averaged two such days a year, and that by mid-century the average is expected to reach seven days under a medium emissions scenario and nine under a high one. It also says the urban heat island effect is pronounced in a built-out city like Stanton. Attic insulation, shade on west-facing glass and a serviced air conditioner matter more here each decade.",
+      text: "The city's November 2021 climate assessment defines an extreme heat day in Stanton as one above 97.2 degrees. The 1961 to 1990 baseline averaged two a year; by mid-century it expects seven under a medium emissions scenario and nine under a high one, and it calls the urban heat island effect pronounced here.",
       sourceUrl:
         "https://www.stantonca.gov/Attach%20C%20Health%20Safety%20Element.pdf",
       sourceLabel: "City of Stanton, Climate Vulnerability Assessment (safety element appendix A)",
     },
     {
-      text: "Wildfire is not a mapped hazard in Stanton: the safety element says there are no CAL FIRE identified Fire Hazard Severity Zones or Very High Fire Hazard Severity Zones within the city, and the State Fire Marshal's 2025 local responsibility area data shows no zone inside the city limits either. Wind and structure fires are the local concern: the findings in the city's Ordinance No. 1164 describe a semi-arid climate with hot, dry Santa Ana winds that may reach 70 mph or greater, and the safety element names combustible roof coverings and high density wood frame apartments among the hard fire problems in an urban area.",
+      text: "No fire hazard severity zone is mapped in Stanton, in the safety element or in the State Fire Marshal's 2025 data. The local concern is wind and structure fire: Ordinance No. 1164 cites Santa Ana winds that may reach 70 mph or more, and the safety element names combustible roofs and dense wood-frame apartments among the city's hard fire problems.",
       sourceUrl:
         "https://www.stantonca.gov/Attach%20C%20Health%20Safety%20Element.pdf",
       sourceLabel: "City of Stanton General Plan, Community Health and Safety Element",
@@ -179,25 +173,25 @@ export const stanton: CityContent = {
       href: "/guides/slab-leak-signs",
       title: "Slab leak signs",
       blurb:
-        "What to watch for in older supply lines, in a city where about 61 percent of the homes were built between 1950 and 1979.",
+        "About 61 percent of Stanton homes were built between 1950 and 1979, on their original supply lines.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "What changes the price and when a repair is smarter, on water that averaged 13.8 grains per gallon in 2025 and with a $236 city permit line.",
+        "Stanton water averaged 13.8 grains in 2025, and the city permit line is $236.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "A sourced re-roof cost, shingle vs tile, in a city whose reroofing guide calls for a Class A assembly and does not allow wood roofing.",
+        "The city's reroofing guide bans wood roofing and calls for a Class A assembly.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
       blurb:
-        "Month by month for this climate, including clearing yard drains on a flat lot before winter and servicing the air conditioner before the heat.",
+        "Flat lots that pond in winter and more 97-degree days each decade set the seasonal list here.",
     },
   ],
 
@@ -205,28 +199,12 @@ export const stanton: CityContent = {
 
   faq: [
     {
-      q: "Is Stanton's water hard?",
-      a: "Yes. Golden State Water Company's current report for its West Orange County system, which serves Stanton, shows hardness averaging 237 ppm, or 13.8 grains per gallon, in 2025 sampling, with a range of 62.9 to 369 ppm. That average is very hard water. The report gives one system-wide figure, so there is no published number for Stanton alone. Flushing a tank water heater yearly and descaling a tankless unit on the manufacturer's schedule is worth the hour.",
-    },
-    {
       q: "Who provides fire and police service in Stanton?",
-      a: "Both are contract services. The city's community profile lists the Orange County Fire Authority for fire and the Orange County Sheriff's Department for police. The fire authority's station list shows Station 46 at 7871 Pacific Street in Stanton, established in 1956, with a daily staff of one captain, one engineer and three firefighters. The Sheriff's Department says it has provided law enforcement in Stanton since February 1988, when the city police department merged with it.",
-    },
-    {
-      q: "Do I need a permit to replace a water heater in Stanton?",
-      a: "The city's fee schedule effective July 1, 2026 has a plumbing permit line for water heaters at $236 before add-on fees, and the Building Division publishes a water heater handout showing what gets inspected: two seismic straps, a relief valve line piped to the outside, a burner at least 18 inches above a garage floor unless the unit is listed as vapor ignition resistant, and an expansion tank on a closed system. A licensed plumber normally pulls the permit as part of the job. Inspections need 48 hours notice at 714-890-4252.",
-    },
-    {
-      q: "What does Stanton require for a reroof?",
-      a: "The Building Division's reroofing guide says a building permit is required before new roofing goes on, with a pre-roofing inspection and a final inspection. It calls for a Class A roofing assembly, does not allow wood roofing, and wants the tear-off recycled through CR&R. The guide dates from 2005 and the city's 2025 code adoption ordinance sets a Class B minimum, so ask the division which applies. The current fee schedule lists $323 for a reroof of up to 1,500 square feet, before add-on fees.",
-    },
-    {
-      q: "Is Stanton in a flood zone or a liquefaction zone?",
-      a: "According to the city's safety element, the entire city is in FEMA flood zone X, which it defines as areas of 500-year flood, areas of 100-year flood with average depths under one foot, and areas protected by levees, and the entire city is also in a state-mapped liquefaction hazard zone. The element adds that Stanton is inside the Prado Dam and Carbon Canyon Dam inundation areas. It says there are no Alquist-Priolo fault zones in the city and no potential for landslides.",
+      a: "Both are contract services: the Orange County Fire Authority and the Orange County Sheriff's Department. Station 46 at 7871 Pacific Street, established in 1956, is the city's fire station, and the Sheriff has policed Stanton since February 1988, when the city police department merged with it.",
     },
     {
       q: "Who issues permits for work on a mobile home in a Stanton park?",
-      a: "Start with the state. The California Department of Housing and Community Development says a permit is required before altering a mobilehome, and that it is the enforcement agency for mobilehome parks unless a city or county has taken that role on. Stanton's Building Division pages do not address mobile homes, so use the state's online park search to see which agency covers your park.",
+      a: "Start with the state. The Department of Housing and Community Development says a permit is required before altering a mobilehome and that it enforces in mobilehome parks unless a city has taken that role, and Stanton's Building Division pages do not address mobile homes, so use the state's park search to see which agency covers yours.",
     },
   ],
 

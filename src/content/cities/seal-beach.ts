@@ -35,7 +35,7 @@ export const sealBeach: CityContent = {
   name: "Seal Beach",
   slug: "seal-beach",
   intro:
-    "Every October the City of Seal Beach moves sand from the north side of its pier to the south side and piles it into a wall about 100 feet seaward of the houses along the boardwalk, then takes it down before May. Inland the housing story is just as specific: about 57 percent of all homes in the city date from the 1960s, the decade Leisure World opened, and the city's general plan counts 6,482 cooperative apartments there. The median build year is 1966. The city's own well water tests at about 4 grains per gallon of hardness, a fraction of what the imported water it blends in carries.",
+    "Every October the City of Seal Beach moves sand from the north side of its pier to the south side and piles it into a wall about 100 feet seaward of the boardwalk houses, then takes it down before May. Inland, about 57 percent of the city's homes date from the 1960s, the decade Leisure World opened its 6,482 cooperative apartments.",
   metaDescription:
     "Seal Beach homes are mostly 1960s, led by Leisure World co-ops. Mild well water, hard imports, a winter sand berm, coastal permits and the fault, sourced.",
   metaTitle: "Seal Beach, CA homes: 1960s co-ops, a winter berm",
@@ -58,46 +58,39 @@ export const sealBeach: CityContent = {
     },
     facts: [
       {
-        text: "Seal Beach's median year built is 1966. Of about 14,632 housing units, roughly 57.5 percent went up in the 1960s, 13.5 percent in the 1970s and 11.1 percent in the 1950s, with about 6.7 percent from before 1950 and only about 5 percent from 2000 or later. Only about 36 percent of units are detached single-family houses. These are survey estimates with margins of error, but the shape is plain: a 60-year-old building is past the first life of its roof, water lines, drain lines and electrical panel.",
+        text: "Of about 14,632 housing units, roughly 57.5 percent went up in the 1960s, 13.5 percent in the 1970s and 11.1 percent in the 1950s, with about 6.7 percent from before 1950 and about 5 percent from 2000 or later. Only about 36 percent are detached single-family houses.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0670686",
         sourceLabel:
-          "Census Reporter, ACS 2024 5-year tables B25034, B25035 and B25024",
+          "Census Reporter, ACS 2024 5-year tables B25034 and B25024",
       },
       {
-        text: "The 1960s bulge has a name. The city's general plan describes Leisure World as a self-contained, age-restricted retirement community of 533 acres, about one square mile, fully built out with 6,482 cooperative apartments and 126 condominiums of roughly 800 to 1,100 square feet. Leisure World's own history page says the first residents arrived on June 8, 1962, that all 6,476 original units were sold by December 1964, and that the community now holds about 40 percent of the city's residents.",
+        text: "The general plan describes Leisure World as an age-restricted retirement community of 533 acres, fully built out with 6,482 cooperative apartments and 126 condominiums of roughly 800 to 1,100 square feet. Its own history page says the first residents arrived on June 8, 1962, all 6,476 original units were sold by December 1964, and it now holds about 40 percent of the city's residents.",
         sourceUrl:
           "https://sealbeachca.gov/wp-content/uploads/2026/04/Land-Use-Element.pdf",
         sourceLabel:
           "City of Seal Beach General Plan, Land Use Element (December 2003), with lwsb.com history",
       },
       {
-        text: "Inside Leisure World most of the building is not the resident's job. The community's FAQ says Mutuals 1 to 12 and 14 to 16 are stock cooperatives and Mutual 17 is a condominium project, each run by its own elected board, and that the Mutual share of the monthly assessment funds reserves for roof replacements, piping, painting and street repairs. The Golden Rain Foundation's Service Maintenance Department takes plumbing, electrical, painting and carpentry calls at (562) 431-3548 and treats water leaks, stoppages and electrical problems as urgent. Its buyer checklist tells shoppers to ask what permits a Mutual requires to change anything inside a unit.",
+        text: "Leisure World's FAQ says Mutuals 1 to 12 and 14 to 16 are stock cooperatives and Mutual 17 is a condominium project, each run by its own elected board. Its buyer checklist tells shoppers to ask what permits a Mutual requires to change anything inside a unit.",
         sourceUrl: "https://www.lwsb.com/faq/",
         sourceLabel: "Leisure World Seal Beach (Golden Rain Foundation), FAQ",
       },
       {
-        text: "Outside Leisure World the general plan describes neighborhoods that were finished long ago. Marina Hill was subdivided in the 1950s into 5,000-square-foot lots and holds 970 single-family homes. College Park East has 1,668 low-density homes north of the San Diego Freeway, and College Park West has 306 houses whose only access is through the City of Long Beach by College Park Drive. Surfside Colony, a private gated strip of about 250 homes subdivided in the early 1900s, has been turning from one-story beach cottages into custom three-story year-round houses.",
+        text: "Marina Hill was subdivided in the 1950s into 5,000-square-foot lots and holds 970 single-family homes. College Park East has 1,668 homes north of the San Diego Freeway, and College Park West has 306 houses reachable only through Long Beach by College Park Drive. Surfside Colony, a private gated strip of about 250 homes subdivided in the early 1900s, has been turning from one-story beach cottages into three-story houses.",
         sourceUrl:
           "https://sealbeachca.gov/wp-content/uploads/2026/04/Land-Use-Element.pdf",
         sourceLabel:
           "City of Seal Beach General Plan, Land Use Element (December 2003)",
       },
       {
-        text: "The city's own page says the town was first known as Bay City, and that because a Bay City already existed in Northern California it took the name Seal Beach when it incorporated on October 25, 1915. The Navy arrived a generation later: the general plan says operations at the weapons facility on Anaheim Bay began in November 1944, and that the 5,256-acre Naval Weapons Station makes up the bulk of the city's landmass.",
+        text: "The town was first known as Bay City and took the name Seal Beach when it incorporated on October 25, 1915, because a Bay City already existed in Northern California. Navy operations on Anaheim Bay began in November 1944, and the 5,256-acre Naval Weapons Station makes up the bulk of the city's land.",
         sourceUrl: "https://sealbeachca.gov/about-us/about-seal-beach/",
         sourceLabel:
           "City of Seal Beach, About Seal Beach, with the General Plan Land Use Element",
       },
       {
-        text: "Seal Beach's own wells produce much softer water than the imported supply it is blended with. The city's 2026 water quality report, covering 2025 testing, shows its groundwater averaging 4.3 grains per gallon of hardness against 14 grains for Metropolitan's imported water, and the city's 2020 Urban Water Management Plan says the fiscal year 2019-20 supply was 65 percent groundwater and 35 percent imported. Scale here depends on the blend reaching your street, so look at your own kettle, shower glass and water heater before paying for a softener.",
-        sourceUrl:
-          "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010041&Year=2025&isCert=false",
-        sourceLabel:
-          "City of Seal Beach 2026 Water Quality Report (2025 data), State Water Board copy",
-      },
-      {
-        text: "Seal Beach does not run its own fire department. The city's fire services page says the Orange County Fire Authority serves Seal Beach as part of its Division 1, and the authority's station list shows two stations in the city: Station 44 at 718 Central Avenue, established in 1930, and Station 48 at 3131 North Gate Road, established in 1964, each with a medic engine and a daily crew of four. The general plan's Safety Element adds that the city has long required fire sprinklers in all new residential construction in Surfside, because of the small setbacks and narrow roads there.",
+        text: "Fire service comes from the Orange County Fire Authority's Division 1, with two stations in the city: Station 44 at 718 Central Avenue, established in 1930, and Station 48 at 3131 North Gate Road, established in 1964. The Safety Element says the city has long required fire sprinklers in all new homes in Surfside because of its small setbacks and narrow roads.",
         sourceUrl: "https://sealbeachca.gov/departments/fire/",
         sourceLabel: "City of Seal Beach, Fire Services, with the OCFA station list",
       },
@@ -114,7 +107,7 @@ export const sealBeach: CityContent = {
       "College Park East",
       "College Park West",
     ],
-    note: "These are the names the city's general plan uses. Old Town and Surfside make up Planning Area 1, the strip between Pacific Coast Highway and the ocean that the plan says lies entirely inside the California Coastal Zone. Bridgeport is the residential neighborhood near Fifth Street and Pacific Coast Highway. Marina Hill sits north of Pacific Coast Highway beside the Hellman Ranch property, Leisure World lies south of the San Diego Freeway, and College Park East and College Park West are the two tracts north of it. The city's draft coastal plan refers to the homes bordering Hellman Ranch as the Hill neighborhood.",
+    note: "These are the general plan's names. Old Town and Surfside form the strip between Pacific Coast Highway and the ocean, entirely inside the Coastal Zone. Bridgeport sits near Fifth Street and Pacific Coast Highway, Marina Hill north of the highway beside Hellman Ranch, Leisure World south of the San Diego Freeway, and the two College Park tracts north of it.",
     sourceUrl:
       "https://sealbeachca.gov/wp-content/uploads/2026/04/Land-Use-Element.pdf",
   },
@@ -124,7 +117,7 @@ export const sealBeach: CityContent = {
     utilityUrl:
       "https://sealbeachca.gov/departments/public-works/maintenance-operations-division/",
     summary:
-      "The City of Seal Beach runs its own water utility. Its 2026 water quality report describes the supply as a blend of groundwater pumped from three active local wells and water imported from Northern California and the Colorado River by the Municipal Water District of Orange County through the Metropolitan Water District. In 2025 testing the city's groundwater averaged 72.9 ppm of hardness, or 4.3 grains per gallon, with a range of 45.8 to 96.4 ppm, while Metropolitan's treated surface water averaged 236 ppm, or 14 grains per gallon, with a range of 191 to 280 ppm. The report does not say what share of each reaches a given street; the city's 2020 Urban Water Management Plan put the fiscal year 2019-20 supply at 65 percent groundwater and 35 percent imported. The Utilities Division's number is (562) 431-2527.",
+      "The city runs its own water utility, blending groundwater from three local wells with imported Northern California and Colorado River water. In 2025 testing the wells averaged 72.9 ppm of hardness, or 4.3 grains per gallon, while the imported water averaged 236 ppm, or 14 grains. The city's 2020 water plan put the fiscal 2019-20 supply at 65 percent groundwater and 35 percent imported, so scale depends on the blend reaching your street. Utilities: (562) 431-2527.",
     sourceUrl:
       "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010041&Year=2025&isCert=false",
   },
@@ -134,48 +127,48 @@ export const sealBeach: CityContent = {
     portalUrl:
       "https://sealbeachca-energovpub.tylerhost.net/apps/selfservice#/home",
     summary:
-      "Building & Safety is a division of the Department of Community Development at City Hall, 211 Eighth Street. The city takes building permit applications and plans electronically through its Civic Access Portal, and it says all inspection requests must go through the portal too, with inspections typically carried out within two business days. The public counter is open 8 a.m. to noon and 1 to 5 p.m., Monday through Friday. For building questions the city gives (562) 431-2527 extension 1323 and comdev@sealbeachca.gov. The city's FAQ lists window replacement, re-roofing, kitchen and bathroom remodeling, water heaters and heating and cooling replacements as work that needs a permit. In the Coastal Zone, ask the Planning Division at extension 1339 about coastal review first.",
+      "Applications, plans and inspection requests all go through the Civic Access Portal, and inspections usually happen within two business days. The counter at City Hall, 211 Eighth Street, is open 8 a.m. to noon and 1 to 5 p.m. weekdays; building questions go to (562) 431-2527 extension 1323. The city lists window replacement, re-roofing, kitchen and bath remodels, water heaters and heating and cooling replacements as permit work.",
     sourceUrl:
       "https://sealbeachca.gov/departments/community-development/building-safety/",
   },
 
   hazards: [
     {
-      text: "Seal Beach has no certified Local Coastal Program. The city's own page says it started one in 2003 and again in 2008, could not get the 2008 version certified and sent a revised draft Land Use Plan to the Commission on May 9, 2023. The page explains that the Commission transfers coastal permitting authority to the city only once a program is certified, and the Commission's status chart dated October 9, 2024 lists the City of Seal Beach among the segments with no certified program. The general plan says the Coastal Zone extends approximately two miles inland, and the draft plan puts about 60 percent of the city inside it.",
+      text: "Seal Beach has no certified Local Coastal Program, so coastal permits still run through the Coastal Commission. The city could not get its 2008 program certified and sent a revised draft to the Commission on May 9, 2023. The general plan says the Coastal Zone reaches about two miles inland, and the draft plan puts about 60 percent of the city inside it.",
       sourceUrl:
         "https://sealbeachca.gov/departments/community-development/local-coastal-plan-lcp-project/",
       sourceLabel: "City of Seal Beach, Local Coastal Plan (LCP) Project",
     },
     {
-      text: "Each fall the city builds a wall of sand on its own beach. The May 2023 draft of the city's coastal Land Use Plan says the city moves sand every year from north of the municipal pier to the south of it to construct the winter berm, typically built in October and removed before May, about 100 feet seaward of the homes along the boardwalk, with a crest elevation of 20 to 23 feet and a width of 12 feet. The draft says the strategy has generally worked, although the berm has at times been overtopped or flanked by large waves during high tides. The city's FAQ says sandbags are available in the winter months at the fire stations, the 10th Street beach lot and the City yard.",
+      text: "The draft coastal plan says the winter berm is built with a crest of 20 to 23 feet and a width of 12 feet, and that large waves at high tide have at times overtopped or flanked it. The city hands out sandbags in winter at the fire stations, the 10th Street beach lot and the City yard.",
       sourceUrl:
         "https://sealbeachca.gov/wp-content/uploads/2026/04/Seal-Beach-LUP_DRAFT-compressed.pdf",
       sourceLabel:
         "City of Seal Beach, draft Local Coastal Program Land Use Plan (May 2023)",
     },
     {
-      text: "The same draft lists what winter storms have done here. In the winter of 2016 to 2017 multiple strong storms overwhelmed the city's pumps in Old Town; the winter of 2022-23 brought significant damage to the pier and some flooding in Surfside and the beach parking lots; and in fall 2004 flooding stood three feet deep at homes near Anaheim Landing. The general plan's Safety Element, dated December 2003, adds that a majority of the city's storm drains were designed for the 25-year flood, which it calls inadequate for the 100-year standard.",
+      text: "Storms in winter 2016-17 overwhelmed the city's pumps in Old Town, winter 2022-23 damaged the pier and flooded parts of Surfside, and in fall 2004 water stood three feet deep at homes near Anaheim Landing. The 2003 Safety Element says most city storm drains were designed for the 25-year flood, short of the 100-year standard.",
       sourceUrl:
         "https://sealbeachca.gov/wp-content/uploads/2026/04/Seal-Beach-LUP_DRAFT-compressed.pdf",
       sourceLabel:
         "City of Seal Beach, draft Local Coastal Program Land Use Plan (May 2023), with the Safety Element",
     },
     {
-      text: "The Newport-Inglewood fault zone runs through the city. The Safety Element says the Seal Beach Fault, a segment of that zone, generally parallels the coastline from Long Beach through the Hellman Ranch property and the Naval Weapons Station toward Huntington Beach, is considered potentially active and is included in the state's Alquist-Priolo Earthquake Fault Zones. It calls the 1933 Long Beach earthquake, which the U.S. Geological Survey catalogs at magnitude 6.4, the most powerful and closest shock to hit Seal Beach in living memory. In a house from the 1950s or 1960s, foundation bolting, water heater strapping and a gas shutoff are worth checking.",
+      text: "The Seal Beach Fault, part of the Newport-Inglewood zone, runs roughly along the coast through Hellman Ranch and the Naval Weapons Station and sits inside a state Alquist-Priolo Earthquake Fault Zone. The Safety Element calls the 1933 Long Beach earthquake, magnitude 6.4 in the USGS catalog, the strongest and closest shock in living memory.",
       sourceUrl:
         "https://sealbeachca.gov/wp-content/uploads/2026/04/Safety-Element.pdf",
       sourceLabel:
         "City of Seal Beach General Plan, Safety Element (December 2003), with the USGS catalog",
     },
     {
-      text: "The city's draft coastal plan says the majority of Seal Beach is at risk of liquefaction, the loss of soil strength when saturated ground is shaken, and that the tsunami inundation zone inside its Coastal Zone covers Old Town and Main Beach and the Naval Weapons Station. The older Safety Element rates the tsunami hazard as low above the principal sea bluff and moderate for areas on the beach or below the bluff, and its policy is to require a soils and geology report for development projects as the municipal code specifies, so budget for one on an addition.",
+      text: "The draft coastal plan says most of Seal Beach is at risk of liquefaction and that the tsunami zone covers Old Town, Main Beach and the Naval Weapons Station. The Safety Element rates tsunami risk low above the main sea bluff and moderate below it, and calls for a soils and geology report on development projects.",
       sourceUrl:
         "https://sealbeachca.gov/wp-content/uploads/2026/04/Seal-Beach-LUP_DRAFT-compressed.pdf",
       sourceLabel:
         "City of Seal Beach, draft Local Coastal Program Land Use Plan (May 2023), with the Safety Element",
     },
     {
-      text: "The sea level rise study attached to the draft coastal plan projects about 40 feet of shoreline retreat along the Seal Beach waterfront and about 100 feet at Surfside with 1.6 feet of sea level rise. It calls the eastern waterfront and Surfside highly sensitive to any loss of beach, because the narrow sand there is backed by development, and says higher water will likely require higher berms placed closer to existing development. The Safety Element records the older fix: a 750-foot concrete sheet pile groin built beside the pier by the Army Corps of Engineers in 1959, after which sand replenishment was still required.",
+      text: "With 1.6 feet of sea level rise, the draft plan's study projects about 40 feet of shoreline retreat along the Seal Beach waterfront and about 100 feet at Surfside, likely requiring higher berms closer to homes. An earlier fix, a 750-foot concrete groin beside the pier, was built by the Army Corps of Engineers in 1959.",
       sourceUrl:
         "https://sealbeachca.gov/wp-content/uploads/2026/04/Seal-Beach-LUP_DRAFT-compressed.pdf",
       sourceLabel:
@@ -185,28 +178,28 @@ export const sealBeach: CityContent = {
 
   guides: [
     {
-      href: "/guides/roof-replacement-cost",
-      title: "Roof replacement cost",
+      href: "/guides/hoa-coastal-commission-remodel-orange-county",
+      title: "HOA and coastal approvals",
       blurb:
-        "A sourced re-roof cost, shingle vs tile, in a city where the median home dates from 1966 and the city lists re-roofing as permit work.",
+        "About 60 percent of the city sits in the Coastal Zone, and Leisure World Mutuals set their own rules.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "What changes the price and when a repair makes sense, on a blend of 4 grain well water and 14 grain imported water.",
+        "Tank life on a blend of 4 grain well water and 14 grain imported water.",
     },
     {
-      href: "/guides/electrical-panel-upgrade-cost",
-      title: "Electrical panel upgrade cost",
+      href: "/guides/roof-replacement-cost",
+      title: "Roof replacement cost",
       blurb:
-        "What an upgrade runs when the panel is original to a 1960s building, the decade that produced about 57 percent of the homes here.",
+        "The median home here dates from 1966, and the city lists re-roofing as permit work.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
       blurb:
-        "Month by month, including drains and sandbags before the winter storms the city builds its beach berm for.",
+        "Drains and sandbags belong on the fall list in a town that builds a beach berm every October.",
     },
   ],
 
@@ -214,28 +207,12 @@ export const sealBeach: CityContent = {
 
   faq: [
     {
-      q: "Is Seal Beach water hard?",
-      a: "It depends on the blend. The city's 2026 water quality report, covering 2025 testing, shows its own well water averaging 72.9 ppm of hardness, or 4.3 grains per gallon, and the imported Metropolitan water averaging 236 ppm, or 14 grains per gallon, more than three times as hard. The city's 2020 water plan put the supply at 65 percent groundwater and 35 percent imported in fiscal year 2019-20. Check your own fixtures for scale before buying a softener.",
-    },
-    {
-      q: "Who provides fire service in Seal Beach?",
-      a: "The Orange County Fire Authority. The city's fire services page says the authority serves Seal Beach as part of its Division 1, and the authority's station list shows Station 44 at 718 Central Avenue and Station 48 at 3131 North Gate Road. Police are separate: the city has its own Seal Beach Police Department.",
-    },
-    {
-      q: "Do I need a permit to replace a water heater or reroof in Seal Beach?",
-      a: "Yes. The city's FAQ lists water heaters and re-roofing, along with window replacement and kitchen and bathroom remodeling, as examples of minor projects that require a permit. Applications and inspection requests go through the city's Civic Access Portal, and the Building Division answers questions at (562) 431-2527 extension 1323. A licensed contractor normally pulls the permit as part of the job.",
-    },
-    {
-      q: "Does Seal Beach have its own coastal permit process?",
-      a: "Not yet. The city's Local Coastal Plan page says its 2008 program was never certified and that a revised draft went to the Coastal Commission on May 9, 2023, and it explains that the Commission hands coastal permitting authority to a city only after certification. The Commission's October 2024 status chart lists Seal Beach with no certified program. If your house is in the Coastal Zone, which the general plan says reaches about two miles inland, call the Planning Division at (562) 431-2527 extension 1339 before you pay for plans.",
-    },
-    {
-      q: "Why does Seal Beach build a sand berm every winter?",
-      a: "To reduce flood damage from winter storm waves. The city's May 2023 draft coastal plan says the berm is typically built in October and removed before May, about 100 feet seaward of the homes along the boardwalk, using sand moved from the north side of the pier. It has generally worked, the draft says, though large waves at high tide have overtopped or flanked it before.",
-    },
-    {
       q: "Who fixes the roof or pipes in a Leisure World Seal Beach unit?",
-      a: "Usually the Mutual, not the resident. Leisure World's FAQ says the Mutual share of the monthly assessment funds reserves for roof replacements, piping, painting and street repairs, and the Golden Rain Foundation's Service Maintenance Department handles plumbing, electrical, painting and carpentry calls at (562) 431-3548. Charges and rules vary by Mutual, so ask yours what permits it requires before changing anything inside a unit.",
+      a: "Usually the Mutual, not the resident. Leisure World's FAQ says the Mutual share of the monthly assessment funds reserves for roof replacements, piping, painting and street repairs, and the Golden Rain Foundation's Service Maintenance Department takes plumbing, electrical, painting and carpentry calls at (562) 431-3548, treating leaks and electrical problems as urgent.",
+    },
+    {
+      q: "Who do I call first about a remodel in the Seal Beach Coastal Zone?",
+      a: "The city's Planning Division, at (562) 431-2527 extension 1339. The city says to ask it about coastal review before starting a project, since Seal Beach has no certified coastal program of its own yet.",
     },
   ],
 
