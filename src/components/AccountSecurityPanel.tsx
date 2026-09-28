@@ -468,7 +468,7 @@ export default function AccountSecurityPanel({
               Export your data
             </p>
             <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
-              Download everything we hold for your account as a JSON file.{" "}
+              Download everything we hold for your account as a PDF.{" "}
               {/* Phone only: padding grows an inline link to a 44px touch
                   area without changing the line box. */}
               <Link href={privacyHref} className="font-medium text-bark-700 hover:underline max-sm:py-3 dark:text-stone-300">
@@ -478,11 +478,11 @@ export default function AccountSecurityPanel({
             </p>
           </div>
           <a
-            href="/api/privacy/export"
+            href="/api/privacy/export?format=pdf"
             download
             className="btn-secondary whitespace-nowrap"
           >
-            Download my data
+            Download PDF
           </a>
         </div>
       </div>

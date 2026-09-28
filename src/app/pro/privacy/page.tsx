@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCurrentContractor } from "@/lib/contractor";
+import { getVerifiedUser } from "@/lib/auth";
+import { exportLinkStateFor } from "@/lib/dataExportLinkState";
 import { FOUNDER } from "@/lib/constants";
 import PrivacyRightsPanel from "@/components/PrivacyRightsPanel";
 
@@ -12,9 +14,16 @@ export const metadata = {
   title: "Your privacy rights",
 };
 
-export default async function ProPrivacyRightsPage() {
-  const contractor = await getCurrentContractor();
-  if (!contractor) redirect("/pro/onboarding");
+export default async function ProPrivacyRightsPage(props: {
+  searchParams?: Promise<{ export?: string }>;
+}) {
+  const [contractor, user, searchParams] = await Promise.all([
+    getCurrentContractor(),
+    getVerifiedUser(),
+    props.searchParams ?? Promise.resolve(undefined),
+  ]);
+  if (!contractor || !user) redirect("/pro/onboarding");
+  const linkState = exportLinkStateFor(searchParams?.export, user.id);
 
   return (
     <PrivacyRightsPanel
@@ -23,6 +32,8 @@ export default async function ProPrivacyRightsPage() {
       profileLabel="Edit business profile"
       contact={FOUNDER.email}
       blocksHref="/pro/blocks"
+      side="contractor"
+      linkState={linkState}
     />
   );
 }

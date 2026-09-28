@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CATEGORIES, THIRD_PARTIES } from "@/lib/privacy";
+import EmailExportLinkButton from "@/components/EmailExportLinkButton";
 
 // Your privacy rights: the one in-app surface for the California rights the
 // Terms' governing law points at (CCPA/CPRA, Cal. Civ. Code 1798.100 et seq).
@@ -30,7 +31,14 @@ export default function PrivacyRightsPanel({
   // This side's blocked-accounts list (/account/blocks or /pro/blocks).
   // Optional: omit it and the safety card below is simply not rendered.
   blocksHref,
+  side = "homeowner",
+  linkState = null,
 }: {
+  // Which side's page the "Email me a link" email points back to.
+  side?: "homeowner" | "contractor";
+  // Set by the page when it was opened from an emailed download link and the
+  // link was checked against the signed-in account (verifyExportLink).
+  linkState?: "ready" | "expired" | null;
   securityHref: string;
   profileHref: string;
   profileLabel: string;
@@ -57,35 +65,58 @@ export default function PrivacyRightsPanel({
       </div>
 
       {/* Download. The right to know and the right to portability, honoured
-          on the spot - the session is the verification, so there's nothing to
-          wait for. Plain <a> with download, not a form: the route streams a
-          file back rather than redirecting. */}
+          on the spot: the session is the verification. The PDF is the main
+          format. "Email me a link" sends a signed, 24 hour link back to this
+          page (src/lib/dataExportLink.ts). JSON stays available as a small
+          secondary link because the right to portability asks for a
+          machine-readable copy. */}
       <div className="card p-6">
+        {linkState === "ready" && (
+          <p
+            role="status"
+            className="mb-4 rounded-lg border border-green-300 bg-green-100 p-3 text-sm text-green-800 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300"
+          >
+            Your download is ready. Tap Download PDF.
+          </p>
+        )}
+        {linkState === "expired" && (
+          <p
+            role="status"
+            className="mb-4 rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm text-stone-700 dark:border-white/10 dark:bg-white/5 dark:text-stone-200"
+          >
+            That link has expired. You can still download below.
+          </p>
+        )}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Download your data
             </p>
-            <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
-              Everything we hold for your account, as a PDF you can read or
-              print. Generated fresh each time.
+            <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
+              Everything we hold for your account, as a PDF.
             </p>
-            <a
-              href="/api/privacy/export?format=json"
-              download
-              className="mt-1 inline-block text-xs font-medium text-bark-700 hover:underline dark:text-stone-300"
-            >
-              Also available as JSON
-            </a>
           </div>
-          <a
-            href="/api/privacy/export?format=pdf"
-            download
-            className="btn-secondary whitespace-nowrap"
-          >
-            Download my data (PDF)
-          </a>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
+            <a
+              href="/api/privacy/export?format=pdf"
+              download
+              className="btn-primary whitespace-nowrap"
+            >
+              Download PDF
+            </a>
+            <EmailExportLinkButton side={side} />
+          </div>
         </div>
+        <p className="mt-3 text-xs text-stone-600 dark:text-stone-300">
+          Moving your data to another service?{" "}
+          <a
+            href="/api/privacy/export?format=json"
+            download
+            className="font-medium text-bark-700 underline dark:text-stone-200"
+          >
+            Get a machine-readable copy (JSON)
+          </a>
+        </p>
       </div>
 
       {/* The rights themselves. */}
@@ -102,7 +133,7 @@ export default function PrivacyRightsPanel({
           />
           <Right
             term="Get a copy you can take with you"
-            detail="Receive your information in a portable, machine-readable format. That's the JSON download above, next to the PDF."
+            detail="Receive your information in a portable, machine-readable format. That's the JSON copy linked under the download above."
           />
           <Right
             term="Delete your information"

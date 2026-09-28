@@ -244,6 +244,7 @@ export default function ProNav({
                 { href: "/pro/notifications", label: "Job alerts" },
                 { href: "/pro/privacy", label: "Your privacy rights" },
                 { href: "/pro/help", label: "Help" },
+                { href: "/pro/feedback", label: "Report a bug" },
                 // The other side of the account, mirroring Nav.tsx: a switch
                 // records where they land next time; adding a home is a plain
                 // link into onboarding, told explicitly that this is an addition

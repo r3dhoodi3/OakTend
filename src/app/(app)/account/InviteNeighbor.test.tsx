@@ -19,9 +19,14 @@ describe("InviteNeighbor: standing /account card (no moment prop)", () => {
   it("renders unconditionally, with no dismiss button", () => {
     render(<InviteNeighbor code="ABCD1234" />);
     expect(screen.getByText("Invite a neighbor")).toBeInTheDocument();
+    // Owner feedback 2026-09-27: says plainly that this is for a neighbor's
+    // OWN home, and points household sharing elsewhere.
     expect(
-      screen.getByText("OakTend grows street by street. If it's been useful, pass it along.")
+      screen.getByText(/Send a neighbor a link to set up their own home/)
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "add a household member" })
+    ).toHaveAttribute("href", "/account/household");
     expect(screen.queryByText("Not now")).toBeNull();
   });
 

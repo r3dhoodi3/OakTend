@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import InlineSpinner from "@/components/InlineSpinner";
+import AvatarCropper from "@/components/AvatarCropper";
 
 // A tappable profile picture. The whole avatar IS the control - there is no
 // separate "upload" button (product decision, 2026-09-08): tapping it opens the
@@ -53,30 +54,42 @@ export default function AvatarUpload({
   const [err, setErr] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const hiddenRef = useRef<HTMLInputElement>(null);
+  // A picked avatar photo waiting in the crop step. Banners skip it: they are
+  // a wide strip, not a square frame.
+  const [cropping, setCropping] = useState<File | null>(null);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
     const file = input.files?.[0];
     if (!file) return;
-    setBusy(true);
     setErr(null);
 
     // SVG is refused explicitly and first: it can carry a <script>, and this
     // bucket is public and served on unauthenticated pages.
     if (file.type === "image/svg+xml") {
       setErr("SVG images aren't supported. Please use a PNG, JPEG, or WEBP image.");
-      setBusy(false);
       input.value = "";
       return;
     }
     if (file.size > MAX_BYTES || !ALLOWED_TYPES.has(file.type)) {
       setErr("Please pick a PNG, JPEG, or WEBP image under 5MB.");
-      setBusy(false);
       input.value = "";
       return;
     }
 
-    const rawExt = file.name.split(".").pop()?.toLowerCase() ?? "";
+    input.value = "";
+    if (variant === "avatar") {
+      // Crop first; upload() runs from the cropper's Save.
+      setCropping(file);
+      return;
+    }
+    await upload(file, file.name);
+  }
+
+  async function upload(blob: Blob, name: string) {
+    setBusy(true);
+    setErr(null);
+    const rawExt = name.split(".").pop()?.toLowerCase() ?? "";
     const ext = /^[a-z0-9]{1,5}$/.test(rawExt) ? rawExt : "png";
     const id = crypto.randomUUID();
     const path = `${ownerId}/${id}.${ext}`;
@@ -85,7 +98,10 @@ export default function AvatarUpload({
     try {
       const { error } = await supabase.storage
         .from(bucket)
-        .upload(path, file, { upsert: false });
+        .upload(path, blob, {
+          upsert: false,
+          contentType: blob.type || undefined,
+        });
       if (error) {
         setErr("The photo couldn't upload. Please try again.");
       } else {
@@ -99,8 +115,6 @@ export default function AvatarUpload({
       }
     } finally {
       setBusy(false);
-      // Reset so re-picking the same file still fires onChange.
-      input.value = "";
     }
   }
 
@@ -246,6 +260,17 @@ export default function AvatarUpload({
           className="sr-only"
         />
       </label>
+      {cropping && (
+        <AvatarCropper
+          file={cropping}
+          shape={shape}
+          onCancel={() => setCropping(null)}
+          onConfirm={(blob) => {
+            setCropping(null);
+            void upload(blob, "photo.jpg");
+          }}
+        />
+      )}
       {err && (
         // Absolute + top-full so it sits just below the control without being
         // part of its measured size. whitespace-nowrap keeps it on ONE line

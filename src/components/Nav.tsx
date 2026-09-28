@@ -214,11 +214,15 @@ export default function Nav({
               nameMaxWidthClass="max-w-[7rem]"
               links={[
                 { href: "/account", label: "Edit profile" },
-                { href: "/issues", label: "Report a problem" },
-                { href: "/account/household", label: "Household" },
+                // "Report a problem" read like "report a problem with the
+                // app"; this is for a problem with the HOUSE. App bugs get
+                // their own row below Help so they are easy to find.
+                { href: "/issues", label: "Report a home issue" },
+                { href: "/account/household", label: "Household members" },
                 { href: "/account/notifications", label: "Notifications" },
                 { href: "/account/privacy", label: "Your privacy rights" },
                 { href: "/account/help", label: "Help" },
+                { href: "/feedback", label: "Report a bug" },
                 // The other side of the account. Switching goes through the
                 // action so it also records where they land next time; setting
                 // one up is a plain link, since there is nothing to record yet.
