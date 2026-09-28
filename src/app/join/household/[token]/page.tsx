@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { safeNextPath } from "@/lib/safeNext";
 import { isInviteToken } from "@/lib/pendingJoin";
-import { QR_SCAN_GRACE_SECONDS } from "@/lib/householdQr";
+import { openHouseholdInvite } from "@/lib/householdInviteOpen";
 import { formatAddressLine } from "@/lib/addressLine";
 import SubmitButton from "@/components/SubmitButton";
 import {
@@ -46,32 +46,13 @@ export default async function JoinHouseholdPage(props: {
 
   const admin = createAdminClient();
 
-  // Scan grace (migration 0099): the first open of a still-live code gives it
-  // 30 minutes from now, once, so a new account has time to finish signing
-  // up. A single conditional update: scanned_at must still be null AND the
-  // code must still be live, so a repeat open can never re-extend it and an
-  // expired code can never be revived. This only moves an expiry time; it
-  // grants nothing.
-  const nowIso = new Date().toISOString();
-  await admin
-    .from("household_invite_tokens")
-    .update({
-      scanned_at: nowIso,
-      expires_at: new Date(Date.now() + QR_SCAN_GRACE_SECONDS * 1000).toISOString(),
-    })
-    .eq("token", token)
-    .is("scanned_at", null)
-    .gt("expires_at", nowIso);
-
-  // Read-only validity check. Service role because the token table has no
-  // client policies at all (migration 0097). What this reads is shown only to
-  // someone holding the token, who could join the home with it anyway.
-  const { data: invite } = await admin
-    .from("household_invite_tokens")
-    .select("property_id, created_by, expires_at")
-    .eq("token", token)
-    .gt("expires_at", new Date().toISOString())
-    .maybeSingle();
+  // Read-only validity check. A code is usable for 10 minutes from when it
+  // was made. Past that, only the browser that opened this link while it was
+  // still live gets up to 30 minutes from that open to finish joining (the
+  // signed cookie in src/lib/qrScanProof.ts); anyone else sees the expired
+  // state. Opening the page no longer moves any expiry. What this reads is
+  // shown only to someone who could join the home with it anyway.
+  const invite = await openHouseholdInvite(token);
 
   if (failed === "home_full") return <InvalidState reason="home_full" />;
   if (failed === "rate_limited") return <InvalidState reason="rate_limited" />;

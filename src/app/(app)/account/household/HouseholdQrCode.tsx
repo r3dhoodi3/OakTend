@@ -9,11 +9,14 @@ import { formatCountdown } from "@/lib/householdQr";
 // lives 10 minutes from when it was made (QR_TOKEN_LIFETIME_SECONDS in
 // src/lib/householdQr.ts) and the card shows the time left. When it runs out
 // the code is hidden and a "New code" button takes its place; nothing
-// re-mints on a loop in the background. The real expiry is enforced server
+// re-mints on a loop in the background. "New code" is also offered while a
+// code is showing, and making a new code that way cancels the one on screen
+// (for a code that was photographed or sent to the wrong person). The real expiry is enforced server
 // side by redeem_household_invite_token(), which checks expires_at itself.
 export default function HouseholdQrCode({ propertyId }: { propertyId: string }) {
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [joinUrl, setJoinUrl] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<number | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const [error, setError] = useState<string | null>(null);
@@ -24,13 +27,19 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
   // a double tap on "New code").
   const inFlightRef = useRef(false);
 
-  const mint = useCallback(async () => {
+  // replaceToken: the code this card is showing, cancelled once the new one
+  // exists. Omitted on mount, so opening a second tab never kills a code that
+  // is still showing in the first.
+  const mint = useCallback(async (replaceToken?: string | null) => {
     if (inFlightRef.current) return;
     inFlightRef.current = true;
     setError(null);
     setPending(true);
     try {
-      const result = await mintHouseholdQrTokenAction(propertyId);
+      const result = await mintHouseholdQrTokenAction(
+        propertyId,
+        replaceToken ?? null
+      );
       if (!mountedRef.current) return;
       if (!result.ok) {
         setError(result.error);
@@ -50,6 +59,7 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
       });
       if (!mountedRef.current) return;
       setJoinUrl(result.data.joinUrl);
+      setToken(result.data.token);
       setExpiresAt(expiresMs);
       setNow(Date.now());
       setQrDataUrl(dataUrl);
@@ -119,7 +129,7 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
               <span>This code expired.</span>
               <button
                 type="button"
-                onClick={() => mint()}
+                onClick={() => mint(token)}
                 className="btn-primary text-sm"
               >
                 New code
@@ -136,7 +146,7 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
           {error}{" "}
           <button
             type="button"
-            onClick={() => mint()}
+            onClick={() => mint(token)}
             disabled={pending}
             className="inline-flex items-center justify-center gap-1.5 font-medium underline"
           >
@@ -153,6 +163,16 @@ export default function HouseholdQrCode({ propertyId }: { propertyId: string }) 
             aria-live="off"
           >
             Expires in {formatCountdown(secondsLeft)}
+            <span aria-hidden="true"> · </span>
+            <button
+              type="button"
+              onClick={() => mint(token)}
+              disabled={pending}
+              className="inline-flex items-center gap-1 font-medium text-bark-700 underline dark:text-stone-200"
+            >
+              {pending && <InlineSpinner size={12} />}
+              {pending ? "Making a code..." : "New code"}
+            </button>
           </p>
           {joinUrl && (
             <div className="mt-3 flex flex-col items-center gap-2">

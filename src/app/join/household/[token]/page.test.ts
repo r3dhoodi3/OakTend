@@ -21,7 +21,12 @@ describe("join page is read only", () => {
     expect(page).toContain("action={redeemHouseholdInviteAction}");
     expect(page).toContain("Join this home");
   });
-  it("checks the code is still live before offering the button", () => {
-    expect(page).toMatch(/\.gt\("expires_at"/);
+  it("checks the code is still usable by this browser before offering the button", () => {
+    expect(page).toContain("openHouseholdInvite(token)");
+    expect(page).toContain("if (!invite) return <InvalidState />;");
+  });
+  it("opening the page never moves a code's expiry", () => {
+    expect(page).not.toContain(".update(");
+    expect(page).not.toContain("expires_at:");
   });
 });

@@ -10,6 +10,12 @@ import {
   pendingJoinCookieOptions,
 } from "@/lib/pendingJoin";
 import {
+  QR_SCAN_COOKIE,
+  scanProofCookieOptions,
+  scanProofToken,
+  signScanProof,
+} from "@/lib/qrScanProof";
+import {
   ACTIVITY_COOKIE,
   activityCookieOptions,
   isIdleExpired,
@@ -288,6 +294,19 @@ async function joinPageResponse(
   }
   if (token) {
     response.cookies.set(PENDING_JOIN_COOKIE, token, pendingJoinCookieOptions());
+    // "Finish joining" proof (src/lib/qrScanProof.ts): records when THIS
+    // browser first opened this code. Kept as is on a later open of the same
+    // link, so reopening can never move the open time forward.
+    if (scanProofToken(request.cookies.get(QR_SCAN_COOKIE)?.value) !== token) {
+      try {
+        const proof = await signScanProof(token);
+        if (proof) {
+          response.cookies.set(QR_SCAN_COOKIE, proof, scanProofCookieOptions());
+        }
+      } catch {
+        // No proof just means no extra time; the code's 10 minutes still work.
+      }
+    }
   }
   return response;
 }

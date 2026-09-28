@@ -890,6 +890,7 @@ export interface Database {
           created_at: string;
           expires_at: string;
           scanned_at: string | null;
+          grace_key: string;
         };
         Insert: {
           token?: string;
@@ -898,6 +899,7 @@ export interface Database {
           created_at?: string;
           expires_at: string;
           scanned_at?: string | null;
+          grace_key?: string;
         };
         Update: Partial<
           Database["public"]["Tables"]["household_invite_tokens"]["Insert"]
@@ -1551,7 +1553,7 @@ export interface Database {
         }[];
       };
       redeem_household_invite_token: {
-        Args: { p_token: string };
+        Args: { p_token: string; p_grace_key?: string };
         Returns: {
           ok: boolean;
           property_id: string | null;

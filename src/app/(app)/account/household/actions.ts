@@ -15,7 +15,11 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { requestOriginFromHeaders } from "@/lib/requestOrigin";
 import { setFlash } from "@/lib/flash";
 import { type ActionResult, ok, err } from "@/lib/actionResult";
-import { QR_TOKEN_LIFETIME_SECONDS } from "@/lib/householdQr";
+import {
+  QR_SCAN_GRACE_SECONDS,
+  QR_TOKEN_LIFETIME_SECONDS,
+} from "@/lib/householdQr";
+import { openHouseholdInvite } from "@/lib/householdInviteOpen";
 import { ACTIVE_HOME_COOKIE } from "@/lib/property";
 import { PENDING_JOIN_COOKIE, isInviteToken } from "@/lib/pendingJoin";
 
@@ -257,10 +261,11 @@ export async function leaveHomeAction(formData: FormData) {
 // an already-active member. This action only ever mints the token; it never
 // touches household_members itself.
 //
-// TTL: 10 minutes from mint (QR_TOKEN_LIFETIME_SECONDS). If the link is
-// opened while still valid, the join page extends it once to a 30 minute
-// grace window (scanned_at, migration 0099), so a real signup has room to
-// finish.
+// TTL: 10 minutes from mint (QR_TOKEN_LIFETIME_SECONDS), for everyone. A
+// browser that opened the link inside those 10 minutes gets up to 30 minutes
+// from that open to finish joining (src/lib/qrScanProof.ts, migration 0174);
+// that extra time is tied to that browser and never extends the code for
+// anyone else.
 export interface HouseholdQrToken {
   token: string;
   joinUrl: string;
@@ -268,14 +273,18 @@ export interface HouseholdQrToken {
 }
 
 // Called directly (not as a <form action>) from the household tab's client
-// component on mount, and again only when the owner taps "New code" after the
-// visible countdown runs out (see HouseholdQrCode.tsx). Returns a typed
+// component on mount, and again only when the owner taps "New code" (see
+// HouseholdQrCode.tsx). A tap passes the code that card was showing as
+// replaceToken, and that code stops working once the new one exists. The
+// mount mint passes nothing, so a second tab or React's dev double mount never
+// cancels a code that is still on screen somewhere. Returns a typed
 // ActionResult (src/lib/actionResult.ts) rather than throwing, since the
 // caller is a client component that needs to keep the tab's layout in place
 // and show the failure inline, not an unhandled rejection or a thrown error
 // that would otherwise surface as a generic error boundary.
 export async function mintHouseholdQrTokenAction(
-  propertyId: string
+  propertyId: string,
+  replaceToken?: string | null
 ): Promise<ActionResult<HouseholdQrToken>> {
   try {
     const supabase = await createClient();
@@ -315,8 +324,10 @@ export async function mintHouseholdQrTokenAction(
       return err("Too many new codes just now. Wait a few minutes and try again.");
     }
 
-    // Self-cleanup: drop this owner's EXPIRED tokens for this home before
-    // minting a fresh one, so the table cannot quietly pile up stale rows.
+    // Self-cleanup: drop this owner's tokens for this home whose 10 minutes
+    // AND finish-joining time are both over (expired more than 30 minutes
+    // ago), so the table cannot quietly pile up stale rows while a person who
+    // opened a code in time can still finish signing up.
     //
     // Live tokens are left alone, scanned or not. This used to delete every
     // unscanned token on each mint, and that was one way a code on screen
@@ -324,13 +335,15 @@ export async function mintHouseholdQrTokenAction(
     // double mount) each minted a code and each mint deleted the other's, so
     // whichever code was still showing had already been swept. A live token
     // now simply runs out on its own 10 minute clock.
-    const nowIso = new Date().toISOString();
+    const graceOverIso = new Date(
+      Date.now() - QR_SCAN_GRACE_SECONDS * 1000
+    ).toISOString();
     const { error: cleanupError } = await admin
       .from("household_invite_tokens")
       .delete()
       .eq("created_by", user.id)
       .eq("property_id", propertyId)
-      .lte("expires_at", nowIso);
+      .lte("expires_at", graceOverIso);
     if (cleanupError) {
       console.error("mintHouseholdQrTokenAction: cleanup failed", cleanupError);
       return err("Couldn't create an invite code. Try again.");
@@ -348,6 +361,28 @@ export async function mintHouseholdQrTokenAction(
     if (insertError || !inserted) {
       console.error("mintHouseholdQrTokenAction: insert failed", insertError);
       return err("Couldn't create an invite code. Try again.");
+    }
+
+    // "New code" cancels the code this card was showing, but only once the
+    // new one exists (a failed mint leaves the old code working), only this
+    // owner's own code for this home (created_by + property_id, so a token
+    // from the browser can never delete anyone else's), and only while that
+    // code is still inside its 10 minutes. A code that already ran out is left
+    // for its finish-joining time, so tapping "New code" for the next person
+    // does not cut off someone who scanned in time and is still signing up.
+    const replace =
+      typeof replaceToken === "string" ? replaceToken.trim().toLowerCase() : "";
+    if (isInviteToken(replace) && replace !== inserted.token) {
+      const { error: cancelError } = await admin
+        .from("household_invite_tokens")
+        .delete()
+        .eq("token", replace)
+        .eq("created_by", user.id)
+        .eq("property_id", propertyId)
+        .gt("expires_at", new Date().toISOString());
+      if (cancelError) {
+        console.error("mintHouseholdQrTokenAction: cancel failed", cancelError);
+      }
     }
 
     // Absolute URL built from the Host header (requestOriginFromHeaders),
@@ -411,9 +446,28 @@ export async function redeemHouseholdInviteAction(formData: FormData) {
     redirect(`/signin?next=${encodeURIComponent(joinPath)}`);
   }
 
-  const { data, error } = await supabase.rpc("redeem_household_invite_token", {
-    p_token: token,
-  });
+  // Past the code's 10 minutes, the database only accepts it together with
+  // its grace_key (migration 0174), a value that never leaves the server. It
+  // is read and passed ONLY when this browser opened the link while the code
+  // was still live, less than 30 minutes ago (openHouseholdInvite checks the
+  // signed cookie from src/lib/qrScanProof.ts). Before 0174 is applied the
+  // column read fails, no key is passed, and the code simply lasts its 10
+  // minutes.
+  let graceKey: string | null = null;
+  const open = await openHouseholdInvite(token);
+  if (open?.inGrace) {
+    const { data: graceRow, error: graceError } = await createAdminClient()
+      .from("household_invite_tokens")
+      .select("grace_key")
+      .eq("token", token)
+      .maybeSingle();
+    if (!graceError && graceRow?.grace_key) graceKey = graceRow.grace_key;
+  }
+
+  const { data, error } = await supabase.rpc(
+    "redeem_household_invite_token",
+    graceKey ? { p_token: token, p_grace_key: graceKey } : { p_token: token }
+  );
   const row = (Array.isArray(data) ? data[0] : data) as
     | {
         ok: boolean;

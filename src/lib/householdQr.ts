@@ -7,9 +7,9 @@
 // when it runs out the household tab offers a "New code" button.
 export const QR_TOKEN_LIFETIME_SECONDS = 10 * 60;
 
-// Opening the link while the code is still live gives that one code this much
-// time from the scan, once, so a new account can finish signing up
-// (migration 0099, stamped by /join/household/[token]).
+// Opening the link while the code is still live gives THAT browser this much
+// time from the open to finish joining (a new account has to sign up first).
+// Nobody else gets it: see src/lib/qrScanProof.ts and migration 0174.
 export const QR_SCAN_GRACE_SECONDS = 30 * 60;
 
 // "9:05" style countdown text for the seconds left on a code.

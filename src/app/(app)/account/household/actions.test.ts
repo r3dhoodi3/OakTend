@@ -33,6 +33,9 @@ const flashes: string[] = [];
 let ownerRow: Row | null = { id: "home-1", user_id: "user-owner" };
 let deleteFilters: Array<[string, string, unknown]> = [];
 let insertedToken: Row | null = null;
+let openInvite: { inGrace: boolean } | null = null;
+let graceKeyRow: { data: Row | null; error: unknown } = { data: null, error: null };
+let graceSelects = 0;
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 vi.mock("next/navigation", () => ({
@@ -55,6 +58,9 @@ vi.mock("@/lib/flash", () => ({
   },
 }));
 vi.mock("@/lib/notify", () => ({ sendEmailToAddress: vi.fn(async () => true) }));
+vi.mock("@/lib/householdInviteOpen", () => ({
+  openHouseholdInvite: async () => openInvite,
+}));
 vi.mock("@/lib/requestOrigin", () => ({
   requestOriginFromHeaders: async () => "https://oaktend.test",
 }));
@@ -88,6 +94,10 @@ vi.mock("@/lib/supabase/admin", () => ({
             deleteFilters.push(["lte", col, val]);
             return Promise.resolve({ error: null });
           },
+          gt: (col: string, val: unknown) => {
+            deleteFilters.push(["gt", col, val]);
+            return Promise.resolve({ error: null });
+          },
           or: (expr: string) => {
             deleteFilters.push(["or", expr, null]);
             return Promise.resolve({ error: null });
@@ -95,6 +105,14 @@ vi.mock("@/lib/supabase/admin", () => ({
         };
         return chain;
       },
+      select: (cols: string) => ({
+        eq: () => ({
+          maybeSingle: async () => {
+            if (cols === "grace_key") graceSelects++;
+            return graceKeyRow;
+          },
+        }),
+      }),
       insert: (values: Row) => {
         insertedToken = values;
         return {
@@ -141,6 +159,9 @@ beforeEach(() => {
   ownerRow = { id: "home-1", user_id: "user-owner" };
   deleteFilters = [];
   insertedToken = null;
+  openInvite = null;
+  graceKeyRow = { data: null, error: null };
+  graceSelects = 0;
 });
 
 describe("redeemHouseholdInviteAction", () => {
@@ -201,6 +222,72 @@ describe("redeemHouseholdInviteAction", () => {
     expect(cookieDeletes).toContain("oaktend_pending_join");
   });
 
+  it("inside the 10 minutes: no grace key is read or passed", async () => {
+    const { redeemHouseholdInviteAction } = await import("./actions");
+    openInvite = { inGrace: false };
+    rpcResult = {
+      data: [{ ok: true, property_id: "home-from-db", reason: "joined" }],
+      error: null,
+    };
+    await run(() => redeemHouseholdInviteAction(form({ token: TOKEN })));
+    expect(graceSelects).toBe(0);
+    expect(rpcCalls).toEqual([
+      { fn: "redeem_household_invite_token", args: { p_token: TOKEN } },
+    ]);
+  });
+
+  it("past the 10 minutes without this browser's proof: no grace key, so the database says expired", async () => {
+    const { redeemHouseholdInviteAction } = await import("./actions");
+    openInvite = null;
+    graceKeyRow = { data: { grace_key: "33333333-3333-4333-8333-333333333333" }, error: null };
+    rpcResult = {
+      data: [{ ok: false, property_id: null, reason: "invalid_or_expired" }],
+      error: null,
+    };
+    const url = await run(() =>
+      redeemHouseholdInviteAction(form({ token: TOKEN, p_grace_key: "x" }))
+    );
+    expect(graceSelects).toBe(0);
+    expect(rpcCalls).toEqual([
+      { fn: "redeem_household_invite_token", args: { p_token: TOKEN } },
+    ]);
+    expect(url).toBe(`/join/household/${TOKEN}?failed=invalid_or_expired`);
+  });
+
+  it("finish-joining time for the browser that opened it in time: passes the server-held grace key", async () => {
+    const { redeemHouseholdInviteAction } = await import("./actions");
+    openInvite = { inGrace: true };
+    graceKeyRow = { data: { grace_key: "33333333-3333-4333-8333-333333333333" }, error: null };
+    rpcResult = {
+      data: [{ ok: true, property_id: "home-from-db", reason: "joined" }],
+      error: null,
+    };
+    await run(() => redeemHouseholdInviteAction(form({ token: TOKEN })));
+    expect(rpcCalls).toEqual([
+      {
+        fn: "redeem_household_invite_token",
+        args: {
+          p_token: TOKEN,
+          p_grace_key: "33333333-3333-4333-8333-333333333333",
+        },
+      },
+    ]);
+  });
+
+  it("before migration 0174 (grace_key unreadable): falls back to the plain 10 minute call", async () => {
+    const { redeemHouseholdInviteAction } = await import("./actions");
+    openInvite = { inGrace: true };
+    graceKeyRow = { data: null, error: { code: "42703" } };
+    rpcResult = {
+      data: [{ ok: false, property_id: null, reason: "invalid_or_expired" }],
+      error: null,
+    };
+    await run(() => redeemHouseholdInviteAction(form({ token: TOKEN })));
+    expect(rpcCalls).toEqual([
+      { fn: "redeem_household_invite_token", args: { p_token: TOKEN } },
+    ]);
+  });
+
   it("signed out: sends to sign in and calls nothing", async () => {
     const { redeemHouseholdInviteAction } = await import("./actions");
     sessionUser = null;
@@ -224,7 +311,7 @@ describe("redeemHouseholdInviteAction", () => {
 });
 
 describe("mintHouseholdQrTokenAction", () => {
-  it("lasts 10 minutes and only sweeps expired tokens", async () => {
+  it("lasts 10 minutes and only sweeps codes whose finish-joining time is over", async () => {
     const { mintHouseholdQrTokenAction } = await import("./actions");
     sessionUser = { id: "user-owner" };
     const before = Date.now();
@@ -235,8 +322,36 @@ describe("mintHouseholdQrTokenAction", () => {
     expect(expires - before).toBeLessThanOrEqual(10 * 60 * 1000 + 1000);
     // Only expired rows: an lte on expires_at, and never the old
     // "scanned_at is null" sweep that deleted live codes.
-    expect(deleteFilters.some(([op, col]) => op === "lte" && col === "expires_at")).toBe(true);
+    const sweep = deleteFilters.find(([op, col]) => op === "lte" && col === "expires_at");
+    expect(sweep).toBeTruthy();
+    const sweepMs = new Date(String(sweep?.[2])).getTime();
+    expect(before - sweepMs).toBeGreaterThanOrEqual(30 * 60 * 1000 - 1000);
+    expect(before - sweepMs).toBeLessThanOrEqual(30 * 60 * 1000 + 1000);
     expect(deleteFilters.some(([op]) => op === "or")).toBe(false);
+    // The mount mint cancels nothing.
+    expect(deleteFilters.some(([, col]) => col === "token")).toBe(false);
+  });
+
+  it("New code cancels only the owner's own shown code, and only while it is live", async () => {
+    const { mintHouseholdQrTokenAction } = await import("./actions");
+    sessionUser = { id: "user-owner" };
+    const OLD = "44444444-4444-4444-8444-444444444444";
+    const result = await mintHouseholdQrTokenAction("home-1", OLD.toUpperCase());
+    expect(result.ok).toBe(true);
+    const ops = deleteFilters.map(
+      ([op, col, val]) => `${op}:${col}:${op === "gt" ? "now" : String(val)}`
+    );
+    expect(ops).toContain(`eq:token:${OLD}`);
+    expect(ops).toContain("eq:created_by:user-owner");
+    expect(ops).toContain("eq:property_id:home-1");
+    expect(ops).toContain("gt:expires_at:now");
+  });
+
+  it("a junk replaceToken cancels nothing", async () => {
+    const { mintHouseholdQrTokenAction } = await import("./actions");
+    sessionUser = { id: "user-owner" };
+    await mintHouseholdQrTokenAction("home-1", "*,1=1");
+    expect(deleteFilters.some(([, col]) => col === "token")).toBe(false);
   });
 
   it("refuses a home the caller does not own", async () => {

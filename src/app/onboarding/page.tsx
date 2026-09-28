@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { PENDING_JOIN_COOKIE, isInviteToken } from "@/lib/pendingJoin";
+import { openHouseholdInvite } from "@/lib/householdInviteOpen";
 import { createClient } from "@/lib/supabase/server";
 import { getProperties } from "@/lib/property";
 import { getCurrentContractor } from "@/lib/contractor";
@@ -89,12 +89,8 @@ export default async function OnboardingPage(
   if (homes.length === 0 && searchParams?.add !== "home") {
     const pendingToken = (await cookies()).get(PENDING_JOIN_COOKIE)?.value;
     if (isInviteToken(pendingToken)) {
-      const { data: liveInvite } = await createAdminClient()
-        .from("household_invite_tokens")
-        .select("token")
-        .eq("token", pendingToken.toLowerCase())
-        .gt("expires_at", new Date().toISOString())
-        .maybeSingle();
+      // Live, or still inside this browser's finish-joining time.
+      const liveInvite = await openHouseholdInvite(pendingToken.toLowerCase());
       if (liveInvite) redirect(`/join/household/${liveInvite.token}`);
     }
     // An emailed household invite waiting for this address: same idea, the

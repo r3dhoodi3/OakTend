@@ -15,8 +15,8 @@
 // under the person's own session.
 export const PENDING_JOIN_COOKIE = "oaktend_pending_join";
 
-// Matches the scan grace window a live code gets when it is first opened
-// (migration 0099), so the breadcrumb never outlives the invite it points at.
+// Matches the finish-joining time a browser gets when it opens a live code
+// (src/lib/qrScanProof.ts), so the breadcrumb never outlives the invite.
 export const PENDING_JOIN_MAX_AGE_SECONDS = 30 * 60;
 
 const UUID_RE =
