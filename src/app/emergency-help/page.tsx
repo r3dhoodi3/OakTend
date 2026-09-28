@@ -52,7 +52,15 @@ export default function EmergencyHelpPage() {
       </p>
 
       {/* Life-safety caveat, first thing on the page. Red accent is reserved
-          for this one genuine 911 warning, not decoration. */}
+          for this one genuine 911 warning, not decoration. Kept to the 911
+          line, gas and carbon monoxide (the two "get out first" cases) and
+          the disclaimer: the standing-water and downed-line steps live in
+          the cards below, and each open card already says to call a local
+          licensed company, so neither is repeated here (owner, 2026-09-27:
+          the same advice must not appear in two places). Mirrors the
+          in-app /emergency intro, plus the carbon monoxide symptoms: a home
+          with no CO alarm still needs the "get out" cue, and that cue
+          otherwise sits only inside the no-heat card. */}
       <div className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 dark:border-red-500/40 dark:bg-red-950/30">
         <div className="flex gap-3">
           <AlertTriangle
@@ -61,16 +69,13 @@ export default function EmergencyHelpPage() {
           />
           <div className="text-sm leading-relaxed text-red-900 dark:text-red-200">
             <p className="font-semibold">If someone is hurt, trapped, or in danger, call 911 now.</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>If you smell gas, leave the house first and call from outside. Don&apos;t flip switches or use your phone indoors.</li>
-              <li>Never step into standing water to reach a breaker panel or an outlet. If you&apos;d have to stand in water, leave it for an electrician.</li>
-              <li>Stay far away from any downed power line and call 911.</li>
-              <li>If a carbon monoxide alarm sounds, or people feel a headache, dizziness, or nausea at home, get everyone outside to fresh air and call 911 from outside.</li>
-            </ul>
             <p className="mt-2">
-              These are general safety steps, not an emergency service. OakTend is
-              software, not a contractor or a utility. If you are not sure a step
-              is safe, skip it, get out, and call 911.
+              If you smell gas, a carbon monoxide alarm sounds, or people at
+              home feel a headache, dizziness, or nausea, get everyone outside
+              first and call from there. These are general safety steps, not
+              an emergency service. OakTend is software, not a contractor or a
+              utility. If you are not sure a step is safe, skip it, get out,
+              and call 911.
             </p>
           </div>
         </div>
@@ -88,10 +93,8 @@ export default function EmergencyHelpPage() {
           Once you are safe
         </h2>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          For repairs, call a local licensed company now. Our pro network is not
-          open yet, so don&apos;t wait on OakTend for an emergency. With a free
-          account you can save what happened, with photos, to your home&apos;s
-          record.
+          With a free account you can save what happened, with photos, to your
+          home&apos;s record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
           Save it to my home&apos;s record

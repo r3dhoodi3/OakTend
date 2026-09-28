@@ -50,8 +50,8 @@ export const revalidate = 3600;
 // what it always was.
 const TITLE = isHomeownerPreview() ? "Pricing: free during our preview" : "Pricing";
 const DESCRIPTION = isHomeownerPreview()
-  ? "Everything in OakTend is free during our homeowner preview. Memberships are coming soon."
-  : "OakTend pricing, in plain terms. Your first home is free with no card. OakTend Plus is optional, with an honest auto-renewing subscription you can cancel anytime.";
+  ? "Everything in OakTend is free during our homeowner preview, with no card needed. Memberships are coming soon, and pricing will be published before any charge."
+  : "OakTend pricing. Your first home is free with no card. OakTend Plus is optional, with an honest auto-renewing subscription you can cancel anytime.";
 const CANONICAL = `${SITE_URL}/pricing`;
 
 export const metadata: Metadata = {
@@ -154,9 +154,8 @@ export default function PricingPage() {
           {PREVIEW_MEMBERSHIP_COPY}
         </p>
         <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-300">
-          Track your home, plan your maintenance, and use every tool in the app
-          at no cost. We&rsquo;ll publish pricing before anything is ever
-          charged.
+          Track your home, plan your maintenance and use every tool in the
+          app. We&rsquo;ll publish pricing before anything is ever charged.
         </p>
       </main>
     );

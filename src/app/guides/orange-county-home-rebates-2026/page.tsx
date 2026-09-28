@@ -11,8 +11,8 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 //
 //   - every program block carries its own "as of" date (AsOf below),
 //   - the page says it is reviewed every quarter, and
-//   - it tells the reader, more than once, to check with the program before
-//     buying anything.
+//   - the box at the top tells the reader to check with the program before
+//     buying anything (said once there, not repeated under every program).
 //
 // ONLY WHAT A PRIMARY SOURCE SAID ON THE DAY. Every amount below was read on
 // the program's or utility's own page on 2026-09-26 and is listed with its
@@ -78,7 +78,7 @@ function AsOf({ href, label }: { href: string; label: string }) {
       <a href={href} rel="noopener" className={linkClass}>
         {label}
       </a>
-      . Check with the program before you buy.
+      .
     </p>
   );
 }
@@ -122,9 +122,8 @@ export default function OrangeCountyHomeRebatesGuide() {
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           Rebates change, run out of money and close without much notice. We
-          review this page every quarter, but a program can change the day
-          after we look. Check with the program before you buy anything or
-          start any work, and keep every receipt.
+          review this page every quarter. Check with the program before you
+          buy anything or start any work, and keep every receipt.
         </p>
       </div>
 
@@ -225,6 +224,14 @@ export default function OrangeCountyHomeRebatesGuide() {
             href="https://www.anaheim.net/5241/Appliance-Fixtures"
             label="Anaheim Public Utilities appliance rebates page"
           />
+          <p className="mt-4 leading-relaxed">
+            For rooftop solar and batteries, including the end of the federal
+            tax credit, see our{" "}
+            <Link href="/guides/solar-battery-orange-county" className={linkClass}>
+              solar and battery guide
+            </Link>
+            .
+          </p>
         </section>
 
         <section>
@@ -271,7 +278,7 @@ export default function OrangeCountyHomeRebatesGuide() {
                 high-efficiency toilets $40 each (up to nine); clothes washers
                 from $85. IRWD also covers half the cost of sprinkler repairs
                 through its repair program. It says amounts change with
-                funding and to confirm before you buy.
+                funding.
               </p>
               <AsOf
                 href="https://www.irwd.com/get-help/residential-rebates/"
@@ -412,31 +419,17 @@ export default function OrangeCountyHomeRebatesGuide() {
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             How do I avoid losing a rebate?
           </h2>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              <strong>Apply before you start when the program says so.</strong>{" "}
-              Turf replacement needs approval before any work, and a
-              waitlisted HEEHRA project only counts if the heat pump goes in
-              after approval.
-            </li>
-            <li>
-              <strong>Pull the permit.</strong> SoCalGas wants proof the
-              furnace permit was closed. Our{" "}
-              <Link href="/guides/permits-orange-county" className={linkClass}>
-                permits guide
-              </Link>{" "}
-              covers which jobs need one.
-            </li>
-            <li>
-              <strong>Check the model.</strong> Efficiency ratings like UEF and
-              AFUE decide eligibility, so confirm the exact model number
-              against the program&apos;s list before you buy.
-            </li>
-            <li>
-              <strong>Keep the paperwork.</strong> Receipts, the model number,
-              and the permit card.
-            </li>
-          </ul>
+          <p className="mt-2 leading-relaxed">
+            Apply first when the program requires it, as turf replacement and
+            waitlisted HEEHRA projects do. Pull the permit: SoCalGas wants
+            proof the furnace permit was closed, and our{" "}
+            <Link href="/guides/permits-orange-county" className={linkClass}>
+              permits guide
+            </Link>{" "}
+            covers which jobs need one. Efficiency ratings like UEF and AFUE
+            decide eligibility, so confirm the exact model number against the
+            program&apos;s list before you buy.
+          </p>
           <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
             City pages with local notes:{" "}
             <Link href="/oc/irvine" className={linkClass}>

@@ -103,7 +103,7 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         icon: Warehouse,
         title: "Garage conversion vs ADU",
         blurb:
-          "Garage room, garage ADU, junior ADU or a new detached unit: the parking, setback, fee and approval rules for each.",
+          "Garage room, garage ADU, junior ADU or a new detached unit: the parking, setback and approval rules for each, and pre-approved plans.",
       },
       {
         href: "/guides/window-replacement-cost-orange-county",
@@ -190,7 +190,7 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         icon: Waves,
         title: "HOA and coastal approvals",
         blurb:
-          "HOA architectural review and Coastal Commission permits for a remodel: your rights under Davis-Stirling, which cities issue coastal permits, and what is exempt.",
+          "HOA review and Coastal Commission permits for a remodel: your rights under Davis-Stirling, which cities issue coastal permits, and what is exempt.",
       },
     ],
   },
@@ -295,8 +295,8 @@ export default function GuidesIndex() {
         Home maintenance guides
       </h1>
       <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
-        Plain-English answers to the questions homeowners search for most,
-        with no login required.
+        Plain-English answers for Orange County homeowners. No login
+        required.
       </p>
 
       {SECTIONS.map((section) => (

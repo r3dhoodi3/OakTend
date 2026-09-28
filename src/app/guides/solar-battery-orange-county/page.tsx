@@ -34,7 +34,7 @@ export const revalidate = 3600;
 // "Solar and batteries in Orange County | OakTend" is 46 characters.
 const TITLE = "Solar and batteries in Orange County";
 const DESCRIPTION =
-  "How California's net billing tariff changed rooftop solar in Orange County, why batteries matter more now, Anaheim's own rules, automated permits, HOA limits and the 2026 federal credit.";
+  "How net billing changed rooftop solar in Orange County, why batteries matter more now, Anaheim's rules, automated permits, HOA limits and the 2026 tax credit.";
 const PATH = "/guides/solar-battery-orange-county";
 const CANONICAL = `${SITE_URL}${PATH}`;
 
