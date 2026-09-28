@@ -346,7 +346,8 @@ export default function HoaCoastalRemodelGuide() {
             cities. Even in a certified city, the Commission keeps permit
             authority over tidelands and submerged land, and a city&apos;s
             approval can be appealed to the Commission in certain areas near
-            the shore, such as within 300 feet of the top of a coastal bluff
+            the shore, such as between the sea and the first public road or
+            within 300 feet of a beach or of the top of a coastal bluff
             (section 30603).
           </p>
         </section>
