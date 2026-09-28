@@ -7,7 +7,10 @@ import { isInviteToken } from "@/lib/pendingJoin";
 import { QR_SCAN_GRACE_SECONDS } from "@/lib/householdQr";
 import { formatAddressLine } from "@/lib/addressLine";
 import SubmitButton from "@/components/SubmitButton";
-import { redeemHouseholdInviteAction } from "@/app/(app)/account/household/actions";
+import {
+  dismissPendingJoinAction,
+  redeemHouseholdInviteAction,
+} from "@/app/(app)/account/household/actions";
 
 export const metadata: Metadata = {
   title: "Join a home",
@@ -184,9 +187,11 @@ export default async function JoinHouseholdPage(props: {
           Join this home
         </SubmitButton>
       </form>
-      <Link href="/dashboard" className="btn-secondary mt-3 flex w-full">
-        Not now
-      </Link>
+      <form action={dismissPendingJoinAction} className="mt-3">
+        <SubmitButton className="btn-secondary flex w-full" pendingLabel="One moment...">
+          Not now
+        </SubmitButton>
+      </form>
     </Shell>
   );
 }
@@ -216,6 +221,9 @@ function InvalidState({ reason }: { reason?: "home_full" | "rate_limited" }) {
         This code isn&apos;t working
       </h1>
       <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{subtext}</p>
+      <Link href="/dashboard" className="btn-secondary mt-6 flex w-full">
+        Go to OakTend
+      </Link>
     </Shell>
   );
 }

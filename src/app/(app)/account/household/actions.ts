@@ -439,3 +439,11 @@ export async function redeemHouseholdInviteAction(formData: FormData) {
   revalidatePath("/", "layout");
   redirect("/dashboard");
 }
+
+// "Not now" on the join page. Clears the invite breadcrumb so /onboarding
+// stops sending a home-less account back to this invite, then carries on to
+// the app (the layout routes someone with no home to setup).
+export async function dismissPendingJoinAction() {
+  (await cookies()).delete(PENDING_JOIN_COOKIE);
+  redirect("/dashboard");
+}
