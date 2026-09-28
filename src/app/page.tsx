@@ -198,7 +198,7 @@ export default async function Home(props: {
       icon: Wrench,
       title: isHomeownerPreview() ? "Jobs saved with your home" : "The right pro, fast",
       body: isHomeownerPreview()
-        ? "Write the job down once and OakTend fills in your home's details for you. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one."
+        ? "Write the job down once and OakTend fills in your home's details for you. Our pro network isn't open yet."
         : "Post the job once and OakTend fills in your home's details for you, so local pros can quote it fast.",
     },
   ];
@@ -257,7 +257,7 @@ export default async function Home(props: {
     {
       q: "Where is OakTend available?",
       a: isHomeownerPreview()
-        ? "OakTend is for homes in Orange County, California. Our pro network isn't open yet."
+        ? "OakTend is for homes in Orange County, California."
         : "OakTend is for homes in Orange County, California, with local pros across the county.",
     },
     {
@@ -267,7 +267,7 @@ export default async function Home(props: {
       // src/lib/billingTerms.ts), so the answer states the one rule instead of
       // three exceptions.
       a: isHomeownerPreview()
-        ? "Nothing, for now. Memberships are coming soon and everything is free during our preview, so there is no plan to buy and no card to add. We'll publish pricing before anything is ever charged."
+        ? "Nothing, for now. Memberships are coming soon, so there is no plan to buy."
         : "OakTend itself stays free for your first home. OakTend Plus is optional: $1.99/wk, $4.99/mo, or $39.99/yr (about $3.33/mo), whichever you pick. Your first 3 days are free on any of them, once per account. After the free days we charge your card automatically at the price of the plan you picked unless you cancel, and you can cancel anytime.",
       // The rich version links to /pricing and quotes the three cadences, so
       // in preview it is dropped entirely and the plain `a` above renders
@@ -739,8 +739,7 @@ export default async function Home(props: {
           Real people, real answers
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          Message us and a real person on our team will answer. Pros see only
-          what you choose to share.
+          Message us and a real person on our team will answer.
         </p>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
           OakTend started close to home and now serves homeowners across{" "}

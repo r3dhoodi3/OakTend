@@ -1118,53 +1118,11 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "No impact fee on an ADU with 750 square feet or less of interior livable space or a junior ADU of 500 square feet or less; above 750 square feet, impact fees are proportional to the primary dwelling; units under 500 square feet of interior livable space are treated as not triggering school fees.",
     },
     {
-      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65852.27",
-      label:
-        "California Government Code section 65852.27",
-      supports:
-        "Every city and county had to set up a program for pre-approved ADU plans by January 1, 2025.",
-    },
-    {
       href: "https://newportbeachadu.org/adu-plans-2",
       label:
         "City of Newport Beach: ADU standard plans",
       supports:
         "Newport Beach offers five pre-reviewed standard ADU plans: three detached units and two garage conversions (Plan 4, one-car garage; Plan 5, two-car garage); supplemental items such as a site plan and Title 24 energy analysis are still required.",
-    },
-    {
-      href: "https://cityofirvine.gov/building-permits-and-inspections/pre-approved-adu-plans-program",
-      label:
-        "City of Irvine: ADU Standard Plan Program",
-      supports:
-        "Irvine offers pre-approved architectural and structural ADU plans designed by licensed professionals.",
-    },
-    {
-      href: "https://santa-ana.gov/pre-approved-adu-plans/",
-      label:
-        "City of Santa Ana: Pre-Approved ADU Plans",
-      supports:
-        "Santa Ana offers pre-approved studio, one-bedroom and two-bedroom detached ADU plans.",
-    },
-    {
-      href: "https://www.anaheim.net/6351/Pre-Approved-Plan-Catalogue",
-      label:
-        "City of Anaheim: Pre-Approved Plan Catalogue (ADU Express)",
-      supports:
-        "Anaheim offers four free pre-approved ADU plans.",
-    },
-    {
-      href: "https://www.huntingtonbeachca.gov/departments/community_development/planning_zoning/accessory_dwelling_units_(adus).php",
-      label:
-        "City of Huntington Beach: accessory dwelling units",
-      supports:
-        "Huntington Beach has a pre-approved ADU plan, and development in its coastal zone may require a coastal development permit.",
-    },
-    {
-      href: "https://pwds.oc.gov/service-areas/oc-development-services/planning-development/accessory-dwelling-units",
-      label:
-        "County of Orange, OC Development Services: accessory dwelling units",
-      supports:
-        "The county publishes pre-approved ADU plans for unincorporated Orange County.",
     },
     {
       href: "https://www.jlconline.com/cost-vs-value/2025/pacific/los-angeles-ca/",
@@ -2131,7 +2089,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "U.S. Consumer Product Safety Commission: Repairing Aluminum Wiring, Publication 516 (June 2011)",
       supports:
-        "Homes built before 1965 are unlikely to have aluminum branch circuit wiring; wiring installed between 1965 and the mid 1970s may be aluminum; homes built before 1972 and wired with aluminum were 55 times more likely than copper-wired homes to have an outlet connection reach fire hazard conditions; failing connections seldom give easily detected warning signs.",
+        "Wiring installed between 1965 and the mid 1970s may be aluminum.",
     },
     {
       href: "https://www.dir.ca.gov/title8/1529.html",

@@ -44,7 +44,7 @@ describe("/oc, the Orange County hub", () => {
     );
     expect(metadata.alternates?.canonical).toBe(`${SITE_URL}/oc`);
     expect(metadata.title).toEqual({
-      absolute: "Home maintenance in Orange County, CA: all 36 cities | OakTend",
+      absolute: "Orange County home maintenance by city | OakTend",
     });
   });
 

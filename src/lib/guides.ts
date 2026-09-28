@@ -135,7 +135,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-26" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-27" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -166,7 +166,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/garage-conversion-vs-adu-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   "/guides/slab-leak-signs": {
     datePublished: "2026-07-07",
@@ -186,7 +186,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/hoa-coastal-commission-remodel-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",
@@ -211,7 +211,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/sewer-line-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     datePublished: "2026-09-20",
@@ -228,20 +228,20 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   // New pages B, 2026-09-26.
   "/guides/orange-county-home-age": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   "/guides/orange-county-home-rebates-2026": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   // Added 2026-09-26 (seo/new-pages-d).
   "/guides/window-replacement-cost-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
   "/guides/solar-battery-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-26",
+    dateModified: "2026-09-27",
   },
 };
 

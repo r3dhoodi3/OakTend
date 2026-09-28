@@ -32,7 +32,7 @@ export const revalidate = 3600;
 // "Window replacement cost in Orange County | OakTend" is 50 characters.
 const TITLE = "Window replacement cost in Orange County";
 const DESCRIPTION =
-  "What changes the price of new windows in Orange County, the 2025 California Energy Code numbers a replacement window has to meet, permits, HOA review and salt air.";
+  "What changes the price of new windows in Orange County, the 2025 California Energy Code numbers a replacement has to meet, permits, HOA review and salt air.";
 const PATH = "/guides/window-replacement-cost-orange-county";
 const CANONICAL = `${SITE_URL}${PATH}`;
 
