@@ -80,8 +80,9 @@ export default function EmergencyHelpPage() {
           Once you are safe
         </h2>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          For repairs, call a local licensed company now. With a free account
-          you can save what happened, with photos, to your home&apos;s record.
+          For repairs, call a local licensed company now. Our pro network is not
+          open yet, so don&apos;t wait on OakTend for an emergency. With a free
+          account you can save what happened, with photos, to your home&apos;s record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
           Save it to my home&apos;s record

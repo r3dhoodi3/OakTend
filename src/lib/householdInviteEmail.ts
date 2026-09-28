@@ -1,6 +1,19 @@
 // Plain-text household invite email. Pure functions so the wording can be
 // unit tested and so the server action stays short.
 
+// The inviter's name comes from their own profile, so it is attacker
+// controlled text going out under OakTend's name to an address they typed.
+// Keep it to one short line, and drop it entirely if it looks like a link, so
+// the subject and first sentence cannot be turned into a phishing message.
+export function safeInviterName(raw: string | null | undefined): string | null {
+  if (typeof raw !== "string") return null;
+  // eslint-disable-next-line no-control-regex
+  const name = raw.replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim();
+  if (!name || name.length > 60) return null;
+  if (/https?:|www\.|:\/\/|\.(com|net|org|io|co|app|link|xyz)\b/i.test(name)) return null;
+  return name;
+}
+
 export function householdInviteSubject(inviterName: string | null): string {
   return inviterName
     ? `${inviterName} invited you to their home on OakTend`

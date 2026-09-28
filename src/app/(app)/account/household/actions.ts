@@ -3,7 +3,11 @@
 import { cookies } from "next/headers";
 import { after } from "next/server";
 import { sendEmailToAddress } from "@/lib/notify";
-import { householdInviteSubject, householdInviteText } from "@/lib/householdInviteEmail";
+import {
+  householdInviteSubject,
+  householdInviteText,
+  safeInviterName,
+} from "@/lib/householdInviteEmail";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -114,8 +118,9 @@ export async function inviteMemberAction(formData: FormData) {
   // configured site URL (oaktend.com), falling back to this request's own
   // origin only when it is unset (local dev), so a forged Host header can't
   // point the link somewhere else in production.
-  const inviterName =
-    (user.user_metadata?.full_name as string | undefined)?.trim() || null;
+  const inviterName = safeInviterName(
+    user.user_metadata?.full_name as string | undefined
+  );
   const base =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ||
     (await requestOriginFromHeaders());
@@ -296,6 +301,19 @@ export async function mintHouseholdQrTokenAction(
 
     const admin = createAdminClient();
     const expiresAt = new Date(Date.now() + QR_TOKEN_LIFETIME_SECONDS * 1000);
+
+    // Live tokens are no longer swept on each mint (see below), so without a
+    // cap a scripted loop could pile up rows. 30 codes per 10 minutes is far
+    // above what a person tapping "New code" needs. Same fail-open posture as
+    // the other spam-class buckets: only an explicit false blocks.
+    const { data: mintAllowed } = await admin.rpc("rate_limit_hit", {
+      p_bucket: `household_qr_mint:${user.id}`,
+      p_limit: 30,
+      p_window_seconds: 600,
+    });
+    if (mintAllowed === false) {
+      return err("Too many new codes just now. Wait a few minutes and try again.");
+    }
 
     // Self-cleanup: drop this owner's EXPIRED tokens for this home before
     // minting a fresh one, so the table cannot quietly pile up stale rows.

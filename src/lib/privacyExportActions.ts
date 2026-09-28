@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { emailConfigured, sendEmail } from "@/lib/notify";
 import { signExportLink } from "@/lib/dataExportLink";
 import { type ActionResult, ok, err } from "@/lib/actionResult";
+import { requestOriginFromHeaders } from "@/lib/requestOrigin";
 
 // "Email me a link" on Your privacy rights (homeowner and pro). Sends the
 // signed-in person, at their OWN account email, a link back to their privacy
@@ -40,7 +41,8 @@ export async function emailDataExportLinkAction(
   }
 
   const base =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ?? "http://localhost:3000";
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ||
+    (await requestOriginFromHeaders());
   const link = `${base}${path}?export=${encodeURIComponent(signExportLink(user.id))}`;
 
   await sendEmail({
