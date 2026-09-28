@@ -2007,7 +2007,10 @@ export async function postDirectPubliclyAction(formData: FormData) {
     // Notifications are a nice-to-have here, not part of the conversion.
   }
 
-  setFlash("Posted to all local pros. Matching pros can now apply.", "success");
+  await setFlash("Posted to local pros. Matching pros can now apply.", "success", {
+    href: "/contractors/jobs",
+    linkLabel: "Your jobs",
+  });
   revalidatePath("/contractors");
 }
 

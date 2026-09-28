@@ -313,9 +313,9 @@ export async function generateMaintenancePlanAction() {
   if (rows.length > 0) {
     await supabase.from("maintenance_tasks").insert(rows);
     await setFlash(
-      "Your maintenance plan is ready. Check your reminders.",
+      "Your maintenance plan is ready.",
       "success",
-      { duration: PLAN_TOAST_MS }
+      { duration: PLAN_TOAST_MS, href: "/dashboard#this-month", linkLabel: "See reminders" }
     );
     // Funnel analytics (docs/ANALYTICS.md), only when the build actually
     // scheduled something - a no-op re-run (the else branch) never fires
@@ -333,6 +333,8 @@ export async function generateMaintenancePlanAction() {
     await refundFreeCredit();
     await setFlash("Your maintenance plan is already up to date.", "info", {
       duration: PLAN_TOAST_MS,
+      href: "/dashboard#this-month",
+      linkLabel: "See reminders",
     });
   }
   revalidatePath("/dashboard");
