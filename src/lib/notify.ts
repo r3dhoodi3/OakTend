@@ -719,10 +719,11 @@ export async function sendEmail(
   }
 }
 
-// The provider call itself, shared by sendEmail (mail to an account holder,
-// with the unsubscribe footer) and sendEmailToAddress (a one-off, requested
-// message to an address that may not have an account yet). Throws only on a
-// network failure; callers wrap it.
+// The provider call itself, the one delivery path for every email: sendEmail
+// (mail to an account holder, with the unsubscribe footer, which also carries
+// the data export link) and sendEmailToAddress (a household invite, or the
+// owner's new-signup alert). Throws only on a network failure; callers wrap
+// it.
 async function deliverEmail(
   provider: EmailProvider,
   to: string,
@@ -816,12 +817,14 @@ async function deliverEmail(
   return response.ok;
 }
 
-// One-off transactional email to an ADDRESS rather than an account: a
-// household invite goes to someone who may not have signed up yet, so there is
-// no user id to hang an unsubscribe link on. Only for mail a signed-in person
-// explicitly asked OakTend to send on their behalf, one message per request,
-// behind the caller's own rate limit. Never throws; returns whether the
-// provider accepted it (false when no provider is configured).
+// One-off transactional email to an ADDRESS rather than an account, so there
+// is no user id to hang an unsubscribe link on or read an opt-out off. Two
+// callers: a household invite (to someone who may not have signed up yet,
+// sent because a signed-in person asked, one message per request, behind the
+// caller's own rate limit) and the owner's new-signup alert
+// (src/lib/signupNotify.ts, to OWNER_NOTIFY_EMAIL; that caller owns its kill
+// switch and rate cap). Never throws; returns whether the provider accepted
+// it (false when no provider is configured).
 export async function sendEmailToAddress(input: {
   to: string;
   subject: string;
