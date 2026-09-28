@@ -11,6 +11,10 @@ describe("safeInviterName", () => {
     expect(safeInviterName("Verify at oaktend-help.com")).toBeNull();
     expect(safeInviterName("https://evil.example")).toBeNull();
     expect(safeInviterName("go to www.evil")).toBeNull();
+    expect(safeInviterName("Reset at oaktend.support")).toBeNull();
+    expect(safeInviterName("evil.me")).toBeNull();
+    expect(safeInviterName("mail help@evil")).toBeNull();
+    expect(safeInviterName("J.R. Smith")).toBe("J.R. Smith");
   });
 
   it("flattens line breaks so the name cannot add lines to the email", () => {

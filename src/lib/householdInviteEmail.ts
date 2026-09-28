@@ -10,7 +10,9 @@ export function safeInviterName(raw: string | null | undefined): string | null {
   // eslint-disable-next-line no-control-regex
   const name = raw.replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim();
   if (!name || name.length > 60) return null;
-  if (/https?:|www\.|:\/\/|\.(com|net|org|io|co|app|link|xyz)\b/i.test(name)) return null;
+  // Any "word.word" with a 2+ letter ending reads as a domain (evil.me,
+  // help.support), not just the common endings. "J.R. Smith" and "Jr." stay.
+  if (/https?:|www\.|:\/\/|@|[a-z0-9-]\.[a-z]{2,}\b/i.test(name)) return null;
   return name;
 }
 

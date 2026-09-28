@@ -189,9 +189,17 @@ export default function PrivacyRightsPanel({
       {/* Categories collected. */}
       <details className="card group p-6">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-2 max-sm:min-h-11 [&::-webkit-details-marker]:hidden">
-          <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
-            What we collect and why
-          </h2>
+          <div>
+            <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
+              What we collect and why
+            </h2>
+            {/* Notice at collection stays visible with the list closed: the
+                category names are always shown, the details open below. */}
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+              {collectedSummary()} Open for examples, where each comes from,
+              and why we use it.
+            </p>
+          </div>
           <span
             aria-hidden="true"
             className="text-stone-600 transition-transform group-open:rotate-180 dark:text-stone-300"
@@ -232,9 +240,15 @@ export default function PrivacyRightsPanel({
       {/* Third parties. */}
       <details className="card group p-6">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-2 max-sm:min-h-11 [&::-webkit-details-marker]:hidden">
-          <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
-            Who else sees your information
-          </h2>
+          <div>
+            <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
+              Who else sees your information
+            </h2>
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+              Service providers that run parts of OakTend for us, and the pros
+              you contact. No one buys your data. Open for the list.
+            </p>
+          </div>
           <span
             aria-hidden="true"
             className="text-stone-600 transition-transform group-open:rotate-180 dark:text-stone-300"
@@ -346,4 +360,15 @@ function Right({
       </dd>
     </div>
   );
+}
+
+// "Identifiers, account credentials, ... and abuse-prevention identifiers."
+// Built from the same CATEGORIES list the details use, so the always-visible
+// line can never drift from them.
+function collectedSummary(): string {
+  const names = CATEGORIES.map((c, i) =>
+    i === 0 ? c.category : c.category.charAt(0).toLowerCase() + c.category.slice(1)
+  );
+  if (names.length <= 1) return `${names[0] ?? ""}.`;
+  return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}.`;
 }
