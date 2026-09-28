@@ -34,12 +34,12 @@ export default function EmailExportLinkButton({
   }
 
   return (
-    <div className="flex flex-col items-start gap-1 sm:items-end">
+    <div className="flex flex-col items-stretch gap-1 sm:items-end">
       <button
         type="button"
         onClick={send}
         disabled={pending}
-        className="btn-secondary whitespace-nowrap"
+        className="btn-secondary whitespace-nowrap max-sm:w-full"
       >
         {pending && <InlineSpinner />}
         {pending ? "Sending..." : "Email me a link"}

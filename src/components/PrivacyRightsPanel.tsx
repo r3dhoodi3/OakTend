@@ -129,7 +129,7 @@ export default function PrivacyRightsPanel({
         <dl className="mt-5 space-y-5">
           <Right
             term="Know what we collect"
-            detail="Ask what personal information we've collected about you, where it came from, why we collected it, and who we've sent it to. Download my data above answers this immediately."
+            detail="Ask what personal information we've collected about you, where it came from, why we collected it, and who we've sent it to. Download PDF above answers this right away."
           />
           <Right
             term="Get a copy you can take with you"
@@ -187,12 +187,19 @@ export default function PrivacyRightsPanel({
       </div>
 
       {/* Categories collected. */}
-      <div className="card p-6">
-        <div className="flex items-center gap-2 border-b border-stone-100 pb-4 dark:border-white/10">
+      <details className="card group p-6">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 max-sm:min-h-11 [&::-webkit-details-marker]:hidden">
           <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
             What we collect and why
           </h2>
-        </div>
+          <span
+            aria-hidden="true"
+            className="text-stone-600 transition-transform group-open:rotate-180 dark:text-stone-300"
+          >
+            &#9662;
+          </span>
+        </summary>
+        <div className="mt-4 border-t border-stone-100 dark:border-white/10" />
         <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
           We keep each of these for as long as your account is open. Deleting
           your account removes it, aside from a narrow set of records we&apos;re
@@ -220,15 +227,22 @@ export default function PrivacyRightsPanel({
             </div>
           ))}
         </div>
-      </div>
+      </details>
 
       {/* Third parties. */}
-      <div className="card p-6">
-        <div className="flex items-center gap-2 border-b border-stone-100 pb-4 dark:border-white/10">
+      <details className="card group p-6">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 max-sm:min-h-11 [&::-webkit-details-marker]:hidden">
           <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
             Who else sees your information
           </h2>
-        </div>
+          <span
+            aria-hidden="true"
+            className="text-stone-600 transition-transform group-open:rotate-180 dark:text-stone-300"
+          >
+            &#9662;
+          </span>
+        </summary>
+        <div className="mt-4 border-t border-stone-100 dark:border-white/10" />
         <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
           These companies process data on OakTend&apos;s behalf so the product can
           work. Each is limited by contract to doing only what we ask. None of
@@ -253,7 +267,7 @@ export default function PrivacyRightsPanel({
           If you post a job, the pros you talk to see your name, contact
           details, address, and what you wrote.
         </p>
-      </div>
+      </details>
 
       {/* Safety controls. Not a privacy right under the CPRA, but this is the
           page people land on when they want to be left alone, and "who can
