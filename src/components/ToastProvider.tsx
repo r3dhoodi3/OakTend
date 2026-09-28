@@ -9,6 +9,8 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
+import Link from "next/link";
+import { safeFlashHref, safeFlashLinkLabel } from "@/lib/flashLink";
 import {
   CheckCircle2,
   Info,
@@ -29,6 +31,12 @@ export interface ToastOptions {
   // Milliseconds before auto-dismiss. 0 forces the toast to persist until it
   // is dismissed manually. Omit to use the per-type default below.
   duration?: number;
+  // Optional same-site destination for the toast (e.g. "/dashboard#this-month")
+  // and a short label for it ("View plan"). Rendered as a real, focusable link
+  // inside the toast. Anything that is not a same-site relative path is
+  // ignored (see src/lib/flashLink.ts).
+  href?: string;
+  linkLabel?: string;
 }
 
 export interface ToastApi {
@@ -46,6 +54,8 @@ interface ToastItem {
   duration: number; // resolved; 0 = persist
   createdAt: number;
   exiting: boolean;
+  href?: string;
+  linkLabel?: string;
 }
 
 // Errors used to persist (duration 0) so an unread error was never a silent
@@ -81,10 +91,10 @@ const TONE: Record<
   { border: string; text: string; tint: string; icon: string }
 > = {
   success: {
-    border: "border-green-200 dark:border-green-500/30",
-    text: "text-green-700 dark:text-green-300",
-    tint: "bg-green-50 dark:bg-green-500/15",
-    icon: "text-green-600 dark:text-green-400",
+    border: "border-green-300 dark:border-green-500/30",
+    text: "text-green-800 dark:text-green-300",
+    tint: "bg-green-100 dark:bg-green-500/15",
+    icon: "text-green-700 dark:text-green-400",
   },
   info: {
     border: "border-stone-200 dark:border-white/10",
@@ -93,15 +103,15 @@ const TONE: Record<
     icon: "text-stone-500 dark:text-stone-400",
   },
   warning: {
-    border: "border-amber-200 dark:border-amber-500/30",
-    text: "text-amber-700 dark:text-amber-300",
-    tint: "bg-amber-50 dark:bg-amber-500/15",
+    border: "border-amber-300 dark:border-amber-500/30",
+    text: "text-amber-800 dark:text-amber-300",
+    tint: "bg-amber-100 dark:bg-amber-500/15",
     icon: "text-amber-600 dark:text-amber-400",
   },
   error: {
-    border: "border-red-100 dark:border-red-500/30",
+    border: "border-red-300 dark:border-red-500/30",
     text: "text-red-700 dark:text-red-300",
-    tint: "bg-red-50 dark:bg-red-500/15",
+    tint: "bg-red-100 dark:bg-red-500/15",
     icon: "text-red-600 dark:text-red-400",
   },
 };
@@ -231,9 +241,18 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
         ? opts.duration
         : DEFAULT_DURATION[type];
 
+    const href = safeFlashHref(opts?.href);
     let next: ToastItem[] = [
       ...listRef.current,
-      { id, type, message, duration, createdAt: now, exiting: false },
+      {
+        id,
+        type,
+        message,
+        duration,
+        createdAt: now,
+        exiting: false,
+        ...(href ? { href, linkLabel: safeFlashLinkLabel(opts?.linkLabel) } : {}),
+      },
     ];
 
     // Cap visible at MAX_VISIBLE. When full, drop the oldest NON-error toast to
@@ -389,6 +408,21 @@ function ToastCard({
           <Icon aria-hidden="true" className={`mt-0.5 h-5 w-5 shrink-0 ${tone.icon}`} />
           <span className="min-w-0 flex-1 break-words text-sm font-medium leading-snug">
             {item.message}
+            {item.href && (
+              <>
+                {" "}
+                {/* A real link, so it is focusable and announced. Tapping it
+                    dismisses the toast so it does not follow the user to the
+                    next page. */}
+                <Link
+                  href={item.href}
+                  onClick={onDismiss}
+                  className="whitespace-nowrap font-semibold underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bark-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:focus-visible:ring-bark-500"
+                >
+                  {item.linkLabel ?? "View"}
+                </Link>
+              </>
+            )}
           </span>
           <button
             type="button"

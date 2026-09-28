@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { useToast } from "@/components/ToastProvider";
+import { useToast, type ToastOptions } from "@/components/ToastProvider";
+import { safeFlashHref, safeFlashLinkLabel } from "@/lib/flashLink";
 
 // The client half of the flash-toast system, and the reason the root layout is
 // allowed to be static.
@@ -47,6 +48,8 @@ type ClientFlash = {
   type: FlashType;
   id: string;
   duration?: number;
+  href?: string;
+  linkLabel?: string;
 };
 
 // Reads and validates the flash cookie. Everything about the payload is
@@ -88,11 +91,16 @@ function readFlashCookie(): ClientFlash | null {
       parsed.duration >= 0
         ? Math.min(parsed.duration, MAX_DURATION_MS)
         : undefined;
+    // href is untrusted too: only a same-site relative path survives
+    // (safeFlashHref), so a forged cookie cannot turn a toast into a link to
+    // another site or a javascript: URL.
+    const href = safeFlashHref(parsed.href);
     return {
       message: parsed.message,
       type: parsed.type as FlashType,
       id: parsed.id,
       ...(duration === undefined ? {} : { duration }),
+      ...(href ? { href, linkLabel: safeFlashLinkLabel(parsed.linkLabel) } : {}),
     };
   } catch {
     return null;
@@ -121,9 +129,15 @@ export default function FlashToast() {
     const flash = readFlashCookie();
     if (!flash || flash.id === lastId.current) return;
     lastId.current = flash.id;
+    const opts: ToastOptions = {};
+    if (flash.duration !== undefined) opts.duration = flash.duration;
+    if (flash.href) {
+      opts.href = flash.href;
+      opts.linkLabel = flash.linkLabel;
+    }
     toast[flash.type](
       flash.message,
-      flash.duration === undefined ? undefined : { duration: flash.duration }
+      Object.keys(opts).length > 0 ? opts : undefined
     );
     document.cookie = `${FLASH_COOKIE}=; Max-Age=0; path=/`;
   });

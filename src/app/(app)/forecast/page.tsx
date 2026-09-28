@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
@@ -198,6 +199,65 @@ function IncentiveLines({ incentives }: { incentives: ForecastIncentive[] }) {
   );
 }
 
+// The repair reserve bar. Says in words what it measures (money saved toward
+// one named replacement), gives the plain numbers next to it, and fills in
+// green, the app's "good" color, in both themes. `live` is false for the
+// blurred free tease, which must not carry the progressbar role (it is
+// aria-hidden anyway) or an exact figure.
+function ReserveProgress({
+  systemLabel,
+  year,
+  pct,
+  amountText,
+  showPct,
+  live = true,
+}: {
+  systemLabel: string;
+  year: string;
+  pct: number;
+  amountText: string;
+  // False until the owner has entered a figure: "not told us" is not 0%.
+  showPct: boolean;
+  live?: boolean;
+}) {
+  const label = `Saved toward your ${systemLabel} replacement (${year})`;
+  return (
+    <div className="space-y-1.5" data-testid={live ? "reserve-progress" : undefined}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+        <p className="text-xs font-medium text-stone-700 dark:text-stone-300">
+          {label}
+        </p>
+        <p className="text-xs font-semibold tabular-nums text-stone-900 dark:text-stone-100">
+          {amountText}
+          {showPct && (
+            <span className="ml-1.5 font-normal text-stone-500 dark:text-stone-400">
+              {pct}%
+            </span>
+          )}
+        </p>
+      </div>
+      <div
+        className="h-2.5 w-full overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700"
+        {...(live
+          ? {
+              role: "progressbar",
+              "aria-valuenow": pct,
+              "aria-valuemin": 0,
+              "aria-valuemax": 100,
+              "aria-valuetext": amountText,
+              "aria-label": label,
+            }
+          : {})}
+      >
+        <div
+          className="h-full rounded-full bg-green-600 dark:bg-green-500"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default async function ForecastPage() {
   // hasPlus and getActiveProperty don't depend on each other - run them
   // together instead of stacking two round trips before the redirect check.
@@ -287,6 +347,30 @@ export default async function ForecastPage() {
 
   const sys = systems ?? [];
   const openIssues = issues ?? [];
+
+  // Which push-it-out steps are already open reminders on this home, so each
+  // one can show "Added to your plan" instead of the button. Same match the
+  // add action uses (open task, same title, this property). Scoped to the
+  // server-resolved active property, never an id from the browser.
+  const plannedTitles = new Set<string>();
+  if (plus) {
+    const stepTitles = Array.from(
+      new Set(
+        sys
+          .map((s) => forecastActionFor(s.system_type)?.taskTitle)
+          .filter((t): t is string => typeof t === "string")
+      )
+    );
+    if (stepTitles.length > 0) {
+      const { data: planned } = await supabase
+        .from("maintenance_tasks")
+        .select("title")
+        .eq("property_id", property.id)
+        .eq("status", "open")
+        .in("title", stepTitles);
+      for (const row of planned ?? []) plannedTitles.add(row.title);
+    }
+  }
   const nowDate = new Date(Date.now());
   const currentYear = nowDate.getFullYear();
   const forecast =
@@ -362,11 +446,9 @@ export default async function ForecastPage() {
         </h1>
       </header>
       <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
-        Most homeowners get surprised by a big repair sooner or later, and a
-        five-figure one hurts. Here is what your home&apos;s systems are likely to
-        need over the next {forecast?.horizonYears ?? 10} years, how much
-        to set aside so it never catches you off guard, and what you can do now
-        to push each bill further out.
+        What your home&apos;s systems will likely need over the next{" "}
+        {forecast?.horizonYears ?? 10} years, what to set aside each month and
+        how to push big bills further out.
       </p>
 
       {!forecast && (
@@ -397,21 +479,16 @@ export default async function ForecastPage() {
             <p className="stat-number text-4xl text-bark-700 dark:text-stone-300">
               Set aside about {money(forecast.monthlySetAside)}/month
             </p>
-            <p className="text-xs text-bark-700 dark:text-stone-300">
-              So a big repair is a plan, not a panic.
-            </p>
             <p className="text-xs text-bark-600 dark:text-stone-400">
               Ballpark from{" "}
-              {region
-                ? `statewide ${region} price trends`
-                : "statewide price trends"}
-              , adjusted for future prices, not just today&apos;s.
+              {region ? `${region} prices` : "statewide prices"}, adjusted
+              for inflation.
             </p>
             {forecast.estimatedTimingCount > 0 && (
               <p className="text-xs text-bark-600 dark:text-stone-400">
                 {forecast.estimatedTimingCount === 1
-                  ? "1 of your systems has no install year, so its timing here is a rough placement."
-                  : `${forecast.estimatedTimingCount} of your systems have no install year, so their timing here is a rough placement.`}{" "}
+                  ? "1 system has no install year, so its timing is a rough guess."
+                  : `${forecast.estimatedTimingCount} systems have no install year, so their timing is a rough guess.`}{" "}
                 Add install years on your{" "}
                 <Link
                   href="/dashboard#systems"
@@ -439,44 +516,34 @@ export default async function ForecastPage() {
               <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Your repair reserve
               </h2>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
-                {reserve.nextBig
-                  ? `Over the next ${RESERVE_HORIZON_YEARS} years your list adds up to about ${money(
-                      reserve.nextFiveYearTotal
-                    )}. That is ${money(
-                      reserve.monthlySetAside
-                    )} a month, and the biggest single item is your ${labelFor(
-                      SYSTEM_TYPES,
-                      reserve.nextBig.system_type
-                    ).toLowerCase()} at about ${money(
-                      reserve.nextBig.futureCost
-                    )} in ${reserve.nextBig.replacementYear}.`
-                  : `Nothing big lands in the next ${RESERVE_HORIZON_YEARS} years, so anything you put away now is a head start on the years after that.`}
-              </p>
+              {/* When nothing lands in the window, reserveStatusCopy below
+                  already says so, so this summary only renders when there is
+                  a real figure to give. */}
+              {reserve.nextBig && (
+                <p className="text-sm text-stone-500 dark:text-stone-400">
+                  Next {RESERVE_HORIZON_YEARS} years: about{" "}
+                  {money(reserve.nextFiveYearTotal)}, or{" "}
+                  {money(reserve.monthlySetAside)} a month.
+                </p>
+              )}
 
               {reserve.nextBig && (
-                <div className="space-y-1">
-                  <div
-                    className="h-2 w-full overflow-hidden rounded-full bg-stone-100 dark:bg-stone-700"
-                    role="progressbar"
-                    aria-valuenow={reserve.progressPct}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label="Progress toward your next big repair"
-                  >
-                    <div
-                      className="h-full rounded-full bg-bark-500 dark:bg-bark-600"
-                      style={{ width: `${reserve.progressPct}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-stone-500 dark:text-stone-400">
-                    {reserve.savedDollars != null
+                <ReserveProgress
+                  systemLabel={labelFor(
+                    SYSTEM_TYPES,
+                    reserve.nextBig.system_type
+                  ).toLowerCase()}
+                  year={String(reserve.nextBig.replacementYear)}
+                  pct={reserve.progressPct}
+                  amountText={
+                    reserve.savedDollars != null
                       ? `${money(reserve.savedDollars)} of ${money(
                           reserve.nextBig.futureCost
-                        )} set aside.`
-                      : "Nothing entered yet."}
-                  </p>
-                </div>
+                        )} saved`
+                      : `Goal ${money(reserve.nextBig.futureCost)}`
+                  }
+                  showPct={reserve.savedDollars != null}
+                />
               )}
 
               <p className="text-sm text-stone-600 dark:text-stone-300">
@@ -534,7 +601,10 @@ export default async function ForecastPage() {
                     key={item.system.id}
                     className={`flex items-start justify-between gap-3 rounded-lg border p-3 ${
                       item.yearsLeft <= 1
-                        ? "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40"
+                        ? // Due within a year: still flagged, but a soft rose
+                          // tint in dark mode instead of a near-solid red slab,
+                          // so the white text on it stays easy to read.
+                          "border-red-200 bg-red-50 dark:border-rose-400/25 dark:bg-rose-500/10"
                         : "border-stone-200 bg-stone-50 dark:border-white/10 dark:bg-stone-700"
                     }`}
                   >
@@ -567,9 +637,8 @@ export default async function ForecastPage() {
                 Line up quotes early
               </h2>
               <p className="text-sm text-stone-500 dark:text-stone-400">
-                {EMERGENCY_PREMIUM_COPY} Getting two or three numbers now, while
-                nothing is broken, is the cheapest hour you will spend on this
-                house.
+                {EMERGENCY_PREMIUM_COPY} Get two or three quotes now while
+                nothing is broken.
               </p>
               <div className="space-y-2">
                 {riskItems.map((item) => (
@@ -645,15 +714,13 @@ export default async function ForecastPage() {
           {energyEstimate && (
             <div className="card mt-6 space-y-3">
               <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
-                Running costs, not just repairs
+                Running costs
               </h2>
               <p className="text-sm text-stone-500 dark:text-stone-400">
-                Replacements are the big shocks, but your home also costs
-                money to run every month.{" "}
                 {energySeason === "winter"
-                  ? "Keeping it warm this winter"
-                  : "Keeping it cool this summer"}{" "}
-                will likely run about{" "}
+                  ? "Heating this winter"
+                  : "Cooling this summer"}{" "}
+                will likely cost about{" "}
                 <span className="font-semibold text-stone-900 dark:text-stone-100">
                   {money(energyEstimate.low)} - {money(energyEstimate.high)}
                 </span>
@@ -662,15 +729,14 @@ export default async function ForecastPage() {
               {upgradeSavings && (
                 <div className="rounded-lg bg-bark-50 p-3 dark:bg-bark-700/30">
                   <p className="text-sm text-bark-700 dark:text-stone-300">
-                    Your heating and cooling (HVAC) is about {upgradeSavings.hvacAge} years old, and
-                    older units waste energy. A modern high-efficiency unit
-                    could trim roughly{" "}
+                    Your heating and cooling (HVAC) is about{" "}
+                    {upgradeSavings.hvacAge} years old. A high-efficiency unit
+                    could cut roughly{" "}
                     <span className="font-semibold">
                       {money(upgradeSavings.low)} -{" "}
                       {money(upgradeSavings.high)} a year
                     </span>{" "}
-                    off your energy bills, on top of dodging a breakdown at
-                    the worst possible time.
+                    off your energy bills.
                   </p>
                   <Link
                     href={`/contractors?category=${categoryForSystem("hvac")}`}
@@ -682,8 +748,7 @@ export default async function ForecastPage() {
               )}
               <p className="text-xs text-stone-500 dark:text-stone-400">
                 Ballpark from typical energy prices and 30-year weather
-                averages for your state, give or take 30%. Your thermostat
-                habits matter more than any formula.
+                averages for your state, give or take 30%.
               </p>
             </div>
           )}
@@ -713,7 +778,7 @@ export default async function ForecastPage() {
                       </p>
                       <p className="text-xs text-stone-500 dark:text-stone-400">
                         {item.timingEstimated ? (
-                          "Timing unknown, add an install year for a real estimate"
+                          "Timing unknown: no install year"
                         ) : (
                           <>
                             {item.yearsLeft <= 0
@@ -753,26 +818,51 @@ export default async function ForecastPage() {
                       <p className="text-xs font-medium text-stone-900 dark:text-stone-100">
                         {action.step}
                       </p>
-                      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
-                        {pushItOutLine(action, item)}
-                      </p>
+                      {/* The why sits right under the step, ahead of the
+                          numbers and buttons, so the reason comes first. */}
                       <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
                         {action.why}
                       </p>
+                      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
+                        {pushItOutLine(action, item)}
+                      </p>
                       <div className="mt-2 flex flex-wrap items-center gap-3">
-                        <form action={addForecastStepAction}>
-                          <input
-                            type="hidden"
-                            name="system_type"
-                            value={item.system_type}
-                          />
-                          <SubmitButton
-                            className="btn-secondary px-3 py-1.5 text-xs max-sm:min-h-11"
-                            pendingLabel="Adding…"
-                          >
-                            Add to my plan
-                          </SubmitButton>
-                        </form>
+                        {/* Once the step is an open reminder, the button turns
+                            into an "Added" state with a link to where it now
+                            lives, so tapping it never makes the step seem to
+                            vanish. Read from the same open-task titles the
+                            action dedupes on. */}
+                        {plannedTitles.has(action.taskTitle) ? (
+                          <>
+                            <span
+                              className="inline-flex items-center gap-1 text-xs font-medium text-green-700 dark:text-green-400 max-sm:min-h-11"
+                              data-testid="forecast-step-added"
+                            >
+                              <Check aria-hidden="true" className="h-3.5 w-3.5" />
+                              Added to your plan
+                            </span>
+                            <Link
+                              href="/dashboard#this-month"
+                              className="text-xs font-medium text-bark-700 underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+                            >
+                              View plan
+                            </Link>
+                          </>
+                        ) : (
+                          <form action={addForecastStepAction}>
+                            <input
+                              type="hidden"
+                              name="system_type"
+                              value={item.system_type}
+                            />
+                            <SubmitButton
+                              className="btn-secondary px-3 py-1.5 text-xs max-sm:min-h-11"
+                              pendingLabel="Adding…"
+                            >
+                              Add to my plan
+                            </SubmitButton>
+                          </form>
+                        )}
                         <Link
                           href={`/contractors?category=${categoryForSystem(item.system_type)}`}
                           className="text-xs font-medium text-bark-700 hover:underline dark:text-stone-300 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
@@ -791,25 +881,12 @@ export default async function ForecastPage() {
               })}
             </div>
             <p className="text-xs text-stone-500 dark:text-stone-400">
-              Maintenance steps and the years they buy are typical figures,
-              last reviewed {ACTIONS_AS_OF}. Your house, your climate and your
-              installer all move them.
+              Steps and years gained are typical figures, last reviewed{" "}
+              {ACTIONS_AS_OF}.
             </p>
           </div>
 
           {incentiveCount > 0 && <IncentiveViewTracker count={incentiveCount} />}
-
-          <div className="card mt-6 space-y-2">
-            <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
-              Why this matters
-            </h2>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
-              Big systems like roofs and HVAC don&apos;t fail on a schedule,
-              but they do fail eventually. Set aside a little every month, and
-              a five-figure surprise becomes a bill you already planned for,
-              instead of a loan or credit card scramble.
-            </p>
-          </div>
           </>
           )}
 
@@ -836,26 +913,31 @@ export default async function ForecastPage() {
                     <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
                       Your repair reserve
                     </h2>
-                    <p className="text-sm text-stone-500 dark:text-stone-400">
-                      {reserve.nextBig
-                        ? `Over the next ${RESERVE_HORIZON_YEARS} years your list adds up to about ${moneyBand(
-                            reserve.nextFiveYearTotal
-                          )}. That is ${moneyBand(
-                            reserve.monthlySetAside
-                          )} a month, and the biggest single item is your ${labelFor(
+                    {reserve.nextBig ? (
+                      <>
+                        <p className="text-sm text-stone-500 dark:text-stone-400">
+                          Next {RESERVE_HORIZON_YEARS} years: about{" "}
+                          {moneyBand(reserve.nextFiveYearTotal)}, or{" "}
+                          {moneyBand(reserve.monthlySetAside)} a month.
+                        </p>
+                        <ReserveProgress
+                          live={false}
+                          systemLabel={labelFor(
                             SYSTEM_TYPES,
                             reserve.nextBig.system_type
-                          ).toLowerCase()} at about ${moneyBand(
-                            reserve.nextBig.futureCost
-                          )} around ${yearBand(reserve.nextBig.replacementYear)}.`
-                        : `Nothing big lands in the next ${RESERVE_HORIZON_YEARS} years, so anything you put away now is a head start on the years after that.`}
-                    </p>
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-stone-100 dark:bg-stone-700">
-                      <div className="h-full w-2/5 rounded-full bg-bark-500 dark:bg-bark-600" />
-                    </div>
-                    <p className="text-xs text-stone-500 dark:text-stone-400">
-                      Nothing entered yet.
-                    </p>
+                          ).toLowerCase()}
+                          year={yearBand(reserve.nextBig.replacementYear)}
+                          pct={40}
+                          amountText={`Goal ${moneyBand(reserve.nextBig.futureCost)}`}
+                          showPct={false}
+                        />
+                      </>
+                    ) : (
+                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                        Nothing big lands in the next {RESERVE_HORIZON_YEARS}{" "}
+                        years.
+                      </p>
+                    )}
                     {/* Static stand-ins for the reserve form, so the tease has
                        the member card's shape without a live input or button. */}
                     <div className="flex flex-wrap items-end gap-2">
@@ -904,9 +986,8 @@ export default async function ForecastPage() {
                       Line up quotes early
                     </h2>
                     <p className="text-sm text-stone-500 dark:text-stone-400">
-                      {EMERGENCY_PREMIUM_COPY} Getting two or three numbers now,
-                      while nothing is broken, is the cheapest hour you will
-                      spend on this house.
+                      {EMERGENCY_PREMIUM_COPY} Get two or three quotes now
+                      while nothing is broken.
                     </p>
                     <div className="space-y-2">
                       {riskItems.map((item) => (
@@ -993,7 +1074,7 @@ export default async function ForecastPage() {
                               </p>
                               <p className="text-xs text-stone-500 dark:text-stone-400">
                                 {item.timingEstimated
-                                  ? "Timing unknown, add an install year for a real estimate"
+                                  ? "Timing unknown: no install year"
                                   : `likely around ${yearBand(item.replacementYear)}`}
                               </p>
                             </div>
@@ -1016,8 +1097,8 @@ export default async function ForecastPage() {
                     })}
                   </div>
                   <p className="text-xs text-stone-500 dark:text-stone-400">
-                    Maintenance steps and the years they buy are typical
-                    figures, last reviewed {ACTIONS_AS_OF}.
+                    Steps and years gained are typical figures, last
+                    reviewed {ACTIONS_AS_OF}.
                   </p>
                 </div>
               </div>
