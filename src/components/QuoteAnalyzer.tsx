@@ -853,7 +853,7 @@ export default function QuoteAnalyzer({
                   </ul>
                 ) : (
                   <p className="text-sm text-stone-500 dark:text-stone-400">
-                    Nothing left here, you&apos;ve marked everything as covered.
+                    Nothing left here. You&apos;ve marked everything as covered.
                   </p>
                 )}
               </>

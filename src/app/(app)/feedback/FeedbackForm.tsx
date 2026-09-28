@@ -31,9 +31,7 @@ export default function FeedbackForm({ defaultEmail }: { defaultEmail: string })
           Report a bug
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          A button that does nothing, a number that is wrong, a page that will
-          not load: tell us here. Ideas and complaints count too. This goes
-          straight to us, not to the store, and a real person reads every
+          Something broken, or an idea to share? A real person reads every
           report.
         </p>
       </div>

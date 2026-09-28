@@ -47,7 +47,7 @@ describe("job-post confirmation is honest while pros are closed", () => {
     );
     // Non-preview branch: the original copy is untouched.
     expect(banner).toContain("Your job is live. Pros can see it now.");
-    expect(banner).toContain("We&apos;ll notify you the moment a pro");
+    expect(banner).toContain("We&apos;ll notify you when a pro applies.");
   });
 
   it("the per-job awaiting-applicants card branches on isPreview", () => {

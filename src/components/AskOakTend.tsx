@@ -1347,7 +1347,7 @@ export default function AskOakTend({
         const updated = withContent(
           isTimeoutError(e)
             ? "That took too long. Try again."
-            : "Something went wrong, try again."
+            : "Something went wrong. Try again."
         );
         applyMessages(updated);
         setInput(question);
@@ -1489,7 +1489,7 @@ export default function AskOakTend({
           role: "assistant",
           content: isTimeoutError(e)
             ? "That took too long. Try again."
-            : "Something went wrong, try again.",
+            : "Something went wrong. Try again.",
           ts: Date.now(),
         },
       ];

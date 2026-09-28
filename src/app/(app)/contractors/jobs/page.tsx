@@ -535,8 +535,7 @@ export default async function YourJobsPage(
           Your jobs
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Every job you have posted, who has applied, and what we have told
-          you about it.
+          Jobs you posted and who applied.
         </p>
         {jobLeads.length === 0 && directRequests.length === 0 && (
           <p className="mt-4 rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
@@ -865,16 +864,20 @@ export default async function YourJobsPage(
                         {l.timing === "asap" && isPreview ? (
                           <p>
                             Saved. Our pro network isn&apos;t open yet, so no pro
-                            will see this today. If this is urgent, call a local
-                            24-hour company now. For gas, leave the house and
-                            call 911 or your gas company from outside.
+                            will see this today. If it&apos;s urgent, call a
+                            local 24-hour company now. See the{" "}
+                            <Link
+                              href="/emergency"
+                              className="font-medium text-bark-700 hover:underline dark:text-stone-300"
+                            >
+                              Emergency page
+                            </Link>{" "}
+                            for what to do first.
                           </p>
                         ) : l.timing === "asap" ? (
                           <p>
-                            Your job is live and marked urgent. For active
-                            flooding, don&apos;t wait: call a 24/7 pro directly.
-                            For gas, leave the house and call 911 or your gas
-                            company from outside. See the{" "}
+                            Your job is live and marked urgent. If it can&apos;t
+                            wait, call a 24/7 pro directly. See the{" "}
                             <Link
                               href="/emergency"
                               className="font-medium text-bark-700 hover:underline dark:text-stone-300"

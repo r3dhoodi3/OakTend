@@ -164,10 +164,6 @@ export default function BusinessView({
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
           Your numbers and everything in flight.
         </p>
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-          Homeowners overwhelmingly pick from the pros who apply first. Fast
-          applications win jobs.
-        </p>
         {(timeToApplyStat || showApplySpeedNudge) && (
           <div className="mt-2 rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 dark:border-white/10 dark:bg-stone-800">
             {timeToApplyStat && (

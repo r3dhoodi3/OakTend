@@ -228,8 +228,7 @@ export default function CrmView({
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Clients</h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Your pipeline: everyone you&apos;re doing business with, each with a
-          stage, a value, contact info, and notes.
+          Everyone you work with, by stage.
         </p>
       </div>
 

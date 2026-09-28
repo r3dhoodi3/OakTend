@@ -78,7 +78,7 @@ export default async function HelpPage(props: {
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Help</h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Answers to common questions, and how to reach us.
+          Common questions and how to reach us.
         </p>
       </div>
 

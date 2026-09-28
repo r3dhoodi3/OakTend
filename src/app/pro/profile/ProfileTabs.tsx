@@ -30,7 +30,7 @@ const TABS = [
     label: "Public Profile",
     short: "Profile",
     title: "Public Profile",
-    subtitle: "Manage your public business profile and service offerings.",
+    subtitle: "Your business profile and services.",
   },
   {
     // The license number, the license document and the certificate of
@@ -44,21 +44,21 @@ const TABS = [
     short: "Credentials",
     title: "Credentials",
     subtitle:
-      "Your state license and proof of insurance. Kept private; homeowners can ask you for them.",
+      "Your license and proof of insurance. Kept private.",
   },
   {
     key: "page" as const,
     label: "Your Public Page",
     short: "Page",
     title: "Your Public Page",
-    subtitle: "Share your OakTend page and manage what appears on it.",
+    subtitle: "Share your page and choose what it shows.",
   },
   {
     key: "projects" as const,
     label: "Projects",
     short: "Projects",
     title: "Projects",
-    subtitle: "Showcase completed work with photo albums on your public page.",
+    subtitle: "Photo albums of your finished work.",
   },
   {
     key: "security" as const,

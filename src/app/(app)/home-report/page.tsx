@@ -156,6 +156,11 @@ function PrintSystemDetail({
         </span>
       </h3>
 
+      <p className="mt-1 text-sm text-stone-600">
+        <span className="font-medium text-stone-800">Why this status: </span>
+        {status.why}
+      </p>
+
       <dl className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
         {facts.map((f) => (
           <div key={f.term} className="flex justify-between gap-3 border-b border-stone-100 py-0.5">
@@ -164,11 +169,6 @@ function PrintSystemDetail({
           </div>
         ))}
       </dl>
-
-      <p className="mt-2 text-sm text-stone-600">
-        <span className="font-medium text-stone-800">Why this status: </span>
-        {status.why}
-      </p>
 
       {notes && (
         <p className="mt-1 text-sm text-stone-600">

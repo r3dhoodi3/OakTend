@@ -395,9 +395,7 @@ export function PlusPitch({
           Run your business, not your admin
         </h1>
         <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          OakTend Pro is a toolkit for the business side: faster alerts, more
-          credit on every deposit, and an AI back office that handles the
-          paperwork.
+          Faster alerts, more credit on every deposit, and an AI back office.
         </p>
         {/* No CTA button up here any more. This used to duplicate the trial
             button in ProPlanToggle below with a second, differently-worded

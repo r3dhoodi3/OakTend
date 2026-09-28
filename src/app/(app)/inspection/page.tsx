@@ -47,8 +47,7 @@ export default async function InspectionPage() {
           Home inspection
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Worth getting if you&apos;re buying, selling, setting a maintenance
-          baseline, or meeting an insurance requirement.
+          Book an inspection or add a report you already have.
         </p>
       </div>
 
@@ -76,9 +75,8 @@ export default async function InspectionPage() {
             Already have an inspection report? Add it to your home
           </h2>
           <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-            Upload photos of the report, or paste its text. OakTend reads it
-            and suggests systems and issues for you to confirm, nothing saves
-            until you do.
+            Upload photos or paste the text. Nothing saves until you confirm
+            it.
           </p>
         </div>
         <InspectionUpload freeReadsLeft={freeReadsLeft} />

@@ -334,7 +334,7 @@ describe("a streamed answer", () => {
     await settle();
 
     expect(
-      screen.getByText("Something went wrong, try again.")
+      screen.getByText("Something went wrong. Try again.")
     ).toBeInTheDocument();
     // Nothing arrived worth keeping, so the question goes back in the
     // composer for a one-tap retry.

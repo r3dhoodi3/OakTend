@@ -1212,7 +1212,7 @@ export default function OnboardingForm({
                   rather than pre-filled with a guess. */}
               {facts.source !== "rentcast" && (
                 <p className="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700 dark:border-stone-700 dark:bg-stone-800/60 dark:text-stone-300">
-                  We couldn&apos;t auto-fill this address, please enter the
+                  We couldn&apos;t auto-fill this address. Please enter the
                   basics.
                 </p>
               )}

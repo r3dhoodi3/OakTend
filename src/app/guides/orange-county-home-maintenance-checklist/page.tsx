@@ -325,14 +325,14 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
                 {m.focus}
               </span>
             </div>
+            <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+              {m.why}
+            </p>
             <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-stone-700 dark:text-stone-300">
               {m.tasks.map((task) => (
                 <li key={task}>{task}</li>
               ))}
             </ul>
-            <p className="mt-3 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-              {m.why}
-            </p>
           </section>
         ))}
       </div>

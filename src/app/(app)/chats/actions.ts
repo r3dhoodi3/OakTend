@@ -9,7 +9,7 @@ import { setFlash } from "@/lib/flash";
 
 // Mirrors contractors/actions: a generic, honest failure the homeowner can act
 // on, used for every guard miss and the status-update error below.
-const QUOTE_ERROR = "Couldn't update the quote, please try again.";
+const QUOTE_ERROR = "Couldn't update the quote. Please try again.";
 
 // Shared body for accept/decline: verifies the quote is really on a lead
 // attached to the caller's own property before touching anything (the id
@@ -119,7 +119,7 @@ export async function declineQuoteAction(formData: FormData) {
 
 // Mirrors the QUOTE_ERROR constant above: a generic, honest failure the
 // homeowner can act on.
-const INVOICE_ERROR = "Couldn't sign the invoice, please try again.";
+const INVOICE_ERROR = "Couldn't sign the invoice. Please try again.";
 
 // The homeowner signs a 'sent' invoice on their own lead, either by typing
 // their name (signature_method='in_app') or by marking it as signed in

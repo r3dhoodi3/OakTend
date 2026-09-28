@@ -285,7 +285,7 @@ export default function ToolsMenu({ hasPlus }: { hasPlus: boolean }) {
               <div className="space-y-5 p-4 pb-[calc(3.5rem+env(safe-area-inset-bottom)+1rem)]">
                 <div>
                   <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
-                    Home emergency
+                    Urgent
                   </p>
                   <div className="grid grid-cols-3 gap-2">
                     <Link

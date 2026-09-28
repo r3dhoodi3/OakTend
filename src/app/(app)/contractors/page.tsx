@@ -552,7 +552,7 @@ export default async function ContractorsPage(
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
           {isPreview
             ? PREVIEW_POST_JOB_INTRO
-            : "Describe what you need and post it. Local pros apply, then you review them and pick the one you want."}
+            : "Describe what you need. Local pros apply and you pick one."}
         </p>
       </div>
 
@@ -633,10 +633,7 @@ export default async function ContractorsPage(
                   >
                     Your jobs
                   </Link>{" "}
-                  further down this page. We&apos;ll notify you the moment a pro
-                  applies. Honest note: OakTend is still new in some areas, so if
-                  applications are slow it&apos;s our pro coverage catching up, not
-                  a problem with your post.
+                  below. We&apos;ll notify you when a pro applies.
                 </p>
               </>
             )}

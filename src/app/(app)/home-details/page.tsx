@@ -24,10 +24,8 @@ export default async function HomeDetailsPage() {
       </header>
 
       <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
-        These are the basic facts about your home. Fix anything that&apos;s
-        wrong, or fill in what&apos;s missing - they show up on your home
-        report and feed your cost forecast and value estimate. Leave a box
-        blank to leave it as it is.
+        Fix anything wrong or fill in what&apos;s missing. Blank boxes stay as
+        they are.
       </p>
 
       <HomeDetailsForm

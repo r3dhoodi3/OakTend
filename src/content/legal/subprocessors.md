@@ -12,7 +12,7 @@ These companies handle personal information as part of running {{BRAND}}, under 
 |---|---|---|---|---|
 | Supabase | Database, authentication, file storage | All account, home, and marketplace data | United States | supabase.com/privacy |
 | Vercel | Hosting, serverless functions, and cookieless web analytics | Request logs, IP address, cookieless page-view counts | United States | vercel.com/legal/privacy-policy |
-| Cloudflare | DNS, email routing, Turnstile CAPTCHA | Domain routing information, and, for anyone who completes a CAPTCHA challenge, that fact | United States / global | https://www.cloudflare.com/privacypolicy/ |
+| Cloudflare | DNS, email routing, Turnstile CAPTCHA | Domain routing information, and, for anyone who completes a CAPTCHA challenge, that fact | United States / global | cloudflare.com/privacypolicy |
 | Stripe | Payment processing, subscriptions, invoices | Billing name/email, payment-method reference, invoice totals (never full card numbers) | United States | stripe.com/privacy |
 | Twilio | Text-message delivery | Phone number, message content | United States | twilio.com/legal/privacy |
 | Resend | Email delivery | Email address, message content | United States | resend.com/legal/privacy-policy |

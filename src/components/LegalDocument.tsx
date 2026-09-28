@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { fillLegalTokens } from "@/lib/legal";
-import { parseLegalDocument, renderLegalMarkdown } from "@/lib/legalMarkdown";
+import { formatLegalDate, parseLegalDocument, renderLegalMarkdown } from "@/lib/legalMarkdown";
 
 // Server component: reads a legal document from src/content/legal/*.md at
 // request time, fills its {{TOKENS}}, and renders it with the same page
@@ -69,7 +69,7 @@ export default function LegalDocument({
       </h1>
       {doc.lastUpdated && (
         <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-          Last updated {doc.lastUpdated}.
+          Last updated {formatLegalDate(doc.lastUpdated)}.
         </p>
       )}
 

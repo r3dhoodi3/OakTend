@@ -51,9 +51,8 @@ export default function TaxForm({
       </h3>
       {!hasData && (
         <p className="text-sm text-stone-500 dark:text-stone-400">
-          Look for a line called &quot;assessed value&quot; or &quot;total
-          assessed value&quot; on your tax bill or assessment notice, plus the
-          tax year it applies to. Two numbers and you&apos;re done.
+          Enter the &quot;assessed value&quot; from your tax bill or notice and
+          the tax year it covers.
         </p>
       )}
 

@@ -140,7 +140,7 @@ export default function VoiceButton({
         // plainly rather than looking broken.
         flashBubble("Voice input is unavailable in this browser.");
       } else {
-        flashBubble("Voice input failed, try again.");
+        flashBubble("Voice input failed. Try again.");
       }
     };
 

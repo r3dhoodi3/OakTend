@@ -53,19 +53,16 @@ export default async function QuoteCheckPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Quote analyzer
         </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          Upload a photo of a quote, or paste the text. OakTend checks every
-          line, flags anything padded or vague, and drafts a message you can
-          send back. Takes a minute. Know where you stand before you sign.
+        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          Upload or paste a quote. OakTend flags padded or vague lines and
+          drafts a reply.
         </p>
       </header>
 
       {freeTaste && (
         <div className="card border-bark-100 bg-bark-50 text-center dark:border-bark-700/40 dark:bg-bark-700/30">
           <p className="text-sm text-bark-700 dark:text-stone-300">
-            This one&apos;s on us. Your first quote check is free, OakTend Plus
-            makes it unlimited. It only counts as used once an analysis
-            actually succeeds, so a failed upload never burns it.
+            Your first quote check is free. A failed upload does not count.
           </p>
         </div>
       )}

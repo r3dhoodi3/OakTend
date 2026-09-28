@@ -238,7 +238,7 @@ export default async function LearnPage() {
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Learn</h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Search, filter, and browse the basics for the systems in your home.
+          The basics for the systems in your home.
         </p>
       </div>
 

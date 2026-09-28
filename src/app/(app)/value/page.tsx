@@ -222,8 +222,7 @@ export default async function ValuePage() {
         </h1>
       </header>
       <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
-        A running estimate of what your home is worth today and how much of
-        it you actually own, based on{" "}
+        What your home is worth and how much you own, based on{" "}
         {usingMarketValue
           ? "recent sales data near you"
           : "statewide price trends since you bought it"}

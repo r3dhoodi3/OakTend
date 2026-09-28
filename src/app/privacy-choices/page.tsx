@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LEGAL } from "@/lib/legal";
+import { formatLegalDate } from "@/lib/legalMarkdown";
 
 // Public top-level page, same pattern as src/app/terms/page.tsx: see
 // src/lib/supabase/middleware.ts for the allowlist entry and
@@ -37,7 +38,7 @@ export default function PrivacyChoicesPage() {
         Your Privacy Choices
       </h1>
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-        Last updated {LEGAL.effectiveDate}.
+        Last updated {formatLegalDate(LEGAL.effectiveDate)}.
       </p>
       <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
         The short answer. See the{" "}

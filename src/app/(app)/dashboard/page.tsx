@@ -664,8 +664,8 @@ export default async function HomePage(
             </>
           ) : (
             <p className="text-sm text-bark-700 dark:text-stone-300">
-              Your home is claimed. Add your systems below. It&apos;s what
-              powers your maintenance reminders and your Home Health Score.
+              Your home is claimed. Add your systems below to get reminders and
+              a Home Health Score.
             </p>
           )}
         </div>
@@ -698,9 +698,8 @@ export default async function HomePage(
             {/* max-sm:text-sm: soft trust signal, still worth reading at a
                 floor size on a phone. */}
             <p className="max-w-sm text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
-              The name on your account matches the county assessor&apos;s
-              public owner-of-record for this address. It&apos;s a soft trust
-              signal we show pros, not proof of ownership.
+              Your name matches the county&apos;s owner of record for this
+              address. It is not proof of ownership.
             </p>
           </AnimatedDetails>
         </section>

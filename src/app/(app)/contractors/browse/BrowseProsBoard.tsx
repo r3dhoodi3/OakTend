@@ -160,8 +160,7 @@ export default function BrowseProsBoard({
             </p>
           ) : category ? (
             <p>
-              No pros listed for {labelFor(JOB_CATEGORIES, category)} yet. OakTend
-              is still new in some areas, so pro coverage is catching up. Try
+              No pros listed for {labelFor(JOB_CATEGORIES, category)} yet. Try
               another category, or{" "}
               <Link href="/contractors" className="text-bark-700 hover:underline dark:text-stone-300">
                 post the job

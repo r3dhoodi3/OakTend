@@ -26,8 +26,8 @@ export default async function ProBlocksPage() {
           Blocked accounts
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Homeowners you have blocked cannot message you, and their jobs no
-          longer show on your board. Unblocking takes effect right away.
+          Blocked homeowners cannot message you, and their jobs stay off your
+          board.
         </p>
       </div>
 

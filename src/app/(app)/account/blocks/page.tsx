@@ -32,8 +32,7 @@ export default async function BlocksPage() {
           Blocked accounts
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          People you have blocked cannot message you, and you will not be shown
-          to each other for new work. Unblocking takes effect right away.
+          Blocked people cannot message you or see you for new work.
         </p>
       </div>
 

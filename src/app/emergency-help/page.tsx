@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import PanicCard from "@/app/(app)/emergency/PanicCard";
-import { FLOWS } from "@/app/(app)/emergency/content";
+import { EMERGENCY_SAFETY_LINE, FLOWS } from "@/app/(app)/emergency/content";
 
 // Public, account-free version of the in-app /emergency page. A homeowner in
 // the middle of a burst pipe or a gas smell should reach these steps without
@@ -47,8 +47,8 @@ export default function EmergencyHelpPage() {
         Emergency help
       </h1>
       <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-400">
-        Something wrong right now? Pick what&apos;s happening below. The steps are
-        short. Do them in order. No account needed.
+        Pick what&apos;s happening and follow the steps in order. No account
+        needed.
       </p>
 
       {/* Life-safety caveat, first thing on the page. Red accent is reserved
@@ -59,20 +59,12 @@ export default function EmergencyHelpPage() {
             className="mt-0.5 h-5 w-5 flex-none text-red-600 dark:text-red-400"
             aria-hidden="true"
           />
-          <div className="text-sm leading-relaxed text-red-900 dark:text-red-200">
-            <p className="font-semibold">If someone is hurt, trapped, or in danger, call 911 now.</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>If you smell gas, leave the house first and call from outside. Don&apos;t flip switches or use your phone indoors.</li>
-              <li>Never step into standing water to reach a breaker panel or an outlet. If you&apos;d have to stand in water, leave it for an electrician.</li>
-              <li>Stay far away from any downed power line and call 911.</li>
-              <li>If a carbon monoxide alarm sounds, or people feel a headache, dizziness, or nausea at home, get everyone outside to fresh air and call 911 from outside.</li>
-            </ul>
-            <p className="mt-2">
-              These are general safety steps, not an emergency service. OakTend is
-              software, not a contractor or a utility. If you are not sure a step
-              is safe, skip it, get out, and call 911.
-            </p>
-          </div>
+          {/* The same single safety line as the in-app page. The gas, water
+              and power-line warnings live inside their own cards below, so
+              they are not repeated here. */}
+          <p className="text-sm font-medium leading-relaxed text-red-900 dark:text-red-200">
+            {EMERGENCY_SAFETY_LINE}
+          </p>
         </div>
       </div>
 
@@ -88,20 +80,18 @@ export default function EmergencyHelpPage() {
           Once you are safe
         </h2>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          For repairs, call a local licensed company now. Our pro network is not
-          open yet, so don&apos;t wait on OakTend for an emergency. With a free
-          account you can save what happened, with photos, to your home&apos;s
-          record.
+          For repairs, call a local licensed company now. With a free account
+          you can save what happened, with photos, to your home&apos;s record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
           Save it to my home&apos;s record
         </Link>
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-          Already have an OakTend account? The in-app version at{" "}
+          Have an account?{" "}
           <Link href="/emergency" className="text-bark-700 hover:underline dark:text-stone-300">
-            Emergency
+            Home emergency
           </Link>{" "}
-          shows these same steps plus the photos you saved of your own shutoffs.
+          shows these steps with your own shutoff photos.
         </p>
       </section>
     </main>

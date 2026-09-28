@@ -1633,7 +1633,7 @@ export async function requestProAction(
   });
   if (allowedRequest === false) {
     return err(
-      "You're sending requests too quickly, please wait a bit before requesting another pro."
+      "You're sending requests too quickly. Please wait a bit before requesting another pro."
     );
   }
 
@@ -1911,7 +1911,7 @@ export async function postDirectPubliclyAction(formData: FormData) {
     p_window_seconds: 3600,
   });
   if (allowed === false) {
-    setFlash("You're posting jobs too quickly, please wait a bit.", "error");
+    setFlash("You're posting jobs too quickly. Please wait a bit.", "error");
     redirect("/contractors");
   }
   const { data: allowedDay } = await admin.rpc("rate_limit_hit", {

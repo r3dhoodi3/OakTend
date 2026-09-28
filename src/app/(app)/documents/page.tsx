@@ -142,10 +142,8 @@ export default async function DocumentsPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Documents</h1>
       </header>
       <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
-        Your home&apos;s paperwork, in one place: warranties, manuals,
-        receipts, model labels. OakTend reads each one and can drop the details
-        straight into your home profile. Never dig for a manual or warranty
-        date again.
+        Warranties, manuals, and receipts in one place. OakTend reads each one
+        for you.
       </p>
 
       <DocumentUpload propertyId={property.id} freeReadsLeft={freeReadsLeft} />
@@ -174,8 +172,8 @@ export default async function DocumentsPage() {
             loaded right now. */}
         {docsError && (
           <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300">
-            We couldn&apos;t load your documents right now. They&apos;re safe,
-            try again shortly.
+            We couldn&apos;t load your documents right now. They&apos;re safe.
+            Try again shortly.
           </div>
         )}
 
@@ -341,11 +339,9 @@ export default async function DocumentsPage() {
                 For context, the average premium{" "}
                 {insRegion ? `in ${insRegion}` : "nationally"} is roughly{" "}
                 {money(insRate.avgPremium)} a year, and premiums there rose
-                about {insRate.trendPct}% last year. That&apos;s a rough,
-                hand-refreshed approximation of published industry averages,
-                not a quote: your coverage and home matter more than any
-                average. If your renewal comes in well above last year, a
-                quick requote is worth checking.
+                about {insRate.trendPct}% last year. This is a rough industry
+                average, not a quote. If your renewal jumps, a requote is
+                worth checking.
               </p>
             </div>
 

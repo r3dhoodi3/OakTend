@@ -17,6 +17,23 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+// "2026-09-20" reads like a database value on a page people actually read, so
+// the "Last updated" line shows "September 20, 2026". Anything that is not a
+// plain ISO date passes through unchanged.
+export function formatLegalDate(value: string): string {
+  const m = value.trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return value;
+  const month = MONTHS[Number(m[2]) - 1];
+  const day = Number(m[3]);
+  if (!month || day < 1 || day > 31) return value;
+  return `${month} ${day}, ${m[1]}`;
+}
+
 export interface ParsedLegalDocument {
   title: string;
   lastUpdated: string;

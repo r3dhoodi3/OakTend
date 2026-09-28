@@ -102,9 +102,8 @@ export default async function ProToolsPage(
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             AI back office
           </h1>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            The paperwork side of the job, handled in seconds instead of
-            evenings.
+          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            Estimates, invoices, and follow-ups in seconds.
           </p>
         </div>
 
@@ -253,9 +252,8 @@ export default async function ProToolsPage(
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           AI back office
         </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          Tell it about the job in plain words. It writes the paperwork, you
-          look it over and send it.
+        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          Describe the job. It writes the paperwork, you check it and send it.
         </p>
       </div>
       {/* Migration 0145 not on this database yet: proDraftsLeft is null for a

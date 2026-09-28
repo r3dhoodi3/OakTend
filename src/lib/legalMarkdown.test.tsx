@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { fillLegalTokens } from "@/lib/legal";
-import { parseLegalDocument, renderLegalMarkdown, slugify } from "@/lib/legalMarkdown";
+import { formatLegalDate, parseLegalDocument, renderLegalMarkdown, slugify } from "@/lib/legalMarkdown";
 
 afterEach(() => cleanup());
 
@@ -14,6 +14,18 @@ describe("slugify", () => {
 
   it("trims leading and trailing hyphens", () => {
     expect(slugify("  What OakTend is  ")).toBe("what-oaktend-is");
+  });
+});
+
+describe("formatLegalDate", () => {
+  it("spells out an ISO date", () => {
+    expect(formatLegalDate("2026-09-20")).toBe("September 20, 2026");
+    expect(formatLegalDate("2026-01-05")).toBe("January 5, 2026");
+  });
+
+  it("passes anything else through unchanged", () => {
+    expect(formatLegalDate("September 20, 2026")).toBe("September 20, 2026");
+    expect(formatLegalDate("2026-13-01")).toBe("2026-13-01");
   });
 });
 

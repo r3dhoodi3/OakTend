@@ -57,9 +57,7 @@ export default async function ProNotificationsPage() {
           Job alerts
         </h1>
         <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          When a homeowner posts a job in one of your trades, we let you know.
-          Choose how. These alerts are free, and you can change this at any
-          time.
+          Choose how we tell you about new jobs in your trades.
         </p>
       </div>
 
