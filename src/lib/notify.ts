@@ -494,6 +494,9 @@ const EMAIL_ONLY_TRANSACTIONAL_KINDS: ReadonlySet<string> = new Set([
   "security_alert",
   "receipt",
   "account_deletion_confirmation",
+  // The link a person asks for on Your privacy rights ("Email me a link").
+  // Mail about their own account, sent only because they asked.
+  "data_export_link",
 ]);
 
 // An explicit allowlist, not the union of TRANSACTIONAL_NOTIFICATION_KINDS
@@ -587,6 +590,12 @@ function emailProvider(): EmailProvider | null {
     return "sendgrid";
   if (process.env.RESEND_API_KEY) return "resend";
   return null;
+}
+
+// Whether any email provider is configured, so a caller that promises "we
+// emailed you" can say so honestly instead of claiming a send that never left.
+export function emailConfigured(): boolean {
+  return emailProvider() !== null;
 }
 
 // Fires once per process each: the SendGrid key without its sender, and the
@@ -703,93 +712,132 @@ export async function sendEmail(
       prefsPath ? `${siteUrl}${prefsPath}` : null
     )}`;
 
-    // WHERE A REPLY GOES. Without this header a reply goes to the From
-    // address, which is only useful while From is a mailbox a person reads -
-    // it is `hello@oaktend.com` today, forwarded to the founders by Cloudflare
-    // Email Routing. The moment the sender moves to a no-reply address or a
-    // dedicated sending subdomain (the normal next step, so the app's sending
-    // reputation is isolated from the real mailbox), every reply would go
-    // nowhere and nobody would ever know - a customer answering "yes, Tuesday
-    // works" into a black hole is the worst kind of silent failure.
-    //
-    // So: set EMAIL_REPLY_TO to the address a human actually reads, and it is
-    // attached to every message. Unset, the header is simply omitted and
-    // behaviour is exactly what it was.
-    //
-    // It changes NOTHING about authentication. SPF, DKIM and DMARC all align
-    // against the From domain; Reply-To is not authenticated and not checked,
-    // so pointing it at another domain cannot hurt deliverability.
-    const replyToRaw = process.env.EMAIL_REPLY_TO?.trim();
-    const replyTo = replyToRaw ? parseFromAddress(replyToRaw) : null;
-
-    // Same message, same footer, same unsubscribe link either way - only the
-    // envelope differs. SendGrid answers 202 with an empty body on success.
-    const response =
-      provider === "sendgrid"
-        ? await fetch("https://api.sendgrid.com/v3/mail/send", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              personalizations: [{ to: [{ email: input.email }] }],
-              from: parseFromAddress(process.env.SENDGRID_FROM as string),
-              ...(replyTo ? { reply_to: replyTo } : {}),
-              subject,
-              content: [{ type: "text/plain", value: text }],
-            }),
-          })
-        : await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              from: process.env.RESEND_FROM || "OakTend <onboarding@resend.dev>",
-              to: input.email,
-              // Resend takes the header as a plain string, where SendGrid
-              // wants the two halves apart - hence the raw value here and the
-              // parsed object above.
-              ...(replyToRaw ? { reply_to: replyToRaw } : {}),
-              subject,
-              text,
-            }),
-          });
-    if (!response.ok) {
-      // NEVER log the raw provider body, on either provider: Resend echoes the
-      // recipient email address back inside 403 sandbox and validation error
-      // messages, SendGrid can echo it inside an `errors[].message`, and Vercel
-      // logs are third-party retention. Parse out only the machine-readable
-      // half and log that plus the HTTP status - enough to debug against the
-      // provider's error reference, no recipient PII.
-      //
-      // Resend: `name`, a fixed enum string ("validation_error",
-      // "invalid_from_address"). SendGrid: `errors[0].field`, a JSON path into
-      // the request ("personalizations.0.to.0.email", "from.email"), which
-      // names the offending FIELD and never carries its value. Both free-text
-      // `message` fields are dropped on purpose.
-      let code = "unknown";
-      try {
-        const parsed = (await response.json()) as {
-          name?: unknown;
-          errors?: { field?: unknown }[];
-        };
-        if (typeof parsed?.name === "string") code = parsed.name;
-        const field = parsed?.errors?.[0]?.field;
-        if (typeof field === "string") code = field;
-      } catch {
-        // Body unreadable or not JSON; status alone still tells us something.
-        // A SendGrid 202 has an empty body and never reaches here anyway.
-      }
-      console.error(
-        `sendEmail: ${provider} API rejected the request (status ${response.status}, code ${code})`
-      );
-    }
+    await deliverEmail(provider, input.email, subject, text);
   } catch {
     // A provider hiccup must never break the caller - the in-app
     // notification is the source of truth.
+  }
+}
+
+// The provider call itself, shared by sendEmail (mail to an account holder,
+// with the unsubscribe footer) and sendEmailToAddress (a one-off, requested
+// message to an address that may not have an account yet). Throws only on a
+// network failure; callers wrap it.
+async function deliverEmail(
+  provider: EmailProvider,
+  to: string,
+  subject: string,
+  text: string
+): Promise<boolean> {
+  // WHERE A REPLY GOES. Without this header a reply goes to the From
+  // address, which is only useful while From is a mailbox a person reads -
+  // it is `hello@oaktend.com` today, forwarded to the founders by Cloudflare
+  // Email Routing. The moment the sender moves to a no-reply address or a
+  // dedicated sending subdomain (the normal next step, so the app's sending
+  // reputation is isolated from the real mailbox), every reply would go
+  // nowhere and nobody would ever know - a customer answering "yes, Tuesday
+  // works" into a black hole is the worst kind of silent failure.
+  //
+  // So: set EMAIL_REPLY_TO to the address a human actually reads, and it is
+  // attached to every message. Unset, the header is simply omitted and
+  // behaviour is exactly what it was.
+  //
+  // It changes NOTHING about authentication. SPF, DKIM and DMARC all align
+  // against the From domain; Reply-To is not authenticated and not checked,
+  // so pointing it at another domain cannot hurt deliverability.
+  const replyToRaw = process.env.EMAIL_REPLY_TO?.trim();
+  const replyTo = replyToRaw ? parseFromAddress(replyToRaw) : null;
+
+  // Same message, same footer, same unsubscribe link either way - only the
+  // envelope differs. SendGrid answers 202 with an empty body on success.
+  const response =
+    provider === "sendgrid"
+      ? await fetch("https://api.sendgrid.com/v3/mail/send", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            personalizations: [{ to: [{ email: to }] }],
+            from: parseFromAddress(process.env.SENDGRID_FROM as string),
+            ...(replyTo ? { reply_to: replyTo } : {}),
+            subject,
+            content: [{ type: "text/plain", value: text }],
+          }),
+        })
+      : await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: process.env.RESEND_FROM || "OakTend <onboarding@resend.dev>",
+            to: to,
+            // Resend takes the header as a plain string, where SendGrid
+            // wants the two halves apart - hence the raw value here and the
+            // parsed object above.
+            ...(replyToRaw ? { reply_to: replyToRaw } : {}),
+            subject,
+            text,
+          }),
+        });
+  if (!response.ok) {
+    // NEVER log the raw provider body, on either provider: Resend echoes the
+    // recipient email address back inside 403 sandbox and validation error
+    // messages, SendGrid can echo it inside an `errors[].message`, and Vercel
+    // logs are third-party retention. Parse out only the machine-readable
+    // half and log that plus the HTTP status - enough to debug against the
+    // provider's error reference, no recipient PII.
+    //
+    // Resend: `name`, a fixed enum string ("validation_error",
+    // "invalid_from_address"). SendGrid: `errors[0].field`, a JSON path into
+    // the request ("personalizations.0.to.0.email", "from.email"), which
+    // names the offending FIELD and never carries its value. Both free-text
+    // `message` fields are dropped on purpose.
+    let code = "unknown";
+    try {
+      const parsed = (await response.json()) as {
+        name?: unknown;
+        errors?: { field?: unknown }[];
+      };
+      if (typeof parsed?.name === "string") code = parsed.name;
+      const field = parsed?.errors?.[0]?.field;
+      if (typeof field === "string") code = field;
+    } catch {
+      // Body unreadable or not JSON; status alone still tells us something.
+      // A SendGrid 202 has an empty body and never reaches here anyway.
+    }
+    console.error(
+      `sendEmail: ${provider} API rejected the request (status ${response.status}, code ${code})`
+    );
+  }
+  return response.ok;
+}
+
+// One-off transactional email to an ADDRESS rather than an account: a
+// household invite goes to someone who may not have signed up yet, so there is
+// no user id to hang an unsubscribe link on. Only for mail a signed-in person
+// explicitly asked OakTend to send on their behalf, one message per request,
+// behind the caller's own rate limit. Never throws; returns whether the
+// provider accepted it (false when no provider is configured).
+export async function sendEmailToAddress(input: {
+  to: string;
+  subject: string;
+  text: string;
+}): Promise<boolean> {
+  const provider = emailProvider();
+  if (!provider || !input.to) return false;
+  try {
+    return await deliverEmail(
+      provider,
+      input.to,
+      stripControlChars(input.subject),
+      input.text
+    );
+  } catch {
+    return false;
   }
 }
 

@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { PENDING_JOIN_COOKIE, isInviteToken } from "@/lib/pendingJoin";
 import { createClient } from "@/lib/supabase/server";
 import { getProperties } from "@/lib/property";
 import { getCurrentContractor } from "@/lib/contractor";
@@ -74,6 +77,49 @@ export default async function OnboardingPage(
     getProperties(),
   ]);
   const hasPro = contractor !== null;
+
+  // The same escape hatch, for when ?next= was lost on the way here (an email
+  // confirmation link that fell back to the Site URL, an OAuth round trip, a
+  // reader who closed the tab and signed in later). Opening a household QR
+  // link leaves a 30 minute breadcrumb cookie (src/lib/pendingJoin.ts). If
+  // this account has no home yet, did not ask to add one, and that invite is
+  // still live, send them back to the join page instead of asking them to
+  // claim a home they don't have. An expired or unknown token falls through
+  // to normal onboarding, so the cookie can never trap anyone here.
+  if (homes.length === 0 && searchParams?.add !== "home") {
+    const pendingToken = (await cookies()).get(PENDING_JOIN_COOKIE)?.value;
+    if (isInviteToken(pendingToken)) {
+      const { data: liveInvite } = await createAdminClient()
+        .from("household_invite_tokens")
+        .select("token")
+        .eq("token", pendingToken.toLowerCase())
+        .gt("expires_at", new Date().toISOString())
+        .maybeSingle();
+      if (liveInvite) redirect(`/join/household/${liveInvite.token}`);
+    }
+    // An emailed household invite waiting for this address: same idea, the
+    // new housemate should see the invite, not the claim-a-home form. Read
+    // under their own session, so RLS only returns invites for their email.
+    const { data: invitedRows } = await (await createClient())
+      .from("household_members")
+      .select("id, invited_email")
+      .eq("status", "invited")
+      .is("member_user_id", null)
+      .limit(5);
+    const sessionEmail = (
+      (await (await createClient()).auth.getUser()).data.user?.email ?? ""
+    )
+      .trim()
+      .toLowerCase();
+    if (
+      sessionEmail &&
+      (invitedRows ?? []).some(
+        (r) => r.invited_email.trim().toLowerCase() === sessionEmail
+      )
+    ) {
+      redirect("/join/invite");
+    }
+  }
   if (
     hasPro &&
     homes.length === 0 &&

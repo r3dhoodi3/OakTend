@@ -11,23 +11,16 @@ function src(rel: string): string {
 
 const page = src("./page.tsx");
 
-// RB wave (2026-08-30, CR4#7): the household card names the caretaking case
-// (a parent's home, a managed rental) explicitly, since that's the one part
-// of household sharing that creates a genuinely new account rather than a
-// second login inside one that already exists.
-describe("household: names the caretaking use case", () => {
-  it("keeps the new copy line alongside the existing explainer paragraphs", () => {
-    expect(page).toContain(
-      "Managing a parent&apos;s home or a rental? Add them so you both see"
-    );
-    // Still there: the existing lines this one was added next to, not a
-    // replacement for them.
-    // Reworded 2026-09-20 (legal review N-114): the card now says plainly
-    // that a member also sees the money pages, and the Plus line matches
-    // hasPlus() in src/lib/subscription.ts (Plus carries with the home).
-    expect(page).toContain("A member sees everything you see for this home");
-    expect(page).toContain("the money pages (home value, purchase price, mortgage balance,");
-    expect(page).toContain("If the owner has Plus, members get Plus features on this home");
+// Owner feedback 2026-09-27: the explainer was cut to two short lines, but it
+// must still say plainly that a member sees the money pages (legal review
+// N-114) and that Plus carries with the home (hasPlus() in
+// src/lib/subscription.ts).
+describe("household: explainer stays honest after the cut", () => {
+  it("names the money pages and the Plus rule", () => {
+    expect(page).toContain("Members see everything for this home");
+    expect(page).toContain("home value,");
+    expect(page).toContain("mortgage, taxes");
+    expect(page).toContain("you have Plus, they get it on this home too");
     expect(page).not.toContain("Plus is personal");
   });
 });

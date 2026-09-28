@@ -5,6 +5,11 @@ import { hasAuthCookie } from "@/lib/authCookie";
 import { requestOrigin } from "@/lib/requestOrigin";
 import { legacyKey } from "@/lib/legacyStorage";
 import {
+  PENDING_JOIN_COOKIE,
+  joinTokenFromPath,
+  pendingJoinCookieOptions,
+} from "@/lib/pendingJoin";
+import {
   ACTIVITY_COOKIE,
   activityCookieOptions,
   isIdleExpired,
@@ -44,6 +49,13 @@ export async function updateSession(request: NextRequest) {
   // has. The only visible effect is a session-aware public header briefly
   // rendering its signed-out variant; nothing is granted, nothing is lost.
   if (isPublic) {
+    const joinToken = joinTokenFromPath(path);
+    if (
+      (joinToken || path === "/join/invite") &&
+      isReadMethod(request.method)
+    ) {
+      return joinPageResponse(request, joinToken);
+    }
     return NextResponse.next({ request });
   }
 
@@ -221,6 +233,62 @@ export async function updateSession(request: NextRequest) {
     response.cookies.delete({ name: legacyActivityCookie, path: "/" });
   }
 
+  return response;
+}
+
+// Household join pages (/join/household/<token> for a QR code, /join/invite
+// for an emailed invite). Public, so a signed-out
+// scanner sees the sign-in-or-sign-up chooser, but two things still happen
+// here that the plain public fast path skips:
+//
+//   1. The invite breadcrumb cookie (src/lib/pendingJoin.ts) is dropped, so a
+//      new account whose sign-up funnel loses ?next= is still brought back to
+//      this invite instead of the claim-your-home wizard.
+//   2. A signed-in visitor's session is refreshed and the rotated cookie is
+//      written back. The page renders as a Server Component, which cannot set
+//      cookies, so without this an expired access token was refreshed only in
+//      memory for that one render and the browser kept the stale one. That is
+//      how the same link could fail on one load and work on the next.
+//
+// Never redirects: whether the visitor is signed in or not, the page decides
+// what to show. Nothing here grants membership; joining is an explicit POST.
+async function joinPageResponse(
+  request: NextRequest,
+  token: string | null
+): Promise<NextResponse> {
+  let response = NextResponse.next({ request });
+  if (hasAuthCookie(request.cookies.getAll())) {
+    const supabase = createServerClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookieOptions: { secure: process.env.NODE_ENV === "production" },
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet: CookieToSet[]) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            response = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+    try {
+      await supabase.auth.getUser();
+    } catch {
+      // Best effort: the page does its own getUser() and shows the chooser
+      // if there is no usable session.
+    }
+  }
+  if (token) {
+    response.cookies.set(PENDING_JOIN_COOKIE, token, pendingJoinCookieOptions());
+  }
   return response;
 }
 

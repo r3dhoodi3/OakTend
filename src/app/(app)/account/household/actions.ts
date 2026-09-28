@@ -1,5 +1,9 @@
 "use server";
 
+import { cookies } from "next/headers";
+import { after } from "next/server";
+import { sendEmailToAddress } from "@/lib/notify";
+import { householdInviteSubject, householdInviteText } from "@/lib/householdInviteEmail";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -7,16 +11,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { requestOriginFromHeaders } from "@/lib/requestOrigin";
 import { setFlash } from "@/lib/flash";
 import { type ActionResult, ok, err } from "@/lib/actionResult";
+import { QR_TOKEN_LIFETIME_SECONDS } from "@/lib/householdQr";
+import { ACTIVE_HOME_COOKIE } from "@/lib/property";
+import { PENDING_JOIN_COOKIE, isInviteToken } from "@/lib/pendingJoin";
 
 const HOUSEHOLD_PATH = "/account/household";
 const MAX_MEMBERS_PER_HOME = 4;
-
-// Every QR token lives exactly this long, unless a scanner opens the join
-// link while it's still valid: /join/household/[token] then extends it to a
-// flat 30 minute grace window, once, via a conditional update (migration
-// 0097). Kept in one place so the mint action, the static refresh label
-// (HouseholdQrCode.tsx), and this comment can't drift apart.
-const QR_TOKEN_LIFETIME_SECONDS = 5 * 60;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -107,9 +107,35 @@ export async function inviteMemberAction(formData: FormData) {
     redirect(HOUSEHOLD_PATH);
   }
 
-  setFlash(
-    `Invited ${email}. If they don't have an OakTend account yet, the invite waits until they sign up with that email.`
-  );
+  // The invite email. Before this, adding someone only wrote the row and the
+  // invitee was never told, so from their side "the invite never came".
+  // Sent after the response with after(), so the owner's page comes back
+  // right away instead of waiting on the mail provider. Link base is the
+  // configured site URL (oaktend.com), falling back to this request's own
+  // origin only when it is unset (local dev), so a forged Host header can't
+  // point the link somewhere else in production.
+  const inviterName =
+    (user.user_metadata?.full_name as string | undefined)?.trim() || null;
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ||
+    (await requestOriginFromHeaders());
+  after(async () => {
+    const sent = await sendEmailToAddress({
+      to: email,
+      subject: householdInviteSubject(inviterName),
+      text: householdInviteText({
+        inviterName,
+        inviterEmail: user.email ?? null,
+        inviteeEmail: email,
+        link: `${base}/join/invite`,
+      }),
+    });
+    if (!sent) {
+      console.warn("inviteMemberAction: invite email not sent (no provider or rejected)");
+    }
+  });
+
+  await setFlash(`Invite sent to ${email}.`);
   revalidatePath(HOUSEHOLD_PATH);
   redirect(HOUSEHOLD_PATH);
 }
@@ -147,21 +173,33 @@ export async function acceptInviteAction(formData: FormData) {
   if (!user) redirect("/signin");
 
   const id = (formData.get("id") as string) || "";
-  const { error } = await supabase
+  // .select() returns the row only if RLS let the update through, so the
+  // property id below is the one the database says this invite belongs to,
+  // never a value from the form.
+  const { data: accepted, error } = await supabase
     .from("household_members")
     .update({
       status: "active",
       member_user_id: user.id,
       accepted_at: new Date().toISOString(),
     })
-    .eq("id", id);
-  if (error) {
-    setFlash("Couldn't accept that invite. Please try again.", "error");
+    .eq("id", id)
+    .select("property_id")
+    .maybeSingle();
+  if (error || !accepted) {
+    await setFlash("Couldn't accept that invite. Please try again.", "error");
     redirect(HOUSEHOLD_PATH);
   }
-  setFlash("You're in. That home now shows up in your homes list.");
+  // Land in the home they just joined.
+  (await cookies()).set(ACTIVE_HOME_COOKIE, accepted.property_id, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+  });
+  await setFlash("You joined this home.");
   revalidatePath("/", "layout");
-  redirect(HOUSEHOLD_PATH);
+  redirect("/dashboard");
 }
 
 // Decline an invite before claiming it, covered by the
@@ -214,10 +252,10 @@ export async function leaveHomeAction(formData: FormData) {
 // an already-active member. This action only ever mints the token; it never
 // touches household_members itself.
 //
-// TTL: 5 minutes from mint. If the link is opened while still valid, the
-// join page extends it once to a 30 minute grace window (scanned_at,
-// migration 0097), so a real signup + onboarding flow has room to finish
-// without getting kicked out just for taking longer than 5 minutes.
+// TTL: 10 minutes from mint (QR_TOKEN_LIFETIME_SECONDS). If the link is
+// opened while still valid, the join page extends it once to a 30 minute
+// grace window (scanned_at, migration 0099), so a real signup has room to
+// finish.
 export interface HouseholdQrToken {
   token: string;
   joinUrl: string;
@@ -225,8 +263,8 @@ export interface HouseholdQrToken {
 }
 
 // Called directly (not as a <form action>) from the household tab's client
-// component on mount, and again every time its current token silently
-// expires (no visible countdown, see HouseholdQrCode.tsx). Returns a typed
+// component on mount, and again only when the owner taps "New code" after the
+// visible countdown runs out (see HouseholdQrCode.tsx). Returns a typed
 // ActionResult (src/lib/actionResult.ts) rather than throwing, since the
 // caller is a client component that needs to keep the tab's layout in place
 // and show the failure inline, not an unhandled rejection or a thrown error
@@ -259,26 +297,22 @@ export async function mintHouseholdQrTokenAction(
     const admin = createAdminClient();
     const expiresAt = new Date(Date.now() + QR_TOKEN_LIFETIME_SECONDS * 1000);
 
-    // Self-cleanup: drop this owner's previous, UNSCANNED-or-expired tokens
-    // for THIS home before minting a fresh one, so the table can't quietly
-    // accumulate stale rows. No cron needed.
+    // Self-cleanup: drop this owner's EXPIRED tokens for this home before
+    // minting a fresh one, so the table cannot quietly pile up stale rows.
     //
-    // Deliberately spares a token someone has already scanned and is still
-    // inside its grace window (scanned_at set, expires_at in the future,
-    // migration 0097): the household tab re-mints every 5 minutes on its
-    // own auto-refresh timer, and an unconditional delete here would yank a
-    // scanned token out from under someone mid-signup, kicking them out for
-    // a reason that has nothing to do with anything they did. A scanned,
-    // still-live token is left alone and simply expires on its own 30
-    // minute clock; only a never-opened or already-expired token gets swept
-    // on every re-mint.
+    // Live tokens are left alone, scanned or not. This used to delete every
+    // unscanned token on each mint, and that was one way a code on screen
+    // could read "isn't valid" when scanned: two open tabs (or React's dev
+    // double mount) each minted a code and each mint deleted the other's, so
+    // whichever code was still showing had already been swept. A live token
+    // now simply runs out on its own 10 minute clock.
     const nowIso = new Date().toISOString();
     const { error: cleanupError } = await admin
       .from("household_invite_tokens")
       .delete()
       .eq("created_by", user.id)
       .eq("property_id", propertyId)
-      .or(`scanned_at.is.null,expires_at.lte.${nowIso}`);
+      .lte("expires_at", nowIso);
     if (cleanupError) {
       console.error("mintHouseholdQrTokenAction: cleanup failed", cleanupError);
       return err("Couldn't create an invite code. Try again.");
@@ -318,4 +352,90 @@ export async function mintHouseholdQrTokenAction(
     console.error("mintHouseholdQrTokenAction: unexpected failure", e);
     return err("Couldn't create an invite code. Try again.");
   }
+}
+
+// ---- Joining from a QR code -------------------------------------------------
+//
+// The ONLY way a QR token turns into a membership. /join/household/[token]
+// used to redeem the token as a side effect of simply rendering (a GET), so
+// any reload, prefetch, or second open of the page re-ran the redemption; a
+// page that had just said "this code isn't working" could hand out access on
+// the next reload. Rendering is now read only, and joining is this explicit
+// POST behind a "Join this home" button.
+//
+// Every check lives in redeem_household_invite_token() (migration 0097),
+// which runs under the joiner's OWN session: the token must exist and be
+// unexpired AT THE MOMENT OF THIS CALL, the home must be under its member cap,
+// and the row it writes is tied to auth.uid(). Nothing from the browser is
+// trusted except the token string, which is itself the credential being
+// checked. The property id used below for the active-home cookie comes back
+// from that function, never from the form.
+const REDEEM_FAIL_REASONS = new Set([
+  "invalid_or_expired",
+  "home_full",
+  "rate_limited",
+  "no_email",
+  "error",
+]);
+
+export async function redeemHouseholdInviteAction(formData: FormData) {
+  const token = String(formData.get("token") ?? "").trim().toLowerCase();
+  if (!isInviteToken(token)) {
+    redirect("/join/household/invalid");
+  }
+  const joinPath = `/join/household/${token}`;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect(`/signin?next=${encodeURIComponent(joinPath)}`);
+  }
+
+  const { data, error } = await supabase.rpc("redeem_household_invite_token", {
+    p_token: token,
+  });
+  const row = (Array.isArray(data) ? data[0] : data) as
+    | {
+        ok: boolean;
+        property_id: string | null;
+        reason: string | null;
+      }
+    | undefined;
+
+  if (error || !row) {
+    console.error("redeemHouseholdInviteAction: rpc failed", error);
+    redirect(`${joinPath}?failed=error`);
+  }
+  if (!row.ok || !row.property_id) {
+    const reason =
+      row.reason && REDEEM_FAIL_REASONS.has(row.reason)
+        ? row.reason
+        : "invalid_or_expired";
+    redirect(`${joinPath}?failed=${reason}`);
+  }
+
+  const cookieStore = await cookies();
+  // Land them IN the home they just joined, not whichever home was active
+  // before (someone who already has a home of their own would otherwise see
+  // their own dashboard and think nothing happened).
+  cookieStore.set(ACTIVE_HOME_COOKIE, row.property_id, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+  });
+  cookieStore.delete(PENDING_JOIN_COOKIE);
+
+  await setFlash(
+    row.reason === "owner"
+      ? "This is your own home."
+      : row.reason === "already_member"
+        ? "You're already in this home."
+        : "You joined this home.",
+    "success"
+  );
+  revalidatePath("/", "layout");
+  redirect("/dashboard");
 }
