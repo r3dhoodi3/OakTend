@@ -260,10 +260,13 @@ html[data-fonts-pending] .hero-rise {
     @apply inline-flex h-10 w-10 shrink-0 items-center justify-center
            rounded-full bg-bark-100 text-lg dark:bg-bark-700;
   }
-  /* Stat pairs: quiet caption over a tight number (size set per use). */
+  /* Stat pairs: quiet caption over a tight number (size set per use).
+     Label ink is the subtext pair (stone-600 / stone-300, see Type scale):
+     it often sits on a status-tinted card (the Home Health Score), where the
+     old stone-500 fell to 3.93:1 on red-100 and dark stone-400 to 3.26:1. */
   .stat-label {
-    @apply text-xs font-medium uppercase tracking-wide text-stone-500
-           dark:text-stone-400;
+    @apply text-xs font-medium uppercase tracking-wide text-stone-600
+           dark:text-stone-300;
   }
   .stat-number {
     @apply font-semibold tracking-tight text-stone-900 dark:text-stone-100;
@@ -275,11 +278,23 @@ html[data-fonts-pending] .hero-rise {
            font-medium;
   }
   /* Status tones for .chip: single source of truth for ok/warn/danger/muted.
+     The rule, in light AND dark: green = good, red = bad or needs attention,
+     amber = only the in-between tier (waiting / pending, or a medium-severity
+     heads-up that sits between fine and urgent), stone = neutral.
+     Never brand brown or bark for a status, and never red in brand chrome.
+     Light (2026-09-27): a -100 fill and -300 border instead of -50/-200 so the
+     greens and reds read as clearly green and red, with the ink kept at or
+     above WCAG AA 4.5:1 on the fill: green-800 on green-100 = 6.49:1,
+     red-700 on red-100 = 5.30:1, amber-800 on amber-100 = 6.37:1.
      Dark: deep translucent tint (color/15 bg over the warm surface) + light
      ink, not a solid near-black blob, so the chip reads as "this surface,
-     tinted for status" instead of a colored sticker dropped on top. */
+     tinted for status" instead of a colored sticker dropped on top. Worst case
+     is the stone-700 hero card: green-300 5.85:1, red-300 4.81:1,
+     amber-300 5.54:1 (stone-800 card: 8.33 / 6.78 / 7.90).
+     Code that cannot use a .chip class (a status map in a string) should copy
+     the exact same utilities, see src/lib/statusTone.ts. */
   .chip-ok {
-    @apply chip border border-green-200 bg-green-50 text-green-700
+    @apply chip border border-green-300 bg-green-100 text-green-800
            dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300;
   }
   /* Landing-page pill rows (the "Find a pro for" jobs and the 36 city links):
@@ -306,21 +321,61 @@ html[data-fonts-pending] .hero-rise {
     margin-inline: 0.625rem;
   }
   .chip-warn {
-    @apply chip border border-amber-200 bg-amber-50 text-amber-700
+    @apply chip border border-amber-300 bg-amber-100 text-amber-800
            dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300;
   }
   .chip-danger {
-    @apply chip border border-red-200 bg-red-50 text-red-700
+    @apply chip border border-red-300 bg-red-100 text-red-700
            dark:border-red-500/30 dark:bg-red-500/15 dark:text-red-300;
   }
   .chip-muted {
-    @apply chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400;
+    @apply chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300;
+  }
+  /* Status ink for plain text and icons (no chip fill), same rule as above.
+     Light on white / warm-paper page: green-700 5.02 / 4.60, red-700 6.47 / 5.93.
+     Dark on stone-800 card / stone-700 hero: green-400 8.71 / 5.89,
+     red-300 7.99 / 5.41 (red-400 drops to 3.71 on the hero card, so 300). */
+  .text-ok {
+    @apply text-green-700 dark:text-green-400;
+  }
+  .text-danger {
+    @apply text-red-700 dark:text-red-300;
   }
   /* Shared focus recipe for non-button interactives; same ring as .btn. */
   .focus-ring {
     @apply rounded focus-visible:outline-none focus-visible:ring-2
            focus-visible:ring-bark-600 focus-visible:ring-offset-1
            dark:focus-visible:ring-bark-500 dark:focus-visible:ring-offset-stone-900;
+  }
+
+  /* Type scale (2026-09-27): five roles, used the same way on phone and
+     desktop, so a screen draws from these instead of mixing sizes.
+       page title     .page-title     24px semibold (h1 on app screens)
+       section title  .section-title  18px semibold (h2 / card headings)
+       body           text-sm         14px, body color stone-800 / stone-200
+       subtext        .subtext        14px, stone-600 / stone-300
+       caption        .caption        12px, stone-600 / stone-300
+     Nothing below 12px (text-xs) for words a person has to read; the old
+     text-[9px] / [10px] / [11px] map to text-xs and text-[13px] maps to
+     text-sm. Marketing heroes keep the larger ramp below.
+     Subtext color, measured (WCAG 2.x): light stone-600 on the white card
+     7.63:1 and on the warm-paper page (oaktend-50) 7.00:1, where the older
+     stone-500 was only 4.40:1 on the page; dark stone-300 on the stone-800
+     card 10.18:1, stone-900 page 11.74:1, stone-700 hero card 6.90:1, where
+     the older dark stone-500 was 3.16:1 on the card. Body text stays a clear
+     step brighter in dark (stone-200, 12.08:1 on the card). */
+  .page-title {
+    @apply text-2xl font-semibold tracking-tight text-stone-900
+           dark:text-stone-100;
+  }
+  .section-title {
+    @apply text-lg font-semibold text-stone-900 dark:text-stone-100;
+  }
+  .subtext {
+    @apply text-sm text-stone-600 dark:text-stone-300;
+  }
+  .caption {
+    @apply text-xs text-stone-600 dark:text-stone-300;
   }
 
   /* Spacing scale (CR3#12). Every gap-*, p-*, and space-y-* value across the

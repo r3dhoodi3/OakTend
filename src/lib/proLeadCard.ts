@@ -1,4 +1,5 @@
 import { isMajorCategory, MAJOR_INTRO_FEE } from "@/lib/constants";
+import { STATUS_TONE } from "@/lib/statusTone";
 
 // The pure display helpers a pro lead card is built from. They used to live
 // inside src/app/pro/page.tsx, which was the only place that rendered a card.
@@ -12,10 +13,12 @@ import { isMajorCategory, MAJOR_INTRO_FEE } from "@/lib/constants";
 // call these directly.
 
 // Severity chip colours, keyed by the issue_severity a homeowner picked.
+// Low is neutral, medium is the amber in-between tier, urgent is red; the
+// strings come from the shared status tones so they match the .chip classes.
 export const SEVERITY_STYLE: Record<string, string> = {
-  low: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
-  medium: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
-  urgent: "border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-500/15 dark:text-red-300",
+  low: STATUS_TONE.muted,
+  medium: STATUS_TONE.warn,
+  urgent: STATUS_TONE.danger,
 };
 
 export function money(n: number | string | null): string {

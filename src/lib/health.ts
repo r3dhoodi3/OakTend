@@ -1,4 +1,5 @@
 import type { HomeSystem, Issue } from "@/lib/database.types";
+import { STATUS_TONE } from "@/lib/statusTone";
 import {
   labelFor,
   SYSTEM_TYPES,
@@ -490,11 +491,15 @@ export function scoreBreakdown(
   return { score, lines };
 }
 
+// Green for the two good bands, red for the two that need the owner to act,
+// in light and dark alike (green = good, red = bad or needs attention). The
+// "Generally healthy" band used to be brand brown in light and plain stone in
+// dark, and "Needs attention" was amber, so the same meaning changed color.
 export function scoreBand(score: number): { label: string; tone: string } {
-  if (score >= 85) return { label: "Great shape", tone: "text-green-700 bg-green-50 border-green-200 dark:text-green-300 dark:bg-green-500/15 dark:border-green-500/30" };
-  if (score >= 65) return { label: "Generally healthy", tone: "text-bark-700 bg-bark-50 border-bark-100 dark:text-stone-300 dark:bg-bark-700/40 dark:border-bark-700" };
-  if (score >= 45) return { label: "Needs attention", tone: "text-amber-700 bg-amber-50 border-amber-200 dark:text-amber-300 dark:bg-amber-500/15 dark:border-amber-500/30" };
-  return { label: "Several items overdue", tone: "text-red-700 bg-red-50 border-red-200 dark:text-red-300 dark:bg-red-500/15 dark:border-red-500/30" };
+  if (score >= 85) return { label: "Great shape", tone: STATUS_TONE.ok };
+  if (score >= 65) return { label: "Generally healthy", tone: STATUS_TONE.ok };
+  if (score >= 45) return { label: "Needs attention", tone: STATUS_TONE.danger };
+  return { label: "Several items overdue", tone: STATUS_TONE.danger };
 }
 
 // Derive upcoming maintenance prompts from system ages (read-only, computed -
