@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Contractor deposit limit in California: Orange County guide";
+export const alt = "OakTend guide: Contractor deposit limit in California";
 
 export default function OgImage() {
   return renderOgCard(
-    "Contractor deposit limit in California: Orange County guide",
+    "Contractor deposit limit in California",
     "An OakTend home guide"
   );
 }

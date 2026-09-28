@@ -26,9 +26,9 @@ export const yorbaLinda: CityContent = {
   name: "Yorba Linda",
   slug: "yorba-linda",
   intro:
-    "Yorba Linda had about 1,198 residents when it incorporated in 1967, and most of what stands today was built in the two decades that followed, which is how the median build year lands at 1983. It sits where Santa Ana Canyon opens onto the county, a canyon the fire authority's own report calls a wind funnel, and the city says more than 4,700 of its acres are now in the state's Very High fire hazard tier. That makes roofing, vents and the first five feet around the house a bigger part of home maintenance here than almost anywhere else in Orange County.",
+    "Yorba Linda sits where Santa Ana Canyon opens onto the county, a canyon the fire authority's own report calls a wind funnel, and the city says more than 4,700 of its acres are in the state's Very High fire hazard tier. It had about 1,198 residents when it incorporated in 1967, and most of today's houses went up in the two decades after.",
   metaDescription:
-    "Yorba Linda sits at the mouth of Santa Ana Canyon. Fire hazard zones, very hard well water, online permits and what a 1983 median build year means.",
+    "Yorba Linda sits at the mouth of Santa Ana Canyon. Fire hazard zones, lessons from the 2008 fire, very hard well water and which permits go online.",
   metaTitle: "Yorba Linda: canyon wind, fire zones, hard water",
 
   population: {
@@ -48,24 +48,24 @@ export const yorbaLinda: CityContent = {
     },
     facts: [
       {
-        text: "Yorba Linda's median year built is 1983. Of about 22,701 housing units, roughly 32.8 percent went up in the 1980s, 21.4 percent in the 1970s and 14.9 percent in the 1960s, while only about 4.4 percent predate 1960 and about 16.3 percent date from 2000 or later. A 1980s house is at the age where the second roof, the second or third water heater and original windows all come due.",
+        text: "Of about 22,701 housing units, roughly 32.8 percent went up in the 1980s, 21.4 percent in the 1970s and 14.9 percent in the 1960s, while only about 4.4 percent predate 1960 and about 16.3 percent date from 2000 or later.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0686832",
         sourceLabel: "Census Reporter, ACS 2024 one-year tables B25034 and B25035",
       },
       {
-        text: "The city's own account of its growth: a farming community of two and a half square miles with approximately 1,198 residents incorporated on November 2, 1967, the population rose 890 percent that decade to 11,856 in 1970, reached 28,254 in 1980 and passed 52,000 by 1990. Growth has slowed since. The city describes itself today as about 20 square miles of mostly residential neighborhoods, parkland, open space and multi-use trails.",
+        text: "The farming community of two and a half square miles incorporated on November 2, 1967, then grew 890 percent to 11,856 people by 1970, 28,254 by 1980 and past 52,000 by 1990. Today the city covers about 20 square miles of mostly homes, parkland, open space and trails.",
         sourceUrl: "https://www.yorbalindaca.gov/222/About-Yorba-Linda",
         sourceLabel: "City of Yorba Linda, About Yorba Linda",
       },
       {
-        text: "Wind is a documented local condition, not a figure of speech. The Orange County Fire Authority's after action report on the 2008 Freeway Complex Fire says Santa Ana Canyon's steep topography and east-west alignment serve as a wind funnel, and that this, together with offshore winds, resulted in extremely rapid fire spread. For a house that means roof edges, ridge caps, fences and patio covers take more wind load than they would a few miles west.",
+        text: "The fire authority's report on the 2008 Freeway Complex Fire says Santa Ana Canyon's steep, east-west terrain acts as a wind funnel, and that this, with offshore winds, drove extremely rapid fire spread.",
         sourceUrl:
           "https://storageocfaprod001.blob.core.windows.net/blobocfaprod01/2025/02/OCFA-AAR-Freeway-Complex-Fire.pdf",
         sourceLabel: "Orange County Fire Authority, Freeway Complex Fire after action report",
       },
       {
-        text: "Yorba Linda averages about 15.46 inches of precipitation a year with an annual average high near 77 degrees. Rain arrives in a few winter storms rather than steadily, so hillside lots depend on clear drains, swales and downspouts for a handful of days a year, and sun and dry wind do the everyday wear on paint, sealants and roofing.",
+        text: "Yorba Linda averages about 15.46 inches of precipitation a year, arriving in a few winter storms, with an annual average high near 77 degrees.",
         sourceUrl:
           "https://www.usclimatedata.com/climate/yorba-linda/california/united-states/usca1847",
         sourceLabel: "US Climate Data, Yorba Linda",
@@ -80,7 +80,7 @@ export const yorbaLinda: CityContent = {
       "Hidden Hills",
       "Locke Ranch",
     ],
-    note: "Main Street is the city's original downtown, which the city describes as having grown from an unpaved road with scattered shops into today's street of family businesses, with several historic structures still standing; Yorba Linda Town Center is the shopping and dining district the city describes as the heart of town. Hidden Hills is the community the fire authority's 2008 report names repeatedly. Locke Ranch is a 400-acre strip of homes that the water district describes as cutting between its older western area and its newer eastern one. Plenty of other tract names are in everyday use here, but we could only find build years for them on real-estate pages, so they are not listed. The city also describes a citywide system of over 100 miles of trails coordinated for hikers, bikers and equestrians.",
+    note: "Main Street is the original downtown, grown from an unpaved road into a street of family businesses with several historic buildings still standing. Town Center is the shopping and dining district. Hidden Hills is the community the fire authority's 2008 report names again and again. Locke Ranch is a 400-acre strip of homes between the water district's older western area and newer eastern one. The city also has over 100 miles of trails for hikers, bikers and riders.",
     sourceUrl: "https://www.yorbalindaca.gov/158/Main-Street-Historic-District",
   },
 
@@ -88,7 +88,7 @@ export const yorbaLinda: CityContent = {
     utility: "Yorba Linda Water District",
     utilityUrl: "https://www.ylwd.com/about/service-area/",
     summary:
-      "Yorba Linda Water District serves most of the city. The exception is Locke Ranch, which gets its water from Golden State Water Company's Placentia system and only its sewer service from the district. The district says that on average 85 percent of what it delivers is treated groundwater and about 15 percent is imported Metropolitan water. In 2025 testing the groundwater averaged 343 ppm of hardness, about 20 grains per gallon, with a range of 266 to 406 ppm, and the imported water averaged 236 ppm, about 14 grains per gallon, with a range of 191 to 280 ppm. That is very hard water by any household scale, and the district notes that taste and hardness can shift during the year as the sources change. The district also says its groundwater treatment plant, in service since December 2021, is the largest ion-exchange PFAS treatment facility in the nation.",
+      "Yorba Linda Water District delivers on average about 85 percent treated groundwater and 15 percent imported Metropolitan water. In 2025 testing the groundwater averaged 343 ppm of hardness, about 20 grains per gallon (range 266 to 406), and the imported water 236 ppm, about 14 grains, and the district notes hardness shifts through the year as sources change. Its groundwater treatment plant, in service since December 2021, is by the district's account the largest ion-exchange PFAS facility in the nation.",
     sourceUrl:
       "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010037&Year=2025&isCert=false",
   },
@@ -97,31 +97,31 @@ export const yorbaLinda: CityContent = {
     office: "City of Yorba Linda Building Division",
     portalUrl: "https://aca.accela.com/YORBALINDA/Default.aspx",
     summary:
-      "The Building Division sits inside Community Development and takes online applications through its Accela Citizen Access portal. The city lists the projects eligible for online submittal: air conditioning and heating units, electrical service panel upgrades, EV charging stations, re-piping, like-for-like reroofs with no engineering calculations, roof mounted solar and water heaters. Two details matter locally. The city warns that some projects may require extra code upgrades if the address is within a high fire or fuel modification zone, and it says an initial electronic application may take up to ten city working days to process. The city's page gives 714-961-7120 as the number to confirm whether an address is in one of those zones.",
+      "Online applications go through the Accela Citizen Access portal, which takes AC and heating units, panel upgrades, EV chargers, repipes, like-for-like reroofs without engineering, roof solar and water heaters. A first electronic application can take up to ten city working days. Projects in a high fire or fuel modification zone may need extra code upgrades; call 714-961-7120 to check an address.",
     sourceUrl: "https://www.yorbalindaca.gov/790/Online-Permit-Process",
   },
 
   hazards: [
     {
-      text: "The city's own fire hazard page says Yorba Linda has Moderate, High and Very High Fire Hazard Severity Zones within its boundaries under the state's 2025 maps: more than 6,500 acres in total, with over 4,700 of those acres in the Very High tier. The zone applies by parcel and affects building standards, defensible space rules and real estate disclosure, so look up your own address on the map linked from that page.",
+      text: "Under the state's 2025 maps the city has Moderate, High and Very High Fire Hazard Severity Zones covering more than 6,500 acres, over 4,700 of them Very High. The zone applies by parcel and affects building standards, defensible space rules and sale disclosures; the city's page links the map.",
       sourceUrl:
         "https://www.yorbalindaca.gov/930/2025-CalFIRE-Fire-Hazard-Severity-Zone-M",
       sourceLabel: "City of Yorba Linda, 2025 Cal Fire fire hazard severity zone maps",
     },
     {
-      text: "The November 2008 Freeway Complex Fire burned inside Yorba Linda. The fire authority's loss table for the city counts 9,525 residences threatened, 117 destroyed and 77 damaged, with structure and contents losses of about $124 million. Its assessment is the part worth remembering: the homes destroyed or damaged were victims of ember intrusion rather than direct flame, which points at attic vents, eaves, gutters and what is stored against the house.",
+      text: "In the November 2008 Freeway Complex Fire, the fire authority counted 9,525 Yorba Linda residences threatened, 117 destroyed and 77 damaged, with structure and contents losses of about $124 million.",
       sourceUrl:
         "https://storageocfaprod001.blob.core.windows.net/blobocfaprod01/2025/02/OCFA-AAR-Freeway-Complex-Fire.pdf",
       sourceLabel: "Orange County Fire Authority, Freeway Complex Fire after action report",
     },
     {
-      text: "The same report documents what happened to water pressure in Hidden Hills that day. Fire crews met low or no pressure on several streets after heat shut down the Santiago booster pump station, and continued demand then drained the reservoir serving Hidden Hills and nearby communities until district staff completed repairs. It is a documented reason hillside owners here think about ember-resistant construction rather than counting on a hose.",
+      text: "That day in Hidden Hills, crews met low or no water pressure on several streets after heat shut down the Santiago booster pump station, and continued demand drained the reservoir serving Hidden Hills and nearby communities until district staff completed repairs.",
       sourceUrl:
         "https://storageocfaprod001.blob.core.windows.net/blobocfaprod01/2025/02/OCFA-AAR-Freeway-Complex-Fire.pdf",
       sourceLabel: "Orange County Fire Authority, Freeway Complex Fire after action report",
     },
     {
-      text: "Yorba Linda has written its own fire construction rules for a long time. The report's code comparison shows the city's ordinance in effect from 1996 required a fire retardant Class A roof assembly on new construction and reconstruction in its designated Special Fire Protection Areas, the same roofing standard the state code adopted in 2008. On a reroof, ask for the Class A assembly rating in writing, not just the shingle brand.",
+      text: "Since 1996 a city ordinance has required a Class A fire retardant roof assembly on new construction and reconstruction in Yorba Linda's Special Fire Protection Areas, the standard state code adopted in 2008.",
       sourceUrl:
         "https://storageocfaprod001.blob.core.windows.net/blobocfaprod01/2025/02/OCFA-AAR-Freeway-Complex-Fire.pdf",
       sourceLabel: "Orange County Fire Authority, Freeway Complex Fire after action report",
@@ -130,28 +130,28 @@ export const yorbaLinda: CityContent = {
 
   guides: [
     {
+      href: "/guides/santa-ana-wind-wildfire-home-prep",
+      title: "Santa Ana wind and wildfire prep",
+      blurb:
+        "Ember-resistant vents and roofing for a city with over 4,700 acres of Very High zone.",
+    },
+    {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, and why the assembly rating matters as much as the price in a fire zone.",
+        "In Yorba Linda's fire zones the Class A assembly rating matters as much as the price.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair is smarter, on groundwater that averages about 20 grains per gallon.",
-    },
-    {
-      href: "/guides/hvac-replacement-cost",
-      title: "HVAC replacement cost",
-      blurb:
-        "What a full system runs for a 1980s house, and central AC versus a heat pump.",
+        "Sizing a new tank for district groundwater at about 20 grains per gallon.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
       blurb:
-        "Month by month for this climate, including what to do before Santa Ana wind season.",
+        "Gutters, vents and clear drains before Santa Ana season and the few winter storms.",
     },
   ],
 
@@ -159,24 +159,12 @@ export const yorbaLinda: CityContent = {
 
   faq: [
     {
-      q: "Is my Yorba Linda home in a fire hazard severity zone?",
-      a: "There is a real chance it is, and it is decided parcel by parcel. The city's own page says Yorba Linda has Moderate, High and Very High zones under the state's 2025 maps, covering more than 6,500 acres, most of it in the Very High tier. Use the map linked from the city's fire hazard page to check your address, because the zone affects building standards on a reroof or addition, defensible space requirements and what has to be disclosed when you sell.",
-    },
-    {
       q: "What actually destroys homes in a Yorba Linda wildfire?",
-      a: "Embers, according to the fire authority's review of the 2008 Freeway Complex Fire. Its assessment of the homes destroyed or damaged in Yorba Linda found they were victims of ember intrusion rather than direct flame, with some losses coming from one burning house igniting the homes beside it. In maintenance terms that means ember-resistant attic and foundation vents, clean gutters and roof valleys, and nothing combustible stacked against the walls.",
-    },
-    {
-      q: "Is Yorba Linda's water hard?",
-      a: "Very. Yorba Linda Water District's report shows its groundwater averaging about 20 grains per gallon and its imported water about 14, and the district says most of what it serves is groundwater. It also notes that hardness can change through the year as it switches sources. Flushing a tank water heater yearly and descaling a tankless unit on the manufacturer's schedule is worth the hour here.",
-    },
-    {
-      q: "Can I pull a permit online for a water heater or reroof in Yorba Linda?",
-      a: "Yes. The city lists water heaters, air conditioning and heating units, electrical service panel upgrades, re-piping and like-for-like reroofs among the projects eligible for online submittal through its Accela portal. It also warns that a project inside a high fire or fuel modification zone may need extra code upgrades, so confirm your address with the Building Division before you order materials. A licensed contractor normally pulls the permit as part of the job.",
+      a: "Embers, according to the fire authority's review of the 2008 Freeway Complex Fire. It found the Yorba Linda homes destroyed or damaged were victims of ember intrusion rather than direct flame, some lit by a burning house next door, which points at attic and foundation vents, gutters and anything combustible against the walls.",
     },
     {
       q: "Does all of Yorba Linda get water from the same provider?",
-      a: "Almost. Yorba Linda Water District serves most of the city, but the district's own service area page says the Locke Ranch area receives its water from Golden State Water Company's Placentia system while the district provides only the sewer service there. The hardness figures on this page are the district's, so a Locke Ranch home should read Golden State Water's report instead.",
+      a: "Almost. The district's service area page says Locke Ranch gets its water from Golden State Water Company's Placentia system, with only sewer service from the district, so a Locke Ranch home should read Golden State's report for hardness.",
     },
   ],
 

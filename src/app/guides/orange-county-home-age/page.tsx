@@ -20,7 +20,8 @@ import {
 // can re-derive from the Census Reporter links in GUIDE_SOURCES.
 //
 // The era notes state only what the named rule or agency says: aluminum
-// branch wiring from CPSC Publication 516, the asbestos presumption from
+// branch wiring from CPSC Publication 516 (one line; the electrical panel
+// guide owns the detail), the asbestos presumption from
 // Cal/OSHA 8 CCR 1529, the pre-1978 lead rule from EPA, the raised-foundation
 // retrofit from the California Residential Mitigation Program, and the cast
 // iron drain life from InterNACHI's chart (a trade association, named as
@@ -108,10 +109,6 @@ export default function OrangeCountyHomeAgeGuide() {
         How old are Orange County homes?
       </h1>
       <GuideMeta path="/guides/orange-county-home-age" />
-      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Census Bureau estimates for the county and all 34 of its cities, plus
-        what the age of a house tends to mean for the work it needs.
-      </p>
 
       {/* Hero figure: the one number most people came for. */}
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-6 dark:border-bark-700 dark:bg-bark-700/20">
@@ -242,19 +239,12 @@ export default function OrangeCountyHomeAgeGuide() {
                 1965 to the mid 1970s: aluminum wiring
               </p>
               <p className="mt-1 text-sm">
-                The U.S. Consumer Product Safety Commission says homes built
-                before 1965 are unlikely to have aluminum branch circuit
-                wiring, and that wiring installed between 1965 and the mid
-                1970s may be aluminum. In a survey for the CPSC, homes built
-                before 1972 and wired with aluminum were 55 times more likely
-                than copper-wired homes to have at least one outlet connection
-                reach fire hazard conditions. The CPSC also says failing
-                aluminum connections seldom give easy warning signs, so have a
-                licensed electrician look. More in our{" "}
+                The U.S. Consumer Product Safety Commission says wiring
+                installed between 1965 and the mid 1970s may be aluminum. Our{" "}
                 <Link href="/guides/electrical-panel-upgrade-cost" className={linkClass}>
                   electrical panel guide
-                </Link>
-                .
+                </Link>{" "}
+                covers the fire risk and what to ask an electrician.
               </p>
             </li>
             <li className="rounded-xl border border-stone-200 p-4 leading-relaxed dark:border-white/10">

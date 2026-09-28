@@ -16,12 +16,14 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // confirm the material with their city's building division, which is the
 // body that actually approves it on the permit.
 // Sourced facts (opened 2026-09-21, links in GUIDE_SOURCES,
-// src/lib/guideExtras.ts): Fountain Valley and Santa Ana repipe permits, Yorba
-// Linda plumbing exemptions, Garden Grove permit FAQ, Health and Safety Code
-// 13113.7, CSLB bid, contract and license pages, EPA RRP rule, USGS on scale,
-// and the 2006 PEX design guide hosted on huduser.gov (written by the NAHB
-// Research Center for HUD's PATH program and two plastic pipe trade groups,
-// which the page says plainly).
+// src/lib/guideExtras.ts): CSLB bid and contract pages, Fountain Valley's
+// and Santa Ana's repipe permit pages, and the 2006 PEX design guide hosted
+// on huduser.gov (written by the NAHB Research Center for HUD's PATH program
+// and two plastic pipe trade groups, which the page says plainly). Yorba
+// Linda's repair-vs-new-work line, the C-36 license and the lead paint rule
+// live on
+// /guides/slab-leak-repair-orange-county; scale on /guides/hard-water-orange-county;
+// the smoke alarm sign-off and who pulls the permit on /guides/permits-orange-county.
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -42,9 +44,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Repiping a house in Orange County: copper vs PEX";
+const TITLE = "Repipe in Orange County: copper vs PEX";
 const DESCRIPTION =
-  "When a whole-house repipe makes sense in Orange County, how copper and PEX compare, what the permit and inspections involve, and what drives the price.";
+  "Repiping a house in Orange County: when a whole-house repipe makes sense, copper vs PEX, the permit and inspection, and what drives the bid price.";
 const CANONICAL = `${SITE_URL}/guides/repipe-orange-county`;
 
 export const metadata: Metadata = {
@@ -104,11 +106,6 @@ export default function RepipeOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/repipe-orange-county" />
-      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Written for Orange County homeowners deciding whether to replace their
-        water supply lines. No prices are quoted here on purpose. General
-        information, not plumbing or legal advice.
-      </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
@@ -144,10 +141,9 @@ export default function RepipeOrangeCountyGuide() {
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>A second slab leak.</strong> In the county&apos;s 1960s and
-              1970s tract homes the copper supply lines were often run through
-              the slab. One leak can be bad luck. Two suggests the rest of
-              the pipe is the same age and in the same condition. Our{" "}
+              <strong>A second slab leak.</strong> One leak can be bad luck.
+              Two suggests the rest of the pipe is the same age and in the
+              same condition. Our{" "}
               <Link href="/guides/slab-leak-repair-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
                 slab leak repair guide
               </Link>{" "}
@@ -204,8 +200,7 @@ export default function RepipeOrangeCountyGuide() {
             protected from UV, and that each manufacturer publishes a maximum
             exposure limit. So any run outside the wall needs to be covered
             or switched to another material. Fittings and installation
-            methods vary by brand, which is one more reason to use an
-            installer who does this every week.
+            methods vary by brand.
           </p>
           <p className="mt-2 leading-relaxed">
             What to ask for either one: the exact product and type, written
@@ -214,13 +209,11 @@ export default function RepipeOrangeCountyGuide() {
             in has any local conditions on the material. Your building
             division approves the material on the permit, so that is the
             place to confirm it, not a sales brochure. Whatever goes in the
-            walls, the water stays hard. As the U.S. Geological Survey notes,
-            heated hard water leaves calcium carbonate scale that can clog
-            pipes, and our{" "}
+            walls, the water stays hard; our{" "}
             <Link href="/guides/hard-water-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               hard water guide
             </Link>{" "}
-            covers what to do about that.
+            covers what scale does to pipes and heaters.
           </p>
         </section>
 
@@ -229,14 +222,16 @@ export default function RepipeOrangeCountyGuide() {
             Do I need a permit to repipe a house?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Yes in the cities we checked. Fountain Valley lists a residential
-            repipe among its expedited permits, and Santa Ana lists
-            residential repipes on its same-day express permit list, which
-            means no plan check, not no permit. Yorba Linda&apos;s published
-            exemptions draw the line the way the state plumbing code does:
-            stopping or repairing a leak is exempt, but removing a concealed
-            pipe and replacing it with new material is new work that needs a
-            permit and an inspection.
+            Yes in the cities we checked. Repairing a leak can be exempt, but
+            new pipe is new work that needs a permit and an inspection (our{" "}
+            <Link href="/guides/slab-leak-repair-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              slab leak repair guide
+            </Link>{" "}
+            shows where Yorba Linda draws that line). The permit is usually
+            quick: Fountain Valley lists a residential repipe among its
+            expedited permits, and Santa Ana lists residential repipes on its
+            same-day express permit list, which means no plan check, not no
+            permit.
           </p>
           <p className="mt-2 leading-relaxed">
             The inspection is the part that protects you. The inspector sees
@@ -246,18 +241,12 @@ export default function RepipeOrangeCountyGuide() {
             permit.
           </p>
           <p className="mt-2 leading-relaxed">
-            Two things the permit brings with it. Under Health and Safety
-            Code section 13113.7, when a permit is issued for work over
-            $1,000, the city cannot sign off until the home has approved
-            smoke alarms, so check yours before the final. And Garden Grove&apos;s
-            building division gives the practical reason to have the
-            contractor pull the permit instead of you: the contractor then
-            keeps the responsibility to call for and pass every inspection.
             Our{" "}
             <Link href="/guides/permits-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               Orange County permit guide
             </Link>{" "}
-            shows how cities differ.
+            covers the smoke alarm check at final sign-off and why the
+            contractor, not you, should pull the permit.
           </p>
         </section>
 
@@ -266,9 +255,8 @@ export default function RepipeOrangeCountyGuide() {
             What affects the cost of a repipe?
           </h2>
           <p className="mt-2 leading-relaxed">
-            We do not print a price range, because we could not find a
-            reliable published figure for Orange County. Bids are built from
-            these pieces, and you can ask about each one:
+            We found no reliable published price for Orange County. Bids are
+            built from these pieces, and you can ask about each one:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -334,10 +322,9 @@ export default function RepipeOrangeCountyGuide() {
             The Contractors State License Board says a contract should detail
             the work, the price, when payments will be made, who gets the
             building permits and when the job will be finished, and must
-            identify the contractor with an address and license number. For
-            plumbing that license is the C-36 classification. California
-            also caps the down payment on a home improvement contract, which
-            our{" "}
+            identify the contractor with an address and license number.
+            California also caps the down payment on a home improvement
+            contract, which our{" "}
             <Link href="/guides/contractor-deposit-rules-california" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               deposit rules guide
             </Link>{" "}
@@ -346,11 +333,13 @@ export default function RepipeOrangeCountyGuide() {
           <p className="mt-2 leading-relaxed">
             Ask how long the water will be off each day and whether it will
             be back on each night. Ask who protects floors and furniture and
-            who hauls debris. If the house was built before 1978, ask about
-            lead paint: the EPA&apos;s renovation rule requires anyone paid to
-            disturb painted surfaces in pre-1978 homes to be certified and
-            trained in lead-safe work practices. When the job is done, walk
-            every fixture, hot and cold, and look at the meter with
+            who hauls debris. In a house built before 1978, ask about lead
+            paint; our{" "}
+            <Link href="/guides/slab-leak-repair-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              slab leak repair guide
+            </Link>{" "}
+            covers the rule. When the job is done,
+            walk every fixture, hot and cold, and look at the meter with
             everything off.
           </p>
           <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
@@ -366,10 +355,9 @@ export default function RepipeOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-            As of September 2026. We describe how these jobs usually go, not
-            what your city&apos;s code requires: permit rules and approved
-            materials are decided by your building division. This is general
-            information, not plumbing or legal advice.
+            As of September 2026. Permit rules and approved materials are
+            decided by your building division. General information, not
+            plumbing or legal advice.
           </p>
         </section>
       </div>

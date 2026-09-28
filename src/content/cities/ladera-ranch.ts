@@ -46,7 +46,7 @@ export const laderaRanch: CityContent = {
   name: "Ladera Ranch",
   slug: "ladera-ranch",
   intro:
-    "Ladera Ranch is not a city: it is an unincorporated community governed by the County of Orange, so the county is the building department and a master homeowners association, LARMAC, reviews anything you change on the outside of the house. It was also built almost all at once. The association's own timeline has the first resident moving in on December 14, 1999 and the community selling out, apart from custom lots, by April 2007, and the census file agrees: about 83 percent of the homes date from 2000 to 2009. Whole streets reach the same age together here, on water the district measures at 15 grains per gallon and inside a ring of state fire hazard zones.",
+    "Ladera Ranch is an unincorporated community, so the County of Orange is the building department and a master homeowners association, LARMAC, reviews changes to the outside of the house. It went up almost at once: the first resident moved in on December 14, 1999, the community sold out apart from custom lots by April 2007, and about 83 percent of the homes date from 2000 to 2009.",
   metaDescription:
     "Ladera Ranch is unincorporated: county permits, LARMAC review, 83 percent of homes from 2000 to 2009, 15 grain water and fire zones on the edges, sourced.",
   metaTitle: "Ladera Ranch, CA: 2000s homes, county-run permits",
@@ -69,39 +69,39 @@ export const laderaRanch: CityContent = {
     },
     facts: [
       {
-        text: "Ladera Ranch's median year built is 2005. Of about 7,716 housing units in the census designated place, roughly 83.3 percent went up from 2000 to 2009, 5.7 percent in the 1990s and 6.9 percent since 2010; about 56.6 percent are detached houses and 24.8 percent attached. These are survey estimates, and the few percent the survey assigns to decades before 1990 are best read as sampling noise. A house from this decade is now about 17 to 26 years old: the first water heater is usually gone already, and the original air conditioner, furnace, garage door opener and exterior paint tend to come due on the same few streets in the same few years.",
+        text: "Of about 7,716 housing units in the census designated place, roughly 83.3 percent went up from 2000 to 2009, 5.7 percent in the 1990s and 6.9 percent since 2010; about 56.6 percent are detached houses and 24.8 percent attached. At 17 to 26 years old, the original air conditioners, furnaces, garage door openers and exterior paint tend to come due on the same streets in the same few years.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0639114",
         sourceLabel:
           "Census Reporter, ACS 2024 5-year tables B25034, B25035 and B25024",
       },
       {
-        text: "The master association's own timeline dates the community precisely. Sales tours of bare dirt began in August 1999, the first resident moved in on December 14, 1999, 3,987 homes had sold by April 2003, and in April 2007, at 6,585 homes, the timeline says Ladera Ranch sells out except for custom lots. The association describes the result as a 4,000 acre master planned community organized into six villages and three districts.",
+        text: "Sales tours of bare dirt began in August 1999, 3,987 homes had sold by April 2003, and in April 2007, at 6,585 homes, the master association's timeline says Ladera Ranch sold out except for custom lots. The association describes a 4,000 acre master planned community of six villages and three districts.",
         sourceUrl: "https://laderalife.com/about/explore-ladera-ranch",
         sourceLabel: "LaderaLife.com (LARMAC and LARCS), Ladera Ranch through the years",
       },
       {
-        text: "There is no city hall. The County of Orange's hazard plan lists Ladera Ranch among the planned communities in southern Orange County that county government serves directly, and the county places it in the Fifth Supervisorial District. The Ladera Ranch Civic Council describes itself as a private, volunteer nonprofit created in 2009 after the 2007 and 2008 protest over a proposed 47-megawatt peaker plant; it says plainly that it has no legal authority and that it advises the district supervisor. Police service comes from the Orange County Sheriff's Department, whose South Patrol lists Ladera Ranch among the unincorporated areas it covers.",
+        text: "There is no city hall. The County of Orange lists Ladera Ranch among the southern Orange County planned communities that county government serves directly, in the Fifth Supervisorial District.",
         sourceUrl: "https://bos5.oc.gov/fifth-district/overview",
         sourceLabel: "County of Orange, Fifth District overview",
       },
       {
-        text: "Exterior work answers to two separate bodies. LARMAC, the Ladera Ranch Maintenance Corporation, says its Aesthetics Review Committee must approve all plans for architectural or landscaping modifications before they are made, from paint (a master palette of 125 schemes) to patio covers and solar panels, whose frames must be black or compatible with the roof color. Its standards also say committee approval is not a building department or County approval and that pulling building permits is the job of the homeowner and their contractor. Plan for both reviews before you sign a contract with a start date.",
+        text: "LARMAC's Aesthetics Review Committee must approve architectural and landscaping changes before they are made, from paint (a master palette of 125 schemes) to patio covers and solar panels, whose frames must be black or match the roof. Its standards say that approval is not County approval, and that pulling building permits is the homeowner's and contractor's job.",
         sourceUrl: "https://laderalife.com/aesthetic-standards",
         sourceLabel: "LARMAC Aesthetic Standards, adopted June 2024",
       },
       {
-        text: "Fire and paramedic service comes from the Orange County Fire Authority, which says it serves 23 cities and all unincorporated areas of the county. Its Station 58 is inside the community at 58 Station Way: the authority lists it as a career station established in 2003 with Medic Engine 58, and as the headquarters of its Division 3, with the division chief on the daily staffing and a bulldozer, Dozer 3, on the apparatus list.",
+        text: "The Orange County Fire Authority serves all unincorporated areas of the county. Its Station 58 at 58 Station Way, a career station established in 2003 with Medic Engine 58, is the headquarters of Division 3 and keeps a bulldozer, Dozer 3.",
         sourceUrl: "https://ocfa.org/about-us/departments/operations/",
         sourceLabel: "Orange County Fire Authority, Operations and station directory",
       },
       {
-        text: "Santa Margarita Water District handles what goes down the drain as well as what comes out of the tap. The district says wastewater from Ladera Ranch flows to its Chiquita Water Reclamation Plant, through a collection system of more than 665 miles of pipe. It also delivers recycled water to parks, medians, slopes and schools in Ladera Ranch, and says recycled water meets 25 percent of its total demand. That irrigation supply is a separate system from the drinking water line to your house.",
+        text: "Santa Margarita Water District also takes the wastewater, sending it through more than 665 miles of pipe to its Chiquita Water Reclamation Plant. It delivers recycled water, 25 percent of its total demand, to parks, medians, slopes and schools here, on a system separate from the drinking water line to your house.",
         sourceUrl: "https://www.smwd.com/310/Wastewater",
         sourceLabel: "Santa Margarita Water District, Wastewater and Recycled Water pages",
       },
       {
-        text: "The association's standards carry a plain warning about the ground: because of the nature of soils in south Orange County, they say, you should install steel reinforcement in concrete slabs and provide score lines or expansion joints to reduce cracking. They also require drainage devices and an outlet to the street through a curb core wherever new hardscape or planting would interrupt drainage to the street, and area drains in private yards. When a patio or side yard is redone, the drains matter as much as the finish.",
+        text: "Because of south Orange County soils, the association's standards say to put steel reinforcement in concrete slabs and score lines or expansion joints to limit cracking. They also require drainage devices with a curb-core outlet to the street wherever new hardscape or planting would block drainage, and area drains in private yards.",
         sourceUrl:
           "https://laderalife.com/upload/FormsAndDocument/Document/2024-06/LARMAC%20Aesthetic%20Standards%20%20ADOPTED%206.12.24.pdf",
         sourceLabel: "LARMAC Aesthetic Standards, adopted June 2024 (PDF)",
@@ -116,7 +116,7 @@ export const laderaRanch: CityContent = {
       "Flintridge Village",
       "Covenant Hills",
     ],
-    note: "These are the village names the master association attaches to its clubhouses. Its timeline has the Oak Knoll Clubhouse opening in March 2000, Avendale's in June 2002, and the Flintridge and Covenant Hills clubhouses in December 2004. The association places Covenant Hills in the southeastern area of the community, and custom homesites there go through a separate design review. It says there are six villages and three districts in all, but the pages we could open do not name the others as villages (Terramor appears as an aquatic park and Bridgepark as a plaza), so they are not listed.",
+    note: "These are the villages the master association names for its clubhouses: Oak Knoll's opened in March 2000, Avendale's in June 2002, and Flintridge's and Covenant Hills' in December 2004. Covenant Hills is in the southeast, and its custom homesites go through a separate design review. The association counts six villages and three districts, but its pages do not name the others as villages.",
     sourceUrl: "https://laderalife.com/amenities/clubhouses",
   },
 
@@ -124,7 +124,7 @@ export const laderaRanch: CityContent = {
     utility: "Santa Margarita Water District",
     utilityUrl: "https://www.smwd.com/",
     summary:
-      "Santa Margarita Water District supplies Ladera Ranch: the district's announcement of its 2026 Water Quality Report, which covers 2025, names Ladera Ranch among the communities the report is for. The report says the supply is all imported surface water: treated water from the Metropolitan Water District, which draws on the Colorado River and the State Water Project, and treated water from Irvine Ranch Water District's Baker Water Treatment Plant, which also uses Santiago Reservoir (Irvine Lake). Across the district's own distribution system in 2025, hardness averaged 256 ppm, or 15 grains per gallon, with a range of 210 to 300 ppm (12.3 to 17.5 grains). By source, Baker plant water averaged 293 ppm, 17 grains, with a range of 269 to 322 ppm, and Metropolitan water averaged 236 ppm, 14 grains, with a range of 191 to 280 ppm. That is very hard water, and the report itself notes that white scaling on faucets and showerheads may be caused by high levels of calcium carbonate. The district also reports that lead was not detected in any of the 52 homes it sampled at the tap in 2024.",
+      "Santa Margarita Water District's report on 2025 names Ladera Ranch among the communities it serves, and the supply is all imported surface water: Metropolitan Water District water from the Colorado River and State Water Project, plus Irvine Ranch Water District's Baker plant, which also draws on Irvine Lake. Hardness across the district averaged 256 ppm, or 15 grains per gallon, ranging from 210 to 300 ppm; Baker water averaged 17 grains and Metropolitan water 14. Lead was not detected in any of the 52 homes sampled at the tap in 2024.",
     sourceUrl:
       "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010101&Year=2025&isCert=false",
   },
@@ -133,37 +133,37 @@ export const laderaRanch: CityContent = {
     office: "County of Orange, OC Development Services (OC Public Works)",
     portalUrl: "https://myoceservices.ocgov.com/",
     summary:
-      "Ladera Ranch has no city building department: the County of Orange is the building department, through OC Development Services, which issues permits for the unincorporated areas. The county's permit FAQ says to apply online at myOCeServices.ocgov.com by creating an account and choosing permit applications. The public counter is on the first floor at 601 N. Ross Street in Santa Ana, open 8:00 AM to 4:00 PM Monday through Friday, and the main number is 714-667-8888, with 714-667-8811 for inspection questions. The FAQ says the property owner or an authorized agent, meaning a licensed contractor or someone holding a notarized letter from the owner, may obtain a permit, and that a permit expires if work has not started within one year of issuance, with one extension of up to 180 days. The county's residential handout adds that building permits are also required for re-roofing and that it is always wise to have the contractor obtain the permit. Approval from LARMAC is a separate step and does not replace a county permit.",
+      "OC Development Services issues permits for the unincorporated county, online at myOCeServices.ocgov.com or at the counter at 601 N. Ross Street in Santa Ana, 8:00 AM to 4:00 PM weekdays; call 714-667-8888, or 714-667-8811 for inspections. The owner, a licensed contractor or someone with a notarized letter from the owner can pull one. A permit expires if work has not started within one year, with one extension of up to 180 days, and re-roofing needs one. LARMAC approval is a separate step.",
     sourceUrl:
       "https://pwds.oc.gov/service-areas/oc-development-services/permitting-services/faqs",
   },
 
   hazards: [
     {
-      text: "The County of Orange says CAL FIRE released the updated Fire Hazard Severity Zone map for the unincorporated areas on March 24, 2025, and that the Board of Supervisors adopted it by Ordinance No. 25-015 on August 26, 2025. On that map the built-up middle of Ladera Ranch is unzoned, wrapped by Moderate and High bands, with the Very High tier running along the eastern edge and the north end of the community; the open land along Arroyo Trabuco on the west side sits in the state's own High zone. The county adds that buildings constructed in a Very High zone must use the fire-resistive features of California Building Code Chapter 7A. The zone is set parcel by parcel, so look up your address in the State Fire Marshal's viewer, which the county page links.",
+      text: "The Board of Supervisors adopted CAL FIRE's March 24, 2025 fire hazard map for the unincorporated county by Ordinance No. 25-015 on August 26, 2025. On it the built-up middle of Ladera Ranch is unzoned, wrapped by Moderate and High bands, with Very High along the eastern edge and north end and the state's own High zone on the Arroyo Trabuco open land to the west. New buildings in a Very High zone must meet California Building Code Chapter 7A.",
       sourceUrl:
         "https://pwds.oc.gov/service-areas/oc-development-services/planning-development/current-projects/all-districts-projects/orange-county-fire-hazard-severity-zones-map",
       sourceLabel: "OC Development Services, Orange County Fire Hazard Severity Zones Map",
     },
     {
-      text: "Brush fires do start close to the houses. On Tuesday, July 7, 2026, a brush fire started about 4:45 p.m. at Narrow Canyon Road and Acaster Way in Ladera Ranch, according to an Orange County Fire Authority captain quoted by MyNewsLA, who said at 6 p.m. that crews had stopped the spread toward homes. The authority declared the fire under control at 6:27 p.m. If the slope behind your fence is association land, LARMAC takes reports through its online maintenance request form; your own side of the fence is yours to keep clear.",
+      text: "On July 7, 2026, a brush fire started about 4:45 p.m. at Narrow Canyon Road and Acaster Way; an Orange County Fire Authority captain said crews had stopped its spread toward homes by 6 p.m., and it was under control at 6:27 p.m. LARMAC takes reports about association slopes through its online maintenance request form.",
       sourceUrl:
         "https://mynewsla.com/orange-county/2026/07/07/orange-county-fire-authority-firefighters-control-blaze-in-ladera-ranch-2/",
       sourceLabel: "MyNewsLA, July 7, 2026",
     },
     {
-      text: "The California Geological Survey's seismic hazard zone maps for this area, the San Juan Capistrano quadrangle released December 21, 2001 and the Canada Gobernadora quadrangle released September 23, 2002, place earthquake-induced landslide zones over a large share of the land inside Ladera Ranch and a liquefaction zone along Arroyo Trabuco on the west side. Both release dates fall in the years when the community was still being built. The state's Alquist-Priolo fault zone layer shows no fault zone inside the community's census boundary. The survey explains that a mapped zone means a site-specific geotechnical investigation before new development is permitted, and a Natural Hazard Disclosure Statement when a property in a zone is sold; its EQ Zapp tool checks a single address.",
+      text: "State seismic hazard maps for the San Juan Capistrano (2001) and Canada Gobernadora (2002) quadrangles, released while the community was being built, put earthquake-induced landslide zones over a large share of Ladera Ranch and a liquefaction zone along Arroyo Trabuco. No Alquist-Priolo fault zone falls inside the census boundary. A mapped zone means a geotechnical study before new development and a disclosure at sale.",
       sourceUrl: "https://www.conservation.ca.gov/cgs/sh/seismic-hazard-zones",
       sourceLabel: "California Geological Survey, Seismic Hazard Zones",
     },
     {
-      text: "Flood risk here is narrow and low-lying. FEMA's National Flood Hazard Layer puts nearly all of Ladera Ranch in Zone X, its area of minimal flood hazard, and shows Special Flood Hazard Areas (Zones A and AE, with a floodway) only along the creek bottom on the western edge. The USGS National Hydrography Dataset names that stream Arroyo Trabuco and names Horno Creek as the drainage running through the middle of the community. For most lots the water to manage is your own: roof runoff, yard drains and the swales on the slope behind the fence.",
+      text: "FEMA puts nearly all of Ladera Ranch in Zone X, minimal flood hazard, with Special Flood Hazard Areas and a floodway only along the creek bottom on the western edge. The USGS National Hydrography Dataset names that stream Arroyo Trabuco, and Horno Creek the drainage through the middle of the community.",
       sourceUrl:
         "https://msc.fema.gov/portal/search?AddressQuery=Ladera%20Ranch%2C%20CA",
       sourceLabel: "FEMA Flood Map Service Center, National Flood Hazard Layer",
     },
     {
-      text: "Ladera Ranch carries Mello-Roos special taxes. The County of Orange formed six community facilities districts for Ladera Ranch, numbered 99-1, 2000-1, 2001-1, 2002-1, 2003-1 and 2004-1, and its finance office filed annual bond reports for all six for the fiscal year that ended June 30, 2025, so the bonds are still being repaid. The Fifth District supervisor's office says the Board voted on October 4, 2022 to study refinancing the bonds, and the county's annual reports show refunding bonds for districts 2002-1, 2003-1 and 2004-1 issued on May 18, 2023; the supervisor's page says the refinanced bonds sunset in 2034. Which district a house is in, and what it pays, is on the tax bill.",
+      text: "The county formed six Mello-Roos community facilities districts here, 99-1, 2000-1, 2001-1, 2002-1, 2003-1 and 2004-1, and filed bond reports for all six for the year ended June 30, 2025. Refunding bonds for 2002-1, 2003-1 and 2004-1 were issued on May 18, 2023, after a Board vote on October 4, 2022, and the Fifth District office says the refinanced bonds sunset in 2034. The tax bill shows a home's district and amount.",
       sourceUrl: "https://cfo.oc.gov/page/2026-continuing-disclosure-reports",
       sourceLabel: "County of Orange, 2026 continuing disclosure reports (Ladera Ranch districts)",
     },
@@ -173,26 +173,23 @@ export const laderaRanch: CityContent = {
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
-      blurb:
-        "Typical range and when a repair still makes sense, on district water that averaged 15 grains per gallon in 2025.",
+      blurb: "District water averaged 15 grains per gallon in 2025, hard on tanks.",
     },
     {
       href: "/guides/hvac-replacement-cost",
       title: "HVAC replacement cost",
       blurb:
-        "What a system runs when the original equipment dates from 2000 to 2009, as about 83 percent of the homes here do.",
+        "About 83 percent of homes here, and most original systems, date from 2000 to 2009.",
     },
     {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
-      blurb:
-        "Price per square by material, where the county requires a permit to re-roof and the association reviews what shows.",
+      blurb: "The county permits every re-roof, and LARMAC reviews what shows from the street.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
-      blurb:
-        "Month by month for this climate, including yard drains before winter and brush on the fence line before Santa Ana season.",
+      blurb: "Clear yard drains before winter and fence-line brush before Santa Ana season.",
     },
   ],
 
@@ -200,28 +197,12 @@ export const laderaRanch: CityContent = {
 
   faq: [
     {
-      q: "Is Ladera Ranch a city?",
-      a: "No. Ladera Ranch is an unincorporated community, counted by the census as a census designated place, and the County of Orange governs it as part of the Fifth Supervisorial District. There is no city council or city hall. The Ladera Ranch Civic Council is a volunteer nonprofit that advises the district supervisor and says itself that it has no legal authority, and LARMAC, the master homeowners association, maintains the common areas and reviews exterior changes. Building permits come from the county.",
+      q: "Who represents Ladera Ranch without a city council?",
+      a: "The Fifth District county supervisor. The Ladera Ranch Civic Council, a volunteer nonprofit formed in 2009 after the 2007 and 2008 protest over a proposed 47-megawatt peaker plant, advises the supervisor but says it has no legal authority. Police service comes from the Orange County Sheriff's Department's South Patrol.",
     },
     {
-      q: "Is Ladera Ranch water hard?",
-      a: "Yes, very. Santa Margarita Water District's report for 2025 shows hardness across its distribution system averaging 256 ppm, or 15 grains per gallon, with a range of 210 to 300 ppm. The supply is all imported: Metropolitan water averaged 14 grains per gallon and water from the Baker Water Treatment Plant averaged 17. Flush a tank water heater once a year and descale a tankless unit on the manufacturer's schedule.",
-    },
-    {
-      q: "Who provides fire service in Ladera Ranch?",
-      a: "The Orange County Fire Authority, which says it serves 23 cities and all unincorporated areas of the county. Its Station 58 is inside the community at 58 Station Way. The authority lists it as a career station established in 2003 with Medic Engine 58, and as the headquarters of its Division 3. Law enforcement is the Orange County Sheriff's Department, through its South Patrol.",
-    },
-    {
-      q: "Do I need a permit to replace a water heater or reroof in Ladera Ranch?",
-      a: "The county's own materials treat both as permitted work. Its permit FAQ lists a water heater under residential flat fee permits, closed out with a plumbing final inspection, and lists a re-roof permit whose first inspection is roof sheathing and framing; its residential handout says building permits are required for re-roofing. Apply through the county's myOCeServices portal or call OC Development Services at 714-667-8888. A licensed plumber or roofer normally pulls the permit as part of the job, and LARMAC's standards say exterior modifications need its review committee's approval as well.",
-    },
-    {
-      q: "Is my Ladera Ranch home in a fire hazard severity zone?",
-      a: "It depends how close you are to the edge. On the State Fire Marshal's March 24, 2025 map, which the Board of Supervisors adopted on August 26, 2025, the built-up middle of Ladera Ranch is unzoned, Moderate and High bands wrap around it, and the Very High tier runs along the eastern edge and the north end. The county says buildings constructed in a Very High zone must meet the Chapter 7A wildfire construction standards. Zones are set by parcel, so check your address in the viewer linked from the county's page.",
-    },
-    {
-      q: "Do Ladera Ranch homes pay Mello-Roos?",
-      a: "Homes inside one of the county's Ladera Ranch districts do. The County of Orange formed six community facilities districts for Ladera Ranch, numbered 99-1 through 2004-1, and was still filing annual bond reports for all six for the fiscal year that ended June 30, 2025. The county's reports show refunding bonds for three of them, 2002-1, 2003-1 and 2004-1, issued on May 18, 2023, and the Fifth District supervisor's office says the refinanced bonds sunset in 2034. The district and the amount for a given house are printed on its property tax bill.",
+      q: "What inspections does a water heater or re-roof get in Ladera Ranch?",
+      a: "A water heater is a county flat fee permit closed out with a plumbing final inspection. A re-roof permit's first inspection is the roof sheathing and framing, per the county's permit FAQ.",
     },
   ],
 

@@ -19,6 +19,10 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 //    Collector. Homeowners' Exemption: OC Assessor.
 //  - HOA: Civil Code 4525 and 4775. Digging: Government Code 4216.2.
 // Nothing here is tax or legal advice and the page says so.
+// Trimmed 2026-09-26 so each fact lives on one page: the alarm schedule and
+// seasonal tasks are on the maintenance checklist, Brace + Bolt rules on the
+// earthquake retrofit guide, permit history lookups on the permits guide.
+// Link, don't restate.
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -39,9 +43,11 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "New homeowner checklist for Orange County: first year";
+// 38 characters, so with the layout's " | OakTend" it is 48. The h1 keeps the
+// longer "...: first year" wording.
+const TITLE = "New homeowner checklist: Orange County";
 const DESCRIPTION =
-  "What to do in your first week, month and year in an Orange County home: shutoffs, water heater, alarms, tax bills, Mello-Roos, HOA papers and permits.";
+  "New homeowner checklist for Orange County: find the shutoffs, check the water heater straps and alarms, and plan for supplemental tax bills and Mello-Roos.";
 const CANONICAL = `${SITE_URL}/guides/new-homeowner-first-year-orange-county`;
 
 export const metadata: Metadata = {
@@ -102,9 +108,9 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/new-homeowner-first-year-orange-county" />
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Written for people who just bought a home in Orange County. Rules and
-        dates were read from state law, County of Orange and utility pages in
-        September 2026. General information, not legal, tax or safety advice.
+        Rules and dates were read from state law, County of Orange and utility
+        pages in September 2026. General information, not legal, tax or
+        safety advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
@@ -161,10 +167,15 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
             Then walk the house for alarms. State law requires an operable
             smoke alarm in every single-family home that is sold, and a
             carbon monoxide device in any home with a fuel-burning appliance,
-            a fireplace or an attached garage. The Orange County Fire
-            Authority says to test smoke alarms once a month and replace the
-            whole alarm every 10 years. The manufacture date is printed on
-            the back.
+            a fireplace or an attached garage. Check the manufacture date on
+            each alarm, then test them on the schedule in our{" "}
+            <Link
+              href="/guides/orange-county-home-maintenance-checklist"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              Orange County home maintenance checklist
+            </Link>
+            .
           </p>
         </section>
 
@@ -208,17 +219,15 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
             says that in most cases earthquake damage is not covered by a
             homeowners policy and a separate policy is needed, so decide on
             purpose. And if you bought an older house on a raised
-            foundation, look at Earthquake Brace + Bolt: the program says its
-            retrofit is only done on wood-framed homes built before 1980 with
-            a raised foundation, and it offers grants in eligible ZIP
-            codes. Our{" "}
+            foundation, our{" "}
             <Link
               href="/guides/earthquake-retrofit-orange-county"
               className="text-bark-700 underline hover:no-underline dark:text-stone-300"
             >
               earthquake retrofit guide
             </Link>{" "}
-            covers the grant, the work and the insurance discount, and{" "}
+            covers the Brace + Bolt grant, the work and the insurance
+            discount, and{" "}
             <Link
               href="/guides/orange-county-home-age"
               className="text-bark-700 underline hover:no-underline dark:text-stone-300"
@@ -318,14 +327,13 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
           <p className="mt-2 leading-relaxed">
             Ask the city&apos;s building division what permits are on file for
             your address. It tells you whether the patio cover or the remodel
-            was inspected, and how old the roof really is. Some cities put
-            this online: Newport Beach, for example, offers permit history by
-            address. Work that was never permitted becomes your
-            responsibility as the owner. Our{" "}
+            was inspected, and how old the roof really is. Work that was never
+            permitted becomes your responsibility as the owner. Our{" "}
             <Link href="/guides/permits-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               Orange County permit guide
             </Link>{" "}
-            explains what needs one.
+            explains what needs one and how to look up your city&apos;s
+            records.
           </p>
           <p className="mt-2 leading-relaxed">
             Before you dig for a tree or a fence post, contact 811.
@@ -338,24 +346,21 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             What should the rest of the first year look like?
           </h2>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              <strong>Before fall winds.</strong> Trim trees away from the
-              roof, clear gutters, and read our{" "}
-              <Link href="/guides/santa-ana-wind-wildfire-home-prep" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-                Santa Ana wind and wildfire prep guide
-              </Link>{" "}
-              if you live near a canyon or hillside.
-            </li>
-            <li>
-              <strong>Before the first rain.</strong> Check the roof and
-              clear yard drains.
-            </li>
-            <li>
-              <strong>Spring.</strong> Have the AC serviced before the first
-              heat wave, and flush a tank water heater once a year.
-            </li>
-          </ul>
+          <p className="mt-2 leading-relaxed">
+            One season at a time: wind prep in early fall, rain prep before
+            the first storm, the AC check-up in spring. Our{" "}
+            <Link
+              href="/guides/orange-county-home-maintenance-checklist"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              maintenance checklist
+            </Link>{" "}
+            lays it out month by month, and the{" "}
+            <Link href="/guides/santa-ana-wind-wildfire-home-prep" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              Santa Ana wind and wildfire prep guide
+            </Link>{" "}
+            matters most if you live near a canyon or hillside.
+          </p>
           <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             See what is typical for homes in{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
@@ -370,13 +375,10 @@ export default function NewHomeownerFirstYearOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-            Dates, amounts and code sections as of September 2026. Tax rules,
-            deadlines and local requirements change, and your home and HOA
-            may differ, so confirm with the Orange County Treasurer-Tax
-            Collector, the Assessor, your city and your utility. This is
-            general information, not legal, tax, insurance or safety advice.
-            If you smell gas, leave and call SoCalGas or 911 from a safe
-            place.
+            As of September 2026. Tax rules, deadlines and local requirements
+            change, so confirm with the Treasurer-Tax Collector, the Assessor,
+            your city and your utility. If you smell gas, leave and call
+            SoCalGas or 911 from a safe place.
           </p>
         </section>
       </div>

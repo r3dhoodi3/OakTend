@@ -28,10 +28,13 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Slab leak signs in Orange County homes: spot one early";
+const TITLE = "Slab leak signs in Orange County homes";
 const DESCRIPTION =
-  "Early signs of a slab leak, why 1960s and 1970s Orange County homes are prone to them, a two-hour water meter test, repair options, and when to act.";
+  "Slab leak signs in Orange County homes: a warm spot on the floor, a rising water bill, running water sounds, the two-hour meter test and when to act.";
 const CANONICAL = `${SITE_URL}/guides/slab-leak-signs`;
+
+const linkClass =
+  "text-bark-700 underline hover:no-underline dark:text-stone-300";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -53,26 +56,13 @@ export const metadata: Metadata = {
   },
 };
 
+// One FAQ only: the other questions this block used to carry repeated the
+// body sections word for word. Repair options and cost drivers live on
+// /guides/slab-leak-repair-orange-county.
 const FAQS = [
   {
-    q: "What are the signs of a slab leak?",
-    a: "The most common signs are a warm or hot spot on the floor, a water bill that jumps without a clear reason, the sound of running water when every faucet and appliance is off, and in more advanced cases, damp carpet, a musty smell, or cracks in the flooring or slab itself.",
-  },
-  {
     q: "How much does a slab leak repair cost?",
-    a: "It depends mostly on where the leak sits and how it has to be accessed. A spot repair through a reachable section of slab is usually the cheapest option, a reroute costs more because it involves running new pipe through the attic or walls, and a full repipe is the biggest job since it replaces every supply line at once. Because access and pipe length vary so much from house to house, we don't quote a number here: a licensed plumber can give you one once they've located the leak.",
-  },
-  {
-    q: "What are my repair options for a slab leak?",
-    a: "At a high level, the main options are a spot repair (opening the slab at the leak to fix that one section of pipe), a reroute (abandoning the damaged line and running a new one through the attic or walls instead of back through the slab), or a full repipe (replacing all the home's supply lines at once, usually through the attic). A licensed plumber can tell you which fits your situation after locating the leak.",
-  },
-  {
-    q: "Is a slab leak an emergency?",
-    a: "Treat it as an emergency if you see active water pooling, water is coming up through the flooring, or you can't stop the flow at your main shutoff valve. A slow leak with just a warm spot and a rising water bill is worth addressing quickly, but it usually isn't a same-hour emergency the way active flooding is.",
-  },
-  {
-    q: "How can I check for a slab leak myself?",
-    a: "Use your water meter. The EPA's WaterSense program suggests reading the meter, using no water at all for two hours, and reading it again: if the number changed, you probably have a leak somewhere. It also says that if a family of four uses more than 12,000 gallons in a winter month, there could be a serious leak. The test does not tell you where the leak is, so a plumber still has to locate it.",
+    a: "It depends on where the leak is, how it has to be reached and whether you choose a spot repair, a reroute or a repipe. We found no reliable published price for Orange County, so we don't quote one: a licensed plumber can once the leak is located.",
   },
 ];
 
@@ -135,8 +125,7 @@ export default function SlabLeakSignsGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/slab-leak-signs" />
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        General guidance for homeowners, especially in older Orange County
-        tract homes.
+        General information, not plumbing advice.
       </p>
 
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
@@ -164,13 +153,15 @@ export default function SlabLeakSignsGuide() {
           <p className="mt-2 leading-relaxed">
             Age is why this guide exists. The Census Bureau&apos;s 2024
             American Community Survey puts about 12 percent of Orange
-            County&apos;s housing units in the 1950s, 19 percent in the 1960s,
-            and 22 percent in the 1970s, so about half the county&apos;s homes
-            are now roughly 50 to 75 years old. In the tract homes of those
-            decades, from Fountain Valley and Huntington Beach to Garden
-            Grove, Anaheim, and Santa Ana, copper water lines were commonly
-            run under or through the concrete slab rather than through walls
-            or an attic.
+            County&apos;s homes in the 1950s, 19 percent in the 1960s and 22
+            percent in the 1970s. Our guide to{" "}
+            <Link href="/guides/orange-county-home-age" className={linkClass}>
+              Orange County home age by city
+            </Link>{" "}
+            gives each city&apos;s median year built. In the tract homes of those decades, from
+            Fountain Valley and Huntington Beach to Garden Grove, Anaheim and
+            Santa Ana, copper water lines were commonly run under or through
+            the concrete slab rather than through walls or an attic.
           </p>
           <p className="mt-2 leading-relaxed">
             InterNACHI&apos;s life expectancy chart gives copper water lines
@@ -178,8 +169,6 @@ export default function SlabLeakSignsGuide() {
             window. Decades of contact with concrete and soil, along with the
             normal expansion and contraction of a hot water line, make pinhole
             leaks more likely than in homes with more accessible plumbing.
-            It&apos;s a pattern of the era and the construction method, not a
-            reflection of how well any one home has been cared for.
           </p>
           <p className="mt-2 leading-relaxed">
             Our city pages are a starting point:{" "}
@@ -236,30 +225,31 @@ export default function SlabLeakSignsGuide() {
             You can test for a hidden leak before calling anyone. The
             EPA&apos;s WaterSense program suggests reading your water meter,
             using no water at all for two hours, and reading it again. If the
-            number changed, you probably have a leak somewhere. WaterSense
-            also says that if a family of four uses more than 12,000 gallons
-            in a winter month, there could be a serious leak. The test does
-            not tell you where the leak is, so a plumber still has to locate
-            it, but it tells you whether the warm spot or the high bill is
-            worth chasing.
+            number changed, you probably have a leak somewhere. Turn off the
+            ice maker and irrigation timer first so they do not fool you.
+            WaterSense also says that if a family of four uses more than
+            12,000 gallons in a winter month, there could be a serious leak.
+            The test does not tell you where the leak is; a plumber still has
+            to locate it.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Repair options, at a high level
+            What are the repair options?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Once a plumber locates the leak, the usual options are a{" "}
-            <strong>spot repair</strong> (opening the slab just at the leak
-            and fixing that section of pipe), a{" "}
-            <strong>reroute</strong> (capping the damaged line and running a
-            new one through the attic or walls instead of back through the
-            slab), or a full <strong>repipe</strong> (replacing all of the
-            home&apos;s supply lines at once, typically through the attic, which
-            is often considered once a home has had more than one slab leak).
-            Which one makes sense depends on the pipe&apos;s condition elsewhere
-            in the home, not just the single leak that got noticed.
+            The three options are a spot repair, a reroute through the attic
+            or walls, or a
+            whole-house repipe. Our{" "}
+            <Link href="/guides/slab-leak-repair-orange-county" className={linkClass}>
+              slab leak repair guide
+            </Link>{" "}
+            compares the three and covers permits, and the{" "}
+            <Link href="/guides/repipe-orange-county" className={linkClass}>
+              repipe guide
+            </Link>{" "}
+            covers copper versus PEX.
           </p>
         </section>
 
@@ -271,28 +261,20 @@ export default function SlabLeakSignsGuide() {
             Active water pooling, water coming up through the flooring, or a
             leak you can&apos;t stop by closing the main shutoff valve are all
             reasons to call a plumber right away. A slow leak, where the only
-            signs are a warm spot and a rising water bill, is still worth
-            addressing promptly, since it can undermine flooring and drive up
-            water costs over time, but it usually doesn&apos;t need a same-hour
-            emergency response the way active flooding does.
+            signs are a warm spot and a rising water bill, is worth fixing
+            soon, since it can damage flooring and drive up water costs, but
+            it usually doesn&apos;t need a same-hour response.
           </p>
         </section>
 
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Frequently asked questions
-          </h2>
-          <div className="mt-2 space-y-4">
-            {FAQS.map((f) => (
-              <div key={f.q}>
-                <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-                  {f.a}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {FAQS.map((f) => (
+          <section key={f.q}>
+            <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+              {f.q}
+            </h2>
+            <p className="mt-2 leading-relaxed">{f.a}</p>
+          </section>
+        ))}
       </div>
 
       {/* Sources (where verified), related guides and city pages

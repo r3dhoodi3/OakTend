@@ -36,10 +36,10 @@ const CANONICAL = `${SITE_URL}/oc`;
 
 // `absolute` so the title reads as written rather than gaining a second
 // "| OakTend" from the root layout's template.
-const TITLE = "Home maintenance in Orange County, CA: all 36 cities | OakTend";
-const SHARE_TITLE = "Home maintenance in Orange County, CA: all 36 cities";
+const TITLE = "Orange County home maintenance by city | OakTend";
+const SHARE_TITLE = "Orange County home maintenance by city";
 const DESCRIPTION =
-  "What Orange County homes need, area by area: older north and central county tracts, coastal salt air, newer south county communities. Links to all 36 city pages and our local guides.";
+  "What Orange County homes need, area by area: older north and central tracts, coastal salt air, newer south county. Links to all 36 city pages and local guides.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -152,11 +152,9 @@ export default function OrangeCountyHub() {
         </h1>
         <p className="mt-4 leading-relaxed text-stone-600 dark:text-stone-300">
           Orange County is 34 cities and a handful of unincorporated
-          communities, and their homes were not all built at the same time or
-          for the same weather. What your home needs depends mostly on two
-          things: when it was built and how close it sits to the ocean. This
-          page groups all {ALL_CITIES.length} places OakTend covers by area,
-          with a short note on what homeowners in each one tend to deal with.
+          communities. What your home needs depends mostly on two things:
+          when it was built and how close it sits to the ocean. Here are all{" "}
+          {ALL_CITIES.length} places OakTend covers, by area.
         </p>
         <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-300">
           {CATEGORY_SENTENCE} Add your home once and it builds a plan around
@@ -197,19 +195,22 @@ export default function OrangeCountyHub() {
             Two seasons every Orange County home shares
           </h2>
           <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
-            Santa Ana winds usually arrive in the fall. That is the time to
-            clear dry leaves and debris from around the house and to check
-            that roof tiles, fence panels and gates are secure. Most of the
-            year&apos;s rain falls between late fall and early spring, so
-            gutters, roof flashing and yard drains are best checked before the
-            first storm. Our{" "}
+            Santa Ana winds usually arrive in the fall, and most of the
+            year&apos;s rain falls between late fall and early spring. Our{" "}
             <Link
               href="/guides/orange-county-home-maintenance-checklist"
               className={linkClass}
             >
               month-by-month calendar
             </Link>{" "}
-            lays out the whole year.
+            and{" "}
+            <Link
+              href="/guides/santa-ana-wind-wildfire-home-prep"
+              className={linkClass}
+            >
+              wind and wildfire prep guide
+            </Link>{" "}
+            cover what to do before each.
           </p>
         </section>
 

@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Termites in Orange County: tenting vs local treatment";
+export const alt = "OakTend guide: Termite tenting in Orange County";
 
 export default function OgImage() {
   return renderOgCard(
-    "Termites in Orange County: tenting vs local treatment",
+    "Termite tenting in Orange County",
     "An OakTend home guide"
   );
 }

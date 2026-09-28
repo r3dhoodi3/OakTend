@@ -26,6 +26,14 @@ import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 // signed-in CTA points at /contractors?category=remodeling (ADU work maps to
 // the remodeling service category, see SERVICE_CATEGORIES in
 // src/lib/constants.ts).
+//
+// Trimmed 2026-09-26 so each fact appears once. Topics other guides own are
+// one sentence and a link here: garage conversions, HOA and coastal review,
+// housing age (the city table carries the per-city numbers), asbestos and
+// lead rules, reading a bid, and the license and down payment rules. The FAQ
+// keeps only the two answers the body does not give (renting without living
+// there, and SB 9 lot splits); FAQS feeds both the visible list and the
+// FAQPage JSON-LD.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -46,7 +54,7 @@ export const revalidate = 3600;
 // Kept to 37 characters so the full "<title> | OakTend" stays under 50.
 const TITLE = "ADU cost in Orange County: 2026 rules";
 const DESCRIPTION =
-  "A sourced 2025 ADU cost average near Orange County, the 2026 California ADU law changes, fee waivers, pre-approved plans by city, and how to save.";
+  "ADU cost in Orange County: a sourced 2025 average for a detached unit, the 2026 California ADU law changes, impact fee limits and pre-approved plans by city.";
 const CANONICAL = `${SITE_URL}/guides/adu-cost`;
 
 export const metadata: Metadata = {
@@ -73,39 +81,12 @@ export const metadata: Metadata = {
 
 const FAQS = [
   {
-    q: "How much does an ADU cost in Orange County?",
-    a: "No published cost survey we could find has its own Orange County line, so the closest sourced number is for the Los Angeles market next door. According to the Remodeling 2025 Cost vs. Value Report (www.costvsvalue.com), a new 660 square foot, one-story, one-bedroom detached ADU averaged $178,536 there in 2025, or about $270 per square foot by simple division, and $166,406 nationally. A larger unit costs more. A garage conversion usually costs less, because the walls, roof, and foundation already exist.",
-  },
-  {
-    q: "What is the cheapest type of ADU to build?",
-    a: "Converting an existing garage is usually the cheapest path to an ADU. Because the walls, roof, and foundation already exist, you avoid the biggest costs of new construction. The main expenses become insulation, plumbing, electrical, and finishes to turn the shell into a livable unit. We did not find a published survey figure for garage conversions, so we do not print a number for them.",
-  },
-  {
-    q: "Do I need my city's approval and a hearing to build an ADU in California?",
-    a: "California ADU approval is ministerial, which means no public hearings. The city reviews your application against the rules and must decide within 60 days. If it misses that deadline, the application is deemed approved. Cities also cannot cap ADU size below 850 square feet for a studio or one-bedroom, or 1,000 square feet for two or more bedrooms. These rules come from California Government Code sections 66310 through 66342.",
-  },
-  {
     q: "Can I rent out my ADU in Orange County without living there?",
-    a: "For standard ADUs, there is no statewide owner-occupancy requirement. That rule was made permanent in 2024 under AB 976, so you generally can build an ADU and rent it without living on site. For a junior ADU inside the house, AB 1154 limits the owner-occupancy rule, from January 1, 2026, to units that share a bathroom with the main home, and a junior ADU rental has to be for more than 30 days. Local rules and permit conditions still apply, so check your city.",
-  },
-  {
-    q: "Is an ADU a good investment?",
-    a: "If you are counting on resale, the numbers are weak. In the Cost vs. Value Report's Los Angeles market for 2025, a detached ADU recouped about 40 percent of its cost at resale. The stronger case is usually rental income over time, or housing family without paying separate rent or a mortgage elsewhere. Check real rents for small units in your own city before you count on a number.",
-  },
-  // Added 2026-09-25 from the "People also ask" questions in the SEO
-  // research (OakTend-marketing/seo-research-2026-09-24). Each answer only
-  // repeats what the page body already says and sources.
-  {
-    q: "What is the difference between a garage conversion and an ADU?",
-    a: "A garage conversion can be an ADU, if it becomes a permitted, separate home with its own kitchen and bathroom. Turning a garage into a spare room or office is a different, smaller project that does not create a rentable unit. For an ADU, the garage shell saves the cost of new walls, a roof, and a foundation, but the plumbing, electrical, and finishes still have to meet code for a dwelling. Newport Beach is one Orange County city whose standard plans include garage conversions.",
-  },
-  {
-    q: "Do I pay impact fees on an ADU in California?",
-    a: "Not on a small one. Under SB 543, signed October 10, 2025, a city cannot charge impact fees on an ADU with 750 square feet or less of interior livable space, or on a junior ADU of 500 square feet or less. Above 750 square feet, impact fees have to be charged in proportion to the size of the main house. Units under 500 square feet of interior livable space are also treated as not adding enough space to trigger school fees. Utility connection and permit fees are separate.",
+    a: "For a standard ADU, yes. Government Code section 66315 bars cities from adding an owner-occupancy requirement, and AB 976 made that permanent in 2024. For a junior ADU, AB 1154 allows an owner-occupancy rule only when it shares a bathroom with the main home. Local permit conditions still apply.",
   },
   {
     q: "Can I split my lot under SB 9 instead of building an ADU?",
-    a: "Possibly. SB 9 lets the owner of a qualifying single-family lot in an urbanized area split it into two lots of roughly equal size and build up to two units on each, with ministerial approval. The city must approve or deny a complete application within 60 days. You have to sign an affidavit that you intend to live in one of the units for at least three years, and any rental must be for more than 30 days. Several exceptions apply, such as homes rented to a tenant in the last three years.",
+    a: "Possibly. Per the state housing department's April 2026 fact sheet, SB 9 lets the owner of a qualifying single-family lot in an urbanized area split it into two lots of roughly equal size and build up to two units on each, with ministerial approval within 60 days of a complete application. You sign an affidavit that you intend to live in one of the units for at least three years, and any rental must be for more than 30 days. Exceptions apply, such as homes rented to a tenant in the last three years.",
   },
 ];
 
@@ -169,7 +150,7 @@ export default function AduCostGuide() {
       <GuideMeta path="/guides/adu-cost" />
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Sourced planning figures for Orange County homeowners, not a quote for
-        your home. Prices vary.
+        your home.
       </p>
 
       {/* Hero cost callout: the one published average we can cite, above the
@@ -183,10 +164,11 @@ export default function AduCostGuide() {
         </p>
         <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           From the Remodeling 2025 Cost vs. Value Report
-          (www.costvsvalue.com), for a new 660 square foot, one-story,
-          one-bedroom detached unit on a slab. The report has no separate
-          Orange County market, so Los Angeles is the closest one. The
-          national average for the same unit is $166,406.
+          (www.costvsvalue.com), for a new 660 square foot, one-story unit on a
+          slab with one bedroom, one bathroom, a kitchen and a mini-split heat
+          pump. The report has no separate Orange County market, so Los
+          Angeles is the closest one. The national average for the same unit
+          is $166,406.
         </p>
       </div>
 
@@ -196,70 +178,32 @@ export default function AduCostGuide() {
             Cost by type
           </h2>
           <p className="mt-2 leading-relaxed">
-            With ADUs, the type matters more than a budget-versus-premium
-            label, because the type decides how much new structure you are
-            building from scratch.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            The one published average we can cite is for a detached unit.
-            According to the Remodeling 2025 Cost vs. Value Report
-            (www.costvsvalue.com), a new 660 square foot, one-story detached
-            ADU with one bedroom, one bathroom, a kitchen, and a mini-split
-            heat pump, built on a slab, averaged{" "}
-            <strong>$178,536</strong>
-            {" "}
-            in the Los Angeles market in 2025 and{" "}
-            <strong>$166,406</strong>
-            {" "}
-            nationally. The report has no separate Orange County market.
+            The type decides how much new structure you build from scratch,
+            so it moves the price more than finishes do.
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
               <strong>Garage conversion:</strong> usually the lowest-cost
-              path, since the shell already exists.
+              path, since the walls, roof and foundation already exist. The
+              parking, setback and permit rules are in{" "}
+              <Link
+                href="/guides/garage-conversion-vs-adu-orange-county"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                garage conversion vs ADU in Orange County
+              </Link>
+              .
             </li>
             <li>
               <strong>Attached ADU:</strong> a new unit built onto the
               existing home, sharing at least one wall.
             </li>
             <li>
-              <strong>Detached ADU:</strong> a standalone new building, with
-              its own foundation, roof, and utility connections. This is the
-              type the figure above describes.
+              <strong>Detached ADU:</strong> a standalone building with its
+              own foundation, roof and utility connections. This is the type
+              the figure above describes.
             </li>
           </ul>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Garage conversion: the cheapest path to an ADU
-          </h2>
-          <p className="mt-2 leading-relaxed">
-            Converting an existing garage is usually the most affordable way
-            to add an ADU. The reason is simple: the walls, roof, and foundation are
-            already there, so you skip the largest costs of new construction.
-            The budget instead goes toward insulation, drywall, plumbing,
-            electrical, a kitchen and bathroom, windows, and finishes to turn
-            a bare shell into a comfortable, code-compliant living space.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            The main variables are how much plumbing and electrical the garage
-            needs, whether the slab and roof are sound, and how far the
-            existing utilities reach. A garage close to the main home&apos;s water,
-            sewer, and panel converts more cheaply than one that needs long
-            new utility runs.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Garage room, garage ADU, or junior ADU? The parking, setback, and
-            permit rules differ for each; see{" "}
-            <Link
-              href="/guides/garage-conversion-vs-adu-orange-county"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              garage conversion vs ADU in Orange County
-            </Link>
-            .
-          </p>
         </section>
 
         <section>
@@ -267,13 +211,12 @@ export default function AduCostGuide() {
             Cost per square foot
           </h2>
           <p className="mt-2 leading-relaxed">
-            Divide the Los Angeles average by the 660 square foot unit it
+            Divide the Los Angeles average by the 660 square feet it
             describes and you get about{" "}
             <strong>$270 per square foot</strong>
             . Small units cost more per foot than large ones, because every
-            ADU needs a kitchen, a bathroom, and utility connections no matter
-            how small it is. Conversions of existing space tend to run lower
-            per foot than new detached builds.
+            ADU needs a kitchen, a bathroom and utility connections no matter
+            how small it is.
           </p>
         </section>
 
@@ -283,25 +226,27 @@ export default function AduCostGuide() {
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Type.</strong> Conversion, attached, or detached, in
-              rising order of cost.
-            </li>
-            <li>
               <strong>Size.</strong> More square footage means more materials
               and labor.
             </li>
             <li>
-              <strong>Site work and utilities.</strong> New foundation,
-              grading, and running water, sewer, gas, and electrical to the
-              unit can be a large share of a detached build.
+              <strong>Site work and utilities.</strong> A new foundation,
+              grading, and running water, sewer, gas and electrical to the
+              unit can be a large share of a detached build. A unit or garage
+              close to the main home&apos;s water, sewer and panel costs less
+              to connect than one that needs long new runs.
+            </li>
+            <li>
+              <strong>Condition of what you reuse.</strong> For a conversion,
+              whether the slab and roof are sound.
             </li>
             <li>
               <strong>Finishes.</strong> Basic versus high-end kitchens,
-              baths, and flooring shift the total meaningfully.
+              baths and flooring.
             </li>
             <li>
-              <strong>Permits and fees.</strong> Plan check, permit, and any
-              local fees vary by city.
+              <strong>Permits and fees.</strong> Plan check, permit and local
+              fees vary by city; the 2026 fee limits are below.
             </li>
           </ul>
         </section>
@@ -324,43 +269,26 @@ export default function AduCostGuide() {
             California ADU rules worth knowing
           </h2>
           <p className="mt-2 leading-relaxed">
-            California has made ADUs far easier to build than most homeowners
-            expect. Approval is <strong>ministerial</strong>, which means no
-            public hearings: the city reviews your application against the
-            rules and must decide within <strong>60 days</strong>. If it
-            misses that deadline, the application is deemed approved. Cities
-            also cannot cap ADU size below 850 square feet for a studio or
-            one-bedroom, or 1,000 square feet for two or more bedrooms. For
-            standard ADUs there is no statewide owner-occupancy requirement,
-            made permanent in 2024 under AB 976, so you generally can build and
-            rent without living on site. These rules come from California
-            Government Code sections 66310 through 66342.
+            Approval is <strong>ministerial</strong>, which means no public
+            hearing: under Government Code section 66317 the city reviews your
+            application against the rules and must decide within{" "}
+            <strong>60 days</strong>, or the application is deemed approved.
+            Cities cannot cap ADU size below 850 square feet for a studio or
+            one-bedroom, or 1,000 square feet for two or more bedrooms. These
+            rules are in Government Code sections 66310 through 66342.
           </p>
           <p className="mt-2 leading-relaxed">
-            An ADU is a structural project, so it needs permits and a licensed
-            contractor. California requires a CSLB contractor license for any
-            job of <strong>$1,000 or more</strong>, counting labor and
-            materials together, as of January 1, 2025. The under-$1,000
-            exemption does not apply if the job needs any permit, if the person
-            hires helpers, or if a larger job is split into smaller contracts,
-            all of which describe an ADU. Structural, electrical, plumbing, and
-            gas work generally requires permits in OC cities, and changes to
-            lighting, HVAC, windows, or the building envelope can trigger
-            California energy-code (Title 24) compliance. Rules vary by city,
-            so check with your local building department.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            On a job this size, the deposit rule matters: the{" "}
-            <strong>down payment cannot exceed $1,000 or 10 percent</strong>{" "}
-            of the contract price, whichever is less, and the contract has to
-            be in writing (see our{" "}
+            Because an ADU needs building permits, whoever contracts for it
+            must hold a California contractor license, and the down payment
+            cannot exceed $1,000 or 10 percent of the price, whichever is less.
+            Our{" "}
             <Link
               href="/guides/contractor-deposit-rules-california"
               className="text-bark-700 hover:underline dark:text-stone-300"
             >
               deposit rules guide
-            </Link>
-            ).
+            </Link>{" "}
+            covers the rest of the contract rules.
           </p>
         </section>
 
@@ -369,9 +297,8 @@ export default function AduCostGuide() {
             What changed for ADUs in 2026
           </h2>
           <p className="mt-2 leading-relaxed">
-            Three state bills signed in fall 2025 change the rules for ADUs.
-            SB 543 and AB 1154 took effect January 1, 2026, with SB 543&apos;s
-            fee limits applying from October 10, 2025.
+            Three state bills signed in fall 2025 change the rules. SB 543 and
+            AB 1154 took effect January 1, 2026.
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -381,8 +308,9 @@ export default function AduCostGuide() {
               interior livable space, or on a junior ADU of 500 square feet or
               less. Above 750 square feet, impact fees have to be in
               proportion to the size of the main house. Units under 500 square
-              feet are also treated as too small to trigger school fees. The
-              fee limits applied from October 10, 2025.
+              feet are treated as too small to trigger school fees. The fee
+              limits applied from October 10, 2025. Utility connection and
+              permit fees are separate.
             </li>
             <li>
               <strong>AB 1154: junior ADUs.</strong> A city can require the
@@ -400,40 +328,37 @@ export default function AduCostGuide() {
               proclamation.
             </li>
           </ul>
-          <p className="mt-2 leading-relaxed">
-            Two older rules still stand. A city has <strong>60 days</strong>{" "}
-            to approve or deny a complete ADU application, and cannot require
-            the owner of a standard ADU to live on site. And under{" "}
-            <strong>SB 9</strong>, per the state housing department&apos;s
-            April 2026 fact sheet, a qualifying single-family lot can be split
-            into two lots with up to two units on each, approved or denied
-            within 60 days, if you sign an affidavit that you intend to live in
-            one of the units for at least three years.
-          </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Why it costs more in Orange County
+            Why it can cost more in Orange County
           </h2>
           <p className="mt-2 leading-relaxed">
-            Orange County has no line of its own in the Cost vs. Value Report,
-            which covers Los Angeles as the nearest market. The Los Angeles
-            average for the detached unit runs about 7 percent above the
-            national one. Four local things can push an ADU higher.
+            The Los Angeles average runs about 7 percent above the national
+            one, and four local things can push an ADU higher.
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Older houses and garages.</strong> About 57 percent of
-              Orange County&apos;s housing units were built before 1980, by the
-              Census Bureau&apos;s 2020 to 2024 American Community Survey, and
-              about 82 percent in Fountain Valley. Converting an old garage, or
-              tying a new unit into an old house, can mean an electrical panel,
-              sewer line, or water line that needs work first. Cal/OSHA
-              presumes sprayed or troweled-on surfacing in a building built in
-              1980 or earlier contains asbestos until tested, and paid work
-              that disturbs paint in a pre-1978 home follows the EPA&apos;s
-              lead-safe rules.
+              <strong>Older houses and garages.</strong> Most Orange County
+              homes predate 1980 (the table below has each city&apos;s share).
+              Converting an old garage, or tying a new unit into an old house,
+              can mean an electrical panel, a{" "}
+              <Link
+                href="/guides/sewer-line-orange-county"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                sewer line
+              </Link>{" "}
+              or a water line that needs work first. The asbestos and lead
+              paint rules for older homes are in{" "}
+              <Link
+                href="/guides/orange-county-home-age"
+                className="text-bark-700 hover:underline dark:text-stone-300"
+              >
+                how old Orange County homes are
+              </Link>
+              .
             </li>
             <li>
               <strong>The 2025 Energy Code.</strong> A new ADU is new
@@ -443,18 +368,15 @@ export default function AduCostGuide() {
             </li>
             <li>
               <strong>HOA review.</strong> An association can review the
-              design, but under California Civil Code section 4751 rules that
-              effectively prohibit or unreasonably restrict an ADU on a
-              single-family lot are void. Section 4765 requires the association
-              to decide in writing and explain a denial. Budget time for the
-              review anyway.
+              design, but under Civil Code section 4751 rules that effectively
+              prohibit or unreasonably restrict an ADU on a single-family lot
+              are void. Budget time for the review anyway.
             </li>
             <li>
               <strong>The coastal zone.</strong> Parts of Huntington Beach and
-              Newport Beach are in the coastal zone. Huntington Beach says
-              development there may require a coastal development permit, and
-              AB 462 now puts a 60-day clock on that permit for ADUs. Both
-              reviews are explained in our{" "}
+              Newport Beach are in it, and Huntington Beach says development
+              there may require a coastal development permit. Both reviews are
+              explained in our{" "}
               <Link
                 href="/guides/hoa-coastal-commission-remodel-orange-county"
                 className="text-bark-700 hover:underline dark:text-stone-300"
@@ -472,27 +394,23 @@ export default function AduCostGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             A pre-approved plan has already been through the city&apos;s
-            review, which can cut design fees and plan-check time. Irvine, Santa
-            Ana, Anaheim, Huntington Beach, and Newport Beach all publish them;
-            where we could not confirm a program, the table says so rather
-            than guessing.
+            review, which can cut design fees and plan-check time. Government
+            Code section 65852.27 required every city and county to set up a
+            pre-approved ADU plan program by January 1, 2025, so ask your
+            planning counter what is on its list before paying for a custom
+            design. Irvine, Santa Ana, Anaheim, Huntington Beach and Newport
+            Beach all publish them; where we could not confirm a program, the
+            table says so.
           </p>
           <OcRemodelCityTable showAduPlans />
           <p className="mt-3 leading-relaxed">
-            State law does most of the work here. Under Government Code
-            section 66317 a city has 60 days to approve or deny a complete ADU
-            application, with no hearing, and section 66315 bars cities from
-            adding an owner-occupancy requirement. For homes in unincorporated
-            areas, the County of Orange&apos;s OC Development Services says
-            ADU applications are processed ministerially and only require a
-            building permit, and it publishes pre-approved ADU plans you can
-            build from. Government Code section 65852.27 required every city
-            and county to set up a program for pre-approved ADU plans by
-            January 1, 2025, so ask your planning counter what is on its list
-            before paying for a custom design.
+            For homes in unincorporated areas, the County of Orange&apos;s OC
+            Development Services says ADU applications are processed
+            ministerially and only require a building permit, and it publishes
+            pre-approved ADU plans you can build from.
           </p>
           <p className="mt-2 leading-relaxed">
-            Every city still sets its own fees, setbacks, and parking details
+            Every city still sets its own fees, setbacks and parking details
             within the state&apos;s limits. Our city pages are a starting
             point:{" "}
             <Link
@@ -535,80 +453,22 @@ export default function AduCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How to read the estimate
+            Checking an ADU bid
           </h2>
           <p className="mt-2 leading-relaxed">
-            The figures on this page are estimate ranges, not a quote. When a
-            real bid for your ADU arrives, check it against this list.
-          </p>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              The contractor&apos;s name, business address, and CSLB license
-              number are on it, and the license checks out on the CSLB site.
-            </li>
-            <li>
-              The scope is itemized: design and plans, city and utility fees,
-              foundation, utility runs, framing, roof, kitchen, bathroom, and
-              finishes. A line marked &quot;allowance&quot; is a placeholder
-              that can go up.
-            </li>
-            <li>It says who gets the building permits.</li>
-            <li>
-              The down payment is no more than $1,000 or 10 percent of the
-              price, whichever is less.
-            </li>
-            <li>
-              Payments follow finished work. A contractor may not collect for
-              work not yet done or materials not yet delivered.
-            </li>
-            <li>Start and completion dates are written in.</li>
-            <li>
-              It says whether a pre-approved city plan is being used, and how
-              surprises like an undersized panel or a failing sewer line will
-              be priced.
-            </li>
-            <li>
-              You have at least three written bids on the same scope. The
-              lowest is not automatically the best.
-            </li>
-          </ul>
-          <p className="mt-2 leading-relaxed">
-            More on this in{" "}
+            Beyond the basics in{" "}
             <Link
               href="/guides/is-my-contractor-quote-fair"
               className="text-bark-700 hover:underline dark:text-stone-300"
             >
               is my contractor&apos;s quote fair?
             </Link>
+            , an ADU bid should itemize design and plans, city and utility
+            fees, foundation, utility runs, framing, roof, kitchen, bathroom
+            and finishes. It should say whether a pre-approved city plan is
+            being used, and how surprises like an undersized panel or a failing
+            sewer line will be priced.
           </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How to save money
-          </h2>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              <strong>Convert instead of building new.</strong> A garage
-              conversion reuses the existing shell and is the cheapest path.
-            </li>
-            <li>
-              <strong>Stay near existing utilities.</strong> Building close to
-              the main home&apos;s water, sewer, and panel shortens costly utility
-              runs.
-            </li>
-            <li>
-              <strong>Use standard or pre-approved plans.</strong> State law
-              required every city and county to set up a pre-approved ADU plan
-              program by January 1, 2025. Building from a plan on that list
-              can cut plan-check time and design fees.
-            </li>
-            <li>
-              <strong>Keep it single story on the existing slab.</strong>{" "}
-              Avoiding a new foundation or second story trims some of the
-              biggest structural costs.
-            </li>
-          </ul>
         </section>
 
         <section>
@@ -616,15 +476,12 @@ export default function AduCostGuide() {
             A note on value: think income, not resale
           </h2>
           <p className="mt-2 leading-relaxed">
-            If you are counting on resale to justify the cost, the numbers are
-            weak. In the Cost vs. Value Report&apos;s Los Angeles market for
-            2025, a detached ADU recouped about 40 percent of its cost at
-            resale. The stronger case is ongoing value: rent that offsets part
-            of a mortgage over time, or housing a family member instead of
-            paying separate rent or a mortgage elsewhere. Check real rents for
-            small units in your own city before you count on a number. Framed
-            as monthly income or avoided housing cost rather than a resale
-            bump, the math looks very different.
+            In the Cost vs. Value Report&apos;s Los Angeles market for 2025, a
+            detached ADU recouped about 40 percent of its cost at resale. The
+            stronger case is rent that offsets part of a mortgage, or housing a
+            family member who would otherwise pay rent elsewhere. Check real
+            rents for small units in your own city before you count on a
+            number.
           </p>
         </section>
 
@@ -647,12 +504,11 @@ export default function AduCostGuide() {
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Cost and resale figures are from the Remodeling 2025 Cost vs.
-            Value Report (www.costvsvalue.com) for the Los Angeles market, the
-            closest market the report covers. © 2025 Zonda Media, a Delaware
-            Corporation. Complete data from the Remodeling 2025 Cost vs. Value
-            Report can be downloaded free at www.costvsvalue.com. Prices vary
-            by property and project. OakTend does not set, guarantee, or bid
-            these prices and is not a contractor.
+            Value Report (www.costvsvalue.com), Los Angeles market. © 2025
+            Zonda Media, a Delaware Corporation. Complete data from the
+            Remodeling 2025 Cost vs. Value Report can be downloaded free at
+            www.costvsvalue.com. OakTend does not set, guarantee, or bid these
+            prices and is not a contractor.
           </p>
         </section>
       </div>

@@ -34,9 +34,9 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Hard water in Orange County: a homeowner guide";
+const TITLE = "Hard water in Orange County";
 const DESCRIPTION =
-  "How hard Orange County tap water is by water provider, what it does to water heaters and fixtures, how to flush a tank, and what to know about softeners.";
+  "Hard water in Orange County: hardness by water provider from 2026 reports, what scale does to water heaters and fixtures, flushing, and softener rules.";
 const CANONICAL = `${SITE_URL}/guides/hard-water-orange-county`;
 
 export const metadata: Metadata = {
@@ -129,11 +129,6 @@ export default function HardWaterOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/hard-water-orange-county" />
-      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Written for Orange County homeowners. Figures come from each water
-        provider&apos;s own report, linked under Sources. General information,
-        not plumbing or health advice.
-      </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
         <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
@@ -256,7 +251,14 @@ export default function HardWaterOrangeCountyGuide() {
             droplets dry, and follow your dishwasher manual&apos;s hard water
             settings. Tankless water heaters need descaling on the schedule
             in the owner&apos;s manual, and in very hard water that is not a
-            step to skip.
+            step to skip. If your supply pipes are already failing, our{" "}
+            <Link
+              href="/guides/repipe-orange-county"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              repipe guide
+            </Link>{" "}
+            covers replacing them.
           </p>
         </section>
 
@@ -290,7 +292,14 @@ export default function HardWaterOrangeCountyGuide() {
             >
               water heater replacement guide
             </Link>{" "}
-            covers what that involves.
+            covers what that involves, and our{" "}
+            <Link
+              href="/guides/orange-county-home-rebates-2026"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              2026 rebates guide
+            </Link>{" "}
+            lists current water heater rebates.
           </p>
         </section>
 
@@ -310,8 +319,7 @@ export default function HardWaterOrangeCountyGuide() {
             Are water softeners allowed in Orange County?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Yes, with conditions, and with a local wrinkle worth knowing.
-            California Health and Safety Code section 116785 allows a home
+            Yes, with conditions. California Health and Safety Code section 116785 allows a home
             softener only if it is regenerated off site (an exchange tank
             service), or if it drains to the sewer and meets a list of
             conditions, including regenerating on demand rather than on a
@@ -321,8 +329,9 @@ export default function HardWaterOrangeCountyGuide() {
             its wastewater.
           </p>
           <p className="mt-2 leading-relaxed">
-            We did not find an Orange County ordinance that bans them on the
-            pages we checked. What we did find is two districts asking
+            We found no Orange County ordinance that bans them, though we did
+            not check every agency, so ask your water or sewer provider before
+            you buy one. We did find two districts asking
             customers not to use the salt kind. Irvine Ranch Water District
             and Yorba Linda Water District both say they discourage
             self-regenerating softeners, the type you add rock salt or
@@ -332,10 +341,6 @@ export default function HardWaterOrangeCountyGuide() {
             it. Both suggest an exchange tank service instead, so the salt
             never goes down your drain, and both point out that softening
             only the hot water lines saves money.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Rules can change and we did not check every agency, so ask your
-            water or sewer provider before you buy one.
           </p>
         </section>
 
@@ -379,12 +384,9 @@ export default function HardWaterOrangeCountyGuide() {
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Figures as of September 2026, from each provider&apos;s 2026 water
-            quality report or its own FAQ page. Reports are reissued every
-            year and hardness varies by season and address, so treat these as
-            typical values, not a test of your tap. This is general
-            information, not plumbing, legal or health advice. For your home,
-            check your provider&apos;s current report and your appliance
-            manuals.
+            quality report or FAQ page, linked under Sources. Reports are
+            reissued every year. General information, not plumbing, legal or
+            health advice.
           </p>
         </section>
       </div>

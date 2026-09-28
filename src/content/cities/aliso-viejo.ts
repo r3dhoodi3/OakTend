@@ -36,7 +36,7 @@ export const alisoViejo: CityContent = {
   name: "Aliso Viejo",
   slug: "aliso-viejo",
   intro:
-    "Aliso Viejo is the last piece of the old Moulton Ranch: the city's history says the Mission Viejo Company bought the final 6,600 acres in 1976, the first homes went on sale in March 1982, and cityhood only arrived on July 1, 2001. It filled in fast and close together, so about 51 percent of the homes date from the 1990s alone, the median build year is 1995 and only about 36 percent are detached houses. Two things follow for upkeep. A master association, the Aliso Viejo Community Association, maintains most slopes and enforces the rules on paint colors and property upkeep while the city issues the permits, and the western and southern edges, where the streets meet Aliso and Wood Canyons Wilderness Park, sit in the State Fire Marshal's Very High fire hazard tier.",
+    "Aliso Viejo is the last piece of the old Moulton Ranch, sold as homes from March 1982 and a city only since July 1, 2001, so about half its housing dates from the 1990s and only about a third is detached. A master association keeps most slopes and enforces rules on paint and upkeep while the city issues permits. The western and southern edges, along Aliso and Wood Canyons Wilderness Park, sit in the State Fire Marshal's Very High fire hazard tier.",
   metaDescription:
     "Aliso Viejo homes: half built in the 1990s, only a third detached. Hard imported water, a master HOA, sulfate soils and canyon-edge fire zones, sourced.",
   metaTitle: "Aliso Viejo homes: 1990s builds, HOA, fire zones",
@@ -59,47 +59,40 @@ export const alisoViejo: CityContent = {
     },
     facts: [
       {
-        text: "Aliso Viejo's median year built is 1995. Of about 20,507 housing units, roughly 51.2 percent went up in the 1990s, 19.2 percent in the 1980s, 15.5 percent in the 2000s and 8.5 percent in the 2010s, with only about 5.6 percent estimated as older than 1980. The same survey's structure table counts about 36.4 percent as detached houses, 24.5 percent as attached single-family homes and about 38 percent as units in buildings of two or more. These are survey estimates with margins of error, but the shape is clear: most homes here are about 25 to 35 years old, the age when the first roof and the original furnace and air conditioner come due, and in an attached home the association's documents decide which of those are yours.",
+        text: "Of about 20,507 housing units, roughly 51.2 percent went up in the 1990s, 19.2 percent in the 1980s, 15.5 percent in the 2000s and 8.5 percent in the 2010s; only about 5.6 percent predate 1980. About 36.4 percent are detached houses, 24.5 percent attached single-family homes and about 38 percent units in buildings of two or more. At 25 to 35 years old, most are due for a first roof and original furnaces and air conditioners, and in an attached home the association's documents decide which of those are yours.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0600947",
         sourceLabel:
           "Census Reporter, ACS 2024 5-year tables B25034, B25035 and B25024",
       },
       {
-        text: "The city's own history says Aliso Viejo was part of the 22,000-acre Moulton Ranch, that the Mission Viejo Company bought the last 6,600 acres in 1976 for a new master-planned community, and that the county approved the master plan in 1979. The first residential units were offered for sale by March 1982 and the first residents arrived about eight months later. Voters approved cityhood on March 6, 2001, with 93.3 percent in favor by the city's count, and Aliso Viejo incorporated on July 1, 2001 as Orange County's 34th city.",
+        text: "Aliso Viejo was part of the 22,000-acre Moulton Ranch. The Mission Viejo Company bought the last 6,600 acres in 1976, the county approved the master plan in 1979, and the first homes went on sale by March 1982. Voters approved cityhood on March 6, 2001 with 93.3 percent in favor, and the city incorporated on July 1, 2001 as Orange County's 34th city.",
         sourceUrl: "https://avcity.org/303/About-Aliso-Viejo",
         sourceLabel: "City of Aliso Viejo, About Aliso Viejo",
       },
       {
-        text: "Aliso Viejo is both a city and a master-planned community, and the city's website spells out who does what. The city handles building and safety, fire safety, planning, police protection and public works. The Aliso Viejo Community Association, a master homeowners association, is responsible for common area maintenance including parks, greenbelts, parkways and slopes, and for enforcing the covenants, conditions and restrictions, which the city says cover things such as paint colors, property maintenance and many aesthetic issues. Before repainting or reroofing, read your CC&Rs as well as the city's permit rules.",
+        text: "The city handles building and safety, fire safety, planning, police and public works. The Aliso Viejo Community Association, a master homeowners association, maintains common areas including parks, greenbelts, parkways and slopes, and enforces the CC&Rs, which the city says cover paint colors, property maintenance and many aesthetic issues. Association approval is a separate step from a city permit.",
         sourceUrl:
           "https://avcity.org/201/Role-of-City-Aliso-Viejo-Community-Assoc",
         sourceLabel:
           "City of Aliso Viejo, Role of City and Aliso Viejo Community Association",
       },
       {
-        text: "The Building Department's residential submittal checklist, updated December 31, 2025, says expansive soils are common in the City of Aliso Viejo and asks for footings at least 24 inches below undisturbed soil. It also says high levels of sulfates are common in the soils, so concrete in contact with soil must be 4,500 psi with Type V cement and a water-cement ratio of 0.45. For an owner, that is a reason to keep irrigation and roof runoff away from the slab and to take new cracks seriously.",
+        text: "The city's residential submittal checklist, updated December 31, 2025, says expansive soils are common here and asks for footings at least 24 inches below undisturbed soil. It also says high sulfate levels are common, so concrete in contact with soil must be 4,500 psi with Type V cement and a water-cement ratio of 0.45.",
         sourceUrl:
           "https://avcity.org/DocumentCenter/View/238/Residential-Submittal-Checklist-PDF",
         sourceLabel:
           "City of Aliso Viejo Building Department, Residential Submittal Checklist",
       },
       {
-        text: "Windows are a common first big project on a 1990s house, and the city's handout is blunt: all door and window replacements require a building permit, applied for through the online portal under the residential windows and doors application. It warns that a retrofit window set inside the old frame shrinks the opening by about 7 inches each way, which matters for bedroom escape windows, and it states in capital letters that homes in the High and Very High fire severity zones are required to have tempered windows.",
+        text: "Every door and window replacement needs a building permit, filed on the online portal as a residential windows and doors application. The city's handout warns that a retrofit window set inside the old frame shrinks the opening by about 7 inches each way, which matters for bedroom escape windows, and requires tempered windows in the High and Very High fire severity zones.",
         sourceUrl:
           "https://avcity.org/DocumentCenter/View/246/Door-and-Window-Replacements-PDF",
         sourceLabel:
           "City of Aliso Viejo Building Department, Door and Window Replacements handout",
       },
       {
-        text: "Moulton Niguel Water District's 2025 report says the hardness found in its water averaged 15.45 grains per gallon. The supply is all imported through the Metropolitan Water District and is a blend from two treatment plants, one averaging 236 ppm, or 13.8 grains per gallon, and the other 293 ppm, or 17.1 grains per gallon; the full ranges are in the water section of this page. That is hard water: flush a tank water heater yearly and descale a tankless unit on the manufacturer's schedule.",
-        sourceUrl:
-          "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010073&Year=2025&isCert=false",
-        sourceLabel:
-          "Moulton Niguel Water District 2025 water quality report, State Water Board copy",
-      },
-      {
-        text: "Aliso Viejo does not run its own fire department. The city's Fire Authority page says fire protection and emergency services are provided by the Orange County Fire Authority, and that Station 57, at 57 Journey, is home to five firefighters including two paramedics and also serves as a division headquarters. A separate city page notes that most improvements to residential sites require some level of fire authority review.",
+        text: "Fire protection comes from the Orange County Fire Authority. Station 57, at 57 Journey, houses five firefighters including two paramedics and serves as a division headquarters, and the city notes that most residential site improvements need some level of fire authority review.",
         sourceUrl: "https://avcity.org/198/Fire-Authority",
         sourceLabel: "City of Aliso Viejo, Fire Authority",
       },
@@ -108,7 +101,7 @@ export const alisoViejo: CityContent = {
 
   neighborhoods: {
     names: ["Glenwood", "Vantis", "Ventana Ridge", "Via Iglesia"],
-    note: "The city does not publish a neighborhood list, so these are the residential names that appear in its own documents. Glenwood, Vantis and Ventana Ridge are specific plans on the city's General Plan page: the Glenwood plan describes a recreation-oriented community around an 18-hole golf course with housing not to exceed 502 homes, the Vantis plan covers townhomes and multi-family housing along Enterprise and Aliso Viejo Parkway, and Ventana Ridge is titled a residential specific plan. Via Iglesia is the area the city's utilities directory singles out as served by El Toro Water District. Individual tract and association names turned up only on real-estate pages and are left out here.",
+    note: "These names come from the city's own documents. Glenwood is a specific plan around an 18-hole golf course capped at 502 homes, Vantis covers townhomes and multi-family housing along Enterprise and Aliso Viejo Parkway, and Ventana Ridge is a residential specific plan. Via Iglesia is the one area the city lists as served by El Toro Water District.",
     sourceUrl: "https://avcity.org/301/General-Plan",
   },
 
@@ -116,7 +109,7 @@ export const alisoViejo: CityContent = {
     utility: "Moulton Niguel Water District (El Toro Water District in the Via Iglesia area)",
     utilityUrl: "https://www.mnwd.com/",
     summary:
-      "The city's utilities directory lists Moulton Niguel Water District for all areas except Via Iglesia and El Toro Water District for the Via Iglesia area only, and the city's 2026 Safety Element says the same. Moulton Niguel's 2025 report says it relies on imported water from the Metropolitan Water District, drawn from the Colorado River and the State Water Project, treated at the Diemer plant in Yorba Linda and the Baker plant in Lake Forest and delivered as a blend. Its 2025 hardness rows: Diemer water averaged 236 ppm, 13.8 grains per gallon, with a range of 191 to 280 ppm, Baker water averaged 293 ppm, 17.1 grains per gallon, with a range of 269 to 322 ppm, and the district puts the average found in its water at 15.45 grains per gallon. El Toro's 2026 Water Quality Report, covering 2025, lists the same two sources at 236 ppm, or 14 grains, and 293 ppm, or 17 grains. Either way the water is hard.",
+      "Moulton Niguel Water District serves the whole city except Via Iglesia, which El Toro Water District serves. Moulton Niguel's supply is all imported through the Metropolitan Water District from the Colorado River and the State Water Project, blended from the Diemer plant in Yorba Linda and the Baker plant in Lake Forest. In 2025, Diemer water averaged 236 ppm, 13.8 grains per gallon (range 191 to 280 ppm), Baker water 293 ppm, 17.1 grains (range 269 to 322 ppm), and the district puts its overall average at 15.45 grains per gallon. El Toro's 2026 report lists the same two sources at 14 and 17 grains.",
     sourceUrl:
       "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010073&Year=2025&isCert=false",
     sourceLabel:
@@ -128,43 +121,44 @@ export const alisoViejo: CityContent = {
     portalUrl:
       "https://alisoviejoca-energovpub.tylerhost.net/apps/SelfService#/home",
     summary:
-      "Building and Safety is at City Hall, 12 Journey, Suite 100, phone 949-425-2540. The city's handouts send permit applications through its online Customer Self-Service portal, which also handles inspection requests and permit history. Counter hours are Monday through Friday, 8:00 a.m. to 1:00 p.m., with last check-in at 12:30 p.m., and City Hall is closed on alternate Fridays. Inspections run Monday through Friday, and a request made before 4 p.m. is scheduled for the next business day. Construction is not allowed on Sundays or federal holidays. If you live in an association, its approval is a separate step from the city permit.",
+      "Building and Safety is at City Hall, 12 Journey, Suite 100, 949-425-2540, with applications, inspection requests and permit history on the Customer Self-Service portal. The counter is open Monday through Friday, 8:00 a.m. to 1:00 p.m. (last check-in 12:30), and City Hall closes alternate Fridays. Inspections requested before 4 p.m. are scheduled for the next business day. No construction on Sundays or federal holidays.",
     sourceUrl: "https://avcity.org/154/Building-Safety",
   },
 
   hazards: [
     {
-      text: "The fire hazard map the city publishes, identified by the State Fire Marshal on March 24, 2025, shows the Very High tier running the length of the city's western side and wrapping around the south end, next to the wilderness park and the state-zoned open land beyond it. A band of High and then Moderate follows just inside it, and the rest of the city to the east is unzoned. The city's 2026 Safety Element says the City Council adopted these maps by ordinance on May 21, 2025. The city's GIS address lookup and the Cal Fire viewer are both linked from the Building and Safety page, so check your own lot.",
+      text: "The fire hazard map the city publishes, dated March 24, 2025, runs the Very High tier the length of the western side and around the south end, next to the wilderness park, with bands of High and then Moderate just inside it; the eastern part of the city is unzoned. The City Council adopted the maps by ordinance on May 21, 2025, and the Building and Safety page links a GIS address lookup.",
       sourceUrl:
         "https://avcity.org/DocumentCenter/View/4207/FHSZ_City_LRA_11x17_AlisoViejo",
       sourceLabel:
         "Cal Fire Fire Hazard Severity Zones map for Aliso Viejo, published by the city",
     },
     {
-      text: "The canyon next door does burn. The city's 2024 hazard plan lists the Aliso Fire of June 2, 2018, which broke out along a trail in the canyon near Soka University, prompted evacuations in Aliso Viejo and Laguna Beach and ended with no injuries or structural damage; Cal Fire's incident page puts it at 175 acres. The plan also lists the May 11, 2022 Coastal Fire, which started in Aliso and Wood Canyons Wilderness Park. The Orange County Fire Authority's after action report counts 202.10 acres, none of them inside Aliso Viejo, and 20 homes destroyed in Laguna Niguel. The plan's own summary is that major wildfires have affected the city about once every five years since 2001.",
+      text: "The Aliso Fire of June 2, 2018 started along a canyon trail near Soka University, burned 175 acres by Cal Fire's count and forced evacuations in Aliso Viejo and Laguna Beach without damaging structures. The May 11, 2022 Coastal Fire started in the wilderness park and burned 202.10 acres, none inside the city, destroying 20 homes in Laguna Niguel. The city's hazard plan says major wildfires have affected Aliso Viejo about once every five years since 2001.",
+      sourceUrl:
+        "https://avcity.org/DocumentCenter/View/3780/Local-Hazard-Mitigation-Plan-LHMP-PDF",
+      sourceLabel:
+        "City of Aliso Viejo 2024 Local Hazard Mitigation Plan, with Cal Fire and the Orange County Fire Authority's after action report",
+    },
+    {
+      text: "The hazard plan calls landslides and debris flows the dominant geologic risk, because the hills are shales and siltstones that weaken when wet. Most land was mass graded with slide areas stabilized by engineered fill, and some slopes exceed 30 percent. On February 25, 2005 the association-maintained Hollyleaf slope collapsed, leaving a 17-by-70-foot gap a few feet from two homes.",
       sourceUrl:
         "https://avcity.org/DocumentCenter/View/3780/Local-Hazard-Mitigation-Plan-LHMP-PDF",
       sourceLabel: "City of Aliso Viejo 2024 Local Hazard Mitigation Plan",
     },
     {
-      text: "The city's hazard plan calls land sliding and debris flows the dominant geologic hazard risks in Aliso Viejo, because the hills sit on shales and siltstones that do not hold together well when wet. It says most developed land was mass graded, with potential slide areas stabilized by removal and engineered fill, and that some slopes are steeper than 30 percent. It records one local failure: on February 25, 2005 the Hollyleaf slope suddenly collapsed, leaving a gap of 17 by 70 feet a few feet from two homes, on a slope the community association was responsible for maintaining. If your lot backs onto a slope, find out who owns it and keep its drains clear.",
-      sourceUrl:
-        "https://avcity.org/DocumentCenter/View/3780/Local-Hazard-Mitigation-Plan-LHMP-PDF",
-      sourceLabel: "City of Aliso Viejo 2024 Local Hazard Mitigation Plan",
-    },
-    {
-      text: "The Safety Element the City Council adopted on March 4, 2026 says Aliso Viejo has no identified active faults and no Alquist-Priolo zones, is not in a mapped tsunami zone and is not within any dam inundation zone. Shaking is the real earthquake risk: it puts the closest fault, the San Joaquin Hills, about 3.3 miles away. It places liquefaction zones along the western border following El Toro Road and along the Aliso Creek watershed on the east, largely in open space and parks.",
+      text: "The Safety Element adopted March 4, 2026 finds no active faults, no Alquist-Priolo zones, no mapped tsunami zone and no dam inundation zone in the city. Shaking is the earthquake risk, with the San Joaquin Hills fault about 3.3 miles away. Liquefaction zones follow El Toro Road on the western border and the Aliso Creek watershed on the east, mostly in open space and parks.",
       sourceUrl: "https://avcity.org/DocumentCenter/View/395/Safety-Element-PDF",
       sourceLabel: "City of Aliso Viejo General Plan Safety Element, adopted March 4, 2026",
     },
     {
-      text: "Flooding here follows two channels. The city's hazard plan says the FEMA 100-year and 500-year zones cover the Aliso Creek channel in the eastern part of the city, next to several parks and Aliso Niguel High School, and the Wood Canyon channel along the western border beside El Toro Road. It records 14.90 inches of rain over six days in December 2010, when the creek in Wood Canyon overflowed its banks. The plan's flood insurance table, using 2023 FEMA data, shows 21 policies in the city, one paid loss and no repetitive loss properties.",
+      text: "FEMA's 100-year and 500-year flood zones follow two channels: Aliso Creek on the east, near several parks and Aliso Niguel High School, and Wood Canyon along El Toro Road on the west. In December 2010, 14.90 inches of rain over six days pushed Wood Canyon's creek over its banks. FEMA's 2023 data shows 21 flood policies in the city, one paid loss and no repetitive loss properties.",
       sourceUrl:
         "https://avcity.org/DocumentCenter/View/3780/Local-Hazard-Mitigation-Plan-LHMP-PDF",
       sourceLabel: "City of Aliso Viejo 2024 Local Hazard Mitigation Plan",
     },
     {
-      text: "Mello-Roos is part of most tax bills here. The city's finance page says the city itself has only one Mello-Roos district, Community Facilities District 2005-01, which affects a small number of properties, but that two other Mello-Roos districts affect almost all properties within the city. For its own district the city lists special tax bonds with a final maturity in 2038. The page does not name the other two, so read the line items on your county tax bill.",
+      text: "Mello-Roos is on most tax bills. The city has one district of its own, Community Facilities District 2005-01, covering a small number of properties with bonds maturing in 2038, and says two other Mello-Roos districts affect almost all properties in the city. The page does not name those two; your county tax bill lists them.",
       sourceUrl: "https://avcity.org/178/Mello-Roos",
       sourceLabel: "City of Aliso Viejo Financial Services, Mello-Roos",
     },
@@ -175,25 +169,25 @@ export const alisoViejo: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "Price per square by material, for a city where half the roofs went on in the 1990s and the city's checklist allows no wood shake or shingles.",
+        "Half the roofs here went on in the 1990s, and city rules allow no wood shake.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "Typical range and when a repair still makes sense, on imported water the district measures at 15.45 grains per gallon.",
+        "Imported water at 15.45 grains per gallon shortens tank life across the city.",
     },
     {
-      href: "/guides/hvac-replacement-cost",
-      title: "HVAC replacement cost",
+      href: "/guides/santa-ana-wind-wildfire-home-prep",
+      title: "Santa Ana wind and wildfire prep",
       blurb:
-        "What a new system runs, for the original 1990s furnaces and condensers now at the end of their service life.",
+        "For the Very High zone streets along Aliso and Wood Canyons Wilderness Park.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
       blurb:
-        "Month by month, including the slope drain checks and brush clearance a lot near the canyons needs before fall winds and winter rain.",
+        "Includes the slope drain and brush checks a canyon-edge lot needs before fall.",
     },
   ],
 
@@ -201,28 +195,12 @@ export const alisoViejo: CityContent = {
 
   faq: [
     {
-      q: "Is the water hard in Aliso Viejo?",
-      a: "Yes. Moulton Niguel Water District, which the city lists for all areas except Via Iglesia, reports that the hardness found in its water averaged 15.45 grains per gallon in 2025. Its two imported sources averaged 13.8 grains from the Diemer plant and 17.1 grains from the Baker plant. El Toro Water District, which serves the Via Iglesia area, lists the same two sources at 14 and 17 grains. Flush a tank water heater once a year.",
+      q: "What does Aliso Viejo check on a water heater permit?",
+      a: "The city's 2026-27 fee schedule lists tank and tankless water heaters as plumbing permit items and says starting work before the permit can double the fees; it also waives 25 percent of building permit fees for a whole-house gas tankless unit. The city's Water Heater Installation handout lists what the inspector looks for: seismic straps in the top and bottom thirds, a relief valve drained outside, and an expansion tank on a closed system.",
     },
     {
-      q: "Who provides fire service in Aliso Viejo?",
-      a: "The Orange County Fire Authority. The city's Fire Authority page says it provides fire protection and emergency services for the city, along with fire inspections and plan review, and that Station 57 at 57 Journey houses five firefighters including two paramedics. Aliso Viejo is on the authority's own member list.",
-    },
-    {
-      q: "Do I need a permit to replace a water heater in Aliso Viejo?",
-      a: "Plan on one. The city's 2026-27 building fee schedule lists a water heater and a tankless water heater as plumbing permit items, and notes that starting work before obtaining a permit can double the fees. The city's Water Heater Installation handout covers what the inspector looks for: seismic straps in the top and bottom thirds, a relief valve drained to the outside and an expansion tank on a closed system. The fee schedule also waives 25 percent of building permit fees for a whole-house gas tankless unit. A licensed plumber normally pulls the permit through the online portal.",
-    },
-    {
-      q: "What are the roofing rules for an addition or a new roof in Aliso Viejo?",
-      a: "The city's residential submittal checklist says Class A roofing is required on all additions, that if the addition is 50 percent or more of the roof the whole roof must be replaced with Class A roofing, and that no wood shake or shingles are allowed. The city does not publish a separate reroof handout, so call Building and Safety at 949-425-2540 before a straight reroof, and check your association's rules on roof material and color.",
-    },
-    {
-      q: "Do I need HOA approval as well as a city permit in Aliso Viejo?",
-      a: "Treat them as two separate approvals. The city's website says the city is responsible for building and safety while the Aliso Viejo Community Association enforces the covenants, conditions and restrictions, which address things such as paint colors, property maintenance and many aesthetic issues. Read your own documents before ordering windows, paint or a roof.",
-    },
-    {
-      q: "Is my Aliso Viejo home in a fire hazard severity zone?",
-      a: "It may be if you live on the western or southern side of the city. The State Fire Marshal's March 24, 2025 map, which the city publishes, shows Very High, High and Moderate zones along the edge next to Aliso and Wood Canyons Wilderness Park and leaves the rest of the city to the east unzoned. The Building and Safety page links the city's GIS address lookup and the Cal Fire map viewer. Zone status matters in practice: the city's window handout requires tempered windows in the High and Very High zones.",
+      q: "What roofing does Aliso Viejo require?",
+      a: "Class A. The residential submittal checklist requires Class A roofing on all additions, requires the whole roof be replaced in Class A if the addition is 50 percent or more of the roof, and allows no wood shake or shingles. There is no separate reroof handout, so call Building and Safety at 949-425-2540 before a straight reroof.",
     },
   ],
 

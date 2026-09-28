@@ -45,7 +45,7 @@ export const revalidate = 3600;
 // ./opengraph-image.tsx keeps its own literal copy.
 const TITLE = "HOA and coastal permits in Orange County";
 const DESCRIPTION =
-  "HOA architectural review and Coastal Commission permits for Orange County remodels, explained together: your rights under Davis-Stirling, which cities issue coastal permits, and what is exempt.";
+  "HOA review and Coastal Commission permits for Orange County remodels: your rights under Davis-Stirling, which cities issue coastal permits, and what is exempt.";
 const CANONICAL = `${SITE_URL}/guides/hoa-coastal-commission-remodel-orange-county`;
 
 export const metadata: Metadata = {
@@ -72,11 +72,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Do I need HOA approval before remodeling?",
-    a: "If your association's governing documents require approval for the change, yes, and that is common for anything that changes the outside of the house. HOA approval is separate from the city building permit; one never replaces the other.",
+    a: "Yes, if your association's governing documents require it, which is common for changes to the outside of the house. It is separate from the city building permit.",
   },
   {
     q: "Do I need a coastal development permit to remodel my house?",
-    a: "Only if the house is in the coastal zone, and even then many improvements to an existing single-family home are exempt under Public Resources Code section 30610. Ask your city, because the local coastal program can differ.",
+    a: "Only if the house is in the coastal zone, and even then many improvements to an existing single-family home are exempt under Public Resources Code section 30610. Your city makes the call.",
   },
 ];
 
@@ -193,8 +193,7 @@ export default function HoaCoastalRemodelGuide() {
       </h1>
       <GuideMeta path="/guides/hoa-coastal-commission-remodel-orange-county" />
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        General information, not legal advice. Read your own HOA documents and
-        ask your city before you rely on any of this for your project.
+        General information, not legal advice.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-6 dark:border-bark-700 dark:bg-bark-700/20">
@@ -205,8 +204,7 @@ export default function HoaCoastalRemodelGuide() {
           A remodel in Orange County can need up to three separate approvals:
           your HOA, if its documents require one; the city building permit;
           and a coastal development permit, if the lot is in the coastal zone
-          and the work is not exempt. Getting one never stands in for
-          another.
+          and the work is not exempt. One never stands in for another.
         </p>
       </div>
 
@@ -214,95 +212,81 @@ export default function HoaCoastalRemodelGuide() {
         <section>
           <h2 className={h2Class}>HOA architectural review</h2>
           <p className="mt-2 leading-relaxed">
-            Homeowner associations in California run under the Davis-Stirling
-            Common Interest Development Act, which starts at Civil Code section
-            4000. Whether you need the association&apos;s approval depends on
-            its governing documents, usually the CC&amp;Rs. The law says a
-            change to the exterior appearance of your home has to follow those
-            documents (section 4760).
-          </p>
-          <p className="mt-2 leading-relaxed">
-            When the documents do require approval, Civil Code section 4765
-            sets the ground rules for how the association decides:
+            California associations run under the Davis-Stirling Common
+            Interest Development Act, which starts at Civil Code section 4000.
+            Whether you need approval depends on the governing documents,
+            usually the CC&amp;Rs: a change to the exterior appearance of your
+            home has to follow them (section 4760). When they require
+            approval, section 4765 sets the ground rules:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              It must have a fair, reasonable and expeditious procedure, written
-              into its governing documents, with prompt deadlines and a stated
-              maximum time to respond.
+              A fair, reasonable and expeditious written procedure, with a
+              stated maximum time to respond.
             </li>
             <li>
-              A decision must be made in good faith and may not be
-              unreasonable, arbitrary or capricious.
+              Decisions in good faith, not unreasonable, arbitrary or
+              capricious, and within the law, including fair housing law and
+              the building code.
             </li>
             <li>
-              It cannot violate the law, including fair housing law and the
-              building code.
+              A written decision. A denial has to explain why and how to ask
+              the board to reconsider, and you are entitled to that
+              reconsideration at an open board meeting, unless the board
+              itself decided at an open meeting.
             </li>
             <li>
-              The decision must be in writing. A denial has to explain why, and
-              describe how to ask the board to reconsider.
-            </li>
-            <li>
-              If you are denied, you are entitled to reconsideration by the
-              board at an open board meeting, unless the board itself made the
-              decision at an open meeting.
-            </li>
-            <li>
-              Every year, the association has to tell members which changes
-              need approval and send a copy of the review procedure.
+              A yearly notice to members of which changes need approval, with
+              a copy of the procedure.
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            In practice: find that annual notice or ask the management company
-            for the procedure, submit complete plans, get the decision in
-            writing, and keep it with your permit records.
+            Find that annual notice or ask the management company for the
+            procedure, then submit complete plans.
           </p>
         </section>
 
         <section>
           <h2 className={h2Class}>What an HOA cannot block outright</h2>
           <p className="mt-2 leading-relaxed">
-            For a few projects, state law voids association rules that
-            effectively prohibit them. The association can still apply
-            reasonable rules on design and placement.
+            For these projects, state law voids association rules that
+            effectively prohibit or unreasonably restrict them, though
+            reasonable design and placement rules still apply.
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>ADUs and junior ADUs.</strong> Civil Code sections 4751
-              and 714.3 make rules that effectively prohibit or unreasonably
-              restrict an ADU or junior ADU on a single-family lot void, and
-              under section 714.3 a reasonable restriction cannot include fees
-              or other financial requirements. HCD&apos;s ADU Handbook lists an
-              HOA review that runs past the 60 days a city gets as an example
-              of an effective prohibition.
+              <strong>ADUs and junior ADUs</strong> on a single-family lot
+              (Civil Code sections 4751 and 714.3). A reasonable restriction
+              cannot include fees or other financial requirements, and
+              HCD&apos;s ADU Handbook counts an HOA review that runs past the
+              60 days a city gets as an effective prohibition. See{" "}
+              <Link
+                href="/guides/garage-conversion-vs-adu-orange-county"
+                className={linkClass}
+              >
+                garage conversion vs ADU
+              </Link>
+              .
             </li>
             <li>
-              <strong>Solar.</strong> Under Civil Code section 714, a
-              restriction that effectively prohibits or restricts solar is
-              void. An association has to decide a solar application in
-              writing, and if it does not deny it in writing within 45 days,
-              the application is deemed approved, unless it asked for more
-              information.
+              <strong>Solar</strong> (Civil Code section 714). A solar
+              application not denied in writing within 45 days is deemed
+              approved, unless the association asked for more information.
+              Our{" "}
+              <Link
+                href="/guides/solar-battery-orange-county"
+                className={linkClass}
+              >
+                solar and battery guide
+              </Link>{" "}
+              covers the cost and efficiency limits on a restriction.
             </li>
             <li>
-              <strong>EV charging.</strong> Under Civil Code section 4745, an
-              association cannot effectively prohibit or unreasonably restrict
-              an EV charger in your unit or your designated parking space. It
-              gets 60 days to deny in writing, or the application is deemed
-              approved, again unless it asked for more information.
+              <strong>EV charging</strong> in your unit or designated parking
+              space (Civil Code section 4745). The same rule applies, with 60
+              days instead of 45.
             </li>
           </ul>
-          <p className="mt-2 leading-relaxed">
-            Thinking about a garage ADU? See{" "}
-            <Link
-              href="/guides/garage-conversion-vs-adu-orange-county"
-              className={linkClass}
-            >
-              garage conversion vs ADU in Orange County
-            </Link>
-            .
-          </p>
         </section>
 
         <section>
@@ -361,9 +345,10 @@ export default function HoaCoastalRemodelGuide() {
             The chart also lists unincorporated county areas and a few other
             cities. Even in a certified city, the Commission keeps permit
             authority over tidelands and submerged land, and a city&apos;s
-            approval can be appealed to the Commission in certain areas, such
-            as between the sea and the first public road or within 300 feet of
-            a beach or of the top of a coastal bluff (section 30603).
+            approval can be appealed to the Commission in certain areas near
+            the shore, such as between the sea and the first public road or
+            within 300 feet of a beach or of the top of a coastal bluff
+            (section 30603).
           </p>
         </section>
 
@@ -372,9 +357,9 @@ export default function HoaCoastalRemodelGuide() {
           <p className="mt-2 leading-relaxed">
             Public Resources Code section 30610 exempts improvements to an
             existing single-family home, and repair or maintenance that does
-            not enlarge anything. The Commission&apos;s regulation, California
-            Code of Regulations title 14 section 13250, then lists the
-            improvements that still need a permit. Among them:
+            not enlarge anything. The Commission&apos;s regulation (California
+            Code of Regulations title 14 section 13250) lists the improvements
+            that still need one, among them:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -443,7 +428,7 @@ export default function HoaCoastalRemodelGuide() {
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            Costs and the rest of the 2026 ADU rules are in our{" "}
+            The rest of the 2026 ADU rules are in our{" "}
             <Link href="/guides/adu-cost" className={linkClass}>
               ADU cost guide
             </Link>
@@ -452,39 +437,24 @@ export default function HoaCoastalRemodelGuide() {
         </section>
 
         <section>
-          <h2 className={h2Class}>A sensible order of operations</h2>
-          <ol className="mt-2 list-decimal space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              Check the coastal zone map and ask the city whether your lot and
-              your project need a coastal permit, and from whom.
-            </li>
-            <li>
-              Read your CC&amp;Rs and the association&apos;s review procedure,
-              and note its deadlines.
-            </li>
-            <li>
-              Design to satisfy both. A change the HOA asks for can change what
-              the city reviews, and the reverse.
-            </li>
-            <li>
-              Apply for each approval, and keep every decision in writing with
-              your{" "}
-              <Link href="/guides/permits-orange-county" className={linkClass}>
-                building permit
-              </Link>{" "}
-              records.
-            </li>
-            <li>
-              Put in your contract who is responsible for which approval. Our{" "}
-              <Link
-                href="/guides/contractor-deposit-rules-california"
-                className={linkClass}
-              >
-                deposit rules guide
-              </Link>{" "}
-              covers what the contract must say.
-            </li>
-          </ol>
+          <h2 className={h2Class}>Getting both approvals</h2>
+          <p className="mt-2 leading-relaxed">
+            Design to satisfy both: a change the HOA asks for can change what
+            the city reviews, and the reverse. Keep every decision in writing
+            with your{" "}
+            <Link href="/guides/permits-orange-county" className={linkClass}>
+              building permit
+            </Link>{" "}
+            records, and put in your contract who is responsible for which
+            approval. Our{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className={linkClass}
+            >
+              deposit rules guide
+            </Link>{" "}
+            covers what the contract must say.
+          </p>
         </section>
 
         <section>
@@ -507,8 +477,7 @@ export default function HoaCoastalRemodelGuide() {
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             City coastal program status is from the
             Coastal Commission&apos;s chart dated October 9, 2024, checked
-            against city pages on September 26, 2026. OakTend is not a law
-            firm or a contractor.
+            against city pages on September 26, 2026.
           </p>
         </section>
       </div>

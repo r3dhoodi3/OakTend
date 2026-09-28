@@ -95,11 +95,14 @@ describe("the Orange County guides", () => {
     }
   });
 
-  it("each list at least five verified sources", () => {
+  // Four, not five, since the 2026-09-26 trim: a fact shared by two guides now
+  // lives (and is cited) on one of them, so a short guide can cite fewer
+  // pages while every fact on it still has its source.
+  it("each list at least four verified sources", () => {
     for (const slug of OC_GUIDES) {
       const sources = GUIDE_SOURCES[`/guides/${slug}`];
       expect(sources, slug).toBeDefined();
-      expect(sources.length, slug).toBeGreaterThanOrEqual(5);
+      expect(sources.length, slug).toBeGreaterThanOrEqual(4);
     }
   });
 

@@ -20,7 +20,7 @@ const CANONICAL = `${SITE_URL}/about`;
 // Fixed wording, held once so the meta description, the share card and the
 // AboutPage node below cannot drift from each other.
 const DESCRIPTION =
-  "OakTend is a free home maintenance app for Orange County, California homeowners, run by OakTend LLC in Fountain Valley. Who we are, what the app does, where our local facts come from, and how to reach us.";
+  "OakTend is a free home maintenance app for Orange County, California homeowners, from OakTend LLC in Fountain Valley: who we are and how we check our facts.";
 
 export const metadata: Metadata = {
   title: "About",

@@ -123,9 +123,11 @@ describe.each(entries)("%s content", (key, city) => {
     }
   });
 
-  it("has 4 to 6 FAQ entries with real answers", () => {
-    expect(city.faq.length).toBeGreaterThanOrEqual(4);
-    expect(city.faq.length).toBeLessThanOrEqual(6);
+  // Kept short on purpose: an FAQ is only for a question the page body does
+  // not already answer, so a page with long body copy needs few of them.
+  it("has 2 to 4 FAQ entries with real answers", () => {
+    expect(city.faq.length).toBeGreaterThanOrEqual(2);
+    expect(city.faq.length).toBeLessThanOrEqual(4);
     const questions = new Set(city.faq.map((f) => f.q));
     expect(questions.size).toBe(city.faq.length);
     for (const item of city.faq) {
@@ -174,9 +176,9 @@ describe.each(entries)("%s content", (key, city) => {
     }
   });
 
-  it("keeps the meta description to 155 characters and leads with the city", () => {
+  it("keeps the meta description to 140 to 155 characters and leads with the city", () => {
     expect(city.metaDescription.length).toBeLessThanOrEqual(155);
-    expect(city.metaDescription.length).toBeGreaterThan(70);
+    expect(city.metaDescription.length).toBeGreaterThanOrEqual(140);
     expect(city.metaDescription.startsWith(city.name)).toBe(true);
   });
 

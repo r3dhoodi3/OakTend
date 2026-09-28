@@ -45,7 +45,7 @@ export const revalidate = 3600;
 // "<title> | OakTend" stays at 49.
 const TITLE = "Garage conversion vs ADU: Orange County";
 const DESCRIPTION =
-  "Garage room, garage ADU, junior ADU or a new detached ADU in Orange County: the permit rules, parking, setbacks, fees, pre-approved plans and the 2026 law changes.";
+  "Garage room, garage ADU, junior ADU or a new detached ADU in Orange County: the parking, setback and approval rules for each, fees and pre-approved plans.";
 const PATH = "/guides/garage-conversion-vs-adu-orange-county";
 const CANONICAL = `${SITE_URL}${PATH}`;
 
@@ -75,11 +75,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "What is the difference between a garage conversion and an ADU?",
-    a: "A garage becomes an ADU only when it is turned into a separate home with complete independent living facilities. A garage turned into a bedroom, gym or office is not a unit, so the state ADU rules on parking, setbacks and approval deadlines do not cover it.",
+    a: "A garage becomes an ADU only when it is turned into a separate home with complete independent living facilities. A bedroom, gym or office is not a unit, so the state ADU rules do not cover it.",
   },
   {
     q: "Can I convert my garage into a junior ADU?",
-    a: "An attached garage, yes, because state law counts it as part of the house. A detached garage cannot, since a junior ADU has to be inside the house, but it can become a regular ADU.",
+    a: "An attached garage, yes, because state law counts it as part of the house. A detached garage can become a regular ADU but not a junior ADU.",
   },
 ];
 
@@ -114,7 +114,7 @@ const OPTIONS = [
   {
     name: "Garage converted to an ADU",
     what: "A separate home with complete independent living facilities, in an attached or detached garage.",
-    size: "Uses the existing shell. A detached garage may grow up to 150 square feet, only to fit an entry or exit.",
+    size: "Uses the existing shell. A detached garage may grow up to 150 square feet, only to fit an entry or exit such as a stairway.",
     parking: "No replacement parking for the lost garage spaces, and no parking for the ADU itself.",
     approval: "State approval clock (see below).",
   },
@@ -196,7 +196,6 @@ export default function GarageConversionVsAduGuide() {
           <p className="mt-2 leading-relaxed">
             Prices for a &quot;garage conversion&quot; can disagree by a
             factor of ten because they often describe different projects.
-            Here is what each one is under California law.
           </p>
           <div className="mt-4 space-y-3">
             {OPTIONS.map((o) => (
@@ -236,31 +235,19 @@ export default function GarageConversionVsAduGuide() {
               </div>
             ))}
           </div>
-          <p className="mt-3 text-sm leading-relaxed">
-            Sources: Government Code sections 66313, 66314, 66322, 66323 and
-            66333, and HCD&apos;s March 2026 ADU Handbook, all listed at the
-            bottom of this page.
-          </p>
         </section>
 
         <section>
           <h2 className={h2Class}>Do you have to replace the parking?</h2>
           <p className="mt-2 leading-relaxed">
             Not for an ADU. Under Government Code section 66314, when a
-            garage, carport, covered parking structure or uncovered parking
-            space is converted to an ADU, or torn down to build one, the city
-            cannot require those parking spaces to be replaced. Section 66322
-            goes further: a city cannot impose any parking standard on an ADU
-            that is part of the house or of an existing accessory structure,
-            such as a garage, or on one within half a mile walking distance of
-            public transit.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            For a junior ADU, HCD&apos;s ADU Handbook says a city may not
-            require parking at all, even when it is converted from an attached
-            garage. None of this covers a garage turned into a bedroom or
-            office: your city&apos;s own parking rules decide that, so ask the
-            planning counter before you design.
+            garage, carport or parking space is converted to an ADU, or torn
+            down to build one, the city cannot require those spaces to be
+            replaced. Section 66322 adds that a city cannot impose any parking
+            standard on an ADU that is part of the house or of an existing
+            accessory structure, or on one within half a mile walking distance
+            of public transit. For a room conversion, ask the planning counter
+            about parking before you design.
           </p>
         </section>
 
@@ -291,9 +278,18 @@ export default function GarageConversionVsAduGuide() {
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            If a new detached ADU replaces a detached garage, Section 66314
-            requires the city to review and issue the demolition permit at the
-            same time as the ADU permit.
+            More on permits in{" "}
+            <Link href="/guides/permits-orange-county" className={linkClass}>
+              building permits in Orange County
+            </Link>
+            , and on contracts in{" "}
+            <Link
+              href="/guides/contractor-deposit-rules-california"
+              className={linkClass}
+            >
+              how much a contractor can ask for up front
+            </Link>
+            .
           </p>
         </section>
 
@@ -303,15 +299,7 @@ export default function GarageConversionVsAduGuide() {
             <li>
               <strong>No new setbacks for a conversion.</strong> A city cannot
               require a setback for an existing structure converted to an ADU,
-              or for one rebuilt in the same place and to the same size. A new
-              ADU can be held to no more than 4 feet from the side and rear lot
-              lines.
-            </li>
-            <li>
-              <strong>A little room to grow.</strong> An ADU converted from an
-              existing accessory structure, like a detached garage, can expand
-              by up to 150 square feet, but only to fit an entry or exit. HCD
-              gives a stairway as an example.
+              or for one rebuilt in the same place and to the same size.
             </li>
             <li>
               <strong>Exterior access and fire safety.</strong> A converted
@@ -321,15 +309,13 @@ export default function GarageConversionVsAduGuide() {
               for a home, not a garage.
             </li>
             <li>
-              <strong>Fire sprinklers.</strong> An ADU or junior ADU cannot be
-              required to have sprinklers if the main house is not required to
-              have them, and adding one cannot trigger sprinklers in the main
-              house.
+              <strong>Fire sprinklers.</strong> Not required if the main house
+              does not require them, and adding an ADU cannot trigger
+              sprinklers in the main house.
             </li>
             <li>
-              <strong>Size caps.</strong> Beyond the minimums in the list of
-              projects above, a city cannot cap an ADU below 850 square feet,
-              or 1,000 square feet with more than one bedroom.
+              <strong>Size caps.</strong> A city cannot cap an ADU below 850
+              square feet, or 1,000 square feet with more than one bedroom.
             </li>
           </ul>
         </section>
@@ -337,11 +323,10 @@ export default function GarageConversionVsAduGuide() {
         <section>
           <h2 className={h2Class}>Can you do more than one?</h2>
           <p className="mt-2 leading-relaxed">
-            Government Code section 66323 lists the ADUs a city must approve on
-            a single-family lot, and lets you build any combination of them:
-            one converted ADU and one junior ADU inside the house or an
-            existing accessory structure, and one new detached ADU of up to
-            800 square feet. So a garage conversion does not rule out a
+            Yes. Government Code section 66323 lets you combine one converted
+            ADU and one junior ADU inside the house or an existing accessory
+            structure with one new detached ADU of up to 800 square feet on a
+            single-family lot. So a garage conversion does not rule out a
             backyard unit later. Only one junior ADU is allowed per lot.
           </p>
         </section>
@@ -365,118 +350,40 @@ export default function GarageConversionVsAduGuide() {
             <Link href="/guides/adu-cost" className={linkClass}>
               ADU cost guide
             </Link>{" "}
-            covers what drives it.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Size also changes the fees. Under SB 543, a city cannot charge
-            impact fees on an ADU of 750 square feet or less of interior
-            livable space, or a junior ADU of 500 square feet or less.
+            covers what drives it, and the 2026 law changes, including the SB
+            543 limits on impact fees for smaller units.
           </p>
         </section>
 
         <section>
           <h2 className={h2Class}>Pre-approved plans in Orange County</h2>
           <p className="mt-2 leading-relaxed">
-            A pre-approved plan has already been through the city&apos;s
-            review, which can cut design and plan-check time. Newport Beach is
-            the one Orange County city we found whose standard plans include
-            garage conversions: two of its five, one for a one-car garage and
-            one for a two-car garage. You still supply site-specific items
-            such as a site plan and a Title 24 energy analysis.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Irvine, Santa Ana, Anaheim, Huntington Beach and the County of
-            Orange publish pre-approved ADU plans too, and state law required
-            every city and county to have a program by January 1, 2025, so ask
-            your planning counter what is on its list. City pages:{" "}
-            <Link href="/oc/newport-beach" className={linkClass}>
-              Newport Beach
-            </Link>
-            ,{" "}
-            <Link href="/oc/irvine" className={linkClass}>
-              Irvine
-            </Link>
-            ,{" "}
-            <Link href="/oc/santa-ana" className={linkClass}>
-              Santa Ana
-            </Link>
-            ,{" "}
-            <Link href="/oc/anaheim" className={linkClass}>
-              Anaheim
-            </Link>
-            ,{" "}
-            <Link href="/huntington-beach" className={linkClass}>
-              Huntington Beach
-            </Link>
-            , or{" "}
-            <Link href="/oc" className={linkClass}>
-              all Orange County cities
+            Newport Beach is the one Orange County city we found whose
+            pre-approved plans include garage conversions: two of its five,
+            one for a one-car garage and one for a two-car garage. You still
+            supply site-specific items such as a site plan and a Title 24
+            energy analysis. Other cities&apos; plan programs are in the city
+            table of our{" "}
+            <Link href="/guides/adu-cost" className={linkClass}>
+              ADU cost guide
             </Link>
             .
           </p>
         </section>
 
-        <section>
-          <h2 className={h2Class}>What changed in 2026</h2>
-          <p className="mt-2 leading-relaxed">
-            Three bills signed in fall 2025 changed ADU fees, junior ADU rules
-            and coastal permits. Our{" "}
-            <Link href="/guides/adu-cost" className={linkClass}>
-              ADU cost guide
-            </Link>{" "}
-            covers all three.
-          </p>
-        </section>
         <section>
           <h2 className={h2Class}>HOAs and the coastal zone</h2>
           <p className="mt-2 leading-relaxed">
             An HOA can apply reasonable design rules to an ADU but cannot
             effectively prohibit one (Civil Code section 4751); a room
-            conversion gets no such protection. In the coastal parts of cities
-            like Huntington Beach, Newport Beach, Laguna Beach, Dana Point, San
-            Clemente and Seal Beach, an ADU can also need a coastal development
-            permit. Both are covered in our{" "}
+            conversion gets no such protection. In the coastal zone, an ADU
+            can also need a coastal development permit. Both are covered in
+            our{" "}
             <Link
               href="/guides/hoa-coastal-commission-remodel-orange-county"
               className={linkClass}
             >
               guide to HOA and coastal approvals
-            </Link>
-            .
-          </p>
-        </section>
-
-        <section>
-          <h2 className={h2Class}>Which one fits</h2>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
-            <li>
-              <strong>More room for your own household:</strong> a room
-              conversion, after checking your city&apos;s parking rules.
-            </li>
-            <li>
-              <strong>A rental or a home for a relative, with an attached
-              garage:</strong> compare an ADU with a junior ADU. Sharing a
-              bathroom lets the city require you to live on site.
-            </li>
-            <li>
-              <strong>A detached garage:</strong> a full ADU, not a junior ADU.
-            </li>
-            <li>
-              <strong>Keep the garage:</strong> a new detached ADU costs the
-              most, and you can still add a junior ADU inside the house.
-            </li>
-          </ul>
-          <p className="mt-2 leading-relaxed">
-            Permits and contractor rules are covered in{" "}
-            <Link href="/guides/permits-orange-county" className={linkClass}>
-              building permits in Orange County
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/guides/contractor-deposit-rules-california"
-              className={linkClass}
-            >
-              how much a contractor can ask for up front
             </Link>
             .
           </p>

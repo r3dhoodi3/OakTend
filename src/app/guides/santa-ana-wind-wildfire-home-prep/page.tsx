@@ -21,8 +21,9 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // Administrative Law (OAL) on 2026-08-28; OAL's comment period closed
 // 2026-09-02 (BBK client alert dated 2026-09-09, republished by PublicCEO
 // 2026-09-15). OAL's own emergency regulations page lists that filing,
-// 2026-0828-03E, as "Withdrawn, September 8, 2026", and on 2026-09-25 it was
-// not on OAL's list of emergency regulations under review. Neither BBK nor
+// 2026-0828-03E, as "Withdrawn, September 8, 2026", and on 2026-09-25 and
+// again on 2026-09-26 it was not on OAL's list of emergency regulations under
+// review. Neither BBK nor
 // PublicCEO mentions the withdrawal, and OAL gives no reason, so the page
 // states no reason and no date for a resubmission. The applicability and
 // timing on the page describe the version the Board adopted, and the page
@@ -54,7 +55,7 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-const TITLE = "Santa Ana wind and wildfire home prep in Orange County";
+const TITLE = "Wildfire home prep in Orange County";
 const DESCRIPTION =
   "How to get an Orange County home ready for Santa Ana winds and wildfire season: defensible space, the first 5 feet, vents, gutters, fences and alerts.";
 const CANONICAL = `${SITE_URL}/guides/santa-ana-wind-wildfire-home-prep`;
@@ -117,10 +118,9 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/santa-ana-wind-wildfire-home-prep" />
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Written for Orange County homeowners, especially near canyons,
-        hillsides and open space. Instructions here come from the Orange
-        County Fire Authority and state law. General information, not safety
-        advice for your property: your fire department has the final word.
+        Most urgent near canyons, hillsides and open space, though embers
+        travel. Instructions come from the Orange County Fire Authority and
+        state law; your fire department has the final word.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
@@ -147,8 +147,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             The National Weather Service defines a Santa Ana wind as a
             Southern California weather condition in which strong, hot,
             dust-bearing winds descend to the Pacific Coast from inland
-            desert regions. They come off the desert dry, and they reach the
-            whole county, not only the hills.
+            desert regions. They reach the whole county, not only the hills.
           </p>
           <p className="mt-2 leading-relaxed">
             For a house, that means two problems. The first is plain wind
@@ -219,7 +218,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             sent them to the state Office of Administrative Law on August 28.
             The public comment period there closed on September 2. The Office
             of Administrative Law then listed the filing as withdrawn on
-            September 8, 2026, and as of September 25 it was not back under
+            September 8, 2026, and as of September 26 it was not back under
             review. The Board can file it again, so the rule is not in effect
             and has no effective date yet.
           </p>
@@ -282,8 +281,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             </li>
             <li>
               <strong>Rain gutters.</strong> Embers ignite the leaves and
-              needles that collect in them. Clean them before wind season,
-              not after the first rain.
+              needles that collect in them.
             </li>
             <li>
               <strong>Fences.</strong> A wood fence attached to the house can
@@ -307,6 +305,13 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
                 roof replacement guide
               </Link>{" "}
               covers the bigger decision.
+            </li>
+            <li>
+              <strong>Windows.</strong> If you are replacing them, our{" "}
+              <Link href="/guides/window-replacement-cost-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+                window replacement guide
+              </Link>{" "}
+              notes the extra code rules in a fire hazard zone.
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
@@ -389,12 +394,9 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-            As of September 25, 2026. Wildfire rules are changing, and OCFA
-            itself notes that new state requirements may be enacted at any
-            time. The state Zone 0 regulation was withdrawn from review on
-            September 8, 2026 and could be filed again at any time. This is
-            general information, not legal, insurance or
-            safety advice. In an emergency follow the instructions of fire
+            As of September 26, 2026. OCFA notes that new state requirements
+            may be enacted at any time. General information, not legal,
+            insurance or safety advice. In an emergency follow the instructions of fire
             and law enforcement officials, and call 911.
           </p>
         </section>

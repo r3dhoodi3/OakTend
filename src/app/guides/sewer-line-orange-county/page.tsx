@@ -40,7 +40,7 @@ export const revalidate = 3600;
 // its own literal copy of the title.
 const TITLE = "Sewer line problems in Orange County";
 const DESCRIPTION =
-  "Who owns the sewer lateral in Orange County cities, the signs of a failing line, camera inspections, repair options and permits.";
+  "Who owns the sewer lateral in Orange County cities, signs of a failing line, what a camera inspection shows, repair options, rebates and permits.";
 const CANONICAL = `${SITE_URL}/guides/sewer-line-orange-county`;
 
 export const metadata: Metadata = {

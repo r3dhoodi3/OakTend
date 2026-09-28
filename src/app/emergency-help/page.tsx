@@ -52,19 +52,29 @@ export default function EmergencyHelpPage() {
       </p>
 
       {/* Life-safety caveat, first thing on the page. Red accent is reserved
-          for this one genuine 911 warning, not decoration. */}
+          for this one genuine 911 warning, not decoration. Kept to the 911
+          line, gas and carbon monoxide (the two "get out first" cases) and
+          the disclaimer: the standing-water and downed-line steps live in
+          the cards below, and each open card already says to call a local
+          licensed company, so neither is repeated here (owner, 2026-09-27:
+          the same advice must not appear in two places). Mirrors the
+          in-app /emergency intro word for word (EMERGENCY_SAFETY_LINE, the
+          2026-09-20 legal pass), plus the carbon monoxide symptoms: a home
+          with no CO alarm still needs the "get out" cue, and that cue
+          otherwise sits only inside the no-heat card. */}
       <div className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 dark:border-red-500/40 dark:bg-red-950/30">
         <div className="flex gap-3">
           <AlertTriangle
             className="mt-0.5 h-5 w-5 flex-none text-red-600 dark:text-red-400"
             aria-hidden="true"
           />
-          {/* The same single safety line as the in-app page. The gas, water
-              and power-line warnings live inside their own cards below, so
-              they are not repeated here. */}
-          <p className="text-sm font-medium leading-relaxed text-red-900 dark:text-red-200">
-            {EMERGENCY_SAFETY_LINE}
-          </p>
+          <div className="text-sm leading-relaxed text-red-900 dark:text-red-200">
+            <p className="font-medium">{EMERGENCY_SAFETY_LINE}</p>
+            <p className="mt-2">
+              A headache, dizziness, or nausea at home can mean carbon
+              monoxide, even with no alarm. Treat it the same way.
+            </p>
+          </div>
         </div>
       </div>
 
