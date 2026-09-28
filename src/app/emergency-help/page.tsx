@@ -58,7 +58,9 @@ export default function EmergencyHelpPage() {
           the cards below, and each open card already says to call a local
           licensed company, so neither is repeated here (owner, 2026-09-27:
           the same advice must not appear in two places). Mirrors the
-          in-app /emergency intro. */}
+          in-app /emergency intro, plus the carbon monoxide symptoms: a home
+          with no CO alarm still needs the "get out" cue, and that cue
+          otherwise sits only inside the no-heat card. */}
       <div className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 dark:border-red-500/40 dark:bg-red-950/30">
         <div className="flex gap-3">
           <AlertTriangle
@@ -68,11 +70,12 @@ export default function EmergencyHelpPage() {
           <div className="text-sm leading-relaxed text-red-900 dark:text-red-200">
             <p className="font-semibold">If someone is hurt, trapped, or in danger, call 911 now.</p>
             <p className="mt-2">
-              If you smell gas or a carbon monoxide alarm sounds, get everyone
-              outside first and call from there. These are general safety
-              steps, not an emergency service. OakTend is software, not a
-              contractor or a utility. If you are not sure a step is safe, skip
-              it and get out.
+              If you smell gas, a carbon monoxide alarm sounds, or people at
+              home feel a headache, dizziness, or nausea, get everyone outside
+              first and call from there. These are general safety steps, not
+              an emergency service. OakTend is software, not a contractor or a
+              utility. If you are not sure a step is safe, skip it, get out,
+              and call 911.
             </p>
           </div>
         </div>
