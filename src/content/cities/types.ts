@@ -47,7 +47,7 @@ export type CityContent = {
   // paragraph in the hero. This is the paragraph that has to be impossible to
   // rewrite for a different city by swapping the name.
   intro: string;
-  // Unique, under 160 characters, no city-name-swap templating.
+  // Unique, 140 to 155 characters, no city-name-swap templating.
   metaDescription: string;
   // The page's <title> (also the OG and Twitter title). Optional: a city
   // without one keeps the shared title from src/lib/cityCopy.ts. Leads with
@@ -119,7 +119,8 @@ export type CityContent = {
   // a launch city and that every city is linked from at least one neighbor.
   neighbors: string[];
 
-  // 4 to 6. Real questions, honest answers, marked up as FAQPage JSON-LD.
+  // 2 to 4. Real questions the page body does not already answer, honest
+  // answers, marked up as FAQPage JSON-LD.
   faq: { q: string; a: string }[];
 
   // When the facts above were last checked against their sources.

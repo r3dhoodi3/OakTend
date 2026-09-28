@@ -39,7 +39,7 @@ export const sanJuanCapistrano: CityContent = {
   name: "San Juan Capistrano",
   slug: "san-juan-capistrano",
   intro:
-    "San Juan Capistrano grew up around a mission founded on November 1, 1776, but it did not incorporate until April 19, 1961, and most of its houses are newer still: about 36 percent of the housing units date from the 1970s and the median build year is 1979. The city's general plan describes a coastal valley one mile from the ocean, and its safety element counts three major creeks on the valley floor and more than 600 feet of vertical relief in the hills above them, which is why it calls landslides and debris flows the dominant geologic hazard here. In 2025 the State Fire Marshal's new map raised the Very High fire hazard acreage inside the city from 401 to 2,636, according to the city's own agenda report.",
+    "San Juan Capistrano grew up around a mission founded in 1776 but did not incorporate until 1961, and about 36 percent of its homes date from the 1970s. Its safety element calls landslides and debris flows the dominant geologic hazard in this creek valley, and the State Fire Marshal's 2025 map raised the city's Very High fire acreage from 401 to 2,636.",
   metaDescription:
     "San Juan Capistrano homes are mostly 1970s stock in a creek valley under slide-prone hills. SMWD water, OCFA, in-person permits, 2025 fire map. Sourced.",
   metaTitle: "San Juan Capistrano: 1970s homes, creeks and hills",
@@ -62,49 +62,49 @@ export const sanJuanCapistrano: CityContent = {
     },
     facts: [
       {
-        text: "San Juan Capistrano's median year built is 1979. Of about 13,071 housing units, roughly 36.0 percent went up in the 1970s, 15.7 percent in the 1980s, 14.4 percent in the 1990s and 11.9 percent in the 1960s, with about 17 percent from 2000 or later and only about 2 percent from before 1950. About 56.5 percent are detached houses and 20.2 percent are attached. These are survey estimates with margins of error, but the shape is clear: the typical house here is 45 to 55 years old, the age when original plumbing, windows and a second roof all come due.",
+        text: "Of about 13,071 housing units, roughly 36.0 percent went up in the 1970s, 15.7 percent in the 1980s, 14.4 percent in the 1990s and 11.9 percent in the 1960s, with about 17 percent from 2000 or later and only about 2 percent before 1950. About 56.5 percent are detached houses and 20.2 percent attached.",
         sourceUrl:
           "https://censusreporter.org/data/table/?table=B25034&geo_ids=16000US0668028",
         sourceLabel:
           "Census Reporter, ACS 2024 5-year tables B25034, B25035 and B25024",
       },
       {
-        text: "Mobile homes are a real part of the housing here. The city's 2021-2029 Housing Element (adopted February 2022, revised August 2022) counts seven mobile home parks with 1,394 units, about 11 percent of the 12,558 units it tallied, and says the city has a mobile home park rent control ordinance and a senior overlay on four of the parks. The newer ACS estimate puts mobile homes at about 1,296 units, or 9.9 percent. The city's permit page lists the state housing department's manufactured and mobile home program among the outside agencies an applicant may need.",
+        text: "The 2021-2029 Housing Element counts seven mobile home parks with 1,394 units, about 11 percent of the 12,558 units it tallied, under a mobile home park rent control ordinance and with a senior overlay on four parks. The newer ACS estimate puts mobile homes at about 1,296 units, 9.9 percent. The city's permit page lists the state's manufactured and mobile home program among outside agencies an applicant may need.",
         sourceUrl:
           "https://sanjuancapistrano.org/DocumentCenter/View/2388/General-Element---Housing-Element-PDF",
         sourceLabel: "City of San Juan Capistrano Housing Element, 2022",
       },
       {
-        text: "The city's history page dates Mission San Juan Capistrano to November 1, 1776, the seventh mission in the California chain. It also explains why so much open land and so many ridgelines are still bare: intense development pressure in the early 1970s led residents to write a new general plan, adopted in 1974, that preserved historic resources and open space, limited development density and provided for ridgeline preservation.",
+        text: "Mission San Juan Capistrano dates to November 1, 1776, the seventh mission in the California chain. Development pressure in the early 1970s led residents to write a 1974 general plan that preserved historic resources and open space, limited density and protected ridgelines, which is why so many hills are still bare.",
         sourceUrl: "https://sanjuancapistrano.org/356/History",
         sourceLabel: "City of San Juan Capistrano, History",
       },
       {
-        text: "The general plan's introduction says the community incorporated as a general law city on April 19, 1961,. It describes the city as a coastal valley one mile from the ocean, divided by Interstate 5, and bordered by Laguna Niguel, Mission Viejo, Dana Point, San Clemente and unincorporated Orange County.",
+        text: "The city incorporated as a general law city on April 19, 1961. The general plan describes a coastal valley one mile from the ocean, divided by Interstate 5 and bordered by Laguna Niguel, Mission Viejo, Dana Point, San Clemente and unincorporated county land.",
         sourceUrl:
           "https://sanjuancapistrano.org/DocumentCenter/View/1080/General-Plan---Introduction-PDF",
         sourceLabel: "City of San Juan Capistrano General Plan, Introduction",
       },
       {
-        text: "The city's National Register page lists the Los Rios Street Historic District, 31600 to 31921 Los Rios Street, as added in 1983, and the Mission itself as added in 1971. It says the Montanez Adobe at 31745 Los Rios Street was built in 1794 and that three such adobes remain on the street. The Housing Element adds that only about 1.5 percent of the city's housing was built before 1940.",
+        text: "The Los Rios Street Historic District, 31600 to 31921 Los Rios Street, joined the National Register in 1983 and the Mission in 1971. The Montanez Adobe at 31745 Los Rios Street dates to 1794, and three such adobes remain on the street. The Housing Element puts only about 1.5 percent of the city's housing before 1940.",
         sourceUrl:
           "https://sanjuancapistrano.org/259/National-Register-of-Historic-Places",
         sourceLabel:
           "City of San Juan Capistrano, National Register of Historic Places",
       },
       {
-        text: "Owning a designated landmark changes the permit path. The city's historic preservation page says that if an owner wishes to alter, add onto, relocate or demolish a landmark on its Inventory of Historic and Cultural Landmarks, a permit is required through the Site Plan Review process. In return, designated buildings are eligible for the State Historical Building Code and can apply for a Mills Act contract, which the page says can reduce property tax assessments by 15 to 60 percent according to county assessor staff. The Planning Division's number is 949-443-6331.",
+        text: "Altering, adding onto, moving or demolishing a building on the city's Inventory of Historic and Cultural Landmarks requires a permit through Site Plan Review. Designated buildings can use the State Historical Building Code and apply for a Mills Act contract, which the city says can cut property tax assessments by 15 to 60 percent. Planning: 949-443-6331.",
         sourceUrl: "https://sanjuancapistrano.org/253/Historic-Preservation",
         sourceLabel: "City of San Juan Capistrano, Historic Preservation",
       },
       {
-        text: "The pipes under the street are older than most of the houses. Santa Margarita Water District says some of the city's water infrastructure dates back to the 1920s, and that since it assumed water service in 2021 it has invested over 30 million dollars here, 11.9 million of it on water treatment. A March 2026 district post says the local groundwater plant, built in 2003 and brought online in 2006, now has a second reverse osmosis unit that lifted its capacity from 2.4 million to almost 5 million gallons a day.",
+        text: "Santa Margarita Water District says some of the city's water infrastructure dates to the 1920s and that it has invested over 30 million dollars here since 2021, 11.9 million on treatment. A March 2026 post says the local groundwater plant, built in 2003 and online in 2006, added a second reverse osmosis unit, lifting capacity from 2.4 million to almost 5 million gallons a day.",
         sourceUrl: "https://www.smwd.com/SJC",
         sourceLabel:
           "Santa Margarita Water District, San Juan Capistrano system page",
       },
       {
-        text: "San Juan Capistrano does not run its own fire department. The city's fire services page says it partners with the Orange County Fire Authority for fire and emergency medical services. The city's page for the authority's Station 7, at Del Obispo and Forster Lane, says it is staffed by five career firefighters daily, including two paramedics, plus reserve firefighters, and houses a structural engine, a Type 3 wildland engine, a patrol unit and a water tender that carries 1,800 gallons.",
+        text: "Fire and emergency medical service comes from the Orange County Fire Authority. Its Station 7, at Del Obispo and Forster Lane, is staffed by five career firefighters daily, two of them paramedics, plus reserves, with a structural engine, a Type 3 wildland engine, a patrol unit and a 1,800-gallon water tender.",
         sourceUrl: "https://sanjuancapistrano.org/325/OCFA-Fire-Station-7",
         sourceLabel: "City of San Juan Capistrano, OCFA Fire Station 7",
       },
@@ -121,7 +121,7 @@ export const sanJuanCapistrano: CityContent = {
       "Hunt Club",
       "McCracken Hill",
     ],
-    note: "These are names the city itself uses. The Housing Element says about half of the pre-1940 housing sits in the Historic Los Rios District, the Mission Flats and Mission Hills neighborhoods and the Spotted Bull neighborhood, and it names the Capistrano Villas neighborhood as the core of its community of focus. The city's landmark inventory page places the Los Rios district east of the train depot and the early 20th century Mission Hill-Mission Flats neighborhood east of the library. Hunt Club and McCracken Hill are the names of two of the city's adopted specific plans. Tract names that turn up only on real-estate pages were left out.",
+    note: "The Housing Element puts about half of the pre-1940 housing in the Los Rios district, the Mission Flats and Mission Hills neighborhoods and Spotted Bull, and names Capistrano Villas as the core of its community of focus. Los Rios lies east of the train depot and Mission Hill-Mission Flats east of the library. Hunt Club and McCracken Hill are two of the city's specific plans.",
     sourceUrl:
       "https://sanjuancapistrano.org/DocumentCenter/View/2388/General-Element---Housing-Element-PDF",
   },
@@ -130,7 +130,7 @@ export const sanJuanCapistrano: CityContent = {
     utility: "Santa Margarita Water District",
     utilityUrl: "https://www.smwd.com/SJC",
     summary:
-      "Santa Margarita Water District has owned and run San Juan Capistrano's water and sewer system since it acquired it from the city in November 2021, and it publishes a separate water quality report for the city. That report says the drinking water comes from three sources: local groundwater treated at the San Juan Groundwater Plant, water bought from Irvine Ranch Water District's Baker Water Treatment Plant, and imported Metropolitan Water District water from the Colorado River and the State Water Project. For 2025 it shows hardness in the city's distribution system averaging 210 ppm, or 12 grains per gallon, with a range of 89 to 290 ppm (5.2 to 17 grains). By source, Metropolitan water averaged 236 ppm (14 grains), Baker plant water 293 ppm (17 grains) and the groundwater plant's treated water only 2.9 ppm, so the blend at a given tap can swing widely. The same report says the district's 2024 service line inventory found no lead or galvanized lines requiring replacement. South Coast Water District also says its service area includes areas of San Juan Capistrano, so check the name on your bill.",
+      "Santa Margarita Water District has owned the city's water and sewer system since November 2021; South Coast Water District also serves some areas, so check your bill. The district's city report lists three sources: groundwater treated at the San Juan Groundwater Plant, Irvine Ranch Water District's Baker plant, and imported Metropolitan water. In 2025 hardness averaged 210 ppm, or 12 grains per gallon, range 89 to 290 ppm (5.2 to 17 grains). Metropolitan water averaged 236 ppm, Baker water 293 ppm and the groundwater plant's water only 2.9 ppm, so the blend at a tap swings widely. The 2024 service line inventory found no lead or galvanized lines needing replacement.",
     sourceUrl:
       "https://www.smwd.com/DocumentCenter/View/6351/2026-Water-Quality-Report-ID-9---SJC",
   },
@@ -139,44 +139,44 @@ export const sanJuanCapistrano: CityContent = {
     office: "City of San Juan Capistrano Building Division",
     portalUrl: "https://etrakit.sanjuancapistrano.org/etrakit/Search/permit.aspx",
     summary:
-      "Building permits go through the Building Division at City Hall, 32400 Paseo Adelanto, phone 949-443-6347. The city says City Hall is open by appointment only and that tenant improvements and residential remodels must be submitted as hard copy, in person, with a completed permit application needed to book the appointment; new construction is submitted electronically, and plans are not accepted by mail or courier. The public counter closes daily from 12:00 to 1:00 pm, and the eTRAKiT portal is for checking review status and inspection results. The city's target is 12 working days for a first building review and 7 for resubmittals, with no expedited review. Projects that need Orange County Fire Authority review go to the authority directly, because the city does not route plans, and exterior work inside a homeowners association needs written HOA approval first.",
+      "Residential remodels go on paper, in person. City Hall, 32400 Paseo Adelanto (949-443-6347), is open by appointment only, and a completed permit application is needed to book one; only new construction is submitted electronically, nothing by mail or courier. The counter closes daily from noon to 1 pm, and eTRAKiT is for checking status and inspection results. First building review targets 12 working days, resubmittals 7, with no expedited option. Projects needing fire authority review go to the authority directly, and exterior work in an association needs written HOA approval first.",
     sourceUrl: "https://sanjuancapistrano.org/214/Apply-for-a-Permit",
   },
 
   hazards: [
     {
-      text: "The fire map grew sharply in 2025. The city's July 15, 2025 agenda report says the State Fire Marshal's March 24, 2025 map raised the acreage in the Very High Fire Hazard Severity Zone inside the city from 401 to 2,636, and identified 2,658 acres as High and 727 acres as Moderate, tiers the 2011 map did not show. The report says a home in a Very High zone must keep at least 100 feet of defensible space, sellers in High or Very High zones must disclose the designation, and new construction there must meet the state's wildland-urban interface building standards.",
+      text: "The city's July 15, 2025 agenda report says the State Fire Marshal's March 24, 2025 map raised Very High acreage inside the city from 401 to 2,636 and added 2,658 acres of High and 727 of Moderate, tiers the 2011 map did not show. Very High homes must keep at least 100 feet of defensible space, sellers in High or Very High zones must disclose it, and new construction must meet wildland-urban interface standards.",
       sourceUrl:
         "https://sjc.granicus.com/MetaViewer.php?view_id=3&clip_id=3100&meta_id=191078",
       sourceLabel:
         "City of San Juan Capistrano agenda report, July 15, 2025, fire hazard severity zone maps",
     },
     {
-      text: "Wildfire here has a record. The city's Safety Element says the 1958 Stewart Fire burned 2,500 acres inside the city and 69,444 acres in the region, and the 1988 Ortega Fire burned 2,384 acres. It says brush clearing rules in the Very High zones are enforced wholly by the Orange County Fire Authority. It also warns that mudslides in heavy rain are a common threat after a fire.",
+      text: "The 1958 Stewart Fire burned 2,500 acres inside the city and 69,444 in the region, and the 1988 Ortega Fire burned 2,384 acres. The fire authority alone enforces brush clearing in the Very High zones, and the Safety Element warns that mudslides in heavy rain commonly follow a fire.",
       sourceUrl:
         "https://sanjuancapistrano.org/DocumentCenter/View/1081/General-Plan---Safety-Element-PDF",
       sourceLabel: "City of San Juan Capistrano General Plan, Safety Element (2022)",
     },
     {
-      text: "The Safety Element says the terrain is mostly gently to steeply rolling hills with deep-cut canyons, with more than 600 feet of vertical relief, and that landslides and debris flows are the dominant geologic hazard risks in the city. It says the shales and siltstones under the hills do not hold together well when wet, especially around San Juan Creek, rates the debris flow risk as high, and notes that a relatively large part of the city has clay soils that can shrink and swell. On a hillside lot, keep roof and yard drainage moving away from the slope and watch for new cracks after a wet winter.",
+      text: "The hills are rolling to steep with deep canyons and more than 600 feet of relief. The shales and siltstones under them do not hold together well when wet, especially around San Juan Creek, the element rates debris flow risk high, and a relatively large part of the city has clay soils that shrink and swell.",
       sourceUrl:
         "https://sanjuancapistrano.org/DocumentCenter/View/1081/General-Plan---Safety-Element-PDF",
       sourceLabel: "City of San Juan Capistrano General Plan, Safety Element (2022)",
     },
     {
-      text: "The same element says no known active faults cross the city and the state has set no Alquist-Priolo fault zone here, so the chance of the ground rupturing is low. Shaking is another matter: it lists the Newport-Inglewood Fault Zone less than 5 miles to the southwest, with a probable magnitude range of 6.0 to 7.4, as the highest risk of damage to the city. It says a significant area of the city is vulnerable to liquefaction, particularly the floodways downstream of where San Juan Creek and Trabuco Creek meet.",
+      text: "No known active fault crosses the city and there is no Alquist-Priolo zone here. The Newport-Inglewood Fault Zone, less than 5 miles southwest with a probable magnitude of 6.0 to 7.4, is the biggest shaking risk, and a significant area is vulnerable to liquefaction, especially the floodways below where San Juan and Trabuco creeks meet.",
       sourceUrl:
         "https://sanjuancapistrano.org/DocumentCenter/View/1081/General-Plan---Safety-Element-PDF",
       sourceLabel: "City of San Juan Capistrano General Plan, Safety Element (2022)",
     },
     {
-      text: "The city says it has taken part in the National Flood Insurance Program since 1978 for the sake of owners along San Juan, Trabuco, Horno and Oso creeks, and that participation currently earns property owners a 5 percent reduction on flood insurance. Its Engineering and Environmental Services Department gives flood zone determinations and base flood elevations for any address at 949-443-6337. The Safety Element adds that most of the creeks have not been channelized with concrete and that the city has FEMA zones A, AO and AE but none beginning with V.",
+      text: "The city has been in the National Flood Insurance Program since 1978 for owners along San Juan, Trabuco, Horno and Oso creeks, which earns them a 5 percent flood insurance reduction. Engineering gives flood zone determinations and base flood elevations for any address at 949-443-6337. Most creeks are not concrete-lined, and the city has FEMA zones A, AO and AE but no V zones.",
       sourceUrl:
         "https://sanjuancapistrano.org/285/FEMA---Floodplain-Management-Information",
       sourceLabel: "City of San Juan Capistrano, FEMA floodplain management information",
     },
     {
-      text: "There are no dams inside the city, but the Safety Element says it lies in the inundation path of three: Trampas Canyon Dam, Lake Mission Viejo Dam and Upper Oso Reservoir. Trampas Canyon sits 2 miles east of the city limits on a tributary of San Juan Creek and has been converted to a recycled water reservoir with a capacity of 1.6 billion gallons. The element calls a catastrophic failure unlikely. Tsunami is not on the list: the city's emergency preparedness page says San Juan Capistrano is not in a tsunami inundation area.",
+      text: "No dams sit inside the city, but it lies in the inundation path of Trampas Canyon Dam, Lake Mission Viejo Dam and Upper Oso Reservoir; Trampas Canyon, 2 miles east, is now a 1.6 billion gallon recycled water reservoir. The element calls a catastrophic failure unlikely, and the city's preparedness page says San Juan Capistrano is not in a tsunami inundation area.",
       sourceUrl:
         "https://sanjuancapistrano.org/DocumentCenter/View/1081/General-Plan---Safety-Element-PDF",
       sourceLabel: "City of San Juan Capistrano General Plan, Safety Element (2022)",
@@ -188,25 +188,25 @@ export const sanJuanCapistrano: CityContent = {
       href: "/guides/roof-replacement-cost",
       title: "Roof replacement cost",
       blurb:
-        "A sourced re-roof cost, shingle vs tile, in a city whose re-roof handout requires a Class A covering once half or more of a roof is redone within a year.",
+        "The city's re-roof handout requires Class A once half a roof is redone within a year.",
     },
     {
       href: "/guides/water-heater-replacement-cost",
       title: "Water heater replacement cost",
       blurb:
-        "What changes the price and when a repair still makes sense, on water the district measured at an average of 12 grains per gallon in 2025.",
+        "District water averaged 12 grains per gallon in 2025, and every swap needs a permit.",
     },
     {
       href: "/guides/slab-leak-signs",
       title: "Slab leak signs",
       blurb:
-        "What to watch for in a city where about 36 percent of the homes date from the 1970s and the original plumbing is near 50 years old.",
+        "About 36 percent of homes here are 1970s builds on plumbing near 50 years old.",
     },
     {
       href: "/guides/orange-county-home-maintenance-checklist",
       title: "Orange County home maintenance checklist",
       blurb:
-        "Month by month, including brush clearance before fire season and the drain and slope checks a hillside or creekside lot needs before winter storms.",
+        "Brush clearance before fire season, and slope and drain checks before winter storms.",
     },
   ],
 
@@ -214,24 +214,12 @@ export const sanJuanCapistrano: CityContent = {
 
   faq: [
     {
-      q: "Is San Juan Capistrano's water hard?",
-      a: "Yes, on average. Santa Margarita Water District's report for 2025 shows hardness in the city's distribution system averaging 210 ppm, or 12 grains per gallon, with a range of 89 to 290 ppm. The imported sources run harder, 236 ppm for Metropolitan water and 293 ppm for Baker plant water, while the local groundwater plant's treated water averaged only 2.9 ppm, so your tap depends on the blend. Flush a tank water heater once a year and descale a tankless unit on the manufacturer's schedule.",
+      q: "What does San Juan Capistrano require to replace a water heater?",
+      a: "A permit and a final inspection for every installation or replacement, according to the Building Division's tank water heater handout, which also calls for two seismic straps. The handout cites an older code edition, so confirm details at 949-443-6347.",
     },
     {
-      q: "Who provides water and fire service in San Juan Capistrano?",
-      a: "Neither is a city department. Santa Margarita Water District has owned and operated the water and sewer system since it acquired it from the city in November 2021, and South Coast Water District says its service area also includes areas of the city, so the name on your bill is the reliable answer. Fire and emergency medical service comes from the Orange County Fire Authority, whose Station 7 is at Del Obispo and Forster Lane.",
-    },
-    {
-      q: "Do I need a permit to replace a water heater or a roof in San Juan Capistrano?",
-      a: "Yes to both, going by the city's own handouts. The Building Division's tank water heater handout says all water heater installations and replacements require a permit and a final inspection, and it calls for two seismic straps. Its re-roof handout says planning approval and a building permit are required, asks for a pre-roofing inspection before the deck is covered, and requires a Class A roof covering when 50 percent or more of the roof is redone within a year. Both handouts still cite older code editions, so confirm details at 949-443-6347.",
-    },
-    {
-      q: "Can I apply for a San Juan Capistrano building permit online?",
-      a: "Not for a remodel. The city says City Hall is open by appointment only and that residential remodels and tenant improvements must be submitted in person as hard copy plans, with a completed building permit application needed to book the appointment. Only new construction is submitted electronically, and nothing is accepted by mail. The eTRAKiT portal is for checking status afterward. The city's target for a first building review is 12 working days.",
-    },
-    {
-      q: "Is my house in a fire hazard severity zone?",
-      a: "It may be, even if it was not before 2025. The city's July 15, 2025 agenda report says the State Fire Marshal's new map put 2,636 acres of the city in the Very High zone, up from 401, plus 2,658 acres in High and 727 in Moderate. The city posts the State Fire Marshal's map as a PDF. In a Very High zone you must keep at least 100 feet of defensible space, and the zone has to be disclosed when the house is sold.",
+      q: "What does San Juan Capistrano require for a new roof?",
+      a: "Planning approval and a building permit, per the city's re-roof handout, plus a pre-roofing inspection before the deck is covered and a Class A covering when 50 percent or more of the roof is redone within a year. It also cites an older code edition, so confirm with the Building Division.",
     },
   ],
 
