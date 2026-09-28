@@ -128,7 +128,7 @@ export const irvine: CityContent = {
 
   hazards: [
     {
-      text: "Villages built after the 1982 Mello-Roos law, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, may carry a Mello-Roos special tax, while older villages such as Woodbridge and Northwood generally do not. The county Treasurer-Tax Collector's lookup answers by parcel.",
+      text: "Villages built after the 1982 Mello-Roos law, including parts of the Great Park Neighborhoods, Stonegate and Portola Springs, may carry a Mello-Roos special tax. There is no citywide yes or no: the county Treasurer-Tax Collector's lookup answers by parcel.",
       sourceUrl: "https://octreasurer.gov/melloroos",
       sourceLabel: "OC Treasurer-Tax Collector",
     },
