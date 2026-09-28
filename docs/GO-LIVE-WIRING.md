@@ -70,6 +70,27 @@ SendGrid too: Supabase dashboard -> Auth -> SMTP settings -> host `smtp.sendgrid
 address. Until that is set, Supabase's built-in mailer keeps its low hourly cap and its own
 sender.
 
+### 2b. Owner new-signup alert (`OWNER_NOTIFY_EMAIL`)
+
+`src/lib/signupNotify.ts` emails the owner once per new account (homeowner or pro, any sign-in
+method). The message holds only the account type, a first name (or "No name yet"), the city if
+one is already on file (usually "not set yet", since the home is added after signup), the
+sign-in method, the time in Pacific, and the running account total. It never includes the
+person's email, phone or address. Internal / test accounts (`users.is_internal`) are skipped,
+it is capped at 30 alerts an hour, and `OUTBOUND_DISABLED` stops it like every other email.
+
+1. In Vercel, set `OWNER_NOTIFY_EMAIL=hello@oaktend.com` (Cloudflare Email Routing forwards it
+   to the founders). Production for real alerts; on Preview only while testing it.
+2. It sends through the same provider as everything above, so SendGrid (or Resend) must be
+   configured for that environment. With neither, it does nothing.
+3. **If the only provider is Resend with no `RESEND_FROM`**, mail goes from Resend's sandbox
+   sender `onboarding@resend.dev`, which Resend only delivers to the Resend account owner's own
+   address. hello@oaktend.com will not receive it. Fix: verify `oaktend.com` in SendGrid and set
+   `SENDGRID_API_KEY` + `SENDGRID_FROM` (preferred), or verify `oaktend.com` under Resend ->
+   Domains and set `RESEND_FROM=OakTend <hello@oaktend.com>`.
+4. Redeploy, then create a throwaway account and check the inbox (and the provider's activity
+   feed if nothing arrives). Delete the throwaway account after.
+
 ## 3. SMS (Twilio)
 
 Also real code in `src/lib/notify.ts`, dormant until configured. TCPA gates are already in
