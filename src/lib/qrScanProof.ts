@@ -19,7 +19,7 @@
 // minutes ago. A person who first gets the link after the 10 minutes gets a
 // cookie too, but its open time is after the expiry, so it grants nothing.
 //
-// The database enforces the same rule on its own (migration 0174): past the
+// The database enforces the same rule on its own (migration 0175): past the
 // 10 minutes, redeem_household_invite_token() only accepts the code together
 // with its grace_key, a random value the server reads with the service role
 // and never sends to a browser, and never later than 30 minutes past the

@@ -263,7 +263,7 @@ export async function leaveHomeAction(formData: FormData) {
 //
 // TTL: 10 minutes from mint (QR_TOKEN_LIFETIME_SECONDS), for everyone. A
 // browser that opened the link inside those 10 minutes gets up to 30 minutes
-// from that open to finish joining (src/lib/qrScanProof.ts, migration 0174);
+// from that open to finish joining (src/lib/qrScanProof.ts, migration 0175);
 // that extra time is tied to that browser and never extends the code for
 // anyone else.
 export interface HouseholdQrToken {
@@ -447,10 +447,10 @@ export async function redeemHouseholdInviteAction(formData: FormData) {
   }
 
   // Past the code's 10 minutes, the database only accepts it together with
-  // its grace_key (migration 0174), a value that never leaves the server. It
+  // its grace_key (migration 0175), a value that never leaves the server. It
   // is read and passed ONLY when this browser opened the link while the code
   // was still live, less than 30 minutes ago (openHouseholdInvite checks the
-  // signed cookie from src/lib/qrScanProof.ts). Before 0174 is applied the
+  // signed cookie from src/lib/qrScanProof.ts). Before 0175 is applied the
   // column read fails, no key is passed, and the code simply lasts its 10
   // minutes.
   let graceKey: string | null = null;

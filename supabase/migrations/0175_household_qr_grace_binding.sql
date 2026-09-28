@@ -1,4 +1,4 @@
--- 0174_household_qr_grace_binding.sql
+-- 0175_household_qr_grace_binding.sql
 --
 -- RUN THIS AGAINST THE LIVE DATABASE (Supabase SQL editor); editing repo SQL
 -- alone does NOT change the already-deployed database.

@@ -274,7 +274,7 @@ describe("redeemHouseholdInviteAction", () => {
     ]);
   });
 
-  it("before migration 0174 (grace_key unreadable): falls back to the plain 10 minute call", async () => {
+  it("before migration 0175 (grace_key unreadable): falls back to the plain 10 minute call", async () => {
     const { redeemHouseholdInviteAction } = await import("./actions");
     openInvite = { inGrace: true };
     graceKeyRow = { data: null, error: { code: "42703" } };
