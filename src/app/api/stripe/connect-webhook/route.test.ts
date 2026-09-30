@@ -31,6 +31,18 @@ vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => fakeAdmin(),
 }));
 
+// The invoice settlement module is tested on its own
+// (src/lib/invoiceSettlement.test.ts); here only the dispatch is pinned - which
+// event reaches which handler, with which account, and what the response is.
+const settleInvoicePaid = vi.fn();
+const noteInvoicePaymentFailed = vi.fn();
+const noteInvoiceVoided = vi.fn();
+vi.mock("@/lib/invoiceSettlement", () => ({
+  settleInvoicePaid: (...a: unknown[]) => settleInvoicePaid(...a),
+  noteInvoicePaymentFailed: (...a: unknown[]) => noteInvoicePaymentFailed(...a),
+  noteInvoiceVoided: (...a: unknown[]) => noteInvoiceVoided(...a),
+}));
+
 // Every .from(table).insert(payload) - i.e. every processed_stripe_events
 // claim the route makes.
 let tableInserts: { table: string; payload: Record<string, unknown> }[] = [];
@@ -375,5 +387,83 @@ describe("anything else is acknowledged and ignored", () => {
     expect(await res.json()).toMatchObject({ ignored: "payout.paid" });
     expect(tableInserts).toEqual([]);
     expect(tableUpdates).toEqual([]);
+  });
+});
+
+describe("invoice events on the CONNECT endpoint settle the pro's hosted invoices", () => {
+  beforeEach(() => {
+    process.env.STRIPE_CONNECT_WEBHOOK_SECRET = "whsec_connect_test";
+    settleInvoicePaid.mockReset();
+    noteInvoicePaymentFailed.mockReset();
+    noteInvoiceVoided.mockReset();
+  });
+
+  function invoiceEvent(type: string, account: string | null = "acct_live_9") {
+    return {
+      id: "evt_connect_inv",
+      type,
+      account,
+      created: 1_789_516_800,
+      data: { object: { id: "in_1", amount_paid: 100_000 } },
+    };
+  }
+
+  it("invoice.paid hands the invoice and the CONNECTED account to settlement", async () => {
+    constructEvent.mockReturnValue(invoiceEvent("invoice.paid"));
+    settleInvoicePaid.mockResolvedValue({ handled: true, duplicate: false });
+    const { POST } = await import("./route");
+
+    const res = await POST(post());
+
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ received: true, duplicate: false });
+    expect(settleInvoicePaid).toHaveBeenCalledWith({
+      stripeAccountId: "acct_live_9",
+      invoice: { id: "in_1", amount_paid: 100_000 },
+    });
+    // No event-id claim on the paid path: idempotency is the row's own status.
+    expect(tableInserts).toEqual([]);
+  });
+
+  it("payment_failed and voided go to their own handlers", async () => {
+    constructEvent.mockReturnValue(invoiceEvent("invoice.payment_failed"));
+    noteInvoicePaymentFailed.mockResolvedValue({ handled: true, duplicate: false });
+    const { POST } = await import("./route");
+    expect((await POST(post())).status).toBe(200);
+    expect(noteInvoicePaymentFailed).toHaveBeenCalledTimes(1);
+    expect(settleInvoicePaid).not.toHaveBeenCalled();
+
+    constructEvent.mockReturnValue(invoiceEvent("invoice.voided"));
+    noteInvoiceVoided.mockResolvedValue({ handled: true, duplicate: false });
+    expect((await POST(post())).status).toBe(200);
+    expect(noteInvoiceVoided).toHaveBeenCalledTimes(1);
+  });
+
+  it("an invoice that is not ours is acknowledged, not retried", async () => {
+    constructEvent.mockReturnValue(invoiceEvent("invoice.paid"));
+    settleInvoicePaid.mockResolvedValue({ handled: false, reason: "no_row" });
+    const { POST } = await import("./route");
+    const res = await POST(post());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ ignored: "no_row" });
+  });
+
+  it("a failed settlement write answers 500 so Stripe redelivers", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    constructEvent.mockReturnValue(invoiceEvent("invoice.paid"));
+    settleInvoicePaid.mockRejectedValue(new Error("invoice settle write failed: timeout"));
+    const { POST } = await import("./route");
+    const res = await POST(post());
+    expect(res.status).toBe(500);
+  });
+
+  it("an event with no connected account id is ignored, never settled against nothing", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    constructEvent.mockReturnValue(invoiceEvent("invoice.paid", null));
+    const { POST } = await import("./route");
+    const res = await POST(post());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ ignored: "no_account" });
+    expect(settleInvoicePaid).not.toHaveBeenCalled();
   });
 });

@@ -120,6 +120,11 @@ export const PUSH_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "invoice",
   "invoice_sent",
   "invoice_signed",
+  // The homeowner paid an invoice through OakTend (both sides get one: the
+  // pro's "money is on its way", the homeowner's receipt), or their payment
+  // bounced and the pro should know.
+  "invoice_paid",
+  "invoice_payment_failed",
   // A job matching this pro's trade and area was just posted. Speed to lead is
   // the whole pro-side product, so this is the pro equivalent of "message".
   "new_lead",
@@ -248,6 +253,8 @@ export const TRANSACTIONAL_NOTIFICATION_KINDS: ReadonlySet<string> = new Set([
   "invoice",
   "invoice_sent",
   "invoice_signed",
+  "invoice_paid",
+  "invoice_payment_failed",
   "job_closed",
   "new_lead",
   "new_review",

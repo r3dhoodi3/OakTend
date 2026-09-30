@@ -37,6 +37,8 @@ const UNGATED = [
   "quote_analysis",
   "quote_sent",
   "invoice_sent",
+  "invoice_paid",
+  "invoice_payment_failed",
   "new_review",
   "review_request",
   "job_closed",

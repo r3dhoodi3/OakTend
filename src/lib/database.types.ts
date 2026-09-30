@@ -1588,6 +1588,12 @@ export interface Database {
           kind: string;
         }[];
       };
+      // Migration 0175: the Connect webhook closes a hired job once its full
+      // or balance invoice is paid. Service role only; false when refused.
+      close_lead_on_payment: {
+        Args: { p_invoice: string };
+        Returns: boolean;
+      };
       redeem_household_invite_token: {
         Args: { p_token: string };
         Returns: {
