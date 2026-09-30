@@ -1,12 +1,16 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNotification } from "@/lib/notify";
+import { jobUpdateUrl } from "@/lib/jobUpdates";
 
-// OakTend Pro perk: automated review requests. When a Pro member marks a job
-// Won (closed), the homeowner gets a friendly nudge to leave a review, linking
-// to /contractors where the review form lives (ReviewButton on the job row).
-// This only ASKS: it never touches rating math, ordering, or who is allowed to
-// review: the leave_review RPC keeps enforcing all of that. Free pros lose
-// nothing; they can still ask manually like before.
+// Automated review requests. Two things trigger one: a Pro member marks a job
+// Won (the original perk), and - since 2026-09-29 - ANY pro's full or balance
+// invoice is paid through OakTend (src/lib/invoiceSettlement.ts), because a
+// job paid through the app is the one the review will be marked as verified
+// for. The homeowner gets a friendly nudge linking to /contractors/jobs, where
+// the review form lives (ReviewButton on the job row; the jobs list split off
+// the posting page on 2026-09-25). This only ASKS: it never touches rating
+// math, ordering, or who is allowed to review: the leave_review RPC keeps
+// enforcing all of that.
 //
 // Best-effort throughout: any failure is logged and swallowed so a
 // notification hiccup can never break the pro's status update.
@@ -39,15 +43,17 @@ export async function requestReviewForWonLead(input: {
     if (input.contractorUserId && ownerId === input.contractorUserId) return;
 
     // The lead id in the url doubles as the idempotency key: one ask per job,
-    // ever, even if the status is toggled away and back to Won. /contractors
-    // ignores unknown query params, so the link still lands on the job list.
-    const url = `/contractors?review=${input.leadId}`;
+    // ever, whether it was the Won button or the payment that asked, and even
+    // if the status is toggled away and back. Asks sent before the jobs page
+    // split carried the old /contractors?review= url; both spellings count.
+    const url = jobUpdateUrl(input.leadId);
+    const legacyUrl = `/contractors?review=${input.leadId}`;
     const { data: existing } = await admin
       .from("notifications")
       .select("id")
       .eq("user_id", ownerId)
       .eq("kind", "review_request")
-      .eq("url", url)
+      .in("url", [url, legacyUrl])
       .limit(1)
       .maybeSingle();
     if (existing) return;

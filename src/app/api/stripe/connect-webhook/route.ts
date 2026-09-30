@@ -3,6 +3,11 @@ import type Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { syncConnectAccount, disconnectAccount } from "@/lib/stripeConnect";
+import {
+  settleInvoicePaid,
+  noteInvoicePaymentFailed,
+  noteInvoiceVoided,
+} from "@/lib/invoiceSettlement";
 
 // The CONNECT webhook: events about CONNECTED accounts, not about OakTend's
 // own platform account.
@@ -25,6 +30,17 @@ import { syncConnectAccount, disconnectAccount } from "@/lib/stripeConnect";
 // is lie about a pro's payout readiness - which, once step 2 ships, is exactly
 // the lie that would let an invoice go out against an account Stripe will not
 // pay into. Hence the same fail-closed signature posture the money webhook has.
+//
+// SINCE 2026-09-29 IT ALSO SETTLES INVOICES. The hosted invoices a pro sends
+// (src/lib/stripeInvoices.ts) live on the pro's connected account, so
+// invoice.paid / invoice.payment_failed / invoice.voided for them arrive
+// HERE, never on the platform endpoint - which is why the platform webhook's
+// own invoice.payment_succeeded branch (subscriptions) can never see one.
+// The row writes live in src/lib/invoiceSettlement.ts and are idempotent on
+// the row's own status, not on the event id: a delivery whose handler fails
+// answers 500 and is redelivered, and a redelivery of one that succeeded is a
+// provable no-op. Still no money moves in this route; it records money that
+// Stripe already moved.
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -120,6 +136,42 @@ export async function POST(req: NextRequest) {
       event.account ?? ((event.data.object as any)?.id as string | undefined);
     await disconnectAccount(accountId);
     return NextResponse.json({ received: true });
+  }
+
+  if (
+    event.type === "invoice.paid" ||
+    event.type === "invoice.payment_failed" ||
+    event.type === "invoice.voided"
+  ) {
+    // On a Connect event, event.account is the connected account the invoice
+    // lives on. Without it there is nothing to check the row against, and a
+    // 200 is right: Stripe will not send a better copy.
+    const accountId = event.account;
+    if (!accountId) {
+      console.error(`Connect webhook: ${event.type} ${event.id} carried no account id; ignored.`);
+      return NextResponse.json({ received: true, ignored: "no_account" });
+    }
+    const invoice = event.data.object as Stripe.Invoice;
+    try {
+      const result =
+        event.type === "invoice.paid"
+          ? await settleInvoicePaid({ stripeAccountId: accountId, invoice })
+          : event.type === "invoice.payment_failed"
+            ? await noteInvoicePaymentFailed({ stripeAccountId: accountId, invoice })
+            : await noteInvoiceVoided({ stripeAccountId: accountId, invoice });
+      if (!result.handled) {
+        // Not one of ours (an invoice the pro made some other way, or a row
+        // on a database without 0174), or about the wrong account. Logged by
+        // the module; a 200 so Stripe stops retrying.
+        return NextResponse.json({ received: true, ignored: result.reason });
+      }
+      return NextResponse.json({ received: true, duplicate: result.duplicate });
+    } catch (err) {
+      // A failed money-record write. 500 so Stripe redelivers; the write is
+      // conditioned on the row's status, so the retry lands once.
+      console.error(`Connect webhook: ${event.type} ${event.id} failed:`, err instanceof Error ? err.message : err);
+      return NextResponse.json({ error: "settlement failed" }, { status: 500 });
+    }
   }
 
   // Everything else: a 200 so Stripe stops retrying, and no DB contact at all.
