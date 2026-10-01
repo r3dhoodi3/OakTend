@@ -122,16 +122,18 @@
   --accent: #c08f60;
   --accent-strong: #e0b98a;
 
-  --dev-bg: #fbf7f2;
+  /* Live app tokens: oaktend-50 page ground, bark-600 accent, and the
+     .chip-ok / .chip-danger fills from globals.css (green = good, red = bad). */
+  --dev-bg: #faf4f0;
   --dev-surface: #ffffff;
   --dev-ink: #292524;
   --dev-ink-dim: #78716c;
   --dev-line: #e7e5e4;
   --dev-accent: #915d32;
   --dev-accent-ink: #ffffff;
-  --dev-ok-bg: #f0fdf4; --dev-ok-line: #bbf7d0; --dev-ok-ink: #15803d;
+  --dev-ok-bg: #dcfce7; --dev-ok-line: #86efac; --dev-ok-ink: #166534;
   --dev-warn-bg: #fffbeb; --dev-warn-line: #fde68a; --dev-warn-ink: #b45309;
-  --dev-danger-bg: #fef2f2; --dev-danger-line: #fecaca; --dev-danger-ink: #b91c1c;
+  --dev-danger-bg: #fee2e2; --dev-danger-line: #fca5a5; --dev-danger-ink: #b91c1c;
 
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
   /* var(--font-inter) is the site's real typeface (loaded by next/font in
@@ -164,7 +166,10 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: var(--serif);
+  /* The brand wordmark is Inter semibold everywhere on the site (Nav.tsx),
+     not a serif. */
+  font-family: var(--sans);
+  font-weight: 600;
   font-size: 0.78rem;
   color: rgb(243 233 221 / 0.75);
   pointer-events: none;
@@ -425,6 +430,28 @@
   min-height: 1.4em;
 }
 .input.focus { border-color: var(--dev-accent); box-shadow: 0 0 0 1px var(--dev-accent); }
+/* Focus on the fake form fields, which carry the site's GLOBAL .input class
+   (the module .input above never matches them): the real focus:border-bark-600
+   plus ring-1. */
+.focus { border-color: #915d32 !important; box-shadow: 0 0 0 1px #915d32 !important; }
+
+/* The fake select boxes on the Post a job form: the placeholder shows until
+   the cursor picks a value (the choreography adds .on), then the value. */
+.selectBox { transition: border-color 160ms ease, box-shadow 160ms ease, transform 90ms ease; }
+.selPlaceholder { color: #a8a29e; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.selValue { display: none; color: #1c1917; flex: 1; min-width: 0; white-space: nowrap; }
+.selectBox.on .selPlaceholder { display: none; }
+.selectBox.on .selValue { display: block; }
+.selectBox.pressed { transform: scale(0.98); }
+
+/* Chat composer placeholder: gone while the field is focused or typed in. */
+.composerHint { color: #a8a29e; white-space: nowrap; }
+.composer.focus .composerHint { display: none; }
+
+/* A task's due chip disappears once it is checked off, as on the real
+   ReminderItem (the green check and strikethrough say it instead). */
+.dueChip { transition: opacity 160ms ease; }
+.dueChip.done { opacity: 0; }
 .caret {
   display: inline-block;
   width: 1px;
@@ -468,13 +495,18 @@
 .toast {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  /* Just under the form card, so it never covers the Post job button. */
+  top: calc(100% + 14px);
   transform: translate(-50%, 10px);
-  background: #1c1917;
-  color: #fff;
-  font-size: 13px;
-  padding: 8px 16px;
-  border-radius: 999px;
+  /* The real posted banner: green-50 fill, green-200 border, green-800 ink. */
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
   opacity: 0;
   transition: opacity 200ms ease, transform 200ms ease;
   white-space: nowrap;
@@ -541,22 +573,24 @@
 .bubble {
   max-width: 85%;
   font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 12px;
+  line-height: 1.43;
+  padding: 6px 12px;
+  border-radius: 8px;
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 180ms ease, transform 180ms ease;
 }
 .bubble.show { opacity: 1; transform: none; }
-.bubble.them { align-self: flex-start; background: #f5f5f4; color: var(--dev-ink); border-bottom-left-radius: 4px; }
-.bubble.me { align-self: flex-end; background: var(--dev-accent); color: #fff; border-bottom-right-radius: 4px; }
+/* LeadChat bubbles: theirs white with a stone-200 border and stone-700 ink,
+   yours bark-600 with white ink, both rounded-lg. */
+.bubble.them { align-self: flex-start; background: #fff; border: 1px solid #e7e5e4; color: #44403c; }
+.bubble.me { align-self: flex-end; background: var(--dev-accent); color: #fff; }
 .wonBadge {
   align-self: center;
   margin-top: 4px;
+  /* .chip-ok, a size up so it reads as the payoff. */
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-weight: 600;
   background: var(--dev-ok-bg);
   color: var(--dev-ok-ink);
   border: 1px solid var(--dev-ok-line);
