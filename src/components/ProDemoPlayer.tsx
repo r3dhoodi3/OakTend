@@ -2653,7 +2653,6 @@ export default function ProDemoPlayer() {
                           <p className="truncate font-semibold text-stone-900">Dana M.</p>
                           <p className="truncate text-xs text-stone-600">Plumbing · Rosewood</p>
                         </div>
-                        <span className="shrink-0 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white">Finish conversation</span>
                       </div>
                       <div className={cx(styles.thread, "mt-3")}>
                         <span className={cx(styles.bubble, styles.them)} data-x="b1">
