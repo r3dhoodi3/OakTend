@@ -72,7 +72,7 @@ export default function StrongPostMeter() {
           <li
             key={it.label}
             className={`flex items-center gap-2 text-xs ${
-              it.done ? "text-green-700 dark:text-green-400" : "text-stone-500 dark:text-stone-400"
+              it.done ? "text-green-700 dark:text-green-400" : "text-stone-600 dark:text-stone-300"
             }`}
           >
             <span aria-hidden>{it.done ? "✓" : "○"}</span>

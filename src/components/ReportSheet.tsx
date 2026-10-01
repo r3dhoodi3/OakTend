@@ -72,7 +72,7 @@ export default function ReportSheet({
 
   if (done) {
     return (
-      <p className={`text-xs text-stone-500 dark:text-stone-400 ${className}`}>
+      <p className={`text-xs text-stone-600 dark:text-stone-300 ${className}`}>
         {/* The action only overrides this to say the report was already on
             file - a second identical report is now a unique-index hit (0139)
             rather than a duplicate row, and telling someone it failed would
@@ -87,7 +87,7 @@ export default function ReportSheet({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={`text-xs text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-red-400 ${className}`}
+        className={`text-xs text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-red-400 ${className}`}
       >
         {label}
       </button>
@@ -142,7 +142,7 @@ export default function ReportSheet({
           type="button"
           onClick={() => setOpen(false)}
           disabled={busy}
-          className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center disabled:opacity-50 dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-100"
         >
           Cancel
         </button>

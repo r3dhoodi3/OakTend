@@ -89,7 +89,7 @@ export default function BlockMenu({
 
   if (blocked) {
     return (
-      <p className="text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+      <p className="text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
         Blocked.{" "}
         <Link href={manageHref} className="underline hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:hover:text-stone-300">
           Manage blocked accounts
@@ -109,7 +109,7 @@ export default function BlockMenu({
           jobs you post from now on, and you will not be shown to each other
           for new work.
         </p>
-        <p className="mt-1.5 text-stone-500 dark:text-stone-400">
+        <p className="mt-1.5 text-stone-600 dark:text-stone-300">
           {onEndConversation
             ? "Blocking does not cancel a job or conversation you already have. This one stays open, with everything already in it, until one of you ends it."
             : "Blocking does not cancel a job or conversation you already have. Anything already underway stays as it is until one of you ends it."}{" "}
@@ -148,7 +148,7 @@ export default function BlockMenu({
               setError(null);
             }}
             disabled={busy}
-            className="text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center disabled:opacity-50 dark:text-stone-400 dark:hover:text-stone-300"
+            className="text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-100"
           >
             Cancel
           </button>
@@ -163,20 +163,20 @@ export default function BlockMenu({
         <button
           type="button"
           onClick={() => setConfirming(true)}
-          className="text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-red-400"
+          className="text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-red-400"
         >
           Block {personLabel}
         </button>
         <Link
           href={manageHref}
-          className="text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
         >
           Blocked accounts
         </Link>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
         >
           Close
         </button>
@@ -193,7 +193,7 @@ export default function BlockMenu({
       // row these sit in, so nothing grows; desktop keeps the compact 24px
       // control. Kept as a text control, not an icon button, so it reads the
       // same next to the "Report chat" link it sits beside.
-      className="px-1 text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-300"
+      className="px-1 text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
     >
       More
     </button>

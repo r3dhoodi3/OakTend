@@ -31,15 +31,14 @@ export default async function BlocksPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Blocked accounts
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          People you have blocked cannot message you, and you will not be shown
-          to each other for new work. Unblocking takes effect right away.
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Blocked people cannot message you or see you for new work.
         </p>
       </div>
 
       <BlockedUsersPanel blocks={blocks} />
 
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         Seeing something that breaks the rules?{" "}
         <Link
           href="/contact?topic=abuse"

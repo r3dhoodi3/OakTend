@@ -571,10 +571,10 @@ export default async function ContractorsPage(
             pro network is closed - homeowners post, and the team finds a
             local pro for them by hand. Only the intro changes, because
             "local pros apply" is not what happens yet. */}
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           {isPreview
             ? PREVIEW_POST_JOB_INTRO
-            : "Describe what you need and post it. Local pros apply, then you review them and pick the one you want."}
+            : "Describe what you need. Local pros apply and you pick one."}
         </p>
       </div>
 
@@ -592,7 +592,7 @@ export default async function ContractorsPage(
           <span aria-hidden="true" className="text-stone-400">▾</span>
         </summary>
         <div className="mt-3 space-y-3">
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             Popular upgrades. Tap one to fill in the form below.
           </p>
           <ProjectChips systems={chipSystems ?? []} />
@@ -655,10 +655,7 @@ export default async function ContractorsPage(
                   >
                     Your jobs
                   </Link>{" "}
-                  further down this page. We&apos;ll notify you the moment a pro
-                  applies. Honest note: OakTend is still new in some areas, so if
-                  applications are slow it&apos;s our pro coverage catching up, not
-                  a problem with your post.
+                  below. We&apos;ll notify you when a pro applies.
                 </p>
               </>
             )}
@@ -729,7 +726,7 @@ export default async function ContractorsPage(
               id="homeowner-phone"
               defaultValue={profile?.phone ?? ""}
             />
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Add email or phone, whichever&apos;s easiest for pros to reach you.
             </p>
           </div>
@@ -752,7 +749,7 @@ export default async function ContractorsPage(
               <ExistingJobPhotos photos={existingIssuePhotos} />
             )}
             <DraftablePhotoUpload propertyId={property.id} id="job-photos" />
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Pros quote more accurately when they can see the job.
             </p>
             <PhotoTips />
@@ -765,7 +762,7 @@ export default async function ContractorsPage(
         <StrongPostMeter />
 
         <PostJobButton serverError={postError} />
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           {isPreview
             ? "Your contact stays private. We ask you before we pass it to any pro."
             : "Your contact stays private. Only the pro you choose from the applicants gets your name, address, email and phone."}
@@ -777,7 +774,7 @@ export default async function ContractorsPage(
         <section className="space-y-3">
           <div>
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">My Pros</h2>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               Already worked with someone you liked? Ask them back.
             </p>
           </div>
@@ -791,16 +788,16 @@ export default async function ContractorsPage(
                   <p className="font-medium text-stone-900 dark:text-stone-100">
                     {p.name}
                     {p.rating != null && (
-                      <span className="ml-2 text-xs text-amber-600 dark:text-amber-400">
+                      <span className="ml-2 text-xs text-amber-700 dark:text-amber-400">
                         ★ {p.rating}
-                        <span className="text-stone-500 dark:text-stone-400">
+                        <span className="text-stone-600 dark:text-stone-300">
                           {" "}
                           · {p.reviewCount} review{p.reviewCount === 1 ? "" : "s"}
                         </span>
                       </span>
                     )}
                   </p>
-                  <p className="truncate text-sm text-stone-500 dark:text-stone-400">
+                  <p className="truncate text-sm text-stone-600 dark:text-stone-300">
                     Last hired for {labelFor(JOB_CATEGORIES, p.lastCategory)}
                     {p.lastDescription ? `: ${p.lastDescription}` : ""}
                   </p>
@@ -863,7 +860,7 @@ export default async function ContractorsPage(
           when "Your jobs" moved to /contractors/jobs (2026-09-25): this is
           still the page somebody lands on from the bottom nav and needs a way
           out of. */}
-      <p className="text-center text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-center text-sm text-stone-600 dark:text-stone-300">
         <Link
           href="/dashboard"
           className="hover:underline"

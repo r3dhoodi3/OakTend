@@ -200,7 +200,7 @@ export default function PlusWelcome({
           <Link
             href="/dashboard"
             // max-sm: bare 20px link, and it is the exit from the whole tour.
-            className="text-sm text-stone-500 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400"
+            className="text-sm text-stone-600 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
           >
             Skip
           </Link>
@@ -220,7 +220,7 @@ export default function PlusWelcome({
               {/* max-sm:text-sm: this is the ROSCA/ARL post-purchase
                   acknowledgment fallback (the webhook hasn't landed the plan
                   yet), read at 12px on a phone otherwise. */}
-              <p className="text-xs max-sm:text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="text-xs max-sm:text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Your OakTend Plus renewal terms
               </p>
               <p className="mt-2 text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
@@ -236,7 +236,7 @@ export default function PlusWelcome({
               </p>
             </div>
           )}
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             If a Plus feature still looks locked, give it a minute to sync, then
             refresh.
           </p>

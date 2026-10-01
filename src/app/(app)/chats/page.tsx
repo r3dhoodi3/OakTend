@@ -363,18 +363,18 @@ export default async function HomeownerChatsPage(
               {nameOf(l)}
             </span>
             {unread ? (
-              <span className="shrink-0 rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+              <span className="shrink-0 rounded-full bg-bark-600 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
                 New
               </span>
             ) : (
-              <span className="shrink-0 text-xs text-stone-500 dark:text-stone-400">
+              <span className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
                 {labelFor(JOB_CATEGORIES, l.category)}
               </span>
             )}
           </div>
           <p
             className={`truncate text-xs ${
-              unread ? "font-medium text-stone-800 dark:text-stone-200" : "text-stone-500 dark:text-stone-400"
+              unread ? "font-medium text-stone-800 dark:text-stone-200" : "text-stone-600 dark:text-stone-300"
             }`}
           >
             {/* plainPreview (@/lib/previewText): one line, with markdown and
@@ -391,7 +391,7 @@ export default async function HomeownerChatsPage(
               : labelFor(JOB_CATEGORIES, l.category)}
           </p>
           {quoteByLead.has(l.id) && (
-            <span className="mt-1 inline-block rounded-full bg-bark-50 px-2 py-0.5 text-[10px] font-semibold text-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
+            <span className="mt-1 inline-block rounded-full bg-bark-50 px-2 py-0.5 text-xs font-semibold text-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
               Quote {formatUSDCents(quoteByLead.get(l.id)!)}
             </span>
           )}
@@ -433,7 +433,7 @@ export default async function HomeownerChatsPage(
           </p>
           {/* Phone only: 12px is too small for the line that explains a
               list of prices. */}
-          <p className="text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             Prices your pros have sent in chat, lowest first.
           </p>
           <ul className="mt-2 space-y-1">
@@ -451,7 +451,7 @@ export default async function HomeownerChatsPage(
                 </Link>
                 <span className="flex shrink-0 items-center gap-2">
                   {quoted.length > 1 && q.amount === quoted[0].amount && (
-                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-green-700 dark:bg-green-950/40 dark:text-green-200">
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-green-700 dark:bg-green-950/40 dark:text-green-200">
                       Lowest
                     </span>
                   )}
@@ -569,12 +569,12 @@ export default async function HomeownerChatsPage(
                         {"★".repeat(5 - existingReview.rating)}
                       </span>
                     </span>
-                    <span className="text-xs text-stone-500 dark:text-stone-400">
+                    <span className="text-xs text-stone-600 dark:text-stone-300">
                       You reviewed this pro
                     </span>
                   </div>
                 ) : (
-                  <span className="text-stone-500 dark:text-stone-400">
+                  <span className="text-stone-600 dark:text-stone-300">
                     Worked with {nameOf(selected)}?
                   </span>
                 )}

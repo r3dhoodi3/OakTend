@@ -3,165 +3,208 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { safeNextPath } from "@/lib/safeNext";
+import { isInviteToken } from "@/lib/pendingJoin";
+import { openHouseholdInvite } from "@/lib/householdInviteOpen";
+import { formatAddressLine } from "@/lib/addressLine";
+import SubmitButton from "@/components/SubmitButton";
+import {
+  dismissPendingJoinAction,
+  redeemHouseholdInviteAction,
+} from "@/app/(app)/account/household/actions";
 
 export const metadata: Metadata = {
   title: "Join a home",
   description: "Join a household on OakTend.",
 };
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+// Household QR join page. READ ONLY: rendering this page never creates a
+// membership. It shows one of four states and, for a live code, a "Join this
+// home" button that posts to redeemHouseholdInviteAction, which re-checks the
+// token in the database under the joiner's own session at the moment they
+// tap. A reload, a link preview, or a prefetch of this URL can therefore never
+// grant access, and a page that says "this code isn't working" stays that way.
+//
+// Public route (see the middleware), so a signed-out scanner sees the
+// sign-in-or-sign-up chooser. The middleware also drops the invite breadcrumb
+// cookie (src/lib/pendingJoin.ts) and refreshes a signed-in visitor's session
+// before this renders.
+export default async function JoinHouseholdPage(props: {
+  params: Promise<{ token: string }>;
+  searchParams?: Promise<{ failed?: string }>;
+}) {
+  const [{ token: rawToken }, searchParams] = await Promise.all([
+    props.params,
+    props.searchParams ?? Promise.resolve(undefined),
+  ]);
+  const token = rawToken.toLowerCase();
+  const failed =
+    typeof searchParams?.failed === "string" ? searchParams.failed : null;
 
-type RedeemRow = {
-  ok: boolean;
-  property_id: string | null;
-  member_id: string | null;
-  already_member: boolean | null;
-  reason: string | null;
-};
-
-// Public shell (added to the middleware's public-route list) so a signed-out
-// scanner sees the sign-in-or-sign-up chooser below instead of the generic
-// middleware bounce - the owner explicitly wants BOTH paths offered here,
-// not just a redirect to /signin. Once signed in, this same route redeems
-// the token via redeem_household_invite_token() (migration 0095) under the
-// caller's own session. Every open of this page also stamps the one-time
-// scan-grace extension (migration 0097) before any of that, signed in or
-// not.
-export default async function JoinHouseholdPage(
-  props: {
-    params: Promise<{ token: string }>;
+  if (!isInviteToken(token)) {
+    return <InvalidState />;
   }
-) {
-  const params = await props.params;
-  const token = params.token;
-  const nextPath = safeNextPath(`/join/household/${token}`);
-  const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : "";
 
-  // Scan-grace stamp (migration 0097): runs on every open of this page,
-  // BEFORE the signed-in/signed-out branch below, so a signed-out scanner's
-  // 30 minute setup window starts the moment they open the link, not only
-  // after they finish creating an account. Best-effort and silent either
-  // way: whether this matches a row or not, the redeem step (or the
-  // chooser, for a signed-out visitor) still runs the same either way, and
-  // its own honest expired/invalid state is what the person actually sees
-  // if the token turns out to be dead.
-  if (UUID_RE.test(token)) {
-    const admin = createAdminClient();
-    const nowIso = new Date().toISOString();
-    const graceExpiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-    // Single conditional update: scanned_at is null AND expires_at > now()
-    // must BOTH hold, so a repeat open (scanned_at already set) can never
-    // re-extend the window, and an already-expired token can never be
-    // revived by opening the link after the fact. See 0097's header for the
-    // full threat model.
-    await admin
-      .from("household_invite_tokens")
-      .update({ scanned_at: nowIso, expires_at: graceExpiresAt })
-      .eq("token", token)
-      .is("scanned_at", null)
-      .gt("expires_at", nowIso);
-  }
+  const admin = createAdminClient();
+
+  // Read-only validity check. A code is usable for 10 minutes from when it
+  // was made. Past that, only the browser that opened this link while it was
+  // still live gets up to 30 minutes from that open to finish joining (the
+  // signed cookie in src/lib/qrScanProof.ts); anyone else sees the expired
+  // state. Opening the page no longer moves any expiry. What this reads is
+  // shown only to someone who could join the home with it anyway.
+  const invite = await openHouseholdInvite(token);
+
+  if (failed === "home_full") return <InvalidState reason="home_full" />;
+  if (failed === "rate_limited") return <InvalidState reason="rate_limited" />;
+  if (!invite) return <InvalidState />;
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return (
-      <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-        <div className="card text-center">
-          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
-            Join a home on OakTend
-          </h1>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            Someone shared a QR code inviting you to share day to day access
-            to their home. Sign in or create a free account to continue -
-            you&apos;ll land right back here afterward.
-          </p>
+  const [{ data: property }, { data: inviter }] = await Promise.all([
+    admin
+      .from("properties")
+      .select("address_line1, unit, city")
+      .eq("id", invite.property_id)
+      .maybeSingle(),
+    admin
+      .from("users")
+      .select("full_name")
+      .eq("id", invite.created_by)
+      .maybeSingle(),
+  ]);
+  const firstName = inviter?.full_name?.trim().split(/\s+/)[0] || null;
+  const homeLine = property
+    ? [formatAddressLine(property), property.city].filter(Boolean).join(", ")
+    : null;
+  const intro = firstName
+    ? `${firstName} invited you to share their home on OakTend.`
+    : "You've been invited to share a home on OakTend.";
 
-          {/*
-            OakTend is a web app with no installable app to "download", so the
-            new-here path is account creation, not an app-store link.
-            Opening this page already stamped the scan-grace extension above
-            (migration 0097), so this visitor now has a 30 minute window to
-            finish signup and onboarding, not just the code's original 5
-            minutes. If they still take longer than that, they'll see the
-            honest "ask for a fresh code" state below instead of a false
-            success - that's fine and expected.
-          */}
-          <Link
-            href={`/homeowner-signup${nextQuery}`}
-            className="btn-primary mt-6 flex w-full"
-          >
-            Create your account
-          </Link>
-          <Link
-            href={`/signin${nextQuery}`}
-            className="btn-secondary mt-3 flex w-full"
-          >
-            Already have an account? Sign in
-          </Link>
-        </div>
-      </main>
+  if (!user) {
+    const nextPath = safeNextPath(`/join/household/${token}`);
+    const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : "";
+    return (
+      <Shell>
+        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
+          Join a home
+        </h1>
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{intro}</p>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Sign in or create a free account first. You&apos;ll come right back
+          here to join.
+        </p>
+        <Link
+          href={`/homeowner-signup${nextQuery}`}
+          className="btn-primary mt-6 flex w-full"
+        >
+          Create your account
+        </Link>
+        <Link
+          href={`/signin${nextQuery}`}
+          className="btn-secondary mt-3 flex w-full"
+        >
+          I have an account
+        </Link>
+      </Shell>
     );
   }
 
-  if (!UUID_RE.test(token)) {
-    return <InvalidState />;
-  }
+  // Already the owner or an active member: nothing to join. Read under the
+  // caller's own session (RLS), so this only ever sees their own rows.
+  const [{ data: ownHome }, { data: membership }] = await Promise.all([
+    supabase
+      .from("properties")
+      .select("id")
+      .eq("id", invite.property_id)
+      .eq("user_id", user.id)
+      .maybeSingle(),
+    supabase
+      .from("household_members")
+      .select("id")
+      .eq("property_id", invite.property_id)
+      .eq("member_user_id", user.id)
+      .eq("status", "active")
+      .maybeSingle(),
+  ]);
 
-  const { data, error } = await supabase.rpc("redeem_household_invite_token", {
-    p_token: token,
-  });
-  const row = (Array.isArray(data) ? data[0] : data) as RedeemRow | undefined;
-
-  if (error || !row || !row.ok) {
-    return <InvalidState reason={row?.reason ?? null} />;
-  }
-
-  return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <div className="card text-center">
+  if (ownHome || membership) {
+    return (
+      <Shell>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
-          You&apos;re in
+          {ownHome ? "This is your home" : "You're already in"}
         </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          You&apos;re in. You now share this home.
-        </p>
+        {homeLine && (
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{homeLine}</p>
+        )}
         <Link href="/dashboard" className="btn-primary mt-6 flex w-full">
           Go to your home
         </Link>
-      </div>
+      </Shell>
+    );
+  }
+
+  return (
+    <Shell>
+      <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
+        Join this home?
+      </h1>
+      <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{intro}</p>
+      {homeLine && (
+        <p className="mt-3 rounded-lg bg-stone-100 px-3 py-2 text-sm font-medium text-stone-900 dark:bg-white/10 dark:text-stone-100">
+          {homeLine}
+        </p>
+      )}
+      {failed === "error" && (
+        <p role="alert" className="mt-3 text-sm text-red-700 dark:text-red-300">
+          Something went wrong. Try again.
+        </p>
+      )}
+      <form action={redeemHouseholdInviteAction} className="mt-6">
+        <input type="hidden" name="token" value={token} />
+        <SubmitButton className="btn-primary flex w-full" pendingLabel="Joining...">
+          Join this home
+        </SubmitButton>
+      </form>
+      <form action={dismissPendingJoinAction} className="mt-3">
+        <SubmitButton className="btn-secondary flex w-full" pendingLabel="One moment...">
+          Not now
+        </SubmitButton>
+      </form>
+    </Shell>
+  );
+}
+
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
+      <div className="card text-center">{children}</div>
     </main>
   );
 }
 
-// Honest failure state. The heading and CTA stay the same regardless of
-// cause (an expired code and an invalid one look identical to the person
-// holding the phone), with a short, true subtext when we know more - a full
-// home isn't fixed by a fresh code, so it gets its own line instead of
-// promising a retry will help.
-function InvalidState({ reason }: { reason?: string | null }) {
+// Failure state. An expired code and a made-up one look the same to the person
+// holding the phone, so they share one message; a full home gets its own line
+// because a fresh code will not fix it.
+function InvalidState({ reason }: { reason?: "home_full" | "rate_limited" }) {
   const subtext =
     reason === "home_full"
-      ? "This home already has its maximum number of members. Ask the owner to remove someone, or ask them for a fresh code once there's room."
+      ? "This home already has the most members it can have. Ask the owner to remove someone first."
       : reason === "rate_limited"
-        ? "Too many attempts just now. Wait a minute, then ask for a fresh code."
-        : "This code has expired or isn't valid anymore. QR codes on OakTend refresh every 5 minutes.";
+        ? "Too many tries. Wait a minute, then ask for a fresh code."
+        : "This code has expired or isn't valid. Codes last 10 minutes. Ask the owner for a fresh one.";
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <div className="card text-center">
-        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
-          This code isn&apos;t working
-        </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">{subtext}</p>
-        <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
-          Ask for a fresh code.
-        </p>
-      </div>
-    </main>
+    <Shell>
+      <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
+        This code isn&apos;t working
+      </h1>
+      <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">{subtext}</p>
+      <Link href="/dashboard" className="btn-secondary mt-6 flex w-full">
+        Go to OakTend
+      </Link>
+    </Shell>
   );
 }

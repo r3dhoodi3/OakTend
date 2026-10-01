@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import InlineSpinner from "@/components/InlineSpinner";
 
 // "Invite a neighbor" card on /account. Shows the homeowner's personal invite
@@ -8,6 +9,11 @@ import InlineSpinner from "@/components/InlineSpinner";
 // share button where supported. The code is generated server-side by the
 // account page and passed in; this component only builds the full URL and
 // handles copy/share.
+//
+// This link signs a neighbor up with their OWN home; it never joins the
+// inviter's home. Sharing your own home is "Add a household member"
+// (/account/household), and the card says so, because the two were being
+// confused for each other.
 //
 // v1 is pure neighbor-to-neighbor sharing: honest copy, and no reward, credit,
 // or wallet is mentioned or implied anywhere. If no code could be produced the
@@ -151,12 +157,12 @@ export default function InviteNeighbor({
           <button
             type="button"
             onClick={dismissMoment}
-            className="shrink-0 text-xs text-stone-500 underline decoration-stone-300 underline-offset-2 hover:text-stone-700 dark:text-stone-400 dark:decoration-stone-600 dark:hover:text-stone-200"
+            className="shrink-0 text-xs text-stone-600 underline decoration-stone-300 underline-offset-2 hover:text-stone-700 dark:text-stone-300 dark:decoration-stone-600 dark:hover:text-stone-200"
           >
             Not now
           </button>
         </div>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           {MOMENT_COPY[moment]}
         </p>
 
@@ -182,7 +188,7 @@ export default function InviteNeighbor({
         </div>
 
         {shareState === "show-link" && (
-          <p className="mt-2 select-all break-all text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-2 select-all break-all text-xs text-stone-600 dark:text-stone-300">
             {inviteUrl()}
           </p>
         )}
@@ -195,8 +201,16 @@ export default function InviteNeighbor({
       <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
         Invite a neighbor
       </h2>
-      <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-        OakTend grows street by street. If it&apos;s been useful, pass it along.
+      <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+        Send a neighbor a link to set up their own home on OakTend. To share
+        your home with someone instead,{" "}
+        <Link
+          href="/account/household"
+          className="font-medium text-bark-700 underline dark:text-stone-100"
+        >
+          add a household member
+        </Link>
+        .
       </p>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -221,7 +235,7 @@ export default function InviteNeighbor({
       </div>
 
       {shareState === "show-link" && (
-        <p className="mt-2 select-all break-all text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-2 select-all break-all text-xs text-stone-600 dark:text-stone-300">
           {inviteUrl()}
         </p>
       )}

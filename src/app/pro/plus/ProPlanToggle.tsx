@@ -293,7 +293,7 @@ export default function ProPlanToggle({
           {/* 11px is under the readable floor on a phone; 14px below sm, the
               original class from sm up so desktop is untouched. Same rule on
               every 10/11px line in this file. */}
-          <p className="mt-0.5 text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="mt-0.5 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             Yours forever, no card.
           </p>
           <ul className="mt-3 space-y-1.5">
@@ -309,7 +309,7 @@ export default function ProPlanToggle({
               </li>
             ))}
           </ul>
-          <p className="mt-auto pt-3 text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="mt-auto pt-3 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             No monthly lead credit, no +{PRO_DEPOSIT_BOOST_PTS}% deposit match,
             no AI back office, no win-rate analytics, and a plain public page.
           </p>
@@ -323,7 +323,7 @@ export default function ProPlanToggle({
           )}
           className={`relative order-1 sm:order-2 ${columnClass("yearly")}`}
         >
-          <span className="absolute -top-2.5 left-4 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-[10px] font-medium text-white max-sm:text-xs">
+          <span className="absolute -top-2.5 left-4 whitespace-nowrap rounded-full bg-bark-600 px-2 py-0.5 text-xs font-medium text-white">
             Best value
           </span>
           <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
@@ -331,22 +331,22 @@ export default function ProPlanToggle({
           </span>
           <span className="mt-0.5 block text-2xl font-semibold text-stone-900 dark:text-stone-100">
             {PLAN_COPY.yearly.price}
-            <span className="text-xs font-normal text-stone-500 max-sm:text-sm dark:text-stone-400">
+            <span className="text-xs font-normal text-stone-600 max-sm:text-sm dark:text-stone-300">
               {PLAN_COPY.yearly.unit}
             </span>
           </span>
           {/* Honest arithmetic, not a discount claim: the yearly price divided
               by 365, rounded up to the cent. */}
-          <span className="mt-0.5 block text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="mt-0.5 block text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             About {YEARLY_PER_DAY} a day
           </span>
           <span className="mt-2 block text-xs font-medium text-bark-700 max-sm:text-sm dark:text-stone-300">
             Save {YEARLY_SAVING} vs monthly
           </span>
-          <span className="mt-0.5 block text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="mt-0.5 block text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             {YEARLY_PER_MONTH} a month, billed once a year.
           </span>
-          <span className="mt-auto pt-3 text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="mt-auto pt-3 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             {/* Mirrors grant_membership_credit in the Stripe webhook: the
                 yearly plan's $120 of bonus lead credit lands in one grant with
                 a 400-day expiry, so it outlives the year. */}
@@ -368,11 +368,11 @@ export default function ProPlanToggle({
           </span>
           <span className="mt-0.5 block text-2xl font-semibold text-stone-900 dark:text-stone-100">
             {PLAN_COPY.monthly.price}
-            <span className="text-xs font-normal text-stone-500 max-sm:text-sm dark:text-stone-400">
+            <span className="text-xs font-normal text-stone-600 max-sm:text-sm dark:text-stone-300">
               {PLAN_COPY.monthly.unit}
             </span>
           </span>
-          <span className="mt-0.5 block text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="mt-0.5 block text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             = {MONTHLY_YEAR_TOTAL} a year
           </span>
           <span className="mt-2 block text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
@@ -382,7 +382,7 @@ export default function ProPlanToggle({
           {/* The page's one loss-framed line, and the loss is real today: the
               actual delta between the two plans on offer, not urgency or
               scarcity. */}
-          <span className="mt-auto pt-3 text-[11px] text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <span className="mt-auto pt-3 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             Monthly pays {YEARLY_SAVING} more for the same year.
           </span>
         </button>
@@ -404,7 +404,7 @@ export default function ProPlanToggle({
           )}
           <p className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             {copy.price}
-            <span className="text-sm font-normal text-stone-500 dark:text-stone-400">
+            <span className="text-sm font-normal text-stone-600 dark:text-stone-300">
               {copy.unit}
             </span>
           </p>
@@ -474,7 +474,7 @@ export default function ProPlanToggle({
       {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to the
           refund policy, shown on the same screen as the checkout buttons
           above before any charge happens. */}
-      <BillingLegalLine className="text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400" />
+      <BillingLegalLine className="text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300" />
     </div>
   );
 }

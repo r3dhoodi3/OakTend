@@ -143,11 +143,10 @@ export default async function BrowseProsPage(
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Browse pros
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Find a local pro and ask them for a quote directly. Only the pro you
-          ask sees your request. Prefer to let pros come to you?{" "}
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Ask a local pro for a quote, or{" "}
           <Link href="/contractors" className="text-bark-700 hover:underline dark:text-stone-300">
-            Post a job
+            post a job
           </Link>{" "}
           instead.
         </p>

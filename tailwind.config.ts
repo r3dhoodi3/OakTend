@@ -4,6 +4,10 @@ const config: Config = {
   content: [
     "./src/app/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
+    // Status class strings built in helpers (src/lib/statusTone.ts,
+    // scoreBand in src/lib/health.ts, SEVERITY_STYLE in src/lib/proLeadCard.ts)
+    // must be scanned too, or a tone used only there would never be generated.
+    "./src/lib/**/*.{ts,tsx}",
   ],
   // Dark mode is opt-in via a .dark class on <html>, set before paint by the
   // inline script in app/layout.tsx and toggled by ThemeToggle.

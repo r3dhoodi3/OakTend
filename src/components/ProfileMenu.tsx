@@ -341,7 +341,7 @@ export default function ProfileMenu({
             )}
             <div>
               {linksLabel && (
-                <p className="px-4 pb-0.5 pt-1 text-[11px] font-semibold uppercase tracking-wide text-stone-500 max-sm:text-xs dark:text-stone-400">
+                <p className="px-4 pb-0.5 pt-1 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                   {linksLabel}
                 </p>
               )}
@@ -405,7 +405,7 @@ export default function ProfileMenu({
                 // the SwitchSideButton trick) so the hover no longer bleeds to
                 // the panel edges - but the red destructive colour is kept as
                 // logout's own cue. Phone only: 36px before, same 44px floor.
-                className="mx-1 flex w-[calc(100%-0.5rem)] items-center rounded-md px-3 py-2 text-left text-sm font-medium text-stone-500 transition-colors hover:bg-red-50 hover:text-red-600 max-sm:min-h-11 max-sm:text-base dark:text-stone-400 dark:hover:bg-red-500/15 dark:hover:text-red-400"
+                className="mx-1 flex w-[calc(100%-0.5rem)] items-center rounded-md px-3 py-2 text-left text-sm font-medium text-stone-600 transition-colors hover:bg-red-50 hover:text-red-600 max-sm:min-h-11 max-sm:text-base dark:text-stone-300 dark:hover:bg-red-500/15 dark:hover:text-red-400"
               >
                 Log out
               </button>

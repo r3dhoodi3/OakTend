@@ -29,10 +29,8 @@ export default function AppealLetter({ isPlus }: { isPlus: boolean }) {
           Want a head start on an appeal?
         </h2>
         <p className="text-sm text-stone-600 dark:text-stone-300">
-          OakTend Plus can draft a respectful appeal letter using your
-          home&apos;s facts. Review it, fill in your parcel number, and file it
-          with your county. You stay in control, OakTend never files anything
-          for you.
+          OakTend Plus drafts an appeal letter from your home&apos;s facts. You
+          review it and file it yourself.
         </p>
         <Link href="/plus?reason=tax" className="btn-primary">
           Unlock with OakTend Plus
@@ -91,10 +89,8 @@ export default function AppealLetter({ isPlus }: { isPlus: boolean }) {
         Draft an appeal letter
       </h2>
       <p className="text-sm text-stone-600 dark:text-stone-300">
-        OakTend drafts a respectful, factual letter using your home&apos;s
-        details. Fill in the placeholders, like your parcel number, and file it
-        with your county. Every county has its own form and deadline, check
-        your assessment notice for the exact steps.
+        Fill in the placeholders, like your parcel number, and file it with
+        your county. Check your assessment notice for the form and deadline.
       </p>
 
       {!letter && (

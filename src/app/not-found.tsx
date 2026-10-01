@@ -12,7 +12,7 @@ export default function NotFound() {
         <h1 className="mt-4 text-xl font-semibold text-stone-900 dark:text-stone-100">
           We can&apos;t find that page
         </h1>
-        <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
           The link may be old or mistyped. Nothing is broken on your end, and
           nothing is lost.
         </p>

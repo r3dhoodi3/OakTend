@@ -1430,7 +1430,7 @@ export default function LeadChat({
     >
       {!embedded && (
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-xs font-medium uppercase tracking-wide text-stone-500 dark:text-stone-400">
+          <span className="text-xs font-medium uppercase tracking-wide text-stone-600 dark:text-stone-300">
             Messages
           </span>
           <button
@@ -1438,7 +1438,7 @@ export default function LeadChat({
             onClick={() => setOpen(false)}
             aria-label="Close messages"
             // Phone only: 16px tall before, below the 44px touch floor.
-            className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+            className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
           >
             Close
           </button>
@@ -1453,7 +1453,7 @@ export default function LeadChat({
               <p className="truncate font-semibold text-stone-900 dark:text-stone-100">{title}</p>
             )}
             {subtitle && (
-              <p className="truncate text-xs text-stone-500 dark:text-stone-400">{subtitle}</p>
+              <p className="truncate text-xs text-stone-600 dark:text-stone-300">{subtitle}</p>
             )}
           </div>
           <div className="shrink-0">
@@ -1470,7 +1470,7 @@ export default function LeadChat({
                   Reopen
                 </button>
               ) : (
-                <span className="text-xs font-medium text-stone-500 dark:text-stone-400">
+                <span className="text-xs font-medium text-stone-600 dark:text-stone-300">
                   Conversation closed
                 </span>
               )
@@ -1520,7 +1520,7 @@ export default function LeadChat({
         }
       >
         {feed.length === 0 ? (
-          <p className="text-xs text-stone-500 dark:text-stone-400">No messages yet. Say hello.</p>
+          <p className="text-xs text-stone-600 dark:text-stone-300">No messages yet. Say hello.</p>
         ) : (
           feed.map((item) => {
             if (item.kind === "quote") {
@@ -1666,7 +1666,7 @@ export default function LeadChat({
                         onClick={() => startReply(m)}
                         // Phone only: 16px tall before. This bar is the only
                         // way to reply on a touch screen, there is no hover.
-                        className="px-1 text-xs text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                        className="px-1 text-xs text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                       >
                         Reply
                       </button>
@@ -1674,7 +1674,7 @@ export default function LeadChat({
                         type="button"
                         onClick={() => copyText(m.body)}
                         // Phone only: same 16px problem as Reply.
-                        className="px-1 text-xs text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                        className="px-1 text-xs text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                       >
                         Copy
                       </button>
@@ -1700,7 +1700,7 @@ export default function LeadChat({
                           onClick={() => reportMessage(m)}
                           disabled={busy}
                           // Phone only: 16px tall before.
-                          className="px-1 text-xs text-stone-500 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+                          className="px-1 text-xs text-stone-600 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-2 max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
                         >
                           Report
                         </button>
@@ -1731,7 +1731,7 @@ export default function LeadChat({
                   </button>
 
                   {quote != null && (
-                    <span className="mb-1 inline-flex items-center gap-1 rounded-full bg-bark-50 px-2 py-0.5 text-[10px] font-semibold text-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
+                    <span className="mb-1 inline-flex items-center gap-1 rounded-full bg-bark-50 px-2 py-0.5 text-xs font-semibold text-bark-700 dark:bg-bark-700/40 dark:text-stone-300">
                       Quoted {formatUSD(quote)}
                     </span>
                   )}
@@ -1783,7 +1783,7 @@ export default function LeadChat({
                 )}
 
                 {mine && m.id === lastMineId && (
-                  <span className="mt-0.5 text-[10px] text-stone-500 dark:text-stone-400">
+                  <span className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                     {otherReadAt && otherReadAt >= m.created_at
                       ? "Seen"
                       : "Delivered"}
@@ -1802,7 +1802,7 @@ export default function LeadChat({
             </span>
             {/* Phone only: both actions were ~20px tall at 10px text, and
                 Retry is the only way to recover an undelivered message. */}
-            <div className="mt-0.5 flex items-center gap-2 text-[10px] max-sm:text-xs">
+            <div className="mt-0.5 flex items-center gap-2 text-xs">
               <span className="text-red-500 dark:text-red-400">Not delivered</span>
               <button
                 type="button"
@@ -1815,7 +1815,7 @@ export default function LeadChat({
               <button
                 type="button"
                 onClick={() => deleteFailed(f.tempId)}
-                className="font-medium text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-red-400"
+                className="font-medium text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-red-400"
               >
                 Delete
               </button>
@@ -1838,7 +1838,7 @@ export default function LeadChat({
               onSubmit={submitQuote}
               className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-800"
             >
-              <p className="text-xs font-medium uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="text-xs font-medium uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Send a quote
               </p>
               {quoteRows.map((row, idx) => (
@@ -1860,7 +1860,7 @@ export default function LeadChat({
                     <button
                       type="button"
                       onClick={() => removeQuoteRow(idx)}
-                      className="-m-2 p-2 text-stone-500 hover:text-red-600 max-sm:-m-3 max-sm:p-3 dark:text-stone-400 dark:hover:text-red-400"
+                      className="-m-2 p-2 text-stone-600 hover:text-red-600 max-sm:-m-3 max-sm:p-3 dark:text-stone-300 dark:hover:text-red-400"
                       aria-label="Remove line item"
                     >
                       ✕
@@ -1886,7 +1886,7 @@ export default function LeadChat({
                 className="input w-full"
               />
               {hasUnlabeledAmount && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
+                <p className="text-xs text-amber-700 dark:text-amber-400">
                   Every line item with an amount needs a label, or it will
                   not be part of the quote.
                 </p>
@@ -1920,7 +1920,7 @@ export default function LeadChat({
               onSubmit={submitInvoice}
               className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-white/10 dark:bg-stone-800"
             >
-              <p className="text-xs font-medium uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="text-xs font-medium uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Create invoice from this chat
               </p>
               {invoiceRows.map((row, idx) => (
@@ -1946,7 +1946,7 @@ export default function LeadChat({
                     <button
                       type="button"
                       onClick={() => removeInvoiceRow(idx)}
-                      className="-m-2 p-2 text-stone-500 hover:text-red-600 max-sm:-m-3 max-sm:p-3 dark:text-stone-400 dark:hover:text-red-400"
+                      className="-m-2 p-2 text-stone-600 hover:text-red-600 max-sm:-m-3 max-sm:p-3 dark:text-stone-300 dark:hover:text-red-400"
                       aria-label="Remove line item"
                     >
                       ✕
@@ -2001,7 +2001,7 @@ export default function LeadChat({
                 onChange={(e) => setInvoiceMemo(e.target.value)}
               />
               {hasUnlabeledInvoiceAmount && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
+                <p className="text-xs text-amber-700 dark:text-amber-400">
                   Every line item with an amount needs a description, or it
                   will not be part of the invoice.
                 </p>
@@ -2111,7 +2111,7 @@ export default function LeadChat({
       )}
 
       {closed ? (
-        <p className="mt-2 rounded-lg bg-stone-100 px-3 py-2 text-center text-xs text-stone-500 dark:bg-stone-800 dark:text-stone-400">
+        <p className="mt-2 rounded-lg bg-stone-100 px-3 py-2 text-center text-xs text-stone-600 dark:bg-stone-800 dark:text-stone-300">
           This conversation is finished.
           {canReopen
             ? " Reopen it above to send more messages."
@@ -2125,14 +2125,14 @@ export default function LeadChat({
         // not a flex column.
         <div className="mt-2 shrink-0 space-y-2">
           {replyingTo && (
-            <div className="flex items-center justify-between rounded-lg border-l-2 border-bark-500 bg-stone-50 px-2 py-1 text-xs text-stone-500 dark:bg-stone-800 dark:text-stone-400">
+            <div className="flex items-center justify-between rounded-lg border-l-2 border-bark-500 bg-stone-50 px-2 py-1 text-xs text-stone-600 dark:bg-stone-800 dark:text-stone-300">
               <span className="truncate">
                 ↩︎ {replyingTo.body.replace(/\n/g, " ").slice(0, 50)}
               </span>
               <button
                 type="button"
                 onClick={() => setReplyingTo(null)}
-                className="-m-2 p-2 text-stone-500 hover:text-stone-700 max-sm:-m-3 max-sm:p-3 dark:text-stone-400 dark:hover:text-stone-300"
+                className="-m-2 p-2 text-stone-600 hover:text-stone-700 max-sm:-m-3 max-sm:p-3 dark:text-stone-300 dark:hover:text-stone-100"
               >
                 ✕
               </button>
@@ -2141,7 +2141,7 @@ export default function LeadChat({
           {pendingPhoto && (
             <div className="flex items-center gap-2">
               <FilePreviewThumb file={pendingPhoto} size="h-10 w-10" />
-              <span className="text-xs text-stone-500 dark:text-stone-400">Sending photo…</span>
+              <span className="text-xs text-stone-600 dark:text-stone-300">Sending photo…</span>
             </div>
           )}
           {/* CR5#2: one-tap status texts for a pro mid-job. This thread only
@@ -2164,7 +2164,7 @@ export default function LeadChat({
                     setBody(t.text);
                     focusComposer();
                   }}
-                  className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-300"
+                  className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600 hover:border-bark-500 hover:text-bark-700 max-sm:min-h-11 max-sm:px-3 max-sm:text-sm dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
                 >
                   {t.label}
                 </button>
@@ -2174,7 +2174,7 @@ export default function LeadChat({
           <form onSubmit={send} className="flex gap-2">
             <label
               title="Send a photo"
-              className="flex cursor-pointer items-center rounded-lg border border-stone-200 px-3 text-stone-500 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-400 dark:hover:text-stone-300"
+              className="flex cursor-pointer items-center rounded-lg border border-stone-200 px-3 text-stone-600 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-100"
             >
               <ImageIcon className="h-5 w-5" aria-hidden="true" />
               <input
@@ -2231,12 +2231,12 @@ export default function LeadChat({
             </button>
           </form>
           {filtered && (
-            <p className="text-xs text-amber-600 dark:text-amber-400">
+            <p className="text-xs text-amber-700 dark:text-amber-400">
               Your message was filtered to keep the chat respectful.
             </p>
           )}
           {tooLong && (
-            <p className="text-xs text-amber-600 dark:text-amber-400">
+            <p className="text-xs text-amber-700 dark:text-amber-400">
               That message is too long (max {MAX_MESSAGE_LENGTH.toLocaleString()} characters). Please shorten it.
             </p>
           )}
@@ -2245,7 +2245,7 @@ export default function LeadChat({
 
       <div className="mt-2 border-t border-stone-100 pt-2 dark:border-white/10">
         {reported ? (
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             ✓ Reported. Our team will review this conversation.
           </p>
         ) : reporting ? (
@@ -2271,7 +2271,7 @@ export default function LeadChat({
                 type="button"
                 onClick={() => setReporting(false)}
                 // Phone only: ~16px tall next to a red Submit report.
-                className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
               >
                 Cancel
               </button>
@@ -2290,7 +2290,7 @@ export default function LeadChat({
               onClick={() => setReporting(true)}
               // Phone only: 16px tall beside BlockMenu's "More", which is
               // already 44px, so the two were visibly mismatched.
-              className="text-xs text-stone-500 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+              className="text-xs text-stone-600 hover:text-red-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
             >
               Report chat
             </button>
@@ -2335,9 +2335,9 @@ const STATUS_LABEL: Record<Quote["status"], string> = {
 
 const STATUS_PILL_CLASS: Record<Quote["status"], string> = {
   sent: "bg-bark-50 text-bark-700 dark:bg-bark-700/40 dark:text-stone-300",
-  accepted: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200",
+  accepted: "bg-green-100 text-green-800 dark:bg-green-500/15 dark:text-green-300",
   declined: "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300",
-  withdrawn: "bg-stone-200 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
+  withdrawn: "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300",
 };
 
 // A structured quote, rendered inline in the thread wherever it falls by
@@ -2376,7 +2376,7 @@ function QuoteCard({
             Quote from {contractorName || "your pro"}
           </p>
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${STATUS_PILL_CLASS[quote.status]}`}
+            className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${STATUS_PILL_CLASS[quote.status]}`}
           >
             {STATUS_LABEL[quote.status]}
           </span>
@@ -2403,7 +2403,7 @@ function QuoteCard({
 
         {quote.note && (
           // Phone only: money copy, read before Accept. 12px was too small.
-          <p className="mt-2 whitespace-pre-wrap text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="mt-2 whitespace-pre-wrap text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             {quote.note}
           </p>
         )}
@@ -2444,7 +2444,7 @@ function QuoteCard({
           <div className="mt-3 flex justify-end">
             {confirmWithdraw ? (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-stone-500 dark:text-stone-400">Withdraw this quote?</span>
+                <span className="text-xs text-stone-600 dark:text-stone-300">Withdraw this quote?</span>
                 <button
                   type="button"
                   onClick={onWithdraw}
@@ -2459,7 +2459,7 @@ function QuoteCard({
                 <button
                   type="button"
                   onClick={onCancelWithdraw}
-                  className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                  className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                 >
                   Cancel
                 </button>
@@ -2469,7 +2469,7 @@ function QuoteCard({
                 type="button"
                 onClick={onAskWithdraw}
                 disabled={busy}
-                className="text-xs font-medium text-stone-500 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+                className="text-xs font-medium text-stone-600 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
               >
                 Withdraw
               </button>
@@ -2492,11 +2492,11 @@ const INVOICE_STATUS_LABEL: Record<Invoice["status"], string> = {
 
 const INVOICE_STATUS_PILL_CLASS: Record<Invoice["status"], string> = {
   sent: "bg-bark-50 text-bark-700 dark:bg-bark-700/40 dark:text-stone-300",
-  signed: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200",
-  void: "bg-stone-200 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
-  paid: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200",
-  refunded: "bg-stone-200 text-stone-500 dark:bg-stone-700 dark:text-stone-400",
-  disputed: "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-200",
+  signed: "bg-green-100 text-green-800 dark:bg-green-500/15 dark:text-green-300",
+  void: "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300",
+  paid: "bg-green-100 text-green-800 dark:bg-green-500/15 dark:text-green-300",
+  refunded: "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300",
+  disputed: "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300",
 };
 
 // An invoice the homeowner can still pay: sent, or signed but not yet paid.
@@ -2557,7 +2557,7 @@ function InvoiceCard({
             Invoice from {contractorName || "your pro"}
           </p>
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${INVOICE_STATUS_PILL_CLASS[invoice.status]}`}
+            className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${INVOICE_STATUS_PILL_CLASS[invoice.status]}`}
           >
             {INVOICE_STATUS_LABEL[invoice.status]}
           </span>
@@ -2699,7 +2699,7 @@ function InvoiceCard({
             <div className="mt-3">
               {signStep === "in_app" ? (
                 <div className="space-y-2 rounded-md bg-stone-50 p-2 dark:bg-stone-700">
-                  <label className="block text-xs text-stone-500 dark:text-stone-400">
+                  <label className="block text-xs text-stone-600 dark:text-stone-300">
                     Type your full name to sign
                   </label>
                   <input
@@ -2741,14 +2741,14 @@ function InvoiceCard({
                     disabled={busy}
                     aria-label="Confirm signed in person"
                     // Phone only: 16px confirm on a signature step.
-                    className="text-xs font-semibold text-bark-700 hover:text-bark-700 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-300"
+                    className="text-xs font-semibold text-bark-700 hover:text-bark-700 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                   >
                     Confirm
                   </button>
                   <button
                     type="button"
                     onClick={() => setSignStep("closed")}
-                    className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                    className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                   >
                     Cancel
                   </button>
@@ -2790,7 +2790,7 @@ function InvoiceCard({
         )}
 
         {invoice.status === "void" && (
-          <p className="mt-3 rounded-md bg-stone-100 px-2 py-1.5 text-xs text-stone-500 dark:bg-stone-700 dark:text-stone-400">
+          <p className="mt-3 rounded-md bg-stone-100 px-2 py-1.5 text-xs text-stone-600 dark:bg-stone-700 dark:text-stone-300">
             This invoice was voided.
           </p>
         )}
@@ -2799,7 +2799,7 @@ function InvoiceCard({
           <div className="mt-3 flex justify-end">
             {confirmVoid ? (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-stone-500 dark:text-stone-400">Void this invoice?</span>
+                <span className="text-xs text-stone-600 dark:text-stone-300">Void this invoice?</span>
                 <button
                   type="button"
                   onClick={onVoid}
@@ -2813,7 +2813,7 @@ function InvoiceCard({
                 <button
                   type="button"
                   onClick={onCancelVoid}
-                  className="text-xs text-stone-500 hover:text-stone-600 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+                  className="text-xs text-stone-600 hover:text-stone-800 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
                 >
                   Cancel
                 </button>
@@ -2823,7 +2823,7 @@ function InvoiceCard({
                 type="button"
                 onClick={onAskVoid}
                 disabled={busy}
-                className="text-xs font-medium text-stone-500 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-red-400"
+                className="text-xs font-medium text-stone-600 hover:text-red-600 disabled:opacity-50 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-red-400"
               >
                 Void
               </button>

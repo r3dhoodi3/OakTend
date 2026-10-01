@@ -134,7 +134,7 @@ export default function FeedbackForm() {
         />
         {/* The floor is stated in front of the button, never as a surprise
             on submit. */}
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           {short
             ? `${FEEDBACK_MIN_MESSAGE - trimmed.length} more character${
                 FEEDBACK_MIN_MESSAGE - trimmed.length === 1 ? "" : "s"

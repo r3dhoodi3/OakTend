@@ -126,7 +126,7 @@ export default function EditJobForm({ job }: { job: any }) {
           minLength={MIN_DESCRIPTION}
           defaultValue={otherService.rest}
         />
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
           At least 10 characters so pros know what they&apos;re applying to.
         </p>
       </div>
@@ -155,7 +155,7 @@ export default function EditJobForm({ job }: { job: any }) {
             name="homeowner_phone"
             defaultValue={job.homeowner_phone ?? ""}
           />
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             Add email or phone, whichever&apos;s easiest for pros to reach you.
           </p>
         </div>

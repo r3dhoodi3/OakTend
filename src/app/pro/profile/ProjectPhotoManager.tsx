@@ -110,17 +110,17 @@ export default function ProjectPhotoManager({
         disabled={busy || photos.length >= MAX_PHOTOS}
         className="block w-full text-sm text-stone-600 file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-bark-100 file:px-3 file:py-1.5 file:text-bark-800 file:transition-colors hover:file:bg-bark-200 dark:text-stone-300"
       />
-      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
         Up to {MAX_PHOTOS} photos. Tag a photo &quot;Before&quot; to build a
         before/after story.
       </p>
       {busy && (
-        <p className="mt-1 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-300">
           <InlineSpinner size={14} />
           Uploading…
         </p>
       )}
-      {err && <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">{err}</p>}
+      {err && <p className="mt-1 text-xs text-amber-700 dark:text-amber-400">{err}</p>}
 
       {photos.length > 0 && (
         <ul className="mt-2 flex flex-wrap gap-3">
@@ -148,10 +148,10 @@ export default function ProjectPhotoManager({
               <button
                 type="button"
                 onClick={() => toggleBefore(i)}
-                className={`mt-1 w-full rounded-md border px-1.5 py-0.5 text-[11px] font-medium max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center ${
+                className={`mt-1 w-full rounded-md border px-1.5 py-0.5 text-xs font-medium max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center ${
                   p.before
                     ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300"
-                    : "border-stone-200 bg-white text-stone-500 hover:bg-stone-50 dark:border-white/10 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
+                    : "border-stone-200 bg-white text-stone-600 hover:bg-stone-50 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
                 }`}
               >
                 {p.before ? "Before" : "After"}

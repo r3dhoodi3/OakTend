@@ -111,7 +111,7 @@ export default function ContractorDepositRulesGuide() {
       <GuideMeta path="/guides/contractor-deposit-rules-california" />
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-2xl font-bold text-stone-900 dark:text-stone-100">
@@ -310,7 +310,7 @@ export default function ContractorDepositRulesGuide() {
         </div>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Statutes checked September 2026. General information, not legal
             advice: confirm the current rules with the Contractors State
             License Board or an attorney.

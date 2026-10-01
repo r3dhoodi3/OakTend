@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import InlineSpinner from "@/components/InlineSpinner";
+import AvatarCropper from "@/components/AvatarCropper";
 
 // A tappable profile picture. The whole avatar IS the control - there is no
 // separate "upload" button (product decision, 2026-09-08): tapping it opens the
@@ -53,30 +54,42 @@ export default function AvatarUpload({
   const [err, setErr] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const hiddenRef = useRef<HTMLInputElement>(null);
+  // A picked avatar photo waiting in the crop step. Banners skip it: they are
+  // a wide strip, not a square frame.
+  const [cropping, setCropping] = useState<File | null>(null);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
     const file = input.files?.[0];
     if (!file) return;
-    setBusy(true);
     setErr(null);
 
     // SVG is refused explicitly and first: it can carry a <script>, and this
     // bucket is public and served on unauthenticated pages.
     if (file.type === "image/svg+xml") {
       setErr("SVG images aren't supported. Please use a PNG, JPEG, or WEBP image.");
-      setBusy(false);
       input.value = "";
       return;
     }
     if (file.size > MAX_BYTES || !ALLOWED_TYPES.has(file.type)) {
       setErr("Please pick a PNG, JPEG, or WEBP image under 5MB.");
-      setBusy(false);
       input.value = "";
       return;
     }
 
-    const rawExt = file.name.split(".").pop()?.toLowerCase() ?? "";
+    input.value = "";
+    if (variant === "avatar") {
+      // Crop first; upload() runs from the cropper's Save.
+      setCropping(file);
+      return;
+    }
+    await upload(file, file.name);
+  }
+
+  async function upload(blob: Blob, name: string) {
+    setBusy(true);
+    setErr(null);
+    const rawExt = name.split(".").pop()?.toLowerCase() ?? "";
     const ext = /^[a-z0-9]{1,5}$/.test(rawExt) ? rawExt : "png";
     const id = crypto.randomUUID();
     const path = `${ownerId}/${id}.${ext}`;
@@ -85,7 +98,10 @@ export default function AvatarUpload({
     try {
       const { error } = await supabase.storage
         .from(bucket)
-        .upload(path, file, { upsert: false });
+        .upload(path, blob, {
+          upsert: false,
+          contentType: blob.type || undefined,
+        });
       if (error) {
         setErr("The photo couldn't upload. Please try again.");
       } else {
@@ -99,8 +115,6 @@ export default function AvatarUpload({
       }
     } finally {
       setBusy(false);
-      // Reset so re-picking the same file still fires onChange.
-      input.value = "";
     }
   }
 
@@ -168,12 +182,12 @@ export default function AvatarUpload({
             ? `group relative flex h-32 w-full cursor-pointer items-center justify-center overflow-hidden sm:h-40 ${
                 url
                   ? ""
-                  : "border border-dashed border-stone-300 bg-stone-100 text-stone-500 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-400"
+                  : "border border-dashed border-stone-300 bg-stone-100 text-stone-600 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300"
               }`
             : `group relative flex cursor-pointer items-center justify-center overflow-hidden border shadow-sm ${rounded} ${
                 url
                   ? "border-stone-200 dark:border-white/10"
-                  : "border-dashed border-stone-300 bg-stone-50 text-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400"
+                  : "border-dashed border-stone-300 bg-stone-50 text-stone-600 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300"
               }`
         }
         style={isBanner ? undefined : { height: size, width: size }}
@@ -231,7 +245,7 @@ export default function AvatarUpload({
         {/* The whole control is tappable; this overlay says so on hover/focus,
             and shows the spinner while an upload is in flight. */}
         <span
-          className={`pointer-events-none absolute inset-0 flex items-end justify-center pb-1 text-[10px] font-medium text-white opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100 ${
+          className={`pointer-events-none absolute inset-0 flex items-end justify-center pb-1 text-xs font-medium text-white opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100 ${
             busy ? "!bg-black/40 !opacity-100" : ""
           }`}
         >
@@ -246,11 +260,22 @@ export default function AvatarUpload({
           className="sr-only"
         />
       </label>
+      {cropping && (
+        <AvatarCropper
+          file={cropping}
+          shape={shape}
+          onCancel={() => setCropping(null)}
+          onConfirm={(blob) => {
+            setCropping(null);
+            void upload(blob, "photo.jpg");
+          }}
+        />
+      )}
       {err && (
         // Absolute + top-full so it sits just below the control without being
         // part of its measured size. whitespace-nowrap keeps it on ONE line
         // (never wraps), and being out of flow it still can't widen the box.
-        <p className="absolute left-0 top-full z-20 mt-1 whitespace-nowrap text-xs text-amber-600 dark:text-amber-400">
+        <p className="absolute left-0 top-full z-20 mt-1 whitespace-nowrap text-xs text-amber-700 dark:text-amber-400">
           {err}
         </p>
       )}

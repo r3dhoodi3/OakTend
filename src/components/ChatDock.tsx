@@ -43,7 +43,7 @@ export default function ChatDock({
         {/* Three bare glyphs 8px apart. On phones grow each to 44px and label
             them: they were unreadable and untappable with poor eyesight, and
             close is the only way to dismiss the dock. Desktop size unchanged. */}
-        <div className="flex items-center gap-2 text-stone-500 dark:text-stone-400">
+        <div className="flex items-center gap-2 text-stone-600 dark:text-stone-300">
           <button
             type="button"
             onClick={() => setMinimized((m) => !m)}

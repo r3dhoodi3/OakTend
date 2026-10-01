@@ -102,9 +102,8 @@ export default async function ProToolsPage(
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             AI back office
           </h1>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            The paperwork side of the job, handled in seconds instead of
-            evenings.
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+            Estimates, invoices, and follow-ups in seconds.
           </p>
         </div>
 
@@ -156,7 +155,7 @@ export default async function ProToolsPage(
                 <div>
                   <h2 className="font-semibold text-stone-900 dark:text-stone-100">
                     {t.title}{" "}
-                    <span className="chip ml-1 inline-flex items-center gap-1 border border-stone-200 bg-stone-50 text-stone-500 dark:border-white/10 dark:bg-stone-800 dark:text-stone-400">
+                    <span className="chip ml-1 inline-flex items-center gap-1 border border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-800 dark:text-stone-300">
                       <Lock className="h-3 w-3" aria-hidden="true" /> Members
                     </span>
                   </h2>
@@ -167,7 +166,7 @@ export default async function ProToolsPage(
           ))}
         </section>
 
-        <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-center text-xs text-stone-600 dark:text-stone-300">
           Membership never changes which jobs you can see or apply to. Leads
           stay pay-per-apply for everyone.
         </p>
@@ -253,9 +252,8 @@ export default async function ProToolsPage(
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           AI back office
         </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          Tell it about the job in plain words. It writes the paperwork, you
-          look it over and send it.
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Describe the job. It writes the paperwork, you check it and send it.
         </p>
       </div>
       {/* Migration 0145 not on this database yet: proDraftsLeft is null for a
@@ -275,7 +273,7 @@ export default async function ProToolsPage(
         initialLead={initialLead}
         initialTool={initialTool}
       />
-      <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-center text-xs text-stone-600 dark:text-stone-300">
         Drafts use only the details you type in. Always give them a quick read
         before sending.
       </p>

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { homeHealthScore } from "@/lib/health";
 import { isMissingSchemaError } from "@/lib/dbErrors";
+import { parseInstallYear } from "./installYear";
 import type { HomeSystem, Issue } from "@/lib/database.types";
 
 // Trim, cap, and normalize empty to null. The cap matters because the values
@@ -74,16 +75,8 @@ export async function confirmSystemAction(
   const model = s(formData, "model");
   const serial = s(formData, "serial");
   // Server actions are callable with arbitrary FormData, so the client's
-  // input types are not a guard. Same 1700-2100 range the profile edit and
-  // vision route use (properties.year_built accepts back to 1700, so a real
-  // 1885 home's install year is kept, not ignored); Number.isFinite also
-  // screens out NaN, which would otherwise slip through the ?? fallback below
-  // (NaN is not nullish) and null out a good value.
-  const yearNum = Number(s(formData, "install_year"));
-  const install_year =
-    Number.isFinite(yearNum) && yearNum >= 1700 && yearNum <= 2100
-      ? Math.trunc(yearNum)
-      : null;
+  // input types are not a guard: parseInstallYear range-checks it.
+  const install_year = parseInstallYear(s(formData, "install_year"));
   const conditionNum = Number(s(formData, "condition_rating"));
   const condition_rating =
     Number.isFinite(conditionNum) && conditionNum >= 1 && conditionNum <= 5
@@ -99,14 +92,14 @@ export async function confirmSystemAction(
   // to the one thing genuinely needed) - fold it into notes as a labeled line
   // rather than overwriting any note the owner already wrote.
   let notes = target.notes as string | null;
-  if (serial) {
-    const serialLine = `Serial: ${serial}`;
-    notes = notes
-      ? notes.includes(serialLine)
-        ? notes
-        : `${notes}\n${serialLine}`
-      : serialLine;
-  }
+  const addLine = (line: string) => {
+    notes = notes ? (notes.includes(line) ? notes : `${notes}\n${line}`) : line;
+  };
+  if (serial) addLine(`Serial: ${serial}`);
+  // The owner's own note from the typing form, appended the same way so it
+  // never overwrites one they wrote before.
+  const ownerNote = s(formData, "notes", 300);
+  if (ownerNote) addLine(ownerNote);
 
   const update = {
     material_or_model: material ?? target.material_or_model,

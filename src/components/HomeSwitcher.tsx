@@ -59,7 +59,7 @@ export default function HomeSwitcher({
         }
         // Phone only: -my/py cancel out, so the extra padding buys a 44px
         // target without moving the header.
-        className="-my-2.5 flex min-w-0 max-w-full items-center gap-1 py-2.5 text-sm font-medium text-stone-600 active:opacity-70 hover:text-stone-800 max-sm:-my-3 max-sm:py-3 dark:text-stone-400 dark:hover:text-stone-200"
+        className="-my-2.5 flex min-w-0 max-w-full items-center gap-1 py-2.5 text-sm font-medium text-stone-600 active:opacity-70 hover:text-stone-800 max-sm:-my-3 max-sm:py-3 dark:text-stone-300 dark:hover:text-stone-200"
       >
         {/* min-w-0 as well as truncate: a <button> is laid out with a
             min-content size equal to its max-content size, so the explicit
@@ -75,7 +75,7 @@ export default function HomeSwitcher({
           {active?.address_line1}
         </span>
         <span
-          className={`shrink-0 text-stone-500 transition dark:text-stone-400 ${open ? "rotate-180" : ""}`}
+          className={`shrink-0 text-stone-600 transition dark:text-stone-300 ${open ? "rotate-180" : ""}`}
         >
           ▾
         </span>
@@ -83,7 +83,7 @@ export default function HomeSwitcher({
 
       {open && (
         <div className="absolute left-0 z-20 mt-2 w-72 rounded-xl border border-stone-200 bg-white p-2 shadow-pop dark:border-white/10 dark:bg-stone-700">
-          <p className="px-2 py-1 text-xs font-medium uppercase tracking-wide text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="px-2 py-1 text-xs font-medium uppercase tracking-wide text-stone-600 max-sm:text-sm dark:text-stone-300">
             Your homes
           </p>
 
@@ -98,7 +98,7 @@ export default function HomeSwitcher({
                 <span className="flex-1 truncate text-sm font-medium text-stone-900 dark:text-stone-100">
                   ✓ {h.address_line1}
                   {h.isShared && (
-                    <span className="ml-1 text-xs font-normal text-stone-500 dark:text-stone-400">
+                    <span className="ml-1 text-xs font-normal text-stone-600 dark:text-stone-300">
                       Shared
                     </span>
                   )}
@@ -107,12 +107,12 @@ export default function HomeSwitcher({
                 <form action={setActiveHomeAction} className="min-w-0 flex-1">
                   <input type="hidden" name="id" value={h.id} />
                   <SubmitButton
-                    className="w-full truncate text-left text-sm text-stone-700 active:opacity-70 hover:text-bark-700 disabled:opacity-60 max-sm:flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-300"
+                    className="w-full truncate text-left text-sm text-stone-700 active:opacity-70 hover:text-bark-700 disabled:opacity-60 max-sm:flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
                     pendingLabel="Switching…"
                   >
                     {h.address_line1}
                     {h.isShared && (
-                      <span className="ml-1 text-xs font-normal text-stone-500 dark:text-stone-400">
+                      <span className="ml-1 text-xs font-normal text-stone-600 dark:text-stone-300">
                         Shared
                       </span>
                     )}
@@ -129,14 +129,14 @@ export default function HomeSwitcher({
             + Add a home
           </Link>
           {homes.length >= 1 && (
-            <p className="px-2 pb-1 text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+            <p className="px-2 pb-1 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
               Free includes 1 home. OakTend Plus unlocks up to 5.
             </p>
           )}
           {/* No self-serve delete (see homeActions.ts removeHomeAction): a
               free-tier delete-and-recreate loop is how the one-home cap gets
               cycled between neighbours, so removal goes through support. */}
-          <p className="px-2 pb-1 text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+          <p className="px-2 pb-1 text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
             Need to remove a home?{" "}
             <Link href="/contact" className="underline hover:text-stone-700 max-sm:py-3 dark:hover:text-stone-300">
               Contact us

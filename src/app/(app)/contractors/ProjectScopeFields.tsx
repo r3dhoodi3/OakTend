@@ -28,7 +28,7 @@ export default function ProjectScopeFields({
         <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
           Project scope
         </p>
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Jobs this size get sharper bids with a few more details. All
           optional.
         </p>

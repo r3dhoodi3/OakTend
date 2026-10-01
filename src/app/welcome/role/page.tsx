@@ -66,7 +66,7 @@ export default async function WelcomeRolePage(
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             Welcome to OakTend
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             One last thing: how will you be using it?
           </p>
         </div>
@@ -79,7 +79,7 @@ export default async function WelcomeRolePage(
               <span className="block font-medium text-stone-900 dark:text-stone-100">
                 I&apos;m a homeowner
               </span>
-              <span className="mt-1 block text-sm text-stone-500 dark:text-stone-400">
+              <span className="mt-1 block text-sm text-stone-600 dark:text-stone-300">
                 Keep up your home and keep its records in one place.
               </span>
             </button>
@@ -92,7 +92,7 @@ export default async function WelcomeRolePage(
               <span className="block font-medium text-stone-900 dark:text-stone-100">
                 I&apos;m a contractor
               </span>
-              <span className="mt-1 block text-sm text-stone-500 dark:text-stone-400">
+              <span className="mt-1 block text-sm text-stone-600 dark:text-stone-300">
                 Browse local jobs and win work near you.
               </span>
             </button>
@@ -106,7 +106,7 @@ export default async function WelcomeRolePage(
         {/* Phone only: 14px copy, and each link gets max-sm:py-3. Padding on
             an inline element grows the touch area to 44px without changing the
             line box, so this centred paragraph does not reflow. */}
-        <p className="mt-6 border-t border-stone-100 pt-4 text-center text-xs text-stone-500 max-sm:text-sm dark:border-white/10 dark:text-stone-400">
+        <p className="mt-6 border-t border-stone-100 pt-4 text-center text-xs text-stone-600 max-sm:text-sm dark:border-white/10 dark:text-stone-300">
           By choosing homeowner you agree to the{" "}
           <Link href="/terms" className="text-bark-700 hover:underline max-sm:py-3 dark:text-stone-300">
             Terms

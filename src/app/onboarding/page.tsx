@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { PENDING_JOIN_COOKIE, isInviteToken } from "@/lib/pendingJoin";
+import { openHouseholdInvite } from "@/lib/householdInviteOpen";
 import { createClient } from "@/lib/supabase/server";
 import { getProperties } from "@/lib/property";
 import { getCurrentContractor } from "@/lib/contractor";
@@ -74,6 +77,45 @@ export default async function OnboardingPage(
     getProperties(),
   ]);
   const hasPro = contractor !== null;
+
+  // The same escape hatch, for when ?next= was lost on the way here (an email
+  // confirmation link that fell back to the Site URL, an OAuth round trip, a
+  // reader who closed the tab and signed in later). Opening a household QR
+  // link leaves a 30 minute breadcrumb cookie (src/lib/pendingJoin.ts). If
+  // this account has no home yet, did not ask to add one, and that invite is
+  // still live, send them back to the join page instead of asking them to
+  // claim a home they don't have. An expired or unknown token falls through
+  // to normal onboarding, so the cookie can never trap anyone here.
+  if (homes.length === 0 && searchParams?.add !== "home") {
+    const pendingToken = (await cookies()).get(PENDING_JOIN_COOKIE)?.value;
+    if (isInviteToken(pendingToken)) {
+      // Live, or still inside this browser's finish-joining time.
+      const liveInvite = await openHouseholdInvite(pendingToken.toLowerCase());
+      if (liveInvite) redirect(`/join/household/${liveInvite.token}`);
+    }
+    // An emailed household invite waiting for this address: same idea, the
+    // new housemate should see the invite, not the claim-a-home form. Read
+    // under their own session, so RLS only returns invites for their email.
+    const { data: invitedRows } = await (await createClient())
+      .from("household_members")
+      .select("id, invited_email")
+      .eq("status", "invited")
+      .is("member_user_id", null)
+      .limit(5);
+    const sessionEmail = (
+      (await (await createClient()).auth.getUser()).data.user?.email ?? ""
+    )
+      .trim()
+      .toLowerCase();
+    if (
+      sessionEmail &&
+      (invitedRows ?? []).some(
+        (r) => r.invited_email.trim().toLowerCase() === sessionEmail
+      )
+    ) {
+      redirect("/join/invite");
+    }
+  }
   if (
     hasPro &&
     homes.length === 0 &&
@@ -136,14 +178,14 @@ export default async function OnboardingPage(
           </div>
           <Link
             href="/dashboard"
-            className="mt-4 text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+            className="mt-4 text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
           >
             Back to dashboard
           </Link>
           {hasPro && (
             <Link
               href="/pro"
-              className="mt-2 text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+              className="mt-2 text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
             >
               Go to OakTend Pro
             </Link>
@@ -160,7 +202,7 @@ export default async function OnboardingPage(
           {isFirst ? "Let's set up your home" : "Add another home"}
         </h1>
         {!isFirst && (
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Switch between your homes anytime from the top bar.
           </p>
         )}
@@ -177,7 +219,7 @@ export default async function OnboardingPage(
       {!isFirst && (
         <Link
           href="/dashboard"
-          className="mt-4 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center text-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+          className="mt-4 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center text-center text-sm text-stone-600 hover:underline dark:text-stone-300"
         >
           Cancel
         </Link>
@@ -186,7 +228,7 @@ export default async function OnboardingPage(
       {/* Escape hatch: nobody should be trapped on this page. Signed-in
           users with no home land here from every app URL, so this is the
           only place they can change course. */}
-      <div className="mt-8 text-center text-sm text-stone-500 dark:text-stone-400">
+      <div className="mt-8 text-center text-sm text-stone-600 dark:text-stone-300">
         {hasPro && (
           <p>
             Here for the pro side?{" "}

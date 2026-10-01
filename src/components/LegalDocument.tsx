@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { fillLegalTokens } from "@/lib/legal";
-import { parseLegalDocument, renderLegalMarkdown } from "@/lib/legalMarkdown";
+import { formatLegalDate, parseLegalDocument, renderLegalMarkdown } from "@/lib/legalMarkdown";
 
 // Server component: reads a legal document from src/content/legal/*.md at
 // request time, fills its {{TOKENS}}, and renders it with the same page
@@ -58,7 +58,7 @@ export default function LegalDocument({
             added classes are max-sm:, so sm and up is unchanged. */}
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -68,8 +68,8 @@ export default function LegalDocument({
         {doc.title}
       </h1>
       {doc.lastUpdated && (
-        <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-          Last updated {doc.lastUpdated}.
+        <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
+          Last updated {formatLegalDate(doc.lastUpdated)}.
         </p>
       )}
 

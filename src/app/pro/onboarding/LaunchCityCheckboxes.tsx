@@ -125,13 +125,13 @@ export default function LaunchCityCheckboxes({
         </button>
       ) : (
         <div className="mt-2 space-y-4">
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Check every city you serve. Check All of Orange County above to go
             back to the whole county.
           </p>
           {LAUNCH_CITY_GROUPS.map((group) => (
             <div key={group.label}>
-              <p className="mb-1 text-xs font-semibold text-stone-500 dark:text-stone-400">
+              <p className="mb-1 text-xs font-semibold text-stone-600 dark:text-stone-300">
                 {group.label}
               </p>
               <div className="grid grid-cols-1 gap-x-4 min-[380px]:grid-cols-2">

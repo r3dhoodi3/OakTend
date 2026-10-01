@@ -86,7 +86,7 @@ export default function NativeProCheckout() {
         </p>
         <p className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           {formatUsd(PRO_PLAN.monthly)}
-          <span className="text-base font-normal text-stone-500 dark:text-stone-400">
+          <span className="text-base font-normal text-stone-600 dark:text-stone-300">
             /month
           </span>
         </p>
@@ -132,7 +132,7 @@ export default function NativeProCheckout() {
           </p>
         )}
         {restored === false && (
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             No previous purchase found on this account.
           </p>
         )}
@@ -151,13 +151,13 @@ export default function NativeProCheckout() {
           type="button"
           onClick={onRestore}
           disabled={restoring}
-          className="text-sm text-stone-500 underline hover:text-stone-700 disabled:opacity-50 dark:text-stone-400 dark:hover:text-stone-200"
+          className="text-sm text-stone-600 underline hover:text-stone-700 disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-200"
         >
           {restoring ? "Restoring…" : "Restore purchases"}
         </button>
       </div>
 
-      <BillingLegalLine className="text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400" />
+      <BillingLegalLine className="text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300" />
     </div>
   );
 }

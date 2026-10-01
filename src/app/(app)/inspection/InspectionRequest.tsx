@@ -114,7 +114,7 @@ export default function InspectionRequest({
       <SubmitButton pendingLabel="Requesting…" className="btn-primary w-full">
         Request an inspection
       </SubmitButton>
-      <p className="text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-xs text-stone-600 dark:text-stone-300">
         Your contact stays private. Only the inspector you choose gets your
         name, address, and contact details.
       </p>

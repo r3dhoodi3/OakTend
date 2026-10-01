@@ -914,7 +914,7 @@ describe("OnboardingForm double-submit guard", () => {
 // ---------------------------------------------------------------------------
 describe("the auto-fill miss note", () => {
   const MISS_NOTE =
-    "We couldn't auto-fill this address, please enter the basics.";
+    "We couldn't auto-fill this address. Please enter the basics.";
 
   async function toReadyStepWith(source: "none" | "unavailable") {
     lookupParcelAction.mockResolvedValue({

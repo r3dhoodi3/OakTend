@@ -148,7 +148,7 @@ export default function PayoutsSetup({
       <div className="space-y-2">
         <HostedButton label={ctaLabel} />
         {!isNative && failed && (
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             This opens a secure page on Stripe.
           </p>
         )}
@@ -168,7 +168,7 @@ export default function PayoutsSetup({
       <form action={startHostedPayoutOnboardingAction}>
         <button
           type="submit"
-          className="text-sm text-stone-500 underline underline-offset-2 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
+          className="text-sm text-stone-600 underline underline-offset-2 hover:text-stone-800 dark:text-stone-300 dark:hover:text-stone-200"
         >
           Prefer a separate page? Continue on Stripe
         </button>

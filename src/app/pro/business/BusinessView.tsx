@@ -71,7 +71,7 @@ const PAYOUT_PILL: Record<ConnectStatus, { label: string; tone: string } | null>
     },
     ready: {
       label: "On",
-      tone: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200",
+      tone: "bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-200",
     },
   };
 
@@ -161,12 +161,8 @@ export default function BusinessView({
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">My Business</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Your numbers and everything in flight.
-        </p>
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-          Homeowners overwhelmingly pick from the pros who apply first. Fast
-          applications win jobs.
         </p>
         {(timeToApplyStat || showApplySpeedNudge) && (
           <div className="mt-2 rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 dark:border-white/10 dark:bg-stone-800">
@@ -175,7 +171,7 @@ export default function BusinessView({
                 {timeToApplyStat}
               </p>
             )}
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               Jobs usually go to whoever applies first.
             </p>
             {showApplySpeedNudge && (
@@ -215,7 +211,7 @@ export default function BusinessView({
           <p className="stat-number mt-1 text-2xl">
             {winRate !== null ? `${winRate}%` : "-"}
           </p>
-          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
             {winRate !== null
               ? `${wonCount} won of ${appliedCount} applications`
               : "Shows after 3 applications"}
@@ -273,7 +269,7 @@ export default function BusinessView({
           <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
             Payouts
           </p>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Where the money from a job lands.
           </p>
         </div>
@@ -301,7 +297,7 @@ export default function BusinessView({
               Pro
             </span>
           </h2>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Where your application budget is actually earning its keep.
           </p>
         </div>
@@ -318,7 +314,7 @@ export default function BusinessView({
                     ? `${stats.winRatePercent}%`
                     : "-"}
                 </p>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   {stats.winRatePercent !== null
                     ? `${stats.wins} won of ${stats.liveApplications} paid applications`
                     : "Apply to a job to start tracking"}
@@ -329,7 +325,7 @@ export default function BusinessView({
                 <p className="stat-number mt-1 text-2xl">
                   {stats.wins}
                 </p>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   {stats.wins > 0
                     ? `out of ${stats.liveApplications} applications`
                     : "No wins yet"}
@@ -341,7 +337,7 @@ export default function BusinessView({
                   the two stats removed above. */}
             </div>
 
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               {stats.daysSinceLastApplication !== null
                 ? `Last application ${
                     stats.daysSinceLastApplication === 0
@@ -366,12 +362,12 @@ export default function BusinessView({
             {/* Where the wins come from, category by category. */}
             {stats.categories.length > 0 && (
               <div className="card overflow-x-auto">
-                <p className="mb-2 text-sm font-medium text-stone-500 dark:text-stone-400">
+                <p className="mb-2 text-sm font-medium text-stone-600 dark:text-stone-300">
                   By category
                 </p>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-xs text-stone-500 dark:text-stone-400">
+                    <tr className="text-left text-xs text-stone-600 dark:text-stone-300">
                       <th className="pb-2 pr-3 font-medium">Category</th>
                       <th className="pb-2 pr-3 text-right font-medium">
                         Apps
@@ -417,14 +413,14 @@ export default function BusinessView({
             {/* Six-month rhythm: applications in, wins out. */}
             <div className="card space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+                <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
                   Last 6 months
                 </p>
                 {/* 12px below sm, not 14px: this legend sits inside a
                     width-bound chart where 14px overlaps the bars. It is the
                     one place on the pro side that stops at 12px, and it is
                     still a 20% lift from 10px. */}
-                <p className="flex items-center gap-3 text-[10px] text-stone-500 max-sm:text-xs dark:text-stone-400">
+                <p className="flex items-center gap-3 text-xs text-stone-600 dark:text-stone-300">
                   <span className="flex items-center gap-1">
                     <span className="inline-block h-2 w-2 rounded-sm bg-bark-500 dark:bg-bark-600" />
                     Applications
@@ -458,7 +454,7 @@ export default function BusinessView({
                         }, ${m.wins} won`}
                         className="flex min-w-[2.5rem] flex-col items-center gap-1 transition hover:opacity-90"
                       >
-                        <span className="text-[10px] text-stone-500 max-sm:text-xs dark:text-stone-400">
+                        <span className="text-[10px] text-stone-600 max-sm:text-xs dark:text-stone-300">
                           {m.applications > 0 ? m.applications : ""}
                         </span>
                         <div className="flex items-end gap-0.5">
@@ -487,7 +483,7 @@ export default function BusinessView({
                   {stats.trend.map((m) => (
                     <span
                       key={m.key}
-                      className="min-w-[2.5rem] text-center text-[10px] text-stone-500 max-sm:text-xs dark:text-stone-400"
+                      className="min-w-[2.5rem] text-center text-[10px] text-stone-600 max-sm:text-xs dark:text-stone-300"
                     >
                       {m.label}
                     </span>
@@ -506,12 +502,12 @@ export default function BusinessView({
                 trades by name, with the two numbers they cannot see yet. */}
             {teaserCategories.length > 0 && (
               <div className="card overflow-x-auto">
-                <p className="mb-2 text-sm font-medium text-stone-500 dark:text-stone-400">
+                <p className="mb-2 text-sm font-medium text-stone-600 dark:text-stone-300">
                   Which of your trades actually pays? Included with OakTend Pro.
                 </p>
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-xs text-stone-500 dark:text-stone-400">
+                    <tr className="text-left text-xs text-stone-600 dark:text-stone-300">
                       <th className="pb-2 pr-3 font-medium">Category</th>
                       <th className="pb-2 pr-3 text-right font-medium">Apps</th>
                       <th className="pb-2 pr-3 text-right font-medium">
@@ -547,7 +543,7 @@ export default function BusinessView({
                     ))}
                   </tbody>
                 </table>
-                <p className="mt-2 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-2 flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-300">
                   <span aria-hidden="true" className="icon-chip">
                     <Lock className="h-5 w-5" />
                   </span>
@@ -555,7 +551,7 @@ export default function BusinessView({
                 </p>
               </div>
             )}
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               {"Insights shows which categories you actually win, and which ones quietly eat your time. "}
               <Link
                 href="/pro/plus"
@@ -583,14 +579,14 @@ export default function BusinessView({
         <div>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Pending applications{" "}
-            <span className="text-stone-500 dark:text-stone-400">({pendingApps.length})</span>
+            <span className="text-stone-600 dark:text-stone-300">({pendingApps.length})</span>
           </h2>
           {/* The ghost-protection promise ("your fee comes back as lead
               credit") stood here. Applying is free as of migration 0172, so
               there is no fee to come back. */}
         </div>
         {pendingApps.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             Nothing in flight.{" "}
             <Link
               href={PRO_LEADS_HREF}
@@ -612,12 +608,12 @@ export default function BusinessView({
                     {a.categoryLabel}
                   </span>
                   {a.description && (
-                    <p className="text-sm text-stone-500 dark:text-stone-400">
+                    <p className="text-sm text-stone-600 dark:text-stone-300">
                       {a.description}
                     </p>
                   )}
                 </div>
-                <span className="shrink-0 text-right text-xs text-stone-500 dark:text-stone-400">
+                <span className="shrink-0 text-right text-xs text-stone-600 dark:text-stone-300">
                   {a.refundLine}
                 </span>
               </li>
@@ -631,10 +627,10 @@ export default function BusinessView({
           links), rather than opening a whole new section for them. */}
       <section id="share-reviews" className="space-y-3">
         <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-          Jobs won <span className="text-stone-500 dark:text-stone-400">({wonJobs.length})</span>
+          Jobs won <span className="text-stone-600 dark:text-stone-300">({wonJobs.length})</span>
         </h2>
         {wonJobs.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             No wins yet. Specific, fast replies are what turn applications into
             jobs: the{" "}
             <Link
@@ -656,7 +652,7 @@ export default function BusinessView({
                   {l.categoryLabel}
                 </span>
                 <span className="flex shrink-0 items-center gap-3">
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-600 dark:text-stone-300">
                     {l.metaLine}
                   </span>
                   {/* This recent-leads query isn't filtered to won rows, so
@@ -679,7 +675,7 @@ export default function BusinessView({
             <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Share your reviews
             </h3>
-            <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
               Turn a great review into a share card and a ready-to-post
               caption.
             </p>

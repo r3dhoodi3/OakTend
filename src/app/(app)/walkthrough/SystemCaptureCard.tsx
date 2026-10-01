@@ -1,19 +1,26 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { ChevronRight } from "lucide-react";
 import { confirmSystemAction } from "./actions";
 import { labelFor, SYSTEM_TYPES, systemFieldExample } from "@/lib/constants";
 import TakePhotoButton from "@/components/TakePhotoButton";
 import Lightbox from "@/components/Lightbox";
 import AiNotice from "@/components/AiNotice";
 import SelectMenu from "@/components/SelectMenu";
+import AnimatedDetails from "@/components/AnimatedDetails";
 import ProgressBar, { useStagedProgress } from "@/components/ProgressBar";
 import type { HomeSystem } from "@/lib/database.types";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 
 // What /api/confirm-system does with the photo: read the data plate, then pull
 // the brand, model, and year off it into the editable suggestion.
-const READ_STAGES = ["Reading the data plate", "Pulling out brand, model, and year"];
+const READ_STAGES = ["Reading the label", "Pulling out brand, model and year"];
+
+// What a useful photo looks like, said once on the photo tile. Short on
+// purpose: the owner is standing in front of the system with a phone.
+export const PHOTO_TIPS =
+  "Good photos: the rating label with model and serial, the brand name, or the material.";
 
 type Suggestion = {
   brand: string | null;
@@ -29,8 +36,8 @@ const BLANK_SUGGESTION: Suggestion = {
   install_year: null,
 };
 
-// Read a File into base64 (no data: prefix) for the vision endpoint. Same
-// helper as DocumentUpload.
+// Read a File into base64 (no data: prefix). The fallback when the browser
+// cannot decode the photo for downscaling (a HEIC on some desktops).
 function toBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -43,88 +50,171 @@ function toBase64(file: File): Promise<string> {
   });
 }
 
-// Plain-language, honest readout of the score change - never assumes it went
-// up. A data plate can reveal a system is older or worse than the onboarding
-// estimate guessed, so a scan can legitimately lower the score too.
-function scoreMessage(before: number, after: number): string {
-  if (after > before)
-    return `Nice. Your Home Health Score moved from ${before}/100 to ${after}/100.`;
-  if (after < before)
-    return `Your Home Health Score moved from ${before}/100 to ${after}/100, now that we know more.`;
-  return `Your Home Health Score stayed at ${after}/100 - this one was already accounted for.`;
+// Shrink the photo before it is sent. A phone photo is 3 to 10MB, and pushing
+// that over a cell connection was most of the wait on "Reading the label".
+// 1568px on the long edge is the most the vision model looks at anyway, so
+// nothing readable is lost, and 0.85 JPEG keeps small label print sharp.
+function downscale(file: File): Promise<{ data: string; mime: string }> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new window.Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const maxDim = 1568;
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const scale = maxDim / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("no canvas context"));
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+      resolve({ mime: "image/jpeg", data: dataUrl.split(",")[1] ?? "" });
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("decode failed"));
+    };
+    img.src = url;
+  });
 }
 
-// One card in the "walk your home" flow: snap the data plate, OakTend reads a
+async function encodePhoto(file: File): Promise<{ data: string; mime: string }> {
+  try {
+    const out = await downscale(file);
+    if (out.data) return out;
+  } catch {
+    // Fall through to the original file.
+  }
+  return { data: await toBase64(file), mime: file.type || "image/jpeg" };
+}
+
+// Plain, honest readout of the score change. A data plate can show a system is
+// older than the onboarding estimate guessed, so the score can go down too.
+function scoreMessage(before: number, after: number): string {
+  if (after > before) return `Home Health Score: ${before} to ${after}.`;
+  if (after < before)
+    return `Home Health Score: ${before} to ${after}, now that we know more.`;
+  return `Home Health Score stays at ${after}.`;
+}
+
+// One card in the "walk your home" flow: snap the label, OakTend reads a
 // SUGGESTION off it (never auto-written), the owner confirms or edits it, and
-// the card shows the real Home Health Score payoff for that one scan.
+// the card shows the score change for that one system.
 //
 // The photo itself is never uploaded to storage: confirmSystemAction only
 // ever writes the extracted fields (brand/model/serial/year), never a photo
-// URL, so a stored object would just be an orphan whether the owner confirms
-// or abandons the scan. The preview thumbnail is a local blob URL instead.
+// URL. The preview thumbnail is a local blob URL.
 export default function SystemCaptureCard({
   system,
-  propertyId,
-  startManual = false,
+  manual = false,
+  focusOnSwitch = false,
+  onConfirmed,
 }: {
   system: HomeSystem;
-  propertyId: string;
-  // Open straight on the typing form instead of the photo tile, for the
-  // "Type it in instead" path (?mode=manual - see the page). Only the
-  // starting phase differs; the photo path below is untouched and is one tap
-  // away from here (Cancel goes back to it).
-  startManual?: boolean;
+  // Photo or typing, chosen by the toggle at the top of the page. The card
+  // follows it live (not only on first render), which is what makes
+  // "Type it in" actually switch every card to its form.
+  manual?: boolean;
+  // Put the cursor in this card's Brand box when the owner switches to typing.
+  // Only the first card gets it, so the page does not jump.
+  focusOnSwitch?: boolean;
+  // Told the moment the owner confirms, so the list keeps this card in place
+  // (showing its score change) when the refreshed page marks it confirmed.
+  onConfirmed?: (id: string) => void;
 }) {
   const [phase, setPhase] = useState<"idle" | "working" | "review" | "confirmed">(
-    startManual ? "review" : "idle"
+    manual ? "review" : "idle"
   );
   const [note, setNote] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [suggestion, setSuggestion] = useState<Suggestion | null>(
-    startManual ? BLANK_SUGGESTION : null
+    manual ? BLANK_SUGGESTION : null
   );
   const [delta, setDelta] = useState<{ before: number; after: number } | null>(
     null
   );
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [saving, startSave] = useTransition();
-  // Lets the Cancel button below abort an in-flight read and lets the catch
-  // block tell an owner-initiated cancel apart from a real failure (so
-  // cancelling doesn't also flash an error note). Same pattern as
-  // InspectionUpload.tsx.
+  const [focusBrand, setFocusBrand] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const brandRef = useRef<HTMLInputElement>(null);
+  // Lets Cancel abort an in-flight read and lets the catch block tell an
+  // owner cancel apart from a real failure.
   const abortRef = useRef<AbortController | null>(null);
   const cancelledRef = useRef(false);
-  // Progress bar for the "Reading the data plate" step.
-  const progress = useStagedProgress(READ_STAGES, 10000);
+  const progress = useStagedProgress(READ_STAGES, 8000);
 
   const name = labelFor(SYSTEM_TYPES, system.system_type);
-  // Placeholders for the manual-entry fields, keyed to THIS system. Both boxes
-  // used to show the same water-heater example whatever you were standing in
-  // front of; see SYSTEM_FIELD_EXAMPLES. An empty example means the system has
-  // no brand or model to give, and the field says so instead of guessing.
+  // Placeholders keyed to THIS system (see SYSTEM_FIELD_EXAMPLES). An empty
+  // example means the system has no brand or model to give.
   const example = systemFieldExample(system.system_type);
+
+  // Follow the page toggle. Skips the first render (the initial phase above
+  // already matches), a read in flight, and a card already confirmed. A card
+  // with a photo under review keeps it: switching modes never throws away a
+  // read the owner is checking.
+  const lastManual = useRef(manual);
+  useEffect(() => {
+    if (lastManual.current === manual) return;
+    lastManual.current = manual;
+    if (phase === "working" || phase === "confirmed") return;
+    if (manual) {
+      if (phase === "idle") {
+        setSuggestion(BLANK_SUGGESTION);
+        setNote(null);
+        setPhase("review");
+        if (focusOnSwitch) setFocusBrand(true);
+      }
+    } else if (!preview) {
+      setSuggestion(null);
+      setNote(null);
+      setPhase("idle");
+    }
+  }, [manual, phase, preview, focusOnSwitch]);
+
+  useEffect(() => {
+    if (!focusBrand || phase !== "review") return;
+    brandRef.current?.focus();
+    setFocusBrand(false);
+  }, [focusBrand, phase]);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
     const file = input.files?.[0];
     input.value = ""; // allow re-picking the same file
-    if (!file) return;
+    if (file) await readPhoto(file);
+  }
 
-    // Guard the size before reading it into memory and POSTing to the vision
-    // endpoint (cost/DoS + browser OOM). 10MB binary stays safely under the
-    // route's 14M-char base64 cap (base64 inflates bytes by ~4/3), so a photo
-    // that passes here can't get a 413 after the upload already happened.
-    const MAX_BYTES = 10 * 1024 * 1024; // 10MB
+  function onDrop(e: React.DragEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    setDragging(false);
+    const file = Array.from(e.dataTransfer.files).find((f) =>
+      f.type.startsWith("image/")
+    );
+    if (file) void readPhoto(file);
+    else setNote("Drop a photo (JPG or PNG).");
+  }
+
+  async function readPhoto(file: File) {
+
+    // Guard the size before reading it into memory (browser OOM). Anything
+    // under this is downscaled before it is sent.
+    const MAX_BYTES = 25 * 1024 * 1024;
     if (file.size > MAX_BYTES) {
-      setNote("That photo is too large (max 10MB). Try a smaller one.");
+      setNote("That photo is too large. Try a smaller one.");
       return;
     }
 
+    // Pending state first, before any work, so the tap answers at once.
     setPhase("working");
-    setNote("Reading the data plate…");
+    setNote(null);
     setSuggestion(null);
-    // Local preview only; nothing is written to storage (see the note above
-    // the component).
     setPreview(URL.createObjectURL(file));
     cancelledRef.current = false;
     progress.start();
@@ -132,16 +222,16 @@ export default function SystemCaptureCard({
     abortRef.current = controller;
 
     let read: Suggestion | null = null;
-    let failNote =
-      "Couldn't read it automatically. Fill in what you can and confirm.";
+    let failNote = "Couldn't read it. Fill in what you can and confirm.";
     try {
-      const b64 = await toBase64(file);
+      const photo = await encodePhoto(file);
+      if (cancelledRef.current) return;
       const resp = await fetchWithTimeout("/api/confirm-system", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          image: b64,
-          mime: file.type || "image/jpeg",
+          image: photo.data,
+          mime: photo.mime,
           system_id: system.id,
         }),
         signal: controller.signal,
@@ -150,25 +240,20 @@ export default function SystemCaptureCard({
       const data = await resp.json().catch(() => null);
       read = data?.suggestion ?? null;
       // Tell the truth about WHY nothing was read: a used-up daily AI limit
-      // or unconfigured key is not a bad photo.
-      if (!read && data?.reason === "rate_limited") {
+      // or an unconfigured key is not a bad photo.
+      if (!read && resp.status === 413) {
+        failNote = "That photo is too large. Fill in what you can and confirm.";
+      } else if (!read && data?.reason === "rate_limited") {
         failNote =
-          "You've hit today's AI limit, so OakTend can't read the photo right now. Fill in what you can and confirm.";
+          "You've hit today's AI limit. Fill in what you can and confirm.";
       } else if (!read && data?.reason === "busy") {
-        // An owner-wide ceiling, or a burst window filled by another tool
-        // (this route no longer counts toward the burst limit, so a normal
-        // walkthrough never trips it). Their own allowance is untouched, so
-        // do not tell them they are out for the day.
-        failNote =
-          "OakTend's AI is busy right now. Fill in what you can and confirm.";
+        failNote = "OakTend's AI is busy right now. Fill in what you can and confirm.";
       } else if (!read && data?.reason === "no_key") {
         failNote =
           "Automatic reading isn't set up yet. Fill in what you can and confirm.";
       }
     } catch (e) {
       abortRef.current = null;
-      // Cancel already reset the phase and left no note - don't overwrite
-      // that with a failure message for an abort the owner asked for.
       if (cancelledRef.current) {
         cancelledRef.current = false;
         return;
@@ -181,18 +266,14 @@ export default function SystemCaptureCard({
 
     progress.finish();
     setSuggestion(read ?? BLANK_SUGGESTION);
-    setNote(
-      read
-        ? "Here's what OakTend read off the label. Check it and confirm."
-        : failNote
-    );
+    setNote(read ? "Check what OakTend read, then confirm." : failNote);
     setPhase("review");
   }
 
-  // Lets the owner back out of "Reading the data plate..." instead of being
-  // stuck waiting on a hung request with no escape.
-  function cancelCapture() {
-    cancelledRef.current = true;
+  // Back to the photo tile from anywhere: a read in flight, a read under
+  // review, or the typing form.
+  function backToPhoto() {
+    cancelledRef.current = phase === "working";
     abortRef.current?.abort();
     abortRef.current = null;
     progress.reset();
@@ -203,91 +284,115 @@ export default function SystemCaptureCard({
     setNote(null);
   }
 
-  function skipToManual() {
+  function typeItIn() {
     setSuggestion(BLANK_SUGGESTION);
     setNote(null);
     setPhase("review");
+    setFocusBrand(true);
   }
 
   function confirm(formData: FormData) {
+    // Optimistic: the card turns "Confirmed" the instant Confirm is tapped.
+    // The score change fills in when the save returns, and a failed save puts
+    // the form back with the reason.
+    setPhase("confirmed");
+    setNote(null);
+    onConfirmed?.(system.id);
     startSave(async () => {
-      const result = await confirmSystemAction(formData);
+      let result: Awaited<ReturnType<typeof confirmSystemAction>>;
+      try {
+        result = await confirmSystemAction(formData);
+      } catch {
+        result = {
+          ok: false,
+          error: "Couldn't save that right now. Please try again.",
+        };
+      }
       if (!result.ok) {
-        // Surface the failure inline instead of silently dying: keep the review
-        // form so the owner can retry, and never show the "Confirmed" payoff.
         setNote(result.error);
+        setPhase("review");
         return;
       }
       if (preview) URL.revokeObjectURL(preview);
       setDelta({ before: result.before, after: result.after });
-      setPhase("confirmed");
     });
   }
 
-  if (phase === "confirmed" && delta) {
+  if (phase === "confirmed") {
     return (
       <li className="card space-y-1 border-green-200 bg-green-50/60 dark:border-green-900 dark:bg-green-950/30">
         <p className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
           {name}
-          <span className="chip bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200">✓ Confirmed</span>
+          <span className="chip bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-200">
+            Confirmed
+          </span>
         </p>
-        <p className="text-sm text-green-800 dark:text-green-200">
-          {scoreMessage(delta.before, delta.after)}
+        <p
+          className="text-sm text-green-800 dark:text-green-200"
+          aria-live="polite"
+        >
+          {delta && !saving
+            ? scoreMessage(delta.before, delta.after)
+            : "Saving..."}
         </p>
       </li>
     );
   }
 
+  const fromPhoto = preview != null;
+
   return (
     <li className="card space-y-3">
       <p className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
         {name}
-        <span className="chip bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400">Estimated</span>
+        <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
+          Estimated
+        </span>
       </p>
 
-      {phase !== "review" && (
+      {phase === "idle" && (
         <>
-          <label className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-stone-200 px-4 py-6 text-center hover:border-bark-500 hover:bg-bark-50 dark:border-stone-700 dark:hover:bg-bark-700/30">
-            <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
-              Snap the data plate
+          {/* Tap to pick, or drag a photo onto it on a computer. */}
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              if (!dragging) setDragging(true);
+            }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={onDrop}
+            className={`flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-4 py-6 text-center hover:border-bark-500 hover:bg-bark-50 dark:hover:bg-bark-700/30 ${
+              dragging
+                ? "border-bark-500 bg-bark-50 dark:bg-bark-700/30"
+                : "border-stone-200 dark:border-stone-700"
+            }`}
+          >
+            <span className="text-sm font-medium text-stone-900 dark:text-stone-100">
+              Add a photo of the label
+              <span className="max-sm:hidden"> or drop one here</span>
             </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
-              OakTend reads the brand, model, and age off it
+            <span className="text-sm text-stone-600 dark:text-stone-300">
+              {PHOTO_TIPS}
             </span>
             <input
               type="file"
               accept="image/*"
               onChange={onPick}
-              disabled={phase === "working"}
               className="hidden"
             />
           </label>
-          {/* The walkthrough IS the standing-at-the-furnace moment, so phones
-              get a straight-to-camera button; the tile above still opens the
-              gallery for a photo taken earlier. */}
-          <TakePhotoButton
-            onPick={onPick}
-            disabled={phase === "working"}
-            label="Open the camera"
-          />
-          {/* A real button on the card, not a whispered link under it: the
-              photo path is the good one, but people get here standing in a
-              basement with no data plate they can read, and the way out has
-              to be visible before the camera opens rather than after. */}
-          <button
-            type="button"
-            onClick={skipToManual}
-            className="btn-secondary w-full sm:w-auto"
-          >
-            Skip photo, type it in
-          </button>
+          <div className="flex flex-wrap gap-3">
+            {/* Phones get a straight-to-camera button; the tile above still
+                opens the gallery for a photo taken earlier. */}
+            <TakePhotoButton onPick={onPick} label="Open the camera" />
+            <button
+              type="button"
+              onClick={typeItIn}
+              className="btn-secondary max-sm:w-full"
+            >
+              Type it in
+            </button>
+          </div>
         </>
-      )}
-
-      {note && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
-          {note}
-        </p>
       )}
 
       {phase === "working" && (
@@ -296,54 +401,55 @@ export default function SystemCaptureCard({
             value={progress.value}
             stages={READ_STAGES}
             stageIndex={progress.stageIndex}
-            ariaLabel="Reading the data plate"
+            ariaLabel="Reading the label"
           />
-          <button
-            type="button"
-            onClick={cancelCapture}
-            className="block text-xs text-stone-500 hover:text-stone-600 dark:text-stone-400 dark:hover:text-stone-300"
-          >
+          <button type="button" onClick={backToPhoto} className="btn-secondary">
             Cancel
           </button>
         </>
+      )}
+
+      {note && (
+        <p role="status" className="text-sm text-stone-600 dark:text-stone-300">
+          {note}
+        </p>
       )}
 
       {phase === "review" && suggestion && (
         <form action={confirm} className="space-y-3">
           <input type="hidden" name="system_id" value={system.id} />
 
-          {preview && (
+          {fromPhoto && (
             <>
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
                 className="block cursor-zoom-in"
-                aria-label={`View ${name} data plate photo full size`}
+                aria-label={`View ${name} label photo full size`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={preview}
-                  alt={`${name} data plate`}
+                  alt={`${name} label`}
                   className="max-h-32 rounded-lg border border-stone-200 object-contain dark:border-white/10"
                 />
               </button>
               <Lightbox
                 src={lightboxOpen ? preview : null}
-                alt={`${name} data plate`}
+                alt={`${name} label`}
                 onClose={() => setLightboxOpen(false)}
               />
             </>
           )}
 
-          {/* This IS the review step (every field below is editable before
-              Confirm), same placement convention as InspectionUpload and
-              DocumentUpload's equivalent notice. */}
-          <AiNotice detail="A model read the data plate, so it can misread a letter or number. Check every field before you confirm." />
-
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="label">Brand</label>
+              <label className="label" htmlFor={`brand-${system.id}`}>
+                Brand
+              </label>
               <input
+                id={`brand-${system.id}`}
+                ref={brandRef}
                 name="brand"
                 className="input"
                 placeholder={
@@ -353,8 +459,11 @@ export default function SystemCaptureCard({
               />
             </div>
             <div>
-              <label className="label">Model</label>
+              <label className="label" htmlFor={`model-${system.id}`}>
+                Model number
+              </label>
               <input
+                id={`model-${system.id}`}
                 name="model"
                 className="input"
                 placeholder={
@@ -364,57 +473,105 @@ export default function SystemCaptureCard({
               />
             </div>
             <div>
-              <label className="label">Serial (optional)</label>
+              <label className="label" htmlFor={`year-${system.id}`}>
+                Install year or age
+              </label>
+              {/* A year (2015) or an age in years (10): the action tells the
+                  two apart, since "about 10 years old" is what most owners
+                  actually know. */}
               <input
-                name="serial"
-                className="input"
-                defaultValue={suggestion.serial ?? ""}
-              />
-            </div>
-            <div>
-              <label className="label">Install year</label>
-              <input
+                id={`year-${system.id}`}
                 name="install_year"
                 type="number"
+                inputMode="numeric"
+                min="0"
                 className="input"
-                placeholder="2015"
+                placeholder="2015 or 10"
                 defaultValue={suggestion.install_year ?? system.install_year ?? ""}
               />
             </div>
             <div className="col-span-2">
-              <label className="label">Condition (optional)</label>
-              <SelectMenu
-                name="condition_rating"
-                // Stored as a number; the dropdown deals in strings.
-                defaultValue={String(system.condition_rating ?? "")}
-                options={[
-                  { value: "", label: "Not sure" },
-                  { value: "5", label: "5 (like new)" },
-                  { value: "4", label: "4 (good)" },
-                  { value: "3", label: "3 (fair)" },
-                  { value: "2", label: "2 (worn)" },
-                  { value: "1", label: "1 (failing)" },
-                ]}
+              <label className="label" htmlFor={`notes-${system.id}`}>
+                Notes
+              </label>
+              <input
+                id={`notes-${system.id}`}
+                name="notes"
+                className="input"
+                maxLength={300}
+                placeholder="Anything worth remembering"
               />
             </div>
           </div>
 
-          <div className="flex gap-3">
+          {/* Secondary fields fold away so Confirm is what stands out. Open
+              from the start when the photo already gave a serial, so a read
+              value is never hidden. Closed <details> content still submits. */}
+          <AnimatedDetails
+            defaultOpen={Boolean(suggestion.serial)}
+            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-stone-700 [&::-webkit-details-marker]:hidden max-sm:min-h-11 dark:text-stone-300"
+            summary={
+              <>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 group-data-[shown=true]:rotate-90 dark:text-stone-500"
+                  aria-hidden="true"
+                />
+                Serial and condition (optional)
+              </>
+            }
+            contentClassName="pt-3"
+          >
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="label" htmlFor={`serial-${system.id}`}>
+                  Serial
+                </label>
+                <input
+                  id={`serial-${system.id}`}
+                  name="serial"
+                  className="input"
+                  defaultValue={suggestion.serial ?? ""}
+                />
+              </div>
+              <div>
+                <label className="label">Condition</label>
+                <SelectMenu
+                  name="condition_rating"
+                  // Stored as a number; the dropdown deals in strings.
+                  defaultValue={String(system.condition_rating ?? "")}
+                  options={[
+                    { value: "", label: "Not sure" },
+                    { value: "5", label: "5 (like new)" },
+                    { value: "4", label: "4 (good)" },
+                    { value: "3", label: "3 (fair)" },
+                    { value: "2", label: "2 (worn)" },
+                    { value: "1", label: "1 (failing)" },
+                  ]}
+                />
+              </div>
+            </div>
+          </AnimatedDetails>
+
+          {/* Only when a model actually read something: typed-in details
+              need no AI notice. */}
+          {fromPhoto && (
+            <AiNotice detail="Check every field before you confirm." />
+          )}
+
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="submit"
+              disabled={saving}
+              className="btn-primary flex-1"
+            >
+              Confirm
+            </button>
             <button
               type="button"
               className="btn-secondary"
-              onClick={() => {
-                if (preview) URL.revokeObjectURL(preview);
-                setPhase("idle");
-                setSuggestion(null);
-                setPreview(null);
-                setNote(null);
-              }}
+              onClick={backToPhoto}
             >
-              Cancel
-            </button>
-            <button type="submit" disabled={saving} className="btn-primary flex-1">
-              {saving ? "Confirming…" : "Confirm"}
+              {fromPhoto ? "Retake photo" : "Use a photo instead"}
             </button>
           </div>
         </form>

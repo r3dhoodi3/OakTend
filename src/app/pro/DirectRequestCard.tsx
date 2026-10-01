@@ -74,11 +74,11 @@ export default function DirectRequestCard({
   const detailsContent = (
     <>
       {d.issue_description ? (
-        <p className="text-sm text-stone-600 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           {d.issue_description}
         </p>
       ) : (
-        <p className="text-sm italic text-stone-500 dark:text-stone-400">
+        <p className="text-sm italic text-stone-600 dark:text-stone-300">
           No details provided yet
         </p>
       )}
@@ -120,9 +120,9 @@ export default function DirectRequestCard({
         </div>
       )}
       {(postedAgoLabel || d.timing) && (
-        <div className="flex flex-wrap gap-4 text-xs text-stone-500 dark:text-stone-400">
+        <div className="flex flex-wrap gap-4 text-xs text-stone-600 dark:text-stone-300">
           {postedAgoLabel && (
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               {postedAgoLabel}
             </span>
           )}
@@ -150,7 +150,7 @@ export default function DirectRequestCard({
             </span>
           </div>
           {glanceLine2 && (
-            <p className="mt-0.5 truncate text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 truncate text-xs text-stone-600 dark:text-stone-300">
               {glanceLine2}
             </p>
           )}
@@ -159,7 +159,7 @@ export default function DirectRequestCard({
           <span className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
             {labelFor(JOB_CATEGORIES, d.category)}
             {d.city ? (
-              <span className="font-normal text-stone-500 dark:text-stone-400">
+              <span className="font-normal text-stone-600 dark:text-stone-300">
                 in {d.city}
               </span>
             ) : null}

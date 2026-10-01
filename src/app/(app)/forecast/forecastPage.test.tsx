@@ -22,6 +22,9 @@ vi.mock("next/navigation", () => ({
 const fixtures = vi.hoisted(() => ({
   plus: true,
   reserveCents: null as number | null,
+  // Titles of open maintenance tasks already on this home, which is how the
+  // page decides a push-it-out step shows "Added to your plan".
+  plannedTitles: [] as string[],
 }));
 
 vi.mock("@/lib/subscription", () => ({
@@ -83,6 +86,7 @@ function chain(data: unknown, single: unknown = null) {
   const obj: Record<string, unknown> = {
     select: () => obj,
     eq: () => obj,
+    in: () => obj,
     order: () => obj,
     limit: () => obj,
     maybeSingle: () => Promise.resolve({ data: single, error: null }),
@@ -99,7 +103,9 @@ vi.mock("@/lib/supabase/server", () => ({
         ? chain(systems)
         : table === "properties"
           ? chain(null, { repair_reserve_cents: fixtures.reserveCents })
-          : chain([]),
+          : table === "maintenance_tasks"
+            ? chain(fixtures.plannedTitles.map((title) => ({ title })))
+            : chain([]),
     // The free branch reads the user id once for the paywall-experiment
     // variant on the unlock card's sub-line (src/lib/paywallExperiment.ts).
     // A fixed id keeps the rendered variant deterministic for these tests;
@@ -132,6 +138,7 @@ vi.mock("./actions", () => ({
 
 import ForecastPage from "./page";
 import { buildForecast } from "@/lib/forecast";
+import { forecastActionFor } from "@/lib/forecastActions";
 
 // Mirror of the page's own money() formatter, so the free-render assertions
 // compare against exactly the strings the member view would print.
@@ -142,6 +149,7 @@ function money(n: number): string {
 async function renderForecast(over: Partial<typeof fixtures> = {}) {
   fixtures.plus = over.plus ?? true;
   fixtures.reserveCents = over.reserveCents ?? null;
+  fixtures.plannedTitles = over.plannedTitles ?? [];
   const element = await ForecastPage();
   return render(element as React.ReactElement);
 }
@@ -180,7 +188,59 @@ describe("forecast page, OakTend Plus member", () => {
     expect(
       screen.getByText(/Tell us what you have set aside/)
     ).toBeInTheDocument();
-    expect(screen.getByText("Nothing entered yet.")).toBeInTheDocument();
+    // No figure entered: the bar shows the goal, not a fake "$0 saved" or 0%.
+    const bar = screen.getByRole("progressbar");
+    expect(bar).toHaveAttribute(
+      "aria-label",
+      expect.stringMatching(/^Saved toward your .+ replacement \(\d{4}\)$/)
+    );
+    expect(screen.getByText(/^Goal \$[\d,]+$/)).toBeInTheDocument();
+    expect(screen.queryByText(/\d+%$/)).not.toBeInTheDocument();
+  });
+
+  it("labels the reserve bar in plain numbers and fills it green", async () => {
+    const { container } = await renderForecast({ reserveCents: 450000 });
+    const bar = screen.getByRole("progressbar");
+    expect(bar.getAttribute("aria-label")).toMatch(/^Saved toward your /);
+    expect(bar.getAttribute("aria-valuetext")).toMatch(
+      /^\$4,500 of \$[\d,]+ saved$/
+    );
+    const fill = bar.firstElementChild as HTMLElement;
+    expect(fill.className).toContain("bg-green-600");
+    expect(fill.className).toContain("dark:bg-green-500");
+    expect(fill.className).not.toMatch(/bg-bark/);
+    expect(
+      container.querySelector('[data-testid="reserve-progress"]')?.textContent
+    ).toMatch(/\d+%/);
+  });
+
+  it("says each explanation once: no separate why-this-matters card", async () => {
+    const { container } = await renderForecast();
+    expect(screen.queryByText("Why this matters")).not.toBeInTheDocument();
+    expect(container.textContent ?? "").not.toContain("\u2014");
+  });
+
+  it("keeps a step visible as Added with a link to the plan once it is on the list", async () => {
+    const flush = forecastActionFor("water_heater");
+    expect(flush).not.toBeNull();
+    const { container } = await renderForecast({
+      plannedTitles: [flush!.taskTitle],
+    });
+    // The step itself is still on screen.
+    expect(
+      screen.getByText("Flush the tank and have the anode rod checked")
+    ).toBeInTheDocument();
+    const added = container.querySelectorAll(
+      '[data-testid="forecast-step-added"]'
+    );
+    expect(added).toHaveLength(1);
+    expect(added[0].textContent).toContain("Added to your plan");
+    const view = screen.getByRole("link", { name: "View plan" });
+    expect(view).toHaveAttribute("href", "/dashboard#this-month");
+    // Other systems still offer the button.
+    expect(
+      screen.getAllByRole("button", { name: "Add to my plan" }).length
+    ).toBeGreaterThan(0);
   });
 
   it("prefills the saved figure in dollars once one exists", async () => {
@@ -188,7 +248,7 @@ describe("forecast page, OakTend Plus member", () => {
     expect(screen.getByLabelText("What you have saved so far")).toHaveValue(
       "4500"
     );
-    expect(screen.getByText(/\$4,500 of \$[\d,]+ set aside\./)).toBeInTheDocument();
+    expect(screen.getByText(/\$4,500 of \$[\d,]+ saved/)).toBeInTheDocument();
   });
 
   it("shows the rebate line next to the replacement it belongs to", async () => {

@@ -48,7 +48,7 @@ function StatusField({
 }) {
   const { pending } = useFormStatus();
   return (
-    <label className="flex items-center gap-2 text-sm text-stone-500 dark:text-stone-400">
+    <label className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-300">
       Status
       {pending && <InlineSpinner size={14} />}
       <SelectMenu

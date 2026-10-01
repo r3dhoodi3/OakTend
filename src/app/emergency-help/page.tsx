@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import PanicCard from "@/app/(app)/emergency/PanicCard";
-import { FLOWS } from "@/app/(app)/emergency/content";
+import { EMERGENCY_SAFETY_LINE, FLOWS } from "@/app/(app)/emergency/content";
 
 // Public, account-free version of the in-app /emergency page. A homeowner in
 // the middle of a burst pipe or a gas smell should reach these steps without
@@ -37,7 +37,7 @@ export default function EmergencyHelpPage() {
             added classes are max-sm:, so sm and up is unchanged. */}
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -46,9 +46,9 @@ export default function EmergencyHelpPage() {
       <h1 className="mt-4 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
         Emergency help
       </h1>
-      <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-400">
-        Something wrong right now? Pick what&apos;s happening below. The steps are
-        short. Do them in order. No account needed.
+      <p className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
+        Pick what&apos;s happening and follow the steps in order. No account
+        needed.
       </p>
 
       {/* Life-safety caveat, first thing on the page. Red accent is reserved
@@ -58,7 +58,8 @@ export default function EmergencyHelpPage() {
           the cards below, and each open card already says to call a local
           licensed company, so neither is repeated here (owner, 2026-09-27:
           the same advice must not appear in two places). Mirrors the
-          in-app /emergency intro, plus the carbon monoxide symptoms: a home
+          in-app /emergency intro word for word (EMERGENCY_SAFETY_LINE, the
+          2026-09-20 legal pass), plus the carbon monoxide symptoms: a home
           with no CO alarm still needs the "get out" cue, and that cue
           otherwise sits only inside the no-heat card. */}
       <div className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 dark:border-red-500/40 dark:bg-red-950/30">
@@ -68,14 +69,10 @@ export default function EmergencyHelpPage() {
             aria-hidden="true"
           />
           <div className="text-sm leading-relaxed text-red-900 dark:text-red-200">
-            <p className="font-semibold">If someone is hurt, trapped, or in danger, call 911 now.</p>
+            <p className="font-medium">{EMERGENCY_SAFETY_LINE}</p>
             <p className="mt-2">
-              If you smell gas, a carbon monoxide alarm sounds, or people at
-              home feel a headache, dizziness, or nausea, get everyone outside
-              first and call from there. These are general safety steps, not
-              an emergency service. OakTend is software, not a contractor or a
-              utility. If you are not sure a step is safe, skip it, get out,
-              and call 911.
+              A headache, dizziness, or nausea at home can mean carbon
+              monoxide, even with no alarm. Treat it the same way.
             </p>
           </div>
         </div>
@@ -92,19 +89,20 @@ export default function EmergencyHelpPage() {
         <h2 className="font-semibold text-stone-900 dark:text-stone-100">
           Once you are safe
         </h2>
-        <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-          With a free account you can save what happened, with photos, to your
-          home&apos;s record.
+        <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+          For repairs, call a local licensed company now. Our pro network is not
+          open yet, so don&apos;t wait on OakTend for an emergency. With a free
+          account you can save what happened, with photos, to your home&apos;s record.
         </p>
         <Link href="/homeowner-signup" className="btn-primary flex w-full text-center">
           Save it to my home&apos;s record
         </Link>
-        <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-          Already have an OakTend account? The in-app version at{" "}
+        <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
+          Have an account?{" "}
           <Link href="/emergency" className="text-bark-700 hover:underline dark:text-stone-300">
-            Emergency
+            Home emergency
           </Link>{" "}
-          shows these same steps plus the photos you saved of your own shutoffs.
+          shows these steps with your own shutoff photos.
         </p>
       </section>
     </main>

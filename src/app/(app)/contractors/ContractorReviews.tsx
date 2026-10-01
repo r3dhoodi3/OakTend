@@ -74,7 +74,7 @@ export default function ContractorReviews({
 
       {open && (
         <div className="mt-2 space-y-2">
-          {loading && <p className="text-xs text-stone-500 dark:text-stone-400">Loading…</p>}
+          {loading && <p className="text-xs text-stone-600 dark:text-stone-300">Loading…</p>}
           {!loading && failed && (
             <p role="alert" className="text-xs text-red-600 dark:text-red-400">
               Couldn&apos;t load reviews right now.
@@ -89,7 +89,7 @@ export default function ContractorReviews({
                     {"★".repeat(5 - r.rating)}
                   </span>
                 </span>
-                <span className="text-[11px] text-stone-500 dark:text-stone-400">
+                <span className="text-xs text-stone-600 dark:text-stone-300">
                   {r.created_at.slice(0, 10)}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export default function ContractorReviews({
             </div>
           ))}
           {reviews && reviews.length === 0 && (
-            <p className="text-xs text-stone-500 dark:text-stone-400">No written reviews yet.</p>
+            <p className="text-xs text-stone-600 dark:text-stone-300">No written reviews yet.</p>
           )}
         </div>
       )}

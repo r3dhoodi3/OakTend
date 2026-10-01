@@ -64,7 +64,7 @@ export default function ProgressBar({
       {stageLabel && (
         <p
           aria-live="polite"
-          className="mt-2 text-xs text-stone-500 dark:text-stone-400"
+          className="mt-2 text-xs text-stone-600 dark:text-stone-300"
         >
           {stageLabel}
         </p>

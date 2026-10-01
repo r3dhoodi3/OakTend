@@ -289,7 +289,7 @@ export default function GlobalSearch({
         className="relative"
         role="search"
       >
-        <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-stone-500 dark:text-stone-400">
+        <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-stone-600 dark:text-stone-300">
           {isPending ? (
             <InlineSpinner size={16} />
           ) : (
@@ -351,7 +351,7 @@ export default function GlobalSearch({
         >
           {trimmed === "" && (
             <>
-              <p className="px-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+              <p className="px-2 pb-1 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                 Try searching
               </p>
               {EXAMPLES[side].map((ex) => (
@@ -374,7 +374,7 @@ export default function GlobalSearch({
             <div role="listbox" aria-label="Search suggestions">
               {destItems.length > 0 && (
                 <>
-                  <p className="px-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+                  <p className="px-2 pb-1 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                     Go to
                   </p>
                   {destItems.map((item) => {
@@ -399,7 +399,7 @@ export default function GlobalSearch({
               )}
               {faqItems.length > 0 && (
                 <>
-                  <p className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+                  <p className="px-2 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
                     FAQ
                   </p>
                   {faqItems.map((item) => {

@@ -133,7 +133,7 @@ export default function SignInForm({
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             Sign in to OakTend
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Homeowners and contractors, same sign-in.
           </p>
         </div>
@@ -207,7 +207,7 @@ export default function SignInForm({
               can never lock this button forever. */}
           <Turnstile ref={turnstileRef} onToken={setCaptchaToken} />
           {captchaTimedOut && (
-            <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-center text-xs text-stone-600 dark:text-stone-300">
               Verification could not load. Refresh the page or try again in a
               minute.
             </p>
@@ -251,7 +251,7 @@ export default function SignInForm({
 
         <div className="my-6 flex items-center gap-3">
           <div className="h-px flex-1 bg-stone-200 dark:bg-white/10" />
-          <span className="text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">or</span>
+          <span className="text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">or</span>
           <div className="h-px flex-1 bg-stone-200 dark:bg-white/10" />
         </div>
 
@@ -261,7 +261,7 @@ export default function SignInForm({
         </div>
 
         <div className="mt-6 border-t border-stone-100 pt-4 text-center dark:border-white/10">
-          <p className="text-sm text-stone-500 dark:text-stone-400">New to OakTend?</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">New to OakTend?</p>
           <Link
             href={signupHref}
             className="btn-secondary mt-2 flex w-full"

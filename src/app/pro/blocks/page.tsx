@@ -25,15 +25,15 @@ export default async function ProBlocksPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Blocked accounts
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Homeowners you have blocked cannot message you, and their jobs no
-          longer show on your board. Unblocking takes effect right away.
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Blocked homeowners cannot message you, and their jobs stay off your
+          board.
         </p>
       </div>
 
       <BlockedUsersPanel blocks={blocks} />
 
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         Seeing something that breaks the rules?{" "}
         <Link
           href="/contact?topic=abuse"

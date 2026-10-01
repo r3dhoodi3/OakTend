@@ -1573,7 +1573,7 @@ export async function requestProAction(
   });
   if (allowedRequest === false) {
     return err(
-      "You're sending requests too quickly, please wait a bit before requesting another pro."
+      "You're sending requests too quickly. Please wait a bit before requesting another pro."
     );
   }
 
@@ -1851,7 +1851,7 @@ export async function postDirectPubliclyAction(formData: FormData) {
     p_window_seconds: 3600,
   });
   if (allowed === false) {
-    setFlash("You're posting jobs too quickly, please wait a bit.", "error");
+    setFlash("You're posting jobs too quickly. Please wait a bit.", "error");
     redirect("/contractors");
   }
   const { data: allowedDay } = await admin.rpc("rate_limit_hit", {
@@ -1947,7 +1947,10 @@ export async function postDirectPubliclyAction(formData: FormData) {
     // Notifications are a nice-to-have here, not part of the conversion.
   }
 
-  setFlash("Posted to all local pros. Matching pros can now apply.", "success");
+  await setFlash("Posted to local pros. Matching pros can now apply.", "success", {
+    href: "/contractors/jobs",
+    linkLabel: "Your jobs",
+  });
   revalidatePath("/contractors");
 }
 

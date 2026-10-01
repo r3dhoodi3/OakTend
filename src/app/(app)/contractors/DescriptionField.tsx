@@ -203,7 +203,7 @@ export default function DescriptionField({
           )}
         </div>
       )}
-      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
         A sentence or two helps pros quote accurately (10 characters minimum).
         {/* Same stability rule as the header button above: mounted whenever a
             photo is attached, so this line's height is reserved for the

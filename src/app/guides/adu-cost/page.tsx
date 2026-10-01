@@ -148,7 +148,7 @@ export default function AduCostGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/adu-cost" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Sourced planning figures for Orange County homeowners, not a quote for
         your home.
       </p>
@@ -493,7 +493,7 @@ export default function AduCostGuide() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -502,7 +502,7 @@ export default function AduCostGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Cost and resale figures are from the Remodeling 2025 Cost vs.
             Value Report (www.costvsvalue.com), Los Angeles market. © 2025
             Zonda Media, a Delaware Corporation. Complete data from the

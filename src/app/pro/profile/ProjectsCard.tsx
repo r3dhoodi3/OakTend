@@ -138,7 +138,7 @@ export default function ProjectsCard({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="font-semibold text-stone-900 dark:text-stone-100">Your projects</h2>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               Photo albums of completed work, shown on your public page.
               Homeowners hire pros they can see examples from.
             </p>
@@ -155,7 +155,7 @@ export default function ProjectsCard({
         </div>
 
         {projects.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 bg-stone-50 px-4 py-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 bg-stone-50 px-4 py-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300">
             No projects yet. Add your first one: a few photos and a title are
             all it takes.
           </p>
@@ -166,7 +166,7 @@ export default function ProjectsCard({
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-medium text-stone-900 dark:text-stone-100">{p.title}</p>
-                    <p className="mt-0.5 flex flex-wrap items-center gap-1 text-xs text-stone-500 dark:text-stone-400">
+                    <p className="mt-0.5 flex flex-wrap items-center gap-1 text-xs text-stone-600 dark:text-stone-300">
                       {p.category ? (
                         <span>{labelFor(JOB_CATEGORIES, p.category)}</span>
                       ) : (
@@ -226,7 +226,7 @@ export default function ProjectsCard({
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">
             Want more than {FREE_PROJECT_LIMIT} projects?
           </h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             Every pro can showcase up to {FREE_PROJECT_LIMIT} projects for
             free. OakTend Pro members get unlimited projects, plus
             Before/After badges on their public photos.
@@ -236,7 +236,7 @@ export default function ProjectsCard({
       )}
 
       {!member && !atFreeCap && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Free accounts can showcase up to {FREE_PROJECT_LIMIT} projects.
           OakTend Pro members get unlimited projects and public Before/After
           badges.{" "}
@@ -265,7 +265,7 @@ function ProjectForm({
         <h2 className="font-semibold text-stone-900 dark:text-stone-100">
           {project ? "Edit project" : "Add a project"}
         </h2>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           It appears on your public page in its own Projects section, clearly
           separate from your reviews.
         </p>
@@ -285,7 +285,7 @@ function ProjectForm({
           placeholder="e.g. Full kitchen remodel in Maple Grove"
           className="input"
         />
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">Up to 80 characters.</p>
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Up to 80 characters.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -319,7 +319,7 @@ function ProjectForm({
           placeholder="What the job involved and how it turned out."
           className="input h-auto"
         />
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">Up to 500 characters.</p>
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Up to 500 characters.</p>
       </div>
 
       <ProjectPhotoManager

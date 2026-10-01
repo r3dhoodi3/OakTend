@@ -534,12 +534,11 @@ export default async function YourJobsPage(
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Your jobs
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Every job you have posted, who has applied, and what we have told
-          you about it.
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Jobs you posted and who applied.
         </p>
         {jobLeads.length === 0 && directRequests.length === 0 && (
-          <p className="mt-4 rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="mt-4 rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             You have not posted a job yet.{" "}
             <Link href="/contractors" className="font-medium text-bark-700 hover:underline dark:text-stone-300">
               Post one
@@ -582,7 +581,7 @@ export default async function YourJobsPage(
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               Requests to specific pros
             </h2>
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-300">
               Only the pro you asked can see these. If they pass, post the job
               to all local pros instead.
             </p>
@@ -611,11 +610,11 @@ export default async function YourJobsPage(
                         )}
                       </p>
                       {l.issue_description && (
-                        <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+                        <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                           {l.issue_description}
                         </p>
                       )}
-                      <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+                      <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
                         Sent {new Date(l.created_at).toLocaleDateString()}
                       </p>
                     </div>
@@ -627,7 +626,7 @@ export default async function YourJobsPage(
                   </div>
 
                   {declined && (
-                    <p className="rounded-lg border border-dashed border-stone-300 p-3 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+                    <p className="rounded-lg border border-dashed border-stone-300 p-3 text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
                       {proName} passed on this one. Post it to all local pros and
                       matching pros can apply.
                     </p>
@@ -691,7 +690,7 @@ export default async function YourJobsPage(
                         {labelFor(JOB_CATEGORIES, l.category)}
                       </span>
                       {l.issue_description && (
-                        <p className="text-sm text-stone-500 dark:text-stone-400">
+                        <p className="text-sm text-stone-600 dark:text-stone-300">
                           {l.issue_description}
                         </p>
                       )}
@@ -742,7 +741,7 @@ export default async function YourJobsPage(
                           {teamUpdate.body}
                         </p>
                       )}
-                      <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                      <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                         {new Date(teamUpdate.at).toLocaleDateString()}
                       </p>
                     </div>
@@ -757,9 +756,9 @@ export default async function YourJobsPage(
                         <p className="font-medium text-stone-900 dark:text-stone-100">
                           {l.contractors?.name ?? "Your pro"}
                           {l.contractors?.review_count > 0 ? (
-                            <span className="ml-2 text-xs text-amber-600 dark:text-amber-400">
+                            <span className="ml-2 text-xs text-amber-700 dark:text-amber-400">
                               ★ {l.contractors.rating}
-                              <span className="text-stone-500 dark:text-stone-400">
+                              <span className="text-stone-600 dark:text-stone-300">
                                 {" "}
                                 · {l.contractors.review_count} review
                                 {l.contractors.review_count === 1 ? "" : "s"}
@@ -767,7 +766,7 @@ export default async function YourJobsPage(
                             </span>
                           ) : null}
                         </p>
-                        <p className="break-words text-stone-500 dark:text-stone-400">
+                        <p className="break-words text-stone-600 dark:text-stone-300">
                           {l.contractors?.contact_phone || ""}
                           {l.contractors?.contact_email
                             ? ` · ${l.contractors.contact_email}`
@@ -809,13 +808,13 @@ export default async function YourJobsPage(
                                   </span>
                                 </span>
                                 {reviewByLead.get(l.id)!.comment && (
-                                  <p className="mt-0.5 text-stone-500 dark:text-stone-400">
+                                  <p className="mt-0.5 text-stone-600 dark:text-stone-300">
                                     {reviewByLead.get(l.id)!.comment}
                                   </p>
                                 )}
                               </div>
                             ) : (
-                              <p className="text-sm text-stone-500 dark:text-stone-400">
+                              <p className="text-sm text-stone-600 dark:text-stone-300">
                                 Job wrapped up? Leave{" "}
                                 {l.contractors?.name ?? "your pro"} a review.
                               </p>
@@ -838,7 +837,7 @@ export default async function YourJobsPage(
                     // 0092): status is still 'new' underneath, so the applicants
                     // still refund on the normal ghost-protection schedule -
                     // this is purely the UI reflecting that decision.
-                    <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+                    <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
                       You closed this job without choosing a pro.
                       {apps.length > 0
                         ? " The pros who applied were told."
@@ -851,7 +850,7 @@ export default async function YourJobsPage(
                           the same status in one line, which is all a second
                           or third open job actually needs. */}
                       {l.id !== explainerLeadId ? (
-                        <p className="text-sm text-stone-500 dark:text-stone-400">
+                        <p className="text-sm text-stone-600 dark:text-stone-300">
                           {isPreview
                             ? "Saved. Our pro network isn't open yet."
                             : l.timing === "asap"
@@ -859,22 +858,26 @@ export default async function YourJobsPage(
                               : "Live. No applications yet."}
                         </p>
                       ) : (
-                      <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+                      <div className="rounded-lg border border-dashed border-stone-300 p-4 text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
                         {/* An asap job shouldn't be told "a day or two": point
                             a real emergency at faster help instead. */}
                         {l.timing === "asap" && isPreview ? (
                           <p>
                             Saved. Our pro network isn&apos;t open yet, so no pro
-                            will see this today. If this is urgent, call a local
-                            24-hour company now. For gas, leave the house and
-                            call 911 or your gas company from outside.
+                            will see this today. If it&apos;s urgent, call a
+                            local 24-hour company now. See the{" "}
+                            <Link
+                              href="/emergency"
+                              className="font-medium text-bark-700 hover:underline dark:text-stone-300"
+                            >
+                              Emergency page
+                            </Link>{" "}
+                            for what to do first.
                           </p>
                         ) : l.timing === "asap" ? (
                           <p>
-                            Your job is live and marked urgent. For active
-                            flooding, don&apos;t wait: call a 24/7 pro directly.
-                            For gas, leave the house and call 911 or your gas
-                            company from outside. See the{" "}
+                            Your job is live and marked urgent. If it can&apos;t
+                            wait, call a 24/7 pro directly. See the{" "}
                             <Link
                               href="/emergency"
                               className="font-medium text-bark-700 hover:underline dark:text-stone-300"
@@ -898,7 +901,7 @@ export default async function YourJobsPage(
                             has none. When issue_id exists we can't tell
                             without another query, so the tip stays quiet. */}
                         {!l.issue_id && (
-                          <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                          <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                             Tip: adding photos or more detail helps pros decide
                             to apply and quote accurately.
                           </p>
@@ -956,16 +959,16 @@ export default async function YourJobsPage(
                                   </span>
                                 )}
                                 {a.contractors?.review_count > 0 ? (
-                                  <span className="text-xs text-amber-600 dark:text-amber-400">
+                                  <span className="text-xs text-amber-700 dark:text-amber-400">
                                     ★ {a.contractors.rating}
-                                    <span className="text-stone-500 dark:text-stone-400">
+                                    <span className="text-stone-600 dark:text-stone-300">
                                       {" "}
                                       · {a.contractors.review_count} review
                                       {a.contractors.review_count === 1 ? "" : "s"}
                                     </span>
                                   </span>
                                 ) : (
-                                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                                  <span className="text-xs text-stone-600 dark:text-stone-300">
                                     New
                                   </span>
                                 )}
@@ -981,12 +984,12 @@ export default async function YourJobsPage(
                                   the full list. Only when the pro has reviews
                                   with text (fetched server-side above). */}
                               {reviewSnippetByContractor.get(a.contractor_id) && (
-                                <p className="truncate text-xs italic text-stone-500 dark:text-stone-400">
+                                <p className="truncate text-xs italic text-stone-600 dark:text-stone-300">
                                   &ldquo;{reviewSnippetByContractor.get(a.contractor_id)}&rdquo;
                                 </p>
                               )}
                               {a.contractors?.service_area && (
-                                <p className="text-xs text-stone-500 dark:text-stone-400">
+                                <p className="text-xs text-stone-600 dark:text-stone-300">
                                   {a.contractors.service_area}
                                 </p>
                               )}
@@ -1015,7 +1018,7 @@ export default async function YourJobsPage(
                                     </svg>
                                     License verified
                                   </span>
-                                  <span className="ml-1.5 text-xs text-stone-500 dark:text-stone-400">
+                                  <span className="ml-1.5 text-xs text-stone-600 dark:text-stone-300">
                                     {a.contractors?.license_number
                                       ? `Lic. ${a.contractors.license_number} · `
                                       : ""}
@@ -1049,7 +1052,7 @@ export default async function YourJobsPage(
                                     </svg>
                                     License on file
                                   </span>
-                                  <span className="ml-1.5 text-xs text-stone-500 dark:text-stone-400">
+                                  <span className="ml-1.5 text-xs text-stone-600 dark:text-stone-300">
                                     Lic. {a.contractors.license_number} ·
                                     Reported by the business, not verified.
                                   </span>
@@ -1059,7 +1062,7 @@ export default async function YourJobsPage(
                                   {/* Honest neutral empty state: nothing on
                                       file and no CSLB match. Muted, not
                                       alarming - states the fact, not a flag. */}
-                                  <span className="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs font-medium text-stone-500 dark:border-white/10 dark:bg-stone-700 dark:text-stone-400">
+                                  <span className="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs font-medium text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300">
                                     No license listed
                                   </span>
                                 </p>
@@ -1089,7 +1092,7 @@ export default async function YourJobsPage(
                               {insuranceLine(a.contractors) ? (
                                 <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                                   {insuranceLine(a.contractors)}
-                                  <span className="block text-stone-500 dark:text-stone-400">
+                                  <span className="block text-stone-600 dark:text-stone-300">
                                     Provided by the pro, not verified by
                                     OakTend. Ask for a certificate before work
                                     starts.
@@ -1098,7 +1101,7 @@ export default async function YourJobsPage(
                               ) : (
                                 <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                                   No insurance on file
-                                  <span className="block text-stone-500 dark:text-stone-400">
+                                  <span className="block text-stone-600 dark:text-stone-300">
                                     Ask this pro for proof of insurance before
                                     you hire.
                                   </span>
@@ -1168,7 +1171,7 @@ export default async function YourJobsPage(
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
             Your jobs
           </h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             {isPreview
               ? PREVIEW_JOB_POSTED_COPY
               : "Your job is saved and pros can see it."}{" "}
@@ -1189,7 +1192,7 @@ export default async function YourJobsPage(
       {/* Points at the homeowner home, not /issues: a bare "← Back" to the
           report-a-problem page read as "report a problem" to anyone who did
           not arrive from there, which is most of this page's traffic. */}
-      <p className="text-center text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-center text-sm text-stone-600 dark:text-stone-300">
         <Link
           href="/dashboard"
           className="hover:underline"

@@ -105,13 +105,13 @@ export default async function ProLayout({
               <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" />
               <span>
                 OakTend{" "}
-                <span className="font-normal text-stone-500 dark:text-stone-400">for Pros</span>
+                <span className="font-normal text-stone-600 dark:text-stone-300">for Pros</span>
               </span>
             </span>
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="text-sm text-stone-500 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-200"
+                className="text-sm text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
               >
                 Sign out
               </button>
@@ -196,7 +196,7 @@ export default async function ProLayout({
           content plus the safe-area inset, see ProNav's nav classes). Clear
           the bar plus a 1rem gap wherever the bar exists: it is lg:hidden now,
           not sm:hidden, so this is max-lg and lg+ keeps today's pb-8. */}
-      <footer className="mx-auto max-w-5xl px-6 pb-8 text-center text-xs text-stone-500 max-lg:pb-[calc(3.5rem_+_env(safe-area-inset-bottom)_+_1rem)] dark:text-stone-400">
+      <footer className="mx-auto max-w-5xl px-6 pb-8 text-center text-xs text-stone-600 max-lg:pb-[calc(3.5rem_+_env(safe-area-inset-bottom)_+_1rem)] dark:text-stone-300">
         Need a hand?{" "}
         <Link
           href="/pro/help"

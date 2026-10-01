@@ -14,6 +14,7 @@ import {
 } from "@/lib/campaigns";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { copyWaitlistCampaignCode } from "@/lib/waitlistAttribution";
+import { scheduleOwnerSignupNotify, type SignupAuthUser } from "@/lib/signupNotify";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -88,6 +89,9 @@ export async function recordTermsAcceptance(
   // function. Read off the same verified source the id is, never off the
   // caller's argument.
   let verifiedEmail: string | null = null;
+  // The verified auth user itself, for the owner signup alert at the bottom
+  // of the signal block. Same verified source as the id.
+  let verifiedUser: SignupAuthUser | null = null;
   if (sessionUser) {
     if (sessionUser.id !== userId) {
       console.error("recordTermsAcceptance: userId mismatch with session", {
@@ -99,6 +103,7 @@ export async function recordTermsAcceptance(
     }
     verifiedUserId = sessionUser.id;
     verifiedEmail = sessionUser.email ?? null;
+    verifiedUser = sessionUser;
   } else {
     // No session yet - the browser's new session cookie hasn't propagated
     // back to this server-side request. This is an unauthenticated call
@@ -149,6 +154,7 @@ export async function recordTermsAcceptance(
     }
     verifiedUserId = lookup.user.id;
     verifiedEmail = lookup.user.email ?? null;
+    verifiedUser = lookup.user;
   }
 
   // Trial-abuse signals (src/lib/risk, migration 0130). This runs at the one
@@ -169,6 +175,21 @@ export async function recordTermsAcceptance(
     recordRequestSignals(verifiedUserId, "signup"),
     recordEmailSignals(verifiedUserId, verifiedEmail, "signup"),
   ]);
+
+  // Owner alert for a brand-new account (src/lib/signupNotify.ts). Only the
+  // two INITIAL-signup docs, never "pro_terms_onboarding". Placed before the
+  // terms-row guard below for the same reason the signals are: that guard is
+  // about the legal audit trail, and signupNotify carries its own once-per-
+  // account claim plus a recent-signup check, so a second entry point or a
+  // homeowner adding the pro side later never sends a second alert. Runs
+  // after the response via after(), so it adds nothing to the signup and
+  // cannot throw into it. Dormant unless OWNER_NOTIFY_EMAIL is set.
+  if (verifiedUser && (doc === "terms" || doc === "pro_terms")) {
+    scheduleOwnerSignupNotify(
+      verifiedUser,
+      doc === "pro_terms" ? "pro" : "homeowner"
+    );
+  }
 
   // Idempotency guard: skip the insert if this user already has a row for
   // this doc, regardless of version. Without this, a second call for the

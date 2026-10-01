@@ -141,7 +141,7 @@ export default function PricingPage() {
         <p className="text-base">
           <Link
             href="/"
-            className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+            className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
           >
             &lt; OakTend
           </Link>
@@ -171,7 +171,7 @@ export default function PricingPage() {
             added classes are max-sm:, so sm and up is unchanged. */}
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -218,7 +218,7 @@ export default function PricingPage() {
           </ul>
           {/* The real caps, named in the same column as the capabilities, so
               "free" is a plan rather than a teaser. */}
-          <p className="mt-auto pt-4 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-auto pt-4 text-sm text-stone-600 dark:text-stone-300">
             Caps: one home, one plan build, one quote check, one home value
             estimate, {FREE_ASK_PER_DAY} Ask OakTend questions a day (text
             only).
@@ -236,19 +236,19 @@ export default function PricingPage() {
             </p>
             <p className="mt-3 text-3xl font-semibold text-stone-900 dark:text-stone-100">
               {YEARLY}
-              <span className="text-base font-normal text-stone-500 dark:text-stone-400">
+              <span className="text-base font-normal text-stone-600 dark:text-stone-300">
                 /year
               </span>
             </p>
             {/* Honest arithmetic, not a discount claim: the yearly price
                 divided by 365, rounded up to the cent. */}
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               About {YEARLY_PER_DAY} a day.
             </p>
             <p className="mt-2 text-sm font-medium text-bark-700 dark:text-stone-200">
               Save {YEARLY_SAVING} vs monthly
             </p>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               About {YEARLY_PER_MONTH} a month, billed once a year.
             </p>
             {/* The free days now come with every cadence, so this card states
@@ -286,11 +286,11 @@ export default function PricingPage() {
             </p>
             <p className="mt-3 text-3xl font-semibold text-stone-900 dark:text-stone-100">
               {MONTHLY}
-              <span className="text-base font-normal text-stone-500 dark:text-stone-400">
+              <span className="text-base font-normal text-stone-600 dark:text-stone-300">
                 /month
               </span>
             </p>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
               = {MONTHLY_YEAR_TOTAL} a year.
             </p>
             <p className="mt-2 text-sm text-stone-700 dark:text-stone-300">
@@ -306,7 +306,7 @@ export default function PricingPage() {
           {/* The page's one loss-framed line, and the loss is real today: the
               actual delta between the two plans on offer, not urgency or
               scarcity. */}
-          <p className="mt-auto pt-5 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-auto pt-5 text-sm text-stone-600 dark:text-stone-300">
             Monthly pays {YEARLY_SAVING} more for the same year.
           </p>
         </div>
@@ -323,7 +323,7 @@ export default function PricingPage() {
           limit moves. The cap still gets said out loud, which is the part that
           has to be true, and the trial runs on the same ceiling as a paid
           plan. */}
-      <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
         Ask OakTend, the AI assistant, is capped at {FREE_ASK_PER_DAY} text
         questions a day on Free, so it stays fast and available for everyone.
         Plus raises that limit and adds photo answers. The {TRIAL_DAYS} free
@@ -354,7 +354,7 @@ export default function PricingPage() {
         </p>
         {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to
             the refund policy, shown before purchase. */}
-        <BillingLegalLine className="mt-3 text-sm text-stone-500 dark:text-stone-400" />
+        <BillingLegalLine className="mt-3 text-sm text-stone-600 dark:text-stone-300" />
       </div>
 
       {/* What stays free forever, so "free" isn't a bait word. */}
@@ -377,11 +377,11 @@ export default function PricingPage() {
         <Link href="/homeowner-signup" className="btn-primary">
           Get started free
         </Link>
-        <p className="mt-3 text-base text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-base text-stone-600 dark:text-stone-300">
           No card to start. Plus is optional, and you can add it later from
           inside the app.
         </p>
-        <p className="mt-4 text-base text-stone-500 dark:text-stone-400">
+        <p className="mt-4 text-base text-stone-600 dark:text-stone-300">
           Already have an account?{" "}
           <Link
             href="/signin"

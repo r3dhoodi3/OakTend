@@ -12,8 +12,8 @@ const ICON: Record<Alert["kind"], LucideIcon> = {
 };
 
 const ICON_STYLE: Record<Alert["kind"], string> = {
-  freeze: "text-amber-600 dark:text-amber-400",
-  heat: "text-amber-600 dark:text-amber-400",
+  freeze: "text-amber-700 dark:text-amber-400",
+  heat: "text-amber-700 dark:text-amber-400",
   recall: "text-red-600 dark:text-red-400",
 };
 
@@ -125,7 +125,7 @@ export default function HomeAlerts({ propertyId }: { propertyId: string }) {
           onClick={() => setExpanded((v) => !v)}
           aria-expanded={expanded}
           // Phone only: 16px tall before.
-          className="text-xs font-medium text-stone-500 hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-xs font-medium text-stone-600 hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-sm dark:text-stone-300 dark:hover:text-stone-100"
         >
           {expanded ? "Show fewer" : `Show ${alerts.length - 3} more`}
         </button>

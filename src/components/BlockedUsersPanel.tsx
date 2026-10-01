@@ -49,7 +49,7 @@ export default function BlockedUsersPanel({
         <p className="text-sm text-stone-600 dark:text-stone-300">
           You have not blocked anyone.
         </p>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           You can block someone from a conversation with them, or from a pro&apos;s
           profile page. Blocking stops new messages between you and hides your
           jobs from each other.
@@ -75,7 +75,7 @@ export default function BlockedUsersPanel({
               <p className="truncate text-sm font-medium text-stone-900 dark:text-stone-100">
                 {row.label}
               </p>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Blocked {row.createdAt.slice(0, 10)}
               </p>
             </div>

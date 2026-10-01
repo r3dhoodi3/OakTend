@@ -82,9 +82,9 @@ describe("phone tap targets, 44px floor", () => {
     expect(src).toContain(
       "text-left text-xs max-sm:text-sm text-stone-600 dark:border-white/10 dark:bg-stone-900 dark:text-stone-300"
     );
-    expect(src.match(/text-xs max-sm:text-sm text-stone-500/g)?.length ?? 0).toBeGreaterThanOrEqual(2);
+    expect(src.match(/text-xs max-sm:text-sm text-stone-600/g)?.length ?? 0).toBeGreaterThanOrEqual(2);
     const changePlan = src.indexOf(
-      "text-xs max-sm:text-sm font-medium uppercase tracking-wide text-stone-500"
+      "text-xs max-sm:text-sm font-medium uppercase tracking-wide text-stone-600"
     );
     expect(changePlan).toBeGreaterThan(-1);
     expect(src.slice(changePlan, changePlan + 150)).toContain("Change plan");
@@ -107,12 +107,12 @@ describe("phone tap targets, 44px floor", () => {
     const src = read("src/app/(app)/plus/PlusWelcome.tsx");
     // Exit from the whole tour: a bare 20px link before this.
     const skipClass = src.indexOf(
-      "hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400"
+      "hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300"
     );
     expect(skipClass).toBeGreaterThan(-1);
     expect(src.slice(skipClass, skipClass + 200)).toContain("Skip");
     expect(src).toContain(
-      'text-xs max-sm:text-sm font-semibold uppercase tracking-wide text-stone-500'
+      'text-xs max-sm:text-sm font-semibold uppercase tracking-wide text-stone-600'
     );
     expect(src).toContain("mt-2 text-xs max-sm:text-sm text-stone-600");
   });
@@ -123,9 +123,11 @@ describe("phone tap targets, 44px floor", () => {
     expect(src).toContain('chip-ok focus-ring w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden max-sm:min-h-11 max-sm:px-3 max-sm:text-sm');
     // (Its top gap moved onto AnimatedDetails' content box as pt-1.5 when the
     // chip started sliding open, so the paragraph no longer carries mt-1.5.)
-    expect(src).toContain("max-w-sm text-xs max-sm:text-sm text-stone-500");
+    expect(src).toContain("max-w-sm text-xs max-sm:text-sm text-stone-600");
     // "Why this score?" and "See this month's tasks" disclosures.
-    expect(src).toContain("opacity-80 hover:opacity-100 max-sm:min-h-11");
+    // (The score card's text lost its opacity-70/80 fades on 2026-09-27: they
+    // put small text under 4.5:1 on the tinted card.)
+    expect(src).toContain("items-center gap-1 [&::-webkit-details-marker]:hidden max-sm:min-h-11");
     expect(src).toContain("text-sm font-medium text-stone-700 max-sm:min-h-11 dark:text-stone-300");
     // "Later"/"Done" and "Seasonal" group headers.
     expect(src.match(/max-sm:min-h-11 max-sm:text-sm/g)?.length ?? 0).toBeGreaterThanOrEqual(2);

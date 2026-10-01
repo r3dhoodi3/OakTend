@@ -157,7 +157,7 @@ export default function PushPrompt({ side }: { side: PushSide }) {
             <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               {title}
             </p>
-            <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-400">
+            <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
               {note ??
                 "Your phone can tell you even when OakTend is closed. You can turn this off any time."}
             </p>

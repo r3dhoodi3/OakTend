@@ -140,7 +140,7 @@ export default function VoiceButton({
         // plainly rather than looking broken.
         flashBubble("Voice input is unavailable in this browser.");
       } else {
-        flashBubble("Voice input failed, try again.");
+        flashBubble("Voice input failed. Try again.");
       }
     };
 
@@ -220,7 +220,7 @@ export default function VoiceButton({
         className={`flex items-center justify-center rounded-lg border px-2 text-lg disabled:opacity-50 max-sm:min-h-11 max-sm:min-w-11 ${
           listening
             ? "animate-pulse border-red-300 bg-red-50 text-red-600 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300"
-            : "border-stone-200 text-stone-500 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-400 dark:hover:text-stone-300"
+            : "border-stone-200 text-stone-600 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-100"
         }`}
       >
         <Mic className="h-5 w-5" aria-hidden="true" />

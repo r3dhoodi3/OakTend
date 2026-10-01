@@ -190,7 +190,7 @@ export default function EmailCodeVerify({
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             Enter your code
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             We emailed a 6-digit code to{" "}
             <span className="break-all font-medium text-stone-700 dark:text-stone-300">
               {email}
@@ -234,7 +234,7 @@ export default function EmailCodeVerify({
           </button>
         </form>
 
-        <p className="mt-4 text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+        <p className="mt-4 text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
           Nothing after a couple of minutes? Check your spam folder, or resend
           it.
         </p>
@@ -245,7 +245,7 @@ export default function EmailCodeVerify({
             permanently block resending a code. */}
         <Turnstile ref={turnstileRef} onToken={setCaptchaToken} />
         {captchaTimedOut && (
-          <p className="mt-2 text-center text-xs text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-center text-xs text-stone-600 dark:text-stone-300">
             Verification could not load. Refresh the page or try again in a
             minute.
           </p>
@@ -270,7 +270,7 @@ export default function EmailCodeVerify({
         {resendsUsedUp && (
           <p
             aria-live="polite"
-            className="mt-2 text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400"
+            className="mt-2 text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300"
           >
             Too many resends. Wait a few minutes and try again.
           </p>
@@ -293,7 +293,7 @@ export default function EmailCodeVerify({
           </p>
         )}
 
-        <p className="mt-6 border-t border-stone-100 pt-4 text-center text-xs text-stone-500 max-sm:text-sm dark:border-white/10 dark:text-stone-400">
+        <p className="mt-6 border-t border-stone-100 pt-4 text-center text-xs text-stone-600 max-sm:text-sm dark:border-white/10 dark:text-stone-300">
           Used the wrong email?{" "}
           <Link
             href={signInHref}

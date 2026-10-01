@@ -124,7 +124,7 @@ export default function PrintQrButton({
       <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
         Print your QR code
       </h3>
-      <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">
         A ready-to-print PNG with your QR code, business name, and OakTend
         link in one image, sized for a truck magnet or an invoice footer.
       </p>

@@ -85,7 +85,7 @@ export default function CookieNotice() {
       <div className="mt-3 flex items-center justify-between gap-3">
         <Link
           href="/cookies"
-          className="text-sm font-medium text-stone-500 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-200"
+          className="text-sm font-medium text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
         >
           Cookie notice
         </Link>

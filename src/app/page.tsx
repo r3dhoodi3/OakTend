@@ -455,7 +455,7 @@ export default async function Home(props: {
               <ThemeToggle />
               <Link
                 href="/emergency-help"
-                className="px-2 py-1.5 text-sm font-medium text-stone-600 hover:text-bark-700 dark:text-stone-400 dark:hover:text-stone-200"
+                className="px-2 py-1.5 text-sm font-medium text-stone-600 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-200"
               >
                 {/* Compact label on mobile (header space is tight), full
                     wording from sm up - desktop text/appearance unchanged. */}
@@ -469,7 +469,7 @@ export default async function Home(props: {
                 // different questions: this one is found before reading,
                 // that one after the pitch.
                 data-track="landing_header_pros"
-                className="whitespace-nowrap rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-300"
+                className="whitespace-nowrap rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:border-bark-500 dark:hover:text-stone-100"
               >
                 {/* At 390px the full label wrapped to two lines and made the
                     header two rows tall. Short label on mobile, unchanged
@@ -512,7 +512,7 @@ export default async function Home(props: {
               <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-stone-800 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:90ms] dark:text-stone-200">
                 {CATEGORY_SENTENCE}
               </p>
-              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-400">
+              <p className="mt-2 max-w-xl text-lg leading-relaxed text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:180ms] dark:text-stone-300">
                 {/* PREVIEW MODE (addendum 4 H). The first sentence is true
                     either way and is unchanged. The second one promises pro
                     matching - "post the job once and the quotes come to you" -
@@ -560,10 +560,10 @@ export default async function Home(props: {
                 ))}
               </div>
               {/* The two small lines share one delay: they read as a pair. */}
-              <p className="mt-4 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
+              <p className="mt-4 text-sm text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-300">
                 Serving {LAUNCH_AREA_LABEL}
               </p>
-              <p className="mt-1 text-sm text-stone-500 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-600 hero-rise motion-safe:animate-hero-rise motion-safe:[animation-delay:450ms] dark:text-stone-300">
                 Outside the county? Join the waitlist and we&apos;ll tell you when we expand.
               </p>
               {/* No "Already have an account? Sign in" here anymore: the header
@@ -592,7 +592,7 @@ export default async function Home(props: {
           too, picking up where the hero copy leaves off (450ms), or the top
           half of the first screen animated and the bottom half sat still. */}
       <section className="hero-rise mt-12 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] sm:mt-16">
-        <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+        <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
           {isHomeownerPreview() ? "Common jobs to post" : "Find a pro for"}
         </h2>
         <ul className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2">
@@ -615,7 +615,7 @@ export default async function Home(props: {
           pill, the same tone as the hero reassurance row. No invented
           numbers - only what OakTend actually does today. */}
       <section className="hero-rise mt-8 max-sm:hidden motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms]">
-        <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+        <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
           What we check
         </h2>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -689,7 +689,7 @@ export default async function Home(props: {
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bark-600 text-sm font-semibold text-white">
                     {s.n}
                   </span>
-                  <p className="pt-0.5 text-stone-600 dark:text-stone-400">{s.text}</p>
+                  <p className="pt-0.5 text-stone-600 dark:text-stone-300">{s.text}</p>
                 </li>
               ))}
             </ol>
@@ -723,7 +723,7 @@ export default async function Home(props: {
                 <v.icon className="h-5 w-5" />
               </div>
               <h3 className="mt-3 font-semibold text-stone-900 dark:text-stone-100">{v.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">{v.body}</p>
+              <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{v.body}</p>
             </div>
           ))}
         </div>
@@ -738,10 +738,10 @@ export default async function Home(props: {
         <h2 className="text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Real people, real answers
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           Message us and a real person on our team will answer.
         </p>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           OakTend started close to home and now serves homeowners across{" "}
           {LAUNCH_AREA_LABEL}, California, from Seal Beach to San Clemente.
         </p>
@@ -783,7 +783,7 @@ export default async function Home(props: {
           <p className="leading-relaxed text-stone-700 dark:text-stone-300">
             {ENTITY_DESCRIPTION}
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
             We never sell your personal information.{" "}
             {isHomeownerPreview()
               ? "Everything in the app is free during our preview, and no card is needed."
@@ -816,7 +816,7 @@ export default async function Home(props: {
           {FAQ_ITEMS.map((f) => (
             <div key={f.q} className="card">
               <h3 className="font-semibold text-stone-900 dark:text-stone-100">{f.q}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+              <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                 {f.node ?? f.a}
               </p>
             </div>
@@ -944,7 +944,7 @@ export default async function Home(props: {
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           Home maintenance guides
         </h2>
-        <p className="mx-auto mt-2 max-w-xl text-center text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+        <p className="mx-auto mt-2 max-w-xl text-center text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           Plain answers on costs, warning signs and schedules, written for
           Orange County homes.
         </p>
@@ -973,10 +973,10 @@ export default async function Home(props: {
       <footer className="mt-16 border-t border-stone-200 pt-8 max-sm:hidden sm:mt-24 dark:border-white/10">
         <div className="grid gap-8 text-left sm:grid-cols-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
               Guides
             </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
+            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-300">
               <li>
                 <Link href="/guides" className="hover:text-bark-700 hover:underline dark:hover:text-stone-300">
                   All guides
@@ -1009,10 +1009,10 @@ export default async function Home(props: {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
               OakTend
             </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
+            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-300">
               <li>
                 <Link href="/pricing" className="hover:text-bark-700 hover:underline dark:hover:text-stone-300">
                   Pricing
@@ -1036,10 +1036,10 @@ export default async function Home(props: {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
               Fine print
             </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
+            <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-300">
               {/* Source of truth: LEGAL_LINKS in src/lib/legal.ts, so a new
                   legal document only needs adding there, not in every footer
                   that lists them. */}
@@ -1078,7 +1078,7 @@ export default async function Home(props: {
             </ul>
           </div>
         </div>
-        <p className="mt-8 inline-flex w-full items-center justify-center gap-2 pb-2 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-8 inline-flex w-full items-center justify-center gap-2 pb-2 text-xs text-stone-600 dark:text-stone-300">
           <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" /> OakTend · Your home,
           looked after
         </p>
@@ -1091,7 +1091,7 @@ export default async function Home(props: {
           links (from LEGAL_LINKS, same source as the desktop footer above)
           get a phone door. flex-wrap because that list is now longer than
           two items. */}
-      <footer className="mt-16 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-stone-500 sm:hidden dark:text-stone-400">
+      <footer className="mt-16 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-stone-600 sm:hidden dark:text-stone-300">
         {/* min-h-11 with the text left small: py-1 alone gave these a 24px
             target. This whole footer is sm:hidden, so nothing here reaches
             desktop. */}

@@ -44,7 +44,7 @@ export default function CloseJobButton({
         <button
           type="button"
           onClick={() => setConfirming(true)}
-          className="text-xs text-stone-500 hover:text-red-600 max-sm:-mr-3 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-3 dark:text-stone-400 dark:hover:text-red-400"
+          className="text-xs text-stone-600 hover:text-red-600 max-sm:-mr-3 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:px-3 dark:text-stone-300 dark:hover:text-red-400"
         >
           Close job
         </button>
@@ -56,7 +56,7 @@ export default function CloseJobButton({
     <form action={closeJobAction} className="flex flex-col items-end gap-2">
       <input type="hidden" name="lead_id" value={leadId} />
       {applicantCount > 0 && (
-        <p className="max-w-xs text-right text-xs text-stone-500 dark:text-stone-400">
+        <p className="max-w-xs text-right text-xs text-stone-600 dark:text-stone-300">
           {applicantCount} pro{applicantCount === 1 ? " has" : "s have"}{" "}
           applied. Closing this won&apos;t pick anyone. We will let them know
           it is closed.

@@ -137,7 +137,7 @@ export default function ProNav({
                     in the bottom tab bar below lg), so the top row has the room,
                     and the wordmark's whitespace-nowrap keeps "OakTend for Pros"
                     on one line at phone widths. */}
-                <span className="font-normal text-stone-500 dark:text-stone-400">
+                <span className="font-normal text-stone-600 dark:text-stone-300">
                   for Pros
                 </span>
               </span>
@@ -244,6 +244,7 @@ export default function ProNav({
                 { href: "/pro/notifications", label: "Job alerts" },
                 { href: "/pro/privacy", label: "Your privacy rights" },
                 { href: "/pro/help", label: "Help" },
+                { href: "/pro/feedback", label: "Report a bug" },
                 // The other side of the account, mirroring Nav.tsx: a switch
                 // records where they land next time; adding a home is a plain
                 // link into onboarding, told explicitly that this is an addition

@@ -727,7 +727,7 @@ export default function OnboardingForm({
   }
 
   const readOnlyField =
-    "cursor-not-allowed bg-stone-100 text-stone-500 dark:bg-stone-700 dark:text-stone-400";
+    "cursor-not-allowed bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300";
 
   // A unit number means the county's record for this street line describes the
   // whole building, not this home - so the ownership copy below has to say
@@ -852,11 +852,11 @@ export default function OnboardingForm({
               row plus a bar that fills one segment per step. */}
           <div>
             <div className="flex items-center justify-between gap-3">
-              <span className="inline-flex items-center gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-stone-600 dark:text-stone-300">
                 <Home className="h-4 w-4 text-bark-700 dark:text-bark-400" aria-hidden="true" />
                 Set up your home
               </span>
-              <span className="text-xs text-stone-500 dark:text-stone-400">
+              <span className="text-xs text-stone-600 dark:text-stone-300">
                 Step {stepNumber} of {ONBOARDING_STEP_COUNT}
               </span>
             </div>
@@ -881,7 +881,7 @@ export default function OnboardingForm({
               <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
                 What&apos;s your home address?
               </h2>
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                 Tell us your home&apos;s year built, size, and a few other
                 details, or skip them and add them later.
               </p>
@@ -1005,7 +1005,7 @@ export default function OnboardingForm({
                       <span className="block font-medium text-stone-900 dark:text-stone-100">
                         {s.line1}
                       </span>
-                      <span className="block text-xs text-stone-500 dark:text-stone-400">
+                      <span className="block text-xs text-stone-600 dark:text-stone-300">
                         {s.city}, {s.state} {s.zip}
                       </span>
                     </li>
@@ -1013,12 +1013,12 @@ export default function OnboardingForm({
                 </ul>
               )}
               {needsHouseNumber && (
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   Add a house number to see matches.
                 </p>
               )}
               {noAddressMatch && (
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   No match for that address. You can type it in and continue.
                 </p>
               )}
@@ -1085,7 +1085,7 @@ export default function OnboardingForm({
 
           {step === "ready" && (
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Correct the street or unit here if we got them wrong.
               </p>
               <button
@@ -1099,7 +1099,7 @@ export default function OnboardingForm({
           )}
 
           {step === "address" && (
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               We ask so we can personalize maintenance and local pricing for
               your home, it takes about 30 seconds.
             </p>
@@ -1178,7 +1178,7 @@ export default function OnboardingForm({
                     ? "Tell us about your home"
                     : "Does this look right?"}
                 </h2>
-                <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                   {facts.source !== "rentcast"
                     ? "Fill in what you know. Everything is optional."
                     : "Fill in what you know. Anything you skip you can add later."}
@@ -1212,7 +1212,7 @@ export default function OnboardingForm({
                   rather than pre-filled with a guess. */}
               {facts.source !== "rentcast" && (
                 <p className="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700 dark:border-stone-700 dark:bg-stone-800/60 dark:text-stone-300">
-                  We couldn&apos;t auto-fill this address, please enter the
+                  We couldn&apos;t auto-fill this address. Please enter the
                   basics.
                 </p>
               )}
@@ -1370,7 +1370,7 @@ export default function OnboardingForm({
                   defaultValue={draft?.fullName?.trim() ? draft.fullName : existingName ?? ""}
                   required
                 />
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   {hasUnit
                     ? "We use this for your account and on jobs you post, so pros know who they're talking to."
                     : "We check this against the county's owner-of-record (the name the county has on file as the owner) for this address, so pros know a job here is real."}
@@ -1569,7 +1569,7 @@ export default function OnboardingForm({
                 <button
                   type="button"
                   onClick={startOver}
-                  className="max-sm:inline-flex max-sm:min-h-11 max-sm:items-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+                  className="max-sm:inline-flex max-sm:min-h-11 max-sm:items-center text-sm text-stone-600 hover:underline dark:text-stone-300"
                 >
                   Start over with a different address
                 </button>
@@ -1594,7 +1594,7 @@ export default function OnboardingForm({
               ? LAUNCH_ONLY_MESSAGE
               : `We couldn't save you to the waitlist. Email us at ${FOUNDER.email} and we'll add you by hand.`}
           </p>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             There&apos;s nothing else to set up here yet since OakTend covers{" "}
             {LAUNCH_AREA_LABEL} right now. We&apos;ll email you when that
             changes.
@@ -1612,7 +1612,7 @@ export default function OnboardingForm({
           <form action="/auth/signout" method="post">
             <button
               type="submit"
-              className="max-sm:inline-flex max-sm:min-h-11 max-sm:items-center text-sm text-stone-500 hover:underline dark:text-stone-400"
+              className="max-sm:inline-flex max-sm:min-h-11 max-sm:items-center text-sm text-stone-600 hover:underline dark:text-stone-300"
             >
               Sign out
             </button>

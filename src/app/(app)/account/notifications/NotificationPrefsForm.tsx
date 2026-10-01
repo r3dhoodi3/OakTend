@@ -30,7 +30,7 @@ export default function NotificationPrefsForm({
               <span className="block text-sm font-medium text-stone-900 dark:text-stone-100">
                 {c.label}
               </span>
-              <span className="block text-sm text-stone-500 dark:text-stone-400">{c.desc}</span>
+              <span className="block text-sm text-stone-600 dark:text-stone-300">{c.desc}</span>
             </span>
             {/* accent-bark-600 is what actually colours the box: the project
                 does not load @tailwindcss/forms, so `text-bark-600` styled

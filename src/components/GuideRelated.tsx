@@ -34,7 +34,7 @@ export default function GuideRelated({ path }: { path: string }) {
       {sources.length > 0 && (
         <section>
           <h2 className={headingClass}>Sources</h2>
-          <ul className="mt-2 space-y-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+          <ul className="mt-2 space-y-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
             {sources.map((source) => (
               <li key={source.href}>
                 <a

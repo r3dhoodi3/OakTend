@@ -18,7 +18,7 @@ describe("homeowner bug-report page", () => {
       screen.getByRole("heading", { name: "Report a bug" })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Ideas and complaints count too/)
+      screen.getByText(/an idea to share/)
     ).toBeInTheDocument();
     expect(
       screen.getByLabelText("What happened, or what could be better?")

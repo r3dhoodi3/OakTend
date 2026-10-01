@@ -293,7 +293,7 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/orange-county-home-maintenance-checklist" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         There is no snow to plan around here, so the year is built on four
         local things: Santa Ana winds, the first rains, the marine layer and
         hard water. General information, not professional advice for your
@@ -325,14 +325,14 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
                 {m.focus}
               </span>
             </div>
+            <p className="mt-2 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
+              {m.why}
+            </p>
             <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-stone-700 dark:text-stone-300">
               {m.tasks.map((task) => (
                 <li key={task}>{task}</li>
               ))}
             </ul>
-            <p className="mt-3 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-              {m.why}
-            </p>
           </section>
         ))}
       </div>
@@ -525,11 +525,11 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
                 <Link href={g.href} className="font-medium text-bark-700 underline hover:no-underline dark:text-stone-300">
                   {GUIDE_TITLES[g.href]}
                 </Link>
-                <span className="text-stone-500 dark:text-stone-400">: {g.note}</span>
+                <span className="text-stone-600 dark:text-stone-300">: {g.note}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
             Local notes by city:{" "}
             <Link href="/oc/anaheim" className="text-bark-700 hover:underline dark:text-stone-300">Anaheim</Link>,{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
@@ -545,7 +545,7 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. The first rain and the first wind event move
             from year to year. Roof, ladder, electrical and hot-water jobs
             carry real risk: do what you can from the ground, and follow your

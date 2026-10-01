@@ -470,13 +470,13 @@ export default async function HomePage(
   };
   const URGENCY_TONE: Record<Urgency, string> = {
     overdue: "text-red-600 dark:text-red-400",
-    soon: "text-amber-600 dark:text-amber-400",
+    soon: "text-amber-700 dark:text-amber-400",
     // stone-600, not stone-400: stone-400 on the card's white background is
     // only ~2.5:1 contrast, below the 4.5:1 minimum for this small text. These
     // labels are also tappable disclosure headers, so the darker weight helps
     // them read as buttons rather than dim captions.
-    later: "text-stone-600 dark:text-stone-400",
-    done: "text-stone-600 dark:text-stone-400",
+    later: "text-stone-600 dark:text-stone-300",
+    done: "text-stone-600 dark:text-stone-300",
   };
   function daysUntil(dateStr: string): number {
     const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -622,7 +622,7 @@ export default async function HomePage(
   // <details> (first visit), so the two render paths below can't drift.
   const projectChips = (
     <>
-      <p className="text-sm text-stone-500 dark:text-stone-400">
+      <p className="text-sm text-stone-600 dark:text-stone-300">
         Popular upgrades. Tap one and we&apos;ll start the post for you.
       </p>
       {/* The chip row itself now lives in contractors/ProjectChips so the
@@ -686,8 +686,8 @@ export default async function HomePage(
             </>
           ) : (
             <p className="text-sm text-bark-700 dark:text-stone-300">
-              Your home is claimed. Add your systems below. It&apos;s what
-              powers your maintenance reminders and your Home Health Score.
+              Your home is claimed. Add your systems below to get reminders and
+              a Home Health Score.
             </p>
           )}
         </div>
@@ -719,10 +719,9 @@ export default async function HomePage(
           >
             {/* max-sm:text-sm: soft trust signal, still worth reading at a
                 floor size on a phone. */}
-            <p className="max-w-sm text-xs max-sm:text-sm text-stone-500 dark:text-stone-400">
-              The name on your account matches the county assessor&apos;s
-              public owner-of-record for this address. It&apos;s a soft trust
-              signal we show pros, not proof of ownership.
+            <p className="max-w-sm text-xs max-sm:text-sm text-stone-600 dark:text-stone-300">
+              Your name matches the county&apos;s owner of record for this
+              address. It is not proof of ownership.
             </p>
           </AnimatedDetails>
         </section>
@@ -756,11 +755,11 @@ export default async function HomePage(
                 visitor sees the score before they see any explanation of it
                 otherwise, so this sits right next to the title. */}
             <AnimatedDetails
-              summaryClassName="focus-ring cursor-pointer list-none text-xs font-medium underline opacity-70 [&::-webkit-details-marker]:hidden hover:opacity-100 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
+              summaryClassName="focus-ring cursor-pointer list-none text-xs font-medium underline [&::-webkit-details-marker]:hidden max-sm:inline-flex max-sm:min-h-11 max-sm:items-center"
               summary="What is this?"
               contentClassName="pt-1"
             >
-              <p className="max-w-xs text-xs opacity-80">
+              <p className="max-w-xs text-xs">
                 Your home score is a quick read on how your home is doing. It
                 starts at 100 and drops for systems that are aging, past due,
                 or rated poor, and for open issues you&apos;ve reported.
@@ -773,13 +772,13 @@ export default async function HomePage(
               with no click of yours - a system quietly crossing into "aging"
               on your home's birthday, or an issue you closed dropping off.
               Said plainly so that never reads as a bug. */}
-          <p className="mt-1 text-xs opacity-70">
+          <p className="mt-1 text-xs">
             Updates on its own as systems age, get confirmed, or issues open
             and close.
           </p>
           <AnimatedDetails
             className="group mt-2 text-sm"
-            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden opacity-80 hover:opacity-100 max-sm:min-h-11"
+            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden max-sm:min-h-11"
             summary={
               <>
                 <ChevronRight
@@ -803,11 +802,11 @@ export default async function HomePage(
                 </li>
               ))}
               {scoreLines.length === 0 && (
-                <li className="opacity-80">No deductions. Everything looks healthy.</li>
+                <li>No deductions. Everything looks healthy.</li>
               )}
             </ul>
             {mostlyEstimated && (
-              <p className="mt-2 text-xs opacity-80">
+              <p className="mt-2 text-xs">
                 Based on your home&apos;s age until you confirm your systems.
               </p>
             )}
@@ -858,8 +857,8 @@ export default async function HomePage(
           <p
             className={`text-sm ${
               jobsSummary.applicants > 0
-                ? "font-medium text-bark-700 dark:text-stone-300"
-                : "text-stone-500 dark:text-stone-400"
+                ? "font-medium text-bark-700 dark:text-stone-200"
+                : "text-stone-600 dark:text-stone-300"
             }`}
           >
             {jobsSummary.applicants > 0
@@ -890,7 +889,7 @@ export default async function HomePage(
               <p className="stat-number mt-1 text-2xl">
                 ${Math.round(homeEstimatedValue).toLocaleString()}
               </p>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 {homeEquity != null && homeEquity < 0
                   ? `-$${Math.round(Math.abs(homeEquity)).toLocaleString()} equity`
                   : `$${Math.round(homeEquity ?? 0).toLocaleString()} equity`}
@@ -901,7 +900,7 @@ export default async function HomePage(
               <p className="mt-1 text-lg font-semibold text-stone-900 dark:text-stone-100">
                 Not tracked yet
               </p>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 Get your estimate
               </p>
             </>
@@ -925,7 +924,7 @@ export default async function HomePage(
                 ~${energyEstimate.low.toLocaleString()}-
                 {energyEstimate.high.toLocaleString()}
               </p>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 {energySeason === "winter"
                   ? "For heating this winter"
                   : "For cooling this summer"}
@@ -936,14 +935,14 @@ export default async function HomePage(
               <p className="mt-1 text-lg font-semibold text-stone-900 dark:text-stone-100">
                 No estimate yet
               </p>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-stone-600 dark:text-stone-300">
                 Add home details
               </p>
             </>
           )}
           <AnimatedDetails
             className="group mt-2 text-sm"
-            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 text-stone-500 [&::-webkit-details-marker]:hidden hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
+            summaryClassName="focus-ring flex w-fit cursor-pointer list-none items-center gap-1 text-stone-600 [&::-webkit-details-marker]:hidden hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-100"
             summary={
               <>
                 <ChevronRight
@@ -955,7 +954,7 @@ export default async function HomePage(
             }
             contentClassName="pt-1.5"
           >
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-stone-600 dark:text-stone-300">
               Estimated from your home&apos;s size, age, and typical energy
               prices in your state, plus your HVAC&apos;s age and type if
               you&apos;ve added one. It&apos;s a ballpark, not a bill.
@@ -1035,7 +1034,7 @@ export default async function HomePage(
                   : "No maintenance tasks yet"}
               </p>
               {remindersTotal > 0 && (
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   {remindersDone} of {remindersTotal} done
                 </p>
               )}
@@ -1179,7 +1178,7 @@ export default async function HomePage(
                   <AnimatedDetails
                     defaultOpen={planOpen || remindersTotal === 0}
                     className="group/sub"
-                    summaryClassName="focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm text-stone-600 dark:text-stone-400"
+                    summaryClassName="focus-ring flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden px-2 text-xs font-semibold uppercase tracking-wide max-sm:min-h-11 max-sm:text-sm text-stone-600 dark:text-stone-300"
                     summary={
                       <>
                         <ChevronRight
@@ -1227,7 +1226,7 @@ export default async function HomePage(
                         </span>
                         <span
                           className={`chip shrink-0 text-sm ${
-                            w.days <= 60 ? "chip-warn" : "chip-muted"
+                            w.days <= 60 ? "chip-danger" : "chip-muted"
                           }`}
                         >
                           {warrantyLeft(w.days)}
@@ -1235,7 +1234,7 @@ export default async function HomePage(
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-1.5 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1.5 text-xs text-stone-600 dark:text-stone-300">
                     Pulled from your{" "}
                     <Link
                       href="/documents"
@@ -1266,7 +1265,7 @@ export default async function HomePage(
               <h3 className="font-medium text-stone-900 dark:text-stone-100">
                 Build my maintenance plan
               </h3>
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                 Reminders timed to your systems.
               </p>
             </div>
@@ -1327,7 +1326,7 @@ export default async function HomePage(
                   Build my plan
                 </SubmitButton>
               </form>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 First plan build is free.
               </p>
             </div>
@@ -1392,7 +1391,7 @@ export default async function HomePage(
                   )}
                 </p>
               )}
-              <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">{t.line}</p>
+              <p className="mt-0.5 text-xs text-stone-600 dark:text-stone-300">{t.line}</p>
             </Link>
           ))}
         </div>
@@ -1455,7 +1454,7 @@ export default async function HomePage(
                 <Home className="h-5 w-5" aria-hidden="true" />
               </span>
             </div>
-            <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
               Add your roof, HVAC, and water heater to get started.
             </p>
             {/* One-tap starts: each chip files the system with just its type;
@@ -1473,7 +1472,7 @@ export default async function HomePage(
                     // Phone only: this pill was ~32px tall, below the 44px
                     // tap floor every other button on this page keeps to.
                     // Desktop pill is unchanged.
-                    className="focus-ring rounded-full border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-700 shadow-sm hover:border-bark-500 hover:text-bark-700 disabled:opacity-60 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-600 dark:hover:text-stone-300"
+                    className="focus-ring rounded-full border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-700 shadow-sm hover:border-bark-500 hover:text-bark-700 disabled:opacity-60 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:border-white/10 dark:bg-stone-800 dark:text-stone-300 dark:hover:border-bark-600 dark:hover:text-stone-100"
                     pendingLabel="Adding…"
                   >
                     {q.label}

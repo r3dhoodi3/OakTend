@@ -66,7 +66,7 @@ export default function ProsComingSoon({
           <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" />
           <span>
             OakTend{" "}
-            <span className="font-normal text-stone-500 dark:text-stone-400">
+            <span className="font-normal text-stone-600 dark:text-stone-300">
               for Pros
             </span>
           </span>
@@ -75,7 +75,7 @@ export default function ProsComingSoon({
           <form action="/auth/signout" method="post">
             <button
               type="submit"
-              className="text-sm text-stone-500 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-200"
+              className="text-sm text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
             >
               Sign out
             </button>
@@ -111,7 +111,7 @@ export default function ProsComingSoon({
                 signup". Nothing is deleted when they go - the contractors row
                 and the waitlist email both stay exactly where they are. */}
             {!hasHome && (
-              <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
                 Your pro profile stays saved for when Pros open.
               </p>
             )}
@@ -123,7 +123,7 @@ export default function ProsComingSoon({
         </div>
       </main>
 
-      <footer className="mt-auto pt-12 text-sm text-stone-500 dark:text-stone-400">
+      <footer className="mt-auto pt-12 text-sm text-stone-600 dark:text-stone-300">
         <Link href={homeLink} className="underline hover:text-stone-700 dark:hover:text-stone-200">
           Back to OakTend
         </Link>

@@ -111,7 +111,7 @@ export default function PrepPhotoUpload({
           />
         </>
       ) : (
-        <div className="flex h-28 items-center justify-center rounded-md bg-stone-50 text-xs text-stone-500 dark:bg-stone-900 dark:text-stone-400">
+        <div className="flex h-28 items-center justify-center rounded-md bg-stone-50 text-xs text-stone-600 dark:bg-stone-900 dark:text-stone-300">
           No photo yet
         </div>
       )}
@@ -119,10 +119,10 @@ export default function PrepPhotoUpload({
         type="file"
         accept="image/png,image/jpeg,image/webp"
         onChange={onPick}
-        className="block w-full text-xs text-stone-500 file:mr-2 file:cursor-pointer file:rounded-md file:border-0 file:bg-bark-100 file:px-2 file:py-1 file:text-bark-700 file:transition-colors hover:file:bg-bark-200 dark:text-stone-400 dark:file:bg-bark-700 dark:file:text-stone-300 dark:hover:file:bg-bark-600"
+        className="block w-full text-xs text-stone-600 file:mr-2 file:cursor-pointer file:rounded-md file:border-0 file:bg-bark-100 file:px-2 file:py-1 file:text-bark-700 file:transition-colors hover:file:bg-bark-200 dark:text-stone-300 dark:file:bg-bark-700 dark:file:text-stone-300 dark:hover:file:bg-bark-600"
       />
-      {busy && <p className="text-xs text-stone-500 dark:text-stone-400">Uploading…</p>}
-      {err && <p className="text-xs text-amber-600 dark:text-amber-400">{err}</p>}
+      {busy && <p className="text-xs text-stone-600 dark:text-stone-300">Uploading…</p>}
+      {err && <p className="text-xs text-amber-700 dark:text-amber-400">{err}</p>}
       <textarea
         name="note"
         defaultValue={initialNote}

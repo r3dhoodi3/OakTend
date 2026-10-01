@@ -83,7 +83,7 @@ export default function VerifyPage(props: {
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             Verify your email
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Enter the email you signed up with and we&apos;ll pick up where you
             left off.
           </p>

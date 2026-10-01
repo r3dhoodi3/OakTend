@@ -59,14 +59,14 @@ export default function ChatDrawer({
             <p className="truncate text-sm font-semibold text-stone-900 dark:text-stone-100">
               {chat.name}
             </p>
-            <p className="text-xs text-stone-500 dark:text-stone-400">Messages</p>
+            <p className="text-xs text-stone-600 dark:text-stone-300">Messages</p>
           </div>
           <button
             type="button"
             onClick={() => setChat(null)}
             title="Close"
             aria-label="Close"
-            className="text-stone-500 hover:text-red-600 dark:text-stone-400 dark:hover:text-red-400"
+            className="text-stone-600 hover:text-red-600 dark:text-stone-300 dark:hover:text-red-400"
           >
             <svg
               viewBox="0 0 24 24"

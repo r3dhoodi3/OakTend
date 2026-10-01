@@ -84,6 +84,7 @@ do not reuse the production one.
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The staging project's, from step 1. |
 | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` / the price ids | The test-mode values from step 2. |
 | `SENDGRID_API_KEY` / `SENDGRID_FROM` | Leave UNSET on Preview. With no key, no email goes out. That is the right default for a branch deploy. (`RESEND_API_KEY` / `RESEND_FROM` are the retired fallback pair - same rule.) |
+| `OWNER_NOTIFY_EMAIL` | The owner's new-signup alert (`src/lib/signupNotify.ts`). Production: `hello@oaktend.com`. On Preview it does nothing unless an email provider key is also set and `OUTBOUND_DISABLED` is off, so set it there only while you are deliberately testing the alert. |
 | `TWILIO_*` | Leave UNSET on Preview, same reason. |
 | `OUTBOUND_DISABLED` | Set to `1` on Preview as a belt-and-braces second stop (`docs/GO-LIVE-WIRING.md` section 9). |
 | `STAGING_SUPABASE_URL` | The staging project URL, set on **both** Production and Preview. This is what `src/lib/envGuard.ts` compares against; without it the guard cannot know which project is staging. |

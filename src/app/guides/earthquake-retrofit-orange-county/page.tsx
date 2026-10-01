@@ -97,7 +97,7 @@ export default function EarthquakeRetrofitOrangeCountyGuide() {
         Earthquake retrofit in Orange County
       </h1>
       <GuideMeta path="/guides/earthquake-retrofit-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         For owners of older Orange County houses. General information, not
         engineering, insurance or tax advice.
       </p>
@@ -255,7 +255,7 @@ export default function EarthquakeRetrofitOrangeCountyGuide() {
         </div>
 
         <section>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             City pages:{" "}
             <Link href="/oc/anaheim" className="text-bark-700 hover:underline dark:text-stone-300">Anaheim</Link>,{" "}
             <Link href="/oc/santa-ana" className="text-bark-700 hover:underline dark:text-stone-300">Santa Ana</Link>,{" "}
@@ -264,7 +264,7 @@ export default function EarthquakeRetrofitOrangeCountyGuide() {
             <Link href="/oc/san-clemente" className="text-bark-700 hover:underline dark:text-stone-300">San Clemente</Link>, or every city on
             the <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>.
           </p>
-          <p className="mt-4 text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="mt-4 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Grant rules, ZIP codes and discounts change;
             the program and your insurer have the final word.
           </p>

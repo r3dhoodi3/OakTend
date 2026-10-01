@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { getUserProfile } from "@/lib/user";
+import { getVerifiedUser } from "@/lib/auth";
+import { exportLinkStateFor } from "@/lib/dataExportLinkState";
 import { FOUNDER } from "@/lib/constants";
 import PrivacyRightsPanel from "@/components/PrivacyRightsPanel";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -12,9 +14,16 @@ export const metadata = {
   title: "Your privacy rights",
 };
 
-export default async function PrivacyRightsPage() {
-  const profile = await getUserProfile();
-  if (!profile) redirect("/signin");
+export default async function PrivacyRightsPage(props: {
+  searchParams?: Promise<{ export?: string }>;
+}) {
+  const [profile, user, searchParams] = await Promise.all([
+    getUserProfile(),
+    getVerifiedUser(),
+    props.searchParams ?? Promise.resolve(undefined),
+  ]);
+  if (!profile || !user) redirect("/signin");
+  const linkState = exportLinkStateFor(searchParams?.export, user.id);
 
   return (
     // PrivacyRightsPanel is shared with /pro/privacy and owns its own
@@ -36,6 +45,8 @@ export default async function PrivacyRightsPage() {
         profileLabel="Edit profile"
         contact={FOUNDER.email}
         blocksHref="/account/blocks"
+        side="homeowner"
+        linkState={linkState}
       />
     </>
   );

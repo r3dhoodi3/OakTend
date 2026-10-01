@@ -447,7 +447,7 @@ export default function NotificationBell() {
           lets the list, not the card, own the leftover height in the sheet. */}
       <div className="max-h-80 overflow-y-auto overscroll-contain max-sm:max-h-none max-sm:flex-1">
         {items.length === 0 ? (
-          <p className="px-4 py-6 text-center text-sm text-stone-500 dark:text-stone-400">
+          <p className="px-4 py-6 text-center text-sm text-stone-600 dark:text-stone-300">
             Nothing new right now.
           </p>
         ) : (
@@ -461,11 +461,11 @@ export default function NotificationBell() {
                     {n.title}
                   </p>
                   {n.body && (
-                    <p className="mt-0.5 line-clamp-2 text-xs text-stone-500 dark:text-stone-400">
+                    <p className="mt-0.5 line-clamp-2 text-xs text-stone-600 dark:text-stone-300">
                       {n.body}
                     </p>
                   )}
-                  <p className="mt-1 text-[11px] text-stone-500 max-sm:text-xs dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     {timeAgo(n.created_at)}
                   </p>
                 </>

@@ -696,7 +696,7 @@ export default function SpotlightTour({
           <button
             type="button"
             onClick={onClose}
-            className="focus-ring inline-flex min-h-11 items-center justify-center px-2 text-sm text-stone-500 underline hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+            className="focus-ring inline-flex min-h-11 items-center justify-center px-2 text-sm text-stone-600 underline hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
           >
             Skip tour
           </button>

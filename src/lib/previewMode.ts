@@ -66,7 +66,7 @@ export const PREVIEW_JOB_POSTED_COPY =
 // line says "local pros apply", which is not what happens yet; this one says
 // what does. One constant beside the banner copy above so the two agree.
 export const PREVIEW_POST_JOB_INTRO =
-  "Describe what you need and post it. Our pro network isn't open yet. Our team may look for a local pro by hand, but we can't promise to find one, so for anything urgent call a local licensed company.";
+  "Describe what you need. Our pro network isn't open yet, so our team may look for a local pro by hand. We can't promise to find one. For anything urgent, call a local licensed company.";
 
 // ---------------------------------------------------------------------------
 // CITY LANDING PAGES (/fountain-valley, /huntington-beach, /oc/<city>)

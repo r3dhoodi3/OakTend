@@ -152,7 +152,7 @@ export default function PushSettingsCard({ side }: { side: PushSide }) {
         <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
           {copy.title}
         </p>
-        <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Notifications are not switched on yet. Check back soon.
         </p>
       </div>
@@ -172,7 +172,7 @@ export default function PushSettingsCard({ side }: { side: PushSide }) {
       {/* text-sm, not text-xs: the eyesight pass flagged 12px body copy on the
           phone, and this card is read once, on a phone, by somebody deciding
           whether to allow a permission. */}
-      <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
+      <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
         {state === "on" ? copy.onDetail : copy.detail}
       </p>
 

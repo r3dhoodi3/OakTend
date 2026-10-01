@@ -102,7 +102,7 @@ export default function PermitsOrangeCountyGuide() {
       <GuideMeta path="/guides/permits-orange-county" />
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -374,7 +374,7 @@ export default function PermitsOrangeCountyGuide() {
             you search permit history by address. If the page does not answer
             your question, call the counter.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             Find your city on the{" "}
             <Link href="/oc" className="text-bark-700 hover:underline dark:text-stone-300">Orange County hub</Link>, or go straight to{" "}
             <Link href="/oc/irvine" className="text-bark-700 hover:underline dark:text-stone-300">Irvine</Link>,{" "}
@@ -387,7 +387,7 @@ export default function PermitsOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             City examples read from each city&apos;s own building pages in
             September 2026. Cities amend their codes regularly, so confirm the
             rule with your building department before you start. General

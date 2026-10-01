@@ -48,17 +48,17 @@ export default function OcRemodelCityTable({
             <p className="font-semibold text-stone-900 dark:text-stone-100">
               {city.name}
             </p>
-            <p className="mt-1 text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-stone-600 dark:text-stone-300">
               Built before 1980: {city.pre1980}%.
               {showCoastal && (
                 <> Coastal zone: {city.coastal ? "yes, in part" : "no"}.</>
               )}
             </p>
-            <p className="mt-1 text-stone-600 dark:text-stone-400">
+            <p className="mt-1 text-stone-600 dark:text-stone-300">
               {permitNoteFor(city, trade).text}
             </p>
             {showAduPlans && (
-              <p className="mt-1 text-stone-600 dark:text-stone-400">
+              <p className="mt-1 text-stone-600 dark:text-stone-300">
                 Pre-approved ADU plans:{" "}
                 {city.aduPlans ? (
                   <a href={city.aduPlans.href} rel="noopener" className={linkClass}>
@@ -110,22 +110,22 @@ export default function OcRemodelCityTable({
                 <td className="px-3 py-2.5 align-top font-medium text-stone-900 dark:text-stone-100">
                   {city.name}
                 </td>
-                <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
+                <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-300">
                   {city.pre1980}%
                 </td>
                 {showCoastal && (
-                  <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
+                  <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-300">
                     {city.coastal ? "Yes, in part" : "No"}
                   </td>
                 )}
-                <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
+                <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-300">
                   {permitNoteFor(city, trade).text}{" "}
                   <a href={permitNoteFor(city, trade).href} rel="noopener" className={linkClass}>
                     {permitNoteFor(city, trade).label}
                   </a>
                 </td>
                 {showAduPlans && (
-                  <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-400">
+                  <td className="px-3 py-2.5 align-top text-stone-600 dark:text-stone-300">
                     {city.aduPlans ? (
                       <a href={city.aduPlans.href} rel="noopener" className={linkClass}>
                         {city.aduPlans.text}
@@ -141,7 +141,7 @@ export default function OcRemodelCityTable({
         </table>
       </div>
 
-      <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+      <p className="mt-2 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
         Built before 1980: our sum of the 1979-and-earlier rows of Census table
         B25034, American Community Survey 5-year estimates for 2020 to 2024,
         rounded (Orange County overall: {OC_PRE_1980}%). Estimates, not exact

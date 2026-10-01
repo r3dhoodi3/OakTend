@@ -114,7 +114,7 @@ export default function LearnGuides({ guides }: { guides: GuideData[] }) {
           ))}
         </ul>
       ) : (
-        <p className="card text-sm text-stone-500 dark:text-stone-400">
+        <p className="card text-sm text-stone-600 dark:text-stone-300">
           No guides match &ldquo;{trimmedQuery}&rdquo;. Try a different word,
           or request a topic below.
         </p>
@@ -124,7 +124,7 @@ export default function LearnGuides({ guides }: { guides: GuideData[] }) {
         <p className="text-sm font-semibold text-stone-700 dark:text-stone-300">
           Don&apos;t see your topic?
         </p>
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
           Tell us what you&apos;d like a guide for, and we&apos;ll add it.
         </p>
         <form

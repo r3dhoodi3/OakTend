@@ -65,7 +65,7 @@ export default async function IssuesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Report a problem</h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             Log a problem and get connected with a local pro.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default async function IssuesPage() {
             ))}
           </ul>
         ) : (
-          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">
+          <p className="rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
             No open issues.
           </p>
         )}

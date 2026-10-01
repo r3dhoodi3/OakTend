@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { readLegacyCookie } from "@/lib/legacyCookies";
+import { safeFlashHref, safeFlashLinkLabel } from "@/lib/flashLink";
 
 // Lightweight "flash" toast that survives a server action + revalidate/redirect.
 // setFlash() drops a short-lived, non-httpOnly cookie.
@@ -33,6 +34,12 @@ export interface Flash {
   // without slowing down every success toast in the app. FlashToast validates
   // it and caps it, because the cookie is user-writable.
   duration?: number;
+  // Optional same-site destination (a relative path like "/dashboard#this-month")
+  // plus a short label, so the toast can take the user to where the thing they
+  // just did now lives. Validated here AND again in FlashToast (the cookie is
+  // user-writable); anything that is not a same-site relative path is dropped.
+  href?: string;
+  linkLabel?: string;
 }
 
 // Hard ceiling for a cookie-supplied duration. A hostile cookie must not be
@@ -44,7 +51,7 @@ export const FLASH_MAX_DURATION_MS = 15000;
 export async function setFlash(
   message: string,
   type: FlashType = "success",
-  opts?: { duration?: number }
+  opts?: { duration?: number; href?: string; linkLabel?: string }
 ) {
   const id = `${Date.now()}-${Math.round(Math.random() * 1e6)}`;
   const payload: Flash = { message, type, id };
@@ -54,6 +61,11 @@ export async function setFlash(
     opts.duration >= 0
   ) {
     payload.duration = Math.min(opts.duration, FLASH_MAX_DURATION_MS);
+  }
+  const href = safeFlashHref(opts?.href);
+  if (href) {
+    payload.href = href;
+    payload.linkLabel = safeFlashLinkLabel(opts?.linkLabel);
   }
   (await cookies()).set(FLASH_COOKIE, JSON.stringify(payload), {
     httpOnly: false,

@@ -61,9 +61,9 @@ type SavedRow = {
 type Mode = "photo" | "text";
 
 const VERDICT_STYLE: Record<Verdict, { label: string; classes: string }> = {
-  fair: { label: "Looks fair", classes: "border-green-200 bg-green-50 text-green-700 dark:border-green-900 dark:bg-green-950/40 dark:text-green-200" },
+  fair: { label: "Looks fair", classes: "border-green-300 bg-green-100 text-green-800 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300" },
   low: { label: "Looks low", classes: "border-bark-100 bg-bark-50 text-bark-700 dark:border-bark-700 dark:bg-bark-700/40 dark:text-stone-300" },
-  high: { label: "Looks high", classes: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300" },
+  high: { label: "Looks high", classes: "border-amber-300 bg-amber-100 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300" },
   unclear: { label: "Not enough info", classes: "border-stone-200 bg-stone-100 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300" },
 };
 
@@ -71,9 +71,9 @@ const VERDICT_STYLE: Record<Verdict, { label: string; classes: string }> = {
 // confused with the merely-ambiguous "ask" items, green/neutral for "ok" so
 // a clean bill of health reads as good news, not as another warning.
 const SEVERITY_STYLE: Record<Severity, string> = {
-  red_flag: "border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300",
-  ask: "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
-  ok: "border-green-200 bg-green-50 text-green-700 dark:border-green-900 dark:bg-green-950/40 dark:text-green-200",
+  red_flag: "border-red-300 bg-red-100 text-red-700 dark:border-red-500/30 dark:bg-red-500/15 dark:text-red-300",
+  ask: "border-amber-300 bg-amber-100 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
+  ok: "border-green-300 bg-green-100 text-green-800 dark:border-green-500/30 dark:bg-green-500/15 dark:text-green-300",
 };
 const SEVERITY_LABEL: Record<Severity, string> = {
   red_flag: "Red flag",
@@ -104,11 +104,11 @@ function FindingBody({ f }: { f: Finding }) {
     <>
       <div className="flex items-start justify-between gap-3">
         <span>{f.text}</span>
-        <span className="shrink-0 rounded-full bg-white/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide dark:bg-black/20">
+        <span className="shrink-0 rounded-full bg-white/60 px-2 py-0.5 text-xs font-medium uppercase tracking-wide dark:bg-black/20">
           {SEVERITY_LABEL[f.severity]}
         </span>
       </div>
-      <p className="mt-1 text-xs italic text-stone-500 dark:text-stone-400">
+      <p className="mt-1 text-xs italic text-stone-600 dark:text-stone-300">
         &quot;{f.evidence}&quot;
       </p>
     </>
@@ -465,7 +465,7 @@ export default function QuoteAnalyzer({
   if (restoring) {
     return (
       <div className="card">
-        <p className="text-sm text-stone-500 dark:text-stone-400">Loading…</p>
+        <p className="text-sm text-stone-600 dark:text-stone-300">Loading…</p>
       </div>
     );
   }
@@ -484,7 +484,7 @@ export default function QuoteAnalyzer({
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12H4z" />
           </svg>
           <p className="text-sm text-stone-700 dark:text-stone-300">Still reading your last quote…</p>
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             You can leave this page. We&apos;ll notify you when it&apos;s ready.
           </p>
         </div>
@@ -577,7 +577,7 @@ export default function QuoteAnalyzer({
             <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
               {preview ? "Use a different photo" : "Take or upload a photo of the quote"}
             </span>
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-stone-600 dark:text-stone-300">
               A clear photo of every line item and the total works best
             </span>
             <input
@@ -620,7 +620,7 @@ export default function QuoteAnalyzer({
           />
         </div>
 
-        <p className="text-xs text-stone-500 max-sm:text-sm dark:text-stone-400">
+        <p className="text-xs text-stone-600 max-sm:text-sm dark:text-stone-300">
           Heads up: your quote is sent to our AI provider, Anthropic, to be
           read. Under its paid API terms it is not used to train their models.
           It can be wrong, so treat the read as a second opinion, not a verdict.
@@ -692,7 +692,7 @@ export default function QuoteAnalyzer({
               stageIndex={progress.stageIndex}
               ariaLabel="Analyzing your quote"
             />
-            <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-center text-xs text-stone-600 dark:text-stone-300">
               You can leave this page. We&apos;ll notify you when it&apos;s ready.
             </p>
           </>
@@ -703,7 +703,7 @@ export default function QuoteAnalyzer({
       {result && (
         <div className="card space-y-5">
           {resultMeta && (
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500 dark:text-stone-400">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-600 dark:text-stone-300">
               <span>
                 Analyzed {new Date(resultMeta.analyzedAt).toLocaleString()}
                 {resultMeta.filename ? ` · ${resultMeta.filename}` : ""}
@@ -728,7 +728,7 @@ export default function QuoteAnalyzer({
               </span>
             )}
             {result.total && (
-              <span className="text-sm text-stone-500 dark:text-stone-400">
+              <span className="text-sm text-stone-600 dark:text-stone-300">
                 Total on quote: <span className="font-medium text-stone-800 dark:text-stone-200">{result.total}</span>
               </span>
             )}
@@ -795,7 +795,7 @@ export default function QuoteAnalyzer({
                         <span className="font-medium text-stone-800 dark:text-stone-200">{li.amount}</span>
                       )}
                     </div>
-                    {li.note && <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">{li.note}</p>}
+                    {li.note && <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">{li.note}</p>}
                   </li>
                 ))}
               </ul>
@@ -852,8 +852,8 @@ export default function QuoteAnalyzer({
                     )}
                   </ul>
                 ) : (
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
-                    Nothing left here, you&apos;ve marked everything as covered.
+                  <p className="text-sm text-stone-600 dark:text-stone-300">
+                    Nothing left here. You&apos;ve marked everything as covered.
                   </p>
                 )}
               </>
@@ -861,7 +861,7 @@ export default function QuoteAnalyzer({
 
             {(coveredMissing.size > 0 || addedCovered.length > 0) && (
               <div className="mt-3">
-                <h3 className="mb-2 text-xs font-medium text-stone-500 dark:text-stone-400">
+                <h3 className="mb-2 text-xs font-medium text-stone-600 dark:text-stone-300">
                   Covered, per you
                 </h3>
                 <ul className="space-y-1.5">
@@ -935,7 +935,7 @@ export default function QuoteAnalyzer({
                       setShowAdd(false);
                       setAddDraft("");
                     }}
-                    className="shrink-0 text-xs font-medium text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-300"
+                    className="shrink-0 text-xs font-medium text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-100"
                   >
                     Cancel
                   </button>
@@ -944,7 +944,7 @@ export default function QuoteAnalyzer({
                 <button
                   type="button"
                   onClick={() => setShowAdd(true)}
-                  className="text-xs font-medium text-bark-700 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-300"
+                  className="text-xs font-medium text-bark-700 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-100"
                 >
                   + Add something the quote includes
                 </button>
@@ -959,7 +959,7 @@ export default function QuoteAnalyzer({
                 <button
                   type="button"
                   onClick={copyNegotiation}
-                  className="text-xs font-medium text-bark-700 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-300"
+                  className="text-xs font-medium text-bark-700 hover:text-bark-700 dark:text-stone-300 dark:hover:text-stone-100"
                 >
                   {copied ? "Copied" : "Copy"}
                 </button>
@@ -971,7 +971,7 @@ export default function QuoteAnalyzer({
                 {result.negotiation}
               </p>
               {copyFallback && (
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                   Couldn&apos;t copy automatically. The text above is
                   selected, tap and hold to copy it.
                 </p>

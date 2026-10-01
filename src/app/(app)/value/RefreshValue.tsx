@@ -99,7 +99,7 @@ export default function RefreshValue({
         </p>
       )}
       {line && !error && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">{line}</p>
+        <p className="text-xs text-stone-600 dark:text-stone-300">{line}</p>
       )}
     </form>
   );

@@ -133,7 +133,7 @@ export default function ResetPasswordForm({
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
             {step === "update" ? "Set a new password" : "Reset your password"}
           </h1>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
             {step === "update"
               ? "You're almost back in. Pick a new password below."
               : "Enter your email and we'll send you a link to set a new one."}
@@ -161,7 +161,7 @@ export default function ResetPasswordForm({
             <button className="btn-primary w-full" disabled={busy}>
               {busy ? "Updating…" : "Update password"}
             </button>
-            <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-center text-xs text-stone-600 dark:text-stone-300">
               Link expired?{" "}
               <Link
                 href="/reset-password"
@@ -197,7 +197,7 @@ export default function ResetPasswordForm({
                 strand someone who needs to reset their password. */}
             <Turnstile ref={turnstileRef} onToken={setCaptchaToken} />
             {captchaTimedOut && (
-              <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-center text-xs text-stone-600 dark:text-stone-300">
                 Verification could not load. Refresh the page or try again in
                 a minute.
               </p>
@@ -231,7 +231,7 @@ export default function ResetPasswordForm({
         )}
 
         <div className="mt-6 border-t border-stone-100 pt-4 text-center dark:border-white/10">
-          <p className="text-sm text-stone-500 dark:text-stone-400">Remembered it after all?</p>
+          <p className="text-sm text-stone-600 dark:text-stone-300">Remembered it after all?</p>
           <Link href="/signin" className="btn-secondary mt-2 flex w-full">
             Back to sign in
           </Link>

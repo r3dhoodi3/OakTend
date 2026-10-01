@@ -20,6 +20,12 @@ import { parseReserveInput } from "@/lib/forecastReserve";
 // comes from getActiveProperty() on the server, so a forged property_id in the
 // POST body has nowhere to land.
 
+// Where an added step shows up afterwards: the "This month" checklist on the
+// Home page, which lists every open maintenance task. The confirmation toast
+// links there so the step never just vanishes from view.
+const PLAN_HREF = "/dashboard#this-month";
+const PLAN_LINK = { href: PLAN_HREF, linkLabel: "View plan" };
+
 function addDays(base: Date, days: number): string {
   const d = new Date(base.getTime());
   d.setDate(d.getDate() + days);
@@ -68,7 +74,7 @@ export async function addForecastStepAction(formData: FormData): Promise<void> {
     .limit(1);
 
   if (existing && existing.length > 0) {
-    await setFlash("That is already on your reminders.", "info");
+    await setFlash("That is already on your plan.", "info", PLAN_LINK);
     revalidatePath("/forecast");
     return;
   }
@@ -86,7 +92,7 @@ export async function addForecastStepAction(formData: FormData): Promise<void> {
     return;
   }
 
-  await setFlash("Added to your reminders.", "success");
+  await setFlash("Added to your plan.", "success", PLAN_LINK);
 
   // Funnel analytics (docs/ANALYTICS.md). The system type is one of the
   // SYSTEM_TYPES enum values, never free text.

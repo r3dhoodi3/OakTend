@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DownloadPdfLink from "@/components/DownloadPdfLink";
 import { useEffect, useRef, useState } from "react";
 import PasswordInput from "@/components/PasswordInput";
 import SubmitButton from "@/components/SubmitButton";
@@ -138,7 +139,7 @@ function SetPasswordCard({ providerName }: { providerName: string }) {
           needs a Turnstile token. Renders nothing when no site key is set. */}
       <Turnstile ref={captchaRef} onToken={setCaptchaToken} />
       {captchaTimedOut && (
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           Verification could not load. Refresh the page or try again in a
           minute.
         </p>
@@ -297,7 +298,7 @@ export default function AccountSecurityPanel({
                 required
               />
             </div>
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               We send a confirmation link to the new address. Nothing changes
               until you click it.
             </p>
@@ -318,7 +319,7 @@ export default function AccountSecurityPanel({
                 placeholder="Enter current password"
                 required
               />
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 We ask for this so nobody else can move your sign-in email.
               </p>
             </div>
@@ -331,7 +332,7 @@ export default function AccountSecurityPanel({
             <>
               <Turnstile onToken={setEmailCaptcha} />
               {emailCaptchaTimedOut && (
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   Verification could not load. Refresh the page or try again
                   in a minute.
                 </p>
@@ -411,7 +412,7 @@ export default function AccountSecurityPanel({
                 input then submits "". */}
             <Turnstile onToken={setPasswordCaptcha} />
             {passwordCaptchaTimedOut && (
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 Verification could not load. Refresh the page or try again in
                 a minute.
               </p>
@@ -443,7 +444,7 @@ export default function AccountSecurityPanel({
             <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Sign out of other devices
             </p>
-            <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
               Left yourself signed in somewhere, or see activity you don&apos;t
               recognize? This ends every session except this one.
             </p>
@@ -467,8 +468,8 @@ export default function AccountSecurityPanel({
             <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
               Export your data
             </p>
-            <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
-              Download everything we hold for your account as a JSON file.{" "}
+            <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
+              Download everything we hold for your account as a PDF.{" "}
               {/* Phone only: padding grows an inline link to a 44px touch
                   area without changing the line box. */}
               <Link href={privacyHref} className="font-medium text-bark-700 hover:underline max-sm:py-3 dark:text-stone-300">
@@ -477,13 +478,10 @@ export default function AccountSecurityPanel({
               explains what&apos;s in it.
             </p>
           </div>
-          <a
-            href="/api/privacy/export"
-            download
+          <DownloadPdfLink
+            href="/api/privacy/export?format=pdf"
             className="btn-secondary whitespace-nowrap"
-          >
-            Download my data
-          </a>
+          />
         </div>
       </div>
 
@@ -495,7 +493,7 @@ export default function AccountSecurityPanel({
               <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">
                 Delete your account
               </p>
-              <p className="mt-0.5 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
                 Permanently remove your account and all associated data. This
                 action cannot be undone.
               </p>
@@ -525,7 +523,7 @@ export default function AccountSecurityPanel({
                 This permanently deletes your account, homes, systems,
                 photos, and documents. This cannot be undone.
               </p>
-              <p className="text-xs text-stone-600 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 We keep billing records for 7 years, a record that you asked
                 us to delete, and messages or reviews already visible to
                 another user. See our{" "}
@@ -570,7 +568,7 @@ export default function AccountSecurityPanel({
                       required
                     />
                   </div>
-                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                  <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                     You&apos;re deleting the OakTend account for{" "}
                     <span className="font-medium text-stone-900 dark:text-stone-100">
                       {email ?? "this address"}
@@ -588,7 +586,7 @@ export default function AccountSecurityPanel({
                 <>
                   <Turnstile onToken={setDeleteCaptcha} />
                   {deleteCaptchaTimedOut && (
-                    <p className="text-xs text-stone-500 dark:text-stone-400">
+                    <p className="text-xs text-stone-600 dark:text-stone-300">
                       Verification could not load. Refresh the page or try
                       again in a minute.
                     </p>

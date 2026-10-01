@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getUserProfile } from "@/lib/user";
 import { getUser } from "@/lib/auth";
@@ -40,6 +41,21 @@ export default async function AccountPage() {
       <Breadcrumbs items={[{ label: "Home", href: "/dashboard" }, { label: "Account" }]} />
       <AccountTabs active="profile" />
       <ProfileInfoForm profile={profile} name={name} />
+      {/* Two different invites, labelled so they can't be mixed up: a
+          household member joins YOUR home, a neighbor gets their own. */}
+      <div className="card flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
+            Add a household member
+          </h2>
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+            Share this home with someone you live with. They join your home.
+          </p>
+        </div>
+        <Link href="/account/household" className="btn-secondary whitespace-nowrap">
+          Add a member
+        </Link>
+      </div>
       {inviteCode && <InviteNeighbor code={inviteCode} />}
     </div>
   );

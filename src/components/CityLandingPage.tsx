@@ -227,7 +227,7 @@ function FactCard({
   return (
     <li className="card">
       <p className="text-sm text-stone-600 dark:text-stone-300">{text}</p>
-      <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+      <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
         Source: <SourceLink href={sourceUrl} label={sourceLabel} />
       </p>
     </li>
@@ -282,7 +282,7 @@ export default function CityLandingPage({
             Small, muted, one line: same text-sm stone-500 the site uses for
             every secondary link (see the guides footer), so it sits above the
             hero without competing with it at any width. */}
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-stone-500 dark:text-stone-400">
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-stone-600 dark:text-stone-300">
           <Link
             href="/"
             className="hover:text-bark-700 hover:underline dark:hover:text-stone-300"
@@ -323,7 +323,7 @@ export default function CityLandingPage({
               whole service area. OakTend serves the entire county, and a reader
               who landed here from a city search should not conclude the
               neighboring town is unserved. */}
-          <p className="mx-auto mt-3 max-w-xl text-sm text-stone-500 dark:text-stone-400">
+          <p className="mx-auto mt-3 max-w-xl text-sm text-stone-600 dark:text-stone-300">
             OakTend serves {LAUNCH_AREA_LABEL}, California, not just {city}.
           </p>
           <SessionCta
@@ -367,7 +367,7 @@ export default function CityLandingPage({
                     Population:
                   </span>{" "}
                   {content.population.value} ({content.population.asOf}).{" "}
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-600 dark:text-stone-300">
                     Source:{" "}
                     <SourceLink
                       href={content.population.sourceUrl}
@@ -386,7 +386,7 @@ export default function CityLandingPage({
                     {content.homes.medianYearBuiltSource && (
                       <>
                         .{" "}
-                        <span className="text-xs text-stone-500 dark:text-stone-400">
+                        <span className="text-xs text-stone-600 dark:text-stone-300">
                           Source:{" "}
                           <SourceLink
                             href={content.homes.medianYearBuiltSource.sourceUrl}
@@ -431,7 +431,7 @@ export default function CityLandingPage({
                 <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
                   {content.neighborhoods.note}
                 </p>
-                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
                   Source:{" "}
                   <SourceLink
                     href={content.neighborhoods.sourceUrl}
@@ -452,7 +452,7 @@ export default function CityLandingPage({
                 <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                   {content.water.summary}
                 </p>
-                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
                   <SourceLink
                     href={content.water.utilityUrl}
                     label={content.water.utility}
@@ -471,7 +471,7 @@ export default function CityLandingPage({
                 <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
                   {content.permits.summary}
                 </p>
-                <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
                   <SourceLink
                     href={content.permits.portalUrl}
                     label={`${content.permits.office} permit portal`}
@@ -527,7 +527,7 @@ export default function CityLandingPage({
                   <li key={slug}>
                     <Link
                       href={cityHref(slug)}
-                      className="inline-block rounded-full border border-stone-200 px-4 py-2 text-sm text-stone-600 transition hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-300"
+                      className="inline-block rounded-full border border-stone-200 px-4 py-2 text-sm text-stone-600 transition hover:border-bark-500 hover:text-bark-700 dark:border-white/10 dark:text-stone-300 dark:hover:text-stone-100"
                     >
                       {cityNameForSlug(slug)}
                     </Link>
@@ -556,7 +556,7 @@ export default function CityLandingPage({
                   </div>
                 ))}
               </div>
-              <p className="mt-4 text-center text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-4 text-center text-xs text-stone-600 dark:text-stone-300">
                 Local facts on this page last checked {content.updated}.
               </p>
               <script
@@ -576,13 +576,13 @@ export default function CityLandingPage({
       </main>
 
       <footer className="mx-auto max-w-2xl border-t border-stone-200 px-6 py-6 text-center dark:border-white/10">
-        <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
+        <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-600 dark:text-stone-300">
           <Logo className="h-4 w-4 text-bark-700 dark:text-stone-400" /> OakTend · Your home looked after
         </p>
         <p className="mt-2 text-xs">
           <Link
             href="/guides"
-            className="text-stone-500 hover:text-bark-700 hover:underline dark:text-stone-400 dark:hover:text-stone-300"
+            className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
           >
             All guides
           </Link>

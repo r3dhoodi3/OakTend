@@ -104,13 +104,13 @@ export default function TermitesOrangeCountyGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/termites-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         Treatment facts come from the University of California&apos;s pest
         program (UC IPM) and the state Structural Pest Control Board.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -361,7 +361,7 @@ export default function TermitesOrangeCountyGuide() {
             </Link>{" "}
             puts the yearly check in swarm season.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             City pages:{" "}
             <Link href="/huntington-beach" className="text-bark-700 hover:underline dark:text-stone-300">Huntington Beach</Link>,{" "}
             <Link href="/oc/newport-beach" className="text-bark-700 hover:underline dark:text-stone-300">Newport Beach</Link>,{" "}
@@ -374,7 +374,7 @@ export default function TermitesOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. The UC IPM drywood termite note was last
             updated in 2014 and the pest board brochure in 2019, so products
             and practices may have moved on. General information, not pest

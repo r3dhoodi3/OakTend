@@ -73,7 +73,7 @@ const cardTitleClass = "font-semibold text-stone-900 dark:text-stone-100";
 // date cannot drift between blocks.
 function AsOf({ href, label }: { href: string; label: string }) {
   return (
-    <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+    <p className="mt-2 text-xs text-stone-600 dark:text-stone-300">
       As of {CHECKED_ON}, from the{" "}
       <a href={href} rel="noopener" className={linkClass}>
         {label}
@@ -430,7 +430,7 @@ export default function OrangeCountyHomeRebatesGuide() {
             decide eligibility, so confirm the exact model number against the
             program&apos;s list before you buy.
           </p>
-          <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
             City pages with local notes:{" "}
             <Link href="/oc/irvine" className={linkClass}>
               Irvine
@@ -460,7 +460,7 @@ export default function OrangeCountyHomeRebatesGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             OakTend does not run, fund or guarantee any of these programs, and
             this is not tax or financial advice.
           </p>

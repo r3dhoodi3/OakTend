@@ -74,7 +74,7 @@ export default function PreviewNotice() {
           type="button"
           onClick={dismiss}
           aria-label="Dismiss preview notice"
-          className="shrink-0 text-sm font-medium text-stone-500 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-400 dark:hover:text-stone-200"
+          className="shrink-0 text-sm font-medium text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
         >
           Dismiss
         </button>

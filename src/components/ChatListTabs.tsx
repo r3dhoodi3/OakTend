@@ -26,7 +26,7 @@ export type ChatListTab = "active" | "closed";
 // The empty-state row, one shape for both tabs and both sides.
 function EmptyRow({ copy }: { copy: string }) {
   return (
-    <li className="px-4 py-6 text-sm text-stone-500 dark:text-stone-400">
+    <li className="px-4 py-6 text-sm text-stone-600 dark:text-stone-300">
       {copy}
     </li>
   );
@@ -97,7 +97,7 @@ export default function ChatListTabs({
             className={`inline-flex min-h-11 flex-1 touch-manipulation items-center justify-center rounded-lg px-4 py-1.5 text-sm font-medium transition-colors sm:min-h-0 ${
               tab === t.key
                 ? "bg-white text-stone-900 shadow-sm dark:bg-stone-700 dark:text-stone-100"
-                : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+                : "text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
             }`}
           >
             {/* The count comes free off the fetched list; zero stays quiet. */}

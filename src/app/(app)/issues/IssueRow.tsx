@@ -18,11 +18,9 @@ import {
   reopenIssueAction,
 } from "./actions";
 
-const SEVERITY_STYLE: Record<string, string> = {
-  low: "border-stone-200 bg-stone-50 text-stone-600 dark:border-white/10 dark:bg-stone-700 dark:text-stone-300",
-  medium: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-300",
-  urgent: "border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200",
-};
+// Shared severity tones (low neutral, medium amber, urgent red), the same
+// strings the pro lead cards use, so a severity never changes color by screen.
+import { SEVERITY_STYLE } from "@/lib/proLeadCard";
 
 export default function IssueRow({
   issue,
@@ -165,7 +163,7 @@ export default function IssueRow({
             <div className="flex flex-wrap items-center gap-2">
               <span
                 className={`font-medium ${
-                  resolved ? "text-stone-500 line-through dark:text-stone-400" : "text-stone-900 dark:text-stone-100"
+                  resolved ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-900 dark:text-stone-100"
                 }`}
               >
                 {labelFor(ISSUE_CATEGORIES, issue.category)}
@@ -184,7 +182,7 @@ export default function IssueRow({
             {issue.description && (
               <p
                 className={`mt-1 text-sm ${
-                  resolved ? "text-stone-500 line-through dark:text-stone-400" : "text-stone-600 dark:text-stone-300"
+                  resolved ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-600 dark:text-stone-300"
                 }`}
               >
                 {issue.description}

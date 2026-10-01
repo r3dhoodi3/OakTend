@@ -84,7 +84,7 @@ export function PlusWelcome({
           reads "trialing" - both are the held-back case - so a trial buyer is
           never told to go looking for $10 that has not landed. */}
       {showTrialCaveat && (
-        <p className="mx-auto max-w-md text-left text-xs text-stone-500 dark:text-stone-400">
+        <p className="mx-auto max-w-md text-left text-xs text-stone-600 dark:text-stone-300">
           Two of these start when your free trial converts and your first
           payment goes through: your first $10 of lead credit, and your{" "}
           +{PRO_DEPOSIT_BOOST_PTS}% deposit match. Deposits during the trial
@@ -109,7 +109,7 @@ export function PlusWelcome({
           />
         ) : (
           <div className="rounded-xl border border-stone-200 bg-stone-50 p-3 text-left dark:border-white/10 dark:bg-stone-900">
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+            <p className="text-xs font-semibold uppercase tracking-wide text-stone-600 dark:text-stone-300">
               Your OakTend Pro renewal terms
             </p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-stone-600 dark:text-stone-300">
@@ -137,7 +137,7 @@ export function PlusWelcome({
         <Link href={PRO_LEADS_HREF} className="btn-primary">
           Find jobs
         </Link>
-        <p className="text-xs text-stone-500 dark:text-stone-400">
+        <p className="text-xs text-stone-600 dark:text-stone-300">
           If a perk still looks off, give it a minute to sync, then refresh.
         </p>
       </div>
@@ -182,7 +182,7 @@ export function PlusMember({
         {/* During the trial, current_period_end IS the trial end, so calling
             it a renewal would hide the thing that actually matters: the date
             the first charge lands. Say which it is. */}
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           {planLabel} plan
           {periodSuffix}
         </p>
@@ -265,7 +265,7 @@ export function PlusMember({
             in the Stripe webhook). Name both here rather than leave a check
             standing next to money that will not move yet. */}
         {trialing && (
-          <p className="mt-3 border-t border-stone-100 pt-3 text-xs text-stone-500 dark:border-white/10 dark:text-stone-400">
+          <p className="mt-3 border-t border-stone-100 pt-3 text-xs text-stone-600 dark:border-white/10 dark:text-stone-300">
             While your free trial runs, the $10 lead credit and the{" "}
             +{PRO_DEPOSIT_BOOST_PTS}% deposit match are the two that are still
             waiting: both start when the trial converts and your first payment
@@ -273,7 +273,7 @@ export function PlusMember({
           </p>
         )}
       </div>
-      <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-center text-xs text-stone-600 dark:text-stone-300">
         Membership never changes which jobs you can see or apply to. Leads
         stay pay-per-apply for everyone.
       </p>
@@ -324,7 +324,7 @@ export function PlusPastDue({
           </form>
         </div>
       </div>
-      <p className="text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-center text-xs text-stone-600 dark:text-stone-300">
         Questions about billing?{" "}
         <Link href="/pro/billing" className="hover:underline">
           Visit billing
@@ -394,10 +394,8 @@ export function PlusPitch({
         <h1 className="text-3xl font-semibold text-stone-900 dark:text-stone-100">
           Run your business, not your admin
         </h1>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          OakTend Pro is a toolkit for the business side: faster alerts, more
-          credit on every deposit, and an AI back office that handles the
-          paperwork.
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
+          Faster alerts, more credit on every deposit, and an AI back office.
         </p>
         {/* No CTA button up here any more. This used to duplicate the trial
             button in ProPlanToggle below with a second, differently-worded
@@ -440,7 +438,7 @@ export function PlusPitch({
           returning member (trialEligible false) starts paying right away, so
           their perks are on from day one and they don't see this. */}
       {trialEligible && (
-        <p className="order-5 text-center text-xs text-stone-500 dark:text-stone-400">
+        <p className="order-5 text-center text-xs text-stone-600 dark:text-stone-300">
           Two of these start when your free trial converts and your first
           payment goes through: your first $10 of lead credit, and your{" "}
           +{PRO_DEPOSIT_BOOST_PTS}% deposit match. During the trial, deposits
@@ -457,7 +455,7 @@ export function PlusPitch({
         <PerksList perks={PERKS} variant="grid" />
       </div>
 
-      <p className="order-7 text-center text-xs text-stone-500 dark:text-stone-400">
+      <p className="order-7 text-center text-xs text-stone-600 dark:text-stone-300">
         Questions about billing?{" "}
         <Link href="/pro/billing" className="hover:underline">
           Visit billing

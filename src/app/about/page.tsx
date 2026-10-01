@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import StructuredData from "@/components/StructuredData";
 import { LEGAL } from "@/lib/legal";
@@ -61,6 +62,61 @@ const aboutJsonLd = {
 
 const linkClass = "text-bark-700 hover:underline dark:text-stone-300";
 
+// The founders, one card each. To add a real photo later, drop a square image
+// in public/founders/ (at least 160x160) and set `photo` to its path, e.g.
+// "/founders/landen.jpg". Until then the card shows the founder's initials.
+type Founder = {
+  name: string;
+  role: string;
+  bio: string;
+  photo?: string;
+};
+
+const FOUNDERS: Founder[] = [
+  {
+    name: "Landen Chu",
+    role: "Co-Founder",
+    bio: "Leads business, product and marketing.",
+  },
+  {
+    name: "William Tran",
+    role: "Co-Founder",
+    bio: "Leads engineering and builds the app.",
+  },
+];
+
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0]!.toUpperCase())
+    .slice(0, 2)
+    .join("");
+}
+
+function FounderPhoto({ founder }: { founder: Founder }) {
+  const box = "h-16 w-16 shrink-0 rounded-full";
+  if (founder.photo) {
+    return (
+      <Image
+        src={founder.photo}
+        alt={founder.name}
+        width={64}
+        height={64}
+        className={`${box} object-cover`}
+      />
+    );
+  }
+  return (
+    <span
+      aria-hidden="true"
+      className={`${box} flex items-center justify-center bg-bark-100 text-lg font-semibold text-bark-700 dark:bg-bark-700 dark:text-stone-100`}
+    >
+      {initials(founder.name)}
+    </span>
+  );
+}
+
 export default function AboutPage() {
   return (
     <main id="main" className="mx-auto max-w-2xl px-6 pb-16 pt-10">
@@ -68,7 +124,7 @@ export default function AboutPage() {
       <p className="text-sm">
         <Link
           href="/"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; OakTend
         </Link>
@@ -80,13 +136,16 @@ export default function AboutPage() {
       {/* The fixed entity description, word for word
           (src/lib/siteMetadata.ts): the same definition the landing page and
           the Organization node carry. */}
-      <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
+      <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-300">
         {ENTITY_DESCRIPTION}
       </p>
 
       <div className="mt-8 space-y-8 text-stone-700 dark:text-stone-300">
-        <section>
-          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+        <section aria-labelledby="founders">
+          <h2
+            id="founders"
+            className="text-lg font-semibold text-stone-900 dark:text-stone-100"
+          >
             Who we are
           </h2>
           <p className="mt-2 leading-relaxed">
@@ -95,6 +154,22 @@ export default function AboutPage() {
             are a small, founder-run team, and we live and work in Orange
             County. When you write to us, one of us reads it and answers.
           </p>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+            {FOUNDERS.map((f) => (
+              <li key={f.name} className="card flex items-start gap-4">
+                <FounderPhoto founder={f} />
+                <div className="min-w-0">
+                  <p className="font-semibold text-stone-900 dark:text-stone-100">
+                    {f.name}
+                  </p>
+                  <p className="text-sm text-stone-600 dark:text-stone-300">
+                    {f.role}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed">{f.bio}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section>

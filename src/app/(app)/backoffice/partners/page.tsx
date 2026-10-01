@@ -112,7 +112,7 @@ export default async function BackofficePartnersPage() {
       <p className="text-sm">
         <Link
           href="/dashboard"
-          className="text-stone-500 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-400 dark:hover:text-stone-300"
+          className="text-stone-600 hover:text-bark-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:text-base dark:text-stone-300 dark:hover:text-stone-100"
         >
           &lt; Home
         </Link>
@@ -122,7 +122,7 @@ export default async function BackofficePartnersPage() {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Partner signups
         </h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           Accounts and pro waitlist emails by partner code. OakTend team only.
         </p>
       </header>
@@ -134,7 +134,7 @@ export default async function BackofficePartnersPage() {
       <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-stone-500 dark:text-stone-400">
+            <tr className="text-left text-xs text-stone-600 dark:text-stone-300">
               <th className="pb-2 pr-3 font-medium">Partner</th>
               <th className="pb-2 pr-3 text-right font-medium">Accounts</th>
               <th className="pb-2 pr-3 text-right font-medium">Pro waitlist</th>
@@ -148,7 +148,7 @@ export default async function BackofficePartnersPage() {
                   <span className="font-medium text-stone-900 dark:text-stone-100">
                     {s.label ?? "Not a partner code"}
                   </span>{" "}
-                  <span className="text-stone-500 dark:text-stone-400">
+                  <span className="text-stone-600 dark:text-stone-300">
                     {s.code}
                   </span>
                 </td>
@@ -168,7 +168,7 @@ export default async function BackofficePartnersPage() {
       </div>
 
       {withRows.length === 0 && (
-        <p className="text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-300">
           No signups through a partner link yet.
         </p>
       )}
@@ -177,14 +177,14 @@ export default async function BackofficePartnersPage() {
         <section key={s.code} className="space-y-3">
           <h2 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
             {s.label ?? "Not a partner code"}{" "}
-            <span className="font-normal text-stone-500 dark:text-stone-400">
+            <span className="font-normal text-stone-600 dark:text-stone-300">
               {s.code}
             </span>
           </h2>
           <div className="card overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-xs text-stone-500 dark:text-stone-400">
+                <tr className="text-left text-xs text-stone-600 dark:text-stone-300">
                   <th className="pb-2 pr-3 font-medium">Name</th>
                   <th className="pb-2 pr-3 font-medium">Email</th>
                   <th className="pb-2 text-right font-medium">Date</th>

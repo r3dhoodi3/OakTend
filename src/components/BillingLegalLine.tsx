@@ -14,7 +14,7 @@ import { LEGAL } from "@/lib/legal";
 // net, not a bug: it makes the gap visible everywhere this line appears
 // instead of silently shipping a blank.
 export default function BillingLegalLine({
-  className = "text-xs text-stone-500 max-sm:text-sm dark:text-stone-400",
+  className = "text-xs text-stone-600 max-sm:text-sm dark:text-stone-300",
 }: {
   className?: string;
 }) {

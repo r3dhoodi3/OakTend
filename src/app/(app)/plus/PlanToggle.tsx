@@ -271,7 +271,7 @@ export default function PlanToggle({
                 all three plan names sit on one line. It used to hold the
                 weekly-only "3 days free" badge; the free days are on every
                 card now, stated under each price. */}
-            <span className="block min-h-4 text-[10px] font-medium uppercase tracking-wide text-bark-700 max-sm:text-xs dark:text-bark-500" />
+            <span className="block min-h-4 text-xs font-medium uppercase tracking-wide text-bark-700 dark:text-bark-500" />
             <span className="block text-sm font-semibold text-stone-900 sm:text-base dark:text-stone-100">
               Weekly
             </span>
@@ -285,7 +285,7 @@ export default function PlanToggle({
                   unchanged, so desktop is untouched. */}
               <span className="block text-sm font-semibold text-stone-900 sm:text-2xl dark:text-stone-100">
                 {WEEKLY_PRICE}
-                <span className="text-sm font-normal text-stone-500 dark:text-stone-400">
+                <span className="text-sm font-normal text-stone-600 dark:text-stone-300">
                   {/* Short unit on a phone so the price never wraps in a
                       110px column; the full word from sm up, where there is
                       room for it. */}
@@ -306,7 +306,7 @@ export default function PlanToggle({
 
           {/* --- Monthly: the anchor, preselected --- */}
           <button {...cardProps("monthly", 1, `Monthly, ${MONTHLY_PRICE} a month`)}>
-            <span className="block min-h-4 text-[10px] font-medium uppercase tracking-wide text-bark-700 max-sm:text-xs dark:text-bark-500">
+            <span className="block min-h-4 text-xs font-medium uppercase tracking-wide text-bark-700 dark:text-bark-500">
               {/* "Most popular" is the only badge of the three that cannot
                   hold one line at 12px in a ~92px phone column, and a wrapped
                   badge would drop this card's plan name a line below its
@@ -322,7 +322,7 @@ export default function PlanToggle({
             <span className="mt-0.5 block sm:mt-1 sm:min-h-11">
               <span className="block text-sm font-semibold text-stone-900 sm:text-2xl dark:text-stone-100">
                 {MONTHLY_PRICE}
-                <span className="text-sm font-normal text-stone-500 dark:text-stone-400">
+                <span className="text-sm font-normal text-stone-600 dark:text-stone-300">
                   <span className="sm:hidden">/mo</span>
                   <span className="hidden sm:inline">/month</span>
                 </span>
@@ -347,7 +347,7 @@ export default function PlanToggle({
                 said the same thing in different words. This badge instead
                 states the number Monthly's card cannot: what choosing Annual
                 over Monthly actually saves. */}
-            <span className="block min-h-4 text-[10px] font-medium uppercase tracking-wide text-bark-700 max-sm:text-xs dark:text-bark-500">
+            <span className="block min-h-4 text-xs font-medium uppercase tracking-wide text-bark-700 dark:text-bark-500">
               Save {YEARLY_SAVING}
             </span>
             <span className="block text-sm font-semibold text-stone-900 sm:text-base dark:text-stone-100">
@@ -358,7 +358,7 @@ export default function PlanToggle({
             <span className="mt-0.5 block sm:mt-1 sm:min-h-11">
               <span className="block text-sm font-semibold text-stone-900 sm:text-2xl dark:text-stone-100">
                 {YEARLY_PRICE}
-                <span className="text-sm font-normal text-stone-500 dark:text-stone-400">
+                <span className="text-sm font-normal text-stone-600 dark:text-stone-300">
                   <span className="sm:hidden">/yr</span>
                   <span className="hidden sm:inline">/year</span>
                 </span>
@@ -470,7 +470,7 @@ export default function PlanToggle({
       {/* Cal. Bus. & Prof. Code 17538: legal name, address, and a route to the
           refund policy, shown on the same screen as the checkout button
           before any charge happens. */}
-      <BillingLegalLine className="text-center text-xs text-stone-500 max-sm:text-sm dark:text-stone-400" />
+      <BillingLegalLine className="text-center text-xs text-stone-600 max-sm:text-sm dark:text-stone-300" />
     </div>
   );
 }

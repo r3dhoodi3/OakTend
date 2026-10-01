@@ -141,7 +141,7 @@ export default function OrangeCountyHomeAgeGuide() {
             housing units, owned and rented, houses and apartments.
           </p>
           <OcHomeAgeTable />
-          <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             Source: the Census tables above, through Census Reporter.
             Incorporated cities only; unincorporated communities such as
             Ladera Ranch are left out. You are welcome to cite this table;
@@ -364,7 +364,7 @@ export default function OrangeCountyHomeAgeGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             The pre-1980 share, the 2000-or-later share and their margins are
             our own sums of the published Census rows. This is general
             information, not an inspection, legal or safety advice for your

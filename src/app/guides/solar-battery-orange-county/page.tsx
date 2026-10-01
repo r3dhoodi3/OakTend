@@ -91,12 +91,12 @@ export default function SolarBatteryOrangeCountyGuide() {
         Solar and batteries in Orange County
       </h1>
       <GuideMeta path="/guides/solar-battery-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         No prices or savings estimates here on purpose.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -264,7 +264,7 @@ export default function SolarBatteryOrangeCountyGuide() {
         </div>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Your utility and your city have the current
             rules. This is general information, not financial, tax or legal
             advice.

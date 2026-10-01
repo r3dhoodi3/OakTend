@@ -96,7 +96,7 @@ export default async function ProPayoutsPage(props: {
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
           Payouts
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
           Where the money from a job lands.
         </p>
       </div>
@@ -113,11 +113,11 @@ export default async function ProPayoutsPage(props: {
       )}
 
       {status === "ready" && (
-        <section className="card space-y-3 border-emerald-200 bg-emerald-50 dark:border-emerald-500/30 dark:bg-emerald-500/10">
-          <h2 className="text-base font-semibold text-emerald-900 dark:text-emerald-200">
+        <section className="card space-y-3 border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/10">
+          <h2 className="text-base font-semibold text-green-900 dark:text-green-200">
             Payouts are on. You&apos;re ready to send invoices.
           </h2>
-          <p className="text-sm text-emerald-800 dark:text-emerald-300">
+          <p className="text-sm text-green-800 dark:text-green-300">
             Send one from any hired job&apos;s chat. Stripe emails it to the
             homeowner in your name, they pay by card or bank, and the money
             lands here about two business days later (the first payout on a
@@ -170,7 +170,7 @@ export default async function ProPayoutsPage(props: {
             ctaLabel={refreshed ? "Continue setup" : COPY[status].cta}
           />
 
-          <p className="text-xs text-stone-500 dark:text-stone-400">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             OakTend never sees or stores your bank details. Stripe collects them
             and pays you directly.
           </p>
@@ -180,7 +180,7 @@ export default async function ProPayoutsPage(props: {
       <p className="text-sm">
         <Link
           href="/pro/business"
-          className="text-stone-500 underline underline-offset-2 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
+          className="text-stone-600 underline underline-offset-2 hover:text-stone-800 dark:text-stone-300 dark:hover:text-stone-200"
         >
           Back to My Business
         </Link>

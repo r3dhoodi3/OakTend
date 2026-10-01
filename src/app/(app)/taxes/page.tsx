@@ -156,16 +156,14 @@ export default async function TaxesPage() {
           Property tax watch
         </h1>
       </header>
-      <p className="mb-5 text-sm text-stone-500 dark:text-stone-400">
-        Your property tax bill is based on what the county says your home is
-        worth. Enter the assessed value from your notice and OakTend will
-        compare it against its own estimate, so you can spot an assessment
-        that looks too high before the appeal deadline passes.
+      <p className="mb-6 text-sm text-stone-600 dark:text-stone-300">
+        Compare the county&apos;s assessed value with OakTend&apos;s estimate
+        before the appeal deadline.
       </p>
 
       {!hasAssessment && (
-        <div className="space-y-4">
-          <div className="card space-y-2 text-center">
+        <div className="space-y-6">
+          <div className="card space-y-3 text-center">
             {/* Said first when there IS a county figure on file that the
                 building-record gate refused. Without this the page reads as
                 if the county had nothing, which is not what happened. */}
@@ -175,10 +173,8 @@ export default async function TaxesPage() {
               </p>
             )}
             <p className="text-sm text-stone-600 dark:text-stone-300">
-              Grab your county assessment notice (or your most recent
-              property tax bill). It lists an assessed value for your home
-              and the tax year it covers. Enter those two numbers and OakTend
-              will keep an eye on how they stack up.
+              You&apos;ll need your county assessment notice or latest
+              property tax bill.
             </p>
           </div>
           <TaxForm
@@ -191,8 +187,8 @@ export default async function TaxesPage() {
       )}
 
       {hasAssessment && !hasPurchaseData && (
-        <div className="space-y-4">
-          <div className="card space-y-2 text-center">
+        <div className="space-y-6">
+          <div className="card space-y-3 text-center">
             <p className="text-sm text-stone-600 dark:text-stone-300">
               Your {assessedYear} assessment of {money(assessedValue!)} is
               saved. To compare it against an estimate of what your home is
@@ -225,7 +221,7 @@ export default async function TaxesPage() {
           {/* Methodology caveat sits above the verdict so the reader knows
               what kind of number they're about to see before the colored
               card makes its call. */}
-          <p className="mb-4 text-xs text-stone-500 dark:text-stone-400">
+          <p className="mb-4 text-xs text-stone-600 dark:text-stone-300">
             OakTend&apos;s number is an estimate: an automated valuation when one exists for your address, otherwise statewide price trends applied to your purchase price. It is not
             an appraisal, and this page is not tax or legal advice. Assessment rules, ratios, and appeal processes vary a lot
             by county, and some counties assess at a fraction of market value
@@ -292,7 +288,7 @@ export default async function TaxesPage() {
               <p className="stat-number text-2xl">
                 {money(assessedValue!)}
               </p>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 From your assessment notice.
               </p>
             </div>
@@ -306,7 +302,7 @@ export default async function TaxesPage() {
                 <p className="stat-number text-2xl">
                   {money(prop13Baseline)}
                 </p>
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   Your {purchaseYear} purchase price growing about 2% a year,
                   the most Prop 13 normally allows.
                 </p>
@@ -324,7 +320,7 @@ export default async function TaxesPage() {
                     which is a false description of an AVM. The provider's
                     name is not printed - same call as /value and the
                     dashboard tile. */}
-                <p className="text-xs text-stone-500 dark:text-stone-400">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   {headline?.source === "avm" ? (
                     "Priced off recent sales near you."
                   ) : (
@@ -339,7 +335,7 @@ export default async function TaxesPage() {
             )}
           </div>
 
-          <div className="card mt-6 space-y-2">
+          <div className="card mt-6 space-y-3">
             <h2 className="flex items-center text-sm font-semibold text-stone-900 dark:text-stone-100">
               What is a property tax appeal?
             </h2>

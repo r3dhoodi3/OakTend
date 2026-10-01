@@ -18,7 +18,7 @@ import { guideUpdated } from "@/lib/guideExtras";
 export default function GuideMeta({ path }: { path: string }) {
   const updated = guideUpdated(path);
   return (
-    <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+    <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
       {updated && (
         <>
           Updated <time dateTime={updated.iso}>{updated.label}</time>.{" "}

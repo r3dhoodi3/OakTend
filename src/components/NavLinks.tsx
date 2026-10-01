@@ -170,7 +170,7 @@ export default function NavLinks({
                   ? accent === "oaktend"
                     ? "text-oaktend-700 dark:text-stone-200"
                     : "text-bark-700 dark:text-stone-200"
-                  : "text-stone-500 dark:text-stone-400"
+                  : "text-stone-600 dark:text-stone-300"
               }`}
             >
               <span className="relative flex h-6 w-6 items-center justify-center">

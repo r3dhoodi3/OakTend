@@ -172,7 +172,7 @@ export default function GarageConversionVsAduGuide() {
         Garage conversion vs ADU in Orange County
       </h1>
       <GuideMeta path="/guides/garage-conversion-vs-adu-orange-county" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         General information, not legal advice. State rules as of September
         2026; your city sets the details within them.
       </p>
@@ -397,7 +397,7 @@ export default function GarageConversionVsAduGuide() {
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">
                   {f.q}
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -406,7 +406,7 @@ export default function GarageConversionVsAduGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             The ADU cost figure is from the Remodeling
             2025 Cost vs. Value Report (www.costvsvalue.com) for the Los
             Angeles market. © 2025 Zonda Media, a Delaware Corporation.

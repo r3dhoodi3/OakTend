@@ -46,7 +46,7 @@ export default function PrintButton() {
           </button>
         )}
       </div>
-      <p className="text-xs text-stone-500 dark:text-stone-400">
+      <p className="text-xs text-stone-600 dark:text-stone-300">
         Share it with family, your realtor, or whoever buys the house next.
       </p>
     </div>

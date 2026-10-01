@@ -63,12 +63,22 @@ describe("/about", () => {
     expect(hrefs).toEqual(["/guides", "/contact"]);
   });
 
-  // No founder is named in any public copy in this repo, so the page does not
-  // name one either: it says "team".
-  it("names the team, not individuals", () => {
-    render(<AboutPage />);
-    expect(screen.getByText(/small, founder-run\s+team/)).toBeInTheDocument();
+  // Owner request 2026-09-27: one card per founder, initials until a real
+  // photo is dropped in.
+  it("shows one card per founder with initials in place of a photo", () => {
+    const { container } = render(<AboutPage />);
     expect(screen.getByText(/based in Fountain Valley/)).toBeInTheDocument();
+    const section = screen
+      .getByRole("heading", { level: 2, name: "Who we are" })
+      .closest("section") as HTMLElement;
+    const cards = section.querySelectorAll("li");
+    expect(cards).toHaveLength(2);
+    expect(cards[0]).toHaveTextContent("Landen Chu");
+    expect(cards[0]).toHaveTextContent("Co-Founder");
+    expect(cards[0]).toHaveTextContent("LC");
+    expect(cards[1]).toHaveTextContent("William Tran");
+    expect(cards[1]).toHaveTextContent("WT");
+    expect(container.textContent ?? "").not.toMatch(/[\u2013\u2014]/);
   });
 
   it("makes no claim that pros, quotes, bookings or payments are available", () => {

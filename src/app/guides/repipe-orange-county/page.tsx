@@ -108,7 +108,7 @@ export default function RepipeOrangeCountyGuide() {
       <GuideMeta path="/guides/repipe-orange-county" />
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           The short answer
         </p>
         <p className="mt-1 text-xl font-bold text-stone-900 dark:text-stone-100">
@@ -342,7 +342,7 @@ export default function RepipeOrangeCountyGuide() {
             walk every fixture, hot and cold, and look at the meter with
             everything off.
           </p>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
             City pages:{" "}
             <Link href="/oc/santa-ana" className="text-bark-700 hover:underline dark:text-stone-300">Santa Ana</Link>,{" "}
             <Link href="/fountain-valley" className="text-bark-700 hover:underline dark:text-stone-300">Fountain Valley</Link>,{" "}
@@ -354,7 +354,7 @@ export default function RepipeOrangeCountyGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             As of September 2026. Permit rules and approved materials are
             decided by your building division. General information, not
             plumbing or legal advice.

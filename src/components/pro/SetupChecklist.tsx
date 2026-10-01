@@ -62,12 +62,12 @@ export default function SetupChecklist({ items }: { items: SetupItem[] }) {
           <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">
             Finish setting up
           </h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-stone-600 dark:text-stone-300">
             A complete profile wins more jobs. A few small steps and you&apos;re
             ready to go.
           </p>
         </div>
-        <p className="shrink-0 text-xs text-stone-500 dark:text-stone-400">
+        <p className="shrink-0 text-xs text-stone-600 dark:text-stone-300">
           {done} of {counted.length} done
         </p>
       </div>
@@ -89,7 +89,7 @@ export default function SetupChecklist({ items }: { items: SetupItem[] }) {
           >
             <span
               className={`flex items-center gap-2 ${
-                item.done ? "text-stone-500 line-through dark:text-stone-400" : "text-stone-700 dark:text-stone-300"
+                item.done ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-700 dark:text-stone-300"
               }`}
             >
               <span
@@ -109,7 +109,7 @@ export default function SetupChecklist({ items }: { items: SetupItem[] }) {
               <span className="flex flex-col">
                 <span>{item.label}</span>
                 {item.hint && !item.done && (
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-600 dark:text-stone-300">
                     {item.hint}
                   </span>
                 )}

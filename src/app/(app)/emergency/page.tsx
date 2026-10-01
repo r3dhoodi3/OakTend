@@ -3,7 +3,7 @@ import { getActiveProperty } from "@/lib/property";
 import { imgSrc } from "@/lib/storage";
 import PanicCard, { type PrepKey } from "./PanicCard";
 import PrepPhotoUpload from "./PrepPhotoUpload";
-import { FLOWS, PREP_ITEMS } from "./content";
+import { EMERGENCY_SAFETY_LINE, FLOWS, PREP_ITEMS } from "./content";
 
 type PrepValue = { photo_path: string | null; note: string | null };
 type PrepMap = Partial<Record<PrepKey, PrepValue>>;
@@ -30,16 +30,11 @@ export default async function EmergencyPage() {
     <div className="space-y-8 pb-28">
       <div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Home emergency</h1>
-        <p className="mt-1 text-stone-500 dark:text-stone-400">
-          Something wrong right now? Pick what&apos;s happening below. The steps are
-          short. Do them in order.
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          Pick what&apos;s happening and follow the steps in order.
         </p>
-        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-          If someone is hurt, trapped, or in danger, call 911 now. If you smell
-          gas or a carbon monoxide alarm sounds, get everyone outside first and
-          call from there. These are general safety steps, not an emergency
-          service. OakTend is software, not a contractor or a utility. If you
-          are not sure a step is safe, skip it, get out, and call 911.
+        <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
+          {EMERGENCY_SAFETY_LINE}
         </p>
       </div>
 
@@ -57,11 +52,9 @@ export default async function EmergencyPage() {
       <section className="card space-y-4">
         <div>
           <h2 className="font-semibold text-stone-900 dark:text-stone-100">Be ready before it happens</h2>
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-            Take a photo of each shutoff now, on a calm day. Next time there&apos;s a
-            water or power problem, we&apos;ll show the photo right in the steps.
-            The gas shutoff photo is for your gas company or plumber. If you
-            smell gas, just leave.
+          <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+            Photograph each shutoff now and it shows up in the steps next time.
+            The gas shutoff photo is for your gas company or plumber.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">

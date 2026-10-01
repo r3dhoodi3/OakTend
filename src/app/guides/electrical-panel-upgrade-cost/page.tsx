@@ -143,13 +143,13 @@ export default function ElectricalPanelUpgradeCostGuide() {
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/electrical-panel-upgrade-cost" />
-      <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         A planning guide for Orange County homeowners, with sourced figures.
         It is not a quote for your home.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
-        <p className="text-sm font-medium text-stone-500 dark:text-stone-400">
+        <p className="text-sm font-medium text-stone-600 dark:text-stone-300">
           Panel upgrade, California electricians, 2022 study
         </p>
         <p className="mt-1 text-2xl font-bold text-stone-900 dark:text-stone-100">
@@ -379,7 +379,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
             {FAQS.map((f) => (
               <div key={f.q}>
                 <h3 className="font-medium text-stone-900 dark:text-stone-100">{f.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
                   {f.a}
                 </p>
               </div>
@@ -388,7 +388,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
         </section>
 
         <section>
-          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-500">
+          <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
             OakTend is not a contractor and does not set or guarantee prices.
           </p>
         </section>

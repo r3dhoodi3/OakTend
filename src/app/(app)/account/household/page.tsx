@@ -77,39 +77,25 @@ export default async function HouseholdPage() {
         items={[
           { label: "Home", href: "/dashboard" },
           { label: "Account", href: "/account" },
-          { label: "Household" },
+          { label: "Household members" },
         ]}
       />
       <div>
-        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Household</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
-          Share day to day access to a home with the rest of your household.
+        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Household members</h1>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+          People you add here join your home and share it with you.
         </p>
       </div>
 
       <div className="card space-y-2 p-6">
         <p className="text-sm text-stone-600 dark:text-stone-300">
-          A member sees everything you see for this home: systems, tasks,
-          issues, photos, documents, job posts, your messages with pros, and
-          the money pages (home value, purchase price, mortgage balance,
-          property tax, and insurance). Only invite people you would show all
-          of that to.
+          Members see everything for this home, including home value,
+          mortgage, taxes, and your messages with pros. Only add people you
+          would show all of that to.
         </p>
         <p className="text-sm text-stone-600 dark:text-stone-300">
-          A member can&apos;t edit the home&apos;s details, remove the home,
-          or invite anyone else.
-        </p>
-        <p className="text-sm text-stone-600 dark:text-stone-300">
-          If the owner has Plus, members get Plus features on this home
-          too.
-        </p>
-        {/* Names the case that actually creates a genuinely new account (a
-            parent's home, a managed rental), not just a second login inside
-            the same household - the caretaking use case CR4's research
-            flagged as unaddressed in this card's old, purely neutral copy. */}
-        <p className="text-sm text-stone-600 dark:text-stone-300">
-          Managing a parent&apos;s home or a rental? Add them so you both see
-          the same list.
+          Members can&apos;t edit the home&apos;s details or invite others. If
+          you have Plus, they get it on this home too.
         </p>
       </div>
 
@@ -121,9 +107,9 @@ export default async function HouseholdPage() {
               className="rounded-2xl border border-oaktend-200 bg-oaktend-50 p-5 dark:border-oaktend-800/40 dark:bg-oaktend-900/30"
             >
               <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
-                You have been invited to join a home on OakTend.
+                You&apos;re invited to join a home.
               </p>
-              <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
                 Invited on {new Date(invite.created_at).toLocaleDateString()}.
               </p>
               <div className="mt-3 flex items-center gap-2">
@@ -157,7 +143,7 @@ export default async function HouseholdPage() {
             <h2 className="break-words text-base font-semibold text-stone-900 dark:text-stone-100">
               {formatAddressLine(home)}
             </h2>
-            <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               Up to {MAX_MEMBERS_PER_HOME} members per home.
             </p>
 
@@ -170,7 +156,7 @@ export default async function HouseholdPage() {
                   >
                     <div className="min-w-0">
                       <p className="break-words text-sm text-stone-900 dark:text-stone-100">{m.invited_email}</p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">Member</p>
+                      <p className="text-xs text-stone-600 dark:text-stone-300">Member</p>
                     </div>
                     <form action={removeMemberAction}>
                       <input type="hidden" name="id" value={m.id} />
@@ -190,9 +176,8 @@ export default async function HouseholdPage() {
                   >
                     <div className="min-w-0">
                       <p className="break-words text-sm text-stone-900 dark:text-stone-100">{m.invited_email}</p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">
-                        Invited. Waiting for them to sign up or sign in with
-                        this email.
+                      <p className="text-xs text-stone-600 dark:text-stone-300">
+                        Invite sent. Waiting for them to join.
                       </p>
                     </div>
                     <form action={removeMemberAction}>
@@ -210,7 +195,7 @@ export default async function HouseholdPage() {
             )}
 
             {atCap ? (
-              <p className="mt-4 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
                 You&apos;re at your member limit. Remove someone to invite
                 another person.
               </p>
@@ -228,8 +213,8 @@ export default async function HouseholdPage() {
                   <SubmitButton className="btn-secondary">Invite</SubmitButton>
                 </form>
 
-                <p className="mt-4 text-center text-xs text-stone-500 dark:text-stone-500">
-                  or
+                <p className="mt-4 text-center text-sm text-stone-600 dark:text-stone-300">
+                  or show them this code
                 </p>
                 {/* Fresh QR token minted client-side (migration 0095), a
                     second way to reach the same membership the email invite
@@ -255,7 +240,7 @@ export default async function HouseholdPage() {
                 <h2 className="break-words text-base font-semibold text-stone-900 dark:text-stone-100">
                   {formatAddressLine(home)}
                 </h2>
-                <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">Shared with you.</p>
+                <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">Shared with you.</p>
               </div>
               {membership && (
                 <form action={leaveHomeAction}>

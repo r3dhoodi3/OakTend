@@ -30,7 +30,7 @@ const TABS = [
     label: "Public Profile",
     short: "Profile",
     title: "Public Profile",
-    subtitle: "Manage your public business profile and service offerings.",
+    subtitle: "Your business profile and services.",
   },
   {
     // The license number, the license document and the certificate of
@@ -44,21 +44,21 @@ const TABS = [
     short: "Credentials",
     title: "Credentials",
     subtitle:
-      "Your state license and proof of insurance. Kept private; homeowners can ask you for them.",
+      "Your license and proof of insurance. Kept private.",
   },
   {
     key: "page" as const,
     label: "Your Public Page",
     short: "Page",
     title: "Your Public Page",
-    subtitle: "Share your OakTend page and manage what appears on it.",
+    subtitle: "Share your page and choose what it shows.",
   },
   {
     key: "projects" as const,
     label: "Projects",
     short: "Projects",
     title: "Projects",
-    subtitle: "Showcase completed work with photo albums on your public page.",
+    subtitle: "Photo albums of your finished work.",
   },
   {
     key: "security" as const,
@@ -162,7 +162,7 @@ export default function ProfileTabs({
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">{meta.title}</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">{meta.subtitle}</p>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{meta.subtitle}</p>
       </div>
 
       {/* Segmented tab switcher */}
@@ -179,7 +179,7 @@ export default function ProfileTabs({
             className={`flex-1 whitespace-nowrap rounded-lg px-2 py-1.5 text-sm font-medium transition-colors max-sm:inline-flex max-sm:min-h-11 max-sm:items-center max-sm:justify-center sm:flex-none sm:px-4 ${
               tab === t.key
                 ? "bg-white text-stone-900 shadow-sm dark:bg-stone-700 dark:text-stone-100"
-                : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+                : "text-stone-600 hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
             }`}
           >
             <span className="sm:hidden">{t.short}</span>
