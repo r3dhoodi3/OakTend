@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import { Snowflake, Thermometer, AlertTriangle, type LucideIcon } from "lucide-react";
 import { Skeleton } from "@/components/Skeleton";
-import { fetchHomeAlerts, type HomeAlert as Alert } from "@/lib/homeAlertsClient";
+import {
+  alertTitle,
+  fetchHomeAlerts,
+  type HomeAlert as Alert,
+} from "@/lib/homeAlertsClient";
+import { useTempUnit } from "@/lib/useTempUnit";
 
 const ICON: Record<Alert["kind"], LucideIcon> = {
   freeze: Snowflake,
@@ -39,6 +44,9 @@ export default function HomeAlerts({ propertyId }: { propertyId: string }) {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
+  // Same unit as the weather strip's "°F | °C" toggle above, and it follows a
+  // flip of that toggle in place.
+  const [unit] = useTempUnit();
 
   useEffect(() => {
     let alive = true;
@@ -98,7 +106,7 @@ export default function HomeAlerts({ propertyId }: { propertyId: string }) {
           >
             <Icon className={`h-5 w-5 shrink-0 ${ICON_STYLE[a.kind]}`} aria-hidden="true" />
             <div>
-              <p className="font-medium text-stone-900 dark:text-stone-100">{a.title}</p>
+              <p className="font-medium text-stone-900 dark:text-stone-100">{alertTitle(a, unit)}</p>
               <p className="mt-0.5 text-stone-600 dark:text-stone-300">{a.detail}</p>
               {a.url && (
                 <a
