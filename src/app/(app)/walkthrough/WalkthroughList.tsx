@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { labelFor, SYSTEM_TYPES } from "@/lib/constants";
 import type { HomeSystem } from "@/lib/database.types";
 import SystemCaptureCard from "./SystemCaptureCard";
@@ -11,8 +11,10 @@ import SystemCaptureCard from "./SystemCaptureCard";
 // /walkthrough and /walkthrough?mode=manual, and the cards only read the mode
 // when they first mounted, so a soft navigation kept every card on its photo
 // tile: tapping "Type it in instead" did nothing you could see. Now the switch
-// is instant, every card follows it, and the URL is kept in step with
-// replaceState so a reload or a shared link still opens in the same mode.
+// is instant, every card follows it (including a card switched on its own),
+// and the URL is kept in step with replaceState so a reload or a shared link
+// still opens in the same mode. Nothing above the pills depends on the mode,
+// so they never move when it changes.
 export default function WalkthroughList({
   systems,
   initialManual,
@@ -20,7 +22,13 @@ export default function WalkthroughList({
   systems: HomeSystem[];
   initialManual: boolean;
 }) {
-  const [manual, setManual] = useState(initialManual);
+  // The page-wide choice plus a counter that goes up on EVERY pill press.
+  // Cards follow the counter, not the boolean, so pressing the pill that is
+  // already lit still brings back a card the owner switched on its own. The
+  // old check (do nothing when the mode is unchanged) is why "Take photos"
+  // left a card stuck on its text boxes after that card's own "Type it in".
+  const [mode, setMode] = useState({ manual: initialManual, seq: 0 });
+  const manual = mode.manual;
   // Systems confirmed on this visit stay where they are (showing their score
   // change) after the refreshed page marks them confirmed, instead of jumping
   // down to the Confirmed list mid-walk.
@@ -29,12 +37,18 @@ export default function WalkthroughList({
   );
 
   // A link from elsewhere (the dashboard nudge, the Tools menu) can land here
-  // with a different mode while the page is already mounted.
-  useEffect(() => setManual(initialManual), [initialManual]);
+  // with a different mode while the page is already mounted. Skips the first
+  // render, where the state above already matches.
+  const lastInitial = useRef(initialManual);
+  useEffect(() => {
+    if (lastInitial.current === initialManual) return;
+    lastInitial.current = initialManual;
+    setMode((m) => ({ manual: initialManual, seq: m.seq + 1 }));
+  }, [initialManual]);
 
   function choose(next: boolean) {
+    setMode((m) => ({ manual: next, seq: m.seq + 1 }));
     if (next === manual) return;
-    setManual(next);
     try {
       const url = new URL(window.location.href);
       if (next) url.searchParams.set("mode", "manual");
@@ -102,12 +116,12 @@ export default function WalkthroughList({
         </h2>
         {toConfirm.length > 0 ? (
           <ul className="space-y-3">
-            {toConfirm.map((s, i) => (
+            {toConfirm.map((s) => (
               <SystemCaptureCard
                 key={s.id}
                 system={s}
                 manual={manual}
-                focusOnSwitch={i === 0}
+                modeSeq={mode.seq}
                 onConfirmed={markConfirmed}
               />
             ))}

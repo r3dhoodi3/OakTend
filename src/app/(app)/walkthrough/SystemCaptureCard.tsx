@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { ChevronRight } from "lucide-react";
+import { Camera, ChevronRight, Keyboard } from "lucide-react";
 import { confirmSystemAction } from "./actions";
 import { labelFor, SYSTEM_TYPES, systemFieldExample } from "@/lib/constants";
 import TakePhotoButton from "@/components/TakePhotoButton";
@@ -113,17 +113,17 @@ function scoreMessage(before: number, after: number): string {
 export default function SystemCaptureCard({
   system,
   manual = false,
-  focusOnSwitch = false,
+  modeSeq = 0,
   onConfirmed,
 }: {
   system: HomeSystem;
-  // Photo or typing, chosen by the toggle at the top of the page. The card
+  // Photo or typing, chosen by the pills at the top of the page. The card
   // follows it live (not only on first render), which is what makes
-  // "Type it in" actually switch every card to its form.
+  // "Type it in instead" actually switch every card to its form.
   manual?: boolean;
-  // Put the cursor in this card's Brand box when the owner switches to typing.
-  // Only the first card gets it, so the page does not jump.
-  focusOnSwitch?: boolean;
+  // Goes up on every pill press, even a press of the pill that is already
+  // lit, so a card the owner switched on its own still follows the pills.
+  modeSeq?: number;
   // Told the moment the owner confirms, so the list keeps this card in place
   // (showing its score change) when the refreshed page marks it confirmed.
   onConfirmed?: (id: string) => void;
@@ -141,9 +141,7 @@ export default function SystemCaptureCard({
   );
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [saving, startSave] = useTransition();
-  const [focusBrand, setFocusBrand] = useState(false);
   const [dragging, setDragging] = useState(false);
-  const brandRef = useRef<HTMLInputElement>(null);
   // Lets Cancel abort an in-flight read and lets the catch block tell an
   // owner cancel apart from a real failure.
   const abortRef = useRef<AbortController | null>(null);
@@ -155,34 +153,31 @@ export default function SystemCaptureCard({
   // example means the system has no brand or model to give.
   const example = systemFieldExample(system.system_type);
 
-  // Follow the page toggle. Skips the first render (the initial phase above
-  // already matches), a read in flight, and a card already confirmed. A card
-  // with a photo under review keeps it: switching modes never throws away a
-  // read the owner is checking.
-  const lastManual = useRef(manual);
+  // Follow the page pills. Runs once per press (modeSeq), never on the first
+  // render, where the initial phase above already matches. A read in flight,
+  // a confirmed card and a photo under review are left alone: switching modes
+  // never throws away a read the owner is checking, and a photo under review
+  // already shows its text boxes.
+  //
+  // No auto focus on purpose: focusing a box opens the phone keyboard and
+  // scrolls the page, which moved the button the owner had just tapped.
+  const lastSeq = useRef(modeSeq);
   useEffect(() => {
-    if (lastManual.current === manual) return;
-    lastManual.current = manual;
-    if (phase === "working" || phase === "confirmed") return;
+    if (lastSeq.current === modeSeq) return;
+    lastSeq.current = modeSeq;
+    if (phase === "working" || phase === "confirmed" || preview) return;
     if (manual) {
       if (phase === "idle") {
         setSuggestion(BLANK_SUGGESTION);
         setNote(null);
         setPhase("review");
-        if (focusOnSwitch) setFocusBrand(true);
       }
-    } else if (!preview) {
+    } else {
       setSuggestion(null);
       setNote(null);
       setPhase("idle");
     }
-  }, [manual, phase, preview, focusOnSwitch]);
-
-  useEffect(() => {
-    if (!focusBrand || phase !== "review") return;
-    brandRef.current?.focus();
-    setFocusBrand(false);
-  }, [focusBrand, phase]);
+  }, [modeSeq, manual, phase, preview]);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
@@ -284,11 +279,18 @@ export default function SystemCaptureCard({
     setNote(null);
   }
 
+  // Straight to blank text boxes from anywhere: the photo tile, a read in
+  // flight (cancelled), or a photo under review (dropped).
   function typeItIn() {
+    cancelledRef.current = phase === "working";
+    abortRef.current?.abort();
+    abortRef.current = null;
+    progress.reset();
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
     setSuggestion(BLANK_SUGGESTION);
     setNote(null);
     setPhase("review");
-    setFocusBrand(true);
   }
 
   function confirm(formData: FormData) {
@@ -340,15 +342,50 @@ export default function SystemCaptureCard({
   }
 
   const fromPhoto = preview != null;
+  // Typing mode is the blank text boxes. Everything else (the photo tile, a
+  // read in flight, a photo under review) is photo mode.
+  const typing = phase === "review" && !fromPhoto;
 
   return (
-    <li className="card space-y-3">
-      <p className="flex items-center gap-2 font-medium text-stone-900 dark:text-stone-100">
-        {name}
-        <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
-          Estimated
-        </span>
-      </p>
+    <li className="card space-y-4">
+      {/* The header row never changes between modes, and the switch sits at
+          its right edge at a fixed width (both labels share one grid cell,
+          the hidden one keeps the size), so the button stays exactly where
+          it was tapped while the body below it changes. */}
+      <div className="flex items-center justify-between gap-3">
+        <p className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-medium text-stone-900 dark:text-stone-100">
+          {name}
+          <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
+            Estimated
+          </span>
+        </p>
+        <button
+          type="button"
+          onClick={typing ? backToPhoto : typeItIn}
+          className="btn-secondary shrink-0 px-3"
+        >
+          <span className="grid">
+            <span
+              aria-hidden={typing}
+              className={`col-start-1 row-start-1 inline-flex items-center justify-center gap-1.5 ${
+                typing ? "invisible" : ""
+              }`}
+            >
+              <Keyboard className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Type it in
+            </span>
+            <span
+              aria-hidden={!typing}
+              className={`col-start-1 row-start-1 inline-flex items-center justify-center gap-1.5 ${
+                typing ? "" : "invisible"
+              }`}
+            >
+              <Camera className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Use a photo
+            </span>
+          </span>
+        </button>
+      </div>
 
       {phase === "idle" && (
         <>
@@ -380,18 +417,14 @@ export default function SystemCaptureCard({
               className="hidden"
             />
           </label>
-          <div className="flex flex-wrap gap-3">
-            {/* Phones get a straight-to-camera button; the tile above still
-                opens the gallery for a photo taken earlier. */}
-            <TakePhotoButton onPick={onPick} label="Open the camera" />
-            <button
-              type="button"
-              onClick={typeItIn}
-              className="btn-secondary max-sm:w-full"
-            >
-              Type it in
-            </button>
-          </div>
+          {/* Phones get a straight-to-camera button; the tile above still
+              opens the gallery for a photo taken earlier. Renders nothing on
+              a computer. */}
+          <TakePhotoButton
+            onPick={onPick}
+            label="Open the camera"
+            className="w-full"
+          />
         </>
       )}
 
@@ -449,9 +482,8 @@ export default function SystemCaptureCard({
               </label>
               <input
                 id={`brand-${system.id}`}
-                ref={brandRef}
                 name="brand"
-                className="input"
+                className="input max-sm:min-h-11"
                 placeholder={
                   example.brand ? `e.g. ${example.brand}` : "Not applicable"
                 }
@@ -465,7 +497,7 @@ export default function SystemCaptureCard({
               <input
                 id={`model-${system.id}`}
                 name="model"
-                className="input"
+                className="input max-sm:min-h-11"
                 placeholder={
                   example.model ? `e.g. ${example.model}` : "Not applicable"
                 }
@@ -485,7 +517,7 @@ export default function SystemCaptureCard({
                 type="number"
                 inputMode="numeric"
                 min="0"
-                className="input"
+                className="input max-sm:min-h-11"
                 placeholder="2015 or 10"
                 defaultValue={suggestion.install_year ?? system.install_year ?? ""}
               />
@@ -497,7 +529,7 @@ export default function SystemCaptureCard({
               <input
                 id={`notes-${system.id}`}
                 name="notes"
-                className="input"
+                className="input max-sm:min-h-11"
                 maxLength={300}
                 placeholder="Anything worth remembering"
               />
@@ -529,14 +561,16 @@ export default function SystemCaptureCard({
                 <input
                   id={`serial-${system.id}`}
                   name="serial"
-                  className="input"
+                  className="input max-sm:min-h-11"
                   defaultValue={suggestion.serial ?? ""}
                 />
               </div>
               <div>
                 <label className="label">Condition</label>
+                {/* 44px on phones, the same as the text boxes in this card. */}
                 <SelectMenu
                   name="condition_rating"
+                  className="max-sm:[&>button]:min-h-11"
                   // Stored as a number; the dropdown deals in strings.
                   defaultValue={String(system.condition_rating ?? "")}
                   options={[
@@ -558,21 +592,25 @@ export default function SystemCaptureCard({
             <AiNotice detail="Check every field before you confirm." />
           )}
 
+          {/* Switching back to photos lives in the header. Retake stays here
+              because it only exists once there is a photo. */}
           <div className="flex flex-wrap gap-3">
             <button
               type="submit"
               disabled={saving}
-              className="btn-primary flex-1"
+              className="btn-primary max-sm:w-full sm:min-w-40"
             >
               Confirm
             </button>
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={backToPhoto}
-            >
-              {fromPhoto ? "Retake photo" : "Use a photo instead"}
-            </button>
+            {fromPhoto && (
+              <button
+                type="button"
+                className="btn-secondary max-sm:w-full"
+                onClick={backToPhoto}
+              >
+                Retake photo
+              </button>
+            )}
           </div>
         </form>
       )}
