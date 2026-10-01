@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { getSupabase } from "@/lib/lazySupabase";
 import InlineSpinner from "@/components/InlineSpinner";
+import { localizeTempText } from "@/lib/weatherUnits";
+import { useTempUnit } from "@/lib/useTempUnit";
 
 // Below this width the panel is a bottom sheet instead of a dropdown. Matches
 // Tailwind's `sm` breakpoint (640px), so the JS behavior and the `max-sm:`
@@ -20,6 +22,13 @@ type Notification = {
   read_at: string | null;
   created_at: string;
 };
+
+// Kinds the alerts cron writes with a Fahrenheit temperature in the title
+// ("Heat wave in 3 days (98°F)"). The stored row stays in Fahrenheit (the
+// cron cannot know a per-device setting, and the push and email copies of the
+// same alert go out as written); the bell shows it in the unit the weather
+// strip's toggle is on.
+const WEATHER_KINDS = new Set(["freeze", "heat"]);
 
 // Rough "3h ago" / "2d ago" label - no need for a date library for this.
 function timeAgo(iso: string): string {
@@ -46,6 +55,7 @@ export default function NotificationBell() {
   // click or a subscription, all after hydration, so each awaits the loader.
   const [items, setItems] = useState<Notification[]>([]);
   const [unread, setUnread] = useState(0);
+  const [unit] = useTempUnit();
   const [open, setOpen] = useState(false);
   // How many notifications the panel currently shows. Starts at 20 (the old
   // hard cap), "Show more" bumps it by 30 at a time instead of navigating to
@@ -458,7 +468,9 @@ export default function NotificationBell() {
               const content = (
                 <>
                   <p className="text-sm font-medium text-stone-900 dark:text-stone-100">
-                    {n.title}
+                    {WEATHER_KINDS.has(n.kind)
+                      ? localizeTempText(n.title, unit)
+                      : n.title}
                   </p>
                   {n.body && (
                     <p className="mt-0.5 line-clamp-2 text-xs text-stone-600 dark:text-stone-300">

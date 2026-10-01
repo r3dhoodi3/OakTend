@@ -2,6 +2,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, cleanup, act } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
+import { storeTempUnit } from "@/lib/weatherUnits";
 
 // One notification, enough to render a row and the "Mark all read" control.
 const ROWS = [
@@ -434,5 +435,33 @@ describe("NotificationBell mark as read", () => {
     });
 
     expect(screen.queryByText("New message")).toBeNull();
+  });
+});
+
+// The alerts cron writes freeze/heat rows with Fahrenheit in the title. The
+// row stays that way in the database; the bell shows it in the unit the
+// weather strip's toggle is on, and follows a flip while it is open.
+describe("NotificationBell temperature units", () => {
+  afterEach(() => {
+    ROWS.splice(1);
+    window.localStorage.clear();
+  });
+
+  it("shows a heat alert's temperature in the chosen unit", async () => {
+    ROWS.push({
+      id: "n2",
+      kind: "heat",
+      title: "Heat wave in 3 days (98°F)",
+      body: "Change your AC filter.",
+      url: "/dashboard",
+      read_at: null,
+      created_at: new Date().toISOString(),
+    });
+    await openPanel();
+    expect(screen.getByText("Heat wave in 3 days (98°F)")).toBeInTheDocument();
+    act(() => storeTempUnit("C"));
+    expect(screen.getByText("Heat wave in 3 days (37°C)")).toBeInTheDocument();
+    // Not a weather kind, so never rewritten.
+    expect(screen.getByText("New message")).toBeInTheDocument();
   });
 });

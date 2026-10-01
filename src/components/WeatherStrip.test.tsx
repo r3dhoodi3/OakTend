@@ -12,17 +12,20 @@ import "@testing-library/jest-dom/vitest";
 import {
   convertTemp,
   formatTemp,
+  storeTempUnit,
   TEMP_UNIT_STORAGE_KEY,
 } from "@/lib/weatherUnits";
 
 // fetchHomeAlerts is mocked per test so we control exactly what the route
 // would have returned, including the hasLocation flag this fix adds.
 const fetchHomeAlerts = vi.fn();
-vi.mock("@/lib/homeAlertsClient", () => ({
+vi.mock("@/lib/homeAlertsClient", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/homeAlertsClient")>()),
   fetchHomeAlerts: (...args: unknown[]) => fetchHomeAlerts(...args),
 }));
 
 import WeatherStrip from "./WeatherStrip";
+import HomeAlerts from "./HomeAlerts";
 
 const realWeather = {
   tempF: 72,
@@ -442,5 +445,108 @@ describe("WeatherStrip units", () => {
     render(<WeatherStrip propertyId="p1" />);
     expect(await screen.findByText("72° Sunny")).toBeInTheDocument();
     spy.mockRestore();
+  });
+});
+
+// The strip owns the F/C toggle, but HomeAlerts renders right below it with
+// its own temperature in the title. Both are already mounted when the toggle
+// flips, and the alert has to follow without a reload.
+describe("WeatherStrip units reach the home alerts", () => {
+  const heatAlert = {
+    kind: "heat" as const,
+    title: "Heat wave in 3 days (98°F)",
+    headline: "Heat wave in 3 days",
+    tempF: 98,
+    detail: "Change your AC filter.",
+  };
+
+  it("flips a mounted heat alert to Celsius and back when the strip's toggle is used", async () => {
+    fetchHomeAlerts.mockResolvedValue({
+      weather: [heatAlert],
+      recalls: [],
+      current: realWeather,
+      hasLocation: true,
+    });
+    render(
+      <>
+        <WeatherStrip propertyId="p1" />
+        <HomeAlerts propertyId="p1" />
+      </>
+    );
+    expect(
+      await screen.findByText("Heat wave in 3 days (98°F)")
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Show temperatures in Celsius" })
+    );
+    expect(screen.getByText("Heat wave in 3 days (37°C)")).toBeInTheDocument();
+    expect(screen.getByText("22° Sunny")).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Show temperatures in Fahrenheit" })
+    );
+    expect(screen.getByText("Heat wave in 3 days (98°F)")).toBeInTheDocument();
+  });
+
+  it("shows the alert in Celsius on first load when that is what the device remembers", async () => {
+    window.localStorage.setItem(TEMP_UNIT_STORAGE_KEY, "C");
+    fetchHomeAlerts.mockResolvedValue({
+      weather: [heatAlert],
+      recalls: [],
+      current: realWeather,
+      hasLocation: true,
+    });
+    render(<HomeAlerts propertyId="p1" />);
+    expect(
+      await screen.findByText("Heat wave in 3 days (37°C)")
+    ).toBeInTheDocument();
+  });
+
+  it("follows a switch made in another tab", async () => {
+    fetchHomeAlerts.mockResolvedValue({
+      weather: [heatAlert],
+      recalls: [],
+      current: realWeather,
+      hasLocation: true,
+    });
+    render(<HomeAlerts propertyId="p1" />);
+    await screen.findByText("Heat wave in 3 days (98°F)");
+    act(() => {
+      window.localStorage.setItem(TEMP_UNIT_STORAGE_KEY, "C");
+      window.dispatchEvent(
+        new StorageEvent("storage", { key: TEMP_UNIT_STORAGE_KEY, newValue: "C" })
+      );
+    });
+    expect(screen.getByText("Heat wave in 3 days (37°C)")).toBeInTheDocument();
+  });
+
+  it("still flips every reader for the session when the device cannot persist", async () => {
+    const spy = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new Error("quota");
+      });
+    fetchHomeAlerts.mockResolvedValue({
+      weather: [heatAlert],
+      recalls: [],
+      current: realWeather,
+      hasLocation: true,
+    });
+    render(
+      <>
+        <WeatherStrip propertyId="p1" />
+        <HomeAlerts propertyId="p1" />
+      </>
+    );
+    await screen.findByText("Heat wave in 3 days (98°F)");
+    fireEvent.click(
+      screen.getByRole("button", { name: "Show temperatures in Celsius" })
+    );
+    expect(screen.getByText("Heat wave in 3 days (37°C)")).toBeInTheDocument();
+    // Put the module back the way the other tests expect: a working store
+    // clears the in-memory fallback.
+    spy.mockRestore();
+    act(() => storeTempUnit("F"));
   });
 });

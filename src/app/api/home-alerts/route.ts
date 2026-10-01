@@ -23,6 +23,11 @@ type Alert = {
   title: string;
   detail: string;
   url?: string;
+  // Freeze/heat only. The title still bakes in Fahrenheit for any older
+  // client, but the dashboard rebuilds it as `${headline} (${temp})` in the
+  // device's chosen unit (see alertTitle in src/lib/homeAlertsClient.ts).
+  headline?: string;
+  tempF?: number;
 };
 
 // Small "weather app" snapshot for the dashboard's always-on strip. Rides on
@@ -408,11 +413,13 @@ async function fetchWeather(
         const alertMaxs = maxs.slice(0, ALERT_DAYS);
         const fi = alertMins.findIndex((t) => t != null && t <= 32);
         if (fi !== -1) {
+          const headline = `Freeze coming ${whenLabel(fi)}`;
+          const tempF = Math.round(alertMins[fi]);
           weather.push({
             kind: "freeze",
-            title: `Freeze coming ${whenLabel(fi)} (${Math.round(
-              alertMins[fi]
-            )}°F)`,
+            title: `${headline} (${tempF}°F)`,
+            headline,
+            tempF,
             detail:
               "Let indoor faucets drip overnight, disconnect garden hoses, and open cabinet doors under sinks." +
               (plumbingAge && plumbingAge >= 40
@@ -424,11 +431,13 @@ async function fetchWeather(
         // Earliest serious heat in the window.
         const hi = alertMaxs.findIndex((t) => t != null && t >= 95);
         if (hi !== -1) {
+          const headline = `Heat wave ${whenLabel(hi)}`;
+          const tempF = Math.round(alertMaxs[hi]);
           weather.push({
             kind: "heat",
-            title: `Heat wave ${whenLabel(hi)} (${Math.round(
-              alertMaxs[hi]
-            )}°F)`,
+            title: `${headline} (${tempF}°F)`,
+            headline,
+            tempF,
             detail:
               "Change your AC filter, keep blinds closed during the day, and don't set the thermostat too low (it overworks the unit)." +
               (hvacAge && hvacAge >= 15

@@ -6,7 +6,8 @@ import "@testing-library/jest-dom/vitest";
 // fetchHomeAlerts is mocked per test so we control exactly what the route
 // would have returned.
 const fetchHomeAlerts = vi.fn();
-vi.mock("@/lib/homeAlertsClient", () => ({
+vi.mock("@/lib/homeAlertsClient", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/homeAlertsClient")>()),
   fetchHomeAlerts: (...args: unknown[]) => fetchHomeAlerts(...args),
 }));
 

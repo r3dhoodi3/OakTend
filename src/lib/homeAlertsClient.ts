@@ -10,12 +10,40 @@
 // property change must bypass the share window or the new home would show
 // the old home's weather for up to 30s.
 
+import {
+  convertTemp,
+  localizeTempText,
+  type TempUnit,
+} from "@/lib/weatherUnits";
+
 export type HomeAlert = {
   kind: "freeze" | "heat" | "recall";
   title: string;
   detail: string;
   url?: string;
+  // Freeze/heat only: the title without its temperature ("Heat wave in 3
+  // days") and the raw Fahrenheit value behind it, so the client can show
+  // the temperature in whichever unit the weather strip's toggle is on.
+  // Optional because a payload from before these fields existed only has
+  // the Fahrenheit title.
+  headline?: string;
+  tempF?: number;
 };
+
+// The title a freeze/heat alert shows in the chosen unit, e.g. "Heat wave in
+// 3 days (37°C)". Recalls carry no temperature and come back unchanged. An
+// alert without the structured fields falls back to rewriting the
+// "(98°F)" inside its title, so an older payload still follows the toggle.
+export function alertTitle(alert: HomeAlert, unit: TempUnit): string {
+  if (
+    alert.headline &&
+    typeof alert.tempF === "number" &&
+    Number.isFinite(alert.tempF)
+  ) {
+    return `${alert.headline} (${convertTemp(alert.tempF, unit)}°${unit})`;
+  }
+  return localizeTempText(alert.title, unit);
+}
 
 // One day of the 7-day panel the weather strip expands into. `date` is a plain
 // calendar date in the HOME's timezone (Open-Meteo with timezone=auto), never

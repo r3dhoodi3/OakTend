@@ -41,10 +41,23 @@ export function formatTemp(
   return `${convertTemp(tempF, unit)}°`;
 }
 
+// Same-tab change signal. The strip's toggle is not the only place a
+// temperature shows: HomeAlerts ("Heat wave in 3 days (98°F)") and the
+// notification bell render beside it, already mounted, and a native "storage"
+// event never fires in the tab that made the change. So storeTempUnit
+// announces every switch on window, and useTempUnit listens for it.
+export const TEMP_UNIT_EVENT = "oaktend:tempunit";
+
+// Only set when localStorage refused the write. Without it, a device that
+// cannot persist would flip the strip but leave every other reader (which
+// goes back to storage) on the old unit for the rest of the session.
+let sessionUnit: TempUnit | null = null;
+
 // Anything other than a stored "C" means Fahrenheit, including a missing key,
 // a corrupted value, and a throwing localStorage (Safari private mode, an
 // embedded webview with site data blocked). Never throws.
 export function readStoredTempUnit(): TempUnit {
+  if (sessionUnit !== null) return sessionUnit;
   try {
     return window.localStorage.getItem(TEMP_UNIT_STORAGE_KEY) === "C"
       ? "C"
@@ -60,7 +73,26 @@ export function readStoredTempUnit(): TempUnit {
 export function storeTempUnit(unit: TempUnit): void {
   try {
     window.localStorage.setItem(TEMP_UNIT_STORAGE_KEY, unit);
+    sessionUnit = null;
   } catch {
-    // Ignored on purpose - see above.
+    sessionUnit = unit;
   }
+  try {
+    window.dispatchEvent(new CustomEvent(TEMP_UNIT_EVENT, { detail: unit }));
+  } catch {
+    // No window (a node test) - nothing mounted to tell.
+  }
+}
+
+// Temperatures the server already baked into a sentence, like a notification
+// title "Freeze coming tomorrow (31°F)" written by the alerts cron. Rewrites
+// every "<number>°F" to the chosen unit and leaves the rest of the text
+// alone. Fahrenheit passes through untouched, so the stored wording is
+// exactly what a Fahrenheit user always saw.
+export function localizeTempText(text: string, unit: TempUnit): string {
+  if (unit === "F") return text;
+  return text.replace(
+    /(-?\d+(?:\.\d+)?)\s?°F/g,
+    (_, n: string) => `${convertTemp(Number(n), "C")}°C`
+  );
 }

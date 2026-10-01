@@ -24,14 +24,8 @@ import {
   dayLabel,
   type ConditionKey,
 } from "@/lib/weatherLabels";
-import {
-  convertTemp,
-  DEFAULT_TEMP_UNIT,
-  formatTemp,
-  readStoredTempUnit,
-  storeTempUnit,
-  type TempUnit,
-} from "@/lib/weatherUnits";
+import { convertTemp, formatTemp } from "@/lib/weatherUnits";
+import { useTempUnit } from "@/lib/useTempUnit";
 
 // The word/icon buckets themselves live in @/lib/weatherLabels (pure, tested).
 // This map is the only part that needs lucide, so the labelling stays testable
@@ -123,22 +117,11 @@ export default function WeatherStrip({
   // payload to read a real value from: rendering nothing is the safe choice
   // when the strip can't tell the two cases apart.
   const [hasLocation, setHasLocation] = useState(false);
-  // Display unit for every temperature on the strip. Starts at the US default
-  // rather than reading localStorage during render: this component is server
-  // rendered, and a first paint that disagreed with the server's markup is a
-  // hydration mismatch. The effect below swaps in the stored choice on the
-  // client, before the weather fetch has realistically resolved, so a returning
-  // Celsius user never sees a Fahrenheit number flash.
-  const [unit, setUnit] = useState<TempUnit>(DEFAULT_TEMP_UNIT);
-
-  useEffect(() => {
-    setUnit(readStoredTempUnit());
-  }, []);
-
-  function chooseUnit(next: TempUnit) {
-    setUnit(next);
-    storeTempUnit(next);
-  }
+  // Display unit for every temperature on the strip. Shared through
+  // useTempUnit, so flipping it here also flips HomeAlerts and the
+  // notification bell without a reload (see that hook for the hydration-safe
+  // default it starts from).
+  const [unit, chooseUnit] = useTempUnit();
 
   useEffect(() => {
     let alive = true;
