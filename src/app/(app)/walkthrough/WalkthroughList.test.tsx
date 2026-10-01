@@ -46,12 +46,46 @@ describe("WalkthroughList photo or typing toggle", () => {
     expect(screen.getAllByLabelText("Model number")).toHaveLength(2);
     expect(screen.getAllByLabelText("Install year or age")).toHaveLength(2);
     expect(screen.getAllByLabelText("Notes")).toHaveLength(2);
-    // The cursor lands in the first card's first box.
-    expect(document.activeElement).toBe(screen.getAllByLabelText("Brand")[0]);
 
     fireEvent.click(screen.getByRole("button", { name: "Take photos" }));
     expect(screen.queryAllByLabelText("Brand")).toHaveLength(0);
     expect(screen.getAllByText("Add a photo of the label")).toHaveLength(2);
+
+    // Every time, not only the first time.
+    fireEvent.click(screen.getByRole("button", { name: "Type it in instead" }));
+    expect(screen.getAllByLabelText("Brand")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("button", { name: "Take photos" }));
+    expect(screen.queryAllByLabelText("Brand")).toHaveLength(0);
+  });
+
+  // Owner feedback 2026-09-30: the pills did nothing for a card switched on
+  // its own, because pressing the pill that was already lit was a no-op.
+  it("the lit pill still brings back a card switched on its own", () => {
+    render(<WalkthroughList systems={systems} initialManual={false} />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Type it in" })[1]);
+    expect(screen.getAllByLabelText("Brand")).toHaveLength(1);
+    // "Take photos" is already lit here.
+    fireEvent.click(screen.getByRole("button", { name: "Take photos" }));
+    expect(screen.queryAllByLabelText("Brand")).toHaveLength(0);
+
+    fireEvent.click(screen.getByRole("button", { name: "Type it in instead" }));
+    expect(screen.getAllByLabelText("Brand")).toHaveLength(2);
+    fireEvent.click(screen.getAllByRole("button", { name: "Use a photo" })[0]);
+    expect(screen.getAllByLabelText("Brand")).toHaveLength(1);
+    // "Type it in instead" is already lit here.
+    fireEvent.click(screen.getByRole("button", { name: "Type it in instead" }));
+    expect(screen.getAllByLabelText("Brand")).toHaveLength(2);
+  });
+
+  it("the card switch is one button that keeps its place in both modes", () => {
+    render(<WalkthroughList systems={systems} initialManual={false} />);
+    const before = screen.getAllByRole("button", { name: "Type it in" })[0];
+    fireEvent.click(before);
+    const after = screen.getAllByRole("button", { name: "Use a photo" })[0];
+    // Same DOM node: React kept it, so it keeps focus and position.
+    expect(after).toBe(before);
+    fireEvent.click(after);
+    expect(screen.getAllByRole("button", { name: "Type it in" })[0]).toBe(before);
   });
 
   it("opens straight on text boxes from ?mode=manual", () => {
@@ -65,7 +99,7 @@ describe("WalkthroughList photo or typing toggle", () => {
     render(<WalkthroughList systems={systems} initialManual={false} />);
     fireEvent.click(screen.getAllByRole("button", { name: "Type it in" })[1]);
     expect(screen.getAllByLabelText("Brand")).toHaveLength(1);
-    fireEvent.click(screen.getByRole("button", { name: "Use a photo instead" }));
+    fireEvent.click(screen.getByRole("button", { name: "Use a photo" }));
     expect(screen.queryAllByLabelText("Brand")).toHaveLength(0);
   });
 

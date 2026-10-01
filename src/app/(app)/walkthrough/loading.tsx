@@ -1,8 +1,8 @@
 import { Skeleton, SkeletonLine } from "@/components/Skeleton";
 
 // Mirrors walkthrough/page.tsx: heading, the card-hero health-score chip, the
-// photo-or-typing toggle, the "To confirm" capture cards (photo tile + two
-// buttons), and the "Confirmed" single-line card rows.
+// photo-or-typing toggle, the "To confirm" capture cards (name and
+// mode switch on one row, photo tile below), and the "Confirmed" single-line card rows.
 export default function Loading() {
   return (
     <div className="space-y-8" aria-hidden="true">
@@ -27,14 +27,15 @@ export default function Loading() {
       <section className="space-y-3">
         <Skeleton className="h-5 w-32" />
         {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="card space-y-3">
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-4 w-4" />
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-5 w-16 rounded-full" />
+          <div key={i} className="card space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-5 w-16 rounded-full" />
+              </div>
+              <Skeleton className="h-11 w-32 rounded-lg" />
             </div>
             <Skeleton className="h-24 w-full rounded-lg" />
-            <Skeleton className="h-11 w-28 rounded-lg" />
           </div>
         ))}
       </section>
