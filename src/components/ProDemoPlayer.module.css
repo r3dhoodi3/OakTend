@@ -122,7 +122,7 @@
   --accent: #c08f60;
   --accent-strong: #e0b98a;
 
-  --dev-bg: #fbf7f2;
+  --dev-bg: #faf4f0;
   --dev-surface: #ffffff;
   --dev-ink: #292524;
   --dev-ink-dim: #78716c;
@@ -286,6 +286,31 @@
   transition: opacity 150ms ease-out, transform 150ms ease-out;
 }
 .page.active { opacity: 1; visibility: visible; transform: scale(0.5); }
+/* The page is laid out at 200% of the device screen, which is anywhere from
+   about 680px (phone) to 1180px (wide desktop) of layout width. Container
+   queries on the page let the mock show the live desktop extras (search,
+   help, company name, the 280px chat list) only when they fit. */
+.page { container-type: inline-size; }
+.navWide { display: none; }
+.navWideInline { display: none; }
+/* Narrow pages (phone-width player): the bottom bar's short "Business"
+   label and tighter pills so the five tabs fit beside the wordmark. */
+.navRow { padding-left: 12px; padding-right: 12px; }
+.navPill { padding-left: 8px; padding-right: 8px; }
+.labelFull { display: none; }
+.labelShort { display: inline; }
+@container (min-width: 700px) {
+  .navRow { padding-left: 16px; padding-right: 16px; }
+  .navPill { padding-left: 10px; padding-right: 10px; }
+  .labelFull { display: inline; }
+  .labelShort { display: none; }
+}
+.chatGrid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; }
+@container (min-width: 960px) {
+  .navWide { display: flex; }
+  .navWideInline { display: inline; }
+  .chatGrid { grid-template-columns: 280px minmax(0, 1fr); }
+}
 .page.exitLeft { opacity: 0; transform: scale(0.5) translateX(-2%); }
 
 /* Shared app chrome: nav bar like the real site. */
@@ -468,19 +493,28 @@
 .toast {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  /* Just under the job card (the board's last element), clear of the
+     player's bottom controls and captions. */
+  top: calc(100% + 4px);
   transform: translate(-50%, 10px);
-  background: #1c1917;
-  color: #fff;
-  font-size: 13px;
-  padding: 8px 16px;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px -12px rgb(94 60 40 / 0.18);
   opacity: 0;
   transition: opacity 200ms ease, transform 200ms ease;
   white-space: nowrap;
   z-index: 2;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast svg { width: 20px; height: 20px; flex-shrink: 0; color: #15803d; }
 
 .jobCard { display: flex; flex-direction: column; gap: 2px; }
 .jobTop { display: flex; justify-content: space-between; align-items: baseline; font-size: 7.5px; font-weight: 700; }
@@ -511,8 +545,9 @@
    board's masked preview, with a lock badge until the fee is paid. */
 .photoLock {
   position: relative;
-  height: 46px;
-  border-radius: 6px;
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--dev-line);
 }
@@ -520,8 +555,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(3px) brightness(0.82) saturate(0.9);
-  transform: scale(1.08);
 }
 .photoLockBadge {
   position: absolute;
@@ -536,7 +569,14 @@
   background: rgb(15 11 8 / 0.32);
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
 }
-.photoLockBadge svg { width: 8px; height: 8px; }
+.photoLockBadge svg { width: 18px; height: 18px; }
+/* Apply note box: the real textarea's placeholder until the draft lands. */
+.noteBox { min-height: 60px; }
+.notePh { color: #a8a29e; }
+.noteBox:has(.show) .notePh { display: none; }
+/* Chat composer placeholder, hidden once the reply starts typing. */
+.inputPh { color: #a8a29e; margin-left: 2px; }
+.typed:not(:empty) ~ .inputPh { display: none; }
 
 /* Notification card: slides in like a real in-app notification. */
 .notif {
@@ -551,16 +591,17 @@
 
 .thread { display: flex; flex-direction: column; gap: 8px; }
 .bubble {
-  max-width: 85%;
+  max-width: 80%;
   font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 12px;
+  line-height: 1.5;
+  padding: 6px 12px;
+  border-radius: 8px;
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 180ms ease, transform 180ms ease;
 }
 .bubble.show { opacity: 1; transform: none; }
-.bubble.them { align-self: flex-start; background: #f5f5f4; color: var(--dev-ink); border-bottom-left-radius: 4px; }
+.bubble.them { align-self: flex-start; background: #fff; color: #44403c; border: 1px solid #e7e5e4; }
 /* Homeowner typing indicator: three pulsing dots in a them-bubble, shown
    for a beat between the pro's reply and the confirmation so the exchange
    reads like a real conversation. display:none while hidden (unlike the
@@ -584,7 +625,7 @@
 @media (prefers-reduced-motion: reduce) {
   .typingDot { animation: none; opacity: 0.6; }
 }
-.bubble.me { align-self: flex-end; background: var(--dev-accent); color: #fff; border-bottom-right-radius: 4px; }
+.bubble.me { align-self: flex-end; background: var(--dev-accent); color: #fff; }
 .wonBadge {
   align-self: center;
   margin-top: 4px;
@@ -592,9 +633,9 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  background: var(--dev-ok-bg);
-  color: var(--dev-ok-ink);
-  border: 1px solid var(--dev-ok-line);
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
   border-radius: 999px;
   padding: 5px 14px;
   opacity: 0;

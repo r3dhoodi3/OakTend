@@ -149,24 +149,16 @@ function HouseMark({ className }: { className?: string }) {
   );
 }
 
-// Small lock glyph for the masked-photo overlay on the leads board.
-function LockMark() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="5" y="11" width="14" height="10" rx="2" />
-      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-    </svg>
-  );
-}
-
-// The demo pages copy the LIVE pro app (see ProNav.tsx): the "OakTend for Pros"
-// wordmark, the four daily tabs (Leads, Messages, Clients, My Business), a
-// notification bell, and the company avatar. The nav sits on the real pro
-// shell's warm bark-50 fill, not the homeowner's white. Rendered at natural
-// size, then the page scales to fit the device, so every pixel matches the
-// production stylesheet.
+// The demo pages copy the LIVE pro app (see ProNav.tsx): the house-and-sprout
+// mark with the "OakTend for Pros" wordmark, the five desktop tabs (Home,
+// Leads, Messages, Clients, My Business) as rounded-lg pills with the bark
+// highlight on the active one, then search, the tour (?) button, the
+// notification bell, and the company avatar with its name. The nav sits on
+// the real pro shell's warm bark-50 fill. Rendered at natural size, then the
+// page scales to fit the device, so every pixel matches the production
+// stylesheet.
 function ProAppNav({
-  active = 0,
+  active = 1,
   msgTabX = false,
   msgBadge = false,
 }: {
@@ -178,47 +170,80 @@ function ProAppNav({
   // when the homeowner's reply lands, which is what motivates the tab click.
   msgBadge?: boolean;
 }) {
-  const tabs = ["Leads", "Messages", "Clients", "My Business"];
+  const tabs = ["Home", "Leads", "Messages", "Clients", "My Business"];
+  const icon = "h-5 w-5 shrink-0";
   return (
-    // Tight spacing so the whole strip, company name included, always fits the
-    // frame: nothing on the right edge may clip.
-    <header className="flex items-center gap-2 border-b border-stone-200/70 bg-bark-50 px-4 py-3">
-      <span className="flex shrink-0 items-center gap-1.5 text-lg font-semibold text-stone-900">
-        <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend{" "}
-        <span className="font-normal text-stone-500">for Pros</span>
-      </span>
-      <span className="flex flex-1 items-center">
-        {tabs.map((t, i) => (
-          <span
-            key={t}
-            {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
-            className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium ${
-              i === active ? "bg-bark-100 text-bark-800" : "text-stone-600"
-            }`}
-          >
-            {t}
-            {t === "Messages" && msgBadge && (
-              <span
-                className={cx(
-                  "inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-semibold text-white",
-                  styles.applied
-                )}
-                data-x="msgBadge"
-              >
-                1
-              </span>
-            )}
+    <header className="border-b border-stone-200 bg-bark-50">
+      <div className={cx("mx-auto flex max-w-5xl items-center justify-between gap-2 py-3", styles.navRow)}>
+        <span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-lg font-semibold text-stone-900">
+          <Logo className="h-6 w-6 text-bark-700" tone="green" />
+          <span>
+            OakTend <span className="font-normal text-stone-600">for Pros</span>
           </span>
-        ))}
-      </span>
-      <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-stone-500" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-      </svg>
-      <span className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-stone-700">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">R</span>
-        Rivera Plumbing <span className="text-[10px] text-stone-400">▾</span>
-      </span>
+        </span>
+        <span className="flex shrink-0 items-center gap-0.5">
+          {tabs.map((t, i) => (
+            <span
+              key={t}
+              {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
+              className={cx(
+                `relative flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg py-1.5 text-sm font-medium ${
+                  i === active ? "bg-bark-100 text-bark-700" : "text-stone-600"
+                }`,
+                styles.navPill
+              )}
+            >
+              {t === "My Business" ? (
+                <>
+                  <span className={styles.labelFull}>My Business</span>
+                  <span className={styles.labelShort}>Business</span>
+                </>
+              ) : (
+                t
+              )}
+              {/* Unread badge: the live red count. Pinned to the tab's
+                  corner so revealing it never shifts the strip. */}
+              {t === "Messages" && msgBadge && (
+                <span
+                  className={cx(
+                    "absolute -right-1.5 -top-1.5 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-semibold text-white",
+                    styles.applied
+                  )}
+                  data-x="msgBadge"
+                >
+                  1
+                </span>
+              )}
+            </span>
+          ))}
+          <span className={cx("h-11 w-11 items-center justify-center text-stone-500", styles.navWide)}>
+            <svg viewBox="0 0 24 24" className={icon} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+          </span>
+          <span className={cx("h-11 w-11 items-center justify-center text-stone-500", styles.navWide)}>
+            <svg viewBox="0 0 24 24" className={icon} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <path d="M12 17h.01" />
+            </svg>
+          </span>
+          <span className="flex h-10 w-9 items-center justify-center text-stone-500">
+            <svg viewBox="0 0 24 24" className={icon} fill="currentColor" aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.7 21a2 2 0 0 1-3.4 0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="flex shrink-0 items-center gap-2 whitespace-nowrap pl-1 text-sm font-medium text-stone-800">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">R</span>
+            <span className={styles.navWideInline}>Rivera Plumbing</span>
+            <svg viewBox="0 0 20 20" className={cx("h-4 w-4 text-stone-500", styles.navWideInline)} fill="currentColor" aria-hidden="true">
+              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+            </svg>
+          </span>
+        </span>
+      </div>
     </header>
   );
 }
@@ -1701,8 +1726,6 @@ export default function ProDemoPlayer() {
       // VO: "This is OakTend. Real jobs, from homeowners near you."
       showPage("leadsPage");
       cameraSnapWide();
-      const w = q("[data-x='wallet']");
-      if (w) w.textContent = "Free";
       after(250, () => playVo("hook"));
       // "...near you": cursor to the job card first, then the camera follows
       // onto the same spot, so the zoom is anchored where the hand rests.
@@ -1713,15 +1736,16 @@ export default function ProDemoPlayer() {
     function enterLeads() {
       // Same page, no cut: the board is already on screen, so the shot eases
       // wide off the hook's job-card push and holds there. The cursor still
-      // walks the viewer to the fee line, but WITHOUT a zoom: per the
+      // walks the viewer to the "Applying is free." line, but WITHOUT a zoom: per the
       // founder's rule, a zoom is only allowed where an action happens (a
       // click, the hand arriving, an on-screen change), never just to
       // underline a narration line. The wide hold lets the whole board read.
       // VO: "New jobs post here, with the lead fee shown up front."
       playVo("leads");
       cameraWide(400);
-      // "...with the lead fee shown up front": the hand rests on the fee
-      // chip while the words land; the frame stays put.
+      // The hand rests on the board's "Applying is free." line while the
+      // words land; the frame stays put. (The real board no longer shows a
+      // per-lead fee anywhere, so this is the honest stand-in target.)
       glideTo("[data-x='fee']", 2.5 * BEAT_MS);
       // The apply line starts HERE, a breath after this scene's line ends
       // (leads VO ends ~3696ms in; scene beat 11 = 4125ms, a ~430ms gap),
@@ -1739,10 +1763,10 @@ export default function ProDemoPlayer() {
       // is cursor-led: the click zooms travel WITH the hand (followCursorZoom
       // via clickOn's zoom option) and anchor on the control they land on, so
       // the frame always explains itself. The cursor opens the apply confirm
-      // on the job card, taps "Draft it for me" (the real ApplyJobButton AI
+      // on the job card, taps "Draft a message for me" (the real ApplyJobButton AI
       // drafter composes the note to the homeowner), then confirms, free. The
-      // camera pulls wide for the confirm so the wallet card is in frame,
-      // then pops onto it: the honest no-fee moment. Finally the unread badge
+      // camera pulls wide for the send, then pops onto the card's new
+      // "Application sent / Waiting for homeowner" state. Finally the unread badge
       // lights the Messages tab and the cursor clicks it, which is what
       // carries us into the chat.
       // VO: "Apply in one tap." (already spoken: enterLeads schedules it at
@@ -1766,7 +1790,7 @@ export default function ProDemoPlayer() {
           q("[data-x='applyForm']")?.classList.add(styles.show);
         },
       });
-      // "Draft it for me": a brief drafting state, then the AI note arrives
+      // "Draft a message for me": a brief drafting state, then the AI note arrives
       // composed (revealed, not typed char by char, like the real drafter).
       clickOn("[data-x='draftBtn']", 3 * BEAT_MS, {
         zoom: 1.25,
@@ -1778,12 +1802,12 @@ export default function ProDemoPlayer() {
               note.textContent =
                 "Hi, I do plumbing in your area and can take a look this week. A couple of questions first:";
             q("[data-x='applyNoteWrap']")?.classList.add(styles.show);
-            if (btn) btn.textContent = "Draft it for me";
+            if (btn) btn.textContent = "Draft a message for me";
             coin();
           });
         },
       });
-      // Pull wide so the wallet card is in frame for the confirm.
+      // Pull wide so the whole card is in frame for the send.
       atBeat(7.5, () => cameraWide(400));
       // Confirm: applying is free, a toast confirms, and the card flips to
       // its applied state. No balance changes; the VO no longer narrates it.
@@ -1795,8 +1819,8 @@ export default function ProDemoPlayer() {
           coin();
         },
       });
-      // Pop onto the wallet card to land the "still free" beat.
-      atBeat(11, () => popZoom("[data-x='walletCard']", 1.18));
+      // Pop onto the card's new applied state, anchored on the change.
+      atBeat(11, () => popZoom("[data-x='applied']", 1.18));
       atBeat(13.4, () => q("[data-x='toast']")?.classList.remove(styles.show));
       // The homeowner replies: the unread badge lights the Messages tab, the
       // camera goes wide so the nav is in frame, and the cursor visibly
@@ -2004,9 +2028,7 @@ export default function ProDemoPlayer() {
       const note = q("[data-x='applyNote']");
       if (note) note.textContent = "";
       const draftBtn = q("[data-x='draftBtn']");
-      if (draftBtn) draftBtn.textContent = "Draft it for me";
-      const wallet = q("[data-x='wallet']");
-      if (wallet) wallet.textContent = "Free";
+      if (draftBtn) draftBtn.textContent = "Draft a message for me";
       const capLayer = q("[data-x='captions']");
       if (capLayer) capLayer.innerHTML = "";
       q("[data-x='chatInput']")?.classList.remove(styles.focus);
@@ -2484,120 +2506,155 @@ export default function ProDemoPlayer() {
           <div className={styles.deviceScreen} data-x="screen">
             <div className={styles.camera} data-x="camera">
               {/* ---------- Leads board (real pro app classes, see
-                   src/app/pro/page.tsx) ---------- */}
+                   src/app/pro/leads/page.tsx + LeadsBoard.tsx) ---------- */}
               <div className={styles.page} data-page="leadsPage">
-                <ProAppNav active={0} msgTabX msgBadge />
-                <div className="relative mx-auto max-w-5xl px-6 py-5">
-                  <h1 className="text-xl font-semibold text-stone-900">Your leads</h1>
-                  {/* Two live stat cards, mirroring /pro: active jobs and
-                      whether applying still costs anything (it does not). */}
-                  <div className="mt-3 grid grid-cols-2 gap-4">
-                    <div className="card">
-                      <p className="stat-label">Active jobs</p>
-                      <p className="stat-number mt-1 text-4xl text-stone-900">0</p>
+                <ProAppNav active={1} msgTabX msgBadge />
+                <div className="relative mx-auto max-w-5xl space-y-3 px-6 py-4">
+                  <h1 className="text-2xl font-semibold text-stone-900">Your leads</h1>
+                  <section className="space-y-3">
+                    <div>
+                      <h2 className="text-xl font-semibold text-stone-900">
+                        Open jobs <span className="text-stone-600">(1)</span>
+                      </h2>
+                      {/* The board's money line: applying is free. The
+                          cursor rests here in the leads scene. (The board's
+                          longer two-line intro is left out so the open apply
+                          form still fits the frame.) */}
+                      <p className="mt-1 text-xs text-stone-600">
+                        <span data-x="fee">Applying is free.</span> Send a note with your
+                        application - homeowners read them, and the pros who write one win more work.
+                      </p>
                     </div>
-                    <div className="card" data-x="walletCard">
-                      <p className="stat-label">Applying</p>
-                      <p className="stat-number mt-1 text-4xl text-stone-900" data-x="wallet">Free</p>
-                    </div>
-                  </div>
-                  <h2 className="mt-5 text-lg font-semibold text-stone-900">
-                    Open jobs <span className="text-stone-500">(1)</span>
-                  </h2>
-                  <p className="text-sm text-stone-500">
-                    Jobs homeowners posted in your trades. Apply and the homeowner reviews you.
-                  </p>
-                  {/* One open-job card, anatomy mirrored from the real board:
-                      category + city, severity chip, success-fee note, masked
-                      description, a locked/downscaled photo, quality chips, the
-                      applicant note, and the apply control that expands into
-                      the confirm form (the ApplyJobButton flow in miniature). */}
-                  <div className="card mt-3 space-y-3" data-x="jobCard">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="flex items-center gap-2 font-medium text-stone-900">
-                        Plumbing <span className="font-normal text-stone-500">in Rosewood</span>
-                      </span>
-                      <span className="chip border border-red-200 bg-red-50 text-red-700">urgent</span>
-                      <span className="ml-auto flex items-center gap-2 text-sm font-semibold text-stone-700">
-                        <span className="[font-variant-numeric:tabular-nums]" data-x="fee">Hired: 5% success fee</span>
-                      </span>
-                    </div>
-                    <p className="text-sm text-stone-600">
-                      Kitchen sink won&apos;t stop dripping under the cabinet, and the shutoff valve
-                      is stuck. Water pooling in the base.
-                    </p>
-                    {/* Downscaled, locked photo: what a pro sees before
-                        applying (the real board masks the full-res photos). */}
-                    <div className={styles.photoLock}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/photos/plumber-pipe-fittings.jpg" alt="" className={styles.photoLockImg} />
-                      <span className={styles.photoLockBadge}>
-                        <LockMark /> Unlocks when you apply
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      <span className="chip bg-stone-100 text-stone-600">Budget: $150 to $300</span>
-                      <span className="chip bg-stone-100 text-stone-600">Detailed description</span>
-                      <span className="chip bg-stone-100 text-stone-600">Timing set</span>
-                    </div>
-                    <p className="text-xs font-semibold text-stone-500">Homeowner compares every applicant</p>
-                    <div data-x="applyArea">
-                      <span className="btn-primary text-sm" data-x="applyBtn">Apply</span>
-                      <div
-                        className={cx(styles.applyForm, "space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3")}
-                        data-x="applyForm"
-                      >
-                        <div className="flex flex-wrap gap-1.5">
-                          <span className="chip border border-stone-200 bg-white text-stone-600">Available this week</span>
-                          <span className="chip border border-stone-200 bg-white text-stone-600">Free estimate</span>
-                        </div>
-                        <div className="textarea w-full text-sm">
-                          <span className={styles.applied} data-x="applyNoteWrap">
-                            <span data-x="applyNote"></span>
-                          </span>
-                        </div>
-                        <span className="text-xs font-medium text-bark-700" data-x="draftBtn">Draft it for me</span>
-                        <p className="text-xs text-stone-500">
-                          Applying, quoting, and messaging are always free. Hired? OakTend charges a
-                          5% success fee, minimum $15.
-                        </p>
-                        <div className="flex gap-2">
-                          <span className="btn-secondary text-sm">Cancel</span>
-                          <span className="btn-primary flex-1 text-sm" data-x="confirmBtn">Confirm application</span>
-                        </div>
+                    {/* One open-job card, anatomy mirrored from the real board:
+                        category + city + homeowner first name, severity chip,
+                        description, a masked photo preview, quality chips,
+                        posted/timing line, the applicant count, and the apply
+                        control that expands into the real ApplyJobButton form. */}
+                    <div className="card space-y-3" data-x="jobCard">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="flex items-center gap-2 font-medium text-stone-900">
+                          Plumbing <span className="font-normal text-stone-600">in Rosewood</span>
+                          <span className="font-normal text-stone-600">· Dana M.</span>
+                        </span>
+                        <span className="chip border border-red-300 bg-red-100 text-red-700">urgent</span>
                       </div>
-                      <span
-                        className={cx(styles.applied, "rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm font-medium text-green-700")}
-                        data-x="applied"
-                      >
-                        Applied. You&apos;ll hear back if the homeowner picks you.
-                      </span>
+                      <p className="text-sm text-stone-600">
+                        Kitchen sink won&apos;t stop dripping under the cabinet, and the shutoff valve
+                        is stuck. Water pooling in the base.
+                      </p>
+                      <div className="flex flex-wrap gap-1">
+                        <span className="chip bg-stone-100 text-stone-600">Budget: $150 to $300</span>
+                        <span className="chip bg-stone-100 text-stone-600">Detailed description</span>
+                        <span className="chip bg-stone-100 text-stone-600">Timing set</span>
+                      </div>
+                      <p className="text-xs font-semibold text-stone-600">2 pros have applied</p>
+                      <div data-x="applyArea">
+                        <span className="btn-primary text-sm" data-x="applyBtn">Apply</span>
+                        <div
+                          className={cx(styles.applyForm, "space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-3")}
+                          data-x="applyForm"
+                        >
+                          <div className="flex flex-wrap gap-1.5">
+                            <span className="chip border border-stone-200 bg-white text-stone-600">Available this week</span>
+                            <span className="chip border border-stone-200 bg-white text-stone-600">Can start right away</span>
+                            <span className="chip border border-stone-200 bg-white text-stone-600">Happy to give a free estimate</span>
+                          </div>
+                          <div className={cx("textarea w-full text-sm", styles.noteBox)}>
+                            <span className={styles.notePh}>Add a note to the homeowner (optional)</span>
+                            <span className={styles.applied} data-x="applyNoteWrap">
+                              <span data-x="applyNote"></span>
+                            </span>
+                          </div>
+                          <span className="inline-block text-xs font-medium text-bark-700" data-x="draftBtn">Draft a message for me</span>
+                          <div className="flex gap-2">
+                            <span className="btn-secondary text-sm">Cancel</span>
+                            <span className="btn-primary flex-1 text-sm" data-x="confirmBtn">Send application</span>
+                          </div>
+                        </div>
+                        {/* After sending: the job joins Pending applications
+                            with the real amber "Waiting for homeowner" chip. */}
+                        <span
+                          className={cx(styles.applied, "items-center gap-2 text-sm font-medium text-stone-900")}
+                          data-x="applied"
+                        >
+                          Application sent
+                          <span className="chip border border-amber-300 bg-amber-100 text-amber-800">Waiting for homeowner</span>
+                        </span>
+                      </div>
                     </div>
+                  </section>
+                  {/* The real success toast (ToastProvider): white card with
+                      the green success tint, check icon, and the action's own
+                      flash text. */}
+                  <div className={styles.toast} data-x="toast">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                    Applied. The homeowner will review your application.
                   </div>
-                  <div className={styles.toast} data-x="toast">Applied. No fee to apply.</div>
                 </div>
               </div>
 
-              {/* ---------- Messages (pro side): the pro talks to the
+              {/* ---------- Messages (pro side, see src/app/pro/chats/
+                   ChatsView.tsx + LeadChat.tsx): the pro talks to the
                    homeowner who posted the job ---------- */}
               <div className={styles.page} data-page="chatPage">
-                <ProAppNav active={1} />
-                <div className="mx-auto max-w-5xl px-6 py-5">
-                  <h1 className="text-xl font-semibold text-stone-900">Messages</h1>
-                  <div className="mt-3 grid grid-cols-[220px_1fr] gap-4">
-                    <div className="card p-0">
-                      <div className="border-l-2 border-bark-500 bg-bark-50 px-4 py-3">
-                        <p className="text-sm font-semibold text-stone-900">Dana M. · Plumbing</p>
-                        <p className="text-xs text-stone-500">Kitchen sink leak</p>
+                <ProAppNav active={2} />
+                <div className="mx-auto max-w-5xl space-y-4 px-6 py-6">
+                  <h1 className="text-2xl font-semibold text-stone-900">Messages</h1>
+                  <div className={styles.chatGrid}>
+                    <div className="space-y-3">
+                      {/* Active / Closed switch (ChatListTabs). */}
+                      <div className="flex rounded-xl border border-stone-200 bg-stone-100 p-1">
+                        <span className="flex-1 rounded-lg bg-white px-4 py-1.5 text-center text-sm font-medium text-stone-900 shadow-sm">Active (1)</span>
+                        <span className="flex-1 px-4 py-1.5 text-center text-sm font-medium text-stone-600">Closed</span>
                       </div>
-                      <div className="px-4 py-3">
-                        <p className="text-sm text-stone-700">Ask OakTend</p>
-                        <p className="text-xs text-stone-500">Your business copilot</p>
+                      <div className="divide-y divide-stone-100 overflow-hidden rounded-xl border border-stone-200 bg-white">
+                        <div className="flex items-center gap-3 px-4 py-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bark-100 text-bark-700">
+                            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z" />
+                            </svg>
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex items-center justify-between gap-2">
+                              <span className="truncate font-medium text-stone-900">Ask OakTend</span>
+                              <span className="shrink-0 text-xs text-stone-600">Assistant</span>
+                            </span>
+                            <span className="block truncate text-xs text-stone-600">Your business copilot</span>
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 px-4 py-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bark-100 text-bark-700">
+                            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <rect x="2" y="7" width="20" height="14" rx="2" />
+                              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate font-medium text-stone-900">Find clients</span>
+                            <span className="block truncate text-xs text-stone-600">Open jobs near you, ready to apply</span>
+                          </span>
+                        </div>
+                        <div className="border-l-4 border-bark-600 bg-bark-50 px-4 py-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="truncate font-medium text-stone-900">Dana M.</span>
+                            <span className="shrink-0 text-xs text-stone-600">Plumbing</span>
+                          </div>
+                          <p className="truncate text-xs text-stone-600">Hi, thanks for applying! When could you come take a look?</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="card" data-x="thread">
-                      <p className="text-sm font-semibold text-stone-900">Dana M. · Plumbing · Kitchen sink leak</p>
-                      <div className={cx(styles.thread, "mt-2")}>
+                    <div className="card min-w-0" data-x="thread">
+                      {/* Conversation header (LeadChat, embedded). */}
+                      <div className="flex items-center justify-between gap-2 border-b border-stone-100 pb-2">
+                        <div className="min-w-0">
+                          <p className="truncate font-semibold text-stone-900">Dana M.</p>
+                          <p className="truncate text-xs text-stone-600">Plumbing · Rosewood</p>
+                        </div>
+                      </div>
+                      <div className={cx(styles.thread, "mt-3")}>
                         <span className={cx(styles.bubble, styles.them)} data-x="b1">
                           Hi, thanks for applying! When could you come take a look?
                         </span>
@@ -2612,10 +2669,29 @@ export default function ProDemoPlayer() {
                         </span>
                         <span className={cx(styles.bubble, styles.them)} data-x="b3"></span>
                         <span className={styles.wonBadge} data-x="won">You got the job ✓</span>
-                        <div className="mt-1 flex items-center gap-2">
+                        {/* The tools under a hired job's thread: the quote and
+                            invoice links, then the quick-reply chips. */}
+                        <div className="mt-1 flex flex-wrap gap-3">
+                          <span className="text-sm font-medium text-bark-700">Send a quote</span>
+                          <span className="text-sm font-medium text-bark-700">Send an invoice</span>
+                        </div>
+                        <div className="flex gap-2 overflow-hidden">
+                          <span className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600">On my way</span>
+                          <span className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600">Running about 15 minutes late</span>
+                          <span className="chip shrink-0 whitespace-nowrap border border-stone-200 bg-white text-stone-600">Job&apos;s done, sending the invoice now</span>
+                        </div>
+                        <div className="flex items-stretch gap-2">
+                          <span className="flex items-center rounded-lg border border-stone-200 px-3 text-stone-600">
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <rect x="3" y="3" width="18" height="18" rx="2" />
+                              <circle cx="9" cy="9" r="2" />
+                              <path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21" />
+                            </svg>
+                          </span>
                           <div className="input flex flex-1 items-center" data-x="chatInput">
-                            <span data-x="typedReply"></span>
+                            <span className={styles.typed} data-x="typedReply"></span>
                             <span className={styles.caret}>|</span>
+                            <span className={styles.inputPh}>Type a message…</span>
                           </div>
                           <span className="btn-primary" data-x="sendBtn">Send</span>
                         </div>
@@ -2631,12 +2707,12 @@ export default function ProDemoPlayer() {
                   <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend for Pros</p>
                   <p className="text-sm text-stone-600">Win work in your trade.</p>
-                  <p className="mt-1 text-sm text-stone-500">
+                  <p className="mt-1 text-sm text-stone-600">
                     <span className="align-middle text-2xl font-bold text-green-700" data-x="endStat">1</span>
-                    <span className="align-middle text-sm text-stone-500"> job won this week</span>
+                    <span className="align-middle text-sm text-stone-600"> job won this week</span>
                   </p>
-                  <p className="mt-1 max-w-[15rem] text-xs text-stone-500">
-                    No fee to apply. 5% success fee only when you&apos;re hired.
+                  <p className="mt-1 max-w-[18rem] text-xs text-stone-600">
+                    Free to apply. 5% success fee only when you&apos;re hired, $15 minimum, $1,000 cap.
                   </p>
                   {/* A REAL link: the end card is a conversion surface, not a
                       prop. stopPropagation so the click doesn't toggle pause. */}
