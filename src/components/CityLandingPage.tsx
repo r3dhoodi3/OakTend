@@ -586,6 +586,13 @@ export default function CityLandingPage({
           >
             All guides
           </Link>
+          {" "}·{" "}
+          <Link
+            href="/home-maintenance-app"
+            className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
+          >
+            About the app
+          </Link>
         </p>
       </footer>
     </div>

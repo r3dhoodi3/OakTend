@@ -1014,6 +1014,11 @@ export default async function Home(props: {
             </p>
             <ul className="mt-2 space-y-1.5 text-sm text-stone-600 dark:text-stone-300">
               <li>
+                <Link href="/home-maintenance-app" className="hover:text-bark-700 hover:underline dark:hover:text-stone-300">
+                  Home maintenance app
+                </Link>
+              </li>
+              <li>
                 <Link href="/pricing" className="hover:text-bark-700 hover:underline dark:hover:text-stone-300">
                   Pricing
                 </Link>
