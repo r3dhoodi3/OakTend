@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import Link from "next/link";
+import { Bell, ChevronDown, ChevronRight, CircleHelp, FileText, Hammer, Home, Image as ImageIcon, Mic, Search, Sparkles } from "lucide-react";
 import Logo from "./Logo";
 import styles from "./HeroDemoPlayer.module.css";
 import { track } from "@/lib/analytics";
@@ -110,11 +111,15 @@ function HouseMark({ className }: { className?: string }) {
   );
 }
 
-// The demo pages copy the LIVE site as it renders (see the founder's
-// dashboard/Messages screenshots): logo + wordmark, the address switcher,
-// the four tabs with the Messages unread badge, Tools, search, bell, and
-// the avatar + name. Rendered at natural size, then the page scales to fit
-// the device, so every pixel matches the production stylesheet.
+// The demo pages copy the LIVE signed-in header (src/components/Nav.tsx +
+// NavLinks/HomeSwitcher/ToolsMenu/TourButton/NotificationBell/ProfileMenu):
+// bark-50 bar, house-and-sprout logo + wordmark, a dot, the address switcher,
+// the four tabs (Home, Browse Pros, Post a Job, Messages) with the Messages
+// unread badge, Tools, then the search, help, and bell icons and the avatar +
+// name. Rendered at natural size, then the page scales to fit the device, so
+// every pixel matches the production stylesheet. No responsive variants in
+// here on purpose: the fake page is laid out at the device's width, not the
+// browser's, so a sm:/lg: class would switch on the viewer's screen size.
 function AppNav({
   active = 0,
   msgTabX = false,
@@ -129,53 +134,57 @@ function AppNav({
   // Marks THIS nav's logo as the hook transition's zoom-out origin.
   logoX?: boolean;
 }) {
-  const tabs = ["Home", "Issues", "Post a Job", "Messages"];
+  const tabs = ["Home", "Browse Pros", "Post a Job", "Messages"];
   return (
-    // Tight spacing so the whole strip, name included, always fits the
-    // frame: nothing on the right edge may clip.
-    <header className="flex items-center gap-2 border-b border-stone-200/70 bg-white/80 px-4 py-3">
-      <span className="flex shrink-0 items-center gap-1.5 text-lg font-semibold text-stone-900" {...(logoX ? { "data-x": "navLogo" } : {})}>
-        <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend
-      </span>
-      <span className="flex shrink-0 items-center gap-1 text-sm text-stone-600">
-        123 Maple St <span className="text-[10px] text-stone-400">▾</span>
-      </span>
-      <span className="flex items-center">
-        {tabs.map((t, i) => (
-          <span
-            key={t}
-            {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
-            className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium ${
-              i === active ? "bg-bark-100 text-bark-700" : "text-stone-600"
-            }`}
-          >
-            {t}
-            {t === "Messages" && msgBadge && (
-              <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-semibold text-white">
-                1
-              </span>
-            )}
+    <header className="border-b border-stone-200 bg-bark-50">
+      {/* px-4 and the tighter icon buttons, not the real px-6/h-11: the fake
+          page can be laid out as narrow as ~750px, and nothing on the right
+          edge may clip. */}
+      <div className="flex items-center justify-between gap-2 px-4 py-3">
+        <span className="flex min-w-0 items-center gap-2">
+          <span className="flex shrink-0 items-center gap-2 text-lg font-semibold text-stone-900" {...(logoX ? { "data-x": "navLogo" } : {})}>
+            <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend
           </span>
-        ))}
-        <span className="flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm font-medium text-stone-600">
-          Tools <span className="text-[10px] text-stone-400">▾</span>
+          <span className="shrink-0 text-stone-300">·</span>
+          <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-stone-600">
+            123 Maple St <span className="text-stone-600">▾</span>
+          </span>
         </span>
-      </span>
-      <span className="flex min-w-[56px] flex-1 items-center gap-2 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-500">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" />
-          <path d="M21 21l-4.3-4.3" />
-        </svg>
-        <span className="hidden min-[500px]:inline">Search</span>
-      </span>
-      <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-stone-500" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-      </svg>
-      <span className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-stone-700">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">J</span>
-        John Doe <span className="text-[10px] text-stone-400">▾</span>
-      </span>
+        <span className="flex shrink-0 items-center gap-1">
+          {tabs.map((t, i) => (
+            <span
+              key={t}
+              {...(msgTabX && t === "Messages" ? { "data-x": "msgTab" } : {})}
+              className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium ${
+                i === active ? "bg-bark-100 text-bark-700" : "text-stone-600"
+              }`}
+            >
+              {t}
+              {t === "Messages" && msgBadge && (
+                <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-semibold text-white">
+                  1
+                </span>
+              )}
+            </span>
+          ))}
+          <span className="flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-medium text-stone-600">
+            Tools <ChevronDown className="h-4 w-4 text-stone-500" aria-hidden="true" />
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center text-stone-600">
+            <Search className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center text-stone-600">
+            <CircleHelp className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center text-stone-600">
+            <Bell className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="flex shrink-0 items-center gap-2 whitespace-nowrap py-1 pl-1 pr-2 text-sm font-medium text-stone-700">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bark-100 font-semibold text-bark-700">J</span>
+            John Doe <ChevronDown className="h-4 w-4 text-stone-500" aria-hidden="true" />
+          </span>
+        </span>
+      </div>
     </header>
   );
 }
@@ -1677,6 +1686,7 @@ export default function HeroDemoPlayer() {
           onHit: () => {
             q("[data-x='remCheck']")?.classList.add(styles.done);
             q("[data-x='remTitle']")?.classList.add(styles.done);
+            q("[data-x='remChip']")?.classList.add(styles.done);
           },
         });
       });
@@ -1879,6 +1889,7 @@ export default function HeroDemoPlayer() {
       q("[data-x='booked']")?.classList.remove(styles.show);
       q("[data-x='remCheck']")?.classList.remove(styles.done);
       q("[data-x='remTitle']")?.classList.remove(styles.done);
+      q("[data-x='remChip']")?.classList.remove(styles.done);
       q("[data-x='midCta']")?.classList.remove(styles.show);
       q("[data-x='notif']")?.classList.remove(styles.show);
       q("[data-x='intro']")?.classList.remove(styles.show);
@@ -2338,9 +2349,9 @@ export default function HeroDemoPlayer() {
     >
       <p id="hero-demo-desc" className="sr-only">
         A fast animated walkthrough of OakTend. A homeowner types their address, sees their home&apos;s
-        health score and an alert the app caught, checks off a maintenance reminder, and posts a
-        plumbing job with the price shown up front. Then a local pro browses open jobs, applies,
-        and wins the job through an in-app chat thread. On-screen captions describe each step.
+        health score and this month&apos;s checklist, checks off an overdue task, and posts a plumbing
+        job. A local pro replies in Messages, the homeowner answers, and the job is booked. On-screen
+        captions describe each step.
       </p>
 
       <span className={styles.watermark}>
@@ -2367,181 +2378,297 @@ export default function HeroDemoPlayer() {
           </div>
           <div className={styles.deviceScreen} data-x="screen">
             <div className={styles.camera} data-x="camera">
-              {/* ---------- Onboarding page (real site classes) ---------- */}
+              {/* ---------- Onboarding page (src/app/onboarding: no app
+                   header, a centered title, then the step card) ---------- */}
               <div className={styles.page} data-page="onboardPage">
-                <header className="flex items-center gap-2 border-b border-stone-200/70 bg-white/80 px-6 py-3 text-lg font-semibold text-stone-900">
-                  <Logo className="h-6 w-6 text-bark-700" tone="green" /> OakTend
-                </header>
-                <div className="mx-auto max-w-md px-6 pt-12">
-                  {/* h2, not h1, here and on the three fake screens below.
-                      These are pictures of other pages drawn inside a device
-                      frame on the landing page, not pages of their own, and
-                      this component mounts on hydration - so as h1s they were
-                      four extra top-level headings on "/". Classes unchanged;
-                      every size here is explicit. */}
-                  <h2 className="text-2xl font-semibold text-stone-900">Find your home</h2>
-                  <p className="mt-1 text-sm text-stone-600">Your address is all it takes to start.</p>
-                  <div className={cx("input mt-5 flex items-center")} data-x="addrInput">
-                    <span data-x="typed"></span>
-                    <span className={styles.caret}>|</span>
-                  </div>
-                  <p className={cx("mt-2 text-sm text-green-700", styles.applied)} data-x="addrHint">
-                    Built 1978 · 1,640 sqft · 3 bd / 2 ba
-                  </p>
-                  <div className="mt-4">
-                    <span className="btn-primary" data-x="findBtn">Find my home</span>
+                <div className="mx-auto max-w-lg px-6 pt-10">
+                  {/* h2/h3, not h1, here and on the fake screens below. These
+                      are pictures of other pages drawn inside a device frame
+                      on the landing page, not pages of their own, and this
+                      component mounts on hydration - so as h1s they were
+                      extra top-level headings on "/". Classes otherwise match
+                      the real page; every size here is explicit. */}
+                  <h2 className="mb-6 text-center text-2xl font-semibold text-stone-900">Let&apos;s set up your home</h2>
+                  <div className="card space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="inline-flex items-center gap-2 text-xs font-medium text-stone-600">
+                          <Home className="h-4 w-4 text-bark-700" aria-hidden="true" />
+                          Set up your home
+                        </span>
+                        <span className="text-xs text-stone-600">Step 1 of 2</span>
+                      </div>
+                      <div className="mt-3 flex gap-1.5">
+                        <span className="h-1 flex-1 rounded-full bg-bark-600"></span>
+                        <span className="h-1 flex-1 rounded-full bg-stone-200"></span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-stone-900">What&apos;s your home address?</h3>
+                      <p className="mt-1 text-sm text-stone-600">
+                        Tell us your home&apos;s year built, size, and a few other details, or skip them and add them later.
+                      </p>
+                    </div>
+                    <ul className="space-y-1.5 rounded-lg bg-bark-50 p-3 text-sm text-bark-700">
+                      <li className="flex items-start gap-2">
+                        <Hammer className="h-4 w-4 shrink-0 translate-y-0.5" aria-hidden="true" />
+                        Track every system and know what needs attention
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Bell className="h-4 w-4 shrink-0 translate-y-0.5" aria-hidden="true" />
+                        Proactive freeze, heat, and recall alerts for YOUR home
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FileText className="h-4 w-4 shrink-0 translate-y-0.5" aria-hidden="true" />
+                        Scan a warranty or receipt and OakTend files it for you
+                      </li>
+                    </ul>
+                    <div className="grid grid-cols-12 items-end gap-3">
+                      <div className="col-span-7">
+                        <p className="label">Street address</p>
+                        <div className="input flex min-h-[38px] items-center text-sm" data-x="addrInput">
+                          <span data-x="typed"></span>
+                          <span className={styles.caret}>|</span>
+                        </div>
+                      </div>
+                      <div className="col-span-2">
+                        <p className="label">Unit</p>
+                        <div className="input flex min-h-[38px] items-center text-sm text-stone-400">4B</div>
+                      </div>
+                      <div className="col-span-3">
+                        <p className="label">ZIP code</p>
+                        <div className="input flex min-h-[38px] items-center text-sm text-stone-900">
+                          <span className={styles.applied} data-x="addrHint">92646</span>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-xs text-stone-600">
+                      We ask so we can personalize maintenance and local pricing for your home, it takes about 30 seconds.
+                    </p>
+                    <span className="btn-primary w-full" data-x="findBtn">Continue</span>
                   </div>
                 </div>
               </div>
 
-              {/* ---------- Homeowner dashboard (copied from the live app's
-                   screenshot: property header, four stat cards, This month
-                   with the briefing) ---------- */}
+              {/* ---------- Homeowner dashboard (src/app/(app)/dashboard:
+                   weather strip, the four stat cards, then This month with
+                   the checklist and the task list) ---------- */}
               <div className={styles.page} data-page="dashPage">
                 <AppNav logoX />
-                <div className="mx-auto max-w-5xl px-6 py-5">
-                  <h2 className="text-xl font-semibold text-stone-900">
-                    123 Maple St, Your City
-                  </h2>
-                  <p className="mt-0.5 text-sm text-stone-500">Built 1978 · 1640 sqft · 3 bd / 2 ba</p>
-                  <p className="mt-0.5 text-sm text-red-600" data-x="brokenLink">Something broken right now?</p>
-                  <div className="mt-4 grid grid-cols-4 gap-4">
-                    <div className="card-hero" data-x="scoreCard">
-                      <p className="stat-label">Home Health Score</p>
-                      <p className="stat-label">Estimated score</p>
-                      <p className="stat-number mt-1 text-4xl" data-x="score">0</p>
-                      <p className="mt-1 text-sm text-stone-600">
-                        Based on your home&apos;s age. Confirm your systems to sharpen it.
+                {/* The weather strip and alerts that can sit above the cards
+                    are left out (both only render when a lookup returns
+                    something): the page has to fit the device screen whole,
+                    with the task the cursor checks off still in frame. */}
+                <div className="mx-auto max-w-5xl space-y-3 px-6 pt-4">
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className="card-hero min-w-0 border border-green-200 bg-green-50 text-green-800" data-x="scoreCard">
+                      <div className="flex items-center gap-1.5">
+                        <p className="stat-label text-sm">Home Health Score</p>
+                        <span className="text-xs font-medium underline">What is this?</span>
+                      </div>
+                      <p className="stat-number mt-1 text-4xl"><span data-x="score">0</span>/100</p>
+                      <p className="text-sm">Generally healthy</p>
+                      <p className="mt-1 text-xs">
+                        Updates on its own as systems age, get confirmed, or issues open and close.
                       </p>
-                      <p className="mt-2 text-sm text-stone-600">▸ Why this score?</p>
-                      <p className="mt-2 text-sm text-stone-600">
-                        Biggest win: <span className="underline">confirm your plumbing (+15 pts)</span>
-                      </p>
-                    </div>
-                    <div className="card">
-                      <p className="stat-label">Open jobs</p>
-                      <p className="stat-number mt-1 text-3xl">3</p>
-                      <p className="mt-2 text-sm text-bark-700">View job postings →</p>
-                    </div>
-                    <div className="card">
-                      <p className="stat-label">Home value</p>
-                      <p className="mt-1 text-lg font-bold text-stone-900">Track your home&apos;s value</p>
-                      <p className="mt-1 text-sm text-stone-600">
-                        See what your home is likely worth today and how much equity you have.
+                      <p className="mt-2 flex items-center gap-1 text-sm">
+                        <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        Why this score?
                       </p>
                     </div>
                     <div className="card">
-                      <p className="stat-label">Energy this season</p>
+                      <p className="stat-label text-sm">Open jobs</p>
+                      <p className="mt-1 text-lg font-semibold text-stone-900">No open jobs</p>
+                      <p className="text-sm text-stone-600">Post your first job</p>
+                    </div>
+                    <div className="card">
+                      <p className="stat-label text-sm">Home value</p>
+                      <p className="mt-1 text-lg font-semibold text-stone-900">Not tracked yet</p>
+                      <p className="text-sm text-stone-600">Get your estimate</p>
+                    </div>
+                    <div className="card">
+                      <p className="stat-label text-sm">Energy this season</p>
                       <p className="stat-number mt-1 text-2xl">~$293-544</p>
-                      <p className="mt-1 text-sm text-stone-600">to stay cool this summer</p>
+                      <p className="text-sm text-stone-600">For cooling this summer</p>
+                      <p className="mt-2 flex items-center gap-1 text-sm text-stone-600">
+                        <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        How this is estimated?
+                      </p>
                     </div>
                   </div>
-                  <h2 className="mt-5 text-lg font-semibold text-stone-900">This month</h2>
-                  <div className="card mt-2" data-x="briefing">
-                    <p className="stat-label">
-                      OakTend&apos;s briefing
-                    </p>
-                    <div className="mt-2 space-y-1.5 text-sm text-stone-700">
-                      <p>
-                        • Your plumbing is near the end of its life. It is worth planning ahead.{" "}
-                        <span className="text-bark-700">Plan it →</span>
-                      </p>
-                      <p>
-                        • Your roof is near the end of its life. It is worth planning ahead.{" "}
-                        <span className="text-bark-700">Plan it →</span>
-                      </p>
-                    </div>
-                    <div className="mt-3 flex items-center justify-between text-sm text-stone-600">
-                      <span>19 tasks on your plan</span>
-                      <span className="text-xs text-stone-500">2 of 19 done</span>
-                    </div>
-                    <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
-                      <div className="h-full w-[12%] rounded-full bg-green-500"></div>
-                    </div>
-                    <div className="mt-3 flex items-center gap-3 border-t border-stone-100 pt-3 text-sm text-stone-800">
-                      <span className={styles.checkCircle} data-x="remCheck">✓</span>
-                      <span className={styles.strike} data-x="remTitle">Flush the water heater</span>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-semibold text-stone-900">This month</h3>
+                    <div className="card space-y-3" data-x="briefing">
+                      <div className="rounded-lg bg-bark-50 p-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-bark-700">
+                          This month&apos;s checklist
+                        </p>
+                        <ul className="mt-1.5 space-y-1">
+                          <li className="flex items-center gap-2 py-1.5 text-sm text-stone-900">
+                            <span className="flex-1">Your plumbing issue needs attention.</span>
+                            <span className="flex shrink-0 items-center gap-0.5 whitespace-nowrap font-medium text-bark-700">
+                              Find a pro <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="border-t border-stone-100 pt-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-sm font-medium text-stone-700">5 tasks on your plan</p>
+                          <p className="text-xs text-stone-600">1 of 5 done</p>
+                        </div>
+                        <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+                          <div className="h-full w-[20%] rounded-full bg-green-500"></div>
+                        </div>
+                        <p className="mt-2 flex items-center gap-1.5 text-sm font-medium text-stone-700">
+                          <ChevronRight className="h-4 w-4 shrink-0 rotate-90 text-stone-400" aria-hidden="true" />
+                          See this month&apos;s tasks
+                        </p>
+                        <p className="mt-2 px-2 text-xs font-semibold uppercase tracking-wide text-red-600">Overdue (1)</p>
+                        <div className="mt-1 flex items-center justify-between gap-3 rounded-lg px-2 py-2.5">
+                          <span className="flex min-w-0 flex-1 items-center gap-3">
+                            <span className={styles.checkCircle} data-x="remCheck">✓</span>
+                            <span className={cx("text-sm text-stone-800", styles.strike)} data-x="remTitle">Flush water heater</span>
+                          </span>
+                          <span className="flex shrink-0 items-center gap-2">
+                            <span className={cx("whitespace-nowrap rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700", styles.dueChip)} data-x="remChip">
+                              Overdue by 10 days
+                            </span>
+                            <span className="px-1 text-xs text-stone-600">Delete</span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* ---------- Post a job page (real site classes) ---------- */}
+              {/* ---------- Post a job page (src/app/(app)/contractors: the
+                   form card with job type + timing, details, budget, and
+                   the full-width Post job button) ---------- */}
               <div className={styles.page} data-page="postjobPage">
                 <AppNav active={2} msgTabX msgBadge />
-                <div className="relative mx-auto max-w-5xl px-6 py-6">
+                <div className="relative mx-auto max-w-5xl px-6 pt-6">
                   <h2 className="text-2xl font-semibold text-stone-900">Post a job</h2>
-                  <p className="label mt-3">What&apos;s wrong?</p>
-                  <div className="input flex max-w-md items-center" data-x="jobTitleBox">
-                    <span data-x="jobTitle"></span>
-                    <span className={styles.caret}>|</span>
+                  <p className="mt-1 text-sm text-stone-600">
+                    Describe what you need. Local pros apply and you pick one.
+                  </p>
+                  <div className="card mt-5 space-y-4">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <p className="label">What do you need?</p>
+                        <div className={cx("input flex min-h-[38px] items-center justify-between gap-2 text-sm", styles.selectBox)} data-pill="plumbing">
+                          <span className={styles.selPlaceholder}>Search or choose a job type…</span>
+                          <span className={styles.selValue}>Plumbing</span>
+                          <ChevronDown className="h-4 w-4 shrink-0 text-stone-400" aria-hidden="true" />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="label">Preferred timing</p>
+                        <div className={cx("input flex min-h-[38px] items-center justify-between gap-2 text-sm", styles.selectBox)} data-pill="week">
+                          <span className={styles.selPlaceholder}>Within a few weeks</span>
+                          <span className={styles.selValue}>As soon as possible</span>
+                          <ChevronDown className="h-4 w-4 shrink-0 text-stone-400" aria-hidden="true" />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="label">Details about your project</p>
+                      <div className="input flex min-h-[64px] items-start text-sm" data-x="jobTitleBox">
+                        <span data-x="jobTitle"></span>
+                        <span className={styles.caret}>|</span>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3" data-x="budgetRow">
+                      <div>
+                        <p className="label">Photos (optional)</p>
+                        <p className="text-xs text-stone-600">Pros quote more accurately when they can see the job.</p>
+                      </div>
+                      <div>
+                        <p className="label">Rough budget (optional)</p>
+                        <div className="input flex min-h-[38px] items-center justify-between text-sm">
+                          <span>Under $500</span>
+                          <ChevronDown className="h-4 w-4 shrink-0 text-stone-400" aria-hidden="true" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="btn-primary w-full" data-x="postBtn">Post job</span>
+                    <p className="text-xs text-stone-600">Posting a job is free.</p>
                   </div>
-                  <p className="label mt-3">What do you need?</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={styles.pill} data-pill="plumbing">Plumbing</span>
-                    <span className={styles.pill} data-pill="electrical">Electrical</span>
-                    <span className={styles.pill} data-pill="hvac">HVAC</span>
-                  </div>
-                  <p className="label mt-4">When?</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={styles.pill} data-pill="week">This week</span>
-                    <span className={styles.pill} data-pill="flex">Flexible</span>
-                  </div>
-                  <div className="mt-4 flex max-w-xs items-center justify-between text-sm text-stone-700" data-x="budgetRow">
-                    <span>Rough budget</span>
-                    <span className="font-semibold text-stone-900">$150 to $300</span>
-                  </div>
-                  <div className="mt-4">
-                    <span className="btn-primary" data-x="postBtn">Post job</span>
-                  </div>
-                  <div className={styles.toast} data-x="toast">Your job is live.</div>
+                  <div className={styles.toast} data-x="toast">Your job is live. Pros can see it now.</div>
                   {/* Notification card: pops with the demo's one ding, right
                       before the homeowner opens Messages. */}
                   <div className={cx("card absolute right-6 top-4 flex items-center gap-3", styles.notif)} data-x="notif">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-bark-100 text-sm font-semibold text-bark-700">T</span>
                     <span>
-                      <span className="block text-sm font-semibold text-stone-900">Tony R. sent you a quote</span>
-                      <span className="block text-xs text-stone-500">Leaking kitchen faucet · replied in 18 min</span>
+                      <span className="block text-sm font-semibold text-stone-900">Tony R. sent you a message</span>
+                      <span className="block text-xs text-stone-600">Plumbing · Leaking kitchen faucet</span>
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* ---------- Messages page (copied from the live app's
-                   screenshot: conversation list + thread pane) ---------- */}
+              {/* ---------- Messages page (src/app/(app)/chats: Active /
+                   Closed tabs, Ask OakTend pinned on top, the pro
+                   conversation, and the thread pane) ---------- */}
               <div className={styles.page} data-page="chatPage">
                 <AppNav active={3} />
-                <div className="mx-auto max-w-5xl px-6 py-5">
-                  <h2 className="text-xl font-semibold text-stone-900">Messages</h2>
-                  <div className="mt-3 grid grid-cols-[220px_1fr] gap-4">
-                    <div className="card p-0">
-                      <div className="border-l-2 border-bark-600 bg-bark-50 px-4 py-3">
-                        <p className="text-sm font-semibold text-stone-900">Tony R. · Plumbing</p>
-                        <p className="text-xs text-stone-500">Sent you a quote</p>
+                <div className="mx-auto max-w-5xl space-y-4 px-6 pt-6">
+                  <h2 className="text-2xl font-semibold text-stone-900">Messages</h2>
+                  <div className="grid grid-cols-[260px_1fr] gap-4">
+                    <div className="space-y-2">
+                      <div className="flex rounded-xl border border-stone-200 bg-stone-100 p-1">
+                        <span className="inline-flex flex-1 items-center justify-center rounded-lg bg-white px-4 py-1.5 text-sm font-medium text-stone-900 shadow-sm">Active (1)</span>
+                        <span className="inline-flex flex-1 items-center justify-center rounded-lg px-4 py-1.5 text-sm font-medium text-stone-600">Closed</span>
                       </div>
-                      <div className="px-4 py-3">
-                        <p className="text-sm text-stone-700">
-                          Ask OakTend
-                        </p>
-                        <p className="text-xs text-stone-500">Your home assistant</p>
+                      <div className="divide-y divide-stone-100 overflow-hidden rounded-xl border border-stone-200 bg-white">
+                        <div className="flex items-center gap-3 border-l-4 border-transparent px-4 py-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bark-100 text-bark-700">
+                            <Sparkles className="h-4 w-4" aria-hidden="true" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex items-center justify-between gap-2">
+                              <span className="truncate font-medium text-stone-900">Ask OakTend</span>
+                              <span className="shrink-0 text-xs text-stone-600">Assistant</span>
+                            </span>
+                            <span className="block truncate text-xs text-stone-600">Your home assistant</span>
+                          </span>
+                        </div>
+                        <div className="border-l-4 border-bark-600 bg-bark-50 px-4 py-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="truncate font-medium text-stone-900">Tony R.</span>
+                            <span className="shrink-0 text-xs text-stone-600">Plumbing</span>
+                          </div>
+                          <p className="truncate text-xs text-stone-600">Hi! I can come Thursday morning.</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="card" data-x="thread">
-                      <p className="text-sm font-semibold text-stone-900">Tony R. · Plumbing · Leaking faucet</p>
-                      <div className={cx(styles.thread, "mt-2")}>
+                    <div className="flex flex-col rounded-xl border border-stone-200 bg-white p-3" data-x="thread">
+                      <div className="border-b border-stone-100 pb-2">
+                        <p className="text-sm font-semibold text-stone-900">Tony R.</p>
+                        <p className="text-xs text-stone-600">Plumbing</p>
+                      </div>
+                      <div className={cx(styles.thread, "mt-3")}>
                         <span className={cx(styles.bubble, styles.them)} data-x="b1">
-                          Hi! I can come Thursday morning. $180 flat, parts included.
+                          Hi! I can come Thursday morning to fix the faucet. Parts included.
                         </span>
                         <span className={cx(styles.bubble, styles.me)} data-x="b2"></span>
                         <span className={styles.wonBadge} data-x="booked">Booked ✓</span>
                         <div className="mt-1 flex items-center gap-2">
-                          <div className="input flex flex-1 items-center" data-x="chatInput">
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-stone-600">
+                            <ImageIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-stone-600">
+                            <Mic className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                          <div className={cx("input flex min-h-[40px] flex-1 items-center text-sm", styles.composer)} data-x="chatInput">
+                            <span className={styles.composerHint}>Type a message…</span>
                             <span data-x="typedReply"></span>
                             <span className={styles.caret}>|</span>
                           </div>
                           <span className="btn-primary" data-x="sendBtn">Send</span>
                         </div>
-                        <p className="text-xs text-stone-500">
+                        <p className="text-xs text-stone-600">
                           OakTend&apos;s cost figures are ballpark estimates. Confirm with a local pro before you commit.
                         </p>
                       </div>
@@ -2569,7 +2696,7 @@ export default function HeroDemoPlayer() {
                     className="btn-primary mt-2"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Get started for free
+                    Get started free
                   </Link>
                 </div>
               </div>
