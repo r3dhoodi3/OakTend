@@ -95,6 +95,8 @@ const LAST_MODIFIED: Record<string, string> = {
   "/privacy-choices": "2026-09-20",
   "/contact": "2026-09-17",
   "/about": "2026-09-20",
+  // Added 2026-09-30: the "home maintenance app" landing page.
+  "/home-maintenance-app": "2026-09-30",
 };
 
 // Every /oc/<city> page is the same file with a different city name in it
@@ -253,6 +255,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: LAST_MODIFIED["/about"],
       changeFrequency: "monthly",
       priority: 0.4,
+    },
+    // The "home maintenance app" landing page (src/app/home-maintenance-app):
+    // a real entry point from search, so it sits with /pricing at 0.8.
+    {
+      url: `${SITE_URL}/home-maintenance-app`,
+      lastModified: LAST_MODIFIED["/home-maintenance-app"],
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     // GUIDE_PATHS and the dates both come from src/lib/guides.ts, which is
     // also what src/components/GuideArticleJsonLd.tsx builds each guide's

@@ -28,6 +28,8 @@ import {
   Route,
   AppWindow,
   Sun,
+  // Added 2026-09-30 (app comparison).
+  Smartphone,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -41,7 +43,7 @@ type GuideCard = {
   blurb: string;
 };
 
-// Grouped by what a reader came for, so 26 cards are not one long list. The
+// Grouped by what a reader came for, so 27 cards are not one long list. The
 // titles here are the same strings as GUIDE_TITLES in src/lib/guides.ts
 // (guides.test.ts checks that), and every card keeps the href, icon, title,
 // blurb order that test reads.
@@ -253,6 +255,18 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
       },
     ],
   },
+  {
+    heading: "Apps and tools",
+    guides: [
+      {
+        href: "/guides/best-home-maintenance-apps",
+        icon: Smartphone,
+        title: "Best home maintenance apps in 2026",
+        blurb:
+          "Ten apps compared on what they do, price, platforms and who each one suits, with every fact linked to its source.",
+      },
+    ],
+  },
 ];
 
 const SITE_URL =
@@ -296,7 +310,14 @@ export default function GuidesIndex() {
       </h1>
       <p className="mt-2 text-sm text-stone-600 dark:text-stone-300">
         Plain-English answers for Orange County homeowners. No login
-        required.
+        required. Looking for the app itself? See{" "}
+        <Link
+          href="/home-maintenance-app"
+          className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+        >
+          what OakTend does
+        </Link>
+        .
       </p>
 
       {SECTIONS.map((section) => (

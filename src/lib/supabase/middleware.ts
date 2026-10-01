@@ -555,6 +555,11 @@ export function isPublicPath(path: string): boolean {
     // us. Read by signed-out visitors and crawlers, same as /contact.
     path === "/about" ||
     path.startsWith("/about/") ||
+    // The "home maintenance app" landing page (src/app/home-maintenance-app):
+    // a public marketing page for search visitors, same reasoning as /about.
+    // Exact match plus the slash form, so its share image is public too.
+    path === "/home-maintenance-app" ||
+    path.startsWith("/home-maintenance-app/") ||
     // Email unsubscribe (src/app/unsubscribe): CAN-SPAM requires the opt-out
     // to work with no login, and it is opened straight from an email by a
     // recipient who usually has no session. The route authenticates via a

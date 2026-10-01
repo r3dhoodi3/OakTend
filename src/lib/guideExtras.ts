@@ -385,6 +385,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Mission Viejo",
     ],
   },
+  // Added 2026-09-30 (seo/home-maintenance-app-2026-09-30).
+  "/guides/best-home-maintenance-apps": {
+    guides: [
+      "/guides/orange-county-home-maintenance-checklist",
+      "/guides/new-homeowner-first-year-orange-county",
+      "/guides/orange-county-home-age",
+    ],
+    cities: [
+      "Irvine",
+      "Anaheim",
+      "Santa Ana",
+      "Huntington Beach",
+      "Costa Mesa",
+      "Fountain Valley",
+    ],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -2331,6 +2347,115 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "IRS: Residential Clean Energy Credit (page reviewed July 4, 2026)",
       supports:
         "The credit was 30 percent of qualified costs for solar installed from 2022 through December 31, 2025, and for batteries of at least 3 kWh from 2023; it is not available for property placed in service after December 31, 2025. Checked 2026-09-26.",
+    },
+  ],
+  // Added 2026-09-30. Every app fact on the comparison guide comes from the
+  // app's own site or its store listing, each opened 2026-09-30. Store prices
+  // are the US App Store's in-app purchase list. Prices change: re-check every
+  // entry before bumping this guide's date.
+  "/guides/best-home-maintenance-apps": [
+    {
+      href: "https://homebeacon.app/",
+      label: "HomeBeacon home page",
+      supports:
+        "HomeBeacon has a Free Forever plan with no credit card required, and a Google Play app. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/id6754183939",
+      label: "HomeBeacon on the App Store",
+      supports:
+        "Free for your first home; in-app purchases list HMS Pro at $9.99 monthly or $95.90 yearly; runs on iPhone, iPad and Mac; includes the Ask Pops AI assistant and warranty tracking. Checked 2026-09-30.",
+    },
+    {
+      href: "https://www.homezada.com/homeowners/pricing",
+      label: "HomeZada pricing",
+      supports:
+        "Essentials plan free; Premium $99 a year or $15.95 a month, adding home maintenance, projects and finances; Deluxe $189 a year for up to 3 properties. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/homezada-mobile/id473722482",
+      label: "HomeZada Mobile on the App Store",
+      supports:
+        "HomeZada has an iPhone and iPad app alongside its website. Checked 2026-09-30.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.homezada.mobile",
+      label: "HomeZada Mobile on Google Play",
+      supports: "HomeZada has an Android app. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/homer-the-home-management-app/id1250049341",
+      label: "Homer on the App Store",
+      supports:
+        "Free with in-app purchases; Homer Premium options are listed from $4.99 to $69.99; runs on iPhone, Mac and Apple Vision; finds owner's manuals automatically and stores receipts and warranties. Checked 2026-09-30.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=se.homeowner",
+      label: "Homer on Google Play",
+      supports: "Homer has an Android app. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/dwellin-home-rewards-care/id1566306121",
+      label: "Dwellin on the App Store",
+      supports:
+        "Free; tracks appliances, repairs and maintenance while you earn points; an optional Premium rewards membership gives bonus points. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/oply-home-maintenance-app/id6504293662",
+      label: "Oply on the App Store",
+      supports:
+        "Free; personalized maintenance recommendations, an AI assistant, and matching with local pros to compare quotes. Checked 2026-09-30.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.myhomeservices.io",
+      label: "Oply on Google Play",
+      supports: "Oply has an Android app. Checked 2026-09-30.",
+    },
+    {
+      href: "https://www.homerockr.com/en",
+      label: "Homerockr home page",
+      supports:
+        "Free to start, with a paid Plus subscription; task planning, renovation planning, shared household tasks, and a web app at app.homerockr.com. Checked 2026-09-30.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.homerockr.app",
+      label: "Homerockr on Google Play",
+      supports: "Homerockr has an Android app. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/home-keeper-home-maintenance/id6757248250",
+      label: "Home Keeper on the App Store",
+      supports:
+        "Free; select your state and it builds a maintenance schedule for your climate; runs on iPhone, Mac and Apple Vision. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/homequeue-shared-maintenance/id6761346682",
+      label: "HomeQueue on the App Store",
+      supports:
+        "Free plan: 5 active jobs, 3 upkeep schedules, 1 household; HomeQueue Pro listed at $2.99 monthly, $29.99 yearly, or $99.99 for a Founders purchase. Checked 2026-09-30.",
+    },
+    {
+      href: "https://homequeue.app/",
+      label: "HomeQueue home page",
+      supports:
+        "Ranks repairs, upkeep and small jobs in one shared household list; available on the web, iOS and Android. Checked 2026-09-30.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",
+      label: "Thumbtack on the App Store",
+      supports:
+        "It's free for customers to use Thumbtack; compare prices, read reviews, message and book local pros. Checked 2026-09-30.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.thumbtack.consumer",
+      label: "Thumbtack on Google Play",
+      supports: "Thumbtack has an Android app for customers. Checked 2026-09-30.",
+    },
+    {
+      href: "https://realestateledger.io/guides/home-maintenance-schedule-app",
+      label: "Real Estate Ledger: home maintenance schedule apps (June 4, 2026)",
+      supports:
+        "Lists Centriq as discontinued. Checked 2026-09-30.",
     },
   ],
 };

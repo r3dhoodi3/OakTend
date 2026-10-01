@@ -194,6 +194,15 @@ describe("GUIDE_SOURCES", () => {
     "www.cpuc.ca.gov",
     "www.sdge.com",
     "www.irs.gov",
+    // Added 2026-09-30 for the home maintenance app comparison, each opened
+    // that day: the apps' own sites and their store listings.
+    "homebeacon.app",
+    "apps.apple.com",
+    "play.google.com",
+    "www.homezada.com",
+    "www.homerockr.com",
+    "homequeue.app",
+    "realestateledger.io",
   ];
 
   it("lists sources for every guide", () => {
@@ -245,13 +254,13 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 26 guide pages", () => {
+describe("all 27 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(26);
+    expect(dirs).toHaveLength(27);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

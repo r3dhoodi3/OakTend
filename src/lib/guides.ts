@@ -79,6 +79,8 @@ export const GUIDE_PATHS = [
   // Added 2026-09-26 (seo/new-pages-d): windows and solar.
   "/guides/window-replacement-cost-orange-county",
   "/guides/solar-battery-orange-county",
+  // Added 2026-09-30 (seo/home-maintenance-app-2026-09-30).
+  "/guides/best-home-maintenance-apps",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -123,6 +125,8 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/window-replacement-cost-orange-county":
     "Window replacement cost in Orange County",
   "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
+  // Added 2026-09-30.
+  "/guides/best-home-maintenance-apps": "Best home maintenance apps in 2026",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -135,7 +139,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-27" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-30" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -242,6 +246,11 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   "/guides/solar-battery-orange-county": {
     datePublished: "2026-09-26",
     dateModified: "2026-09-27",
+  },
+  // Added 2026-09-30 (seo/home-maintenance-app-2026-09-30).
+  "/guides/best-home-maintenance-apps": {
+    datePublished: "2026-09-30",
+    dateModified: "2026-09-30",
   },
 };
 
