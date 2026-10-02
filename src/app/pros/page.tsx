@@ -343,34 +343,36 @@ export default async function ProsLanding(props: {
           landing page mounts its player: through a lazy wrapper, so the
           ~2,800-line component loads as its own chunk after hydration
           instead of riding along in this page's first-load JS. */}
-      <Band tone="dark">
+      <Band tone="dark" wide>
         <section>
-          {/* Title and one honest line beside the player, mirroring the
+          {/* Title and one honest line above the player, mirroring the
               homeowner landing: what the demo is, and that it is a
               walkthrough of the real screens rather than a recording of a
-              real job. Light text: this section always sits on a dark band. */}
+              real job. Light text: this section always sits on a dark band.
+              Stacked, not split (2026-10-01), for the same reason as the
+              landing page: beside the copy the player was too short for the
+              fake browser inside it, so its top and bottom were cropped.
+              Phones get it edge to edge (-mx-6 cancels the band padding). */}
           {/* The demo carries the hero entrance too, picking up where the
               pitch above leaves off (its last piece is at 450ms). This band
               is on screen while the page loads on a desktop - the pro hero is
               shorter than the homeowner one - so without it the words rose in
-              and the video beside them just sat there. */}
-          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
-            <div className="hero-rise text-center motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms] lg:-mt-10 lg:text-left">
-              <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
-                Product demo
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
-                See the pro side in 30 seconds
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
-                A walkthrough of the real app: see the jobs near you, apply
-                for free, message the homeowner, and get hired. Built from the
-                actual screens, with a sample job.
-              </p>
-            </div>
-            <div className="hero-rise mx-auto w-full max-w-xl motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms] lg:mx-0">
-              <ProDemoPlayerLazy />
-            </div>
+              and the video below them just sat there. */}
+          <div className="hero-rise mx-auto max-w-2xl text-center motion-safe:animate-hero-rise motion-safe:[animation-delay:540ms]">
+            <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
+              Product demo
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
+              See the pro side in 30 seconds
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
+              A walkthrough of the real app: see the jobs near you, apply
+              for free, message the homeowner, and get hired. Built from the
+              actual screens, with a sample job.
+            </p>
+          </div>
+          <div className="hero-rise mt-8 max-sm:-mx-6 motion-safe:animate-hero-rise motion-safe:[animation-delay:630ms] sm:mt-10">
+            <ProDemoPlayerLazy />
           </div>
         </section>
       </Band>
