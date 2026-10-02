@@ -208,18 +208,33 @@ export default function ReminderItem({
               button out of the row; break-words catches a single long word
               (e.g. a long product name) that would otherwise force
               horizontal overflow. */}
-          <span
-            className={`min-w-0 break-words text-sm ${
-              done ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-800 dark:text-stone-200"
-            }`}
-          >
-            {title}
+          {/* Phone only (launch pass 2026-10-02): at 390px the chip and
+              Delete beside the title left it a one-word-wide column ("Flush /
+              the / water / heater"). Below sm the chip moves under the title
+              instead; the right-hand chip is hidden there. At sm and up this
+              wrapper only holds the title, so the row renders as before. */}
+          <span className="flex min-w-0 flex-col items-start gap-1">
+            <span
+              className={`min-w-0 break-words text-sm ${
+                done ? "text-stone-600 line-through dark:text-stone-300" : "text-stone-800 dark:text-stone-200"
+              }`}
+            >
+              {title}
+            </span>
+            {chip && (
+              <span
+                aria-hidden="true"
+                className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-xs font-medium sm:hidden ${chip.className}`}
+              >
+                {chip.label}
+              </span>
+            )}
           </span>
         </button>
         <div className="flex shrink-0 items-center gap-2">
           {chip && (
             <span
-              className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-xs font-medium ${chip.className}`}
+              className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-xs font-medium max-sm:sr-only ${chip.className}`}
             >
               {chip.label}
             </span>

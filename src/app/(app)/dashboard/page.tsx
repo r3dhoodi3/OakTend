@@ -381,7 +381,7 @@ export default async function HomePage(
       `Need help with a ${name} issue.` +
       (i.description ? ` ${i.description}` : "");
     briefing.push({
-      text: `Your ${name.toLowerCase()} issue needs attention.`,
+      text: `Your ${/^[A-Z]{2,}\b/.test(name) ? name : name.toLowerCase()} issue needs attention.`,
       href:
         `/contractors?category=${i.category}` +
         `&desc=${encodeURIComponent(desc)}` +
@@ -416,6 +416,9 @@ export default async function HomePage(
     const them = plural ? "them" : "it";
     const ageOnly = !isMust(s);
     const basedOnAge = ageOnly ? `, based on ${its} age` : "";
+    // Mid-sentence lowercase, except an acronym label ("HVAC" stayed
+    // "hvac" in "Your hvac is aging" before the 2026-10-02 launch pass).
+    const inSentence = /^[A-Z]{2,}\b/.test(name) ? name : name.toLowerCase();
     // "Plan it" starts a job posting (prefilled with this system's details);
     // "Learn more" is a lower-stakes ask (aging, not yet due) so it points at
     // the maintenance guides instead of the contractor flow.
@@ -425,8 +428,8 @@ export default async function HomePage(
       (urgent ? "&timing=asap" : "");
     briefing.push({
       text: must
-        ? `Your ${name.toLowerCase()} ${verb} near the end of ${its} life${basedOnAge}. It is worth planning ahead.`
-        : `Your ${name.toLowerCase()} ${verb} aging${basedOnAge}. Keep an eye on ${them}.`,
+        ? `Your ${inSentence} ${verb} near the end of ${its} life${basedOnAge}. It is worth planning ahead.`
+        : `Your ${inSentence} ${verb} aging${basedOnAge}. Keep an eye on ${them}.`,
       href: must ? contractorHref : "/learn",
       cta: must ? "Plan it" : "Learn more",
     });
