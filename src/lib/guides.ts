@@ -81,6 +81,10 @@ export const GUIDE_PATHS = [
   "/guides/solar-battery-orange-county",
   // Added 2026-09-30 (seo/home-maintenance-app-2026-09-30).
   "/guides/best-home-maintenance-apps",
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada",
+  "/guides/oaktend-vs-angi",
+  "/guides/oaktend-vs-thumbtack",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -127,6 +131,10 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
   // Added 2026-09-30.
   "/guides/best-home-maintenance-apps": "Best home maintenance apps in 2026",
+  // Added 2026-10-01.
+  "/guides/oaktend-vs-homezada": "OakTend vs HomeZada",
+  "/guides/oaktend-vs-angi": "OakTend vs Angi",
+  "/guides/oaktend-vs-thumbtack": "OakTend vs Thumbtack",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -139,7 +147,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-30" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-01" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -251,6 +259,19 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   "/guides/best-home-maintenance-apps": {
     datePublished: "2026-09-30",
     dateModified: "2026-09-30",
+  },
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
+  },
+  "/guides/oaktend-vs-angi": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
+  },
+  "/guides/oaktend-vs-thumbtack": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
   },
 };
 

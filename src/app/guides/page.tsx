@@ -43,7 +43,7 @@ type GuideCard = {
   blurb: string;
 };
 
-// Grouped by what a reader came for, so 27 cards are not one long list. The
+// Grouped by what a reader came for, so 30 cards are not one long list. The
 // titles here are the same strings as GUIDE_TITLES in src/lib/guides.ts
 // (guides.test.ts checks that), and every card keeps the href, icon, title,
 // blurb order that test reads.
@@ -264,6 +264,27 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         title: "Best home maintenance apps in 2026",
         blurb:
           "Ten apps compared on what they do, price, platforms and who each one suits, with every fact linked to its source.",
+      },
+      {
+        href: "/guides/oaktend-vs-homezada",
+        icon: Smartphone,
+        title: "OakTend vs HomeZada",
+        blurb:
+          "Two home apps side by side: price, maintenance reminders, AI, platforms, and when HomeZada fits better.",
+      },
+      {
+        href: "/guides/oaktend-vs-angi",
+        icon: Smartphone,
+        title: "OakTend vs Angi",
+        blurb:
+          "A maintenance app and a hiring marketplace compared, from Angi's own annual report.",
+      },
+      {
+        href: "/guides/oaktend-vs-thumbtack",
+        icon: Smartphone,
+        title: "OakTend vs Thumbtack",
+        blurb:
+          "What each one is for, what homeowners and pros pay, and when Thumbtack fits better.",
       },
     ],
   },
