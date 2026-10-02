@@ -256,7 +256,8 @@ describe("GUIDE_SOURCES", () => {
 
 describe("all 27 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
-    .filter((e) => e.isDirectory())
+    // "how-to" is the chore page section (src/lib/chores.ts), not a guide.
+    .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {

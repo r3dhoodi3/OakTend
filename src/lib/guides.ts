@@ -1,3 +1,5 @@
+import { choreDates } from "@/lib/chores";
+
 // THE ONE SOURCE OF TRUTH FOR GUIDE DATES.
 //
 // Three places need to agree on when a guide was published and when it last
@@ -139,7 +141,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-30" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-01" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -227,7 +229,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-01",
   },
   // New pages B, 2026-09-26.
   "/guides/orange-county-home-age": {
@@ -258,8 +260,14 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
 // fallback to today's date on purpose: a caller that cannot find a real date
 // should omit the field (an absent lastmod is a crawler's cue to work it out
 // itself; a wrong one is a lie it will eventually stop believing).
+//
+// The short how-to chore pages under /guides/how-to keep their dates in
+// src/lib/chores.ts (one shared first-publish date plus overrides), and are
+// answered here too so GuideMeta and GuideArticleJsonLd work for them by path
+// with no second code path. They are not in GUIDE_PATHS or GUIDE_DATES: the
+// sitemap lists them from CHORE_PATHS.
 export function guideDates(path: string): GuideDates | null {
-  return GUIDE_DATES[path] ?? null;
+  return GUIDE_DATES[path] ?? choreDates(path);
 }
 
 // The Article node for one guide. Kept here rather than in the component so
