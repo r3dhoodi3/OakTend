@@ -120,7 +120,7 @@ describe("landing page, phone split", () => {
   it("hides every marketing section on phone without deleting it", async () => {
     const { container } = await renderLanding();
 
-    // Header, hero (copy + photo carousel), and the demo player's section.
+    // Header and hero (copy + photo carousel).
     expect(container.querySelector("header")).toHaveClass("max-sm:hidden");
     expect(
       screen
@@ -133,7 +133,9 @@ describe("landing page, phone split", () => {
     // Rendered once in the desktop hero and once inside PhoneLanding, so
     // assert presence without assuming a single instance.
     expect(screen.getAllByTestId("hero-photos").length).toBeGreaterThan(0);
-    expect(screen.getByTestId("hero-demo").closest("section")).toHaveClass(
+    // The demo player is shown on phone too (2026-10-01): it gets its own
+    // full-width row, so its section must not carry the phone-hide class.
+    expect(screen.getByTestId("hero-demo").closest("section")).not.toHaveClass(
       "max-sm:hidden"
     );
 

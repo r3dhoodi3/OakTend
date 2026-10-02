@@ -630,15 +630,15 @@ export default async function Home(props: {
 
       {/* The demo gets the page's first dark band: a theatre for the video,
           which also lifts its warm tones off the background. */}
-      <Band tone="dark" className="max-sm:hidden">
+      <Band tone="dark" wide>
         {/* The demo replaces what used to be a static Health Score mockup:
             same content, but now it actually plays. Click to play, inline,
             never a takeover, see HeroDemoPlayer.tsx. Loaded through
             HeroDemoPlayerLazy so the player's chunk stays out of this
             page's first-load JS; the poster paints at the same size either
             way, so there is no shift when it arrives. */}
-        <section className="mt-16 max-sm:hidden sm:mt-20">
-          {/* Title and one honest line beside the player (founder, 2026-09-21:
+        <section className="mt-16 sm:mt-20">
+          {/* Title and one honest line above the player (founder, 2026-09-21:
               "for transparency"). The demo is a scripted, rendered walkthrough
               of the real screens, not a recording of a customer's home, and
               in preview the pro-quote ending shows what the product does once
@@ -646,30 +646,31 @@ export default async function Home(props: {
               rather than left for the viewer to assume. Light text: this
               section always sits on the dark band.
 
-              Split layout, mirroring the hero above (copy left, picture
-              right) but staggered: the text column sits a little higher than
-              the player's centre line, so the two do not read as one flat
-              row. Below lg it stacks, text first. */}
-          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
-            <div className="text-center lg:-mt-10 lg:text-left">
-              <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
-                Product demo
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
-                See OakTend in 30 seconds
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
-                A walkthrough of the real app: claim your address, get your
-                home score, post a job, and hear back from a pro. Built from
-                the actual screens, with a sample home.
-                {isHomeownerPreview()
-                  ? " The pro side is not open yet during our preview, so the last part shows what happens once it is."
-                  : ""}
-              </p>
-            </div>
-            <div className="mx-auto w-full max-w-xl lg:mx-0">
-              <HeroDemoPlayerLazy />
-            </div>
+              Stacked, not split (2026-10-01): beside the copy the player was
+              only about 400px wide, too short for the fake browser inside it,
+              so its top and bottom were cropped at every desktop width. Now
+              the copy sits centred above and the player gets the whole wide
+              (max-w-5xl) column. On phones it shows too, edge to edge (the
+              -mx-6 cancels the band's side padding), in the player's square
+              phone frame. */}
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wide text-stone-400">
+              Product demo
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-white [text-wrap:balance] sm:text-3xl">
+              See OakTend in 30 seconds
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
+              A walkthrough of the real app: claim your address, get your
+              home score, post a job, and hear back from a pro. Built from
+              the actual screens, with a sample home.
+              {isHomeownerPreview()
+                ? " The pro side is not open yet during our preview, so the last part shows what happens once it is."
+                : ""}
+            </p>
+          </div>
+          <div className="mt-8 max-sm:-mx-6 sm:mt-10">
+            <HeroDemoPlayerLazy />
           </div>
         </section>
       </Band>

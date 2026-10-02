@@ -1043,3 +1043,97 @@
   cursor: pointer;
   padding: 0;
 }
+
+/* ---------- Inline fit (2026-10-01) ----------
+   The device used to take its screen height from the VIEWPORT
+   (clamp(200px, 46vw, 340px)) while the room around it took its height from
+   the player's own width. In a narrow column the two disagreed: a ~400px
+   wide player is only ~227px tall, but the device inside it was ~380px tall,
+   so the browser bar, the nav and the bottom of every screen were cropped
+   off, and key moments sat behind the control bar.
+
+   Now everything is sized from the player box itself (an inline-size
+   container, so cqw is the box's width), and the device always fits inside
+   the room at any column width:
+     --fit-h       the room's height, in box widths (16:9 = 56.25cqw)
+     --fit-top     room kept clear above the device (watermark, step chip)
+     --fit-bottom  room kept clear below it (captions + control bar)
+     40px          the device's own frame: 5px padding top and bottom plus
+                   the ~30px browser bar
+   The screen keeps the 590 x 340 design proportion (1.735) and never grows
+   past it, so the composition the camera script was tuned for is unchanged
+   from what a wide column always showed; it only shrinks, never crops.
+   Fullscreen and the iPhone maximize view keep their own rules (restored
+   below), so this only changes the inline player. */
+.box {
+  container-type: inline-size;
+  --fit-h: 56.25cqw;
+  --fit-top: 16px;
+  --fit-bottom: 66px;
+}
+.deviceWrap {
+  padding: var(--fit-top) 10px var(--fit-bottom);
+  --scr-h: min(
+    340px,
+    calc(var(--fit-h) - var(--fit-top) - var(--fit-bottom) - 40px),
+    calc((100cqw - 30px) / 1.735)
+  );
+}
+.device {
+  width: calc(var(--scr-h) * 1.735 + 10px);
+  max-width: 600px;
+}
+.deviceScreen {
+  height: var(--scr-h);
+}
+.shell:fullscreen .device,
+.shell:-webkit-full-screen .device,
+.shellMax .device {
+  width: 100%;
+}
+/* Phones: a 16:9 frame at phone width is ~220px tall, and once the control
+   bar is counted the device would be a sliver. Below 640px the inline player
+   is square instead, edge to edge (the page cancels its side padding), with
+   the device on top and the captions and controls in their own space below
+   it, so nothing covers the picture. */
+@media (max-width: 639.98px) {
+  .box {
+    aspect-ratio: 1 / 1;
+    border-radius: 0;
+    --fit-h: 100cqw;
+    --fit-top: 34px;
+    --fit-bottom: 122px;
+  }
+  /* The mid-video signup chip sat at bottom: 58px, on top of the phone
+     control bar. Phones put it top centre, between the wordmark and the
+     step chip, where the room above the device is kept clear anyway. */
+  .midCta {
+    top: 6px;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: max-content;
+    margin-inline: auto;
+  }
+}
+
+/* Narrow screens keep the desktop page layout. Each app page is laid out at
+   1 / 0.5 = 200% of the screen and scaled back down. On a ~340px phone
+   screen that is a ~680px page, too narrow for the real nav row, so the tabs
+   piled on top of each other. Here the page scale shrinks below 0.5 just
+   enough that the page is never laid out narrower than 980px, the same
+   layout the desktop player shows. tan(atan2(a, b)) is a / b as a plain
+   number, and the screen is a container so 100cqw is its width. From the
+   desktop design size up the min() keeps 0.5, so nothing changes there.
+   Browsers without the trig functions keep the old fixed 0.5. */
+.deviceScreen { container-type: inline-size; }
+@supports (width: calc(1px * tan(atan2(1px, 2px)))) {
+  .page {
+    --pk: min(0.5, tan(atan2(100cqw, 980px)));
+    width: calc(100% / var(--pk));
+    height: calc(100% / var(--pk));
+    transform: scale(var(--pk)) translateX(2%);
+  }
+  .page.active { transform: scale(var(--pk)); }
+  .page.exitLeft { transform: scale(var(--pk)) translateX(-2%); }
+}
