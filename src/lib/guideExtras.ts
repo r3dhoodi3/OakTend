@@ -91,9 +91,9 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     guides: [
-      "/guides/hvac-replacement-cost",
+      "/guides/solar-battery-orange-county",
+      "/guides/orange-county-home-rebates-2026",
       "/guides/adu-cost",
-      "/guides/is-my-contractor-quote-fair",
     ],
     cities: ["Buena Park", "Cypress", "Fullerton", "La Habra", "Stanton"],
   },
@@ -807,7 +807,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "City of Anaheim: residential electrical panel upgrade",
       supports:
-        "A residential panel upgrade up to 200 amps takes an electrical permit that can be obtained online, and Anaheim Public Utilities' meter spot report must be on site at the Building Division inspection.",
+        "A residential panel upgrade up to 200 amps takes an electrical permit that can be obtained online, and Anaheim Public Utilities' meter spot report must be on site at the Building Division inspection. Re-checked 2026-10-01: call Anaheim Public Utilities at 714-765-6847 for a meter spot inspection, an inspector calls within 2-3 business days with the report; permit $126 with a $167 minimum permit fee; inspections for the electrical service meter and electrical final.",
     },
     {
       href: "https://santa-ana.gov/permit-faqs/",
@@ -822,6 +822,68 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "California Assembly Bill 2622 (2023-2024)",
       supports:
         "The small-job license exemption does not apply to work that needs a building permit.",
+    },
+    // Added 2026-10-01 for the electrical panel upgrade retarget, each opened
+    // that day.
+    {
+      href: "https://www.sce.com/partners/consulting-services/building-renovations-planning-project-requests",
+      label:
+        "Southern California Edison: building, renovation and project planning requests",
+      supports:
+        "Panel upgrades (or meter spots) for an existing service are submitted online through the Building, Renovation, and Project Planning Portal; load management, energy-efficient equipment or design adjustments may support new loads without increasing service size; the Common Facility Cost Treatment Program, a 4-year CPUC-authorized pilot, offers single-family homes up to $10,000 toward utility-side costs, for panels under 100 amps going to no more than 200 amps in low-income, income-based or equity electrification programs that replace gas appliances with heat pumps and electrify at least two major end uses.",
+    },
+    {
+      href: "https://www.sce.com/sites/default/files/custom-files/PDF_Files/Overview-of-the-Energization-Process-and-Project-Timing.pdf",
+      label:
+        "Southern California Edison: Energization Process Steps and Project Timing",
+      supports:
+        "SCE reviews an application in an average of 10 business days and a maximum of 45, and the clock starts once the application is deemed complete; main panel upgrade work fully under SCE's control is targeted at an average of 30 business days and a maximum of 45.",
+    },
+    {
+      href: "https://evhome.sce.com/",
+      label: "Southern California Edison: Charge Ready Home program",
+      supports:
+        "Up to $4,200 for an electrical panel upgrade and EV outlet installation, or up to $1,000 for an EV outlet only where the panel is already 200 amps or more; for income-qualified households or residents of disadvantaged communities in SCE territory; eligible customers can apply today.",
+    },
+    {
+      href: "https://www.sce.com/clean-energy-efficiency/electric-vehicles/charging-your-ev",
+      label: "Southern California Edison: charging your EV",
+      supports:
+        "Residential customers can call 1-800-4EV-INFO for a Home Fuel Advisor and an EV Power Plan; it is a good idea to have an electrician inspect your wiring before your first charge, even with a Level 1 cord.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports: "Panel Upgrade (200 amp) is on the expedited permits list.",
+    },
+    {
+      href: "https://www.nfpa.org/downloadable-resources/safety-tip-sheets/electrical-safety-tip-sheet",
+      label: "National Fire Protection Association: Electrical Safety tip sheet (2018)",
+      supports:
+        "Call a qualified electrician for frequent blown fuses or tripped breakers, a tingle when touching an appliance, discolored or warm outlets, a burning or rubbery smell, flickering or dimming lights, or sparks from an outlet.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C10",
+      label: "Contractors State License Board: C-10 Electrical Contractor classification",
+      supports:
+        "A C-10 electrical contractor places, installs, erects or connects electrical wires, fixtures, appliances and apparatus.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      label: "Contractors State License Board: check a license",
+      supports: "Look up a contractor's license number, status and classifications.",
+    },
+    {
+      href: "https://www.dgs.ca.gov/BSC/Codes",
+      label: "California Building Standards Commission: codes",
+      supports:
+        "The 2025 California Building Standards Code (Title 24) took effect January 1, 2026; the California Electrical Code (Part 3) is based on the NFPA model code.",
+    },
+    {
+      href: "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit",
+      label: "IRS: energy efficient home improvement credit",
+      supports:
+        "Panelboards of 200 amps or more supporting qualifying property were eligible up to $600, for property placed in service on or after January 1, 2023 and before December 31, 2025.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
