@@ -157,6 +157,15 @@ export default function PricingPage() {
           Track your home, plan your maintenance and use every tool in the
           app. We&rsquo;ll publish pricing before anything is ever charged.
         </p>
+        {/* The preview pricing page was a dead end with no way forward but
+            the back link (launch pass 2026-10-02). */}
+        <Link
+          href="/homeowner-signup"
+          data-track="pricing_get_started"
+          className="btn-primary mt-8 px-6 py-3 text-base"
+        >
+          Get started free
+        </Link>
       </main>
     );
   }
