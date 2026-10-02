@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { GUIDE_DATES, GUIDE_PATHS } from "@/lib/guides";
+import { CHORE_PATHS, choreDates } from "@/lib/chores";
 import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Sitemap for crawlers: the public landing pages, the two hand-written city
@@ -78,7 +79,7 @@ const LAST_MODIFIED: Record<string, string> = {
   "/huntington-beach": "2026-09-20",
   // The county hub, src/app/oc/page.tsx. Its own date: see lastModifiedFor.
   "/oc": "2026-09-20",
-  "/privacy": "2026-09-20",
+  "/privacy": "2026-10-01",
   "/terms": "2026-09-20",
   "/pro-terms": "2026-09-20",
   "/pro-data-addendum": "2026-09-20",
@@ -90,9 +91,9 @@ const LAST_MODIFIED: Record<string, string> = {
   "/guidelines": "2026-09-20",
   "/security": "2026-09-03",
   "/law-enforcement": "2026-09-15",
-  "/cookies": "2026-09-20",
-  "/subprocessors": "2026-09-20",
-  "/privacy-choices": "2026-09-20",
+  "/cookies": "2026-10-01",
+  "/subprocessors": "2026-10-01",
+  "/privacy-choices": "2026-10-01",
   "/contact": "2026-09-17",
   "/about": "2026-09-20",
   // Added 2026-09-30: the "home maintenance app" landing page.
@@ -273,6 +274,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: GUIDE_DATES[path]?.dateModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    // The how-to chore pages and their hub (src/lib/chores.ts). Dates from
+    // choreDates(), the same function their Article node and visible
+    // "Updated" line read through guideDates().
+    ...CHORE_PATHS.map((path) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified: choreDates(path)?.dateModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 

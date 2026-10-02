@@ -43,7 +43,7 @@ type GuideCard = {
   blurb: string;
 };
 
-// Grouped by what a reader came for, so 27 cards are not one long list. The
+// Grouped by what a reader came for, so 30 cards are not one long list. The
 // titles here are the same strings as GUIDE_TITLES in src/lib/guides.ts
 // (guides.test.ts checks that), and every card keeps the href, icon, title,
 // blurb order that test reads.
@@ -77,7 +77,7 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         icon: Zap,
         title: "Electrical panel upgrade cost",
         blurb:
-          "A sourced California price range, when an upgrade is actually needed, 100 vs 200 amp, and permits by city.",
+          "When you need one, a sourced California price range, how SCE's side works, rebates, and permits by city.",
       },
       {
         href: "/guides/kitchen-remodel-cost",
@@ -265,6 +265,27 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         blurb:
           "Ten apps compared on what they do, price, platforms and who each one suits, with every fact linked to its source.",
       },
+      {
+        href: "/guides/oaktend-vs-homezada",
+        icon: Smartphone,
+        title: "OakTend vs HomeZada",
+        blurb:
+          "Two home apps side by side: price, maintenance reminders, AI, platforms, and when HomeZada fits better.",
+      },
+      {
+        href: "/guides/oaktend-vs-angi",
+        icon: Smartphone,
+        title: "OakTend vs Angi",
+        blurb:
+          "A maintenance app and a hiring marketplace compared, from Angi's own annual report.",
+      },
+      {
+        href: "/guides/oaktend-vs-thumbtack",
+        icon: Smartphone,
+        title: "OakTend vs Thumbtack",
+        blurb:
+          "What each one is for, what homeowners and pros pay, and when Thumbtack fits better.",
+      },
     ],
   },
 ];
@@ -347,6 +368,32 @@ export default function GuidesIndex() {
           </ul>
         </section>
       ))}
+
+      <h2 className="mt-10 text-lg font-bold text-stone-900 dark:text-stone-100">
+        Step by step how-tos
+      </h2>
+      <div className="mt-4">
+        <Link
+          href="/guides/how-to"
+          className="card block transition hover:border-bark-500 hover:shadow-md"
+        >
+          <div className="flex items-start gap-3">
+            <span className="icon-chip" aria-hidden>
+              <Wrench className="h-5 w-5" />
+            </span>
+            <div>
+              <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                Home maintenance how-tos
+              </h3>
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+                Short pages for one job each: flush a water heater, clean a
+                dryer vent, test alarms and GFCIs, get gutters and sprinklers
+                ready for the rain.
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
 
       <h2 className="mt-10 text-lg font-bold text-stone-900 dark:text-stone-100">
         Have a quote in hand?

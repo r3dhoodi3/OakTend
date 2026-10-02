@@ -91,9 +91,9 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     guides: [
-      "/guides/hvac-replacement-cost",
+      "/guides/solar-battery-orange-county",
+      "/guides/orange-county-home-rebates-2026",
       "/guides/adu-cost",
-      "/guides/is-my-contractor-quote-fair",
     ],
     cities: ["Buena Park", "Cypress", "Fullerton", "La Habra", "Stanton"],
   },
@@ -400,6 +400,31 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Costa Mesa",
       "Fountain Valley",
     ],
+  },
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada": {
+    guides: [
+      "/guides/best-home-maintenance-apps",
+      "/guides/orange-county-home-maintenance-checklist",
+      "/guides/new-homeowner-first-year-orange-county",
+    ],
+    cities: ["Irvine", "Tustin", "Lake Forest", "Mission Viejo"],
+  },
+  "/guides/oaktend-vs-angi": {
+    guides: [
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/contractor-deposit-rules-california",
+      "/guides/best-home-maintenance-apps",
+    ],
+    cities: ["Anaheim", "Orange", "Fullerton", "Garden Grove"],
+  },
+  "/guides/oaktend-vs-thumbtack": {
+    guides: [
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/permits-orange-county",
+      "/guides/best-home-maintenance-apps",
+    ],
+    cities: ["Santa Ana", "Costa Mesa", "Newport Beach", "Westminster"],
   },
 };
 
@@ -782,7 +807,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "City of Anaheim: residential electrical panel upgrade",
       supports:
-        "A residential panel upgrade up to 200 amps takes an electrical permit that can be obtained online, and Anaheim Public Utilities' meter spot report must be on site at the Building Division inspection.",
+        "A residential panel upgrade up to 200 amps takes an electrical permit that can be obtained online, and Anaheim Public Utilities' meter spot report must be on site at the Building Division inspection. Re-checked 2026-10-01: call Anaheim Public Utilities at 714-765-6847 for a meter spot inspection, an inspector calls within 2-3 business days with the report; permit $126 with a $167 minimum permit fee; inspections for the electrical service meter and electrical final.",
     },
     {
       href: "https://santa-ana.gov/permit-faqs/",
@@ -797,6 +822,68 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "California Assembly Bill 2622 (2023-2024)",
       supports:
         "The small-job license exemption does not apply to work that needs a building permit.",
+    },
+    // Added 2026-10-01 for the electrical panel upgrade retarget, each opened
+    // that day.
+    {
+      href: "https://www.sce.com/partners/consulting-services/building-renovations-planning-project-requests",
+      label:
+        "Southern California Edison: building, renovation and project planning requests",
+      supports:
+        "Panel upgrades (or meter spots) for an existing service are submitted online through the Building, Renovation, and Project Planning Portal; load management, energy-efficient equipment or design adjustments may support new loads without increasing service size; the Common Facility Cost Treatment Program, a 4-year CPUC-authorized pilot, offers single-family homes up to $10,000 toward utility-side costs, for panels under 100 amps going to no more than 200 amps in low-income, income-based or equity electrification programs that replace gas appliances with heat pumps and electrify at least two major end uses.",
+    },
+    {
+      href: "https://www.sce.com/sites/default/files/custom-files/PDF_Files/Overview-of-the-Energization-Process-and-Project-Timing.pdf",
+      label:
+        "Southern California Edison: Energization Process Steps and Project Timing",
+      supports:
+        "SCE reviews an application in an average of 10 business days and a maximum of 45, and the clock starts once the application is deemed complete; main panel upgrade work fully under SCE's control is targeted at an average of 30 business days and a maximum of 45.",
+    },
+    {
+      href: "https://evhome.sce.com/",
+      label: "Southern California Edison: Charge Ready Home program",
+      supports:
+        "Up to $4,200 for an electrical panel upgrade and EV outlet installation, or up to $1,000 for an EV outlet only where the panel is already 200 amps or more; for income-qualified households or residents of disadvantaged communities in SCE territory; eligible customers can apply today.",
+    },
+    {
+      href: "https://www.sce.com/clean-energy-efficiency/electric-vehicles/charging-your-ev",
+      label: "Southern California Edison: charging your EV",
+      supports:
+        "Residential customers can call 1-800-4EV-INFO for a Home Fuel Advisor and an EV Power Plan; it is a good idea to have an electrician inspect your wiring before your first charge, even with a Level 1 cord.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/398/Plan-Check-Center",
+      label: "City of Fountain Valley: Plan Check Center, expedited permits",
+      supports: "Panel Upgrade (200 amp) is on the expedited permits list.",
+    },
+    {
+      href: "https://www.nfpa.org/downloadable-resources/safety-tip-sheets/electrical-safety-tip-sheet",
+      label: "National Fire Protection Association: Electrical Safety tip sheet (2018)",
+      supports:
+        "Call a qualified electrician for frequent blown fuses or tripped breakers, a tingle when touching an appliance, discolored or warm outlets, a burning or rubbery smell, flickering or dimming lights, or sparks from an outlet.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C10",
+      label: "Contractors State License Board: C-10 Electrical Contractor classification",
+      supports:
+        "A C-10 electrical contractor places, installs, erects or connects electrical wires, fixtures, appliances and apparatus.",
+    },
+    {
+      href: "https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      label: "Contractors State License Board: check a license",
+      supports: "Look up a contractor's license number, status and classifications.",
+    },
+    {
+      href: "https://www.dgs.ca.gov/BSC/Codes",
+      label: "California Building Standards Commission: codes",
+      supports:
+        "The 2025 California Building Standards Code (Title 24) took effect January 1, 2026; the California Electrical Code (Part 3) is based on the NFPA model code.",
+    },
+    {
+      href: "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit",
+      label: "IRS: energy efficient home improvement credit",
+      supports:
+        "Panelboards of 200 amps or more supporting qualifying property were eligible up to $600, for property placed in service on or after January 1, 2023 and before December 31, 2025.",
     },
     {
       href: "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
@@ -2444,7 +2531,19 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",
       label: "Thumbtack on the App Store",
       supports:
-        "It's free for customers to use Thumbtack; compare prices, read reviews, message and book local pros. Checked 2026-09-30.",
+        "Free to download; compare prices, read reviews, message and book local pros. Checked 2026-10-01.",
+    },
+    {
+      href: "https://help.thumbtack.com/article/manage-home-care-plan",
+      label: "Thumbtack Help: How to get a personalized plan for your home",
+      supports:
+        "The Thumbtack app builds a home profile and a personalized plan for your home. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
+      href: "https://press.thumbtack.com/announcements/one-app-for-your-home-introducing-a-new-thumbtack-for-a-new-generation-of-homeowners/",
+      label: "Thumbtack press release, April 2, 2024: One App for Your Home",
+      supports:
+        "Thumbtack's app plans let you set reminders and track progress. Checked 2026-10-01 by a person through web search, not fetched by a script.",
     },
     {
       href: "https://play.google.com/store/apps/details?id=com.thumbtack.consumer",
@@ -2456,6 +2555,104 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Real Estate Ledger: home maintenance schedule apps (June 4, 2026)",
       supports:
         "Lists Centriq as discontinued. Checked 2026-09-30.",
+    },
+  ],
+  // Added 2026-10-01 for the three "OakTend vs" comparison guides. Every
+  // entry opened that day. Competitor facts are paraphrased, never copied,
+  // and come only from the company's own site, its store listings or its SEC
+  // filing. Guardrails: OakTend-marketing/research-2026-10-01/
+  // comparison-pages-legal.md. Re-check every entry before bumping a date.
+  "/guides/oaktend-vs-homezada": [
+    {
+      href: "https://www.homezada.com/homeowners/pricing",
+      label: "HomeZada homeowner pricing",
+      supports:
+        "Essentials free (10 Homeowner AI chats); Premium $99 a year or $15.95 a month, adding Home Maintenance, Home Remodel Projects and Home Finances (100 chats); Deluxe $189 a year for up to 3 properties (250 chats), each property above 3 a $99 a year add-on. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.homezada.com/",
+      label: "HomeZada home page",
+      supports:
+        "HomeZada describes itself as a digital home management platform for inventory, maintenance, remodel projects and finances, and says it is not a contractor marketplace. Checked 2026-10-01.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/homezada-mobile/id473722482",
+      label: "HomeZada Mobile on the App Store",
+      supports:
+        "HomeZada has an app for iPhone and iPad (also listed for Mac and Apple Vision). Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.homezada.mobile",
+      label: "HomeZada Mobile on Google Play",
+      supports: "HomeZada has an Android app, from HomeZada, Inc. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.homezada.com/terms-and-conditions",
+      label: "HomeZada Terms and Conditions",
+      supports:
+        "HomeZada and Zada are registered trademarks of HomeZada, Inc. Checked 2026-10-01.",
+    },
+  ],
+  "/guides/oaktend-vs-angi": [
+    {
+      href: "https://www.sec.gov/Archives/edgar/data/1705110/000170511026000011/angi-20251231.htm",
+      label: "Angi Inc. Form 10-K for fiscal year 2025 (SEC)",
+      supports:
+        "Angi connects home pros with consumers in more than 500 categories through a nationwide network; matching, booking of pre-priced services and related tools are free to consumers once they register, and it also sells membership packages to consumers; revenue comes from fees pros pay for consumer matches, advertising and memberships; US lead revenue (fees pros pay for consumer matches) was 57% of Angi Inc.'s 2025 consolidated revenue. Checked 2026-10-01.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/angi-find-local-home-services/id432633172",
+      label: "Angi: Find Local Home Services on the App Store",
+      supports:
+        "Free app from Angi Inc. for iPhone and iPad; lists home maintenance planner features. Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.servicemagic.consumer",
+      label: "Angi: Hire Home Service Pros on Google Play",
+      supports: "Angi has an Android app, from Angi Inc. Checked 2026-10-01.",
+    },
+  ],
+  "/guides/oaktend-vs-thumbtack": [
+    {
+      href: "https://www.thumbtack.com/",
+      label: "Thumbtack home page",
+      supports:
+        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.thumbtack.com/pro",
+      label: "Thumbtack for pros",
+      supports:
+        "Free for pros to join, with no subscription; pros pay for leads. Checked 2026-10-01.",
+    },
+    {
+      href: "https://help.thumbtack.com/article/manage-home-care-plan",
+      label: "Thumbtack Help: How to get a personalized plan for your home",
+      supports:
+        "The Thumbtack app builds a home profile and a personalized plan of projects for your home, with guides based on your home and the season. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
+      href: "https://press.thumbtack.com/announcements/one-app-for-your-home-introducing-a-new-thumbtack-for-a-new-generation-of-homeowners/",
+      label: "Thumbtack press release, April 2, 2024: One App for Your Home",
+      supports:
+        "Thumbtack's app added a Home Profile, Seasonal Upkeep Guides, and plans where you can set reminders and track progress. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",
+      label: "Thumbtack on the App Store",
+      supports:
+        "Free iPhone app from Thumbtack, Inc.; get prices, read reviews, message pros and hire in the app. Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.thumbtack.consumer",
+      label: "Thumbtack on Google Play",
+      supports: "Thumbtack has an Android app for customers. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.thumbtack.com/brand/",
+      label: "Thumbtack brand guidelines",
+      supports:
+        "Thumbtack's trademarks belong to Thumbtack, Inc., credited as such on this page. Checked 2026-10-01.",
     },
   ],
 };

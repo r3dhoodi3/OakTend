@@ -29,7 +29,10 @@
 .shell:fullscreen .deviceWrap,
 .shell:-webkit-full-screen .deviceWrap,
 .shellMax .deviceWrap {
-  padding: 16px 10px 58px;
+  /* 84px: room for the control bar (50px), 12px of air and a one-line
+     caption, so raising the captions clear of the bar does not push them
+     further onto the screen than before. */
+  padding: 16px 10px 84px;
 }
 .shell:fullscreen .device,
 .shell:-webkit-full-screen .device,
@@ -48,8 +51,8 @@
      formula, whose 50vw/82vh terms were disconnected from the device's
      actual (much narrower) capped width and silently squashed the screen
      short on wide desktop monitors.
-     First term: 100vh minus a fixed ~120px for deviceWrap's own vertical
-     padding (16+58=74px) plus the device's chrome bar + padding (~36px),
+     First term: 100vh minus a fixed ~146px for deviceWrap's own vertical
+     padding (16+84=100px) plus the device's chrome bar + padding (~36px),
      so the screen can never overflow the letterboxed room on ANY monitor
      aspect ratio (16:9, 16:10, ultrawide) or on the iPhone Safari
      .shellMax fallback, where 100vh is much smaller.
@@ -57,11 +60,11 @@
      16:9 surface at that width.
      Worked example at 1920x1080 (exactly 16:9, so the outer .box already
      fills the whole screen with zero letterbox): device width fills the
-     full 1920px; term 1 = 1080 - 120 = 960px; term 2 = 1920 * 9/16 = 1080px;
-     the min is 960px. Screen renders at roughly 1920 x 960, close to true
+     full 1920px; term 1 = 1080 - 146 = 934px; term 2 = 1920 * 9/16 = 1080px;
+     the min is 934px. Screen renders at roughly 1920 x 934, close to true
      16:9 at full-HD width, with any residual gap absorbed by the intentional
      letterbox. */
-  height: min(calc(100vh - 120px), calc(min(100vw, 1920px) * 9 / 16));
+  height: min(calc(100vh - 146px), calc(min(100vw, 1920px) * 9 / 16));
 }
 .shell:-webkit-full-screen {
   background: #000;
@@ -786,7 +789,9 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 42px;
+  /* The control bar is 50px tall (16px top padding + 26px row + 8px), so
+     63px keeps at least 12px of clear space between caption and bar. */
+  bottom: 63px;
   z-index: 9;
   display: flex;
   justify-content: center;
@@ -799,6 +804,9 @@
   font-family: var(--sans);
   font-weight: 600;
   font-size: clamp(11px, 2.2vw, 15px);
+  /* Tighter than the inherited 1.5 so a two-line caption grows upward less
+     now that it sits higher. */
+  line-height: 1.25;
   letter-spacing: 0.01em;
   color: rgb(255 255 255 / 0.95);
   text-shadow:

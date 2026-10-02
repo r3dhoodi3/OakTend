@@ -203,6 +203,19 @@ describe("GUIDE_SOURCES", () => {
     "www.homerockr.com",
     "homequeue.app",
     "realestateledger.io",
+    // Added 2026-10-01 for the three "OakTend vs" comparisons, each opened
+    // that day.
+    "www.sec.gov",
+    "www.thumbtack.com",
+    // Added 2026-10-01 for Thumbtack's home plan, checked by a person
+    // through web search (Thumbtack's terms bar scripted access).
+    "help.thumbtack.com",
+    "press.thumbtack.com",
+    // Added 2026-10-01 for the electrical panel upgrade guide, each opened
+    // that day.
+    "evhome.sce.com",
+    "www.nfpa.org",
+    "www.dgs.ca.gov",
   ];
 
   it("lists sources for every guide", () => {
@@ -254,13 +267,14 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 27 guide pages", () => {
+describe("all 30 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
-    .filter((e) => e.isDirectory())
+    // "how-to" is the chore page section (src/lib/chores.ts), not a guide.
+    .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(27);
+    expect(dirs).toHaveLength(30);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

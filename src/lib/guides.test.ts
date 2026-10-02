@@ -36,9 +36,11 @@ function hrefsFromIndex(): string[] {
 }
 
 // Every directory under src/app/guides that is a real route (has a page.tsx).
+// "how-to" is left out: it is the section of short chore pages, with its own
+// dates and checks (src/lib/chores.ts, src/lib/chores.test.ts), not a guide.
 function guideRouteDirs(): string[] {
   return readdirSync(GUIDES_DIR, { withFileTypes: true })
-    .filter((e) => e.isDirectory())
+    .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 }
 
@@ -83,7 +85,7 @@ describe("GUIDE_DATES", () => {
 describe("the guides section agrees with itself", () => {
   it("dates every guide the index links to", () => {
     const hrefs = hrefsFromIndex();
-    expect(hrefs.length).toBe(27);
+    expect(hrefs.length).toBe(30);
     for (const href of hrefs) {
       expect(GUIDE_DATES[href], `${href} is linked but undated`).toBeDefined();
     }
@@ -100,7 +102,7 @@ describe("the guides section agrees with itself", () => {
 
   // The path each guide hands <GuideArticleJsonLd> is what keys into
   // GUIDE_DATES, so a typo there silently drops that guide's Article node.
-  it("renders an Article node on all 27, each with a path the map knows", () => {
+  it("renders an Article node on all 30, each with a path the map knows", () => {
     const found: string[] = [];
     for (const dir of guideRouteDirs()) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
@@ -109,7 +111,7 @@ describe("the guides section agrees with itself", () => {
       expect(match![1]).toBe(`/guides/${dir}`);
       found.push(match![1]);
     }
-    expect(found).toHaveLength(27);
+    expect(found).toHaveLength(30);
   });
 });
 
@@ -122,7 +124,7 @@ describe("GUIDE_TITLES", () => {
     expect(Object.keys(GUIDE_TITLES).sort()).toEqual(
       GUIDE_PATHS.filter((p) => p !== "/guides").sort()
     );
-    expect(GUIDE_LINKS).toHaveLength(27);
+    expect(GUIDE_LINKS).toHaveLength(30);
   });
 
   it("uses the same title the index card shows", () => {

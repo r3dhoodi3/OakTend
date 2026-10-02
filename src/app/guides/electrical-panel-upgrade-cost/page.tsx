@@ -11,22 +11,26 @@ import OcRemodelCityTable from "@/components/OcRemodelCityTable";
 // from a published source listed in GUIDE_SOURCES (src/lib/guideExtras.ts):
 // the cost range from a 2022 California utility study (NV5 and Redwood Energy
 // for PG&E), a national range from Pecan Street, the build-era share from the
-// Census Bureau. It no longer repeats the app's own planning figure
-// (REPLACEMENT_INFO.electrical_panel in src/lib/health.ts), because that has
-// no published source to cite. The Orange County section (decade shares,
-// aluminum wiring from the CPSC) and the city table (rules in
-// src/lib/ocRemodelCities.ts) cite their own sources; 100 vs 200 amp and the
-// utility step are in the FAQ only. TRIMMED 2026-09-26: pre-1980 shares by
-// city live on /guides/orange-county-home-age, the license and down payment
-// rules on /guides/contractor-deposit-rules-california, the generic bid
-// checklist on /guides/is-my-contractor-quote-fair. Federal
-// Pacific and Zinsco panels are NOT named here: the CPSC closed its Federal
-// Pacific breaker investigation in 1983, saying its data did not establish a
-// serious risk and making no finding either way on their safety, and on
-// 2026-09-25 no safety agency or fire authority page could be found that
-// names either brand as a hazard. Only contractor sites do.
-// The pro side is closed, so nothing here offers to find, match or book an
-// electrician.
+// Census Bureau, the utility steps and timing from SCE's own pages, the
+// warning signs from NFPA's electrical safety tip sheet. It does not repeat
+// the app's own planning figure (REPLACEMENT_INFO.electrical_panel in
+// src/lib/health.ts), because that has no published source to cite.
+//
+// RETARGETED 2026-10-01: Search Console showed the page getting impressions
+// for "electrical panel upgrade" and its variants with zero clicks, so the
+// title and H1 now lead with that phrase instead of "Panel upgrade cost".
+// The URL stays the same on purpose (it is already indexed).
+//
+// Concise rule: each fact once. Pre-1980 shares by city live on
+// /guides/orange-county-home-age, the down payment rule on
+// /guides/contractor-deposit-rules-california, the generic bid checklist on
+// /guides/is-my-contractor-quote-fair. Federal Pacific and Zinsco panels are
+// NOT named here: the CPSC closed its Federal Pacific breaker investigation in
+// 1983, saying its data did not establish a serious risk and making no
+// finding either way on their safety, and on 2026-09-25 no safety agency or
+// fire authority page could be found that names either brand as a hazard.
+// Only contractor sites do. The pro side is closed, so nothing here offers to
+// find, match or book an electrician.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -44,11 +48,15 @@ export const revalidate = 3600;
 // Title/description held once so metadata.title, openGraph, and twitter
 // can't drift from each other; the OG image at ./opengraph-image.tsx keeps
 // its own literal copy of the title (see that file's comment for why).
-// Kept to 35 characters so the full "<title> | OakTend" stays under 50.
-const TITLE = "Panel upgrade cost in Orange County";
+// 39 characters, so the full "<title> | OakTend" is 49, under the 50 that
+// src/lib/ocRemodelCities.test.ts holds the trade guides to. The H1 reads
+// "in Orange County"; the title uses a comma only to fit.
+const TITLE = "Electrical panel upgrade, Orange County";
 const DESCRIPTION =
-  "Electrical panel upgrade cost in Orange County: a sourced California range, when you need one, 100 vs 200 amp, aluminum wiring and permits by city.";
+  "Electrical panel upgrade in Orange County: when you need one, the sourced cost range, how SCE's side works, rebates and city permits.";
 const CANONICAL = `${SITE_URL}/guides/electrical-panel-upgrade-cost`;
+
+const LINK = "text-bark-700 underline hover:no-underline dark:text-stone-300";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -70,18 +78,20 @@ export const metadata: Metadata = {
   },
 };
 
-// Only questions the body does not already answer: 100 vs 200 amp and the
-// utility step live here and nowhere else on the page. Cost, when an upgrade
-// is needed, permits, licensing and aluminum wiring were cut from this list
-// on 2026-09-26 because they repeated a body section.
+// Only questions the body does not already answer. Cost, when an upgrade is
+// needed, the SCE steps, permits and licensing each live in one body section.
 const FAQS = [
   {
     q: "Should I go with 100 amp or 200 amp?",
     a: "Amperage is the size of your home's electrical service. Many older homes have 100-amp service, which can be fine for a smaller home with modest needs but can run short once you stack several large loads. Pecan Street's research says most all-electric homes will need at least a 200-amp panel, so 200 amp is the usual target when you upgrade, especially with an EV charger, heat pump or solar planned. An electrician sizes the service to your home's real and planned loads rather than to a rule of thumb.",
   },
   {
-    q: "Who deals with the utility during a panel upgrade?",
-    a: "Usually the electrician, but ask up front, along with what it adds to the price. Disconnecting and reconnecting the service is coordinated with Southern California Edison or whichever utility serves your address, and a 2022 California study found utility-side work is where costs and delays grow. In Anaheim, which runs its own utility, the city says Anaheim Public Utilities' meter spot report has to be on site at the inspection.",
+    q: "Do I need a panel upgrade to install an EV charger?",
+    a: "Not always. It depends on how much spare capacity your panel has, which a load calculation answers. SCE offers an EV Power Plan through its Home Fuel Advisors at 1-800-4EV-INFO, and recommends having an electrician inspect your wiring before your first charge even if you plan to use a Level 1 cord.",
+  },
+  {
+    q: "Is there a federal tax credit for a panel upgrade?",
+    a: "Not for work done now. The IRS energy efficient home improvement credit covered panels of 200 amps or more that support qualifying equipment, up to $600, but only for property placed in service before December 31, 2025.",
   },
 ];
 
@@ -125,27 +135,35 @@ export default function ElectricalPanelUpgradeCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Panel upgrade cost in Orange County" },
+          { label: TITLE },
         ]}
       />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
           { name: "Guides", href: "/guides" },
-          { name: "Panel upgrade cost in Orange County", href: CANONICAL },
+          { name: TITLE, href: CANONICAL },
         ]}
         siteUrl={SITE_URL}
       />
 
       <h1 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl dark:text-stone-100">
-        Panel upgrade cost in Orange County
+        Electrical panel upgrade in Orange County
       </h1>
       {/* Updated date and byline, from the same date map the sitemap and the
           Article node read (src/components/GuideMeta.tsx). */}
       <GuideMeta path="/guides/electrical-panel-upgrade-cost" />
-      <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        A planning guide for Orange County homeowners, with sourced figures.
-        It is not a quote for your home.
+
+      {/* Direct answer first: what it is, who is involved, where to read on. */}
+      <p className="mt-4 leading-relaxed text-stone-700 dark:text-stone-300">
+        An electrical panel upgrade replaces your main breaker panel and
+        usually raises your home&apos;s service, most often from 100 to 200
+        amps, so it can carry new loads like an EV charger, a heat pump, solar
+        and a battery, or an ADU. It takes a licensed electrician, a city
+        permit and inspection, and a disconnect and reconnect by your utility:
+        Southern California Edison in most of Orange County, Anaheim Public
+        Utilities in Anaheim. This is a planning guide with sourced figures,
+        not a quote for your home.
       </p>
 
       <div className="mt-6 rounded-2xl border border-bark-100 bg-bark-50 p-5 dark:border-bark-700 dark:bg-bark-700/20">
@@ -165,7 +183,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
       <div className="mt-8 space-y-6 text-stone-700 dark:text-stone-300">
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            The typical range
+            What an electrical panel upgrade costs
           </h2>
           <p className="mt-2 leading-relaxed">
             We found no published figure for Orange County alone. The range
@@ -188,7 +206,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            When a panel upgrade is actually needed
+            When you need one
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -196,31 +214,63 @@ export default function ElectricalPanelUpgradeCostGuide() {
               large, steady load that an older panel may not have room for.
             </li>
             <li>
-              <strong>Building an ADU.</strong> A second unit adds significant
-              demand and often needs more service capacity. Our{" "}
-              <Link href="/guides/garage-conversion-vs-adu-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
-                garage conversion vs ADU guide
-              </Link>{" "}
-              compares the two routes.
+              <strong>Switching gas appliances to electric.</strong> A heat
+              pump for heating and cooling, a heat pump water heater, an
+              induction range or an electric dryer each add load. Rebates for
+              that equipment are in our{" "}
+              <Link href="/guides/orange-county-home-rebates-2026" className={LINK}>
+                Orange County rebates guide
+              </Link>
+              .
             </li>
             <li>
-              <strong>Going solar.</strong> Some solar and battery installs
+              <strong>Going solar or adding a battery.</strong> Some installs
               require a 200-amp panel or a specific bus rating. Our{" "}
-              <Link href="/guides/solar-battery-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              <Link href="/guides/solar-battery-orange-county" className={LINK}>
                 solar and battery guide
               </Link>{" "}
               covers the rest.
             </li>
             <li>
+              <strong>Building an ADU.</strong> A second unit adds significant
+              demand and often needs more service capacity. Our{" "}
+              <Link href="/guides/garage-conversion-vs-adu-orange-county" className={LINK}>
+                garage conversion vs ADU guide
+              </Link>{" "}
+              compares the two routes.
+            </li>
+            <li>
               <strong>An aging or overloaded panel.</strong> Older 100-amp
-              panels can run short for a modern home, and a panel that trips
-              often is worth having an electrician look at.
+              panels can run short for a modern home. The warning signs are
+              below.
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            A licensed electrician can do a load calculation and tell you
-            whether your current service can carry what you want to add before
-            you commit to an upgrade.
+            Ask for a load calculation before you commit. SCE itself says load
+            management, energy-efficient equipment or design changes may let
+            you add new loads without increasing your service size, which can
+            spare you the utility-side work and its wait.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Signs your panel needs an electrician
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The National Fire Protection Association says to call a qualified
+            electrician if you have:
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>Breakers that trip or fuses that blow often</li>
+            <li>Flickering or dimming lights</li>
+            <li>Discolored or warm wall outlets</li>
+            <li>A burning or rubbery smell from an appliance</li>
+            <li>A tingle when you touch an appliance, or sparks from an outlet</li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            These point to a problem worth a visit, not always to a new panel.
+            Leave the panel cover on and let the electrician open it.
           </p>
         </section>
 
@@ -239,31 +289,121 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Permits and why licensed matters
+            How the SCE side works
           </h2>
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              The request goes in online through SCE&apos;s{" "}
+              <a
+                href="https://www.sce.com/partners/consulting-services/building-renovations-planning-project-requests"
+                rel="noopener"
+                className={LINK}
+              >
+                Building, Renovation, and Project Planning Portal
+              </a>
+              , which lists panel upgrades for an existing service. Ask your
+              electrician whether they will file it for you.
+            </li>
+            <li>
+              SCE says it reviews an application in an average of 10 business
+              days, 45 at most, and the clock starts once it calls the
+              application complete.
+            </li>
+            <li>
+              For main panel upgrades, SCE targets an average of 30 business
+              days, 45 at most, for the work fully under its control. Permits
+              and anything you or your electrician owe come on top.
+            </li>
+          </ol>
           <p className="mt-2 leading-relaxed">
-            A panel or service upgrade needs a permit and an inspection. The
-            work touches the main service connection and carries real shock
-            and fire risk if it is done wrong. Because it needs a permit,
-            California&apos;s small-job exception for unlicensed workers does
-            not apply at any price: hire a licensed electrical contractor
-            (CSLB class C-10) and check the license at cslb.ca.gov. Confirm the
-            electrician is pulling the permit; a permitted, inspected upgrade
-            leaves a clean record that protects you at resale and with your
-            insurer. The limit on the down payment is in our{" "}
-            <Link
-              href="/guides/contractor-deposit-rules-california"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
-              deposit rules guide
-            </Link>
-            .
+            In Anaheim the utility is the city&apos;s own. You call Anaheim
+            Public Utilities at{" "}
+            <span className="whitespace-nowrap">714-765-6847</span> for a meter
+            spot inspection; an
+            inspector calls back within 2 to 3 business days with a meter spot
+            report, which must be on site at the city&apos;s inspection. The
+            city&apos;s page lists the electrical permit at $126 with a $167
+            minimum, and two inspections: service meter and final.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            What is different in Orange County
+            Help paying for it
+          </h2>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>SCE Charge Ready Home.</strong> Up to $4,200 for a panel
+              upgrade plus an EV outlet, or up to $1,000 for the outlet alone
+              if your panel is already 200 amps. It is for income-qualified
+              households and residents of disadvantaged communities. Apply at{" "}
+              <a href="https://evhome.sce.com/" rel="noopener" className={LINK}>
+                evhome.sce.com
+              </a>
+              .
+            </li>
+            <li>
+              <strong>SCE Common Facility Cost Treatment Program.</strong> A
+              four-year pilot that puts up to $10,000 toward SCE&apos;s
+              utility-side costs for a single-family home. It is narrow: you
+              need a panel under 100 amps going to no more than 200, to be in a
+              low-income or equity electrification program, to be replacing gas
+              appliances with heat pumps and electrifying at least two of
+              heating, water heating, cooking and drying, and to have ruled
+              out alternatives to upsizing.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permits, code and licensing
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            A panel or service upgrade needs a permit and an inspection.
+            Permits applied for since January 1, 2026 fall under the 2025
+            California Building Standards Code (Title 24), whose electrical
+            part is California&apos;s version of the National Electrical Code. Because
+            the job needs a permit, California&apos;s small-job exception for
+            unlicensed workers does not apply at any price: hire a{" "}
+            <a
+              href="https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=C10"
+              rel="noopener"
+              className={LINK}
+            >
+              C-10 electrical contractor
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx"
+              rel="noopener"
+              className={LINK}
+            >
+              check the license with the CSLB
+            </a>
+            . A permitted, inspected upgrade leaves a clean record that
+            protects you at resale and with your insurer. The limit on the
+            down payment is in our{" "}
+            <Link href="/guides/contractor-deposit-rules-california" className={LINK}>
+              deposit rules guide
+            </Link>
+            .
+          </p>
+          <p className="mt-2 leading-relaxed">
+            Some cities move it fast. Fountain Valley lists a 200-amp panel
+            upgrade among its expedited permits, and Santa Ana issues
+            residential service meter upgrades the same day over the counter.
+            What other cities say is in the table below, and our{" "}
+            <Link href="/guides/permits-orange-county" className={LINK}>
+              Orange County permits guide
+            </Link>{" "}
+            covers other common jobs.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            What is different in Orange County homes
           </h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
@@ -271,10 +411,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
               19 percent of the county&apos;s homes in the 1960s and about 22
               percent in the 1970s, so roughly four in ten were wired before EV
               chargers, heat pumps and home batteries existed (more in{" "}
-              <Link
-                href="/guides/orange-county-home-age"
-                className="text-bark-700 hover:underline dark:text-stone-300"
-              >
+              <Link href="/guides/orange-county-home-age" className={LINK}>
                 how old Orange County homes are
               </Link>
               ). InterNACHI&apos;s life expectancy chart gives a service panel
@@ -288,9 +425,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
               CPSC found homes built before 1972 and wired with aluminum were
               55 times more likely than copper-wired homes to have a connection
               at an outlet reach fire hazard conditions, and the CPSC warns
-              that failing connections seldom give warning signs. If your home
-              is from that era, ask the electrician to check the branch wiring
-              while the panel is open and to price any repair as its own line.
+              that failing connections seldom give warning signs.
             </li>
           </ul>
         </section>
@@ -307,38 +442,23 @@ export default function ElectricalPanelUpgradeCostGuide() {
           <OcRemodelCityTable trade="panel" />
           <p className="mt-3 leading-relaxed">
             City pages:{" "}
-            <Link
-              href="/oc/anaheim"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/oc/anaheim" className={LINK}>
               Anaheim
             </Link>
             ,{" "}
-            <Link
-              href="/oc/fullerton"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/oc/fullerton" className={LINK}>
               Fullerton
             </Link>
             ,{" "}
-            <Link
-              href="/oc/buena-park"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/oc/buena-park" className={LINK}>
               Buena Park
             </Link>
             ,{" "}
-            <Link
-              href="/oc/garden-grove"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/oc/garden-grove" className={LINK}>
               Garden Grove
             </Link>
             , or{" "}
-            <Link
-              href="/oc"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/oc" className={LINK}>
               all Orange County cities
             </Link>
             .
@@ -347,27 +467,37 @@ export default function ElectricalPanelUpgradeCostGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            How to read the bid
+            Questions to ask the electrician
           </h2>
           <p className="mt-2 leading-relaxed">
             On top of the usual checks in{" "}
-            <Link
-              href="/guides/is-my-contractor-quote-fair"
-              className="text-bark-700 hover:underline dark:text-stone-300"
-            >
+            <Link href="/guides/is-my-contractor-quote-fair" className={LINK}>
               is my contractor&apos;s quote fair?
             </Link>
-            , a panel bid should:
+            :
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              State the new service size (for example 200 amps) and whether
-              the panel stays where it is or moves.
+              Will you do a load calculation, and could load management avoid
+              a service upgrade?
             </li>
             <li>
-              List utility-side work, trenching, a sub-panel and wiring
-              repairs as their own lines.
+              What service size are you proposing, and does the panel stay
+              where it is or move?
             </li>
+            <li>
+              Who pulls the city permit, and who files the request with SCE or
+              Anaheim Public Utilities?
+            </li>
+            <li>
+              Are utility-side work, trenching, a sub-panel and wiring repairs
+              listed as their own lines?
+            </li>
+            <li>
+              If the house is from 1965 to the mid 1970s, will you check the
+              branch wiring for aluminum while the panel is open?
+            </li>
+            <li>How long will the power be off, and on which days?</li>
           </ul>
         </section>
 

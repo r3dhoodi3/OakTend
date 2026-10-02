@@ -1,3 +1,5 @@
+import { choreDates } from "@/lib/chores";
+
 // THE ONE SOURCE OF TRUTH FOR GUIDE DATES.
 //
 // Three places need to agree on when a guide was published and when it last
@@ -81,6 +83,10 @@ export const GUIDE_PATHS = [
   "/guides/solar-battery-orange-county",
   // Added 2026-09-30 (seo/home-maintenance-app-2026-09-30).
   "/guides/best-home-maintenance-apps",
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada",
+  "/guides/oaktend-vs-angi",
+  "/guides/oaktend-vs-thumbtack",
 ] as const;
 
 // The short link text for each guide, for anywhere that links to guides from
@@ -127,6 +133,10 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/solar-battery-orange-county": "Solar and batteries in Orange County",
   // Added 2026-09-30.
   "/guides/best-home-maintenance-apps": "Best home maintenance apps in 2026",
+  // Added 2026-10-01.
+  "/guides/oaktend-vs-homezada": "OakTend vs HomeZada",
+  "/guides/oaktend-vs-angi": "OakTend vs Angi",
+  "/guides/oaktend-vs-thumbtack": "OakTend vs Thumbtack",
 };
 
 // The guides as { href, title } in GUIDE_PATHS order, index excluded.
@@ -139,7 +149,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-30" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-01" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -154,7 +164,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-01",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",
@@ -227,7 +237,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/orange-county-home-maintenance-checklist": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-01",
   },
   // New pages B, 2026-09-26.
   "/guides/orange-county-home-age": {
@@ -252,14 +262,33 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
     datePublished: "2026-09-30",
     dateModified: "2026-09-30",
   },
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
+  },
+  "/guides/oaktend-vs-angi": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
+  },
+  "/guides/oaktend-vs-thumbtack": {
+    datePublished: "2026-10-01",
+    dateModified: "2026-10-01",
+  },
 };
 
 // Dates for one guide path, or null if it has none. Null rather than a
 // fallback to today's date on purpose: a caller that cannot find a real date
 // should omit the field (an absent lastmod is a crawler's cue to work it out
 // itself; a wrong one is a lie it will eventually stop believing).
+//
+// The short how-to chore pages under /guides/how-to keep their dates in
+// src/lib/chores.ts (one shared first-publish date plus overrides), and are
+// answered here too so GuideMeta and GuideArticleJsonLd work for them by path
+// with no second code path. They are not in GUIDE_PATHS or GUIDE_DATES: the
+// sitemap lists them from CHORE_PATHS.
 export function guideDates(path: string): GuideDates | null {
-  return GUIDE_DATES[path] ?? null;
+  return GUIDE_DATES[path] ?? choreDates(path);
 }
 
 // The Article node for one guide. Kept here rather than in the component so

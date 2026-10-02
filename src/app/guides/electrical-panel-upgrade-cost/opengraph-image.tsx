@@ -9,11 +9,11 @@ import { renderOgCard, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/ogCard";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "OakTend guide: Panel upgrade cost in Orange County";
+export const alt = "OakTend guide: Electrical panel upgrade in Orange County";
 
 export default function OgImage() {
   return renderOgCard(
-    "Panel upgrade cost in Orange County",
+    "Electrical panel upgrade, Orange County",
     "An OakTend home guide"
   );
 }
