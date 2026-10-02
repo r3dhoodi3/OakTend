@@ -139,7 +139,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-09-30" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-01" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -154,7 +154,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-01",
   },
   "/guides/kitchen-remodel-cost": {
     datePublished: "2026-07-25",

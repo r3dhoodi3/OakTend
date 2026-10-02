@@ -47,7 +47,7 @@ export const revalidate = 3600;
 // Kept to 38 characters so the full "<title> | OakTend" stays under 50.
 const TITLE = "Bathroom remodel cost in Orange County";
 const DESCRIPTION =
-  "Bathroom remodel cost near Orange County: the 2025 midrange average, cost per square foot, what drives the price in older homes, permits by city and resale.";
+  "What a bathroom remodel costs in Orange County: the 2025 midrange average of $27,143 for the LA market, what moves the price, and permits by city.";
 const CANONICAL = `${SITE_URL}/guides/bathroom-remodel-cost`;
 
 export const metadata: Metadata = {

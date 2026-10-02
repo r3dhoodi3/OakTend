@@ -77,7 +77,7 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         icon: Zap,
         title: "Electrical panel upgrade cost",
         blurb:
-          "A sourced California price range, when an upgrade is actually needed, 100 vs 200 amp, and permits by city.",
+          "When you need one, a sourced California price range, how SCE's side works, rebates, and permits by city.",
       },
       {
         href: "/guides/kitchen-remodel-cost",

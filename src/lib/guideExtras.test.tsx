@@ -203,6 +203,11 @@ describe("GUIDE_SOURCES", () => {
     "www.homerockr.com",
     "homequeue.app",
     "realestateledger.io",
+    // Added 2026-10-01 for the electrical panel upgrade guide, each opened
+    // that day.
+    "evhome.sce.com",
+    "www.nfpa.org",
+    "www.dgs.ca.gov",
   ];
 
   it("lists sources for every guide", () => {
