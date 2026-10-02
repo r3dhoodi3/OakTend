@@ -662,12 +662,11 @@ export default async function Home(props: {
               See OakTend in 30 seconds
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-stone-300 sm:text-base">
-              A walkthrough of the real app: claim your address, get your
-              home score, post a job, and hear back from a pro. Built from
-              the actual screens, with a sample home.
+              {/* Preview (2026-10-02): pros are not open, so the intro no
+                  longer lists "hear back from a pro" as something you do. */}
               {isHomeownerPreview()
-                ? " The pro side is not open yet during our preview, so the last part shows what happens once it is."
-                : ""}
+                ? "A walkthrough of the real app: claim your address, get your home score and plan, and see how posting a job will work when local pros open. Built from the actual screens, with a sample home."
+                : "A walkthrough of the real app: claim your address, get your home score, post a job, and hear back from a pro. Built from the actual screens, with a sample home."}
             </p>
           </div>
           <div className="mt-8 max-sm:-mx-6 sm:mt-10">
@@ -714,7 +713,11 @@ export default async function Home(props: {
       {/* Value. Shown on phone too (founder request, 2026-09-16): the grid
           has no explicit column count below `sm`, so it already stacks to a
           single column with no extra classes needed. */}
-      <section className="mt-16 sm:mt-24">
+      {/* Phone gap (2026-10-02): "How it works" above is hidden on
+          phones, but Band's section+section rhythm still gave this one a
+          top margin, a blank strip at the top of the white card. The !
+          beats that rhythm selector. sm and up unchanged. */}
+      <section className="mt-16 max-sm:!mt-0 sm:mt-24">
         <h2 className="text-center text-2xl font-semibold text-stone-900 dark:text-stone-100 [text-wrap:balance]">
           What OakTend watches for you
         </h2>
