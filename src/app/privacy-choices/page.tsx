@@ -40,7 +40,7 @@ export default function PrivacyChoicesPage() {
         Your Privacy Choices
       </h1>
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Last updated {formatLegalDate(LEGAL.effectiveDate)}.
+        Last updated {formatLegalDate(LEGAL.privacyEffectiveDate)}.
       </p>
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         The short answer. See the{" "}
@@ -57,9 +57,9 @@ export default function PrivacyChoicesPage() {
           </h2>
           <p className="mt-2 leading-relaxed">
             OakTend does not sell your personal information, and we do not share it for
-            cross-context behavioral advertising. There is no advertiser, ad network, or data
-            broker anywhere in OakTend to opt out of, and the optional Google Analytics on our
-            public pages runs with ad features off. See{" "}
+            cross-context behavioral advertising. We use no advertising service, ad network, or
+            data broker, so there is nothing to opt out of, and the optional Google Analytics on
+            our public pages runs with its ad features off. See{" "}
             <Link href="/privacy#7-your-california-privacy-rights" className="text-bark-700 hover:underline dark:text-stone-300">
               Your California Privacy Rights
             </Link>{" "}
@@ -73,9 +73,10 @@ export default function PrivacyChoicesPage() {
           </h2>
           <p className="mt-2 leading-relaxed">
             On our public pages, such as the home page, guides, and city pages, we use Google
-            Analytics only if you allow it. It is never loaded inside your signed-in account, and
-            we never send it your name, email, or address. Google Signals and ad personalization
-            are off. See the{" "}
+            Analytics only if you allow it. It never runs while you are signed in, inside the
+            OakTend app, or on account pages, sign-in screens, or invite links, and we never send
+            it your name, email, or address. Google Signals and ad personalization are off. See
+            the{" "}
             <Link href="/cookies" className="text-bark-700 hover:underline dark:text-stone-300">
               Cookie and Tracking Notice
             </Link>{" "}

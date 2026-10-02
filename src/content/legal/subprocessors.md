@@ -1,6 +1,6 @@
 # Subprocessor and Vendor List
 
-Last updated: {{EFFECTIVE_DATE}}
+Last updated: {{PRIVACY_EFFECTIVE_DATE}}
 
 **Plain-language summary:** This page lists every outside company that processes personal information on {{BRAND}}'s behalf, or that receives a limited amount of data as part of a specific feature, along with what they do, what they receive, and where they operate. It supplements our Privacy Policy. None of these companies receive your information for their own advertising, and none of them is paid to sell it onward.
 
@@ -19,7 +19,7 @@ These companies handle personal information as part of running {{BRAND}}, under 
 | Anthropic | AI assistant (Ask {{BRAND}}), document and photo analysis | Question text, home-profile context, attached photos/documents | United States | anthropic.com/legal/privacy |
 | RentCast | Property, parcel, and valuation data | Street address, including any unit number, and ZIP code | United States | rentcast.io/privacy |
 | Checkr | Background checks for pros, when enabled | Name, email address | United States | checkr.com/privacy |
-| Google LLC (Google Analytics) | Website analytics on our public pages, only for visitors who tap "Allow analytics"; never loaded inside the signed-in app; Google Signals and ad personalization off | Public page viewed (dynamic parts removed), referring site's domain, device and browser details, approximate location, a random cookie ID; no name, email, address, or account ID | United States and other countries where Google operates | policies.google.com/privacy; business.safety.google/processorterms |
+| Google LLC (Google Analytics) | Website analytics on our public pages, only for signed-out visitors who tap "Allow analytics"; never while signed in or in the {{BRAND}} app; Google Signals and ad personalization off | Public page viewed (identifying parts of the address removed), referring site's domain, time on page, device and browser details, IP address (used by Google to estimate approximate location), a random cookie ID; no name, email, address, or account ID | United States and other countries where Google operates | policies.google.com/privacy; business.safety.google/processorterms |
 
 ## Other services (limited or no personal data)
 

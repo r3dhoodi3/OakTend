@@ -65,12 +65,25 @@ export const LEGAL = {
    * ISO date the current document set took effect. Bumped 2026-09-20 for the
    * legal-review wording pass (payment story, contact release on choosing a
    * pro, preview paragraphs, small-job license rule, SMS Terms, subprocessors).
-   * Bumped 2026-10-01 for optional Google Analytics on public pages (privacy
-   * policy, cookie notice, subprocessors, Your Privacy Choices).
+   * Documents changed AFTER that carry their own date instead (see
+   * privacyEffectiveDate below), so an unchanged document never shows a
+   * newer "Last updated" than the version a user accepted (the Terms
+   * acceptance ledger in src/app/(auth)/recordTermsAcceptance.ts records
+   * "2026-09-20").
    * If NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE is set in the host, it overrides this
    * default and has to be bumped there too.
    */
-  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-10-01",
+  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-20",
+  /**
+   * Per-document date for the privacy set changed on 2026-10-01 (optional
+   * Google Analytics): the Privacy Policy, the Cookie and Tracking Notice,
+   * the Subprocessor List and Your Privacy Choices. Used through the
+   * {{PRIVACY_EFFECTIVE_DATE}} token. Deliberately NOT overridable by
+   * NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE, so a stale host value cannot show the
+   * changed privacy pages with an older date. Bump it in the same change as
+   * any edit to those four pages.
+   */
+  privacyEffectiveDate: "2026-10-01",
   venueCounty: "Orange County, California",
   liabilityCap:
     "the greater of $100 or the amounts you paid to us in the 12 months before the claim",
@@ -107,6 +120,7 @@ const TOKENS: Record<string, () => string> = {
   DMCA_AGENT_PHONE: () => LEGAL.dmcaAgent.phone,
   DMCA_AGENT_EMAIL: () => LEGAL.dmcaAgent.email,
   EFFECTIVE_DATE: () => LEGAL.effectiveDate,
+  PRIVACY_EFFECTIVE_DATE: () => LEGAL.privacyEffectiveDate,
   VENUE_COUNTY: () => LEGAL.venueCounty,
   LIABILITY_CAP: () => LEGAL.liabilityCap,
   OWNER_NAME: () => LEGAL.ownerName,

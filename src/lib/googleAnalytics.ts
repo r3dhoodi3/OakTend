@@ -16,7 +16,14 @@
 //      address is ever sent. See GA_TRACKED_EXACT / GA_TRACKED_PREFIXES.
 //   5. No query strings (except clean utm_* campaign tags), no hashes, no
 //      user id, no email, no address. Dynamic segments are replaced with a
-//      placeholder before anything leaves the browser.
+//      placeholder before anything leaves the browser. The cleaned location,
+//      referrer and title are applied with gtag("set") so EVERY hit carries
+//      them (session_start, user_engagement, any Enhanced Measurement event),
+//      not just the page_view we send by hand.
+//   6. Never for a browser that holds a sign-in session, and never inside the
+//      iOS/Android app shell. See isGaBlockedContext.
+
+import { hasAuthCookie } from "@/lib/authCookie";
 
 export type AnalyticsConsent = "granted" | "denied";
 
@@ -226,4 +233,23 @@ export function clearGaCookies(): void {
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainPart}`;
     }
   }
+}
+
+/** Cookie names from a document.cookie string. */
+function cookieNames(cookieString: string): { name: string }[] {
+  return cookieString
+    .split(";")
+    .map((c) => ({ name: c.split("=")[0]?.trim() ?? "" }))
+    .filter((c) => c.name !== "");
+}
+
+/**
+ * True when this browser holds a Supabase session cookie (any
+ * sb-<ref>-auth-token, readable by page script because @supabase/ssr does not
+ * mark it httpOnly). Used only in the conservative direction: any session
+ * cookie at all, even an expired one, keeps Google Analytics off.
+ */
+export function hasSessionCookie(cookieString: string | null | undefined): boolean {
+  if (!cookieString) return false;
+  return hasAuthCookie(cookieNames(cookieString));
 }

@@ -1016,9 +1016,9 @@ export const THIRD_PARTIES: ThirdParty[] = [
     // nothing tied to an account reaches it; listed here because the export
     // and the rights panel promise the complete list.
     name: "Google (Google Analytics)",
-    role: "Website analytics on public pages, only if you allow it",
+    role: "Website analytics on public pages, only if you allow it and only while you are signed out",
     receives:
-      "The public page viewed (with any dynamic part of the address removed), the referring site's domain, device and browser details, approximate location, and a random cookie ID. Never your name, email, address, or account ID, and never anything from inside your account. Google Signals and ad personalization are off.",
+      "The public page viewed (with every part of the address that could identify you removed), the referring site's domain, time on page, device and browser details, your IP address (which Google uses to estimate approximate location), and a random cookie ID. Never your name, email, address, or account ID, and never anything from inside your account: it does not run while you are signed in or in the OakTend app. Google Signals and ad personalization are off.",
   },
   {
     name: "Twilio",

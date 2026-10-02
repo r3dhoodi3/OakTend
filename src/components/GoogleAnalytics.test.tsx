@@ -7,6 +7,11 @@ vi.mock("next/navigation", () => ({
   usePathname: () => mockPath,
 }));
 
+let mockNative = false;
+vi.mock("@/lib/platform", () => ({
+  isNativeApp: () => mockNative,
+}));
+
 import GoogleAnalytics, { __resetGoogleAnalyticsForTests } from "./GoogleAnalytics";
 import { writeAnalyticsConsent } from "@/lib/googleAnalytics";
 
@@ -53,6 +58,10 @@ afterEach(() => {
   delete w[`ga-disable-${ID}`];
   setNav("globalPrivacyControl", undefined);
   setNav("doNotTrack", null);
+  mockNative = false;
+  document.cookie = "sb-testref-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  window.history.replaceState(null, "", "/");
+  document.title = "";
 });
 
 describe("GoogleAnalytics", () => {
@@ -156,5 +165,78 @@ describe("GoogleAnalytics", () => {
     act(() => writeAnalyticsConsent("denied"));
     expect((window as unknown as W)[`ga-disable-${ID}`]).toBe(true);
     expect(document.cookie).not.toMatch(/_ga/);
+  });
+
+  it("sets the scrubbed location, referrer and title globally before any event", () => {
+    window.localStorage.setItem(CONSENT_KEY, "granted");
+    mockPath = "/homeowner-signup";
+    window.history.replaceState(
+      null,
+      "",
+      "/homeowner-signup?next=/join/household/TESTTOKEN&ref=TESTREF&utm_source=nextdoor"
+    );
+    render(<GoogleAnalytics measurementId={ID} />);
+    const all = calls();
+    const firstEvent = all.findIndex((c) => c[0] === "event");
+    const firstPageSet = all.findIndex(
+      (c) => c[0] === "set" && typeof c[1] === "object" && c[1] !== null
+    );
+    expect(firstPageSet).toBeGreaterThanOrEqual(0);
+    expect(firstPageSet).toBeLessThan(firstEvent);
+    // The config call carries them too, so gtag.js's own first hits use them.
+    const configIdx = all.findIndex((c) => c[0] === "config");
+    expect(firstPageSet).toBeLessThan(configIdx);
+    expect(all[firstPageSet][1]).toMatchObject({
+      page_location: `${window.location.origin}/homeowner-signup?utm_source=nextdoor`,
+    });
+    expect(all[configIdx][2]).toMatchObject({
+      page_location: `${window.location.origin}/homeowner-signup?utm_source=nextdoor`,
+    });
+    // Nothing anywhere in the dataLayer carries the token or the ref code.
+    const dump = JSON.stringify(all);
+    expect(dump).not.toContain("TESTTOKEN");
+    expect(dump).not.toContain("TESTREF");
+    expect(dump).not.toContain("/join/");
+  });
+
+  it("never sends a pro's id or business name, even on the next page", () => {
+    window.localStorage.setItem(CONSENT_KEY, "granted");
+    mockPath = "/p/PROID123";
+    document.title = "Acme Plumbing | OakTend";
+    const r = render(<GoogleAnalytics measurementId={ID} />);
+    // Client-side navigation away while the old title is still showing.
+    mockPath = "/pricing";
+    r.rerender(<GoogleAnalytics measurementId={ID} />);
+    const dump = JSON.stringify(calls());
+    expect(dump).not.toContain("PROID123");
+    expect(dump).not.toContain("Acme");
+    expect(pageViews()[1]).toMatchObject({ page_title: "/pricing" });
+  });
+
+  it("is off for a browser holding a sign-in session, even after Allow", () => {
+    window.localStorage.setItem(CONSENT_KEY, "granted");
+    document.cookie = "sb-testref-auth-token=x; path=/";
+    render(<GoogleAnalytics measurementId={ID} />);
+    expect(gaScript()).toBeNull();
+    expect(pageViews()).toHaveLength(0);
+  });
+
+  it("switches off when the visitor signs in partway through a visit", () => {
+    window.localStorage.setItem(CONSENT_KEY, "granted");
+    mockPath = "/pricing";
+    const r = render(<GoogleAnalytics measurementId={ID} />);
+    expect(pageViews()).toHaveLength(1);
+    document.cookie = "sb-testref-auth-token=x; path=/";
+    mockPath = "/guides";
+    r.rerender(<GoogleAnalytics measurementId={ID} />);
+    expect((window as unknown as W)[`ga-disable-${ID}`]).toBe(true);
+    expect(pageViews()).toHaveLength(1);
+  });
+
+  it("is off inside the iOS/Android app shell, even after Allow", () => {
+    window.localStorage.setItem(CONSENT_KEY, "granted");
+    mockNative = true;
+    render(<GoogleAnalytics measurementId={ID} />);
+    expect(gaScript()).toBeNull();
   });
 });

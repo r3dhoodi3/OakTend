@@ -148,4 +148,18 @@ describe("CookieNotice with Google Analytics configured", () => {
     expect(screen.getByText(/privacy signal is on/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it" })).toBeInTheDocument();
   });
+
+  it("does not ask a signed-in browser, and links the privacy policy when it asks", () => {
+    const first = render(<CookieNotice gaEnabled />);
+    expect(screen.getByRole("link", { name: "Privacy policy" })).toHaveAttribute(
+      "href",
+      "/privacy"
+    );
+    first.unmount();
+    document.cookie = "sb-testref-auth-token=x; path=/";
+    render(<CookieNotice gaEnabled />);
+    expect(screen.queryByRole("button", { name: "Allow analytics" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Got it" })).toBeInTheDocument();
+    document.cookie = "sb-testref-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  });
 });

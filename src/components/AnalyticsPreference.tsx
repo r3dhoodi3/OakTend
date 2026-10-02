@@ -5,9 +5,11 @@ import {
   ANALYTICS_CONSENT_EVENT,
   type AnalyticsConsent,
   hasBrowserPrivacySignal,
+  hasSessionCookie,
   readAnalyticsConsent,
   writeAnalyticsConsent,
 } from "@/lib/googleAnalytics";
+import { isNativeApp } from "@/lib/platform";
 
 // The "change it later" control for Google Analytics, shown on /cookies and
 // /privacy-choices. Only mounted when a measurement id is configured (see
@@ -20,10 +22,18 @@ export default function AnalyticsPreference() {
   const [ready, setReady] = useState(false);
   const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
   const [signal, setSignal] = useState(false);
+  const [native, setNative] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
     setConsent(readAnalyticsConsent());
     setSignal(hasBrowserPrivacySignal());
+    setNative(isNativeApp());
+    try {
+      setSignedIn(hasSessionCookie(document.cookie));
+    } catch {
+      setSignedIn(false);
+    }
     setReady(true);
     function onCustom() {
       setConsent(readAnalyticsConsent());
@@ -45,6 +55,14 @@ export default function AnalyticsPreference() {
     );
   }
 
+  if (native) {
+    return (
+      <span className="block text-sm leading-relaxed" role="status">
+        Analytics is off. We never load Google Analytics in the OakTend app.
+      </span>
+    );
+  }
+
   if (signal) {
     return (
       <span className="block text-sm leading-relaxed" role="status">
@@ -61,6 +79,8 @@ export default function AnalyticsPreference() {
         {on
           ? "Analytics is on. You allowed Google Analytics cookies on our public pages."
           : "Analytics is off. We do not load Google Analytics on this browser."}
+        {signedIn &&
+          " While you are signed in, it stays off either way; this choice applies when you are signed out."}
       </span>
       <button
         type="button"

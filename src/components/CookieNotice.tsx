@@ -8,6 +8,7 @@ import {
   readAnalyticsConsent,
   writeAnalyticsConsent,
 } from "@/lib/googleAnalytics";
+import { isGaBlockedContext } from "@/lib/gaContext";
 
 // The one-time cookie notice, mounted once in the ROOT layout
 // (src/app/layout.tsx) so every surface shows it exactly once - marketing
@@ -58,7 +59,11 @@ export default function CookieNotice({
   const [mode, setMode] = useState<Mode | null>(null);
 
   useEffect(() => {
-    if (gaEnabled && !hasBrowserPrivacySignal()) {
+    // Signed in, or inside the iOS/Android app shell: Google Analytics never
+    // runs there (GoogleAnalytics.tsx), so there is nothing to ask. Those
+    // visitors get the plain informational card.
+    const blocked = gaEnabled && isGaBlockedContext();
+    if (gaEnabled && !blocked && !hasBrowserPrivacySignal()) {
       // Someone who already chose (here or on /cookies or /privacy-choices)
       // is not asked again. Everyone else is asked, including people who
       // dismissed the older informational card: that card never asked about
@@ -74,7 +79,7 @@ export default function CookieNotice({
       // card: the safe direction to fail is TELLING somebody what cookies we
       // set, not hiding it because we could not read a flag.
     }
-    setMode(gaEnabled ? "signal" : "info");
+    setMode(gaEnabled && !blocked ? "signal" : "info");
   }, [gaEnabled]);
 
   function dismiss() {
@@ -142,12 +147,22 @@ export default function CookieNotice({
               Allow analytics
             </button>
           </div>
-          <Link
-            href="/cookies"
-            className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-stone-600 underline hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
-          >
-            Cookie notice
-          </Link>
+          {/* Both notices one tap away at the point of the choice: the
+              privacy policy holds the notice at collection. */}
+          <div className="mt-2 flex flex-wrap gap-x-5">
+            <Link
+              href="/cookies"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-stone-600 underline hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
+            >
+              Cookie notice
+            </Link>
+            <Link
+              href="/privacy"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-stone-600 underline hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
+            >
+              Privacy policy
+            </Link>
+          </div>
         </>
       ) : (
         <div className="mt-3 flex items-center justify-between gap-3">

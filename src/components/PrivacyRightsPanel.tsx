@@ -171,7 +171,7 @@ export default function PrivacyRightsPanel({
           />
           <Right
             term="Opt out of sale or sharing"
-            detail="OakTend does not sell your personal information, and does not share it for cross-context behavioral advertising. There are no advertising trackers on this site. We use one cookieless page-view counter from our hosting provider, and on our public pages, only if you allow it, Google Analytics with its ad features off. Because there is nothing to opt out of, there is no Do Not Sell or Share link. You can turn Google Analytics on or off on the Your Privacy Choices page."
+            detail="OakTend does not sell your personal information, and does not share it for cross-context behavioral advertising. There are no advertising trackers on this site. We use one cookieless page-view counter from our hosting provider, and on our public pages, only if you allow it and only while you are signed out, Google Analytics with its ad features off. Because there is nothing to opt out of, there is no Do Not Sell or Share link. You can turn Google Analytics on or off on the Your Privacy Choices page."
           />
           <Right
             term="Limit how we use sensitive information"
@@ -258,7 +258,7 @@ export default function PrivacyRightsPanel({
         <p className="mt-4 text-sm text-stone-600 dark:text-stone-300">
           These companies process data on OakTend&apos;s behalf so the product can
           work. Each is limited by contract to doing only what we ask. None of
-          them buys your data, and none of them is an advertising network.
+          them buys your data, and none of them may use it for advertising.
         </p>
         <div className="mt-5 space-y-4">
           {THIRD_PARTIES.map((t) => (

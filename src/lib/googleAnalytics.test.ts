@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   hasBrowserPrivacySignal,
+  hasSessionCookie,
   normalizeGaPath,
   safeCampaignQuery,
   safeReferrer,
@@ -107,5 +108,14 @@ describe("hasBrowserPrivacySignal", () => {
     expect(hasBrowserPrivacySignal({}, { doNotTrack: "1" })).toBe(true);
     expect(hasBrowserPrivacySignal({ doNotTrack: "0" }, {})).toBe(false);
     expect(hasBrowserPrivacySignal(undefined, undefined)).toBe(false);
+  });
+});
+
+describe("hasSessionCookie", () => {
+  it("spots a Supabase session cookie, chunked or not", () => {
+    expect(hasSessionCookie("a=1; sb-abc-auth-token=xyz")).toBe(true);
+    expect(hasSessionCookie("sb-abc-auth-token.0=xyz")).toBe(true);
+    expect(hasSessionCookie("oaktend-theme=dark; _ga=1")).toBe(false);
+    expect(hasSessionCookie("")).toBe(false);
   });
 });
