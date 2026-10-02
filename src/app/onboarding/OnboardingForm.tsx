@@ -882,8 +882,8 @@ export default function OnboardingForm({
                 What&apos;s your home address?
               </h2>
               <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
-                Tell us your home&apos;s year built, size, and a few other
-                details, or skip them and add them later.
+                Start with your address. Next you can add the year built,
+                size, and a few other details, or skip them for now.
               </p>
             </div>
           )}
@@ -1101,7 +1101,7 @@ export default function OnboardingForm({
           {step === "address" && (
             <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
               We ask so we can personalize maintenance and local pricing for
-              your home, it takes about 30 seconds.
+              your home. It takes about 30 seconds.
             </p>
           )}
 

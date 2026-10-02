@@ -4,6 +4,7 @@ import { useState } from "react";
 import { fetchWithTimeout, isTimeoutError } from "@/lib/fetchWithTimeout";
 import ProgressBar, { useStagedProgress } from "@/components/ProgressBar";
 import { useDraftJob } from "./DraftJobContext";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // What /api/draft-job actually does with the photo: read it, write a project
 // description from it, and guess which trade the job belongs to.
@@ -204,7 +205,9 @@ export default function DescriptionField({
         </div>
       )}
       <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
-        A sentence or two helps pros quote accurately (10 characters minimum).
+        {isHomeownerPreview()
+          ? "A sentence or two is enough (10 characters minimum)."
+          : "A sentence or two helps pros quote accurately (10 characters minimum)."}
         {/* Same stability rule as the header button above: mounted whenever a
             photo is attached, so this line's height is reserved for the
             whole time a photo could be drafted from, and typing (handTyped)

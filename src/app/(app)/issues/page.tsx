@@ -3,6 +3,7 @@ import { getActiveProperty } from "@/lib/property";
 import type { HomeSystem } from "@/lib/database.types";
 import IssueForm from "./IssueForm";
 import IssueRow from "./IssueRow";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 export default async function IssuesPage() {
   const propertyOrNull = await getActiveProperty();
@@ -66,7 +67,9 @@ export default async function IssuesPage() {
         <div>
           <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">Report a problem</h1>
           <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
-            Log a problem and get connected with a local pro.
+            {isHomeownerPreview()
+              ? "Log a problem so it stays on your home's record."
+              : "Log a problem and get connected with a local pro."}
           </p>
         </div>
       </div>

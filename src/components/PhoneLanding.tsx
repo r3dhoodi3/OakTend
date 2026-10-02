@@ -93,7 +93,8 @@ export default function PhoneLanding({
               hunting for a text link below the doors. */}
           <Link
             href="/signin"
-            className="whitespace-nowrap rounded-lg bg-bark-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-bark-700 dark:bg-bark-500 dark:hover:bg-bark-600"
+            // max-sm:min-h-11 (2026-10-02): was 69x32, under the 44px floor.
+            className="whitespace-nowrap rounded-lg bg-bark-600 px-3 py-1.5 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center text-sm font-medium text-white hover:bg-bark-700 dark:bg-bark-500 dark:hover:bg-bark-600"
           >
             Sign in
           </Link>
