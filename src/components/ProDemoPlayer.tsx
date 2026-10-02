@@ -18,7 +18,7 @@ import { track } from "@/lib/analytics";
 // story layer (SCENES, VO_TEXT, the ENTER choreography, and the JSX pages).
 //
 // The shape (same discipline as the homeowner cut):
-// - 28.5 seconds, 76 beats at 160 BPM (375ms per beat), half-time phonk-style
+// - 30.375 seconds, 81 beats at 160 BPM (375ms per beat), half-time phonk-style
 //   drums; every cut lands on the beat grid.
 // - FULL pro app pages (OakTend for Pros nav and all) inside a browser device,
 //   with a virtual camera that punches into click targets so a normal-sized
@@ -27,9 +27,9 @@ import { track } from "@/lib/analytics";
 //   card), then browse -> apply free, no cap on applicants -> chat with
 //   the homeowner -> "You got the job" (the
 //   drop, at ~86% of runtime, on the same beat grid as the homeowner win).
-//   The booking IS the ending, per the founder: nothing is narrated after
-//   the win line, and the end card (the conversion surface and replay
-//   control) arrives as a short silent tag under the music's ring-out.
+//   2026-10-01: the win line now states the deal ("You pay 5% only when
+//   you're hired.") and the end card speaks one call to action ("See nearby
+//   jobs."), matching its button.
 // - Tutorial-style motion, per the founder's direction: the cursor visibly
 //   travels to and clicks the real controls (the apply flow, the Messages
 //   tab in the nav) and every zoom is anchored to either the click target
@@ -48,35 +48,34 @@ import { track } from "@/lib/analytics";
 //   /public/demo-vo/pro mp3s were generated with the SAME msedge-tts neural
 //   voice as the homeowner cut (en-US-AvaNeural, rate -8%), one clip per scene
 //   keyed to VO_TEXT. The synth track sits under it; captionVo/capState both
-//   paint the bottom subtitles and keep the voice in sync through seeks. The
-//   old end-card closer clip (end.mp3) still exists in VO_DIR but is no
-//   longer scheduled: the win line is the last thing said.
+//   paint the bottom subtitles and keep the voice in sync through seeks. All
+//   six clips were re-recorded 2026-10-01 with
+//   OakTend-marketing/video-script-2026-10-01/gen-vo.mjs.
 
 const BEAT_MS = 375; // 160 BPM
 const BEAT_S = BEAT_MS / 1000;
-// 76, not the homeowner cut's 80: the booking ends the story, so the end
-// card is a short silent tag. The arrangement's FINAL hit (beat 72) still
-// fires and its ring tail has decayed to nothing by the last beat.
-const TOTAL_BEATS = 76;
+// 81 beats: the won scene is 12 beats (was 9) so the 2976 ms fee line fits
+// after the badge, and the end scene is 7 (was 5) so the 1944 ms call to
+// action fits before the video ends. FINAL moved from beat 72 to 74 so its
+// hit lands on the end-card cut instead of in the middle of the fee line.
+const TOTAL_BEATS = 81;
 const TOTAL_MS = TOTAL_BEATS * BEAT_MS;
 
 // Pro story: a contractor opens their leads board, sees a nearby masked job,
 // applies free with no cap on applicants (AI-drafted note along the way),
 // chats with the homeowner, gets chosen, and lands on the value-prop end card.
-// 76 beats = 28.5 seconds; the "You got the job" payoff lands on beat 65
-// (~86%), the SAME beat as the homeowner win, so the copied arrangement
+// 81 beats = 30.375 seconds; the "You got the job" payoff lands on beat 65
+// (~80%), the SAME beat as the homeowner win, so the copied arrangement
 // (WIN=65) hits the drop exactly under the badge (won starts at 62, badge on
-// scene beat 3). The story ends when the job is booked: the won scene holds
-// just long enough for its line to finish, then the end card is a short
-// silent tag with the FINAL hit (beat 72) ringing out underneath it.
+// scene beat 3). The FINAL hit (beat 74) lands on the end-card cut.
 type SceneDef = { id: string; beats: number; step: string | null };
 const SCENES: SceneDef[] = [
   { id: "hook", beats: 13, step: null },
   { id: "leads", beats: 16, step: "1/4" },
   { id: "apply", beats: 15, step: "2/4" },
   { id: "chat", beats: 18, step: "3/4" },
-  { id: "won", beats: 9, step: "4/4" },
-  { id: "end", beats: 5, step: null },
+  { id: "won", beats: 12, step: "4/4" },
+  { id: "end", beats: 7, step: null },
 ];
 
 // Which page each scene shows (scenes can share a page for continuity). The
@@ -666,7 +665,7 @@ export default function ProDemoPlayer() {
     const DROP = 22;
     const RISER_START = 60;
     const WIN = 65;
-    const FINAL = 72;
+    const FINAL = 74;
 
     function grooveOn(n: number): boolean {
       return n >= DROP && n < FINAL;
@@ -1038,23 +1037,21 @@ export default function ProDemoPlayer() {
     const VO_ENABLED = true;
     const VO_DIR = "/demo-vo/pro";
     const VO_TEXT = {
-      // hook: cold open over the live board, the promise up front.
-      hook: "This is OakTend. Real jobs, from homeowners near you.",
-      // leads: the board, with the honest up-front fee.
-      leads: "New jobs post here, with the lead fee shown up front.",
-      // apply: the one-tap apply moment. This line is SCHEDULED FROM
-      // enterLeads (a breath after the leads line ends) to close the dead
-      // air that sat between the two lines; the clip finishes before the
-      // apply cut.
-      apply: "Apply in one tap.",
-      // chat: talking to the homeowner directly.
-      chat: "Message the homeowner and line up the visit.",
-      // won: the payoff drop, and the last line of the video (the on-screen
-      // badge still reads "You got the job"; the voice closes with this
-      // instead, per the founder). The founder cut the end-card closer (the
-      // booking is the ending), so there is no "end" key here anymore and
-      // end.mp3 sits unscheduled on disk.
-      won: "Easy as that.",
+      // hook: the opening question over the live board, held whole on two
+      // lines for the whole hook scene (VO_HELD).
+      hook: "How many paid leads went nowhere for you this year?",
+      // leads: the board, the hand resting on "Applying is free."
+      leads: "Local homeowners can post here. Applying is free. No leads to buy.",
+      // apply: starts with the apply scene, so "first draft" lands as the
+      // AI-drafted note appears.
+      apply: "Tap apply. OakTend writes the first draft for you.",
+      // chat: the thread, with the quote and invoice buttons in view.
+      chat: "Talk, quote, and invoice in one thread. No extra apps.",
+      // won: the deal, right behind the "You got the job" badge. Not "our
+      // only fee": an optional paid pro membership exists.
+      won: "You pay 5% only when you're hired.",
+      // end: one call to action, word for word the end-card button.
+      end: "See nearby jobs.",
     } as const;
     type VoKey = keyof typeof VO_TEXT;
     const voAudios: Partial<Record<VoKey, HTMLAudioElement>> = {};
@@ -1326,10 +1323,16 @@ export default function ProDemoPlayer() {
     // playback position (in cursorLoop) so they can never drift from the
     // spoken words. Null when muted / no audio (then captionVo schedules an
     // estimated fallback instead).
+    // starts[i] = ms into the clip where chunk i's first word is spoken
+    // (from the TTS word boundaries in VO_WORD_MS). hold = keep the caption
+    // up after the clip ends (the hook question stays on screen until the
+    // next line replaces it).
     let capState: {
       a: HTMLAudioElement;
       chunks: string[][];
+      starts: number[];
       durMs: number;
+      hold: boolean;
       lastIdx: number;
     } | null = null;
 
@@ -1380,20 +1383,20 @@ export default function ProDemoPlayer() {
       // seek sweeps handle their own caption state.
       if (capState && !seeking) {
         const cs = capState;
-        const per = cs.durMs / cs.chunks.length;
-        // Small lead to counter the captions lagging behind the voice on
-        // playback. This is an even-time-split approximation (the mp3s carry no
-        // per-word timestamps), so it is a calibration, not frame-perfect. Tune
-        // this single offset if the words drift ahead of or behind the audio.
-        const idx = Math.floor((cs.a.currentTime * 1000 + 250) / per);
-        if (cs.a.ended || idx >= cs.chunks.length) {
-          if (cs.lastIdx !== -1) {
+        // Word-accurate: each chunk shows the moment its first word is
+        // spoken (measured TTS word boundaries, not an even split), and the
+        // caption clears when the clip itself ends.
+        const t = cs.a.currentTime * 1000;
+        let idx = -1;
+        for (let i = 0; i < cs.starts.length; i++) if (t >= cs.starts[i]) idx = i;
+        if (!cs.hold && (cs.a.ended || t >= cs.durMs)) {
+          if (cs.lastIdx !== -3) {
             setCaption([]);
-            cs.lastIdx = -1;
+            cs.lastIdx = -3;
           }
-        } else if (idx !== cs.lastIdx) {
+        } else if (idx >= 0 && idx !== cs.lastIdx && cs.lastIdx !== -3) {
           cs.lastIdx = idx;
-          setCaption(cs.chunks[idx], -1, 85);
+          setCaption(cs.chunks[idx], -1, cs.hold ? 0 : 60);
         }
       }
       cursorRaf = requestAnimationFrame(cursorLoop);
@@ -1533,67 +1536,113 @@ export default function ProDemoPlayer() {
       const layer = q("[data-x='captions']");
       if (!layer) return;
       layer.innerHTML = "";
+      // "\n" splits a held question onto two lines: each line is its own
+      // full-width centered row, so the two lines sit one gap apart.
+      let row: HTMLElement = layer;
+      const newRow = () => {
+        const r = document.createElement("span");
+        r.style.flexBasis = "100%";
+        r.style.display = "flex";
+        r.style.justifyContent = "center";
+        r.style.flexWrap = "wrap";
+        r.style.gap = "0 0.3em";
+        layer.appendChild(r);
+        return r;
+      };
+      if (words.includes("\n")) row = newRow();
       words.forEach((w, i) => {
+        if (w === "\n") {
+          row = newRow();
+          return;
+        }
         const span = document.createElement("span");
         span.className = cx(styles.capWord, i === hiIndex && styles.capHi);
         span.textContent = w;
-        layer.appendChild(span);
+        row.appendChild(span);
         after(i * stepMs, () => span.classList.add(styles.pop));
       });
     }
 
-    // Rough per-line durations for caption pacing before the audio's real
-    // duration is known.
-    // Frame-counted from the actual pro Ava MP3s (CBR 96kbps, so this equals
-    // bytes / 12000 = sec, same convention as the homeowner cut). captionVo
-    // prefers each clip's true duration once loaded; these cover the muted
-    // fallback schedule and pre-load seeks.
-    // hook.mp3 was re-recorded on 2026-09-04 for the OakTend rename (same
-    // voice and rate: en-US-AvaNeural, -8%). It re-measured at 4536 ms, the
-    // same length as the old line, so this map is unchanged.
+    // Measured clip lengths (CBR 96kbps: bytes / 12000 = sec), used until the
+    // audio element reports its real duration (muted fallback, pre-load
+    // seeks). Re-recorded 2026-10-01 (en-US-AvaNeural, -8%).
     const VO_EST_MS: Record<VoKey, number> = {
-      hook: 4540,
-      leads: 3700,
-      apply: 1800,
-      chat: 3260,
-      won: 1780,
+      hook: 3096,
+      leads: 5808,
+      apply: 4056,
+      chat: 5160,
+      won: 2976,
+      end: 1944,
     };
+    // Start time (ms into the clip) of every word of VO_TEXT, one entry per
+    // space-separated word, from the TTS WordBoundary events written by
+    // gen-vo.mjs. Re-generate these with the clips whenever a line changes.
+    const VO_WORD_MS: Record<VoKey, number[]> = {
+      hook: [100, 358, 616, 942, 1268, 1445, 1839, 1975, 2084, 2315],
+      leads: [100, 548, 1268, 1472, 1839, 2604, 3148, 3297, 4126, 4466, 4778, 4887],
+      apply: [100, 467, 1368, 1952, 2305, 2441, 2863, 3189, 3352],
+      chat: [100, 766, 1364, 1608, 2206, 2423, 2695, 3555, 3909, 4276],
+      won: [100, 345, 562, 1540, 1866, 2002, 2124],
+      end: [100, 467, 874],
+    };
+    // Held lines show whole on two lines (the number = words on line one)
+    // and stay up until the next line starts.
+    const VO_HELD: Partial<Record<VoKey, number>> = { hook: 5 };
 
-    // Captions ARE the narration: the spoken line renders in short chunks
-    // (max 4 words) that pop in, hold, and get replaced by the next chunk,
-    // so they never wrap off screen. A small lead-in keeps text from
-    // beating the audio onset, and the whole thing clears when the line
-    // ends, synced to the real audio duration.
-    function captionVo(key: VoKey, offsetMs = 0) {
+    // Captions ARE the narration, synced word-for-word: each clip's words
+    // carry the start time (ms) the TTS reported for them (VO_WORD_MS). The
+    // line is split into chunks of at most 2 words, never across a sentence
+    // end, and each chunk shows exactly when its first word is spoken. The
+    // caption clears when the clip ends. HELD lines (the opening question)
+    // show whole, on two lines, from the first word until the next line.
+    function captionChunks(key: VoKey): { chunks: string[][]; starts: number[] } {
       const words = VO_TEXT[key].split(" ");
+      const wordMs = VO_WORD_MS[key];
+      const held = VO_HELD[key];
+      if (held) {
+        const words2 = [...words.slice(0, held), "\n", ...words.slice(held)];
+        return { chunks: [words2], starts: [wordMs[0] ?? 0] };
+      }
+      const chunks: string[][] = [];
+      const starts: number[] = [];
+      let cur: string[] = [];
+      words.forEach((w, i) => {
+        if (cur.length === 0) starts.push(wordMs[i] ?? 0);
+        cur.push(w);
+        if (cur.length === 2 || /[.?!]$/.test(w)) {
+          chunks.push(cur);
+          cur = [];
+        }
+      });
+      if (cur.length) chunks.push(cur);
+      return { chunks, starts };
+    }
+
+    function captionVo(key: VoKey, offsetMs = 0) {
       const a = voAudios[key];
       const durMs =
         a && isFinite(a.duration) && a.duration > 0 ? a.duration * 1000 : VO_EST_MS[key];
-      // Two words on screen at a time: reads fast, never crowds the frame.
-      const CHUNK = 2;
-      const chunks: string[][] = [];
-      for (let i = 0; i < words.length; i += CHUNK) chunks.push(words.slice(i, i + CHUNK));
-      // Preferred path: when the real MP3 will play, hand the chunks to
-      // cursorLoop, which advances them off a.currentTime every frame so the
-      // words on screen always match the voice (no drift), and pause/seek come
-      // for free because currentTime already reflects them.
+      const { chunks, starts } = captionChunks(key);
+      const hold = !!VO_HELD[key];
+      // A new line always replaces whatever caption (held or not) is up.
+      setCaption([]);
+      // Preferred path: when the real MP3 will play, cursorLoop advances the
+      // chunks off a.currentTime every frame, so pause/seek/rate come free.
       if (a && !isMuted) {
-        capState = { a, chunks, durMs, lastIdx: -2 };
+        capState = { a, chunks, starts, durMs, hold, lastIdx: -2 };
         return;
       }
-      // Muted or no audio: fall back to an estimated even schedule so a muted
-      // viewer still gets captions.
+      // Muted or no audio: schedule the same word times on the virtual clock
+      // so a muted viewer still gets captions in step with the picture.
       capState = null;
-      const LEAD = 90;
-      const per = (durMs * 0.92) / chunks.length;
       chunks.forEach((chunk, ci) => {
-        const at = LEAD + ci * per - offsetMs;
-        const nextAt = LEAD + (ci + 1) * per - offsetMs;
-        if (at <= 0 && nextAt > 0) setCaption(chunk, -1, 85); // mid-line resume shows the live chunk
-        else if (at > 0) after(at, () => setCaption(chunk, -1, 85));
+        const at = starts[ci] - offsetMs;
+        const nextAt = (ci + 1 < starts.length ? starts[ci + 1] : durMs) - offsetMs;
+        if (at <= 0 && nextAt > 0) setCaption(chunk, -1, hold ? 0 : 60);
+        else if (at > 0) after(at, () => setCaption(chunk, -1, hold ? 0 : 60));
       });
-      const clearAt = LEAD + durMs + 150 - offsetMs;
-      if (clearAt > 0) after(clearAt, () => setCaption([]));
+      const clearAt = durMs - offsetMs;
+      if (!hold && clearAt > 0) after(clearAt, () => setCaption([]));
     }
 
     // ======================= PAGES =======================
@@ -1723,7 +1772,8 @@ export default function ProDemoPlayer() {
       // narration starts over the real product and the hand drifts to the
       // one open job, with the camera easing in behind it, so the first
       // seconds already read as someone showing you around.
-      // VO: "This is OakTend. Real jobs, from homeowners near you."
+      // VO: "How many paid leads went nowhere for you this year?" (3096 ms
+      // from 0.25 s; the question stays on screen until the leads line.)
       showPage("leadsPage");
       cameraSnapWide();
       after(250, () => playVo("hook"));
@@ -1740,22 +1790,16 @@ export default function ProDemoPlayer() {
       // founder's rule, a zoom is only allowed where an action happens (a
       // click, the hand arriving, an on-screen change), never just to
       // underline a narration line. The wide hold lets the whole board read.
-      // VO: "New jobs post here, with the lead fee shown up front."
+      // VO: "Local homeowners can post here. Applying is free. No leads to
+      // buy." (5808 ms from 4.875 s, ends 10.68 s, before the apply cut.)
       playVo("leads");
       cameraWide(400);
       // The hand rests on the board's "Applying is free." line while the
       // words land; the frame stays put. (The real board no longer shows a
       // per-lead fee anywhere, so this is the honest stand-in target.)
       glideTo("[data-x='fee']", 2.5 * BEAT_MS);
-      // The apply line starts HERE, a breath after this scene's line ends
-      // (leads VO ends ~3696ms in; scene beat 11 = 4125ms, a ~430ms gap),
-      // instead of waiting for the apply cut at scene beat 16. This closes
-      // the dead air the founder flagged at 8-11s. Safe by construction:
-      // nothing in a scene cut stops the VO element (only the NEXT playVo
-      // pauses the current clip), and the 1800ms clip in fact finishes
-      // 75ms before the apply scene even starts. Captions ride along
-      // automatically: captionVo runs inside playVo.
-      atBeat(11, () => playVo("apply"));
+      // The longer leads line now fills the 8-11 s stretch on its own, so the
+      // apply line moved back to the start of the apply scene.
     }
 
     function enterApply() {
@@ -1769,10 +1813,8 @@ export default function ProDemoPlayer() {
       // "Application sent / Waiting for homeowner" state. Finally the unread badge
       // lights the Messages tab and the cursor clicks it, which is what
       // carries us into the chat.
-      // VO: "Apply in one tap." (already spoken: enterLeads schedules it at
-      // its scene beat 11 to kill the dead air, and the clip ends just
-      // before this cut, so this scene opens with the hand mid-travel and
-      // no narration of its own.)
+      // VO: "Tap apply. OakTend writes the first draft for you." (4056 ms
+      // from 10.875 s, ends 14.93 s; "first draft" lands as the note appears.)
       // No showPage: the board is already the active page (same shot since
       // the hook), and re-showing it would fire an unanchored punch zoom.
       const note = q("[data-x='applyNote']");
@@ -1781,7 +1823,8 @@ export default function ProDemoPlayer() {
       q("[data-x='applyNoteWrap']")?.classList.remove(styles.show);
       q("[data-x='applyBtn']")?.classList.remove(styles.hidden);
       q("[data-x='applied']")?.classList.remove(styles.show);
-      // "Apply in one tap": the hand travels to the button and the zoom rides
+      playVo("apply");
+      // "Tap apply": the hand travels to the button and the zoom rides
       // along, then the confirm form opens in place of the button.
       clickOn("[data-x='applyBtn']", 150, {
         zoom: 1.25,
@@ -1835,7 +1878,8 @@ export default function ProDemoPlayer() {
       // the pro types a reply and sends it, and after a real-conversation
       // beat (pause, then a typing indicator on the homeowner's side) the
       // homeowner confirms the visit, the choice that becomes the win.
-      // VO: "Message the homeowner and line up the visit."
+      // VO: "Talk, quote, and invoice in one thread. No extra apps." (5160
+      // ms from 16.875 s, ends 22.04 s.)
       showPage("chatPage", { whoosh: true });
       const b1 = q("[data-x='b1']");
       const b2 = q("[data-x='b2']");
@@ -1909,24 +1953,21 @@ export default function ProDemoPlayer() {
         impactVisual();
         setCaption([]);
       });
-      // "Easy as that." is the LAST line of the video (the founder cut
-      // everything after the booking): it starts right behind the impact and
-      // finishes inside this scene, so the end card can arrive silent.
-      atBeat(3.4, () => playVo("won"));
+      // "You pay 5% only when you're hired." (2976 ms) starts right behind
+      // the impact at scene beat 3.2 (24.45 s) and ends 27.43 s, inside this
+      // 12-beat scene (cut at 27.75 s).
+      atBeat(3.2, () => playVo("won"));
       atBeat(7.5, () => cameraWide(600));
     }
 
     function enterEnd() {
-      // Value-prop end card: the pro promise plus the success-fee model,
-      // read off the card itself. No narration here, by design: the story
-      // ended when the job was booked, so this is a short silent tag. The
-      // arrangement's FINAL hit lands on global beat 72 (one beat after this
-      // cut) and rings out under the card into the replay overlay.
+      // Value-prop end card: the pro promise plus the success-fee model. The
+      // FINAL hit lands on this cut (global beat 74); the one spoken call to
+      // action, "See nearby jobs." (1944 ms), starts at scene beat 0.5
+      // (27.94 s) and ends 29.88 s, before the 30.375 s end. The old "1 job
+      // won this week" tally is gone: it was a sample number.
       showPage("endPage", { whoosh: true });
-      const es = q("[data-x='endStat']");
-      if (es) es.textContent = "0";
-      // A small win-tally count-up gives the card a beat of motion.
-      after(400, () => countUp("[data-x='endStat']", 1, 500, 0));
+      atBeat(0.5, () => playVo("end"));
     }
 
     const ENTER: Record<string, () => void> = {
@@ -2492,7 +2533,7 @@ export default function ProDemoPlayer() {
         data-x="midCta"
         onClick={(e) => e.stopPropagation()}
       >
-        Free to apply, no cap on applicants
+        Free to apply, no leads to buy
       </Link>
 
       <div className={styles.deviceWrap} onClick={handleScreenClick}>
@@ -2707,10 +2748,6 @@ export default function ProDemoPlayer() {
                   <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend for Pros</p>
                   <p className="text-sm text-stone-600">Win work in your trade.</p>
-                  <p className="mt-1 text-sm text-stone-600">
-                    <span className="align-middle text-2xl font-bold text-green-700" data-x="endStat">1</span>
-                    <span className="align-middle text-sm text-stone-600"> job won this week</span>
-                  </p>
                   <p className="mt-1 max-w-[18rem] text-xs text-stone-600">
                     Free to apply. 5% success fee only when you&apos;re hired, $15 minimum, $1,000 cap.
                   </p>
@@ -2721,7 +2758,7 @@ export default function ProDemoPlayer() {
                     className="btn-primary mt-2"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Start winning work
+                    See nearby jobs
                   </Link>
                 </div>
               </div>
@@ -2829,8 +2866,8 @@ export default function ProDemoPlayer() {
             <svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.5v11l9-5.5-9-5.5z" /></svg>
           </span>
           <span className={styles.posterLabel}>From open lead to job won</span>
-          <span className={styles.posterSub}>Watch a pro use OakTend, 28 seconds</span>
-          <span className={styles.durationBadge}>0:28</span>
+          <span className={styles.posterSub}>Watch a pro use OakTend, 30 seconds</span>
+          <span className={styles.durationBadge}>0:30</span>
         </button>
       )}
 

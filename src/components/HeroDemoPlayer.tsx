@@ -6,11 +6,12 @@ import { Bell, ChevronDown, ChevronRight, CircleHelp, FileText, Hammer, Home, Im
 import Logo from "./Logo";
 import styles from "./HeroDemoPlayer.module.css";
 import { track } from "@/lib/analytics";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Inline click-to-play landing demo, rebuilt from an 11-agent research pass
 // on high-converting product videos and web-audio sound design. The shape:
 //
-// - 30 seconds, 80 beats at 160 BPM (375ms per beat), half-time phonk-style
+// - 30.75 seconds, 82 beats at 160 BPM (375ms per beat), half-time phonk-style
 //   drums; every cut lands on the beat grid.
 // - FULL app pages (nav bar and all) inside a browser device, with a virtual
 //   camera that punches into click targets (Screen Studio style), so a
@@ -27,13 +28,15 @@ import { track } from "@/lib/analytics";
 
 const BEAT_MS = 375; // 160 BPM
 const BEAT_S = BEAT_MS / 1000;
-const TOTAL_BEATS = 80;
+const TOTAL_BEATS = 82;
 const TOTAL_MS = TOTAL_BEATS * BEAT_MS;
 
 // Homeowner-only story (the pro side gets its own video later): someone
 // types the OakTend URL, sees the dashboard, adds their address, posts a job,
 // a notification pops, and the pro's quote gets accepted in Messages.
-// 78 beats = 29.25 seconds; the BOOKED payoff lands on beat 63 (~81%).
+// 82 beats = 30.75 seconds; the BOOKED payoff lands on beat 65 (~79%).
+// The end scene is 10 beats (was 8) so the closing offer line, measured
+// at 3216 ms, finishes inside the video instead of running past it.
 type SceneDef = { id: string; beats: number; step: string | null };
 const SCENES: SceneDef[] = [
   { id: "hook", beats: 13, step: null },
@@ -41,7 +44,7 @@ const SCENES: SceneDef[] = [
   { id: "dash", beats: 16, step: "2/5" },
   { id: "postjob", beats: 14, step: "3/5" },
   { id: "chat", beats: 20, step: "4/5" },
-  { id: "end", beats: 8, step: "5/5" },
+  { id: "end", beats: 10, step: "5/5" },
 ];
 
 // Which page each scene shows (scenes can share a page for continuity).
@@ -972,13 +975,13 @@ export default function HeroDemoPlayer() {
     // (a real human-sounding voice). speechSynthesis above is only the
     // fallback if a file fails to load or play.
     const VO_TEXT = {
-      hook: "This is OakTend. Your home looked after.",
-      address: "Just type your address to get started.",
-      dash: "OakTend gives your home a health score, and catches problems before they cost you.",
-      postjob: "Something break? Post a job in seconds, with the price up front.",
-      chat: "A real quote from a local pro, straight to your messages.",
-      booked: "Booked. That easy.",
-      end: "OakTend. Free for homeowners.",
+      hook: "When did you last flush your water heater?",
+      address: "Find out with just your address.",
+      dash: "OakTend tells you what's due. That overdue water heater? Done.",
+      postjob: "Something leaking? Describe it once. Posting is free.",
+      chat: "Pros are coming soon. They pay us only if you hire.",
+      booked: "Booked, no phone tag.",
+      end: "Want your free home plan? Add your address.",
     } as const;
     type VoKey = keyof typeof VO_TEXT;
     const voAudios: Partial<Record<VoKey, HTMLAudioElement>> = {};
@@ -1246,10 +1249,16 @@ export default function HeroDemoPlayer() {
     // playback position (in cursorLoop) so they can never drift from the
     // spoken words. Null when muted / no audio (then captionVo schedules an
     // estimated fallback instead).
+    // starts[i] = ms into the clip where chunk i's first word is spoken
+    // (from the TTS word boundaries in VO_WORD_MS). hold = keep the caption
+    // up after the clip ends (the hook question stays on screen until the
+    // next line replaces it).
     let capState: {
       a: HTMLAudioElement;
       chunks: string[][];
+      starts: number[];
       durMs: number;
+      hold: boolean;
       lastIdx: number;
     } | null = null;
 
@@ -1300,20 +1309,20 @@ export default function HeroDemoPlayer() {
       // seek sweeps handle their own caption state.
       if (capState && !seeking) {
         const cs = capState;
-        const per = cs.durMs / cs.chunks.length;
-        // Small lead to counter the captions lagging behind the voice on
-        // playback. This is an even-time-split approximation (the mp3s carry no
-        // per-word timestamps), so it is a calibration, not frame-perfect. Tune
-        // this single offset if the words drift ahead of or behind the audio.
-        const idx = Math.floor((cs.a.currentTime * 1000 + 250) / per);
-        if (cs.a.ended || idx >= cs.chunks.length) {
-          if (cs.lastIdx !== -1) {
+        // Word-accurate: each chunk shows the moment its first word is
+        // spoken (measured TTS word boundaries, not an even split), and the
+        // caption clears when the clip itself ends.
+        const t = cs.a.currentTime * 1000;
+        let idx = -1;
+        for (let i = 0; i < cs.starts.length; i++) if (t >= cs.starts[i]) idx = i;
+        if (!cs.hold && (cs.a.ended || t >= cs.durMs)) {
+          if (cs.lastIdx !== -3) {
             setCaption([]);
-            cs.lastIdx = -1;
+            cs.lastIdx = -3;
           }
-        } else if (idx !== cs.lastIdx) {
+        } else if (idx >= 0 && idx !== cs.lastIdx && cs.lastIdx !== -3) {
           cs.lastIdx = idx;
-          setCaption(cs.chunks[idx], -1, 85);
+          setCaption(cs.chunks[idx], -1, cs.hold ? 0 : 60);
         }
       }
       cursorRaf = requestAnimationFrame(cursorLoop);
@@ -1443,66 +1452,116 @@ export default function HeroDemoPlayer() {
       const layer = q("[data-x='captions']");
       if (!layer) return;
       layer.innerHTML = "";
+      // "\n" splits a held question onto two lines: each line is its own
+      // full-width centered row, so the two lines sit one gap apart.
+      let row: HTMLElement = layer;
+      const newRow = () => {
+        const r = document.createElement("span");
+        r.style.flexBasis = "100%";
+        r.style.display = "flex";
+        r.style.justifyContent = "center";
+        r.style.flexWrap = "wrap";
+        r.style.gap = "0 0.3em";
+        layer.appendChild(r);
+        return r;
+      };
+      if (words.includes("\n")) row = newRow();
       words.forEach((w, i) => {
+        if (w === "\n") {
+          row = newRow();
+          return;
+        }
         const span = document.createElement("span");
         span.className = cx(styles.capWord, i === hiIndex && styles.capHi);
         span.textContent = w;
-        layer.appendChild(span);
+        row.appendChild(span);
         after(i * stepMs, () => span.classList.add(styles.pop));
       });
     }
 
-    // Rough per-line durations (bytes / 96kbps) for caption pacing before
-    // the audio's real duration is known.
-    // Byte-derived from the actual Ava MP3s (96kbps): bytes / 12000 = sec.
-    // hook, dash and end were re-recorded on 2026-09-04 for the OakTend
-    // rename (same voice and rate: msedge-tts en-US-AvaNeural, -8%), so
-    // their numbers below are the new measured frame-walk durations.
+    // Measured clip lengths (96kbps CBR: bytes / 12000 = sec), used until
+    // the audio element reports its real duration. All seven clips were
+    // re-recorded 2026-10-01 (msedge-tts en-US-AvaNeural, -8%) with
+    // OakTend-marketing/video-script-2026-10-01/gen-vo.mjs.
     const VO_EST_MS: Record<VoKey, number> = {
-      hook: 3384,
-      address: 2450,
-      dash: 5112,
-      postjob: 4850,
-      chat: 4200,
-      booked: 2380,
-      end: 3096,
+      hook: 2448,
+      address: 2304,
+      dash: 4824,
+      postjob: 4560,
+      chat: 4056,
+      booked: 2136,
+      end: 3216,
     };
+    // Start time (ms into the clip) of every word of VO_TEXT, one entry per
+    // space-separated word, from the TTS WordBoundary events written by
+    // gen-vo.mjs. Re-generate these with the clips whenever a line changes.
+    const VO_WORD_MS: Record<VoKey, number[]> = {
+      hook: [100, 345, 494, 603, 915, 1201, 1323, 1595],
+      address: [100, 548, 725, 915, 1228, 1350],
+      dash: [100, 643, 902, 997, 1228, 2034, 2346, 2767, 3066, 3895],
+      postjob: [100, 643, 1477, 2047, 2170, 3066, 3596, 3718],
+      chat: [100, 467, 603, 929, 1803, 2047, 2305, 2591, 2903, 3012, 3134],
+      booked: [100, 698, 983, 1282],
+      end: [100, 372, 494, 684, 929, 1748, 2115, 2251],
+    };
+    // Held lines show whole on two lines (the number = words on line one)
+    // and stay up until the next line starts.
+    const VO_HELD: Partial<Record<VoKey, number>> = { hook: 4 };
 
-    // Captions ARE the narration: the spoken line renders in short chunks
-    // (max 4 words) that pop in, hold, and get replaced by the next chunk,
-    // so they never wrap off screen. A small lead-in keeps text from
-    // beating the audio onset, and the whole thing clears when the line
-    // ends, synced to the real audio duration.
-    function captionVo(key: VoKey, offsetMs = 0) {
+    // Captions ARE the narration, synced word-for-word: each clip's words
+    // carry the start time (ms) the TTS reported for them (VO_WORD_MS). The
+    // line is split into chunks of at most 2 words, never across a sentence
+    // end, and each chunk shows exactly when its first word is spoken. The
+    // caption clears when the clip ends. HELD lines (the opening question)
+    // show whole, on two lines, from the first word until the next line.
+    function captionChunks(key: VoKey): { chunks: string[][]; starts: number[] } {
       const words = VO_TEXT[key].split(" ");
+      const wordMs = VO_WORD_MS[key];
+      const held = VO_HELD[key];
+      if (held) {
+        const words2 = [...words.slice(0, held), "\n", ...words.slice(held)];
+        return { chunks: [words2], starts: [wordMs[0] ?? 0] };
+      }
+      const chunks: string[][] = [];
+      const starts: number[] = [];
+      let cur: string[] = [];
+      words.forEach((w, i) => {
+        if (cur.length === 0) starts.push(wordMs[i] ?? 0);
+        cur.push(w);
+        if (cur.length === 2 || /[.?!]$/.test(w)) {
+          chunks.push(cur);
+          cur = [];
+        }
+      });
+      if (cur.length) chunks.push(cur);
+      return { chunks, starts };
+    }
+
+    function captionVo(key: VoKey, offsetMs = 0) {
       const a = voAudios[key];
       const durMs =
         a && isFinite(a.duration) && a.duration > 0 ? a.duration * 1000 : VO_EST_MS[key];
-      // Two words on screen at a time: reads fast, never crowds the frame.
-      const CHUNK = 2;
-      const chunks: string[][] = [];
-      for (let i = 0; i < words.length; i += CHUNK) chunks.push(words.slice(i, i + CHUNK));
-      // Preferred path: when the real MP3 will play, hand the chunks to
-      // cursorLoop, which advances them off a.currentTime every frame so the
-      // words on screen always match the voice (no drift), and pause/seek come
-      // for free because currentTime already reflects them.
+      const { chunks, starts } = captionChunks(key);
+      const hold = !!VO_HELD[key];
+      // A new line always replaces whatever caption (held or not) is up.
+      setCaption([]);
+      // Preferred path: when the real MP3 will play, cursorLoop advances the
+      // chunks off a.currentTime every frame, so pause/seek/rate come free.
       if (a && !isMuted) {
-        capState = { a, chunks, durMs, lastIdx: -2 };
+        capState = { a, chunks, starts, durMs, hold, lastIdx: -2 };
         return;
       }
-      // Muted or no audio: fall back to an estimated even schedule so a muted
-      // viewer still gets captions.
+      // Muted or no audio: schedule the same word times on the virtual clock
+      // so a muted viewer still gets captions in step with the picture.
       capState = null;
-      const LEAD = 90;
-      const per = (durMs * 0.92) / chunks.length;
       chunks.forEach((chunk, ci) => {
-        const at = LEAD + ci * per - offsetMs;
-        const nextAt = LEAD + (ci + 1) * per - offsetMs;
-        if (at <= 0 && nextAt > 0) setCaption(chunk, -1, 85); // mid-line resume shows the live chunk
-        else if (at > 0) after(at, () => setCaption(chunk, -1, 85));
+        const at = starts[ci] - offsetMs;
+        const nextAt = (ci + 1 < starts.length ? starts[ci + 1] : durMs) - offsetMs;
+        if (at <= 0 && nextAt > 0) setCaption(chunk, -1, hold ? 0 : 60);
+        else if (at > 0) after(at, () => setCaption(chunk, -1, hold ? 0 : 60));
       });
-      const clearAt = LEAD + durMs + 150 - offsetMs;
-      if (clearAt > 0) after(clearAt, () => setCaption([]));
+      const clearAt = durMs - offsetMs;
+      if (!hold && clearAt > 0) after(clearAt, () => setCaption([]));
     }
 
     // ======================= PAGES =======================
@@ -1630,21 +1689,14 @@ export default function HeroDemoPlayer() {
       // Cold open: the centered OakTend logo card is on screen from the very
       // first frame (no fade-in, no URL typing), lingers a moment while
       // "This is OakTend" begins, then fades away to reveal the website.
+      // 2026-10-01: the opening question is about the water heater, so the
+      // first frame is the dashboard already framed on the overdue "Flush
+      // water heater" task (no logo card). The dash scene then pulls wide.
       showPage("dashPage");
-      cameraSnapWide();
       const s = q("[data-x='score']");
       if (s) s.textContent = "71";
-      const intro = q("[data-x='intro']");
-      if (intro) {
-        // Visible instantly: suppress the fade-in for frame zero.
-        intro.style.transition = "none";
-        intro.classList.add(styles.show);
-        void intro.offsetWidth;
-        intro.style.transition = "";
-      }
+      cameraSnapTo("[data-x='remRow']", 1.2);
       after(700, () => playVo("hook"));
-      after(2100, () => intro?.classList.remove(styles.show));
-      after(2900, () => focusOn("[data-x='scoreCard']", 1.2));
     }
 
     function enterAddress() {
@@ -1784,19 +1836,18 @@ export default function HeroDemoPlayer() {
         impactVisual();
         setCaption([]);
       });
-      atBeat(14.4, () => playVo("booked"));
+      // Booked line (2136 ms) starts at scene beat 13.8 (24.675 s), just
+      // behind the badge, and ends 26.81 s, before the end-card cut at 27.0 s.
+      atBeat(13.8, () => playVo("booked"));
       atBeat(17, () => cameraWide(600));
     }
 
     function enterEnd() {
       showPage("endPage", { whoosh: true });
-      // Let the "Booked. That easy." line FULLY finish before the closer
-      // starts (Ava's read is a touch longer than Andrew's was).
-      atBeat(2.2, () => playVo("end"));
-      const es = q("[data-x='endScore']");
-      if (es) es.textContent = "71";
-      // Resolve the numeric open loop from the hook: 71 climbs to 96.
-      after(700, () => countUp("[data-x='endScore']", 96, 800, 71));
+      // Closing offer (3216 ms) starts at scene beat 0.4 (27.15 s) and ends
+      // 30.37 s, inside the 30.75 s runtime. The old 71-to-96 score count-up
+      // is gone: it was a sample number, not a claim the product can make.
+      atBeat(0.4, () => playVo("end"));
     }
 
     const ENTER: Record<string, () => void> = {
@@ -2365,7 +2416,7 @@ export default function HeroDemoPlayer() {
         data-x="midCta"
         onClick={(e) => e.stopPropagation()}
       >
-        Free to try, no card needed
+        Free for you, no card needed
       </Link>
 
       <div className={styles.deviceWrap} onClick={handleScreenClick}>
@@ -2525,7 +2576,7 @@ export default function HeroDemoPlayer() {
                           See this month&apos;s tasks
                         </p>
                         <p className="mt-2 px-2 text-xs font-semibold uppercase tracking-wide text-red-600">Overdue (1)</p>
-                        <div className="mt-1 flex items-center justify-between gap-3 rounded-lg px-2 py-2.5">
+                        <div className="mt-1 flex items-center justify-between gap-3 rounded-lg px-2 py-2.5" data-x="remRow">
                           <span className="flex min-w-0 flex-1 items-center gap-3">
                             <span className={styles.checkCircle} data-x="remCheck">✓</span>
                             <span className={cx("text-sm text-stone-800", styles.strike)} data-x="remTitle">Flush water heater</span>
@@ -2683,12 +2734,11 @@ export default function HeroDemoPlayer() {
                   <Logo className="h-12 w-12 text-bark-700" tone="green" />
                   <p className="text-2xl font-bold tracking-tight text-stone-900">OakTend</p>
                   <p className="text-sm text-stone-600">Your home looked after</p>
-                  <p className="mt-1 text-sm text-stone-500">
-                    Home health score{" "}
-                    <span className="align-middle text-2xl font-bold text-green-700" data-x="endScore">71</span>
-                    <span className="align-middle text-sm text-stone-500"> of 100</span>
+                  <p className="mt-1 text-sm text-stone-600">
+                    {isHomeownerPreview()
+                      ? "Free during preview. No card needed."
+                      : "Free for your first home. No card needed."}
                   </p>
-                  <p className="text-xs text-stone-500">after one season of upkeep</p>
                   {/* A REAL link: the end card is a conversion surface, not a
                       prop. stopPropagation so the click doesn't toggle pause. */}
                   <Link
