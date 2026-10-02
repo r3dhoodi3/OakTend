@@ -1841,7 +1841,10 @@ export default function AskOakTend({
         // min-h-11 + wider padding gives this a real 44px tap target on a
         // phone, where it was 59x28 and sat right next to Clear. Both are
         // reset at sm so the desktop row renders exactly as it did before.
-        className="min-h-11 cursor-pointer appearance-none rounded border-0 bg-transparent px-2 py-1.5 text-xs text-stone-600 underline decoration-dotted hover:text-stone-800 focus:outline-none disabled:cursor-default disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-100 sm:min-h-0 sm:px-1"
+        // max-sm:text-base (launch pass 2026-10-02): iOS Safari zooms the
+        // whole page when a control under 16px gets focus, and this select
+        // was 12px. Phone only; sm and up keeps text-xs.
+        className="min-h-11 cursor-pointer appearance-none rounded border-0 bg-transparent px-2 py-1.5 text-xs max-sm:text-base text-stone-600 underline decoration-dotted hover:text-stone-800 focus:outline-none disabled:cursor-default disabled:opacity-50 dark:text-stone-300 dark:hover:text-stone-100 sm:min-h-0 sm:px-1"
       >
         <option value="24h">24 hours</option>
         <option value="2w">2 weeks</option>
