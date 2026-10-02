@@ -750,7 +750,9 @@ export default async function ContractorsPage(
             )}
             <DraftablePhotoUpload propertyId={property.id} id="job-photos" />
             <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
-              Pros quote more accurately when they can see the job.
+              {isPreview
+                ? "A photo shows the job better than words."
+                : "Pros quote more accurately when they can see the job."}
             </p>
             <PhotoTips />
           </div>

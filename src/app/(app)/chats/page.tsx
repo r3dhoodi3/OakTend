@@ -31,6 +31,7 @@ import {
   declineQuoteAction,
   signInvoiceAction,
 } from "./actions";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Homeowner-side "seen" cookie (kept separate from the contractor's).
 const SEEN_COOKIE = "oaktend_ho_chat_seen";
@@ -481,7 +482,13 @@ export default async function HomeownerChatsPage(
           }
           activeCount={activeConvos.length}
           closedCount={closedConvos.length}
-          activeEmpty="No open conversations yet. Pick a pro for a job and your chat starts here."
+          activeEmpty={
+            // Preview: no pro can be picked yet, so the empty state points at
+            // what does work today instead of a step nobody can take.
+            isHomeownerPreview()
+              ? "No open conversations yet. Our pro network isn't open, so for now ask OakTend about your home here."
+              : "No open conversations yet. Pick a pro for a job and your chat starts here."
+          }
           closedEmpty="Nothing here yet. Finished conversations land here."
           pinned={
             /* Pinned assistant, always first and on both tabs. On a phone this

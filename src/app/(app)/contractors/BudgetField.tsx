@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BUDGET_RANGES, isMajorCategory } from "@/lib/constants";
 import SelectMenu from "@/components/SelectMenu";
 import { useDraftJob } from "./DraftJobContext";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Budget select for the post-a-job form. Optional (and defaults to "Prefer
 // not to say") for most categories, but REQUIRED for major-tier ones (roof,
@@ -55,9 +56,11 @@ export default function BudgetField({
         }
       />
       <p className="mt-1 text-xs text-stone-600 dark:text-stone-300">
-        {isMajor
-          ? "Pros need a budget range to bid seriously on projects this size."
-          : "Helps pros give realistic quotes. Not a commitment."}
+        {isHomeownerPreview()
+          ? "Helps size the job. Not a commitment."
+          : isMajor
+            ? "Pros need a budget range to bid seriously on projects this size."
+            : "Helps pros give realistic quotes. Not a commitment."}
       </p>
     </div>
   );

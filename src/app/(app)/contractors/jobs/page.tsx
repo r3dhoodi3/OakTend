@@ -543,7 +543,9 @@ export default async function YourJobsPage(
             <Link href="/contractors" className="font-medium text-bark-700 hover:underline dark:text-stone-300">
               Post one
             </Link>{" "}
-            and the pros who apply will show up here.
+            {isPreview
+              ? "and it will show up here."
+              : "and the pros who apply will show up here."}
           </p>
         )}
       </div>

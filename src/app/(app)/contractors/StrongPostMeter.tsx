@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Live "strong post" meter for the post-a-job form: three soft checkmarks that
 // light up as the homeowner fills things in (real detail, a photo, timing).
@@ -65,7 +66,9 @@ export default function StrongPostMeter() {
   return (
     <div ref={ref} className="rounded-lg bg-stone-50 p-3 dark:bg-stone-700">
       <p className="text-xs font-medium text-stone-600 dark:text-stone-300">
-        Strong posts get faster, better-priced responses.
+        {isHomeownerPreview()
+          ? "Clear posts are easier to match with the right local pro."
+          : "Strong posts get faster, better-priced responses."}
       </p>
       <ul className="mt-1.5 space-y-1">
         {items.map((it) => (
