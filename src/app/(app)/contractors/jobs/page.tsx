@@ -535,7 +535,7 @@ export default async function YourJobsPage(
           Your jobs
         </h1>
         <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
-          Jobs you posted and who applied.
+          {isPreview ? "Jobs you posted." : "Jobs you posted and who applied."}
         </p>
         {jobLeads.length === 0 && directRequests.length === 0 && (
           <p className="mt-4 rounded-xl border border-dashed border-stone-300 p-6 text-center text-sm text-stone-600 dark:border-stone-700 dark:text-stone-300">
