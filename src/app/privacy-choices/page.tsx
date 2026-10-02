@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LEGAL } from "@/lib/legal";
+import AnalyticsPreference from "@/components/AnalyticsPreference";
+import { gaMeasurementIdFromEnv } from "@/lib/googleAnalytics";
 import { formatLegalDate } from "@/lib/legalMarkdown";
 
 // Public top-level page, same pattern as src/app/terms/page.tsx: see
@@ -38,7 +40,7 @@ export default function PrivacyChoicesPage() {
         Your Privacy Choices
       </h1>
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
-        Last updated {formatLegalDate(LEGAL.effectiveDate)}.
+        Last updated {formatLegalDate(LEGAL.privacyEffectiveDate)}.
       </p>
       <p className="mt-3 text-sm text-stone-600 dark:text-stone-300">
         The short answer. See the{" "}
@@ -55,8 +57,9 @@ export default function PrivacyChoicesPage() {
           </h2>
           <p className="mt-2 leading-relaxed">
             OakTend does not sell your personal information, and we do not share it for
-            cross-context behavioral advertising. There is no advertiser, ad network, or data
-            broker anywhere in OakTend to opt out of. See{" "}
+            cross-context behavioral advertising. We use no advertising service, ad network, or
+            data broker, so there is nothing to opt out of, and the optional Google Analytics on
+            our public pages runs with its ad features off. See{" "}
             <Link href="/privacy#7-your-california-privacy-rights" className="text-bark-700 hover:underline dark:text-stone-300">
               Your California Privacy Rights
             </Link>{" "}
@@ -66,14 +69,36 @@ export default function PrivacyChoicesPage() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            Global Privacy Control
+            Google Analytics
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            On our public pages, such as the home page, guides, and city pages, we use Google
+            Analytics only if you allow it. It never runs while you are signed in, inside the
+            OakTend app, or on account pages, sign-in screens, or invite links, and we never send
+            it your name, email, or address. Google Signals and ad personalization are off. See
+            the{" "}
+            <Link href="/cookies" className="text-bark-700 hover:underline dark:text-stone-300">
+              Cookie and Tracking Notice
+            </Link>{" "}
+            for the cookies it uses.
+          </p>
+          {gaMeasurementIdFromEnv() && (
+            <div className="mt-3 rounded-lg border border-stone-200 bg-stone-50 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+              <AnalyticsPreference />
+            </div>
+          )}
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Global Privacy Control and Do Not Track
           </h2>
           <p className="mt-2 leading-relaxed">
             Where your browser sends the Global Privacy Control (GPC) signal, OakTend honors it as
-            a valid request to opt out of the sale and sharing of your personal information.
-            Because we don&apos;t sell or share personal information in the first place, honoring
-            GPC doesn&apos;t change how your data is handled, but we wanted that stated plainly
-            rather than left unaddressed.
+            a valid request to opt out of the sale and sharing of your personal information. We
+            don&apos;t sell or share personal information in the first place, so GPC doesn&apos;t
+            change how your account data is handled. It does turn Google Analytics off: with GPC
+            or Do Not Track on, we don&apos;t load Google Analytics, even if you allowed it before.
           </p>
         </section>
 

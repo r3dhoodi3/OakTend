@@ -96,18 +96,34 @@ const VERCEL_ANALYTICS_HOST = "https://va.vercel-scripts.com";
 // CSP, not ours.
 const STRIPE_JS_HOSTS = "https://connect-js.stripe.com https://js.stripe.com";
 const STRIPE_API_HOST = "https://api.stripe.com";
+// Google Analytics 4 (src/components/GoogleAnalytics.tsx). Listed ONLY when
+// NEXT_PUBLIC_GA_MEASUREMENT_ID is set at build time, so a build without GA
+// allows nothing from Google. When it is set: gtag.js loads from
+// www.googletagmanager.com (script-src); the beacons go to
+// region1.google-analytics.com / www.google-analytics.com and, in some
+// regions, *.analytics.google.com (connect-src); gtag.js falls back to an
+// image beacon on *.google-analytics.com when fetch/sendBeacon is unavailable
+// (img-src). Nothing broader: no *.google.com, no doubleclick, no ads hosts.
+const GA_ENABLED = /^G-[A-Z0-9]{4,20}$/i.test(
+  (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "").trim()
+);
+const GA_SCRIPT_HOST = GA_ENABLED ? " https://www.googletagmanager.com" : "";
+const GA_CONNECT_HOSTS = GA_ENABLED
+  ? " https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com"
+  : "";
+const GA_IMG_HOSTS = GA_ENABLED ? " https://*.google-analytics.com" : "";
 const SCRIPT_SRC =
   process.env.NODE_ENV === "production"
-    ? `script-src 'self' 'unsafe-inline' ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_JS_HOSTS}`
-    : `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_JS_HOSTS}`;
+    ? `script-src 'self' 'unsafe-inline' ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_JS_HOSTS}${GA_SCRIPT_HOST}`
+    : `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_JS_HOSTS}${GA_SCRIPT_HOST}`;
 
 const CSP_DIRECTIVES = [
   "default-src 'self'",
   SCRIPT_SRC,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob: https://${SUPABASE_HOST}`,
+  `img-src 'self' data: blob: https://${SUPABASE_HOST}${GA_IMG_HOSTS}`,
   "media-src 'self'",
-  `connect-src 'self' https://${SUPABASE_HOST} wss://${SUPABASE_HOST} ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_API_HOST}`,
+  `connect-src 'self' https://${SUPABASE_HOST} wss://${SUPABASE_HOST} ${TURNSTILE_HOST} ${VERCEL_ANALYTICS_HOST} ${STRIPE_API_HOST}${GA_CONNECT_HOSTS}`,
   "font-src 'self'",
   "object-src 'self' blob:",
   `frame-src 'self' ${TURNSTILE_HOST} ${STRIPE_JS_HOSTS}`,
