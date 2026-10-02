@@ -401,6 +401,31 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Fountain Valley",
     ],
   },
+  // Added 2026-10-01 (seo/comparison-pages-2026-10-01).
+  "/guides/oaktend-vs-homezada": {
+    guides: [
+      "/guides/best-home-maintenance-apps",
+      "/guides/orange-county-home-maintenance-checklist",
+      "/guides/new-homeowner-first-year-orange-county",
+    ],
+    cities: ["Irvine", "Tustin", "Lake Forest", "Mission Viejo"],
+  },
+  "/guides/oaktend-vs-angi": {
+    guides: [
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/contractor-deposit-rules-california",
+      "/guides/best-home-maintenance-apps",
+    ],
+    cities: ["Anaheim", "Orange", "Fullerton", "Garden Grove"],
+  },
+  "/guides/oaktend-vs-thumbtack": {
+    guides: [
+      "/guides/is-my-contractor-quote-fair",
+      "/guides/permits-orange-county",
+      "/guides/best-home-maintenance-apps",
+    ],
+    cities: ["Santa Ana", "Costa Mesa", "Newport Beach", "Westminster"],
+  },
 };
 
 // SOURCES. The rule, and it is not negotiable: a source is listed here only
@@ -2456,6 +2481,92 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Real Estate Ledger: home maintenance schedule apps (June 4, 2026)",
       supports:
         "Lists Centriq as discontinued. Checked 2026-09-30.",
+    },
+  ],
+  // Added 2026-10-01 for the three "OakTend vs" comparison guides. Every
+  // entry opened that day. Competitor facts are paraphrased, never copied,
+  // and come only from the company's own site, its store listings or its SEC
+  // filing. Guardrails: OakTend-marketing/research-2026-10-01/
+  // comparison-pages-legal.md. Re-check every entry before bumping a date.
+  "/guides/oaktend-vs-homezada": [
+    {
+      href: "https://www.homezada.com/homeowners/pricing",
+      label: "HomeZada homeowner pricing",
+      supports:
+        "Essentials free (10 Homeowner AI chats); Premium $99 a year or $15.95 a month, adding Home Maintenance, Home Remodel Projects and Home Finances (100 chats); Deluxe $189 a year for up to 3 properties (250 chats), each property above 3 a $99 a year add-on. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.homezada.com/",
+      label: "HomeZada home page",
+      supports:
+        "HomeZada describes itself as a digital home management platform for inventory, maintenance, remodel projects and finances, and says it is not a contractor marketplace. Checked 2026-10-01.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/homezada-mobile/id473722482",
+      label: "HomeZada Mobile on the App Store",
+      supports:
+        "HomeZada has an app for iPhone and iPad (also listed for Mac and Apple Vision). Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.homezada.mobile",
+      label: "HomeZada Mobile on Google Play",
+      supports: "HomeZada has an Android app, from HomeZada, Inc. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.homezada.com/terms-and-conditions",
+      label: "HomeZada Terms and Conditions",
+      supports:
+        "HomeZada and Zada are registered trademarks of HomeZada, Inc. Checked 2026-10-01.",
+    },
+  ],
+  "/guides/oaktend-vs-angi": [
+    {
+      href: "https://www.sec.gov/Archives/edgar/data/1705110/000170511026000011/angi-20251231.htm",
+      label: "Angi Inc. Form 10-K for fiscal year 2025 (SEC)",
+      supports:
+        "Angi connects home pros with consumers in more than 500 categories through a nationwide network; matching, booking of pre-priced services and related tools are free to consumers once they register, and it also sells membership packages to consumers; revenue comes from fees pros pay for consumer matches, advertising and memberships; US lead revenue (fees pros pay for consumer matches) was 57% of 2025 consolidated revenue. Checked 2026-10-01.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/angi-find-local-home-services/id432633172",
+      label: "Angi: Find Local Home Services on the App Store",
+      supports:
+        "Free app from Angi Inc. for iPhone and iPad; lists home maintenance planner features. Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.servicemagic.consumer",
+      label: "Angi: Hire Home Service Pros on Google Play",
+      supports: "Angi has an Android app, from Angi Inc. Checked 2026-10-01.",
+    },
+  ],
+  "/guides/oaktend-vs-thumbtack": [
+    {
+      href: "https://www.thumbtack.com/",
+      label: "Thumbtack home page",
+      supports:
+        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free; no calls or texts until you message a pro; links to cost guides and maintenance tips. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.thumbtack.com/pro",
+      label: "Thumbtack for pros",
+      supports:
+        "No charge for pros to join and no subscription, annual or membership fees; pros set their pricing and a budget for leads, which decides how many leads they get. Checked 2026-10-01.",
+    },
+    {
+      href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",
+      label: "Thumbtack on the App Store",
+      supports:
+        "Free iPhone app from Thumbtack, Inc.; get prices, read reviews, message pros and hire in the app. Checked 2026-10-01.",
+    },
+    {
+      href: "https://play.google.com/store/apps/details?id=com.thumbtack.consumer",
+      label: "Thumbtack on Google Play",
+      supports: "Thumbtack has an Android app for customers. Checked 2026-10-01.",
+    },
+    {
+      href: "https://www.thumbtack.com/brand/",
+      label: "Thumbtack brand guidelines",
+      supports:
+        "Thumbtack's trademarks belong to Thumbtack, Inc., credited as such on this page. Checked 2026-10-01.",
     },
   ],
 };

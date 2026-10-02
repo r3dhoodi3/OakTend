@@ -308,6 +308,28 @@ export default function BestHomeMaintenanceAppsGuide() {
             shows what a local schedule looks like, month by month.
           </p>
         </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            OakTend side by side
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Weighing OakTend against one app or service in particular? We
+            compare it with{" "}
+            <Link href="/guides/oaktend-vs-homezada" className={linkClass}>
+              HomeZada
+            </Link>
+            ,{" "}
+            <Link href="/guides/oaktend-vs-angi" className={linkClass}>
+              Angi
+            </Link>{" "}
+            and{" "}
+            <Link href="/guides/oaktend-vs-thumbtack" className={linkClass}>
+              Thumbtack
+            </Link>
+            .
+          </p>
+        </section>
       </div>
 
       <GuideRelated path="/guides/best-home-maintenance-apps" />
