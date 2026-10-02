@@ -10,8 +10,8 @@ import { isHomeownerPreview } from "@/lib/previewMode";
 
 // OakTend vs Thumbtack. Same guardrails as src/app/guides/oaktend-vs-homezada
 // and src/app/guides/oaktend-vs-angi. Thumbtack facts come only from
-// Thumbtack's own home page, its page for pros and its app store listings,
-// opened 2026-10-01, in our own words: Thumbtack's terms forbid copying its
+// Thumbtack's own home page, its page for pros, its help center and press
+// pages, and its app store listings, checked 2026-10-01, in our own words: Thumbtack's terms forbid copying its
 // content onto a competing site, so nothing here quotes it. Re-check by
 // opening the pages in a browser, not with a script (its terms bar automated
 // access). The trademark credit follows Thumbtack's brand guidelines.
@@ -94,19 +94,19 @@ function rows(preview: boolean): CompareRow[] {
         </>
       ),
       other:
-        "No charge to join and no subscription, annual or membership fees. Pros set a budget for leads, which decides how many they get.",
+        "Free to join, with no subscription. Pros pay for leads, within a weekly budget they choose.",
     },
     {
       label: "Your contact info",
       oaktend: preview
         ? "Stays private. During our preview no pro sees your job unless you tell us to pass it on."
         : "Stays private until you pick a pro yourself.",
-      other: "No calls or texts until you message a pro.",
+      other: "Pros can't call or text you before you reach out to one.",
     },
     {
       label: "Maintenance planning",
       oaktend: "A plan built from your home's age and systems, with reminders.",
-      other: "Maintenance tips and cost guides on its website.",
+      other: "Its app has a plan for your home with reminders and seasonal upkeep guides.",
     },
     {
       label: "Platforms",
@@ -195,8 +195,9 @@ export default function OakTendVsThumbtack() {
           </h2>
           <ul className="mt-2 list-disc space-y-1 pl-5 leading-relaxed">
             <li>
-              Your home is in Orange County and you want a plan that tells you
-              what to do and when, before something breaks.
+              Your home is in Orange County and you want a plan built for
+              local conditions, like Orange County weather and recalls on the
+              appliances you add.
             </li>
             <li>
               You want your home&apos;s photos, documents and warranties in

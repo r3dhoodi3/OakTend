@@ -2472,6 +2472,18 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "It's free for customers to use Thumbtack; compare prices, read reviews, message and book local pros. Checked 2026-09-30.",
     },
     {
+      href: "https://help.thumbtack.com/article/manage-home-care-plan",
+      label: "Thumbtack Help: How to get a personalized plan for your home",
+      supports:
+        "The Thumbtack app builds a home profile and a personalized plan for your home. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
+      href: "https://press.thumbtack.com/announcements/one-app-for-your-home-introducing-a-new-thumbtack-for-a-new-generation-of-homeowners/",
+      label: "Thumbtack press release, April 2, 2024: One App for Your Home",
+      supports:
+        "Thumbtack's app plans let you set reminders and track progress. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
       href: "https://play.google.com/store/apps/details?id=com.thumbtack.consumer",
       label: "Thumbtack on Google Play",
       supports: "Thumbtack has an Android app for customers. Checked 2026-09-30.",
@@ -2524,7 +2536,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.sec.gov/Archives/edgar/data/1705110/000170511026000011/angi-20251231.htm",
       label: "Angi Inc. Form 10-K for fiscal year 2025 (SEC)",
       supports:
-        "Angi connects home pros with consumers in more than 500 categories through a nationwide network; matching, booking of pre-priced services and related tools are free to consumers once they register, and it also sells membership packages to consumers; revenue comes from fees pros pay for consumer matches, advertising and memberships; US lead revenue (fees pros pay for consumer matches) was 57% of 2025 consolidated revenue. Checked 2026-10-01.",
+        "Angi connects home pros with consumers in more than 500 categories through a nationwide network; matching, booking of pre-priced services and related tools are free to consumers once they register, and it also sells membership packages to consumers; revenue comes from fees pros pay for consumer matches, advertising and memberships; US lead revenue (fees pros pay for consumer matches) was 57% of Angi Inc.'s 2025 consolidated revenue. Checked 2026-10-01.",
     },
     {
       href: "https://apps.apple.com/us/app/angi-find-local-home-services/id432633172",
@@ -2543,13 +2555,25 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.thumbtack.com/",
       label: "Thumbtack home page",
       supports:
-        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free; no calls or texts until you message a pro; links to cost guides and maintenance tips. Checked 2026-10-01.",
+        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free; pros cannot call or text you before you message one. Checked 2026-10-01.",
     },
     {
       href: "https://www.thumbtack.com/pro",
       label: "Thumbtack for pros",
       supports:
-        "No charge for pros to join and no subscription, annual or membership fees; pros set their pricing and a budget for leads, which decides how many leads they get. Checked 2026-10-01.",
+        "Free for pros to join, with no subscription; pros pay for leads within a weekly budget they choose. Checked 2026-10-01.",
+    },
+    {
+      href: "https://help.thumbtack.com/article/manage-home-care-plan",
+      label: "Thumbtack Help: How to get a personalized plan for your home",
+      supports:
+        "The Thumbtack app builds a home profile and a personalized plan of projects for your home, with guides based on your home and the season. Checked 2026-10-01 by a person through web search, not fetched by a script.",
+    },
+    {
+      href: "https://press.thumbtack.com/announcements/one-app-for-your-home-introducing-a-new-thumbtack-for-a-new-generation-of-homeowners/",
+      label: "Thumbtack press release, April 2, 2024: One App for Your Home",
+      supports:
+        "Thumbtack's app added a Home Profile, Seasonal Upkeep Guides, and plans where you can set reminders and track progress. Checked 2026-10-01 by a person through web search, not fetched by a script.",
     },
     {
       href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",

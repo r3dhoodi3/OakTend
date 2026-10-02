@@ -10,19 +10,27 @@
 
 // The trademark line at the foot of every comparison. `owner` is the company
 // as its own terms or brand page name it.
+//
+// `markOwner`, when given, replaces `owner` in the trademark sentence only:
+// the ANGI mark is registered to a subsidiary, so that line says "Angi Inc.
+// or its affiliates" while the non-affiliation line names Angi Inc.
 export function TrademarkNote({
   name,
   owner,
+  markOwner,
 }: {
   name: string;
   owner: string;
+  markOwner?: string;
 }) {
+  const holder = markOwner ?? owner;
   // "Angi Inc." already ends in a period, so no second one after it.
+  const holderStop = holder.endsWith(".") ? "" : ".";
   const stop = owner.endsWith(".") ? "" : ".";
   return (
     <p className="mt-8 text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-      {name} is a trademark of {owner}
-      {stop} OakTend is not affiliated with, endorsed by or sponsored by{" "}
+      {name} is a trademark of {holder}
+      {holderStop} OakTend is not affiliated with, endorsed by or sponsored by{" "}
       {owner}
       {stop} We use the name only to compare the two products, from the
       company&apos;s own published information.

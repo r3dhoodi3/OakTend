@@ -207,6 +207,10 @@ describe("GUIDE_SOURCES", () => {
     // that day.
     "www.sec.gov",
     "www.thumbtack.com",
+    // Added 2026-10-01 for Thumbtack's home plan, checked by a person
+    // through web search (Thumbtack's terms bar scripted access).
+    "help.thumbtack.com",
+    "press.thumbtack.com",
   ];
 
   it("lists sources for every guide", () => {

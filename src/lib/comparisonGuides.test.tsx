@@ -27,6 +27,7 @@ const PAGES = [
     dir: "oaktend-vs-homezada",
     name: "HomeZada",
     owner: "HomeZada, Inc.",
+    markOwner: "HomeZada, Inc.",
     Page: HomeZada,
     metadata: homezadaMeta,
     hosts: ["www.homezada.com", "apps.apple.com", "play.google.com"],
@@ -36,6 +37,7 @@ const PAGES = [
     dir: "oaktend-vs-angi",
     name: "Angi",
     owner: "Angi Inc.",
+    markOwner: "Angi Inc. or its affiliates",
     Page: Angi,
     metadata: angiMeta,
     hosts: ["www.sec.gov", "apps.apple.com", "play.google.com"],
@@ -45,13 +47,20 @@ const PAGES = [
     dir: "oaktend-vs-thumbtack",
     name: "Thumbtack",
     owner: "Thumbtack, Inc.",
+    markOwner: "Thumbtack, Inc.",
     Page: Thumbtack,
     metadata: thumbtackMeta,
-    hosts: ["www.thumbtack.com", "apps.apple.com", "play.google.com"],
+    hosts: [
+      "www.thumbtack.com",
+      "help.thumbtack.com",
+      "press.thumbtack.com",
+      "apps.apple.com",
+      "play.google.com",
+    ],
   },
 ];
 
-describe.each(PAGES)("$path", ({ dir, name, owner, Page, metadata, path, hosts }) => {
+describe.each(PAGES)("$path", ({ dir, name, owner, markOwner, Page, metadata, path, hosts }) => {
   it("is titled OakTend vs the competitor and fits the length limits", () => {
     expect(metadata.title).toBe(`OakTend vs ${name}`);
     expect(`${metadata.title} | OakTend`.length).toBeLessThan(60);
@@ -67,7 +76,7 @@ describe.each(PAGES)("$path", ({ dir, name, owner, Page, metadata, path, hosts }
     const { container } = render(<Page />);
     const stop = owner.endsWith(".") ? "" : ".";
     expect(container).toHaveTextContent(
-      `${name} is a trademark of ${owner}${stop} OakTend is not affiliated with, endorsed by or sponsored by ${owner}${stop} We use`
+      `${name} is a trademark of ${markOwner}${markOwner.endsWith(".") ? "" : "."} OakTend is not affiliated with, endorsed by or sponsored by ${owner}${stop} We use`
     );
     expect(container.textContent).not.toContain("..");
     expect(container).toHaveTextContent("OakTend wrote this page");

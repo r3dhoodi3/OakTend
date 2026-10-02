@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import Guide, { metadata } from "@/app/guides/best-home-maintenance-apps/page";
@@ -12,7 +12,10 @@ import { GUIDE_SOURCES } from "./guideExtras";
 // visible list in order, OakTend first, a source for every app, and the
 // length and dash rules.
 
-afterEach(() => cleanup());
+afterEach(() => {
+  cleanup();
+  vi.unstubAllEnvs();
+});
 
 const PATH = "/guides/best-home-maintenance-apps";
 
@@ -57,6 +60,25 @@ describe(PATH, () => {
     ]) {
       expect(text, name).toContain(name);
     }
+  });
+
+  it("states OakTend's price the way preview mode says", () => {
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "homeowner");
+    const { container, unmount } = render(<Guide />);
+    expect(container).toHaveTextContent("Free during our preview, no card needed.");
+    expect(container).toHaveTextContent("OakTend, free during our preview.");
+    unmount();
+    vi.stubEnv("NEXT_PUBLIC_PREVIEW_MODE", "");
+    const off = render(<Guide />);
+    expect(off.container).not.toHaveTextContent(/during our preview/i);
+    expect(off.container).toHaveTextContent("Your first home is free, no card needed.");
+    expect(off.container).toHaveTextContent("OakTend, free for your first home.");
+  });
+
+  it("does not call Thumbtack something other than what its own pages say", () => {
+    const { container } = render(<Guide />);
+    expect(container).not.toHaveTextContent("Not a maintenance tracker");
+    expect(container).toHaveTextContent("Its app also has a home plan with reminders.");
   });
 
   it("uses no em dash or en dash", () => {

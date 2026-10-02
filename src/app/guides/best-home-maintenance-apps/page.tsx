@@ -6,6 +6,7 @@ import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 import StructuredData from "@/components/StructuredData";
+import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Comparison of home maintenance apps, aimed at "best home maintenance app".
 //
@@ -89,7 +90,8 @@ const APPS: AppEntry[] = [
         .
       </>
     ),
-    price: "Free during our preview, no card needed.",
+    // Replaced at render by oaktendPrice(), which follows preview mode.
+    price: "",
     platforms: "Web, in any phone or computer browser.",
     bestFor: "Homeowners in Orange County, California. It does not serve homes outside the county.",
   },
@@ -160,7 +162,7 @@ const APPS: AppEntry[] = [
   {
     name: "Thumbtack",
     url: "https://www.thumbtack.com/",
-    what: "Not a maintenance tracker. It is a marketplace where you compare prices, read reviews, and message and book local pros.",
+    what: "Mainly a marketplace where you compare prices, read reviews, and message and book local pros. Its app also has a home plan with reminders.",
     price: "Free for customers.",
     platforms: "Web, iPhone and Android.",
     bestFor: "Hiring a pro for a job right now.",
@@ -184,7 +186,20 @@ const itemListJsonLd = {
 const linkClass =
   "text-bark-700 underline hover:no-underline dark:text-stone-300";
 
+// OakTend's price follows preview mode like the rest of the site
+// (src/lib/previewMode.ts): everything free during the preview, the first
+// home free outside it (same wording as /home-maintenance-app).
+function oaktendPrice(preview: boolean): string {
+  return preview
+    ? "Free during our preview, no card needed."
+    : "Your first home is free, no card needed. OakTend Plus is optional.";
+}
+
 export default function BestHomeMaintenanceAppsGuide() {
+  const preview = isHomeownerPreview();
+  const apps = APPS.map((app) =>
+    app.name === "OakTend" ? { ...app, price: oaktendPrice(preview) } : app
+  );
   return (
     <main className="mx-auto max-w-2xl px-6 pb-16 pt-10">
       <GuideArticleJsonLd
@@ -230,7 +245,10 @@ export default function BestHomeMaintenanceAppsGuide() {
           Pick by what you need most
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-          <li>A home in Orange County: OakTend, free during our preview.</li>
+          <li>
+            A home in Orange County: OakTend,{" "}
+            {preview ? "free during our preview" : "free for your first home"}.
+          </li>
           <li>A free reminder app: HomeBeacon, Home Keeper or Dwellin.</li>
           <li>Detailed records and budgets: HomeZada or Homer.</li>
           <li>A shared family to-do list: HomeQueue or Homerockr.</li>
@@ -245,7 +263,7 @@ export default function BestHomeMaintenanceAppsGuide() {
       </p>
 
       <ol className="mt-6 space-y-4">
-        {APPS.map((app, i) => (
+        {apps.map((app, i) => (
           <li key={app.name} className="card">
             <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
               {i + 1}. {app.name}

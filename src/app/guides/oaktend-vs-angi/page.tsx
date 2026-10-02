@@ -71,7 +71,7 @@ function rows(preview: boolean): CompareRow[] {
         ? "Not yet. Our pro network isn't open."
         : "Post a job and local pros can quote it.",
       other:
-        "Yes, in more than 500 service categories. Some services can be booked at a set price.",
+        "Yes. Angi Inc. reports more than 500 service categories. Some services can be booked at a set price.",
     },
     {
       label: "Cost to homeowners",
@@ -103,7 +103,7 @@ function rows(preview: boolean): CompareRow[] {
         </>
       ),
       other:
-        "Fees pros pay for matches with homeowners in the US were 57% of Angi's 2025 revenue. It also earns from advertising and memberships.",
+        "Fees pros pay for customer matches in the US were 57% of Angi Inc.'s total 2025 revenue. It also earns from advertising and memberships.",
     },
     {
       label: "Maintenance planning",
@@ -224,7 +224,11 @@ export default function OakTendVsAngi() {
         </section>
       </div>
 
-      <TrademarkNote name="Angi" owner="Angi Inc." />
+      <TrademarkNote
+        name="Angi"
+        owner="Angi Inc."
+        markOwner="Angi Inc. or its affiliates"
+      />
 
       <GuideRelated path="/guides/oaktend-vs-angi" />
 
