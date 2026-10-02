@@ -323,9 +323,10 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
 
         <div className="rounded-xl border border-stone-200 bg-white p-5 text-center dark:border-stone-700 dark:bg-stone-800/40">
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-            OakTend keeps a yearly reminder for gutters, vents and the first
-            5 feet on your home&apos;s maintenance plan, and keeps the photos and
-            receipts in your home&apos;s record in case your insurer asks.
+            OakTend&apos;s maintenance plan reminds you to clean the gutters,
+            and you can ask OakTend to add reminders for the vents and the
+            first 5 feet. Keep the photos and receipts in your home&apos;s record in
+            case your insurer asks.
           </p>
           <Link href="/homeowner-signup" className="btn-primary mt-3 px-5 py-2">
             Put wind season on your home&apos;s calendar, free
