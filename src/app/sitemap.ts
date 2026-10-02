@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { isMissingSchemaError } from "@/lib/dbErrors";
 import { LAUNCH_CITY_NAMES } from "@/lib/serviceArea";
 import { GUIDE_DATES, GUIDE_PATHS } from "@/lib/guides";
+import { CHORE_PATHS, choreDates } from "@/lib/chores";
 import { isHomeownerPreview } from "@/lib/previewMode";
 
 // Sitemap for crawlers: the public landing pages, the two hand-written city
@@ -273,6 +274,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: GUIDE_DATES[path]?.dateModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    // The how-to chore pages and their hub (src/lib/chores.ts). Dates from
+    // choreDates(), the same function their Article node and visible
+    // "Updated" line read through guideDates().
+    ...CHORE_PATHS.map((path) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified: choreDates(path)?.dateModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 

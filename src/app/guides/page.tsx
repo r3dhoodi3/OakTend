@@ -370,6 +370,32 @@ export default function GuidesIndex() {
       ))}
 
       <h2 className="mt-10 text-lg font-bold text-stone-900 dark:text-stone-100">
+        Step by step how-tos
+      </h2>
+      <div className="mt-4">
+        <Link
+          href="/guides/how-to"
+          className="card block transition hover:border-bark-500 hover:shadow-md"
+        >
+          <div className="flex items-start gap-3">
+            <span className="icon-chip" aria-hidden>
+              <Wrench className="h-5 w-5" />
+            </span>
+            <div>
+              <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                Home maintenance how-tos
+              </h3>
+              <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">
+                Short pages for one job each: flush a water heater, clean a
+                dryer vent, test alarms and GFCIs, get gutters and sprinklers
+                ready for the rain.
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
+
+      <h2 className="mt-10 text-lg font-bold text-stone-900 dark:text-stone-100">
         Have a quote in hand?
       </h2>
       <div className="mt-4">

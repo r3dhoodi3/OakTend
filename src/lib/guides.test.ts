@@ -36,9 +36,11 @@ function hrefsFromIndex(): string[] {
 }
 
 // Every directory under src/app/guides that is a real route (has a page.tsx).
+// "how-to" is left out: it is the section of short chore pages, with its own
+// dates and checks (src/lib/chores.ts, src/lib/chores.test.ts), not a guide.
 function guideRouteDirs(): string[] {
   return readdirSync(GUIDES_DIR, { withFileTypes: true })
-    .filter((e) => e.isDirectory())
+    .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 }
 

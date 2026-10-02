@@ -374,6 +374,16 @@ export default function OrangeCountyHomeMaintenanceChecklistGuide() {
               </tbody>
             </table>
           </div>
+          <p className="mt-3 leading-relaxed">
+            Step by step instructions for these jobs, and more, are in our{" "}
+            <Link
+              href="/guides/how-to"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              home maintenance how-tos
+            </Link>
+            .
+          </p>
         </section>
 
         <section>
