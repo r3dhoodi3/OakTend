@@ -120,11 +120,16 @@ export default function GoogleAnalytics({
   // "not known yet" must mean "off".
   const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
   const [signal, setSignal] = useState(false);
+  // False until the stored choice has been read. The first render always has
+  // consent === null, and acting on that would delete an allowed visitor's
+  // _ga cookie on every full page load, making each visit a new visitor.
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (!id) return;
     setConsent(readAnalyticsConsent());
     setSignal(hasBrowserPrivacySignal());
+    setLoaded(true);
     function onChange() {
       setConsent(readAnalyticsConsent());
     }
@@ -144,7 +149,7 @@ export default function GoogleAnalytics({
   }, [id]);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !loaded) return;
     const w = window as unknown as GaWindow;
     const allowed = consent === "granted" && !signal;
     // Signed in (any session cookie) or inside the iOS/Android app shell:
@@ -178,7 +183,7 @@ export default function GoogleAnalytics({
     gtag("event", "page_view", { send_to: id, ...page });
     lastLocation = `${origin}${path}`;
     lastWasProPage = isProPage;
-  }, [id, consent, signal, pathname]);
+  }, [id, loaded, consent, signal, pathname]);
 
   return null;
 }

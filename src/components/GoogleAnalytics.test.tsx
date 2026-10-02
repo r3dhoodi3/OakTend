@@ -239,4 +239,56 @@ describe("GoogleAnalytics", () => {
     render(<GoogleAnalytics measurementId={ID} />);
     expect(gaScript()).toBeNull();
   });
+
+  describe("existing _ga cookies on a full page load", () => {
+    function seedGaCookies() {
+      document.cookie = "_ga=GA1.1.111.222; path=/";
+      document.cookie = "_ga_TEST00000=GS1.1.1; path=/";
+    }
+    function clearAll() {
+      document.cookie = "_ga=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      document.cookie = "_ga_TEST00000=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    }
+    afterEach(clearAll);
+
+    it("keeps an allowed visitor's _ga across a reload", () => {
+      window.localStorage.setItem(CONSENT_KEY, "granted");
+      seedGaCookies();
+      // A remount with fresh state is what a full page load looks like.
+      render(<GoogleAnalytics measurementId={ID} />);
+      expect(document.cookie).toContain("_ga=GA1.1.111.222");
+      expect(document.cookie).toContain("_ga_TEST00000=");
+    });
+
+    it("clears _ga for a visitor who chose Only necessary", () => {
+      window.localStorage.setItem(CONSENT_KEY, "denied");
+      seedGaCookies();
+      render(<GoogleAnalytics measurementId={ID} />);
+      expect(document.cookie).not.toMatch(/_ga/);
+    });
+
+    it("clears _ga when the browser sends GPC, even after Allow", () => {
+      window.localStorage.setItem(CONSENT_KEY, "granted");
+      setNav("globalPrivacyControl", true);
+      seedGaCookies();
+      render(<GoogleAnalytics measurementId={ID} />);
+      expect(document.cookie).not.toMatch(/_ga/);
+    });
+
+    it("clears _ga for a signed-in browser, even after Allow", () => {
+      window.localStorage.setItem(CONSENT_KEY, "granted");
+      document.cookie = "sb-testref-auth-token=x; path=/";
+      seedGaCookies();
+      render(<GoogleAnalytics measurementId={ID} />);
+      expect(document.cookie).not.toMatch(/_ga/);
+    });
+
+    it("clears _ga inside the app shell, even after Allow", () => {
+      window.localStorage.setItem(CONSENT_KEY, "granted");
+      mockNative = true;
+      seedGaCookies();
+      render(<GoogleAnalytics measurementId={ID} />);
+      expect(document.cookie).not.toMatch(/_ga/);
+    });
+  });
 });
