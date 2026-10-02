@@ -1011,6 +1011,16 @@ export const THIRD_PARTIES: ThirdParty[] = [
     receives: "Your email address and the contents of the email we send you.",
   },
   {
+    // Optional, public pages only, and only after "Allow analytics" (see
+    // src/lib/googleAnalytics.ts). Never loaded inside the signed-in app, so
+    // nothing tied to an account reaches it; listed here because the export
+    // and the rights panel promise the complete list.
+    name: "Google (Google Analytics)",
+    role: "Website analytics on public pages, only if you allow it",
+    receives:
+      "The public page viewed (with any dynamic part of the address removed), the referring site's domain, device and browser details, approximate location, and a random cookie ID. Never your name, email, address, or account ID, and never anything from inside your account. Google Signals and ad personalization are off.",
+  },
+  {
     name: "Twilio",
     role: "Text-message delivery",
     receives:

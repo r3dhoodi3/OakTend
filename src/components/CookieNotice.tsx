@@ -2,40 +2,71 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import {
+  type AnalyticsConsent,
+  hasBrowserPrivacySignal,
+  readAnalyticsConsent,
+  writeAnalyticsConsent,
+} from "@/lib/googleAnalytics";
 
 // The one-time cookie notice, mounted once in the ROOT layout
 // (src/app/layout.tsx) so every surface shows it exactly once - marketing
 // pages, the homeowner app, the pro app and the closed-door pro page alike.
 //
-// THIS IS INFORMATIONAL, NOT A CONSENT GATE, and the difference is load-
-// bearing. src/content/legal/cookies.md and the Cookies section of
-// privacy.md both state the position OakTend actually holds: every cookie it
-// sets is first-party and functional (sign-in, the password-reset door, the
-// active-home selection, one-shot flash messages), analytics is the host's
-// cookieless page-view counter, and there are no advertising or session-replay
-// trackers anywhere - so no consent is legally required under California law.
-// A banner that BLOCKED anything or offered a toggle would therefore be
-// theatre: it would imply a choice that has nothing on the other side of it,
-// and it would be a second, contradictory account of what this product does
-// next to the legal pages. So this card only tells you, and goes away. Nothing
-// is gated on it, nothing is toggled by it, and no cookie is deferred until it
-// is read. If OakTend ever adds a cookie that DOES need consent, this
-// component is not the thing to extend - that needs a real preference store.
+// TWO MODES, picked by `gaEnabled` (true only when
+// NEXT_PUBLIC_GA_MEASUREMENT_ID holds a real GA4 id, see
+// src/lib/googleAnalytics.ts):
+//
+// 1. gaEnabled false: INFORMATIONAL, NOT A CONSENT GATE. Every cookie OakTend
+//    sets is first-party and functional, and the host's page-view counter is
+//    cookieless, so there is nothing to choose. The card only tells you, and
+//    goes away. Offering a toggle here would imply a choice with nothing on
+//    the other side of it.
+//
+// 2. gaEnabled true: A REAL CHOICE for Google Analytics, which does set
+//    cookies. Nothing from Google loads until "Allow analytics" is tapped
+//    (src/components/GoogleAnalytics.tsx). The two buttons are styled the
+//    same on purpose: California's rules on consent (CCPA regulations,
+//    section 7004) ask for symmetry, so "no" must be as easy as "yes". A
+//    browser that sends Global Privacy Control or Do Not Track gets the
+//    informational card with one extra sentence instead: the signal already
+//    answered the question, so we do not ask it.
+//
+// The functional-cookie sentence is the same in both modes, and the legal
+// pages (src/content/legal/cookies.md, privacy.md) describe both.
 //
 // Modelled on PreviewNotice.tsx, including the starts-hidden-then-appears
 // pattern and the try/catch discipline around storage; see the notes on each
 // below.
 const DISMISSED_KEY = "oaktend_cookie_notice_dismissed";
 
-export default function CookieNotice() {
+const FUNCTIONAL_TEXT =
+  "We use cookies for sign-in, security, and fraud prevention. No ad cookies.";
+
+type Mode = "info" | "signal" | "choice";
+
+export default function CookieNotice({
+  gaEnabled = false,
+}: {
+  gaEnabled?: boolean;
+}) {
   // STARTS HIDDEN, then appears if the mount check says it should - same
   // reasoning as PreviewNotice: visibility depends on localStorage, which only
   // exists in the browser, so the server HTML cannot know the answer.
   // Rendering it and removing it would flash the card at everyone who already
   // dismissed it, on every navigation in the app.
-  const [visible, setVisible] = useState(false);
+  const [mode, setMode] = useState<Mode | null>(null);
 
   useEffect(() => {
+    if (gaEnabled && !hasBrowserPrivacySignal()) {
+      // Someone who already chose (here or on /cookies or /privacy-choices)
+      // is not asked again. Everyone else is asked, including people who
+      // dismissed the older informational card: that card never asked about
+      // Google Analytics, so dismissing it was not an answer.
+      if (readAnalyticsConsent() !== null) return;
+      setMode("choice");
+      return;
+    }
     try {
       if (window.localStorage.getItem(DISMISSED_KEY) === "1") return;
     } catch {
@@ -43,11 +74,11 @@ export default function CookieNotice() {
       // card: the safe direction to fail is TELLING somebody what cookies we
       // set, not hiding it because we could not read a flag.
     }
-    setVisible(true);
-  }, []);
+    setMode(gaEnabled ? "signal" : "info");
+  }, [gaEnabled]);
 
   function dismiss() {
-    setVisible(false);
+    setMode(null);
     try {
       window.localStorage.setItem(DISMISSED_KEY, "1");
     } catch {
@@ -56,7 +87,12 @@ export default function CookieNotice() {
     }
   }
 
-  if (!visible) return null;
+  function choose(value: AnalyticsConsent) {
+    writeAnalyticsConsent(value);
+    dismiss();
+  }
+
+  if (mode === null) return null;
 
   return (
     <div
@@ -79,24 +115,57 @@ export default function CookieNotice() {
       className="fixed left-4 right-4 z-40 bottom-[calc(3.5rem_+_env(safe-area-inset-bottom)_+_1rem)] rounded-xl border border-stone-200 bg-white p-4 shadow-menu lg:bottom-4 sm:left-auto sm:right-6 sm:max-w-sm dark:border-white/10 dark:bg-stone-900"
     >
       <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
-        We use cookies for sign-in, security, and fraud prevention. No ad
-        cookies.
+        {FUNCTIONAL_TEXT}
+        {mode === "choice" &&
+          " If you allow it, we also use Google Analytics cookies on our public pages to see which pages help people. Never for ads."}
+        {mode === "signal" &&
+          " Your browser's privacy signal is on, so we keep Google Analytics off."}
       </p>
-      <div className="mt-3 flex items-center justify-between gap-3">
-        <Link
-          href="/cookies"
-          className="text-sm font-medium text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
-        >
-          Cookie notice
-        </Link>
-        {/* Plain .btn-primary, with no min-h of its own: .btn (globals.css)
-            already pins every button in the app to min-h-[44px], the thumb
-            floor this card needs on a phone, at every width. shrink-0 so the
-            label never wraps next to the link on a narrow screen. */}
-        <button type="button" onClick={dismiss} className="btn-primary shrink-0">
-          Got it
-        </button>
-      </div>
+      {mode === "choice" ? (
+        <>
+          {/* Two equal buttons, same style and size, so saying no is as easy
+              as saying yes. .btn already pins them to the 44px thumb floor;
+              flex-1 splits the row evenly at every width. */}
+          <div className="mt-3 flex gap-3">
+            <button
+              type="button"
+              onClick={() => choose("denied")}
+              className="btn-secondary flex-1"
+            >
+              Only necessary
+            </button>
+            <button
+              type="button"
+              onClick={() => choose("granted")}
+              className="btn-secondary flex-1"
+            >
+              Allow analytics
+            </button>
+          </div>
+          <Link
+            href="/cookies"
+            className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-stone-600 underline hover:text-stone-700 dark:text-stone-300 dark:hover:text-stone-200"
+          >
+            Cookie notice
+          </Link>
+        </>
+      ) : (
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <Link
+            href="/cookies"
+            className="text-sm font-medium text-stone-600 underline hover:text-stone-700 max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-200"
+          >
+            Cookie notice
+          </Link>
+          {/* Plain .btn-primary, with no min-h of its own: .btn (globals.css)
+              already pins every button in the app to min-h-[44px], the thumb
+              floor this card needs on a phone, at every width. shrink-0 so the
+              label never wraps next to the link on a narrow screen. */}
+          <button type="button" onClick={dismiss} className="btn-primary shrink-0">
+            Got it
+          </button>
+        </div>
+      )}
     </div>
   );
 }

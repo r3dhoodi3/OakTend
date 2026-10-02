@@ -78,7 +78,7 @@ const LAST_MODIFIED: Record<string, string> = {
   "/huntington-beach": "2026-09-20",
   // The county hub, src/app/oc/page.tsx. Its own date: see lastModifiedFor.
   "/oc": "2026-09-20",
-  "/privacy": "2026-09-20",
+  "/privacy": "2026-10-01",
   "/terms": "2026-09-20",
   "/pro-terms": "2026-09-20",
   "/pro-data-addendum": "2026-09-20",
@@ -90,9 +90,9 @@ const LAST_MODIFIED: Record<string, string> = {
   "/guidelines": "2026-09-20",
   "/security": "2026-09-03",
   "/law-enforcement": "2026-09-15",
-  "/cookies": "2026-09-20",
-  "/subprocessors": "2026-09-20",
-  "/privacy-choices": "2026-09-20",
+  "/cookies": "2026-10-01",
+  "/subprocessors": "2026-10-01",
+  "/privacy-choices": "2026-10-01",
   "/contact": "2026-09-17",
   "/about": "2026-09-20",
   // Added 2026-09-30: the "home maintenance app" landing page.

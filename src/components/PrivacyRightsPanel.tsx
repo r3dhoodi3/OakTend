@@ -171,7 +171,7 @@ export default function PrivacyRightsPanel({
           />
           <Right
             term="Opt out of sale or sharing"
-            detail="OakTend does not sell your personal information, and does not share it for cross-context behavioral advertising. There are no advertising trackers on this site. We use one cookieless page-view counter from our hosting provider. Because there is nothing to opt out of, there is no Do Not Sell or Share link."
+            detail="OakTend does not sell your personal information, and does not share it for cross-context behavioral advertising. There are no advertising trackers on this site. We use one cookieless page-view counter from our hosting provider, and on our public pages, only if you allow it, Google Analytics with its ad features off. Because there is nothing to opt out of, there is no Do Not Sell or Share link. You can turn Google Analytics on or off on the Your Privacy Choices page."
           />
           <Right
             term="Limit how we use sensitive information"

@@ -1,0 +1,169 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  ANALYTICS_CONSENT_EVENT,
+  ANALYTICS_CONSENT_KEY,
+  GA_COOKIE_EXPIRES_SECONDS,
+  type AnalyticsConsent,
+  clearGaCookies,
+  hasBrowserPrivacySignal,
+  normalizeGaPath,
+  readAnalyticsConsent,
+  safeCampaignQuery,
+  safeReferrer,
+  validMeasurementId,
+} from "@/lib/googleAnalytics";
+
+// Google Analytics 4 loader, mounted once in the root layout. The rules it
+// follows are listed at the top of src/lib/googleAnalytics.ts. In short: it
+// renders nothing and loads nothing unless a measurement id is configured,
+// the visitor tapped "Allow analytics", the browser sends no GPC or Do Not
+// Track signal, AND the current page is a public marketing page.
+//
+// WHY A HAND-ROLLED <script> AND NOT next/script: the tag must be injectable
+// at an arbitrary moment (the instant someone taps Allow, possibly on their
+// tenth page), must never be injected on most routes, and has to be switched
+// back off on a revoke. next/script renders on mount and offers no unload, and
+// its behavior under jsdom makes the consent tests below brittle. Building the
+// dataLayer/gtag stub in bundled code also means no inline script is needed.
+
+type Gtag = (...args: unknown[]) => void;
+type GaWindow = Window & {
+  dataLayer?: unknown[];
+  gtag?: Gtag;
+  [disableFlag: `ga-disable-${string}`]: boolean | undefined;
+};
+
+const SCRIPT_ID = "oaktend-ga4";
+
+// Module scope so it survives remounts: the previous page we reported, used
+// as page_referrer on the next client-side navigation.
+let lastLocation: string | null = null;
+
+function ensureGtag(id: string): Gtag {
+  const w = window as unknown as GaWindow;
+  if (w.gtag && document.getElementById(SCRIPT_ID)) return w.gtag;
+  w.dataLayer = w.dataLayer || [];
+  const gtag: Gtag = function gtag() {
+    // gtag.js requires the real `arguments` object, not an array copy.
+    // eslint-disable-next-line prefer-rest-params
+    w.dataLayer!.push(arguments);
+  };
+  w.gtag = gtag;
+
+  // Consent Mode v2: everything denied by default. Only analytics_storage is
+  // ever granted, and only because the visitor allowed it.
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+  });
+  gtag("set", "ads_data_redaction", true);
+  gtag("set", "allow_google_signals", false);
+  gtag("set", "allow_ad_personalization_signals", false);
+  gtag("consent", "update", { analytics_storage: "granted" });
+  gtag("js", new Date());
+  gtag("config", id, {
+    // Page views are sent by hand below, with a cleaned-up URL.
+    send_page_view: false,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    cookie_expires: GA_COOKIE_EXPIRES_SECONDS,
+    cookie_flags: window.location.protocol === "https:" ? "SameSite=Lax;Secure" : "SameSite=Lax",
+  });
+
+  if (!document.getElementById(SCRIPT_ID)) {
+    const s = document.createElement("script");
+    s.id = SCRIPT_ID;
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    document.head.appendChild(s);
+  }
+  return gtag;
+}
+
+function turnOff(id: string): void {
+  const w = window as unknown as GaWindow;
+  // Google's documented kill switch: gtag sends nothing for this id while set.
+  w[`ga-disable-${id}`] = true;
+  if (w.gtag) {
+    w.gtag("consent", "update", { analytics_storage: "denied" });
+  }
+  clearGaCookies();
+}
+
+export default function GoogleAnalytics({
+  measurementId,
+}: {
+  measurementId?: string | null;
+}) {
+  const id = validMeasurementId(measurementId);
+  const pathname = usePathname();
+  // null until the mount check runs: the server cannot know the choice, and
+  // "not known yet" must mean "off".
+  const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
+  const [signal, setSignal] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    setConsent(readAnalyticsConsent());
+    setSignal(hasBrowserPrivacySignal());
+    function onChange() {
+      setConsent(readAnalyticsConsent());
+    }
+    function onCustom(e: Event) {
+      const v = (e as CustomEvent<AnalyticsConsent>).detail;
+      setConsent(v === "granted" || v === "denied" ? v : readAnalyticsConsent());
+    }
+    function onStorage(e: StorageEvent) {
+      if (e.key === null || e.key === ANALYTICS_CONSENT_KEY) onChange();
+    }
+    window.addEventListener(ANALYTICS_CONSENT_EVENT, onCustom);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(ANALYTICS_CONSENT_EVENT, onCustom);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    const w = window as unknown as GaWindow;
+    const allowed = consent === "granted" && !signal;
+    if (!allowed) {
+      // Only clean up if something was ever turned on in this page's life,
+      // or a stale _ga cookie is left from an earlier "allow".
+      if (consent === "denied" || signal || w.gtag) turnOff(id);
+      return;
+    }
+    const path = normalizeGaPath(pathname);
+    // Off on every page that is not a public marketing page, including after
+    // a client-side navigation from one into the app.
+    w[`ga-disable-${id}`] = path === null;
+    if (path === null) return;
+
+    const gtag = ensureGtag(id);
+    const origin = window.location.origin;
+    const location = `${origin}${path}${safeCampaignQuery(window.location.search)}`;
+    const referrer =
+      lastLocation ?? safeReferrer(document.referrer, origin);
+    gtag("event", "page_view", {
+      send_to: id,
+      page_location: location,
+      page_referrer: referrer,
+      // A pro page's title carries the business name; send the template.
+      page_title: path === "/p/[id]" ? "Pro page" : document.title,
+    });
+    lastLocation = `${origin}${path}`;
+  }, [id, consent, signal, pathname]);
+
+  return null;
+}
+
+// Test-only reset of module state.
+export function __resetGoogleAnalyticsForTests(): void {
+  lastLocation = null;
+}

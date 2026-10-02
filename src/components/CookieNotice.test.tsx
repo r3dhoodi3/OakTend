@@ -14,11 +14,9 @@ import CookieNotice from "./CookieNotice";
 // dismissing it sticks across a remount, and a browser with storage blocked
 // still gets a working card rather than a crash.
 //
-// What is deliberately NOT tested, because it must never become true: there is
-// no "reject" path, nothing is blocked while the card is up, and no cookie
-// waits on it. See the header comment in CookieNotice.tsx - the legal pages
-// (src/content/legal/cookies.md, privacy.md) say no consent is required, so a
-// consent gate here would contradict them.
+// Without a GA id there is no "reject" path and nothing waits on the card. With
+// one (the second describe block) it becomes a real, symmetric choice about
+// Google Analytics; see the header comment in CookieNotice.tsx.
 
 const DISMISSED_KEY = "oaktend_cookie_notice_dismissed";
 const TEXT =
@@ -98,5 +96,56 @@ describe("CookieNotice", () => {
       fireEvent.click(screen.getByRole("button", { name: "Got it" }))
     ).not.toThrow();
     expect(screen.queryByText(TEXT)).not.toBeInTheDocument();
+  });
+});
+
+// GA mode: only when a GA4 id is configured (layout passes gaEnabled). The
+// informational card above is unchanged without it.
+describe("CookieNotice with Google Analytics configured", () => {
+  const CONSENT_KEY = "oaktend_analytics_consent";
+
+  afterEach(() => {
+    Object.defineProperty(window.navigator, "globalPrivacyControl", {
+      value: undefined,
+      configurable: true,
+    });
+  });
+
+  it("asks with two equal buttons and remembers 'Only necessary'", () => {
+    const first = render(<CookieNotice gaEnabled />);
+    const no = screen.getByRole("button", { name: "Only necessary" });
+    const yes = screen.getByRole("button", { name: "Allow analytics" });
+    // Same classes: saying no is exactly as easy as saying yes.
+    expect(no.className).toBe(yes.className);
+    expect(screen.getByText(/Google Analytics cookies on our public pages/)).toBeInTheDocument();
+    fireEvent.click(no);
+    expect(window.localStorage.getItem(CONSENT_KEY)).toBe("denied");
+    expect(screen.queryByRole("region", { name: "Cookie notice" })).not.toBeInTheDocument();
+    first.unmount();
+    render(<CookieNotice gaEnabled />);
+    expect(screen.queryByRole("region", { name: "Cookie notice" })).not.toBeInTheDocument();
+  });
+
+  it("stores 'granted' on Allow analytics", () => {
+    render(<CookieNotice gaEnabled />);
+    fireEvent.click(screen.getByRole("button", { name: "Allow analytics" }));
+    expect(window.localStorage.getItem(CONSENT_KEY)).toBe("granted");
+  });
+
+  it("asks people who only dismissed the older informational card", () => {
+    window.localStorage.setItem(DISMISSED_KEY, "1");
+    render(<CookieNotice gaEnabled />);
+    expect(screen.getByRole("button", { name: "Allow analytics" })).toBeInTheDocument();
+  });
+
+  it("does not ask when the browser sends Global Privacy Control", () => {
+    Object.defineProperty(window.navigator, "globalPrivacyControl", {
+      value: true,
+      configurable: true,
+    });
+    render(<CookieNotice gaEnabled />);
+    expect(screen.queryByRole("button", { name: "Allow analytics" })).not.toBeInTheDocument();
+    expect(screen.getByText(/privacy signal is on/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Got it" })).toBeInTheDocument();
   });
 });

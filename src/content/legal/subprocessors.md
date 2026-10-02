@@ -19,6 +19,7 @@ These companies handle personal information as part of running {{BRAND}}, under 
 | Anthropic | AI assistant (Ask {{BRAND}}), document and photo analysis | Question text, home-profile context, attached photos/documents | United States | anthropic.com/legal/privacy |
 | RentCast | Property, parcel, and valuation data | Street address, including any unit number, and ZIP code | United States | rentcast.io/privacy |
 | Checkr | Background checks for pros, when enabled | Name, email address | United States | checkr.com/privacy |
+| Google LLC (Google Analytics) | Website analytics on our public pages, only for visitors who tap "Allow analytics"; never loaded inside the signed-in app; Google Signals and ad personalization off | Public page viewed (dynamic parts removed), referring site's domain, device and browser details, approximate location, a random cookie ID; no name, email, address, or account ID | United States and other countries where Google operates | policies.google.com/privacy; business.safety.google/processorterms |
 
 ## Other services (limited or no personal data)
 

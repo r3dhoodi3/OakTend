@@ -65,10 +65,12 @@ export const LEGAL = {
    * ISO date the current document set took effect. Bumped 2026-09-20 for the
    * legal-review wording pass (payment story, contact release on choosing a
    * pro, preview paragraphs, small-job license rule, SMS Terms, subprocessors).
+   * Bumped 2026-10-01 for optional Google Analytics on public pages (privacy
+   * policy, cookie notice, subprocessors, Your Privacy Choices).
    * If NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE is set in the host, it overrides this
    * default and has to be bumped there too.
    */
-  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-09-20",
+  effectiveDate: env("NEXT_PUBLIC_LEGAL_EFFECTIVE_DATE") ?? "2026-10-01",
   venueCounty: "Orange County, California",
   liabilityCap:
     "the greater of $100 or the amounts you paid to us in the 12 months before the claim",

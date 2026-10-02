@@ -7,6 +7,8 @@ import StaleDeployRecovery from "@/components/StaleDeployRecovery";
 import NativeBootstrap from "@/components/native/NativeBootstrap";
 import ZoomLock from "@/components/ZoomLock";
 import CookieNotice from "@/components/CookieNotice";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { gaMeasurementIdFromEnv } from "@/lib/googleAnalytics";
 import UsageTracker from "@/components/UsageTracker";
 import { Analytics } from "@vercel/analytics/next";
 import { buildOrganizationJsonLd } from "@/lib/organizationJsonLd";
@@ -248,14 +250,22 @@ export default async function RootLayout({
         {/* The one-time cookie card. Mounted HERE, in the root layout, so it
             is shown once per browser across every surface - marketing, the
             homeowner app, the pro app, the closed pro door - instead of once
-            per shell. It is informational and dismissible, NOT a consent gate:
-            OakTend sets only first-party functional cookies and uses the
-            cookieless counter below, so nothing waits on it and nothing is
-            blocked by it (see CookieNotice.tsx and the legal pages it cites).
+            per shell. Without a GA id it is informational and dismissible:
+            OakTend's own cookies are first-party and functional and the
+            counter below is cookieless. With a GA id it also asks about
+            Google Analytics, which waits on that answer (see CookieNotice.tsx
+            and the legal pages it cites).
             Safe for this file's "no cookies()/headers()" rule: it is a client
             component reading localStorage, so it adds no request-scoped read
             and does not opt the build out of static generation. */}
-        <CookieNotice />
+        <CookieNotice gaEnabled={gaMeasurementIdFromEnv() !== null} />
+        {/* Google Analytics 4: inert unless NEXT_PUBLIC_GA_MEASUREMENT_ID is
+            set, and even then nothing loads until the visitor taps "Allow
+            analytics" in the card above, never with GPC or Do Not Track on,
+            and only on public marketing pages (src/lib/googleAnalytics.ts).
+            The id is a build-time constant, so this adds no request-scoped
+            read. */}
+        <GoogleAnalytics measurementId={gaMeasurementIdFromEnv()} />
         {/* Cookieless page-view counter from the host (Vercel Web Analytics).
             It sets no cookies and does no cross-site tracking. Disclosed in the
             Analytics section of the privacy policy and in the cookie notice. */}
