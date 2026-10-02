@@ -99,7 +99,7 @@ describe.each(PAGES)("$path", ({ dir, name, owner, Page, metadata, path, hosts }
       resolve(process.cwd(), `src/app/guides/${dir}/page.tsx`),
       "utf8"
     );
-    expect(src).not.toMatch(/[–—]/);
+    expect(src).not.toMatch(/[\u2013\u2014]/);
     const { container } = render(<Page />);
     const text = container.textContent ?? "";
     expect(text).not.toMatch(
