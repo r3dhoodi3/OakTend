@@ -221,7 +221,7 @@ export default function HomeMaintenanceAppPage() {
       <header className="mx-auto flex max-w-2xl items-center justify-between px-6 pt-6">
         <Link
           href="/"
-          className="flex items-center gap-2 font-semibold text-stone-900 dark:text-stone-100"
+          className="flex items-center gap-2 font-semibold text-stone-900 max-sm:min-h-11 dark:text-stone-100"
         >
           <Logo className="h-6 w-6 text-bark-700 dark:text-stone-400" /> OakTend
         </Link>
@@ -349,7 +349,7 @@ export default function HomeMaintenanceAppPage() {
         <p className="mt-2 text-xs">
           <Link
             href="/guides"
-            className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
+            className="text-stone-600 hover:text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
           >
             All guides
           </Link>
@@ -359,7 +359,7 @@ export default function HomeMaintenanceAppPage() {
               ·{" "}
               <Link
                 href={link.href}
-                className="text-stone-600 hover:text-bark-700 hover:underline dark:text-stone-300 dark:hover:text-stone-100"
+                className="text-stone-600 hover:text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
               >
                 {link.label}
               </Link>
