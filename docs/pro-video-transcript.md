@@ -1,97 +1,27 @@
-# Pro Landing Page Demo Video: Transcript and Caption Sync
+# Pro Landing Page Demo Video: Transcript and Caption Timeline
 
-> Note added 2026-09-20. This transcript records the video as it was cut. Two lines in it describe the fee model that was retired on 2026-09-10 and must not be reused: the `leads` line ("with the lead fee shown up front") and the unused `end.mp3` clip about a fee coming back as credit. Under the current model applying is free and the only charge is a 5% success fee when a homeowner hires the pro. The replacement `leads` line is "New jobs post here. Applying is free." The re-record and the removal of `public/demo-vo/pro/end.mp3` are still to do (legal review 2026-09-19, N-73).
+Source component: `src/components/ProDemoPlayer.tsx` (pro landing page, `src/app/pros/page.tsx`; hidden during the homeowner preview, when /pros shows the coming-soon page).
+Voiceover files: `public/demo-vo/pro/*.mp3` (6 clips, msedge-tts `en-US-AvaNeural` at rate -8%, `audio-24khz-96kbitrate-mono-mp3`). All six were re-recorded on 2026-10-01 with `OakTend-marketing/video-script-2026-10-01/gen-vo.mjs`, which also writes each word's start time. Those word times live in `VO_WORD_MS` in the component and drive the captions.
+Timing basis: 160 BPM, 375 ms per beat, 81 beats total, 30.375 s runtime at 1x speed. The win hit stays on beat 65; the FINAL hit moved from beat 72 to 74 so it lands on the end-card cut. Script decisions: `OakTend-marketing/video-script-2026-10-01/final-v1.md`.
 
-Source of truth: `src/components/ProDemoPlayer.tsx` (current working tree, Aug 10 re-cut plus the Aug 14 founder notes: dead-air fix, wallet clause cut, new ending line, plus the 2026-09-04 OakTend rename).
-Video length: 28.5 seconds (76 beats at 160 BPM, 375 ms per beat).
-VO files: `public/demo-vo/pro/*.mp3` (msedge-tts en-US-AvaNeural, rate -8%, 24 kHz 96 kbps CBR mono). `apply.mp3` and `won.mp3` were regenerated on 2026-08-14 with those same settings, and `hook.mp3` was re-recorded on 2026-09-04 with those same settings again for the OakTend rename. `hook` is the only pro clip whose line ever spoke the brand.
+## Full voiceover transcript
 
-## Full transcript
+How many paid leads went nowhere for you this year? Local homeowners can post here. Applying is free. No leads to buy. Tap apply. OakTend writes the first draft for you. Talk, quote, and invoice in one thread. No extra apps. You pay 5% only when you're hired. See nearby jobs.
 
-This is OakTend. Real jobs, from homeowners near you. New jobs post here, with the lead fee shown up front. Apply in one tap. Message the homeowner and line up the visit. Easy as that.
+## Scenes and cues
 
-That is the entire spoken track. "Easy as that." is the last line of the video: the on-screen badge still reads "You got the job", but the voice closes on this line per the founder. The end card (beats 71-76) is a silent tag under the music's ring-out, and `end.mp3` is intentionally no longer scheduled.
+| Scene | Window (s) | Clip | Cue | Clip length | Ends | On screen |
+|---|---|---|---|---|---|---|
+| hook | 0.000 - 4.875 | hook.mp3 | 0.250 | 3.096 | 3.346 | Leads board, one open plumbing job |
+| leads | 4.875 - 10.875 | leads.mp3 | 4.875 | 5.808 | 10.683 | Hand rests on "Applying is free." |
+| apply | 10.875 - 16.500 | apply.mp3 | 10.875 | 4.056 | 14.931 | Apply, "Draft a message for me", Send application |
+| chat | 16.500 - 23.250 | chat.mp3 | 16.875 | 5.160 | 22.035 | Thread with Dana M., "Send a quote" / "Send an invoice" |
+| won | 23.250 - 27.750 | won.mp3 | 24.450 | 2.976 | 27.426 | "You got the job" badge at 24.375 s |
+| end | 27.750 - 30.375 | end.mp3 | 27.938 | 1.944 | 29.882 | End card: fee terms, button "See nearby jobs" |
 
-## Captions timeline
+## Captions
 
-Scene boundaries come from the SCENES beat budgets (hook 13, leads 16, apply 15, chat 18, won 9, end 5). VO start times come from the choreography; VO end times are start plus the measured mp3 duration. Captions mirror each line in 2-word chunks driven off the live audio position, so caption on-screen time equals the VO window below (plus a 250 ms display lead inside the line).
-
-| Scene | Scene window | VO clip | VO start | VO end | Caption text shown |
-|---|---|---|---|---|---|
-| hook | 00:00.000 - 00:04.875 | hook.mp3 | 00:00.250 | 00:04.786 | This is OakTend. Real jobs, from homeowners near you. |
-| leads | 00:04.875 - 00:10.875 | leads.mp3 | 00:04.875 | 00:08.571 | New jobs post here, with the lead fee shown up front. |
-| leads (still) | " | apply.mp3 | 00:09.000 | 00:10.800 | Apply in one tap. |
-| apply | 00:10.875 - 00:16.500 | (none: its line already played) | - | - | - |
-| chat | 00:16.500 - 00:23.250 | chat.mp3 | 00:16.875 | 00:20.139 | Message the homeowner and line up the visit. |
-| won | 00:23.250 - 00:26.625 | won.mp3 | 00:24.525 | 00:26.301 | Easy as that. |
-| end | 00:26.625 - 00:28.500 | (none, silent tag) | - | - | (no captions) |
-
-Schedule details behind the table:
-
-- hook: `after(250, () => playVo("hook"))` at scene start 0 ms.
-- leads: `playVo("leads")` at scene start, beat 13 = 4875 ms.
-- apply line: `atBeat(11, () => playVo("apply"))` INSIDE enterLeads, global beat 24 = 9000 ms. This is the Aug 14 dead-air fix: the line used to wait for the apply cut at 10875 ms, leaving ~2.3 s of silence after the leads line; it now starts 429 ms after the leads line ends (inside the requested 400-700 ms breath) and finishes 75 ms before the apply cut. Scene boundaries, beat budgets, TOTAL_BEATS, and the music arrangement are untouched. Nothing in a scene cut stops the VO element (verified: `stopVo` fires only on mute, seek, rate change, scrub, restart, and unmount; only the next `playVo` pauses the current clip), and captions ride with the audio because `captionVo` runs inside `playVo`.
-- chat: `atBeat(1, ... playVo("chat"))`, beat 45 = 16875 ms.
-- won: `atBeat(3.4, () => playVo("won"))`, beat 65.4 = 24525 ms. The badge and impact hit land on beat 65 (24375 ms, ~86% of runtime); the line starts 150 ms behind the impact.
-- Mid-roll CTA chip: beat 56 = 21000 ms.
-- Caption chunking (2 words per chunk, even time split of the clip): hook 5 chunks at 907 ms ("This is" / "OakTend. Real" / "jobs, from" / "homeowners near" / "you."), leads 6 at 616 ms, apply 2 at 900 ms, chat 4 at 816 ms, won 2 at 888 ms ("Easy as" / "that.").
-
-## Sep 4 change (OakTend rename)
-
-The brand changed to OakTend, so `hook.mp3` was re-recorded: "This is [old brand]. Real jobs, from homeowners near you." is now "This is OakTend. Real jobs, from homeowners near you." Nothing else in the pro cut spoke the brand, so the other five mp3s are byte-identical to before, including the unscheduled `end.mp3` (its line is "Win work in your trade. Not chosen? Your fee comes back as credit.", which never named the brand).
-
-Settings, identical to the earlier generations: `msedge-tts` v2.0.7, voice `en-US-AvaNeural`, rate `-8%`, output `audio-24khz-96kbitrate-mono-mp3`. The pipeline was pinned first by re-generating the OLD pre-rename line as a control, which came back at exactly 4536 ms and 54432 bytes, matching the file on disk.
-
-The hook window is the tight one on this cut: the clip starts at 250 ms and the leads VO at 4875 ms cuts it off, so the hard ceiling is 4625 ms. The new line re-measured at 4536 ms, the same length as the old one (verified across three independent generations, all 189 frames), so the 89 ms of headroom is unchanged. No rate change and no tail trim were needed, and `VO_EST_MS.hook` stays at 4540. Frame walk of the new file: MPEG-2 Layer III, 24 kHz, 96 kbps CBR, mono, no ID3, no junk bytes, matching the untouched clips.
-
-## Aug 14 changes (founder notes)
-
-1. Dead air at 8-11 s removed: the apply VO line moved from the apply cut (10875 ms) to global beat 24 (9000 ms), scheduled from enterLeads. Gap after the leads line is now 429 ms.
-2. Wallet mention removed: the apply line was "Apply in one tap. The fee comes from your wallet." and is now "Apply in one tap." (wallet clause dropped, no new copy). The wallet tick-down (80 -> 30), toast, and fee chip stay on screen, unnarrated.
-3. Ending line changed: the won clip was "You got the job." and is now "Easy as that." The on-screen badge keeps "You got the job ✓".
-
-Audio regeneration: no generator script exists in the repo (it lived in a previous session's scratchpad), but the component documents the exact settings, so `apply.mp3` and `won.mp3` were regenerated with a one-off Node script using the `msedge-tts` npm package (v2.0.7, no API key needed): voice en-US-AvaNeural, rate -8%, output format 24 kHz 96 kbps mono MP3. A frame-walk of the new files confirms the identical codec profile to the untouched clips (MPEG-2 Layer III, 24 kHz, 96 kbps CBR, no ID3). The other four mp3s are byte-identical to before.
-
-## Sync verification
-
-Method: no ffprobe on this machine, so real durations were measured by walking every MPEG frame header in each file with a small Node script (ID3-aware, sums samples-per-frame / sample-rate per frame). All files are clean CBR 96 kbps with no tags, so the frame walk is exact and also matches the bytes / 12000 convention noted in the component.
-
-Measured durations vs the component's hardcoded `VO_EST_MS` map:
-
-| Clip | Real duration | VO_EST_MS | Diff | Verdict |
-|---|---|---|---|---|
-| hook.mp3 (new) | 4536 ms | 4540 | 4 ms | OK (re-recorded 2026-09-04, identical length to the old line) |
-| leads.mp3 | 3696 ms | 3700 | 4 ms | OK |
-| apply.mp3 (new) | 1800 ms | 1800 | 0 ms | OK (map updated with the regen) |
-| chat.mp3 | 3264 ms | 3260 | 4 ms | OK |
-| won.mp3 (new) | 1776 ms | 1780 | 4 ms | OK (new line happens to match the old clip's duration) |
-| end.mp3 | 5424 ms | (not in map) | - | Expected: intentionally unscheduled, and its line never said the brand, so it was left untouched |
-
-Every value is within 4 ms of the real file, far inside the 150 ms drift threshold. The estimates only matter for the muted fallback and pre-load seeks anyway; the unmuted path reads the audio element's true duration and drives chunks off `a.currentTime`, which cannot drift.
-
-Window fits (clip end vs the next thing that would cut it off):
-
-| Clip | Ends at | Hard limit | Headroom | Verdict |
-|---|---|---|---|---|
-| hook | 4786 ms | 4875 ms (leads VO starts, playVo stops the current clip) | 89 ms | Fits |
-| leads | 8571 ms | 9000 ms (apply VO starts) | 429 ms | Fits |
-| apply | 10800 ms | 16875 ms (chat VO starts; the 10875 ms scene cut does not stop VO) | 6075 ms | Fits |
-| chat | 20139 ms | 23250 ms (scene end) | 3111 ms | Fits |
-| won | 26301 ms | 26625 ms (end card arrives) | 324 ms | Fits |
-
-Re-cut math, checked specifically:
-
-- won is 9 beats = 3375 ms. The VO starts 1275 ms into the scene (beat 3.4) and runs 1776 ms, ending 324 ms before the end card cut. "Easy as that." fits the 9-beat scene exactly as the old line did.
-- The final caption chunk ("that.") clears when the audio ends at ~26.30 s, before the end card at 26.625 s. The muted fallback clears even in the worst case at 24525 + 90 + 1780 + 150 = 26545 ms, still before the cut.
-- Files on disk vs schedule: all five scheduled clips exist; `end.mp3` exists but is never scheduled and is not preloaded, which is the intended Aug 10 re-cut behavior (it is not even preloaded, since `VO_TEXT` has no `end` key), not a bug.
-
-## Remaining inter-line VO gaps (report only, unchanged by design)
-
-| Gap | From | To | Size | Covered by on-screen action? |
-|---|---|---|---|---|
-| hook to leads | 4786 ms | 4875 ms | 89 ms | Natural breath at the scene cut. |
-| leads to apply | 8571 ms | 9000 ms | 429 ms | The fixed one: now a natural breath while the hand rests on the fee chip. |
-| apply to chat | 10800 ms | 16875 ms | 6075 ms | Yes, densest stretch of the video: apply click (~11.9 s), "Draft it for me" click and AI note reveal with coin ding (~12.6-13.0 s), confirm-and-pay at ~13.95 s with the wallet counting 80 -> 30 plus toast, wallet pop zoom at 15.0 s, unread badge at 15.45 s, Messages tab click at 15.6 s, whoosh page cut at 16.5 s. Grew from 2088 ms because the wallet clause was cut; the action carries it. |
-| chat to won | 20139 ms | 24525 ms | 4386 ms | Yes: the pro types the 31-character reply (keyboard SFX), send click, a beat of quiet, the typing indicator, the "Perfect, you're hired" bubble, then the riser builds from beat 60 (22.5 s) into the badge drop and impact at 24.375 s. |
-
-Result: no sync bugs; all clips fit their windows after the changes. `npx tsc --noEmit` passes on the edited component.
+- The hook question shows whole on two lines ("How many paid leads went / nowhere for you this year?") from its first word until the leads line replaces it at the scene cut.
+- Every other line shows in chunks of up to 2 words, never across a sentence end. Each chunk appears when its first word is spoken and the caption clears when the clip ends.
+- Mid-video chip at 21.0 s: "Free to apply, no leads to buy".
+- Chromium check on 2026-10-01: every chunk appeared 33 to 61 ms after its word was spoken, every caption cleared within 10 ms of its clip ending, and no clip overran its scene.

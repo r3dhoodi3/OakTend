@@ -18,8 +18,8 @@ const ProDemoPlayer = dynamic(() => import("./ProDemoPlayer"), {
     <DemoPoster
       styles={styles}
       label="From open lead to job won"
-      sub="Watch a pro use OakTend, 28 seconds"
-      duration="0:28"
+      sub="Watch a pro use OakTend, 30 seconds"
+      duration="0:30"
       ariaLabel="Play the OakTend for Pros demo, about half a minute, with sound"
     />
   ),
