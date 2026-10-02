@@ -79,6 +79,8 @@ describe(PATH, () => {
     const { container } = render(<Guide />);
     expect(container).not.toHaveTextContent("Not a maintenance tracker");
     expect(container).toHaveTextContent("Its app also has a home plan with reminders.");
+    expect(container).not.toHaveTextContent(/free for customers/i);
+    expect(container).toHaveTextContent("Free to download in the App Store.");
   });
 
   it("uses no em dash or en dash", () => {

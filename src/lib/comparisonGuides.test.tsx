@@ -103,6 +103,13 @@ describe.each(PAGES)("$path", ({ dir, name, owner, markOwner, Page, metadata, pa
     expect(container).not.toHaveTextContent("5%");
   });
 
+  it("drops the claims that could not be verified without a scripted read", () => {
+    const { container } = render(<Page />);
+    expect(container).not.toHaveTextContent(/call or text/i);
+    expect(container).not.toHaveTextContent(/weekly budget/i);
+    expect(container).not.toHaveTextContent(/free for customers/i);
+  });
+
   it("keeps the copy rules: no dashes, no superlatives, no ratings", () => {
     const src = readFileSync(
       resolve(process.cwd(), `src/app/guides/${dir}/page.tsx`),

@@ -163,7 +163,7 @@ const APPS: AppEntry[] = [
     name: "Thumbtack",
     url: "https://www.thumbtack.com/",
     what: "Mainly a marketplace where you compare prices, read reviews, and message and book local pros. Its app also has a home plan with reminders.",
-    price: "Free for customers.",
+    price: "Free to download in the App Store.",
     platforms: "Web, iPhone and Android.",
     bestFor: "Hiring a pro for a job right now.",
   },

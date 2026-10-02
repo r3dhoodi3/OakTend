@@ -2469,7 +2469,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://apps.apple.com/us/app/thumbtack-home-service-pros/id852703300",
       label: "Thumbtack on the App Store",
       supports:
-        "It's free for customers to use Thumbtack; compare prices, read reviews, message and book local pros. Checked 2026-09-30.",
+        "Free to download; compare prices, read reviews, message and book local pros. Checked 2026-10-01.",
     },
     {
       href: "https://help.thumbtack.com/article/manage-home-care-plan",
@@ -2555,13 +2555,13 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.thumbtack.com/",
       label: "Thumbtack home page",
       supports:
-        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free; pros cannot call or text you before you message one. Checked 2026-10-01.",
+        "Thumbtack is for finding local pros for repairs, upgrades and projects; it calls its app free. Checked 2026-10-01.",
     },
     {
       href: "https://www.thumbtack.com/pro",
       label: "Thumbtack for pros",
       supports:
-        "Free for pros to join, with no subscription; pros pay for leads within a weekly budget they choose. Checked 2026-10-01.",
+        "Free for pros to join, with no subscription; pros pay for leads. Checked 2026-10-01.",
     },
     {
       href: "https://help.thumbtack.com/article/manage-home-care-plan",

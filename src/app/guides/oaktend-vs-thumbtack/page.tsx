@@ -94,14 +94,7 @@ function rows(preview: boolean): CompareRow[] {
         </>
       ),
       other:
-        "Free to join, with no subscription. Pros pay for leads, within a weekly budget they choose.",
-    },
-    {
-      label: "Your contact info",
-      oaktend: preview
-        ? "Stays private. During our preview no pro sees your job unless you tell us to pass it on."
-        : "Stays private until you pick a pro yourself.",
-      other: "Pros can't call or text you before you reach out to one.",
+        "Free to join, with no subscription. Pros pay for leads.",
     },
     {
       label: "Maintenance planning",
