@@ -9,6 +9,7 @@ import {
   writeAnalyticsConsent,
 } from "@/lib/googleAnalytics";
 import { isGaBlockedContext } from "@/lib/gaContext";
+import { isNativeApp } from "@/lib/platform";
 
 // The one-time cookie notice, mounted once in the ROOT layout
 // (src/app/layout.tsx) so every surface shows it exactly once - marketing
@@ -59,6 +60,14 @@ export default function CookieNotice({
   const [mode, setMode] = useState<Mode | null>(null);
 
   useEffect(() => {
+    // Inside the iOS/Android app shell: no card at all (2026-10-02). An app
+    // does not show a web cookie bar, Google Analytics never runs in the
+    // shell (GoogleAnalytics.tsx, isGaBlockedContext), and OakTend's own
+    // cookies are first-party and functional, so there is nothing to ask and
+    // nothing new to tell. The Cookie and Tracking Notice stays reachable
+    // from the privacy policy and Your Privacy Choices. Browser tabs are
+    // unchanged.
+    if (isNativeApp()) return;
     // Signed in, or inside the iOS/Android app shell: Google Analytics never
     // runs there (GoogleAnalytics.tsx), so there is nothing to ask. Those
     // visitors get the plain informational card.
