@@ -106,7 +106,7 @@ export default function OrangeCountyHomeRebatesGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Orange County home rebates in 2026" },
+          { label: "Home rebates 2026" },
         ]}
       />
       <BreadcrumbJsonLd

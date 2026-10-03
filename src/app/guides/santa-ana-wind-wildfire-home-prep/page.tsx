@@ -102,7 +102,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Santa Ana wind and wildfire home prep" },
+          { label: "Wildfire home prep" },
         ]}
       />
       <BreadcrumbJsonLd

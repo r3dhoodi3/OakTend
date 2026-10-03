@@ -113,7 +113,7 @@ export default function RoofReplacementCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: "Roof replacement cost in Orange County" },
+          { label: "Roof replacement cost" },
         ]}
       />
       <BreadcrumbJsonLd
