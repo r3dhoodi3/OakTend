@@ -5,7 +5,8 @@ import type { Chore } from "@/lib/chores";
 //
 // SOURCING RULE (same as GUIDE_SOURCES in src/lib/guideExtras.ts): every
 // figure, interval and rule on a page comes from a source in that page's
-// `sources`, opened on 2026-10-01 unless the entry says otherwise. Steps are
+// `sources`, opened on 2026-10-01 unless the entry says otherwise (the
+// second batch, added 2026-10-02, was sourced that day). Steps are
 // plain procedure from those sources or the equipment maker; anything nobody
 // could source was cut, not guessed. Where a maker and an agency disagree on
 // an interval, the page says who says what.
@@ -230,6 +231,61 @@ export const CHORES: Chore[] = [
         href: "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/fire-extinguishers/",
         label: "U.S. Fire Administration: fire extinguishers",
         supports: "A-B-C extinguishers for most home fires, and when it is safe to use one.",
+      },
+    ],
+  },
+  {
+    slug: "test-garage-door-auto-reverse",
+    title: "How to test your garage door's auto-reverse",
+    metaTitle: "How to test garage door auto-reverse",
+    description:
+      "Lay a 2x4 under the garage door and press close: it has to reverse. The monthly opener safety test, the photo eye check and what a failed test means.",
+    system: "safety",
+    season: "monthly",
+    what: "An automatic garage door opener has two safety features: the door reverses when it hits something, and a pair of photo eyes near the floor keeps it from closing on whatever is in the way. You test both with a 2x4 and a broom.",
+    whyOC:
+      "The CPSC has documented children trapped and killed under automatic garage doors that did not reverse, and it has required reversing openers on everything made for sale in the U.S. since 1991. That only helps if the reverse still works. In California, openers sold or installed since July 1, 2019 must also have a battery backup so the door still opens in a power outage.",
+    howOften:
+      "Every month, according to the CPSC, DASMA (the door and opener makers' trade group) and opener maker Chamberlain, and again after any adjustment.",
+    tools: ["A 2x4 board", "A broom or similar long object"],
+    steps: [
+      "Clear the doorway of people, pets, cars and bikes, and keep kids back.",
+      "Check that the photo eyes on each side of the door sit no higher than 6 inches off the floor.",
+      "Open the door fully and lay the 2x4 flat on the floor, centered under the door.",
+      "Press the close button. The door should touch the board, stop and go back up.",
+      "Take the board away. With the door open, hold the broom in the photo eye beam and press close. The door should not close.",
+      "With the door closed, pull the opener's release cord and lift the door by hand. It should move freely and stay put when you let go about 3 to 4 feet up.",
+      "Reconnect the opener to the door with the release and run it once to make sure it reattached.",
+    ],
+    callAPro:
+      "If the door does not reverse off the board, or closes with the beam blocked, pull the release and stop using the opener until it is adjusted per the manual, repaired or replaced (the CPSC's rule). If it keeps failing, or the door sticks or will not stay put when you lift it by hand, call a trained door technician.",
+    safety:
+      "Springs and cables are under high tension; leave adjusting them to a qualified technician. Mount the wall button at least 5 feet up, keep remotes away from children, and watch the door until it is fully closed.",
+    relatedGuides: [],
+    sources: [
+      {
+        href: "https://www.cpsc.gov/s3fs-public/garage.pdf",
+        label: "U.S. Consumer Product Safety Commission: nonreversing automatic garage door openers are a hazard",
+        supports:
+          "Children have been trapped and killed under garage doors that did not reverse; reversing systems required on openers made for U.S. sale after January 1, 1991; test the reverse with a 2x4 and disconnect the opener until it is adjusted, repaired or replaced if it fails; inspect every 30 days; photo eyes 4 to 6 inches above the floor.",
+      },
+      {
+        href: "https://www.dasma.com/wp-content/uploads/2020/10/AutomaticGDOSafetyMaintenanceGuide.pdf",
+        label: "DASMA: automatic garage door opener safety and maintenance guide",
+        supports:
+          "Monthly inspection and testing; the 2x4 test and the photo eye test; photo eyes no higher than 6 inches; the hand test with the release (door moves freely and stays partly open 3 to 4 feet up); springs are under high tension and only qualified people should adjust them; wall button at least 5 feet up; keep remotes from children; watch the door until it closes.",
+      },
+      {
+        href: "https://support.chamberlaingroup.com/s/article/How-do-I-test-the-Safety-Reversal-System-1484145519301",
+        label: "Chamberlain Group: how to test the safety reversal system",
+        supports:
+          "Test every month and after any adjustment, with a 2x4 laid flat and centered under the door; if it keeps failing, call a trained door systems technician.",
+      },
+      {
+        href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=19892",
+        label: "California Health and Safety Code section 19892",
+        supports:
+          "Residential garage door openers sold or installed in California on or after July 1, 2019 must have a battery backup that works in an electrical outage.",
       },
     ],
   },
@@ -611,6 +667,72 @@ export const CHORES: Chore[] = [
       },
     ],
   },
+  {
+    slug: "replace-door-weatherstripping",
+    title: "How to replace door weatherstripping",
+    metaTitle: "How to replace door weatherstripping",
+    description:
+      "Daylight around a closed door means air, dust and wind-blown embers can get in. How to replace the press-in seal on an exterior door and check the garage.",
+    system: "hvac",
+    season: "fall",
+    what: "Weatherstripping is the flexible seal around the edges of an exterior door. On most newer doors it is a foam or rubber strip pressed into a slot (a kerf) in the door frame, plus a sweep or seal along the bottom. Replacing it means pulling the old strip out and pressing in a new one.",
+    whyOC:
+      "Weatherstripping doors is one of the simple air sealing fixes ENERGY STAR lists for comfort and lower energy bills. Here it also matters in fire season: CAL FIRE's low-cost retrofit list includes weatherstripping the garage door so Santa Ana winds cannot blow embers inside. Our wildfire guide covers the rest of the house.",
+    howOften:
+      "No agency sets a schedule. Check every exterior door, and the garage door, each fall before the wind and rain, and replace a seal that is torn or flattened.",
+    tools: [
+      "Replacement kerf weatherstrip that matches your door's profile",
+      "Scissors",
+      "Tape measure",
+      "Screwdriver",
+      "Flashlight",
+    ],
+    steps: [
+      "Close the door and look for daylight around the edges from inside. The Department of Energy calls visible daylight and a loose-fitting door the common signs of a leak.",
+      "Fix the door first if it needs it: tighten loose hinge screws and adjust the strike plate so the door closes snugly.",
+      "Pull the old strip out of the slot in the door stop. Most come out by hand.",
+      "Measure each side and the top, and cut the new strip to length with scissors.",
+      "Press the new strip into the slot by hand along its full length.",
+      "Close the door and check that it latches without forcing and that no daylight shows.",
+      "Replace a worn door sweep or bottom seal too, following its package directions.",
+      "At the garage door, look for gaps over 1/8 inch along the sides, top and bottom. Seal them with weatherstripping that meets UL Standard 10C, which CAL FIRE's list calls for.",
+    ],
+    callAPro:
+      "Call a handyman or door installer if the door is warped, rubs the frame or has no slot for a press-in strip. If a garage door seal cannot go on without moving hardware, call a garage door company.",
+    safety:
+      "Do not loosen garage door brackets, cables or springs to fit a seal. The springs are under high tension and only a garage door technician should touch them.",
+    relatedGuides: ["/guides/santa-ana-wind-wildfire-home-prep"],
+    sources: [
+      {
+        href: "https://www.energystar.gov/saveathome/seal_insulate",
+        label: "ENERGY STAR: seal and insulate",
+        supports:
+          "Simple air sealing fixes include weatherstripping doors; sealing and insulating improves comfort and can cut annual energy bills.",
+      },
+      {
+        href: "https://www.energy.gov/sites/default/files/2024-07/11-1_install-weatherstripping-on-exterior-door.pdf",
+        label: "U.S. Department of Energy: weatherization job aid, install weatherstripping on an exterior door",
+        supports:
+          "Visible daylight or a loose-fitting door are common signs of air leakage; adjust loose hinges, knobs and strike plates before weatherstripping; measure each side; check the door operates smoothly afterward.",
+      },
+      {
+        href: "https://mdbuildingproducts.com/products/vinyl-coated-foam-top-and-sides-door-seal-for-doors-with-kerf-channel",
+        label: "M-D Building Products: top and sides door seal for doors with a kerf",
+        supports: "Replacement strips press into the kerf in the door stop by hand and cut to length with scissors.",
+      },
+      {
+        href: "https://www.caloes.ca.gov/wp-content/uploads/CWMP/CAL-FIRE-Low-Cost-Retrofit-List-01.01.2026.pdf",
+        label: "CAL FIRE: low-cost retrofit list (January 2026)",
+        supports:
+          "Weatherstrip gaps greater than 1/8 inch between garage doors and door frames to keep embers out, using weatherstripping that complies with UL Standard 10C.",
+      },
+      {
+        href: "https://www.dasma.com/wp-content/uploads/2020/10/AutomaticGDOSafetyMaintenanceGuide.pdf",
+        label: "DASMA: automatic garage door opener safety and maintenance guide",
+        supports: "Garage door springs are under high tension; only qualified individuals should adjust them.",
+      },
+    ],
+  },
 
   // ------------------------------------------------------------ appliances
   {
@@ -795,6 +917,172 @@ export const CHORES: Chore[] = [
       },
     ],
   },
+  {
+    slug: "replace-washing-machine-hoses",
+    title: "How to replace washing machine hoses",
+    metaTitle: "How to replace washing machine hoses",
+    description:
+      "Washer fill hoses wear out from the inside. Replace them on schedule, check them in between, and turn the water off when you go away.",
+    system: "appliances",
+    season: "yearly",
+    what: "Two fill hoses carry hot and cold water from the valves in the wall to the back of the washer. They stay under water pressure whether the washer is running or not. Replacing them means unscrewing the old pair and threading on new ones.",
+    whyOC:
+      "A study by the Institute for Business and Home Safety, reported by Insurance Journal, found that hose failures climb sharply after five years, that failed hoses averaged 8.7 years old, and that broken supply hoses caused more than half of washing machine water damage claims. High water pressure adds strain.",
+    howOften:
+      "Whirlpool says to replace fill hoses every five years. Kenmore's manual adds: replace them sooner if you find bulges, kinks, cuts, wear or leaks, so look whenever you are behind the washer.",
+    tools: [
+      "Two new washer fill hoses with flat washers (braided stainless steel is sturdier than plain rubber)",
+      "Pliers",
+      "Bucket and towels",
+      "Permanent marker",
+    ],
+    steps: [
+      "Turn off the hot and cold valves behind the washer.",
+      "Pull the washer out far enough to reach the hoses, and set a bucket and towels underneath.",
+      "Unscrew both hoses from the valves and from the washer, and drain them into the bucket.",
+      "Check that each new hose has a flat rubber washer firmly seated in both ends.",
+      "Screw the hot hose onto the hot valve and the cold hose onto the cold, by hand until seated, then two-thirds of a turn more with pliers. Do not overtighten.",
+      "Point the free ends into the bucket and open the valves briefly to flush out grit that could clog the washer's inlet screens.",
+      "Connect the hoses to the washer the same way, open the valves and check every connection for drips.",
+      "Push the washer back without kinking the hoses, and write today's date on each hose.",
+    ],
+    callAPro:
+      "Call a plumber if a wall valve will not turn, will not shut off all the way or leaks at the handle. Those valves can sit untouched for years, so do not force a stuck one with pliers.",
+    safety:
+      "Run the washer only when someone is home, and shut both valves before a trip. Kenmore's manual gives both rules: a pressure surge while you are away can flood the house.",
+    relatedGuides: [],
+    sources: [
+      {
+        href: "https://producthelp.whirlpool.com/Laundry/Washers/Product_Info/Washer_Installation_Support/Checking_the_Fill_Hoses_if_the_Washer_is_not_Filling",
+        label: "Whirlpool: checking the fill hoses",
+        supports:
+          "Fill hoses should be replaced every five years; check for kinks; inlet screens on the washer's water valve can clog.",
+      },
+      {
+        href: "https://c.searspartsdirect.com/doc/L0305286",
+        label: "Sears: Kenmore automatic washer owner's manual and installation instructions",
+        supports:
+          "Replace inlet hoses after five years and whenever bulges, kinks, cuts, wear or leaks are found; mark the replacement date; seat new flat washers; hand tighten then two-thirds of a turn with pliers, without overtightening; flush the lines into a bucket; turn off the water supply when away.",
+      },
+      {
+        href: "https://www.insurancejournal.com/magazines/mag-features/2013/03/25/285518.htm",
+        label: "Insurance Journal: building updates, aging plumbing systems (2013)",
+        supports:
+          "An Institute for Business and Home Safety study: failure rates rise sharply after five years, failed hoses averaged 8.7 years old, and broken supply hoses were more than half of washing machine water damage claims; standard rubber hoses lose resiliency with age, and braided stainless steel is one of the sturdier alternatives.",
+      },
+    ],
+  },
+  {
+    slug: "clean-refrigerator-coils",
+    title: "How to clean refrigerator condenser coils",
+    metaTitle: "How to clean refrigerator coils",
+    description:
+      "Find your refrigerator's condenser coils, brush and vacuum off the dust, and learn which newer fridges have sealed coils that never need cleaning.",
+    system: "appliances",
+    season: "yearly",
+    what: "The condenser coils give off the heat your refrigerator pulls out of the food compartments. Cleaning them means brushing and vacuuming off the dust and pet hair that settle on them.",
+    whyOC:
+      "ENERGY STAR lists clean coils, room for air behind the fridge and a setting of 35 to 38 degrees among its tips for running a refrigerator efficiently.",
+    howOften:
+      "Whirlpool says to clean them regularly, as often as every other month in a greasy or dusty spot (GE names the garage) or a home with pets. GE says most of its refrigerators made since 2001 have a sealed condenser that never needs cleaning.",
+    tools: [
+      "Refrigerator coil brush",
+      "Vacuum with a brush attachment",
+      "Screwdriver, if the base grille is screwed on",
+      "Flashlight",
+    ],
+    steps: [
+      "Check your manual to see whether your model has coils to clean and where they are: behind the base grille at the bottom front, on the back, or on top.",
+      "Unplug the refrigerator.",
+      "Bottom coils: take off the base grille and slide the coil brush in to loosen the dust.",
+      "Back coils: pull the fridge out from the wall slowly, minding any water line, and brush the coils.",
+      "Vacuum up the loosened dust, the grille and the floor underneath.",
+      "Put the grille back, push the fridge back with a few inches of space behind it, and plug it in.",
+    ],
+    callAPro:
+      "If the fridge still runs warm or runs nonstop after the coils are clean, call an appliance repair technician. Anything involving the refrigerant needs a certified technician.",
+    safety:
+      "Brush gently: the coils and the thin tubing around them bend easily, and a bent tube is a repair call.",
+    relatedGuides: [],
+    sources: [
+      {
+        href: "https://producthelp.whirlpool.com/Refrigeration/Full-Size_Refrigerators/All_Refrigerator/Cleaning/Exterior/Cleaning_the_Condenser",
+        label: "Whirlpool: cleaning the condenser",
+        supports:
+          "Clean coils regularly, as often as every other month in greasy or dusty homes or with pets; unplug, remove the base grille and vacuum the grille and coil.",
+      },
+      {
+        href: "https://products.geappliances.com/appliance/gea-support-search-content?contentId=16266",
+        label: "GE Appliances: refrigerator, cleaning condenser coils",
+        supports:
+          "Coils sit behind the base grille, on the back or on top; clean more often with shedding pets or in a dusty spot such as a garage; always unplug first; use a coil brush; most models made since 2001 have a condenser that needs no cleaning.",
+      },
+      {
+        href: "https://www.energystar.gov/sites/default/files/tools/ENERGY%20STAR%20Appliances%20Brochure_508.pdf",
+        label: "ENERGY STAR: appliances brochure",
+        supports:
+          "Keep the fridge at 35 to 38 degrees, leave a few inches between it and the wall, keep the coils clean on older models and read the manual on how to clean them safely.",
+      },
+    ],
+  },
+  {
+    slug: "clean-range-hood-filter",
+    title: "How to clean a range hood filter",
+    metaTitle: "How to clean a range hood filter",
+    description:
+      "Wash the metal grease filter in your range hood or over-the-range microwave, and replace the charcoal filter, which cannot be washed.",
+    system: "appliances",
+    season: "monthly",
+    what: "A range hood, or a microwave mounted over the range, catches cooking grease in a metal mesh or baffle filter. Hoods that blow air back into the kitchen also have a charcoal filter for odors, which gets replaced instead of washed.",
+    whyOC:
+      "The EPA's advice for cutting indoor particle pollution is to run the range hood whenever you cook, vented outdoors if possible, and a hood only works if air can get through its filter. Broan also notes that a clogged filter can raise the fire risk during high-heat cooking.",
+    howOften:
+      "Monthly for an over-the-range microwave (Whirlpool), every 3 to 6 months for a hood (Broan), sooner with heavy cooking. Charcoal filters get replaced about every 6 months.",
+    tools: [
+      "Dish soap or a degreasing detergent",
+      "Soft brush",
+      "Sink or dishwasher",
+      "Replacement charcoal filter, if your hood uses one",
+    ],
+    steps: [
+      "Turn the hood off.",
+      "Unlatch or slide out the metal grease filter. On a microwave hood it is on the underside.",
+      "Soak it in hot water with dish soap or a degreaser, scrub gently with a soft brush and rinse.",
+      "Or run it through the dishwasher, if your manual says it is dishwasher safe.",
+      "Let it dry and put it back.",
+      "If your hood has a charcoal filter, replace it with the part your manual lists. On many over-the-range microwaves it sits behind the vent grille at the top front.",
+    ],
+    callAPro:
+      "Call an appliance repair technician if the fan is still weak with a clean filter, grinds or rattles, or the fan or light stops working.",
+    safety:
+      "Let the filter cool before you touch it; a hot metal filter and hot grease can burn.",
+    relatedGuides: [],
+    sources: [
+      {
+        href: "https://producthelp.whirlpool.com/Cooking/Microwaves/Over-the-Range_Microwave/Cleaning_and_Filters/Exterior/Cleaning_the_Filters_(Grease_and_Charcoal)_-_Over-the-Range_Microwave",
+        label: "Whirlpool: cleaning the filters on an over-the-range microwave",
+        supports:
+          "Clean the grease filter monthly with mild soap and water, or in the dishwasher if the manual allows; the charcoal filter cannot be cleaned and is replaced about every 6 months; it sits behind the vent grille.",
+      },
+      {
+        href: "https://producthelp.whirlpool.com/Cooking/Ventilation_and_Hoods/Product_Info/Ventilation_Cleaning_and_Care/Cleaning_or_Replacing_the_Filters_in_a_Vent_Hood",
+        label: "Whirlpool: cleaning or replacing the filters in a vent hood",
+        supports:
+          "Turn the hood off and let it cool first; wash the grease filter in the sink or dishwasher; the charcoal filter is not washable and lasts up to 6 months.",
+      },
+      {
+        href: "https://broan-nutone.com/en-us/home/learn/filter-replacement",
+        label: "Broan-NuTone: range hood filter guide",
+        supports:
+          "Clean aluminum or baffle filters every 3 to 6 months by soaking in hot water with degreasing soap, or on a low-temperature dishwasher cycle; replace charcoal filters every 6 months; a clogged filter can increase fire risk during high-heat cooking.",
+      },
+      {
+        href: "https://www.epa.gov/indoor-air-quality-iaq/sources-indoor-particulate-matter-pm",
+        label: "EPA: sources of indoor particulate matter",
+        supports: "Use the range hood whenever you cook, and vent it to the outdoors if possible.",
+      },
+    ],
+  },
 
   // --------------------------------------------------------------- outside
   {
@@ -953,6 +1241,113 @@ export const CHORES: Chore[] = [
         label: "CDC: how to clean up after rodents",
         supports:
           "Do not sweep or vacuum droppings; wear rubber or plastic gloves; 1.5 cups of bleach per gallon of water; soak for 5 minutes.",
+      },
+    ],
+  },
+  {
+    slug: "check-roof-from-the-ground",
+    title: "How to check your roof from the ground",
+    metaTitle: "How to check your roof from the ground",
+    description:
+      "Look over your roof each spring and fall with binoculars and a flashlight in the attic, without ever climbing up. What to look for and when to call a roofer.",
+    system: "outside",
+    season: "fall",
+    what: "A roof check from the ground means walking around the house with binoculars, looking from upstairs windows where you can see the roof, and checking the attic for signs of a leak.",
+    whyOC:
+      "Most of Orange County's rain falls from December through March, so a fall check finds damage while there is still time to fix it before the storms.",
+    howOften:
+      "Every spring and fall, as ARMA recommends, and after severe weather such as a strong Santa Ana wind event, which NRCA says is when to look from the ground.",
+    tools: ["Binoculars", "Flashlight", "Phone camera"],
+    steps: [
+      "Walk all the way around the house and look at every part of the roof you can see with binoculars. Upstairs windows can give a better angle.",
+      "Look for shingles or tiles that are missing, cracked or out of place.",
+      "Check the flashing around chimneys, vents, skylights and where the roof meets a wall for gaps or lifted edges.",
+      "Look in the gutters and at the downspout outlets for shingle granules, which look like coarse sand.",
+      "In the attic, shine a flashlight on the underside of the roof deck and the rafters, looking for stains or wet spots.",
+      "Inside the house, look for new stains on the ceilings and the tops of walls.",
+      "Photograph anything you find, so a roofer can see it before coming out.",
+    ],
+    callAPro:
+      "If you see damage or find a leak, call a roofing contractor; ARMA says the same. Leave repairs to them.",
+    safety:
+      "Stay off the roof: ARMA and NRCA both say owners should inspect from the ground only, because the fall risk is too high. In the attic, step only on the framing, never on the drywall between it.",
+    relatedGuides: ["/guides/roof-replacement-cost"],
+    sources: [
+      {
+        href: "https://www.asphaltroofing.org/spring-roof-inspection-a-must-for-property-owners/",
+        label: "Asphalt Roofing Manufacturers Association: spring roof inspection",
+        supports:
+          "Inspect in spring and fall from the ground or upstairs windows with binoculars; never climb onto a roof; keep gutters and roof surfaces clear so water drains; check the attic underside at flashing points for water stains; contact a professional roofing contractor for damage or a leak.",
+      },
+      {
+        href: "https://www.nrca.net/PressReleases/Details/11533",
+        label: "National Roofing Contractors Association: use caution when repairing roof systems after severe weather",
+        supports:
+          "Owners should only inspect a roof from ground level because the risk of falling is too great, and should have a roofing professional inspect and repair damage.",
+      },
+      {
+        href: "https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-monthly-1991-2020&stations=USW00093184&format=json&dataTypes=MLY-PRCP-NORMAL",
+        label: "NOAA National Centers for Environmental Information: 1991-2020 monthly precipitation normals, John Wayne Airport",
+        supports: "Most of the year's rain (8.89 of 11.18 inches) falls December through March. Fetched 2026-09-25.",
+      },
+    ],
+  },
+  {
+    slug: "clear-yard-drains",
+    title: "How to clear yard drains before the rain",
+    metaTitle: "How to clear yard drains before the rain",
+    description:
+      "Clear the grates, catch basins and downspout outlets that carry rain away from your Orange County home before the winter storms, plus a sump pit check.",
+    system: "outside",
+    season: "fall",
+    what: "Yard drains, also called area drains or catch basins, are the grates in patios, side yards and planters that carry rainwater away through buried pipes. Downspouts often feed into them. Clearing them means pulling out the leaves and silt that block them.",
+    whyOC:
+      "Most of the year's rain falls December through March, often in a few heavy storms. The EPA's moisture advice is to keep gutters clean and the ground sloped away from the foundation. H2OC, Orange County's stormwater program, adds that whatever reaches the street drains flows untreated to creeks and the ocean, so where you can, point downspouts at plants, a rain garden or a rain barrel.",
+    howOften:
+      "Once in fall before the first big storm, and again after storms or windy days that drop leaves. NDS, a maker of yard drains, says to clean out catch basins at least twice a year.",
+    tools: ["Work gloves", "Flat screwdriver to lift grates", "Trowel or small scoop", "Bucket", "Garden hose"],
+    steps: [
+      "Find every grate, catch basin and pop-up outlet (the round caps in the lawn where buried downspout lines come out).",
+      "Clear leaves and debris off each grate.",
+      "Lift each grate and scoop out the leaves and silt that settle in the basin. Shake out and hose off any filter basket.",
+      "Run a garden hose into each drain for a minute. The water should drain away steadily.",
+      "At pop-up outlets, trim back grass that keeps the cap from opening and clear debris under the cap.",
+      "Check that each downspout empties into a drain or onto ground that slopes away from the house, not against the foundation.",
+      "If you have a sump pit, clear debris from it, check that the float moves freely, then pour in about 5 gallons of water. The pump should switch on and empty it.",
+    ],
+    callAPro:
+      "If water backs up out of a drain or will not go down after you clear the grate, the pipe is blocked further in. NDS suggests a plumbing snake; a plumber or drainage contractor can do that and run a camera through the line. Call one too if water pools against the house after storms or a sump pump does not start.",
+    safety:
+      "Wear gloves, since basins collect sharp debris. Unplug a sump pump before reaching into the pit. Put the leaves and silt in your green waste bin, not the street gutter.",
+    relatedGuides: [],
+    sources: [
+      {
+        href: "https://www.ndspro.com/us/en/resources/articles/troubleshooting-tips-for-drainage",
+        label: "NDS: lawn and landscape drainage tips",
+        supports:
+          "Clear grate openings, remove the grate to inspect the basin and remove settled debris at least twice a year; shake out and hose off catch basin filters; keep grass from blocking pop-up emitters and clear debris under the cap; use a plumbing snake for clogs in the pipe.",
+      },
+      {
+        href: "https://h2oc.org/blog/yard-drainage/",
+        label: "H2OC Stormwater Program (Orange County): yard drainage",
+        supports:
+          "Leaves and clippings clog drains and lead to flooding; dispose of yard debris in covered bins; redirect downspouts to a rain garden, dry creek bed, rain barrel or underwatered area; slope the yard away from the house; storm drains flow untreated to Orange County's creeks, rivers and ocean.",
+      },
+      {
+        href: "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home",
+        label: "EPA: a brief guide to mold, moisture and your home",
+        supports: "Clean and repair roof gutters regularly, and make sure the ground slopes away from the foundation.",
+      },
+      {
+        href: "https://zoellerathome.com/sump-pump-working-properly",
+        label: "Zoeller: how to tell if a sump pump is working",
+        supports:
+          "Pour about five gallons of water into the basin and the pump should switch on; make sure the float moves freely; clear the basin of debris; check the outlet pipe sends water away from the foundation.",
+      },
+      {
+        href: "https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-monthly-1991-2020&stations=USW00093184&format=json&dataTypes=MLY-PRCP-NORMAL",
+        label: "NOAA National Centers for Environmental Information: 1991-2020 monthly precipitation normals, John Wayne Airport",
+        supports: "Most of the year's rain (8.89 of 11.18 inches) falls December through March. Fetched 2026-09-25.",
       },
     ],
   },
