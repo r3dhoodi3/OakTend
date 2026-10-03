@@ -6,11 +6,11 @@ import GuideRelated from "@/components/GuideRelated";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 
-// Public SEO guide for Orange County homeowners. Every hardness figure on this
-// page was read out of the water provider's own 2026 water quality report (2025
-// sampling) or its own FAQ page on 2026-09-21, and each one is listed with its
-// link in GUIDE_SOURCES (src/lib/guideExtras.ts). No figure is estimated and
-// no provider is listed without a page we opened. The softener section states
+// Public SEO guide for Orange County homeowners. Hardness by provider moved to
+// its own data page on 2026-10-02 (/guides/orange-county-water-hardness-by-
+// provider, data in src/lib/ocWaterHardness.ts); this page links to it rather
+// than repeating the numbers. Every statement left here is listed with its
+// link in GUIDE_SOURCES (src/lib/guideExtras.ts). The softener section states
 // what state law allows and what two districts say; we found no Orange County
 // ordinance that bans softeners and the page says so in those words rather
 // than claiming there is none.
@@ -36,7 +36,7 @@ export const revalidate = 3600;
 // its own literal copy of the title (see that file's comment for why).
 const TITLE = "Hard water in Orange County";
 const DESCRIPTION =
-  "Hard water in Orange County: hardness by water provider from 2026 reports, what scale does to water heaters and fixtures, flushing, and softener rules.";
+  "Hard water in Orange County: why it is so hard, what scale does to water heaters and fixtures, how often to flush, and softener rules.";
 const CANONICAL = `${SITE_URL}/guides/hard-water-orange-county`;
 
 export const metadata: Metadata = {
@@ -58,39 +58,6 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
   },
 };
-
-// Hardness as each provider printed it. "ppm" is parts per million as calcium
-// carbonate, the same thing as milligrams per liter. Ranges are the low and
-// high readings in the report, not a forecast for any one address.
-const HARDNESS = [
-  {
-    provider: "Metropolitan Water District imported water",
-    detail:
-      "Average 236 ppm, range 191 to 280 (14 grains per gallon). This is the Colorado River and Northern California blend that most Orange County providers buy some of, as printed in the Newport Beach and Santa Margarita reports.",
-  },
-  {
-    provider: "City of Fountain Valley, local groundwater",
-    detail: "Average 217 ppm, range 171 to 256 (13 grains per gallon).",
-  },
-  {
-    provider: "City of Newport Beach, groundwater source",
-    detail: "Average 232 ppm, range 47.5 to 475 (14 grains per gallon).",
-  },
-  {
-    provider: "Mesa Water District, groundwater",
-    detail:
-      "Average 113 ppm, range 20.6 to 293 (6.6 grains per gallon). The softest figure we found in the county.",
-  },
-  {
-    provider: "Santa Margarita Water District",
-    detail: "Average 256 ppm, range 210 to 300 (15 grains per gallon).",
-  },
-  {
-    provider: "Yorba Linda Water District",
-    detail:
-      "The district's FAQ says imported water averages 18 grains per gallon and its own well water averages 20.",
-  },
-];
 
 export default function HardWaterOrangeCountyGuide() {
   return (
@@ -157,32 +124,16 @@ export default function HardWaterOrangeCountyGuide() {
             the same number.
           </p>
           <p className="mt-2 leading-relaxed">
-            Against that scale, most of the county lands in the top band. Here
-            is what the providers printed in their 2026 water quality reports,
-            which report sampling through 2025:
-          </p>
-          <ul className="mt-3 space-y-3">
-            {HARDNESS.map((row) => (
-              <li key={row.provider} className="leading-relaxed">
-                <strong className="text-stone-900 dark:text-stone-100">
-                  {row.provider}.
-                </strong>{" "}
-                {row.detail}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 leading-relaxed">
-            Two more providers describe their water without a single number on
-            their FAQ page. Irvine Ranch Water District says its imported water
-            is typically hard and its well water is moderately hard. El Toro
-            Water District says its water is generally considered hard.
-          </p>
-          <p className="mt-2 leading-relaxed">
-            Your own tap can differ from the average. Several providers blend
-            groundwater with imported water and change the mix through the
-            year, so hardness moves with the season and with where you live in
-            the service area. If your provider is not listed here, look for its
-            annual water quality report (also called a Consumer Confidence
+            Against that scale, most of the county lands in the top band. Our{" "}
+            <Link
+              href="/guides/orange-county-water-hardness-by-provider"
+              className="text-bark-700 underline hover:no-underline dark:text-stone-300"
+            >
+              water hardness by provider table
+            </Link>{" "}
+            lists what each provider printed in its latest water quality
+            report, with a link to the report. If yours is not there, look for
+            its annual water quality report (also called a Consumer Confidence
             Report) and find the row labeled &quot;Hardness, total.&quot;
           </p>
         </section>
@@ -383,10 +334,10 @@ export default function HardWaterOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-            Figures as of September 2026, from each provider&apos;s 2026 water
-            quality report or FAQ page, linked under Sources. Reports are
-            reissued every year. General information, not plumbing, legal or
-            health advice.
+            Provider statements as of September 2026, from each
+            provider&apos;s water quality report or FAQ page, linked under
+            Sources. General information, not plumbing, legal or health
+            advice.
           </p>
         </section>
       </div>

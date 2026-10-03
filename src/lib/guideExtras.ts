@@ -201,8 +201,8 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/hard-water-orange-county": {
     guides: [
+      "/guides/orange-county-water-hardness-by-provider",
       "/guides/water-heater-replacement-cost",
-      "/guides/repipe-orange-county",
       "/guides/orange-county-home-maintenance-checklist",
     ],
     cities: [
@@ -212,6 +212,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Yorba Linda",
       "Irvine",
       "Rancho Santa Margarita",
+    ],
+  },
+  // Added 2026-10-02 (seo/water-rebates-2026-10-02).
+  "/guides/orange-county-water-hardness-by-provider": {
+    guides: [
+      "/guides/hard-water-orange-county",
+      "/guides/water-heater-replacement-cost",
+      "/guides/orange-county-home-rebates-2026",
+    ],
+    cities: [
+      "Tustin",
+      "Garden Grove",
+      "Orange",
+      "Placentia",
+      "Santa Ana",
+      "Anaheim",
     ],
   },
   "/guides/slab-leak-repair-orange-county": {
@@ -1599,40 +1615,22 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "The four hardness bands (soft to very hard, in milligrams per liter), and that heated hard water forms scale that can shorten equipment life, raise heating costs and clog pipes.",
     },
     {
-      href: "https://www.fountainvalley.gov/DocumentCenter/View/24438",
-      label: "City of Fountain Valley: 2026 Water Quality Report",
-      supports:
-        "Fountain Valley local groundwater hardness: average 217 ppm, range 171 to 256, or 13 grains per gallon.",
-    },
-    {
-      href: "https://www.newportbeachca.gov/home/showpublisheddocument/78695/639150596746970000",
-      label: "City of Newport Beach: 2026 Annual Water Quality Report",
-      supports:
-        "Newport Beach groundwater hardness: average 232 ppm, range 47.5 to 475. Metropolitan imported water: average 236 ppm, range 191 to 280, or 14 grains per gallon.",
-    },
-    {
-      href: "https://www.mesawater.org/sites/default/files/2026-06/final2026consumerconfidencereport.pdf",
-      label: "Mesa Water District: 2026 Consumer Confidence Report",
-      supports:
-        "Mesa Water groundwater hardness: average 113 ppm, range 20.6 to 293, or 6.6 grains per gallon.",
-    },
-    {
       href: "https://smwd.com/DocumentCenter/View/6349/2026-Water-Quality-Report",
       label: "Santa Margarita Water District: 2026 Water Quality Report",
       supports:
-        "Santa Margarita hardness: average 256 mg/L, range 210 to 300, or 15 grains per gallon, and a supply of imported, treated surface water.",
+        "Santa Margarita's supply is imported, treated surface water from Metropolitan and from IRWD's Baker plant.",
     },
     {
       href: "https://www.ylwd.com/services/your-water/water-quality/water-quality-faq/",
       label: "Yorba Linda Water District: water quality FAQ",
       supports:
-        "Imported water averages 18 grains of hardness and the district's well water averages 20, and the district discourages self-regenerating softeners.",
+        "The district discourages self-regenerating softeners because of salt in recycled water, and suggests exchange tank service.",
     },
     {
       href: "https://www.irwd.com/learn/water-quality-report/",
       label: "Irvine Ranch Water District: water quality report and FAQ",
       supports:
-        "Imported water is typically hard and well water moderately hard, hardness does not affect safety, and the district discourages self-regenerating softeners because brine is not removed when wastewater is recycled.",
+        "Hardness does not affect safety, and the district discourages self-regenerating softeners because brine is not removed when wastewater is recycled.",
     },
     {
       href: "https://etwd.com/your-water/water-quality/water-quality-faqs",
@@ -1663,6 +1661,108 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "California Health and Safety Code section 116786",
       supports:
         "A local agency may limit or prohibit softeners that discharge to the sewer by ordinance, if it makes specific findings.",
+    },
+  ],
+  // Added 2026-10-02 (seo/water-rebates-2026-10-02). Every report below was
+  // opened and its "Hardness, total" rows read that day; the figures are in
+  // src/lib/ocWaterHardness.ts. All report 2025 sampling and print both mg/L
+  // and grains per gallon.
+  "/guides/orange-county-water-hardness-by-provider": [
+    {
+      href: "https://www.anaheim.net/DocumentCenter/View/70594/2026-Water-Quality-Report",
+      label: "Anaheim Public Utilities: 2026 Water Quality Report",
+      supports:
+        "Checked 2026-10-02: groundwater 316 ppm (18 grains per gallon), Lenain plant 298 (17), Metropolitan 235 (14), range 162 to 431 ppm; groundwater served over 80 percent of customers in 2025.",
+    },
+    {
+      href: "https://www.fountainvalley.gov/DocumentCenter/View/24438",
+      label: "City of Fountain Valley: 2026 Water Quality Report",
+      supports:
+        "Checked 2026-10-02: local groundwater 217 ppm, range 171 to 256, 13 grains per gallon; the city did not import water in 2025.",
+    },
+    {
+      href: "https://ggcity.org/sites/default/files/garden-grove-2026-wq-report-english-web_0.pdf",
+      label: "City of Garden Grove: 2026 Water Quality Report",
+      supports:
+        "Checked 2026-10-02: groundwater 303 ppm, range 187 to 346, 18 grains per gallon (range 11 to 20).",
+    },
+    {
+      href: "https://www.gswater.com/sites/main/files/file-attachments/water-quality-cowan-heights.pdf",
+      label: "Golden State Water: Cowan Heights 2026 Annual Water Quality Report",
+      supports:
+        "Checked 2026-10-02: source water 236 mg/L, range 191 to 280, 13.8 grains per gallon; one grain per gallon equals 17.1 mg/L.",
+    },
+    {
+      href: "https://www.gswater.com/sites/main/files/file-attachments/water-quality-placentia-yorba-linda.pdf",
+      label: "Golden State Water: Placentia-Yorba Linda 2026 Annual Water Quality Report",
+      supports:
+        "Checked 2026-10-02: source water 188 mg/L, range 67.1 to 299, 11.0 grains per gallon.",
+    },
+    {
+      href: "https://www.gswater.com/sites/main/files/file-attachments/water-quality-west-orange-county.pdf",
+      label: "Golden State Water: West Orange County 2026 Annual Water Quality Report",
+      supports:
+        "Checked 2026-10-02: source water 237 mg/L, range 62.9 to 369, 13.8 grains per gallon.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/Documents/Departments/Utilities/Drinking%20Water%20Quality/Water%20Quality%20Report%20CCR%20HuntingtonBeach2026FINAL.pdf",
+      label: "City of Huntington Beach: Water Quality Report, reporting year 2025",
+      supports:
+        "Checked 2026-10-02: groundwater 162 ppm (10 grains per gallon), imported Metropolitan 236 (14), range 58.9 to 280; 85 percent groundwater and 15 percent imported in 2025.",
+    },
+    {
+      href: "https://publications.irwd.com/view/967451735",
+      label: "Irvine Ranch Water District: 2026 Water Quality Report",
+      supports:
+        "Checked 2026-10-02: local groundwater 214 ppm (12.5 grains per gallon), local surface water 293 (17.1), imported Metropolitan 236 (13.8), range 52.0 to 469; hardness can differ at different times of year and does not affect safety.",
+    },
+    {
+      href: "https://www.mesawater.org/sites/default/files/2026-06/final2026consumerconfidencereport.pdf",
+      label: "Mesa Water District: 2026 Consumer Confidence Report",
+      supports:
+        "Checked 2026-10-02: groundwater 113 ppm, range 20.6 to 293, 6.6 grains per gallon; 100 percent local groundwater.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/home/showpublisheddocument/78695/639150596746970000",
+      label: "City of Newport Beach: 2026 Annual Water Quality Report",
+      supports:
+        "Checked 2026-10-02: groundwater 232 ppm, range 47.5 to 475, 14 grains per gallon; about 85 percent groundwater and 15 percent imported.",
+    },
+    {
+      href: "https://ear.waterboards.ca.gov/Home/ViewCCR?PwsID=CA3010027&Year=2025&isCert=false",
+      label: "City of Orange: Consumer Confidence Report 2025, as filed with the State Water Resources Control Board",
+      supports:
+        "Checked 2026-10-02: hardness 300 ppm, range 130 to 380, 18 grains per gallon (range 8 to 22), 2025 sampling.",
+    },
+    {
+      href: "https://santaanaccr.org/wp-content/uploads/2026/06/sa_ccr_2025_WQ_tables.pdf",
+      label: "City of Santa Ana: 2025 Water Quality Tables",
+      supports:
+        "Checked 2026-10-02: groundwater 239 ppm, range 130 to 307, 14 grains per gallon; Metropolitan Diemer 236 and Weymouth 234 ppm.",
+    },
+    {
+      href: "https://santaanaccr.org/wp-content/uploads/2026/06/sa_ccr_2025_FINAL_WEB.pdf",
+      label: "City of Santa Ana: 2025 Consumer Confidence Report",
+      supports:
+        "Checked 2026-10-02: 85 percent groundwater and 15 percent imported water from Metropolitan; one grain per gallon equals 17.1 mg/L.",
+    },
+    {
+      href: "https://smwd.com/DocumentCenter/View/6349/2026-Water-Quality-Report",
+      label: "Santa Margarita Water District: 2026 Water Quality Report",
+      supports:
+        "Checked 2026-10-02: distribution system 256 ppm, range 210 to 300, 15 grains per gallon; supply is imported water from Metropolitan and IRWD's Baker plant.",
+    },
+    {
+      href: "https://www.tustinca.org/DocumentCenter/View/20391",
+      label: "City of Tustin: 2026 Annual Water Quality Report",
+      supports:
+        "Checked 2026-10-02: Tustin groundwater 377 ppm (22 grains per gallon), East Orange County Water District groundwater 333 (20), imported Metropolitan 236 (14), range 133 to 609.",
+    },
+    {
+      href: "https://www.usgs.gov/water-science-school/science/hardness-water",
+      label: "U.S. Geological Survey: Hardness of Water",
+      supports:
+        "Water over 180 milligrams per liter as calcium carbonate is very hard, and heated hard water forms calcium carbonate scale.",
     },
   ],
   "/guides/slab-leak-repair-orange-county": [
@@ -2254,67 +2354,73 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://www.socalgas.com/savings/rebates-and-incentives",
       label: "SoCalGas: rebates and incentives",
       supports:
-        "Checked 2026-09-26: storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less); tankless $80 to $1,500 when replacing a tank-type unit in a single-family detached home; furnaces $1.40 to $25 per kBTUh (AFUE 92 percent or more, licensed contractor, proof of permit closure, one per household); first come, first served until December 31, 2026 or until funds run out.",
+        "Checked 2026-09-26 and 2026-10-02: storage water heaters $300 to $575 (UEF 0.64 or higher, 55 gallons or less); tankless $80 to $1,500 when replacing a tank-type unit in a single-family detached home; furnaces $1.40 to $25 per kBTUh (AFUE 92 percent or more, licensed contractor, proof of permit closure, one per household); first come, first served until December 31, 2026 or until funds run out.",
     },
     {
       href: "https://www.sce.com/save-money/rebates-financial-assistance/rebates-sce-marketplace",
       label: "Southern California Edison: rebates and SCE Marketplace",
       supports:
-        "Checked 2026-09-26: Golden State Rebates instant coupons for air conditioners, smart thermostats, heat pump water heaters and gas water heaters with no amounts listed; a $75 smart thermostat bill credit on select rate plans; Home Performance Plus for disadvantaged communities; Comfortably CA offers no direct customer rebates.",
+        "Checked 2026-09-26 and 2026-10-02: Golden State Rebates instant coupons for air conditioners, smart thermostats, heat pump water heaters and gas water heaters with no amounts listed; a $75 smart thermostat bill credit on select rate plans; Home Performance Plus for disadvantaged communities; Comfortably CA offers no direct customer rebates. No heat pump water heater deadline or amount on this page.",
+    },
+    {
+      href: "https://homeperformanceplusca.com/sce/rebates/",
+      label: "SCE Home Performance Plus (run for SCE by CLEAResult): rebates",
+      supports:
+        "Checked 2026-10-02: lists Home Performance Plus rebate amounts, including heat pump water heaters; no September 1 installation deadline or pending CPUC reduction stated on the page.",
     },
     {
       href: "https://www.anaheim.net/5241/Appliance-Fixtures",
       label: "Anaheim Public Utilities: appliance and fixture rebates",
       supports:
-        "Checked 2026-09-26: $400 for an ENERGY STAR certified heat pump water heater and $200 for an ENERGY STAR certified heat pump dryer.",
+        "Checked 2026-09-26 and 2026-10-02: $400 for an ENERGY STAR certified heat pump water heater and $200 for an ENERGY STAR certified heat pump dryer.",
     },
     {
       href: "https://socalwatersmart.com/en/residential/rebates/available-rebates/turf-replacement-program/",
       label: "SoCal Water$mart (Metropolitan Water District): turf replacement program",
       supports:
-        "Checked 2026-09-26: $2.00 per square foot up to 5,000 square feet a year; approval before the project starts and 180 days to finish; 3 plants per 100 square feet, a stormwater retention feature and irrigation changes; no synthetic turf; amounts subject to change.",
+        "Checked 2026-09-26 and 2026-10-02: $2.00 per square foot up to 5,000 square feet a year; your water agency may offer an additional rebate; $100 per tree, up to 5; approval before the project starts and 180 days to finish; 3 plants per 100 square feet, a stormwater retention feature and irrigation changes; no synthetic turf; amounts subject to change.",
     },
     {
       href: "https://socalwatersmart.com/en/residential/",
       label: "SoCal Water$mart: residential rebates",
       supports:
-        "Checked 2026-09-26: premium high-efficiency toilets $40, rotating nozzles $2 each with at least 30, clothes washers from $85; rebates vary by water agency and depend on funding.",
+        "Checked 2026-09-26 and 2026-10-02: premium high-efficiency toilets $40, rotating nozzles $2 each with at least 30, clothes washers from $85; rebates vary by water agency and depend on funding.",
     },
     {
       href: "https://www.irwd.com/get-help/residential-rebates/",
       label: "Irvine Ranch Water District: residential rebates",
       supports:
-        "Checked 2026-09-26: turf $2 per square foot, drip $0.25 per square foot, nozzles $4, rain barrels $35 (two), cisterns $250 to $350, soil moisture sensors up to $80 under an acre, hose bib controllers $35 (two), flow monitors $100 base, toilets $40 (up to nine), washers from $85, 50 percent of sprinkler repairs; confirm amounts before buying.",
+        "Checked 2026-09-26 and 2026-10-02: turf $2 per square foot, drip $0.25 per square foot, nozzles $4, rain barrels $35 (two), cisterns $250 to $350, soil moisture sensors up to $80 under an acre, hose bib controllers $35 (two), flow monitors $100 base, toilets $40 (up to nine), washers from $85, 50 percent of sprinkler repairs; confirm amounts before buying.",
     },
     {
       href: "https://www.mesawater.org/Rebates",
       label: "Mesa Water District: residential rebates",
       supports:
-        "Checked 2026-09-26: turf from $3 per square foot, drip from $1 per square foot, controllers from $80 under an acre, soil moisture sensors up to $80, nozzles $2 (at least 15), rain barrels $35, cisterns $250 to $350, pool covers $50, flow monitors from $100, toilets from $40, washers from $85.",
+        "Checked 2026-09-26 and 2026-10-02: turf from $3 per square foot, drip from $1 per square foot, controllers from $80 under an acre, soil moisture sensors up to $80, nozzles $2 (at least 15), rain barrels $35, cisterns $250 to $350, pool covers $50, flow monitors from $100, toilets from $40, washers from $85.",
     },
     {
       href: "https://smwd.com/rebates",
       label: "Santa Margarita Water District: rebates",
       supports:
-        "Checked 2026-09-26: residential turf $2 per square foot plus $1,000 for design plans, smart timers $100, soil moisture sensors $200, flow monitors $100, rain barrels and cisterns $35 to $350, nozzles $5, hose bib controllers $35, washers $85, toilets $40, H2OC RainSmart up to $1,500.",
+        "Checked 2026-10-02 (changed since 2026-09-26): residential turf $2 per square foot plus $1,000 for design plans, smart sprinkler timers $125, flow monitors $100, rain barrels and cisterns $35 to $350, high-efficiency nozzles $6, hose bib controllers $35, clothes washers $100, toilets $40, H2OC RainSmart up to $1,500; no soil moisture sensor amount shown.",
     },
     {
       href: "https://techcleanca.com/incentives/single-family-incentives/",
       label: "TECH Clean California: single-family incentives",
       supports:
-        "Checked 2026-09-26: single-family heat pump water heater and heat pump HVAC incentives reserved statewide since November 14, 2025; HEEHRA fully reserved in Central and Southern California January 7, 2026 and statewide February 24, 2026; waitlisted projects qualify only if installed after approval.",
+        "Checked 2026-09-26 and 2026-10-02: single-family heat pump water heater and heat pump HVAC incentives reserved statewide since November 14, 2025; HEEHRA fully reserved in Central and Southern California January 7, 2026 and statewide February 24, 2026; waitlisted projects qualify only if installed after approval.",
     },
     {
       href: "https://www.energy.ca.gov/programs-and-topics/programs/inflation-reduction-act-residential-energy-rebate-programs",
       label: "California Energy Commission: Inflation Reduction Act residential energy rebate programs",
       supports:
-        "Checked 2026-09-26: HEEHRA single-family rebates fully reserved statewide as of February 24, 2026; up to $8,000 under 80 percent of area median income and up to $4,000 from 80 to 150 percent; HOMES rebates are not yet available; $291 million award approved January 2025.",
+        "Checked 2026-09-26 and 2026-10-02: HEEHRA single-family rebates fully reserved statewide as of February 24, 2026; up to $8,000 under 80 percent of area median income and up to $4,000 from 80 to 150 percent; HOMES rebates are not yet available; $291 million award approved January 2025.",
     },
     {
       href: "https://www.crmp.org/our-seismic-retrofit-programs/the-retrofits/ebb-retrofit",
       label: "California Residential Mitigation Program: Earthquake Brace + Bolt retrofit",
       supports:
-        "Checked 2026-09-26: up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; up to $7,000 more for households earning $94,480 or less, which may pay up to 100 percent of the cost; registration open a limited time each year; no 2026 dates posted.",
+        "Checked 2026-09-26 and 2026-10-02: up to $3,000 for wood-framed homes built before 1980 on a raised foundation in listed ZIP codes; up to $7,000 more for households earning $94,480 or less, which may pay up to 100 percent of the cost; registration open a limited time each year; no 2026 dates posted.",
     },
   ],
   // Added 2026-09-26 (seo/new-pages-d). Every page below was opened that day,

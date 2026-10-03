@@ -66,6 +66,8 @@ export const GUIDE_PATHS = [
   // Added 2026-09-26 (SEO plan section 2, new pages A).
   "/guides/hoa-coastal-commission-remodel-orange-county",
   "/guides/hard-water-orange-county",
+  // Added 2026-10-02 (seo/water-rebates-2026-10-02).
+  "/guides/orange-county-water-hardness-by-provider",
   "/guides/slab-leak-repair-orange-county",
   "/guides/repipe-orange-county",
   "/guides/termites-orange-county",
@@ -112,6 +114,8 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/hoa-coastal-commission-remodel-orange-county":
     "HOA and coastal approvals",
   "/guides/hard-water-orange-county": "Hard water in Orange County",
+  "/guides/orange-county-water-hardness-by-provider":
+    "Orange County water hardness by provider",
   "/guides/slab-leak-repair-orange-county": "Slab leak repair in Orange County",
   "/guides/repipe-orange-county": "Repiping a house in Orange County",
   "/guides/termites-orange-county": "Termites in Orange County",
@@ -149,7 +153,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-01" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-02" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -204,7 +208,12 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-02",
+  },
+  // Added 2026-10-02 (seo/water-rebates-2026-10-02).
+  "/guides/orange-county-water-hardness-by-provider": {
+    datePublished: "2026-10-02",
+    dateModified: "2026-10-02",
   },
   "/guides/slab-leak-repair-orange-county": {
     datePublished: "2026-09-20",
@@ -246,7 +255,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/orange-county-home-rebates-2026": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-27",
+    dateModified: "2026-10-02",
   },
   // Added 2026-09-26 (seo/new-pages-d).
   "/guides/window-replacement-cost-orange-county": {

@@ -171,7 +171,7 @@ describe("the rebates page", () => {
 
   it("dates every program and says it is reviewed every quarter", () => {
     expect(pageSource("orange-county-home-rebates-2026")).toContain(
-      'const CHECKED_ON = "September 26, 2026";'
+      'const CHECKED_ON = "October 2, 2026";'
     );
     // Every program block carries an AsOf line.
     expect((copy.match(/<AsOf\b/g) ?? []).length).toBeGreaterThanOrEqual(10);
