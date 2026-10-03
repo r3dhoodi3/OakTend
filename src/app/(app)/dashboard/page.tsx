@@ -791,7 +791,7 @@ export default async function HomePage(
                 Why this score?
               </>
             }
-            // max-sm:min-w-0 (2026-10-03): Collapse's inner box is a grid
+            // min-w-0 (2026-10-03): Collapse's inner box is a grid
             // item, and once it settles open it drops overflow-hidden, so its
             // min-width falls back to auto, the min-content width of the
             // widest line. The rows below were that line, so the box grew past
