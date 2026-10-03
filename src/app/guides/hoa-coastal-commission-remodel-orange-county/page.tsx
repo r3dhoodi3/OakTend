@@ -316,8 +316,10 @@ export default function HoaCoastalRemodelGuide() {
             <li>
               <strong>Fire-rated roofing.</strong> An association cannot
               require a roof that breaks the state fire-retardant roofing law
-              (Civil Code section 4720). That law sets a minimum of Class C
-              when more than half the roof is replaced within a year. In a very
+              (Civil Code section 4720). That law, Health and Safety Code
+              section 13132.7, sets a minimum fire rating for any roofing put
+              on in a repair, and for the whole roof once more than half of it
+              is replaced within a year: Class C in most places. In a very
               high{" "}
               <Link
                 href="/guides/orange-county-fire-hazard-severity-zones"
@@ -325,10 +327,10 @@ export default function HoaCoastalRemodelGuide() {
               >
                 fire hazard severity zone
               </Link>{" "}
-              the minimum is Class B for any new roof covering, even a partial
-              repair (Health and Safety Code section 13132.7). There, the
-              governing documents must allow at least one roof covering that
-              meets it.
+              it is Class A, or Class B if the city has adopted the State Fire
+              Marshal&apos;s model ordinance, and the governing documents must
+              allow at least one roof covering that meets it. Ask the building
+              department which class applies to your address.
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">

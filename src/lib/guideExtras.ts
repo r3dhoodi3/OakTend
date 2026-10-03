@@ -1564,7 +1564,7 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label:
         "California Health and Safety Code section 13132.7",
       supports:
-        "When more than 50 percent of a roof is replaced within one year, the roof covering must be at least Class C; in a very high fire hazard severity zone, any roof covering on a new roof, repair or replacement must be at least Class B.",
+        "Any roof covering applied in an alteration, repair or replacement, every new structure, and the entire roof covering once more than 50 percent of it is replaced within one year must be at least Class C; in a very high fire hazard severity zone at least Class A, or Class B where the jurisdiction has adopted the State Fire Marshal's model ordinance (subdivisions (a), (b) and (d)).",
     },
     {
       href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
