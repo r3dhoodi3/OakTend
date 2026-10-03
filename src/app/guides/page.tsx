@@ -159,7 +159,14 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
         icon: Droplets,
         title: "Hard water in Orange County",
         blurb:
-          "Hardness by water provider, what scale does to water heaters and fixtures, how often to flush a tank, and softener rules.",
+          "What scale does to water heaters and fixtures, how often to flush a tank, and softener rules.",
+      },
+      {
+        href: "/guides/orange-county-water-hardness-by-provider",
+        icon: Droplets,
+        title: "Orange County water hardness by provider",
+        blurb:
+          "Hardness for 14 water providers in grains per gallon and mg/L, from each one's latest water quality report.",
       },
     ],
   },

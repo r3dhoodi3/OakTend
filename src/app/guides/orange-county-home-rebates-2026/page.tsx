@@ -15,7 +15,8 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 //     buying anything (said once there, not repeated under every program).
 //
 // ONLY WHAT A PRIMARY SOURCE SAID ON THE DAY. Every amount below was read on
-// the program's or utility's own page on 2026-09-26 and is listed with its
+// the program's or utility's own page on 2026-09-26 and re-read on 2026-10-02
+// (Santa Margarita's device amounts had changed), and is listed with its
 // link in GUIDE_SOURCES (src/lib/guideExtras.ts). SCE's page lists almost no
 // dollar amounts, so neither does this one. Programs whose pages could not be
 // read that day (MWDOC blocked automated reads, Moulton Niguel Water District
@@ -24,6 +25,12 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // QUARTERLY REVIEW. Re-open every source, update CHECKED_ON and each AsOf,
 // and bump dateModified in src/lib/guides.ts only if words changed. The next
 // review is due by the end of December 2026.
+//
+// SCE HEAT PUMP WATER HEATERS. Third-party sites say SCE's Home Performance
+// Plus amounts applied to installs by September 1, 2026, with lower amounts
+// after that pending CPUC approval. On 2026-10-02 neither SCE's page nor the
+// program's own rebate page said so, so the page points to the program page
+// instead of stating a deadline or an amount.
 //
 // No FAQPage or HowTo JSON-LD, like the other Orange County guides. The pro
 // side is closed, so nothing here offers to find, match or book anyone.
@@ -38,10 +45,10 @@ export const revalidate = 3600;
 // at ./opengraph-image.tsx keeps its own literal copy.
 const TITLE = "Orange County home rebates in 2026";
 const DESCRIPTION =
-  "Rebates for Orange County homeowners as of September 2026: SoCalGas, SCE, turf and water devices, state heat pump programs and earthquake retrofit grants.";
+  "Rebates for Orange County homeowners as of October 2026: SoCalGas, SCE, turf and water devices, state heat pump programs and earthquake retrofit grants.";
 const CANONICAL = `${SITE_URL}/guides/orange-county-home-rebates-2026`;
 
-const CHECKED_ON = "September 26, 2026";
+const CHECKED_ON = "October 2, 2026";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -201,7 +208,16 @@ export default function OrangeCountyHomeRebatesGuide() {
             <li>
               <strong>Home Performance Plus:</strong> a no-cost energy
               assessment and enhanced rebates for renters and single-family
-              homeowners in disadvantaged communities.
+              homeowners in disadvantaged communities. Amounts and deadlines
+              are on the{" "}
+              <a
+                href="https://homeperformanceplusca.com/sce/rebates/"
+                rel="noopener"
+                className={linkClass}
+              >
+                program&apos;s rebate page
+              </a>
+              ; confirm them there before you buy a heat pump water heater.
             </li>
             <li>
               <strong>Comfortably California:</strong> SCE says this program
@@ -255,8 +271,10 @@ export default function OrangeCountyHomeRebatesGuide() {
                 before you start, then have 180 days to finish. The new yard
                 needs at least 3 plants per 100 square feet, a feature that
                 holds rain water, and irrigation changes; synthetic turf does
-                not qualify. Devices: premium high-efficiency toilets $40
-                each, rotating sprinkler nozzles $2 each (at least 30),
+                not qualify. Trees planted as part of the project earn $100
+                each, up to 5, and your water agency may add its own rebate
+                on top. Devices: premium high-efficiency toilets $40 each,
+                rotating sprinkler nozzles $2 each (at least 30),
                 high-efficiency clothes washers from $85. Amounts depend on
                 funding.
               </p>
@@ -304,11 +322,11 @@ export default function OrangeCountyHomeRebatesGuide() {
               <p className={cardTitleClass}>Santa Margarita Water District</p>
               <p className="mt-1 text-sm">
                 Residential turf removal $2 per square foot plus $1,000 for
-                design plans; smart sprinkler timers $100; soil moisture
-                sensor systems $200; flow monitors $100; rain barrels and
-                cisterns $35 to $350; high-efficiency nozzles $5; hose bib
-                controllers $35; clothes washers $85; toilets $40; and up to
-                $1,500 through H2OC RainSmart for rain gardens and barrels.
+                design plans; smart sprinkler timers $125; flow monitors
+                $100; rain barrels and cisterns $35 to $350; high-efficiency
+                nozzles $6; hose bib controllers $35; clothes washers $100;
+                toilets $40; and up to $1,500 through H2OC RainSmart for rain
+                gardens and barrels.
               </p>
               <AsOf href="https://smwd.com/rebates" label="Santa Margarita Water District rebates page" />
             </li>

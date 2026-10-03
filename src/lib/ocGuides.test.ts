@@ -34,6 +34,8 @@ const OC_GUIDES = [
   // Added 2026-09-26 (seo/new-pages-c).
   "earthquake-retrofit-orange-county",
   "sewer-line-orange-county",
+  // Added 2026-10-02 (seo/water-rebates-2026-10-02).
+  "orange-county-water-hardness-by-provider",
 ];
 
 // The guides that talk about what a job costs without printing a number.

@@ -216,6 +216,13 @@ describe("GUIDE_SOURCES", () => {
     "evhome.sce.com",
     "www.nfpa.org",
     "www.dgs.ca.gov",
+    // Added 2026-10-02 for the water hardness by provider page and the
+    // rebates re-check, each opened that day.
+    "www.gswater.com",
+    "publications.irwd.com",
+    "ear.waterboards.ca.gov",
+    "santaanaccr.org",
+    "homeperformanceplusca.com",
   ];
 
   it("lists sources for every guide", () => {
@@ -267,14 +274,14 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 30 guide pages", () => {
+describe("all 31 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     // "how-to" is the chore page section (src/lib/chores.ts), not a guide.
     .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(30);
+    expect(dirs).toHaveLength(31);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);
