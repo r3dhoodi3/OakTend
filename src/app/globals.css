@@ -96,7 +96,8 @@ html[data-fonts-pending] .hero-rise {
    gets the class, so none of this can change the website. */
 
 /* Top safe area. The shell's WKWebView draws under the status bar and
-   viewport-fit=cover is on, so the sticky app headers (Nav.tsx, ProNav.tsx)
+   viewport-fit=cover is on, so the sticky app header (Nav.tsx; the pro header
+   in src/app/pro/layout.tsx is not sticky and takes the body rule below)
    would otherwise put the wordmark, search and bell under the clock and the
    notch. Padding (not top:) so the header's own background fills the strip and
    the chat panel, which measures the header's height (useVisualViewport.ts),

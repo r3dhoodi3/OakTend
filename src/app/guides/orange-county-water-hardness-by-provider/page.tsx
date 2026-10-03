@@ -105,8 +105,7 @@ export default function OrangeCountyWaterHardnessGuide() {
         </p>
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           That is hard to very hard water. Mesa Water District was the one
-          clear exception, at 6.6. Every figure below is the provider&apos;s own,
-          from its latest annual water quality report.
+          clear exception, at 6.6.
         </p>
       </div>
 
@@ -117,7 +116,8 @@ export default function OrangeCountyWaterHardnessGuide() {
           </h2>
           <p className="mt-2 leading-relaxed">
             Averages for 2025, as each provider printed them. Where a provider
-            listed more than one source, each gets its own line. The range is
+            listed more than one local source, each gets its own line; imported
+            water appears once, below the table. The range is
             the lowest and highest reading in the report.
           </p>
 
