@@ -88,7 +88,11 @@ function valueCards(): {
     {
       icon: Gift,
       title: "Free to start",
-      body: "Free during our preview, no card needed.",
+      // "Free during our preview" only holds while the preview is on; with it
+      // off, the card says what the pricing actually is.
+      body: preview
+        ? "Free during our preview, no card needed."
+        : "Free for you. Pros pay us only if you hire them.",
     },
   ];
 }
@@ -579,14 +583,16 @@ export default function CityLandingPage({
         <p className="inline-flex w-full items-center justify-center gap-1.5 text-xs text-stone-600 dark:text-stone-300">
           <Logo className="h-4 w-4 text-bark-700 dark:text-stone-400" /> OakTend · Your home looked after
         </p>
-        <p className="mt-2 text-xs">
+        {/* Phones drop the "·" for a gap, same as the guides footer, so a
+            separator never starts or ends a line. sm and up is unchanged. */}
+        <p className="mt-2 text-xs max-sm:flex max-sm:flex-wrap max-sm:justify-center max-sm:gap-x-4">
           <Link
             href="/guides"
             className="text-stone-600 hover:text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"
           >
             All guides
           </Link>
-          {" "}·{" "}
+          <span className="max-sm:hidden">{" "}·{" "}</span>
           <Link
             href="/home-maintenance-app"
             className="text-stone-600 hover:text-bark-700 hover:underline max-sm:inline-flex max-sm:min-h-11 max-sm:items-center dark:text-stone-300 dark:hover:text-stone-100"

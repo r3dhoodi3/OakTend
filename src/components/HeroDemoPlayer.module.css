@@ -1116,13 +1116,32 @@
   /* The mid-video signup chip sat at bottom: 58px, on top of the phone
      control bar. Phones put it top centre, between the wordmark and the
      step chip, where the room above the device is kept clear anyway. */
+  /* 44px tap target. The link box runs from the top of the frame down 44px;
+     the visible pill is drawn by ::before at the same spot it always was
+     (6px down, text + 4px padding each side), and padding-top keeps the text
+     where it was, so nothing visible moves. */
   .midCta {
-    top: 6px;
+    top: 0;
     bottom: auto;
     left: 0;
     right: 0;
     width: max-content;
     margin-inline: auto;
+    min-height: 44px;
+    padding: 10px 10px 0;
+    background: transparent;
+  }
+  .midCta::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 6px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    height: calc(1lh + 8px);
+    border-radius: 999px;
+    background: var(--accent-strong);
   }
 }
 
