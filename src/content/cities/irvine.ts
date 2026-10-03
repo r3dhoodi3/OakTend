@@ -50,7 +50,7 @@ export const irvine: CityContent = {
     "Irvine's median home was built in 2002, the newest large-city housing in Orange County, and it went up village by village. The job here is usually the first replacement of an original water heater, furnace or roof, often for a whole village within a few years, with an association review in most villages on top of the city permit.",
   metaDescription:
     "Irvine's median home was built in 2002, village by village. First water heater and roof replacements, HOA review, IRWD water and the PermitsDIRECT! portal.",
-  metaTitle: "Irvine homes: whole villages aging in lockstep",
+  metaTitle: "Irvine home maintenance: what to check by home age",
 
   population: {
     value: "About 318,693 people",

@@ -302,7 +302,15 @@ export default function ElectricalPanelUpgradeCostGuide() {
                 Building, Renovation, and Project Planning Portal
               </a>
               , which lists panel upgrades for an existing service. Ask your
-              electrician whether they will file it for you.
+              electrician whether they will file it for you. File it early:{" "}
+              <a
+                href="https://ggcity.org/building-and-safety/permit-issuance-faqs"
+                rel="noopener"
+                className={LINK}
+              >
+                Garden Grove&apos;s online permit
+              </a>{" "}
+              for a service upgrade asks for the Edison service request number.
             </li>
             <li>
               SCE says it reviews an application in an average of 10 business
@@ -322,8 +330,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
             spot inspection; an
             inspector calls back within 2 to 3 business days with a meter spot
             report, which must be on site at the city&apos;s inspection. The
-            city&apos;s page lists the electrical permit at $126 with a $167
-            minimum, and two inspections: service meter and final.
+            city then inspects twice: service meter and final.
           </p>
         </section>
 
@@ -426,6 +433,77 @@ export default function ElectricalPanelUpgradeCostGuide() {
               55 times more likely than copper-wired homes to have a connection
               at an outlet reach fire hazard conditions, and the CPSC warns
               that failing connections seldom give warning signs.
+            </li>
+          </ul>
+        </section>
+
+        {/* Fees added 2026-10-02, each read that day from the city's own
+            fee schedule or page (sources in src/lib/guideExtras.ts). Garden
+            Grove, Irvine and Santa Ana are left without a number: Garden
+            Grove's fee resolution was only found off the city's site, Irvine's
+            schedule has no line that matches this job, and Santa Ana gives
+            fees by phone. Costa Mesa's site blocked every read. */}
+        <section>
+          <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+            Permit fees by city
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            The city&apos;s fee for the permit itself, from its own fee
+            schedule. Plan review, when a city asks for it, is charged on top.
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Anaheim:</strong> $126, with a $167 minimum permit fee (
+              <a
+                href="https://www.anaheim.net/3472/Residential-Electrical-Panel-Upgrade"
+                rel="noopener"
+                className={LINK}
+              >
+                city panel upgrade page
+              </a>
+              ).
+            </li>
+            <li>
+              <strong>Fountain Valley:</strong> $85.20 for a panel upgrade up to
+              250 amps, plus a $21.30 issuance fee (
+              <a
+                href="https://www.fountainvalley.gov/DocumentCenter/View/24612/FY-26-27-Fee-Schedule-Adopted-Final-Post"
+                rel="noopener"
+                className={LINK}
+              >
+                2026-27 fee schedule
+              </a>
+              ).
+            </li>
+            <li>
+              <strong>Huntington Beach:</strong> $1.15 per amp of service ($49
+              minimum), so $230 for 200 amps, plus a $41 processing charge and
+              a 6% automation fee (
+              <a
+                href="https://www.huntingtonbeachca.gov/departments/community_development/building_inspection/permit_center/fee_calculator.php"
+                rel="noopener"
+                className={LINK}
+              >
+                fee schedule
+              </a>
+              ).
+            </li>
+            <li>
+              <strong>Newport Beach:</strong> $61 for a service change up to
+              200 amps (
+              <a
+                href="https://www.newportbeachca.gov/government/departments/community-development/fee-schedules"
+                rel="noopener"
+                className={LINK}
+              >
+                2026-27 fee schedule
+              </a>
+              ).
+            </li>
+            <li>
+              <strong>Garden Grove, Irvine and Santa Ana:</strong> we could not
+              find a fee for this job on the city&apos;s site. Ask the permit
+              counter, linked in the table below.
             </li>
           </ul>
         </section>
