@@ -46,6 +46,9 @@ describe("site title and description, preview mode", () => {
     for (const feature of ["maintenance plan", "reminders", "home health score", "documents"]) {
       expect(d).toContain(feature);
     }
+    // A search result cuts a description off at roughly 155 to 160.
+    expect(d.length).toBeGreaterThanOrEqual(150);
+    expect(d.length).toBeLessThanOrEqual(160);
   });
 
   it("promises no pros, quotes, bookings or payments", () => {

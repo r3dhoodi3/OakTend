@@ -156,7 +156,7 @@ export default function OcRemodelCityTable({
           </>
         )}{" "}
         Permit notes are what each city&apos;s own page said when we read it in
-        September 2026.
+        September or October 2026.
         {trade && " Where a page does not name the work, we say so rather than guess."}{" "}
         Costa Mesa is left out because we could not open its site to check.
       </p>

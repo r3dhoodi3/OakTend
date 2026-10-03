@@ -116,7 +116,14 @@ export const OC_REMODEL_CITIES: OcRemodelCity[] = [
         text: "Plumbing installations or alterations need a permit. The FAQ does not name water heaters.",
       },
       hvac: { text: "Heating or air conditioning installations or alterations need a permit." },
-      panel: { text: "Electrical installations or alterations need a permit." },
+      // Re-read 2026-10-02 from the permit issuance FAQ: service upgrades
+      // are one of the permits sold online (it asks for the Edison SR number,
+      // which the panel guide's SCE steps carry).
+      panel: {
+        text: "Electrical installations or alterations need a permit. Electric service upgrades can be applied for and paid online.",
+        href: "https://ggcity.org/building-and-safety/permit-issuance-faqs",
+        label: "Permit issuance FAQ",
+      },
     },
   },
   {

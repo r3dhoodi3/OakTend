@@ -38,8 +38,10 @@ const PREVIEW_TITLE = "OakTend: free home maintenance app for Orange County";
 
 // Names the category, the county and the main features. No pro, quote,
 // booking or payment claim: there is no pro network during the preview.
+// 153 characters (trimmed 2026-10-02 from 194), inside the 150 to 160 a
+// search result shows before cutting it off.
 const PREVIEW_DESCRIPTION =
-  "OakTend is a free home maintenance app for Orange County homeowners. Add your home once and get a maintenance plan, reminders, a home health score, and a safe place for documents and warranties.";
+  "OakTend is a free home maintenance app for Orange County homeowners: a maintenance plan, reminders, a home health score, and your documents in one place.";
 
 const FULL_DESCRIPTION =
   "Keep your house in good shape, know what needs attention, store your home docs, and reach a local pro when something breaks.";

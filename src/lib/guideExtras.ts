@@ -892,6 +892,34 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "A contract should say who gets the permits.",
     },
+    // Added 2026-10-02 for the permit fees by city list, each opened that day.
+    {
+      href: "https://www.fountainvalley.gov/DocumentCenter/View/24612/FY-26-27-Fee-Schedule-Adopted-Final-Post",
+      label:
+        "City of Fountain Valley: adopted fee schedule, fiscal year 2026-27 (effective July 6, 2026)",
+      supports:
+        "Electrical: new and panel upgrade to 250 amp including bonding and grounding $85.20 each; permit issuance fee $21.30; electrical plan check 65% of the permit fee.",
+    },
+    {
+      href: "https://www.huntingtonbeachca.gov/departments/community_development/building_inspection/permit_center/fee_calculator.php",
+      label:
+        "City of Huntington Beach: fee calculator page and its linked Building Permit Fee Schedule",
+      supports:
+        "Electrical permit fees: permit processing charge $41; each service meter $1.15 per amp, minimum $49; electrical plan review 62% of inspection fees; a 6.0% automation fee is added to all fees listed. The online fee calculator excludes electrical permit fees.",
+    },
+    {
+      href: "https://www.newportbeachca.gov/government/departments/community-development/fee-schedules",
+      label:
+        "City of Newport Beach: Schedule of Rents, Fines and Fees, fiscal year 2026-27 (building fees effective July 25, 2026)",
+      supports:
+        "Services (service change), 600 volts or less and not over 200 amperes: $61 flat fee for 2026-27; electrical plan review 87% of the total electrical permit fee.",
+    },
+    {
+      href: "https://ggcity.org/building-and-safety/permit-issuance-faqs",
+      label: "City of Garden Grove: permit issuance FAQs",
+      supports:
+        "Owners and contractors can apply and pay online for electric service upgrades (Edison SR number required), among other permit types.",
+    },
     {
       href: "https://censusreporter.org/data/table/?table=B25034&geo_ids=05000US06059,16000US0625380,16000US0629000,16000US0669000,16000US0636000,16000US0602000,16000US0651182,16000US0648256,16000US0680854,16000US0636770",
       label:
