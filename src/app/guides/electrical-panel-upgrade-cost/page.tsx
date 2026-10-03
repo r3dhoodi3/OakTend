@@ -135,7 +135,7 @@ export default function ElectricalPanelUpgradeCostGuide() {
         items={[
           { label: "Home", href: "/" },
           { label: "Guides", href: "/guides" },
-          { label: TITLE },
+          { label: "Panel upgrade cost" },
         ]}
       />
       <BreadcrumbJsonLd
