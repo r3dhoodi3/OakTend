@@ -20,6 +20,11 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // report, and the Newport Beach and San Clemente city pages. All are listed
 // in GUIDE_SOURCES (src/lib/guideExtras.ts).
 //
+// The roof section (#roof, added 2026-10-03 from SEO next 10, action 9) rests
+// on Civil Code 4775, 4125, 4185 and 4720 and Health and Safety Code 13132.7,
+// all read on leginfo that day. Section 4746 was checked and left out: it
+// covers solar on a shared condo roof, not roof replacement.
+//
 // LCP status per city comes from the Commission's chart, cross-checked
 // against the city's own page where one opened (Newport Beach, San Clemente).
 // Laguna Beach's site refused automated requests on 2026-09-26, so its row
@@ -73,6 +78,10 @@ const FAQS = [
   {
     q: "Do I need HOA approval before remodeling?",
     a: "Yes, if your association's governing documents require it, which is common for changes to the outside of the house. It is separate from the city building permit.",
+  },
+  {
+    q: "Is the HOA or the owner responsible for replacing the roof?",
+    a: "Unless your CC&Rs say otherwise, the association replaces the common area and owners handle their own unit or lot (Civil Code section 4775). Check your CC&Rs to see which side of that line the roof falls on.",
   },
   {
     q: "Do I need a coastal development permit to remodel my house?",
@@ -287,6 +296,50 @@ export default function HoaCoastalRemodelGuide() {
               days instead of 45.
             </li>
           </ul>
+        </section>
+
+        <section id="roof">
+          <h2 className={h2Class}>Replacing a roof in an HOA</h2>
+          <p className="mt-2 leading-relaxed">
+            A new roof goes through the same review as any exterior change. Two
+            more rules apply:
+          </p>
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
+            <li>
+              <strong>Who replaces it.</strong> Unless your CC&amp;Rs say
+              otherwise, the association repairs and replaces the common area
+              and each owner takes care of their own unit or lot (Civil Code
+              section 4775). Whether the roof is common area depends on how
+              the CC&amp;Rs and any condo plan draw the line (sections 4125
+              and 4185), so check them before you get bids.
+            </li>
+            <li>
+              <strong>Fire-rated roofing.</strong> An association cannot
+              require a roof that breaks the state fire-retardant roofing law
+              (Civil Code section 4720). That law, Health and Safety Code
+              section 13132.7, sets a minimum fire rating for any roofing put
+              on in a repair, and for the whole roof once more than half of it
+              is replaced within a year: Class C in most places. In a very
+              high{" "}
+              <Link
+                href="/guides/orange-county-fire-hazard-severity-zones"
+                className={linkClass}
+              >
+                fire hazard severity zone
+              </Link>{" "}
+              it is Class A, or Class B if the city has adopted the State Fire
+              Marshal&apos;s model ordinance, and the governing documents must
+              allow at least one roof covering that meets it. Ask the building
+              department which class applies to your address.
+            </li>
+          </ul>
+          <p className="mt-2 leading-relaxed">
+            Costs and city permits are in the{" "}
+            <Link href="/guides/roof-replacement-cost" className={linkClass}>
+              roof replacement guide
+            </Link>
+            .
+          </p>
         </section>
 
         <section>

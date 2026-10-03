@@ -1532,6 +1532,41 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "An association cannot effectively prohibit or unreasonably restrict an EV charging station in an owner's unit or designated parking space; an application not denied in writing within 60 days is deemed approved unless the delay is a reasonable request for more information.",
     },
     {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4775",
+      label:
+        "California Civil Code section 4775",
+      supports:
+        "Unless the declaration provides otherwise, the association repairs, replaces and maintains the common area, and each owner repairs, replaces and maintains their separate interest.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4125",
+      label:
+        "California Civil Code section 4125",
+      supports:
+        "A condominium unit's boundaries are described on the recorded map or condominium plan.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4185",
+      label:
+        "California Civil Code section 4185",
+      supports:
+        "The separate interest is the unit in a condominium and the lot or parcel in a planned development.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=4720",
+      label:
+        "California Civil Code section 4720",
+      supports:
+        "No association may require a roof installed or repaired in violation of Health and Safety Code section 13132.7; in a very high fire hazard severity zone, governing documents must allow at least one fire retardant roof covering that meets it.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=HSC&sectionNum=13132.7",
+      label:
+        "California Health and Safety Code section 13132.7",
+      supports:
+        "Any roof covering applied in an alteration, repair or replacement, every new structure, and the entire roof covering once more than 50 percent of it is replaced within one year must be at least Class C; in a very high fire hazard severity zone at least Class A, or Class B where the jurisdiction has adopted the State Fire Marshal's model ordinance (subdivisions (a), (b) and (d)).",
+    },
+    {
       href: "https://www.hcd.ca.gov/sites/default/files/docs/policy-and-research/adu-handbook-update.pdf",
       label:
         "California Department of Housing and Community Development: Accessory Dwelling Unit Handbook (March 2026)",
