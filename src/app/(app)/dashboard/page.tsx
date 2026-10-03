@@ -791,7 +791,14 @@ export default async function HomePage(
                 Why this score?
               </>
             }
-            contentClassName="pt-2"
+            // max-sm:min-w-0 (2026-10-03): Collapse's inner box is a grid
+            // item, and once it settles open it drops overflow-hidden, so its
+            // min-width falls back to auto, the min-content width of the
+            // widest line. The rows below were that line, so the box grew past
+            // the card: on a phone the page scrolled sideways (469px at a
+            // 430px phone), and on desktop the rows and the "Make this score
+            // real" link ran past the card edge and were cut off.
+            contentClassName="pt-2 min-w-0"
           >
             <ul className="space-y-1">
               <li className="flex justify-between">
@@ -800,8 +807,10 @@ export default async function HomePage(
               </li>
               {scoreLines.map((l, i) => (
                 <li key={i} className="flex justify-between gap-2">
-                  <span className="min-w-0 truncate capitalize">{l.label}</span>
-                  <span className="font-medium">{l.points}</span>
+                  {/* The label wraps instead of truncating, and the points
+                      never shrink, so "-5" stays whole on the right. */}
+                  <span className="min-w-0 capitalize">{l.label}</span>
+                  <span className="shrink-0 text-right font-medium">{l.points}</span>
                 </li>
               ))}
               {scoreLines.length === 0 && (
