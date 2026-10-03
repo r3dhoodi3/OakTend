@@ -33,8 +33,11 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 // Other sources (opened 2026-09-21, links in GUIDE_SOURCES,
 // src/lib/guideExtras.ts): OCFA Ready, Set, Go! pages and flyers (home
 // hardening, vents, fences, garages, Immediate Zone flyer dated 12/2025, red
-// flag warning, vegetation management, home assessment, defensible space
-// disclosure, member cities), NWS glossary, SCE PSPS page.
+// flag warning, vegetation management, home assessment), NWS glossary, SCE
+// PSPS page. The seller disclosure paragraph (Civil Code 1102.19, which
+// cities inspect for themselves) moved to
+// /guides/orange-county-fire-hazard-severity-zones on 2026-10-03, with its
+// two OCFA sources; this page links there instead of repeating it.
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -188,15 +191,13 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             fire-resistive planting guide.
           </p>
           <p className="mt-2 leading-relaxed">
-            If you sell, this becomes paperwork. OCFA explains that Civil
-            Code section 1102.19 requires the seller of a home in a high or
-            very high fire hazard severity zone to give the buyer
-            documentation of defensible space compliance, or a written
-            agreement that the buyer will obtain it within one year of
-            closing. OCFA does those inspections in the 23 cities it serves
-            and in unincorporated areas. Cities with their own fire
-            departments, such as Anaheim, Huntington Beach, Laguna Beach,
-            Newport Beach and Orange, handle their own.
+            If you sell a home in a high or very high fire hazard severity
+            zone, defensible space becomes paperwork. Our{" "}
+            <Link href="/guides/orange-county-fire-hazard-severity-zones" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
+              fire hazard zone guide
+            </Link>{" "}
+            explains how to look up your zone and the inspection a seller
+            needs.
           </p>
         </section>
 
@@ -218,7 +219,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             sent them to the state Office of Administrative Law on August 28.
             The public comment period there closed on September 2. The Office
             of Administrative Law then listed the filing as withdrawn on
-            September 8, 2026, and as of September 26 it was not back under
+            September 8, 2026, and as of October 3 it was not back under
             review. The Board can file it again, so the rule is not in effect
             and has no effective date yet.
           </p>

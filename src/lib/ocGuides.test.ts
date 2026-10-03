@@ -36,6 +36,8 @@ const OC_GUIDES = [
   "sewer-line-orange-county",
   // Added 2026-10-02 (seo/water-rebates-2026-10-02).
   "orange-county-water-hardness-by-provider",
+  // Added 2026-10-03 (seo/termite-fire-zones-2026-10-03).
+  "orange-county-fire-hazard-severity-zones",
 ];
 
 // The guides that talk about what a job costs without printing a number.
