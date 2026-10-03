@@ -223,6 +223,10 @@ describe("GUIDE_SOURCES", () => {
     "ear.waterboards.ca.gov",
     "santaanaccr.org",
     "homeperformanceplusca.com",
+    // Added 2026-10-03 for the fire hazard severity zone guide, each opened
+    // that day.
+    "www.cityoflagunaniguel.org",
+    "www.lakeforestca.gov",
   ];
 
   it("lists sources for every guide", () => {
@@ -274,14 +278,14 @@ describe("GUIDE_SOURCES", () => {
   });
 });
 
-describe("all 31 guide pages", () => {
+describe("all 32 guide pages", () => {
   const dirs = readdirSync(GUIDES_DIR, { withFileTypes: true })
     // "how-to" is the chore page section (src/lib/chores.ts), not a guide.
     .filter((e) => e.isDirectory() && e.name !== "how-to")
     .map((e) => e.name);
 
   it("render the byline and the related block, each with their own path", () => {
-    expect(dirs).toHaveLength(31);
+    expect(dirs).toHaveLength(32);
     for (const dir of dirs) {
       const src = readFileSync(`${GUIDES_DIR}/${dir}/page.tsx`, "utf8");
       expect(src, dir).toContain(`<GuideMeta path="/guides/${dir}" />`);

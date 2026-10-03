@@ -30,6 +30,8 @@ import {
   Sun,
   // Added 2026-09-30 (app comparison).
   Smartphone,
+  // Added 2026-10-03 (fire hazard zones).
+  MapPin,
 } from "lucide-react";
 import Breadcrumbs, { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
@@ -221,11 +223,18 @@ const SECTIONS: { heading: string; guides: GuideCard[] }[] = [
           "Defensible space, Zone 0, which parts of the house to harden first, and what to do on a red flag day.",
       },
       {
+        href: "/guides/orange-county-fire-hazard-severity-zones",
+        icon: MapPin,
+        title: "Fire hazard severity zones in Orange County",
+        blurb:
+          "How to look up your address on the 2025 maps, what a zone means for building, and the inspection a seller needs.",
+      },
+      {
         href: "/guides/termites-orange-county",
         icon: Bug,
         title: "Termites in Orange County",
         blurb:
-          "Drywood vs subterranean, tenting vs local treatment, how to read an inspection report, and getting ready for a tent.",
+          "Drywood vs subterranean, tenting vs local treatment, Section I and II on the report, the report in escrow, and getting ready for a tent.",
       },
       {
         href: "/guides/earthquake-retrofit-orange-county",

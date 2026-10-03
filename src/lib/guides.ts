@@ -75,6 +75,8 @@ export const GUIDE_PATHS = [
   "/guides/earthquake-retrofit-orange-county",
   "/guides/sewer-line-orange-county",
   "/guides/santa-ana-wind-wildfire-home-prep",
+  // Added 2026-10-03 (seo/termite-fire-zones-2026-10-03).
+  "/guides/orange-county-fire-hazard-severity-zones",
   "/guides/new-homeowner-first-year-orange-county",
   "/guides/orange-county-home-maintenance-checklist",
   // New pages B, 2026-09-26 (SEO plan section 2): home age data, rebates.
@@ -125,6 +127,9 @@ export const GUIDE_TITLES: Record<string, string> = {
   "/guides/sewer-line-orange-county": "Sewer line problems in Orange County",
   "/guides/santa-ana-wind-wildfire-home-prep":
     "Santa Ana wind and wildfire prep",
+  // Added 2026-10-03.
+  "/guides/orange-county-fire-hazard-severity-zones":
+    "Fire hazard severity zones in Orange County",
   "/guides/new-homeowner-first-year-orange-county": "New homeowner checklist",
   "/guides/orange-county-home-maintenance-checklist":
     "Orange County home maintenance checklist",
@@ -153,7 +158,7 @@ export const GUIDE_LINKS: { href: string; title: string }[] = GUIDE_PATHS.filter
 // own page file has a real history to read one from. Nothing renders Article
 // JSON-LD for it.
 export const GUIDE_DATES: Record<string, GuideDates> = {
-  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-02" },
+  "/guides": { datePublished: "2026-07-07", dateModified: "2026-10-03" },
   "/guides/water-heater-replacement-cost": {
     datePublished: "2026-07-07",
     dateModified: "2026-09-26",
@@ -225,7 +230,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/termites-orange-county": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-03",
   },
   // Added 2026-09-26 (seo/new-pages-c).
   "/guides/earthquake-retrofit-orange-county": {
@@ -238,7 +243,12 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     datePublished: "2026-09-20",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-03",
+  },
+  // Added 2026-10-03 (seo/termite-fire-zones-2026-10-03).
+  "/guides/orange-county-fire-hazard-severity-zones": {
+    datePublished: "2026-10-03",
+    dateModified: "2026-10-03",
   },
   "/guides/new-homeowner-first-year-orange-county": {
     datePublished: "2026-09-20",

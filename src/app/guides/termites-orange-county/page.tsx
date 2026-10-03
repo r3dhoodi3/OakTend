@@ -19,9 +19,23 @@ import GuideArticleJsonLd from "@/components/GuideArticleJsonLd";
 //  - Business and Professions Code 8516: report within 10 business days, the
 //    two kinds of findings, reinspection within four months.
 //  - SoCalGas: gas shut-off before fumigation, two business days' notice.
-// "Section 1" and "Section 2" are the customary labels on the report form for
-// the two kinds of findings in BPC 8516; the statute itself does not use those
-// names, and the page says "usually labeled".
+//
+// BUYING AND SELLING (added 2026-10-03, every source opened that day). Added
+// to this guide rather than a new URL on purpose: the escrow report is the
+// same Business and Professions Code 8516 report this page already explained,
+// and a second page on "termite report" would compete with this one for the
+// same searches and repeat the Section I and II explanation.
+//  - BPC 8516 (re-read): report types, filing the address with the board, the
+//    separated report only when requested, the second-opinion notice, the
+//    itemized bid on request.
+//  - 16 CCR 1990, read on Cornell LII's copy of the California Code of
+//    Regulations: the Section I, Section II and further inspection labels.
+//  - Civil Code 1099: the seller delivers the report only when the contract
+//    or the lender makes it a condition.
+//  - BPC 8519: the certification wording ("visible and accessible areas").
+// Left out: any rule on who pays (no statute we read assigns it, so the page
+// says it is a contract term) and any "report is good for N days" figure
+// (only pest company blogs state one; neither 8516 nor 1990 sets one).
 //
 // No FAQPage or HowTo JSON-LD on purpose: the questions are visible headings
 // only. Article and BreadcrumbList are the only structured data here.
@@ -44,7 +58,7 @@ export const revalidate = 3600;
 // its own literal copy of the title (see that file's comment for why).
 const TITLE = "Termite tenting in Orange County";
 const DESCRIPTION =
-  "Drywood vs subterranean termites in Orange County, when tenting beats spot treatment, how to read an inspection report, and what drives the price.";
+  "Drywood vs subterranean termites in Orange County, tenting vs spot treatment, the termite report in escrow, and what drives the price.";
 const CANONICAL = `${SITE_URL}/guides/termites-orange-county`;
 
 export const metadata: Metadata = {
@@ -227,40 +241,70 @@ export default function TermitesOrangeCountyGuide() {
 
         <section>
           <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100">
-            What does an inspection report tell me?
+            How do I read a termite report when I buy or sell?
           </h2>
           <p className="mt-2 leading-relaxed">
-            Under Business and Professions Code section 8516, the written
-            report has to be delivered within 10 business days of the
-            inspection, and it has to separately identify two kinds of
-            findings:
+            The report covers wood destroying pests and organisms, which
+            includes fungus as well as termites. Under Business and
+            Professions Code section 8516 the company delivers it to whoever
+            ordered it and to the owner within 10 business days of the start
+            of the inspection, and files the address with the Structural Pest
+            Control Board. It can be a complete, limited, supplemental or
+            reinspection report, so check which one you got.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            When you order one, the company has to tell you that a separated
+            report is available. Ask for it. The board&apos;s rules sort the
+            findings into:
           </p>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 leading-relaxed">
             <li>
-              <strong>Infestation or infection that is evident</strong>,
-              usually labeled Section 1 on the report: live termites, damage,
-              fungus.
+              <strong>Section I</strong>: visible evidence of active
+              infestation or infection, or conditions that resulted from it.
+              Live termites, damaged wood, fungus. This is the problem.
             </li>
             <li>
-              <strong>
-                Conditions deemed likely to lead to infestation
-              </strong>
-              , usually labeled Section 2: the law lists earth touching
+              <strong>Section II</strong>: conditions likely to lead to
+              infestation where none was found. The law lists earth touching
               wood, excessive moisture, evidence of roof leaks, wood debris
-              under the house and poor ventilation.
+              under the house and poor ventilation. Mostly maintenance you can
+              schedule.
+            </li>
+            <li>
+              <strong>Further inspection</strong>: areas the inspector could
+              not get into, which are neither.
             </li>
           </ul>
           <p className="mt-2 leading-relaxed">
-            The first kind is the problem. The second kind is mostly
-            maintenance you can schedule. The same law says a reinspection
-            within four months cannot cost more than the original
-            inspection.
+            Every report carries a notice that different companies should
+            find the same things but may recommend different fixes, and that
+            you have a right to a second opinion. If you ask, the bid has to
+            price each recommendation separately, which is what lets you
+            compare two bids line by line. A reinspection within four months
+            cannot cost more than the original inspection.
+          </p>
+          <h3 className="mt-4 font-medium text-stone-900 dark:text-stone-100">In escrow</h3>
+          <p className="mt-2 leading-relaxed">
+            No law we found requires a termite report on every sale. Civil
+            Code section 1099 applies when the purchase contract or the
+            lender makes a report a condition, and then the seller has to
+            give the buyer a copy as soon as practical before the sale
+            closes. Who orders the report, who pays for it and who pays for
+            Section I or Section II work are terms of your purchase contract,
+            not rules in the statute, so settle them there.
           </p>
           <p className="mt-2 leading-relaxed">
-            The Structural Pest Control Board&apos;s online search shows whether a
-            property has been inspected within the last two years, and you
-            can request copies of those reports. That is worth doing before
-            you buy a house; our{" "}
+            When the work is done, the company can certify under section
+            8519 that the property is now free of evidence of active
+            infestation or infection in the visible and accessible areas.
+            Note &quot;visible and accessible&quot;: the certificate does not
+            cover what nobody could see. Section 8516 and the board&apos;s
+            report rule set no expiration date for a report.
+          </p>
+          <p className="mt-2 leading-relaxed">
+            The board&apos;s online search shows whether a property has been
+            inspected within the last two years, and you can request copies
+            of those reports. That is worth doing before you buy; our{" "}
             <Link href="/guides/new-homeowner-first-year-orange-county" className="text-bark-700 underline hover:no-underline dark:text-stone-300">
               new homeowner checklist
             </Link>{" "}
@@ -375,7 +419,7 @@ export default function TermitesOrangeCountyGuide() {
 
         <section>
           <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-300">
-            As of September 2026. The UC IPM drywood termite note was last
+            As of October 2026. The UC IPM drywood termite note was last
             updated in 2014 and the pest board brochure in 2019, so products
             and practices may have moved on. General information, not pest
             control, legal or safety advice: treatment decisions belong with

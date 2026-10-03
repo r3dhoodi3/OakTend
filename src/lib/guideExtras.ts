@@ -294,9 +294,9 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
   },
   "/guides/santa-ana-wind-wildfire-home-prep": {
     guides: [
+      "/guides/orange-county-fire-hazard-severity-zones",
       "/guides/orange-county-home-maintenance-checklist",
       "/guides/roof-replacement-cost",
-      "/guides/new-homeowner-first-year-orange-county",
     ],
     cities: [
       "Yorba Linda",
@@ -305,6 +305,22 @@ export const GUIDE_RELATED: Record<string, GuideRelatedEntry> = {
       "Laguna Beach",
       "San Clemente",
       "Anaheim",
+    ],
+  },
+  // Added 2026-10-03 (seo/termite-fire-zones-2026-10-03).
+  "/guides/orange-county-fire-hazard-severity-zones": {
+    guides: [
+      "/guides/santa-ana-wind-wildfire-home-prep",
+      "/guides/new-homeowner-first-year-orange-county",
+      "/guides/permits-orange-county",
+    ],
+    cities: [
+      "Laguna Niguel",
+      "Lake Forest",
+      "Mission Viejo",
+      "San Juan Capistrano",
+      "Brea",
+      "Villa Park",
     ],
   },
   "/guides/new-homeowner-first-year-orange-county": {
@@ -1864,7 +1880,25 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=8516",
       label: "California Business and Professions Code section 8516",
       supports:
-        "The inspection report is due within 10 business days, must separately identify evident infestation and conditions likely to lead to it, and a reinspection within four months cannot cost more than the original.",
+        "Re-read 2026-10-03: the report goes to whoever ordered it and the owner within 10 business days and the address is filed with the board; it can be complete, limited, supplemental or reinspection; a separated report must be offered and lists evident infestation and conditions likely to lead to it; the second-opinion notice; an itemized bid on request; a reinspection within four months cannot cost more than the original.",
+    },
+    {
+      href: "https://www.law.cornell.edu/regulations/california/16-CCR-1990",
+      label: "California Code of Regulations, title 16, section 1990 (Cornell LII copy)",
+      supports:
+        "Checked 2026-10-03: Section I is visible evidence of active infestation or infection or conditions that resulted from it, Section II is conditions likely to lead to it with no evidence found, and further inspection items are areas the inspector could not reach.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1099",
+      label: "California Civil Code section 1099",
+      supports:
+        "Checked 2026-10-03: the seller must give the buyer a copy of the structural pest control report as soon as practical before transfer when the report or certification is a condition of the contract or of the financing.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=8519",
+      label: "California Business and Professions Code section 8519",
+      supports:
+        "Checked 2026-10-03: the certification states the property is free of evidence of active infestation or infection in the visible and accessible areas.",
     },
     {
       href: "https://www.socalgas.com/safety/safety-and-prevention/prepare-for-fumigation",
@@ -2012,18 +2046,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
         "The online home assessment, the in-person assessment request, the phone number, and tile, asphalt and metal listed as noncombustible roof materials.",
     },
     {
-      href: "https://ocfa.org/ready-set-go/defensible-space-disclosure/",
-      label: "Orange County Fire Authority: defensible space disclosure",
-      supports:
-        "Civil Code 1102.19's seller documentation requirement in high and very high fire hazard severity zones, and which cities' own fire departments handle it.",
-    },
-    {
-      href: "https://ocfa.org/about-us/member-cities/",
-      label: "Orange County Fire Authority: member cities",
-      supports:
-        "OCFA serves 23 cities and all unincorporated areas.",
-    },
-    {
       href: "https://ocfa.org/ready-set-go/insurance/",
       label: "Orange County Fire Authority: insurance",
       supports:
@@ -2080,6 +2102,77 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       label: "Southern California Edison: Public Safety Power Shutoff",
       supports:
         "What a Public Safety Power Shutoff is, and that anyone can sign up for address level alerts.",
+    },
+  ],
+  // Added 2026-10-03 (seo/termite-fire-zones-2026-10-03). Every entry opened
+  // that day. The two OCFA entries for the seller disclosure moved here from
+  // the wildfire guide with the paragraph they support.
+  "/guides/orange-county-fire-hazard-severity-zones": [
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=51178",
+      label: "California Government Code section 51178",
+      supports:
+        "The State Fire Marshal identifies moderate, high and very high fire hazard severity zones based on fuel loading, slope, fire weather and other factors, including areas where wind is a major cause of wildfire spread.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=51179",
+      label: "California Government Code section 51179",
+      supports:
+        "A local agency adopts zones by ordinance within 120 days of the State Fire Marshal's recommendations, may add areas or raise a level, and may not lower a level the state set.",
+    },
+    {
+      href: "https://pwds.oc.gov/service-areas/oc-development-services/planning-development/current-projects/all-districts-projects/orange-county-fire-hazard-severity-zones-map",
+      label: "County of Orange Public Works: Orange County Fire Hazard Severity Zones map",
+      supports:
+        "CAL FIRE released the updated unincorporated map on March 24, 2025; the Board of Supervisors adopted it by Ordinance No. 25-015 on August 26, 2025; buildings in very high zones use the building code's fire-resistive features; the link to CAL FIRE's Fire Hazard Severity Zone Viewer.",
+    },
+    {
+      href: "https://www.cityoflagunaniguel.org/1120/Fire-Hazard-Severity-Zones-FHSZ",
+      label: "City of Laguna Niguel: Fire Hazard Severity Zones",
+      supports:
+        "The March 24, 2025 release and the city's June 3, 2025 adoption, hazard versus risk, the Department of Insurance's statement that the maps are for local planning and not insurance decisions, Chapter 7A for new buildings, and the address lookup.",
+    },
+    {
+      href: "https://www.lakeforestca.gov/departments/fire/fire_hazard_severity_zone_maps.php",
+      label: "City of Lake Forest: Fire Hazard Severity Zone maps",
+      supports:
+        "CAL FIRE transmitted the new local responsibility area maps on March 24, 2025, and the city posts its 2025 and 2007 maps.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/defensible-space-disclosure/",
+      label: "Orange County Fire Authority: defensible space disclosure",
+      supports:
+        "Civil Code 1102.19's seller documentation requirement in high and very high zones, the one-year agreement, the 11 cities that run their own inspections, and the address map.",
+    },
+    {
+      href: "https://ocfa.org/ready-set-go/faq/",
+      label: "Orange County Fire Authority: defensible space disclosure FAQ",
+      supports:
+        "The inspection is free and exterior only, requested by the owner or selling agent when the home is listed, needs someone 18 or older present, results in an emailed form within 1 to 3 business days or a handwritten notice, documentation is valid 6 months, and an NHD report may use a map with lower severity zones.",
+    },
+    {
+      href: "https://ocfa.org/about-us/member-cities/",
+      label: "Orange County Fire Authority: member cities",
+      supports:
+        "OCFA serves 23 cities and all unincorporated areas.",
+    },
+    {
+      href: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=51183.5",
+      label: "California Government Code section 51183.5",
+      supports:
+        "The seller of a home in a very high fire hazard severity zone must disclose it, on the Natural Hazard Disclosure Statement or the local option disclosure statement.",
+    },
+    {
+      href: "https://oal.ca.gov/emergency_regulations/recent_actions_taken_on_emergency_regulations/",
+      label: "California Office of Administrative Law: recent actions on emergency regulations",
+      supports:
+        "Checked 2026-10-03: the Zone 0 filing (2026-0828-03E) is still listed as withdrawn on September 8, 2026.",
+    },
+    {
+      href: "https://oal.ca.gov/emergency_regulations/emergency_regulations_under_review/",
+      label: "California Office of Administrative Law: emergency regulations under review",
+      supports:
+        "Checked 2026-10-03: no Board of Forestry and Fire Protection filing was on the list under review, so the Zone 0 rule has not been refiled.",
     },
   ],
   "/guides/new-homeowner-first-year-orange-county": [
