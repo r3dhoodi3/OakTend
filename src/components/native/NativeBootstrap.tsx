@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { isNativeApp } from "@/lib/platform";
+import { isNativeApp, nativePlatform } from "@/lib/platform";
+import { applyNativeShellClass } from "@/lib/nativeShellClass";
 import { installNativeFetchHeader } from "@/lib/nativeFetch";
 import { configurePurchases, logOutPurchases } from "@/lib/iap";
 import { registerNativePush } from "@/lib/native/push";
@@ -26,6 +27,9 @@ export default function NativeBootstrap() {
 
   useEffect(() => {
     if (!isNativeApp()) return;
+    // Backstop for the inline <head> script in src/app/layout.tsx, which
+    // normally adds html.native before first paint (src/lib/nativeShellClass.ts).
+    applyNativeShellClass(true, nativePlatform());
     installNativeFetchHeader();
 
     let cancelled = false;

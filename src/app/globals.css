@@ -89,6 +89,60 @@ html[data-fonts-pending] .hero-rise {
   }
 }
 
+/* NATIVE APP SHELL ONLY (2026-10-02, iOS native-feel pass). Every rule in this
+   block is scoped to html.native, a class added only inside the Capacitor
+   iOS/Android shell (src/lib/nativeShellClass.ts, set by an inline <head>
+   script and NativeBootstrap). A normal browser tab, phone or desktop, never
+   gets the class, so none of this can change the website. */
+
+/* Top safe area. The shell's WKWebView draws under the status bar and
+   viewport-fit=cover is on, so the sticky app headers (Nav.tsx, ProNav.tsx)
+   would otherwise put the wordmark, search and bell under the clock and the
+   notch. Padding (not top:) so the header's own background fills the strip and
+   the chat panel, which measures the header's height (useVisualViewport.ts),
+   follows automatically. */
+html.native header.sticky {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Pages with no sticky header (sign-in, marketing, guides) pad the body
+   instead, except pages that already pad themselves for the inset (/open,
+   the pro trial takeover), which would otherwise get it twice. */
+html.native body:not(:has(header.sticky)):not(:has([class*="pt-[env(safe-area-inset-top)]"])) {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* The full-height message drawer (ChatDrawer.tsx) starts at the very top of
+   the screen; keep its name and close button out from under the status bar. */
+html.native .fixed.inset-0.z-50 > .absolute.inset-y-0.right-0 {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* No whole-page rubber band in the shell, same as the installed PWA above
+   (display-mode: standalone is false inside Capacitor, so that rule never
+   reached the app). Inner scrollers keep their own overscroll-contain. */
+html.native,
+html.native body {
+  overscroll-behavior-y: none;
+}
+
+/* No text-selection loupe or long-press link/callout menu on UI chrome: the
+   header, tab bar, buttons, tabs, chips and tappable cards. Body copy is left
+   alone on purpose, so guides, messages and Ask answers stay selectable and
+   copyable, and the reset below keeps every field editable and selectable
+   even inside the header (the search box). */
+html.native :is(header, nav, button, [role="button"], [role="tab"], [role="tablist"], [role="menuitem"], .btn, .card-link, .chip) {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html.native :is(input, textarea, select, [contenteditable], [contenteditable] *) {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
 /* Below lg, both the homeowner and pro shells (Nav.tsx / ProNav.tsx, mirrored)
    add a fixed bottom tab bar for primary navigation. A few floating
    bottom-right widgets - the new message toast (NewMessageNotifier.tsx) and

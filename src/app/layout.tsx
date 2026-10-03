@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { buildOrganizationJsonLd } from "@/lib/organizationJsonLd";
 import { siteDescription, siteTitle } from "@/lib/siteMetadata";
 import { LEGACY_STORAGE_INIT_SCRIPT } from "@/lib/legacyStorage";
+import { NATIVE_CLASS_INIT_SCRIPT } from "@/lib/nativeShellClass";
 
 // KEEP THIS FILE FREE OF cookies() AND headers().
 //
@@ -208,6 +209,12 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: LEGACY_STORAGE_INIT_SCRIPT }}
         />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        {/* Adds html.native inside the Capacitor app shell only, before first
+            paint, so the native-only rules in globals.css (header safe area,
+            no long-press callouts) apply without a flash. A no-op in every
+            browser tab: no window.Capacitor there. See
+            src/lib/nativeShellClass.ts. */}
+        <script dangerouslySetInnerHTML={{ __html: NATIVE_CLASS_INIT_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: heroFontsInit }} />
         <script
           type="application/ld+json"
