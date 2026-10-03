@@ -70,7 +70,27 @@ export const CHORE_PATHS: string[] = [
 // first published in one commit, so they share one date. When one page's
 // words change, give it its own entry in CHORE_DATE_OVERRIDES.
 const CHORES_FIRST_PUBLISHED = "2026-10-01";
-const CHORE_DATE_OVERRIDES: Record<string, { datePublished: string; dateModified: string }> = {};
+// The second batch of seven pages went up a day later, and the hub's list
+// changed with it.
+const CHORES_SECOND_BATCH = "2026-10-02";
+const SECOND_BATCH_SLUGS = [
+  "test-garage-door-auto-reverse",
+  "replace-door-weatherstripping",
+  "replace-washing-machine-hoses",
+  "clean-refrigerator-coils",
+  "clean-range-hood-filter",
+  "check-roof-from-the-ground",
+  "clear-yard-drains",
+];
+const CHORE_DATE_OVERRIDES: Record<string, { datePublished: string; dateModified: string }> = {
+  [CHORE_HUB_PATH]: { datePublished: CHORES_FIRST_PUBLISHED, dateModified: CHORES_SECOND_BATCH },
+  ...Object.fromEntries(
+    SECOND_BATCH_SLUGS.map((slug) => [
+      chorePath(slug),
+      { datePublished: CHORES_SECOND_BATCH, dateModified: CHORES_SECOND_BATCH },
+    ])
+  ),
+};
 
 export function choreDates(path: string): { datePublished: string; dateModified: string } | null {
   if (!CHORE_PATHS.includes(path)) return null;
@@ -128,6 +148,11 @@ export const CHORE_PLAN_TASKS: Record<string, { planTitle: string; system?: stri
     planTitle: "Check under sinks and around toilets for leaks",
     system: "plumbing",
   },
+  "clean-refrigerator-coils": {
+    planTitle: "Clean the dryer vent and refrigerator coils",
+    system: "appliance",
+  },
+  "check-roof-from-the-ground": { planTitle: "Inspect roof and flashing", system: "roof" },
 };
 
 // True when the plan generator can produce this title for the given system

@@ -98,6 +98,30 @@ describe("chore paths and dates", () => {
     expect(choreDates("/guides/how-to/not-a-chore")).toBeNull();
   });
 
+  it("dates the second batch, and the hub that lists it, to the day it went up", () => {
+    const secondBatch = [
+      "test-garage-door-auto-reverse",
+      "replace-door-weatherstripping",
+      "replace-washing-machine-hoses",
+      "clean-refrigerator-coils",
+      "clean-range-hood-filter",
+      "check-roof-from-the-ground",
+      "clear-yard-drains",
+    ];
+    for (const slug of secondBatch) {
+      expect(getChore(slug), slug).toBeDefined();
+      expect(choreDates(chorePath(slug))).toEqual({
+        datePublished: "2026-10-02",
+        dateModified: "2026-10-02",
+      });
+    }
+    expect(choreDates(CHORE_HUB_PATH)).toEqual({
+      datePublished: "2026-10-01",
+      dateModified: "2026-10-02",
+    });
+    expect(choreDates(chorePath("clean-gutters"))?.datePublished).toBe("2026-10-01");
+  });
+
   it("finds a chore by slug and nothing else", () => {
     expect(getChore(CHORES[0].slug)).toBe(CHORES[0]);
     expect(getChore("nope")).toBeUndefined();
