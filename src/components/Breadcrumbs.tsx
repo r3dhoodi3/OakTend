@@ -45,7 +45,12 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
           const isLast = i === collapsed.length - 1;
           const isLink = Boolean(item.href) && !isLast;
           return (
-            <li key={`${item.label}-${i}`} className="flex min-w-0 items-center gap-1">
+            // The last crumb (current page) takes the rest of the row on a
+            // phone instead of stopping at 8rem; middle crumbs stay capped.
+            <li
+              key={`${item.label}-${i}`}
+              className={`flex min-w-0 items-center gap-1${isLast ? " max-sm:flex-1" : ""}`}
+            >
               {i > 0 && (
                 <span className="text-stone-400 dark:text-stone-500" aria-hidden="true">
                   &rsaquo;
@@ -63,7 +68,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
                 </Link>
               ) : (
                 <span
-                  className="max-w-[8rem] truncate text-stone-700 sm:max-w-none dark:text-stone-300"
+                  className={`${isLast ? "max-sm:min-w-0 max-sm:flex-1" : "max-w-[8rem]"} truncate text-stone-700 sm:max-w-none dark:text-stone-300`}
                   aria-current={isLast ? "page" : undefined}
                 >
                   {item.label}
