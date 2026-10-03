@@ -299,12 +299,13 @@ export default function RoofReplacementCostGuide() {
               so in an association it usually needs architectural approval as
               well as the city permit. Our{" "}
               <Link
-                href="/guides/hoa-coastal-commission-remodel-orange-county"
+                href="/guides/hoa-coastal-commission-remodel-orange-county#roof"
                 className="text-bark-700 hover:underline dark:text-stone-300"
               >
-                HOA and coastal approvals guide
+                HOA guide
               </Link>{" "}
-              covers how that review works.
+              covers that review and who replaces the roof in a condo or
+              planned development.
             </li>
           </ul>
         </section>

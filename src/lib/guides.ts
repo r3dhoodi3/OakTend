@@ -169,7 +169,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/roof-replacement-cost": {
     datePublished: "2026-07-25",
-    dateModified: "2026-09-26",
+    dateModified: "2026-10-03",
   },
   "/guides/electrical-panel-upgrade-cost": {
     datePublished: "2026-07-25",
@@ -209,7 +209,7 @@ export const GUIDE_DATES: Record<string, GuideDates> = {
   },
   "/guides/hoa-coastal-commission-remodel-orange-county": {
     datePublished: "2026-09-26",
-    dateModified: "2026-09-27",
+    dateModified: "2026-10-03",
   },
   "/guides/hard-water-orange-county": {
     datePublished: "2026-09-20",

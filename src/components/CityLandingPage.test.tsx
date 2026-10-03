@@ -185,6 +185,14 @@ describe("CityLandingPage with content", () => {
     expect(screen.queryByText("Slab leak signs")).not.toBeInTheDocument();
   });
 
+  it("adds one panel guide line when the city's guides leave it out", () => {
+    const { container } = renderWithContent();
+    const panelLinks = Array.from(container.querySelectorAll("a")).filter(
+      (a) => a.getAttribute("href") === "/guides/electrical-panel-upgrade-cost"
+    );
+    expect(panelLinks).toHaveLength(1);
+  });
+
   it("links nearby city pages, top-level route for the two hand-written ones", () => {
     const { container } = renderWithContent();
     const hrefs = Array.from(container.querySelectorAll("a")).map((a) =>

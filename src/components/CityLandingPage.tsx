@@ -120,6 +120,8 @@ const GUIDE_LINKS = [
   },
 ];
 
+const PANEL_GUIDE_HREF = "/guides/electrical-panel-upgrade-cost";
+
 export function buildCityServiceJsonLd(city: string, siteUrl: string, path: string) {
   return {
     "@context": "https://schema.org",
@@ -520,6 +522,22 @@ export default function CityLandingPage({
               </li>
             ))}
           </ul>
+          {/* One line to the panel guide for a researched city whose own four
+              guides leave it out (SEO next 10, 2026-10-03). Cities without
+              content keep the fixed four untouched. */}
+          {content &&
+            !content.guides.some((g) => g.href === PANEL_GUIDE_HREF) && (
+              <p className="mt-4 text-center text-sm text-stone-600 dark:text-stone-300">
+                Adding an EV charger, heat pump or solar? See{" "}
+                <Link
+                  href={PANEL_GUIDE_HREF}
+                  className="text-bark-700 hover:underline dark:text-stone-300"
+                >
+                  electrical panel upgrade cost
+                </Link>
+                .
+              </p>
+            )}
         </section>
 
         {content && (
