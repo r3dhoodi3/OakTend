@@ -279,7 +279,7 @@ export default function TermitesOrangeCountyGuide() {
             Every report carries a notice that different companies should
             find the same things but may recommend different fixes, and that
             you have a right to a second opinion. If you ask, the bid has to
-            price each recommendation separately, which is what lets you
+            price each recommendation separately (for work the company does), which is what lets you
             compare two bids line by line. A reinspection within four months
             cannot cost more than the original inspection.
           </p>

@@ -2162,18 +2162,6 @@ export const GUIDE_SOURCES: Record<string, GuideSource[]> = {
       supports:
         "The seller of a home in a very high fire hazard severity zone must disclose it, on the Natural Hazard Disclosure Statement or the local option disclosure statement.",
     },
-    {
-      href: "https://oal.ca.gov/emergency_regulations/recent_actions_taken_on_emergency_regulations/",
-      label: "California Office of Administrative Law: recent actions on emergency regulations",
-      supports:
-        "Checked 2026-10-03: the Zone 0 filing (2026-0828-03E) is still listed as withdrawn on September 8, 2026.",
-    },
-    {
-      href: "https://oal.ca.gov/emergency_regulations/emergency_regulations_under_review/",
-      label: "California Office of Administrative Law: emergency regulations under review",
-      supports:
-        "Checked 2026-10-03: no Board of Forestry and Fire Protection filing was on the list under review, so the Zone 0 rule has not been refiled.",
-    },
   ],
   "/guides/new-homeowner-first-year-orange-county": [
     {

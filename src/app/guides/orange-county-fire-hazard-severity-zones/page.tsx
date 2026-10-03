@@ -252,9 +252,7 @@ export default function OrangeCountyFireHazardSeverityZonesGuide() {
               <Link href="/guides/santa-ana-wind-wildfire-home-prep" className={linkClass}>
                 wildfire prep guide
               </Link>
-              . The state&apos;s Zone 0 rule is still not in effect: as of
-              October 3, 2026 the state&apos;s regulations office lists the
-              filing as withdrawn and has no new one under review.
+              . Whether Zone 0 is required yet is answered there too.
             </li>
           </ul>
         </section>
@@ -269,7 +267,7 @@ export default function OrangeCountyFireHazardSeverityZonesGuide() {
             Hazard Disclosure Statement or a local option disclosure form.
             And OCFA explains that Civil Code section 1102.19 requires the seller of a home in a high or
             very high zone to give the buyer documentation that the property
-            complies with defensible space rules, or a signed agreement that
+            complies with defensible space rules, or a written agreement that
             the buyer will get it within one year of closing.
           </p>
           <p className="mt-2 leading-relaxed">

@@ -219,7 +219,7 @@ export default function SantaAnaWindWildfireHomePrepGuide() {
             sent them to the state Office of Administrative Law on August 28.
             The public comment period there closed on September 2. The Office
             of Administrative Law then listed the filing as withdrawn on
-            September 8, 2026, and as of September 26 it was not back under
+            September 8, 2026, and as of October 3 it was not back under
             review. The Board can file it again, so the rule is not in effect
             and has no effective date yet.
           </p>
